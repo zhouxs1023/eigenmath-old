@@ -1,4 +1,4 @@
-// Do the logarithm function.
+// Do the natural logarithm function.
 
 #include "stdafx.h"
 #include "defs.h"

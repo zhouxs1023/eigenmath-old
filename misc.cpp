@@ -8,15 +8,6 @@ U *varlist;
 int symbol_level;
 
 void
-list(int n)
-{
-	int i;
-	push(nil);
-	for (i = 0; i < n; i++)
-		cons();
-}
-
-void
 new_string(char *s)
 {
 	save();
@@ -31,33 +22,6 @@ void
 out_of_memory(void)
 {
 	stop("out of memory");
-}
-
-void
-append(void)
-{
-	int h;
-
-	save();
-
-	p2 = pop();
-	p1 = pop();
-
-	h = tos;
-
-	while (iscons(p1)) {
-		push(car(p1));
-		p1 = cdr(p1);
-	}
-
-	while (iscons(p2)) {
-		push(car(p2));
-		p2 = cdr(p2);
-	}
-
-	list(tos - h);
-
-	restore();
 }
 
 void
@@ -103,44 +67,6 @@ peek2(void)
 	print_lisp(stack[tos - 2]);
 	print_lisp(stack[tos - 1]);
 }
-
-void
-cons(void)
-{
-	save();
-	p3 = alloc();
-	p2 = pop();
-	p1 = pop();
-	p3->k = CONS;
-	p3->u.cons.car = p1;
-	p3->u.cons.cdr = p2;
-	push(p3);
-	restore();
-}
-
-extern void run(char *);
-
-#if 0
-void
-read_file(char *s)
-{
-	int n;
-	FILE *f;
-	f = fopen(s, "r");
-	if (f == NULL) {
-		printf("cannot open file %s\n", s);
-		return;
-	}
-	n = (int) fread(program_buf, 1, MAX_PROGRAM_SIZE, f); // WARNING size_t
-	fclose(f);
-	if (n == MAX_PROGRAM_SIZE) {
-		printstr("program file is too long");
-		return;
-	}
-	program_buf[n] = 0;
-	run(program_buf);
-}
-#endif
 
 int
 equal(U *p1, U *p2)
