@@ -64,30 +64,24 @@ struct {
     int ascent, descent, width;
 } text_metric[11];
 
-char *button_cmd[10] = {
-    "d",
-    "integral",
-    "condense",
-    "expand",
-    "rationalize",
+#define NBUTTONS 8
+
+char *button_cmd[NBUTTONS - 2] = {
+    "clear",
+    "draw",
     "simplify",
     "factor",
-    "roots",
-    "draw",
-    "float",
+    "derivative",
+    "integral",
 };
 
-char *button_name[12] = {
-    "Derivative",
-    "Integral",
-    "Condense",
-    "Expand",
-    "Rationalize",
+char *button_name[NBUTTONS] = {
+    "Clear",
+    "Draw",
     "Simplify",
     "Factor",
-    "Roots",
-    "Draw",
-    "Float",
+    "Derivative",
+    "Integral",
     "Edit Script",
     "Run Script",
 };
@@ -139,7 +133,9 @@ static void update_display(void);
 static void create_controls(void);
 static void remove_controls(void);
 static void change_modes(void);
-static void create_task(void);
+static void create_task(char *);
+static void go_to_calc_mode(void);
+static void go_to_edit_mode(void);
 
 WindowRef gwindow;
 
@@ -147,12 +143,15 @@ ControlHandle inputcontrol;
 ControlHandle edit_control;
 ControlHandle hscroll;
 ControlHandle vscroll;
-ControlHandle buttons[20];
+ControlHandle buttons[NBUTTONS];
 
 char filename[1000], path[1000];
 
-#define MAX_PROGRAM_SIZE 100000
-char program_buf[MAX_PROGRAM_SIZE + 1];
+#define SCRIPT_BUF_LEN 100000
+static char script_buf[SCRIPT_BUF_LEN + 1];
+#define TMP_BUF_LEN 10000
+static char tmp_buf[TMP_BUF_LEN + 1];
+static char *inp;
 
 /* Register help book */
 
@@ -371,10 +370,9 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
     case 'RUN ':
         if (running)
 	   break;
-	if (edit_mode)
-	    change_modes();
+	go_to_calc_mode();
 	clear();
-	create_task();
+	create_task(script_buf);
         break;
 
     // menu events
@@ -382,8 +380,7 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
     case 'abou':
         if (running)
 		break;
-	if (edit_mode)
-		change_modes();
+	go_to_calc_mode();
         printstr("This is Eigenmath version 103.\n");
         update_display();
         break;
@@ -391,18 +388,16 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
     case 'new ':
         if (running)
 	    break;
-	if (edit_mode == 0)
-	    change_modes();
+	go_to_edit_mode();
         *filename = 0;
-        *program_buf = 0;
+        *script_buf = 0;
 	update_edit_control();
         break;
 
     case 'open':
 	if (running)
 	    break;
-	if (edit_mode == 0)
-		change_modes();
+	go_to_edit_mode();
         file_open();
         break;
 
@@ -423,13 +418,12 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
 // edit menu
 
     case 'CPY1':
-	if (edit_mode)
-	    change_modes();
+	go_to_calc_mode();
         copy_display();
         break;
+
     case 'CPY2':
-	if (edit_mode)
-	    change_modes();
+	go_to_calc_mode();
         copy_tty();
         break;
 
@@ -506,7 +500,7 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
     return err;
 }
 
-// returns a malloc value
+// also called from history.cpp
 
 char *
 get_curr_cmd(void)
@@ -573,7 +567,7 @@ create_input_control(void)
 
 #define SHIM 2
 
-#define AA ((2 * line_height - 3 * SHIM) / 2)
+#define AA (2 * line_height - 2 * SHIM)
 
 void
 create_buttons(void)
@@ -583,38 +577,30 @@ create_buttons(void)
     Rect r;
     CFStringRef str;
 
-    for (i = 0; i < 6; i++) {
-        j = SHIM + i * (client_width - SHIM) / 6;
-        k = (i + 1) * (client_width - SHIM) / 6;
+    for (i = 0; i < NBUTTONS; i++) {
+        j = SHIM + i * (client_width - SHIM) / NBUTTONS;
+        k = (i + 1) * (client_width - SHIM) / NBUTTONS;
         r.left = j;
         r.top = client_height - 2 * line_height + SHIM;
         r.right = k;
         r.bottom = r.top + AA;
-	if (edit_mode && i == 5)
+	if (edit_mode && i == NBUTTONS - 2)
 		s = "<<";
 	else
-        	s = button_name[2 * i];
+        	s = button_name[i];
         str = CFStringCreateWithCString(NULL, s, kCFStringEncodingMacRoman);
-        CreateBevelButtonControl(gwindow, &r, str, 0, 0, 0, 0, 0, 0, buttons + 2 * i);
-        CFRelease(str);
-        r.left = j;
-        r.top = client_height - AA - SHIM;
-        r.right = k;
-        r.bottom = r.top + AA;
-        s = button_name[2 * i + 1];
-        str = CFStringCreateWithCString(NULL, s, kCFStringEncodingMacRoman);
-        CreateBevelButtonControl(gwindow, &r, str, 0, 0, 0, 0, 0, 0, buttons + 2 * i + 1);
+        CreateBevelButtonControl(gwindow, &r, str, 0, 0, 0, 0, 0, 0, buttons + i);
         CFRelease(str);
     }
 
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < NBUTTONS - 2; i++) {
 		SetControlCommandID(buttons[i], 0xcafe0000 + i);
 		if (edit_mode)
 			DisableControl(buttons[i]);
 	}
 
-	SetControlCommandID(buttons[10], 'PROG');
-	SetControlCommandID(buttons[11], 'RUN ');
+	SetControlCommandID(buttons[NBUTTONS - 2], 'PROG');
+	SetControlCommandID(buttons[NBUTTONS - 1], 'RUN ');
 }
 
 extern OSStatus CreateYASTControl(WindowRef, Rect *, ControlRef *);
@@ -805,12 +791,12 @@ update_edit_control(void)
 {
     int i, n;
     YASTControlEditTextSelectionRec sel;
-    n = strlen(program_buf);
+    n = strlen(script_buf);
     for (i = 0; i < n; i++)
-        if (program_buf[i] == '\n')
-            program_buf[i] = '\r';
+        if (script_buf[i] == '\n')
+            script_buf[i] = '\r';
     HideControl(edit_control);
-    SetControlData(edit_control, 0, kControlEditTextTextTag, n, program_buf);
+    SetControlData(edit_control, 0, kControlEditTextTextTag, n, script_buf);
     sel.selStart = 0;
     sel.selEnd = 0;
     SetControlData(edit_control, 0, kYASTControlSelectionRangeTag, sizeof sel, &sel);
@@ -824,10 +810,9 @@ do_example(int n)
 {
 	if (running)
 		return;
-	if (edit_mode == 0)
-		change_modes();
+	go_to_edit_mode();
 	*filename = 0;
-	strcpy(program_buf, example_script[n]);
+	strcpy(script_buf, example_script[n]);
 	update_edit_control();
 }
 
@@ -839,11 +824,11 @@ do_open(void)
 	f = fopen(filename, "r");
 	if (f == NULL) {
 		*filename = 0;
-		*program_buf = 0;
+		*script_buf = 0;
 	} else {
-		n = fread(program_buf, 1, MAX_PROGRAM_SIZE, f);
+		n = fread(script_buf, 1, SCRIPT_BUF_LEN, f);
 		fclose(f);
-		program_buf[n] = 0;
+		script_buf[n] = 0;
 		fclose(f);
 	}
 	update_edit_control();
@@ -853,11 +838,12 @@ static void
 do_save(void)
 {
     FILE *f;
-    get_script();
+    if (edit_mode);
+        get_script();
     f = fopen(filename, "w");
     if (f == NULL)
         return;
-    fwrite(program_buf, 1, strlen(program_buf), f);
+    fwrite(script_buf, 1, strlen(script_buf), f);
     fclose(f);
 }
 
@@ -1287,29 +1273,26 @@ do_main_help(int n)
 {
 	if (running)
 		return;
-	if (edit_mode)
-		change_modes();
+	go_to_calc_mode();
 	do_help(n);
 	update_display();
 }
 
-static char *inp;
-
 static OSStatus
 task(void *p)
 {
-    run(program_buf);
+    run(inp);
     running = 2;
     send_user_event();
     return noErr;
 }
 
 static void
-create_task(void)
+create_task(char *s)
 {
     MPTaskID id;
+    inp = s;
     DeactivateControl(inputcontrol);
-    update_curr_cmd("");
     timer = time(NULL);
     running = 1;
     MPCreateTask(
@@ -1329,40 +1312,42 @@ extern void echo_input(char *);
 static void
 do_return_key(void)
 {
-    if (running)
-        return;
-    if (inp)
-        free(inp);
-    inp = get_curr_cmd();
-    update_cmd_history(inp); // reset history pointer no matter what
-    if (*inp == 0)
-        return;
-    strcpy(program_buf, inp);
-    echo_input(program_buf);
-    create_task();
+	char *s;
+	if (running)
+		return;
+	s = get_curr_cmd();
+	strcpy(tmp_buf, s);
+	free(s);
+	update_cmd_history(tmp_buf); // reset history pointer no matter what
+	if (*tmp_buf == 0)
+		return;
+	echo_input(tmp_buf);
+	update_curr_cmd("");
+	create_task(tmp_buf);
 }
 
 static void
-do_button(char *s)
+do_button(char *cmd)
 {
-    if (running)
-        return;
-    if (inp)
-        free(inp);
-    inp = get_curr_cmd();
-    update_cmd_history(inp); // reset history pointer no matter what
-    if (*inp == 0) {
-            strcpy(program_buf, s);
-            strcat(program_buf, "(last)");
-    } else {
-        strcpy(program_buf, s);
-        strcat(program_buf, "(");
-        strcat(program_buf, inp);
-        strcat(program_buf, ")");
-    }
-    update_cmd_history(program_buf);
-    echo_input(program_buf);
-    create_task();
+	char *s;
+	if (running)
+		return;
+	s = get_curr_cmd();
+	if (*s) {
+		if (strcmp(cmd, "derivative") == 0)
+			strcpy(tmp_buf, "d");
+		else
+			strcpy(tmp_buf, cmd);
+		strcat(tmp_buf, "(");
+		strcat(tmp_buf, s);
+		strcat(tmp_buf, ")");
+	} else
+		strcpy(tmp_buf, cmd);
+	free(s);
+	update_cmd_history(tmp_buf);
+	echo_input(tmp_buf);
+	update_curr_cmd("");
+	create_task(tmp_buf);
 }
 
 static int shunted;
@@ -1372,7 +1357,7 @@ deactivate_controls(void)
 {
     int i;
     if (shunted == 0) {
-        for (i = 0; i < 12; i++)
+        for (i = 0; i < NBUTTONS; i++)
             DeactivateControl(buttons[i]);
         shunted = 1;
     }
@@ -1383,7 +1368,7 @@ activate_controls(void)
 {
     int i;
     if (shunted == 1) {
-        for (i = 0; i < 12; i++)
+        for (i = 0; i < NBUTTONS; i++)
             ActivateControl(buttons[i]);
         shunted = 0;
     }
@@ -1409,7 +1394,7 @@ process_user_event(void)
     if (running == 2) {
         activate_controls();
         ActivateControl(inputcontrol);
-        update_curr_cmd("");
+        //update_curr_cmd("");
         update_display();
         running = 0;
         return;
@@ -1430,13 +1415,11 @@ get_script(void)
 {
     int i;
     Size len;
-    if (edit_mode == 0)
-        return;
-    GetControlData(edit_control, 0, kControlEditTextTextTag, MAX_PROGRAM_SIZE, program_buf, &len);
-    program_buf[len] = 0;
+    GetControlData(edit_control, 0, kControlEditTextTextTag, SCRIPT_BUF_LEN, script_buf, &len);
+    script_buf[len] = 0;
     for (i = 0; i < len; i++)
-        if (program_buf[i] == '\r')
-            program_buf[i] = '\n';
+        if (script_buf[i] == '\r')
+            script_buf[i] = '\n';
 }
 
 static void erase_window_f(void);
@@ -1617,16 +1600,17 @@ remove_calc_mode_controls(void)
 	DisposeControl(hscroll);
 	DisposeControl(vscroll);
 	DisposeControl(inputcontrol);
-	for (i = 0; i < 12; i++)
+	for (i = 0; i < NBUTTONS; i++)
 		DisposeControl(buttons[i]);
 }
 
 static void
 remove_edit_mode_controls(void)
 {
+	int i;
 	DisposeControl(edit_control);
-	DisposeControl(buttons[10]);
-	DisposeControl(buttons[11]);
+	for (i = 0; i < NBUTTONS; i++)
+		DisposeControl(buttons[i]);
 }
 
 static void
@@ -1641,4 +1625,18 @@ change_modes(void)
 		update_edit_control();
 	else
 		draw_display_now();
+}
+
+static void
+go_to_calc_mode(void)
+{
+	if (edit_mode)
+		change_modes();
+}
+
+static void
+go_to_edit_mode(void)
+{
+	if (!edit_mode)
+		change_modes();
 }
