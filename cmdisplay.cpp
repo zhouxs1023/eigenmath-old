@@ -148,8 +148,6 @@ eval_display(void)
 		push(cadr(p1));
 		eval();
 		p2 = pop();
-		//symbol(LAST)->u.sym.binding = p2;
-		//symbol(LAST)->u.sym.arglist = p2;
 		if (cadr(p1) != p2) {
 			push_symbol(SETQ);
 			push(cadr(p1));
@@ -164,8 +162,6 @@ eval_display(void)
 			push(car(p1));
 			eval();
 			p2 = pop();
-			//symbol(LAST)->u.sym.binding = p2;
-			//symbol(LAST)->u.sym.arglist = p2;
 			push(p2);
 			displayf();
 			p1 = cdr(p1);

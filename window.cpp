@@ -393,9 +393,6 @@ draw(int i)
 	}
 }
 
-char *pi_str = "pi";
-int partial = 'd';
-
 char *
 get_tty_buf(void)
 {

@@ -672,19 +672,22 @@ eval_prime(void)
 
 extern void printstack(int);
 
-static void
+void
 eval_print(void)
 {
-	int n = 0;
+	p1 = cdr(p1);
+	push(car(p1));
+	eval();
+	print(pop());
 	p1 = cdr(p1);
 	while (iscons(p1)) {
+		printchar(' ');
 		push(car(p1));
 		eval();
+		print(pop());
 		p1 = cdr(p1);
-		n++;
 	}
-	//printchar('\n');
-	printstack(n);
+	printchar('\n');
 	push(nil);
 }
 

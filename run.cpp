@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "defs.h"
 
-extern int get_format(void);
 extern int scan(char *);
 extern void setup(void);
 extern void selftest(void);
@@ -12,6 +11,7 @@ extern U *varlist;
 
 static void check_frame(void);
 static void print_mem_info(void);
+static int get_format(void);
 
 jmp_buf stop_return;
 
@@ -105,6 +105,7 @@ run(char *s)
 		if (tty)
 			printline(p2);
 		else {
+#ifndef LINUX
 			if (p1->k == SYM
 			&& p1 != symbol(LAST)
 			&& p1 != symbol(FORMAT)
@@ -115,9 +116,24 @@ run(char *s)
 				list(3);
 				p2 = pop();
 			}
+#endif
 			cmdisplay(p2);
 		}
 	}
+}
+
+static int
+get_format(void)
+{
+	int fmt;
+	save();
+	p1 = symbol(FORMAT);
+	push(p1->u.sym.binding);
+	fmt = pop_integer();
+	if (fmt != 0)
+		fmt = 1;
+	restore();
+	return fmt;
 }
 
 void
@@ -155,4 +171,4 @@ print_mem_info(void)
 		total_count - free_count,
 		(int) sizeof (U));
 	printstr(buf);
-}	
+}

@@ -22,8 +22,9 @@
 #
 # 5. Scripts can be run from the command line.
 #
-#	$ ./math examples/StaticSphericalMetric
+#	$ ./math StaticSphericalMetric
 #
+# 6. See eigenhead.com for more examples.
 
 
 # CXX and CXXFLAGS are used by make's implicit rule for compiling C++ files.

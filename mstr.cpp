@@ -14,7 +14,7 @@ mstr(unsigned int *a)
 	int k, n, r, sign;
 	char c;
 
-	if (str == 0) {
+	if (str == NULL) {
 		str = (char *) malloc(1000);
 		len = 1000;
 	}

@@ -57,9 +57,6 @@ extern void test_trace(void);
 extern void test_user_func(void);
 extern void test_wedge(void);
 
-extern int partial;
-extern char *pi_str;
-
 char logbuf[1000];
 static FILE *logfile;
 static jmp_buf jbuf;
@@ -80,9 +77,6 @@ selftest(void)
 
 	if (setjmp(jbuf))
 		return;
-
-	partial = 'd';
-	pi_str = "pi";
 
 	// test bignum arithmetic
 

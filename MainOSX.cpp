@@ -28,13 +28,13 @@
 #define SMALL_SYMBOL_FONT 9 
 #define SMALL_ITALIC_SYMBOL_FONT 10
 
+#if 1
 #define DEFAULT_WIDTH 680
 #define DEFAULT_HEIGHT 480
-
-// 70% of above
-
-//#define DEFAULT_WIDTH 476
-//#define DEFAULT_HEIGHT 322
+#else
+#define DEFAULT_WIDTH 400
+#define DEFAULT_HEIGHT 240
+#endif
 
 int client_width = DEFAULT_WIDTH;
 int client_height = DEFAULT_HEIGHT;
@@ -181,11 +181,6 @@ ControlHandle edit_control;
 ControlHandle hscroll;
 ControlHandle vscroll;
 ControlHandle buttons[20];
-
-#if 0
-int partial = '\266';
-char *pi_str = "\271";
-#endif
 
 char filename[1000], path[1000];
 
@@ -427,7 +422,7 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
 
     case 'abou':
         if (running == 0) {
-            printstr("This is Eigenmath version 97.\n");
+            printstr("This is Eigenmath version 101.\n");
             update_display();
         }
         break;

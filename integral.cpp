@@ -988,21 +988,21 @@ print_integrals(void)
 		push(car(p2));
 		//eval();
 		p3 = pop();
-		print(stdout, p3);
+		print(p3);
 		p2 = cdr(p2);
 
 		printf("solution:\n");
 		push(car(p2));
 		//eval();
 		p3 = pop();
-		print(stdout, p3);
+		print(p3);
 		p2 = cdr(p2);
 
 		if (iscons(p2))
 			printf("caveats:\n");
 
 		while (iscons(p2)) {
-			print(stdout, car(p2));
+			print(car(p2));
 			p2 = cdr(p2);
 		}
 

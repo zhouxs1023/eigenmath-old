@@ -1,5 +1,3 @@
-#include "stdafx.h"
-
 //-----------------------------------------------------------------------------
 //
 //	Examples:
@@ -20,20 +18,14 @@
 //
 //-----------------------------------------------------------------------------
 
+#include "stdafx.h"
 #include "defs.h"
 
-#define DEBUG 1
-
 #define YMAX 10000
-
-extern void cmdisplay(U *);
-extern char *pi_str;
-
 struct glyph {
 	int c, x, y;
 } chartab[YMAX];
 
-extern void printstackflat(int);
 extern U *minus_one_half;
 
 static void emit_expr(U *);
@@ -68,109 +60,16 @@ static void emit_factorial_function(U *);
 static void emit_numerators(U *);
 static void emit_denominators(U *);
 
-extern int partial;
 static int yindex, level, emit_x;
 static int expr_level;
 int display_flag;
 
 void
-printstack(int n)
-{
-	if (n < 1)
-		return;
-	save();
-	printstackflat(n);
-	restore();
-}
-
-#if 0
-
-static void
-printstack2(int n)
-{
-	int h, i, w, x, y;
-
-	p1 = symbol(FORMAT);
-	if (iszero(p1->u.sym.binding)) {
-		printstackflat(n);
-		return;
-	}
-
-	display_flag = 1;
-
-	yindex = 0;
-	level = 0;
-	emit_x = 0;
-
-	for (i = tos - n; i < tos; i++) {
-		p1 = stack[i];
-		if (car(p1) == symbol(TAB)) {
-			push(cadr(p1));
-			x = pop_integer();
-			if (x > emit_x)
-				emit_x = x;
-		} else {
-			emit_top_expr(p1);
-			//emit_x++; // space
-		}
-	}
-
-	display_flag = 0;
-
-	// if too wide then print flat
-
-	get_size(0, yindex, &h, &w, &y);
-
-	if (w > 100) {
-		printstackflat(n);
-		return;
-	}
-
-	print_it();
-
-	tos -= n;
-}
-
-#endif
-
-int
-get_format(void)
-{
-	int fmt;
-	save();
-	p1 = symbol(FORMAT);
-	push(p1->u.sym.binding);
-	fmt = pop_integer();
-	if (fmt != 0)
-		fmt = 1;
-	restore();
-	return fmt;
-}
-
-void
 display(U *p)
 {
-	int h, k, w, y;
+	int h, w, y;
 
 	save();
-
-	p1 = symbol(FORMAT);
-	push(p1->u.sym.binding);
-	k = pop_integer();
-
-	if (k == 0) {
-		printline(p);
-		restore();
-		return;
-	}
-
-//#ifdef MAC
-	if (k == 2) {
-		cmdisplay(p);
-		restore();
-		return;
-	}
-//#endif
 
 	yindex = 0;
 	level = 0;
@@ -397,6 +296,8 @@ emit_fraction(U *p, int d)
 	A = _one;
 	B = _one;
 
+	// handle numerical coefficient
+
 	if (cadr(p)->k == NUM) {
 		push(cadr(p));
 		numerator();
@@ -407,6 +308,12 @@ emit_fraction(U *p, int d)
 		B = pop();
 	}
 
+	if (cadr(p)->k == DOUBLE) {
+		push(cadr(p));
+		absval();
+		A = pop();
+	}
+
 	// count numerators
 
 	if (isplusone(A))
@@ -414,7 +321,7 @@ emit_fraction(U *p, int d)
 	else
 		n = 1;
 	p1 = cdr(p);
-	if (car(p1)->k == NUM)
+	if (isnum(car(p1)))
 		p1 = cdr(p1);
 	while (iscons(p1)) {
 		p2 = car(p1);
@@ -433,14 +340,20 @@ emit_fraction(U *p, int d)
 
 	count = 0;
 
+	// emit numerical coefficient
+
 	if (!isplusone(A)) {
 		emit_number(A, 0);
 		count++;
 	}
 
+	// skip over "multiply"
+
 	p1 = cdr(p);
 
-	if (car(p1)->k == NUM)
+	// skip over numerical coefficient, already handled
+
+	if (isnum(car(p1)))
 		p1 = cdr(p1);
 
 	while (iscons(p1)) {
@@ -836,7 +749,7 @@ emit_function(U *p)
 	}
 
 	if (car(p) == symbol(DERIVATIVE))
-		__emit_char(partial);
+		__emit_char('d');
 	else
 		emit_symbol(car(p));
 	__emit_char('(');
@@ -902,11 +815,6 @@ emit_symbol(U *p)
 
 	if (p == symbol(E)) {
 		__emit_str("exp(1)");
-		return;
-	}
-
-	if (p == symbol(PI)) {
-		__emit_str(pi_str);
 		return;
 	}
 

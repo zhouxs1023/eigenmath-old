@@ -8,6 +8,7 @@ int out_index, out_length;
 char *out_str;
 static int char_count, last_char;
 
+static void print_expr(U *);
 static void print_multiply_sign(void);
 static void print_denom(U *, int);
 static void print_a_over_b(U *);
@@ -17,40 +18,16 @@ int isnegativeterm(U *);
 static void print_subexpr(U *);
 static void print_index_function(U *);
 static void print_factorial_function(U *);
+static int sign_of_term(U *);
 
 extern int test_flag;
 
 char *power_str = "^";
 
 void
-printstackflat(int n)
+print(U *p)
 {
-	int i, x;
-	save();
-	char_count = 0;
-	last_char = ' ';
-	for (i = tos - n; i < tos; i++) {
-		p1 = stack[i];
-		if (car(p1) == symbol(TAB)) {
-			push(cadr(p1));
-			x = pop_integer();
-			while (char_count < x)
-				print_char(' ');
-		} else {
-			//if (last_char != ' ')
-			//	print_char(' '); // space between
-			print_expr(p1);
-		}
-	}
-	print_char('\n');
-	tos -= n;
-	restore();
-}
-
-void
-print(FILE *f, U *p)
-{
-	printline(p);
+	print_expr(p);
 }
 
 void
@@ -58,12 +35,6 @@ printline(U *p)
 {
 	print_expr(p);
 	print_char('\n');
-}
-
-void
-printexpr(U *p)
-{
-	print_expr(p);
 }
 
 static void print_term(U *);
@@ -76,7 +47,7 @@ print_subexpr(U *p)
 	print_char(')');
 }
 
-void
+static void
 print_expr(U *p)
 {
 	if (isadd(p)) {
@@ -106,7 +77,7 @@ print_expr(U *p)
 	}
 }
 
-int
+static int
 sign_of_term(U *p)
 {
 	if (car(p) == symbol(MULTIPLY) && isnum(cadr(p)) && lessp(cadr(p), _zero))

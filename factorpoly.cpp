@@ -225,7 +225,7 @@ factorpoly4(void)
 
 		if (verbosing) {
 			printf("success\nFACTOR=");
-			printexpr(FACTOR);
+			print(FACTOR);
 			printf("\n");
 		}
 
@@ -266,7 +266,7 @@ factorpoly4(void)
 
 	if (verbosing) {
 		printf("POLY=");
-		printexpr(POLY);
+		print(POLY);
 		printf("\n");
 	}
 
@@ -288,7 +288,7 @@ factorpoly4(void)
 
 	if (verbosing) {
 		printf("RESULT=");
-		printexpr(RESULT);
+		print(RESULT);
 		printf("\n");
 	}
 
@@ -339,7 +339,7 @@ rationalize_coefficients(int h)
 	RESULT = pop();
 	if (verbosing) {
 		printf("RESULT=");
-		print(stdout, RESULT);
+		print(RESULT);
 	}
 }
 
@@ -361,7 +361,7 @@ get_factor(void)
 		}
 		POLY = pop();
 		printf("POLY=");
-		printexpr(POLY);
+		print(POLY);
 		printf("\n");
 	}
 
@@ -383,13 +383,13 @@ get_factor(void)
 		printf("divisors of base term");
 		for (i = 0; i < na0; i++) {
 			printf(", ");
-			printexpr(stack[a0 + i]);
+			print(stack[a0 + i]);
 		}
 		printf("\n");
 		printf("divisors of leading term");
 		for (i = 0; i < nan; i++) {
 			printf(", ");
-			printexpr(stack[an + i]);
+			print(stack[an + i]);
 		}
 		printf("\n");
 	}
@@ -412,17 +412,17 @@ get_factor(void)
 
 			if (verbosing) {
 				printf("try A=");
-				printexpr(A);
+				print(A);
 				printf(", B=");
-				printexpr(B);
+				print(B);
 				printf(", root ");
-				printexpr(X);
+				print(X);
 				printf("=-B/A=");
-				printexpr(Z);
+				print(Z);
 				printf(", POLY(");
-				printexpr(Z);
+				print(Z);
 				printf(")=");
-				printexpr(Q);
+				print(Q);
 				printf("\n");
 			}
 
@@ -443,17 +443,17 @@ get_factor(void)
 
 			if (verbosing) {
 				printf("try A=");
-				printexpr(A);
+				print(A);
 				printf(", B=");
-				printexpr(B);
+				print(B);
 				printf(", root ");
-				printexpr(X);
+				print(X);
 				printf("=-B/A=");
-				printexpr(Z);
+				print(Z);
 				printf(", POLY(");
-				printexpr(Z);
+				print(Z);
 				printf(")=");
-				printexpr(Q);
+				print(Q);
 				printf("\n");
 			}
 

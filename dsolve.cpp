@@ -45,8 +45,8 @@ dsolve(void)
 	negate();
 	g = pop();
 
-	print(stdout, g);
-	print(stdout, p);
+	print(g);
+	print(p);
 
 	push(p);
 	push(x);
