@@ -1,4 +1,4 @@
-// Expressions are built by connecting U structs.
+// Symbolic expressions are built by connecting U structs.
 //
 // For example, (a b + c) is built like this:
 //
@@ -16,8 +16,6 @@
 //                       |MUL    |    |SYM a  |    |SYM b  |
 //                       |       |    |       |    |       |
 //                       |_______|    |_______|    |_______|
-//
-// It's no coincidence that it looks like LISP.
 
 typedef struct u {
 	unsigned char k, tag;
