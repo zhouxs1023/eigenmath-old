@@ -193,6 +193,8 @@ static char *defn_str[] = {
 	"yrange=(-10,10)",
 	"last=nil",
 	"tty=0",
+	"curl(v)=(d(v[3],y)-d(v[2],z),d(v[1],z)-d(v[3],x),d(v[2],x)-d(v[1],y))",
+	"div(v)=d(v[1],x)+d(v[2],y)+d(v[3],z)",
 };
 
 void
