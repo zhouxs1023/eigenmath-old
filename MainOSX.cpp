@@ -596,10 +596,10 @@ select_edit_window(void)
         return;
     }
 
-    r.left = 40;
-    r.top = 44 + 30;
-    r.right = r.left + DEFAULT_WIDTH;
-    r.bottom = r.top + DEFAULT_HEIGHT;
+    r.left = 80;
+    r.top = 44;
+    r.right = r.left + DEFAULT_WIDTH + scroll_bar_dim;
+    r.bottom = r.top + DEFAULT_HEIGHT + scroll_bar_dim;
 
     CreateNewWindow(6, kWindowCollapseBoxAttribute | kWindowStandardHandlerAttribute, &r, &edit_window);
 
@@ -607,8 +607,8 @@ select_edit_window(void)
 
     r.left = 0;
     r.top = 0;
-    r.right = DEFAULT_WIDTH;
-    r.bottom = DEFAULT_HEIGHT;
+    r.right = DEFAULT_WIDTH + scroll_bar_dim;
+    r.bottom = DEFAULT_HEIGHT + scroll_bar_dim;
 
     CreateYASTControl(edit_window, &r, &edit_control);
 
@@ -635,7 +635,7 @@ create_input_control(void)
 
     r.left = 0;
     r.top = display_height + scroll_bar_dim;
-    r.right = client_width - scroll_bar_dim;
+    r.right = client_width;
     r.bottom = r.top + input_control_height;
 
     r.left += BLUE_SHIM;
@@ -659,8 +659,8 @@ create_buttons(void)
     CFStringRef str;
 
     for (i = 0; i < 6; i++) {
-        j = SHIM + i * (client_width - scroll_bar_dim - SHIM) / 6;
-        k = (i + 1) * (client_width - scroll_bar_dim - SHIM) / 6;
+        j = SHIM + i * (client_width - SHIM) / 6;
+        k = (i + 1) * (client_width - SHIM) / 6;
         r.left = j;
         r.top = client_height - 2 * line_height + SHIM;
         r.right = k;
@@ -787,10 +787,10 @@ create_main_window(void)
 {
     Rect r;
 
-    r.left = 10;
-    r.top = 44 + 10;
-    r.right = r.left + client_width;
-    r.bottom = r.top + client_height;
+    r.left = 0;
+    r.top = 44;
+    r.right = r.left + client_width + scroll_bar_dim;
+    r.bottom = r.top + client_height + scroll_bar_dim;
 
     //CreateNewWindow(6, kWindowCollapseBoxAttribute | kWindowStandardHandlerAttribute, &r, &gwindow);
 
@@ -1543,7 +1543,7 @@ erase_window_f(void)
     Rect r;
     r.left = 0;
     r.top = 0;
-    r.right = client_width;
+    r.right = client_width + scroll_bar_dim;
     r.bottom = client_height + scroll_bar_dim;
     ClipRect(&r);
     EraseRect(&r);
@@ -1555,8 +1555,8 @@ do_resize(void)
     int i;
     Rect r;
     GetWindowBounds(gwindow, kWindowContentRgn, &r);
-    client_height = r.bottom - r.top;
-    client_width = r.right - r.left;
+    client_height = r.bottom - r.top - scroll_bar_dim;
+    client_width = r.right - r.left - scroll_bar_dim;
     display_width = client_width - scroll_bar_dim;
     display_height = client_height - 2 * line_height - input_control_height - scroll_bar_dim;
     //KillControls(gwindow); // cannot get it to work, new controls are never drawn
