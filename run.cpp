@@ -11,7 +11,6 @@ extern int test_flag;
 extern U *varlist;
 static void check_stack(void);
 static void print_mem_info(void);
-static int get_format(void);
 static int dash_dash_command(char *);
 jmp_buf stop_return;
 static char *errstr;
@@ -27,7 +26,7 @@ stop(char *str)
 void
 run(char *s)
 {
-	int n, tty;
+	int n;
 
 	esc_flag = 0;
 
@@ -89,9 +88,7 @@ run(char *s)
 		if (p2 == nil && !issymbol(p1))
 			continue;
 
-		tty = get_format();
-
-		if (tty || test_flag)
+		if (equal(symbol(TTY)->u.sym.binding, one) || test_flag) // tty mode?
 			printline(p2);
 		else {
 #ifdef LINUX
@@ -131,20 +128,6 @@ dash_dash_command(char *s)
 	return 0;
 }
 
-static int
-get_format(void)
-{
-	int fmt;
-	save();
-	p1 = symbol(TTY);
-	push(p1->u.sym.binding);
-	fmt = pop_integer();
-	if (fmt != 0)
-		fmt = 1;
-	restore();
-	return fmt;
-}
-
 static void
 check_stack(void)
 {
@@ -157,10 +140,8 @@ check_stack(void)
 void
 echo_input(char *s)
 {
-//	int tty;
-//	tty = get_format();
-//	if (tty)
-//		printstr("\n");
+	if (nil && equal(symbol(TTY)->u.sym.binding, one)) // tty mode?
+		printstr("\n");
 	printstr(s);
 	printstr("\n");
 }

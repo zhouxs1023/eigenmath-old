@@ -242,7 +242,7 @@ issymbolic(U *p)
 int
 isintegerfactor(U *p)
 {
-	if (isinteger(p) || car(p) == symbol(POWER)
+	if (isinteger(p) || car(p)->k == POWER
 	&& isinteger(cadr(p))
 	&& isinteger(caddr(p)))
 		return 1;
