@@ -25,6 +25,7 @@ extern void eval_eigenvec(void);
 extern void eval_factor(void);
 extern void eval_filter(void);
 extern void eval_floor(void);
+extern void eval_inner(void);
 extern void eval_isprime(void);
 extern void eval_mod(void);
 extern void eval_outer(void);
@@ -290,20 +291,6 @@ eval_do(void)
 }
 
 static void
-eval_dot(void)
-{
-	push(cadr(p1));
-	eval();
-	p1 = cddr(p1);
-	while (iscons(p1)) {
-		push(car(p1));
-		eval();
-		inner();
-		p1 = cdr(p1);
-	}
-}
-
-static void
 eval_dsolve(void)
 {
 	push(cadr(p1));
@@ -475,20 +462,6 @@ eval_index(void)
 		p1 = cdr(p1);
 	}
 	index_function(tos - h);
-}
-
-static void
-eval_inner(void)
-{
-	push(cadr(p1));
-	eval();
-	p1 = cddr(p1);
-	while (iscons(p1)) {
-		push(car(p1));
-		eval();
-		inner();
-		p1 = cdr(p1);
-	}
 }
 
 static void
@@ -1170,7 +1143,7 @@ eval_cons(void)
 	case DISPLAY:		eval_display();		break;
 	case DIVISORS:		eval_divisors();	break;
 	case DO:		eval_do();		break;
-	case DOT:		eval_dot();		break;
+	case DOT:		eval_inner();		break;
 	case DRAW:		eval_draw();		break;
 	case DSOLVE:		eval_dsolve();		break;
 	case EIGEN:		eval_eigen();		break;

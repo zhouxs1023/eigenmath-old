@@ -24,6 +24,7 @@ extern void test_factorpoly(void);
 extern void test_for(void);
 extern void test_floor(void);
 extern void test_index(void);
+extern void test_inner(void);
 extern void test_integral(void);
 extern void test_isprime(void);
 extern void test_lcm(void);
@@ -111,6 +112,7 @@ selftest(void)
 	test_factorpoly();
 	test_floor();
 	test_for();
+	test_inner();
 	test_lcm();
 	test_mod();
 	test_outer();
