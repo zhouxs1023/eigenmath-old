@@ -18,6 +18,7 @@ extern void eval_condense(void);
 extern void eval_cos(void);
 extern void eval_cosh(void);
 extern void eval_display(void);
+extern void eval_draw(void);
 extern void eval_eigen(void);
 extern void eval_eigenval(void);
 extern void eval_eigenvec(void);
@@ -298,33 +299,6 @@ eval_dot(void)
 		inner();
 		p1 = cdr(p1);
 	}
-}
-
-extern void draw(void);
-
-static void
-eval_draw(void)
-{
-	push(cadr(p1));
-	eval();
-	if (caddr(p1) == nil) {
-		p2 = unique(stack[tos - 1]);
-		if (p2 != nil)
-			push(p2);
-		else if (find(stack[tos - 1], symbol(SYMBOL_X)))
-			push_symbol(SYMBOL_X);
-		else if (find(stack[tos - 1], symbol(SYMBOL_T)))
-			push_symbol(SYMBOL_T);
-		else if (find(stack[tos - 1], symbol(SYMBOL_R)))
-			push_symbol(SYMBOL_R);
-		else
-			push_symbol(SYMBOL_X);
-	} else {
-		push(caddr(p1));
-		eval();
-	}
-	draw();
-	push(nil);
 }
 
 static void
@@ -1431,3 +1405,4 @@ filter_tensor(void)
 	}
 	push(p3);
 }
+

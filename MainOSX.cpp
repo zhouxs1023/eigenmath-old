@@ -29,7 +29,7 @@
 #define SMALL_ITALIC_SYMBOL_FONT 10
 
 #define DEFAULT_WIDTH 680
-#define DEFAULT_HEIGHT 460
+#define DEFAULT_HEIGHT 480
 
 // 70% of above
 
@@ -427,7 +427,7 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
 
     case 'abou':
         if (running == 0) {
-            printstr("This is Eigenmath version 83.\n");
+            printstr("This is Eigenmath version 89.\n");
             update_display();
         }
         break;

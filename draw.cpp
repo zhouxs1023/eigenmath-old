@@ -1,5 +1,4 @@
 #include "stdafx.h"
-
 #include "defs.h"
 
 extern int text_width(int, char *);
@@ -31,12 +30,12 @@ static void setup_xrange_f(void);
 static void setup_yrange(void);
 static void setup_yrange_f(void);
 static void fudge(void);
+static void draw(void);
 static void draw2(void);
 static void draw3(void);
 static void new_point(double);
 static void fill(int, int, int);
 static void emit_graph(void);
-static void draw_discrete_signal(void);
 
 static double tmin, tmax;
 static double xmin, xmax;
@@ -51,7 +50,28 @@ static struct {
 
 static int draw_count;
 
+// to here from eval.cpp
+
 void
+eval_draw(void)
+{
+	push(cadr(p1)); // 1st arg
+	if (caddr(p1) == nil) { // no 2nd arg, try guessing
+		if (find(cadr(p1), symbol(SYMBOL_X)))
+			push_symbol(SYMBOL_X);
+		else if (find(cadr(p1), symbol(SYMBOL_T)))
+			push_symbol(SYMBOL_T);
+		else if (find(cadr(p1), symbol(SYMBOL_R)))
+			push_symbol(SYMBOL_R);
+		else
+			push_symbol(SYMBOL_X);
+	} else
+		push(caddr(p1)); // 2nd arg
+	draw();
+	push(nil);
+}
+
+static void
 draw(void)
 {
 	int x;
@@ -78,33 +98,12 @@ draw2(void)
 
 	setup_yrange();
 
-	// if F is a vector then draw signal
+	// if not parametric draw then trange = xrange
 
-	if (F->k == TENSOR && F->u.tensor->ndim == 1 && F->u.tensor->dim[0] > 2) {
-		draw_discrete_signal();
-		return;
-	}
-
-	// if F is tensor then parametric draw
-
-	if (F->k == TENSOR) {
-		if (F->u.tensor->ndim != 1 || F->u.tensor->dim[0] != 2)
-			return;
-		if (T == nil)
-			T = symbol(SYMBOL_T);
-		X = F->u.tensor->elem[0];
-		Y = F->u.tensor->elem[1];
-	} else {
-		if (T == nil)
-			T = symbol(SYMBOL_X);
-		X = T;
-		Y = F;
+	if (T != symbol(SYMBOL_T)) {
 		tmin = xmin;
 		tmax = xmax;
 	}
-
-	if (T->k != SYM)
-		return;
 
 	draw3();
 
@@ -205,19 +204,20 @@ eval_point(double t)
 		return;
 	}
 
-	push(X);		// x(t)
+	push(F);
 	push(T);
 	push_double(t);
 	evalat();
-	fudge();
-	eval();
 
-	push(Y);		// y(t)
-	push(T);
-	push_double(t);
-	evalat();
-	fudge();
-	eval();
+	p1 = pop();
+
+	if (p1->k == TENSOR && p1->u.tensor->nelem >= 2) {
+		push(p1->u.tensor->elem[0]);
+		push(p1->u.tensor->elem[1]);
+	} else {
+		push_double(t);
+		push(p1);
+	}
 
 	restore();
 
@@ -849,6 +849,8 @@ emit_yzero(void)
 #define YDIM (YMAG + YSHIM + YSHIM)
 #define XSHIM 0
 
+#if 0
+
 static void
 draw_discrete_signal(void)
 {
@@ -953,3 +955,6 @@ draw_discrete_signal(void)
 
 	shipout(buf, w, h);
 }
+
+#endif
+
