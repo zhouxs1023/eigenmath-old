@@ -122,6 +122,7 @@ extern U *nil;
 extern U *stack[];
 
 extern U *p1, *p2, *p3, *p4, *p5, *p6, *p7, *p8;
+extern U *formal_arg[6];
 extern U *tmp;
 extern U *last;
 

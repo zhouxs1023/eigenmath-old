@@ -38,6 +38,7 @@ extern void eval_tan(void);
 extern void eval_tanh(void);
 extern void eval_trace(void);
 extern void eval_user_function(void);
+extern void eval_writefile(void);
 
 extern void define_user_function(void);
 

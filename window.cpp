@@ -1,5 +1,4 @@
 #include "stdafx.h"
-
 #include "defs.h"
 
 //	total_h		sum of the heights of all the items in the display queue
