@@ -180,6 +180,8 @@ extern int lessp(U *, U *);
 extern void list(int);
 extern void sine(void);
 extern void cosine(void);
+extern void expcos(void);
+extern void expsin(void);
 extern void negate(void);
 extern void negate_expand(void);
 extern void negate_noexpand(void);

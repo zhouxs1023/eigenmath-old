@@ -1,9 +1,9 @@
-#include "stdafx.h"
+// Do the cosine function.
 
+#include "stdafx.h"
 #include "defs.h"
 
-static void __cosine(void);
-static void expcos(void);
+static void cosine_f(void);
 
 void
 eval_cos(void)
@@ -17,12 +17,12 @@ void
 cosine(void)
 {
 	save();
-	__cosine();
+	cosine_f();
 	restore();
 }
 
 static void
-__cosine(void)
+cosine_f(void)
 {
 	int n;
 	double d;
@@ -94,32 +94,6 @@ __cosine(void)
 		list(2);
 		break;
 	}
-}
-
-static void
-expcos(void)
-{
-	save();
-	p1 = pop();
-
-	push(unit_imaginary);
-	push(p1);
-	multiply();
-	exponential();
-	push_integer(2);
-	divide();
-
-	push(unit_imaginary);
-	negate();
-	push(p1);
-	multiply();
-	exponential();
-	push_integer(2);
-	divide();
-
-	add();
-
-	restore();
 }
 
 static char *s[] = {

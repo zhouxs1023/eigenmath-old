@@ -96,6 +96,8 @@ init(void)
 	define_symbol("eval", EVAL);
 	define_symbol("exp", EXP);
 	define_symbol("expand", EXPAND);
+	define_symbol("expcos", EXPCOS);
+	define_symbol("expsin", EXPSIN);
 	define_symbol("factor", FACTOR);
 	define_symbol("factorial", FACTORIAL);
 	define_symbol("factorpoly", FACTORPOLY);

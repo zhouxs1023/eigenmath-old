@@ -1,9 +1,9 @@
-#include "stdafx.h"
+// Do the sine function.
 
+#include "stdafx.h"
 #include "defs.h"
 
-static void __sine(void);
-static void expsin(void);
+static void sine_f(void);
 
 void
 eval_sin(void)
@@ -17,12 +17,12 @@ void
 sine(void)
 {
 	save();
-	__sine();
+	sine_f();
 	restore();
 }
 
 static void
-__sine(void)
+sine_f(void)
 {
 	int n, u;
 	double d;
@@ -97,36 +97,6 @@ __sine(void)
 		list(2);
 		break;
 	}
-}
-
-static void
-expsin(void)
-{
-	save();
-	p1 = pop();
-
-	push(unit_imaginary);
-	push(p1);
-	multiply();
-	exponential();
-	push(unit_imaginary);
-	divide();
-	push_integer(2);
-	divide();
-
-	push(unit_imaginary);
-	negate();
-	push(p1);
-	multiply();
-	exponential();
-	push(unit_imaginary);
-	divide();
-	push_integer(2);
-	divide();
-
-	subtract();
-
-	restore();
 }
 
 static char *s[] = {

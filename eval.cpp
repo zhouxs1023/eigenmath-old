@@ -22,6 +22,8 @@ extern void eval_draw(void);
 extern void eval_eigen(void);
 extern void eval_eigenval(void);
 extern void eval_eigenvec(void);
+extern void eval_expcos(void);
+extern void eval_expsin(void);
 extern void eval_factor(void);
 extern void eval_filter(void);
 extern void eval_floor(void);
@@ -1152,6 +1154,8 @@ eval_cons(void)
 	case EVAL:		eval_eval();		break;
 	case EXP:		eval_exp();		break;
 	case EXPAND:		eval_expand();		break;
+	case EXPCOS:		eval_expcos();		break;
+	case EXPSIN:		eval_expsin();		break;
 	case FACTOR:		eval_factor();		break;
 	case FACTORIAL:		eval_factorial();	break;
 	case FACTORPOLY:	eval_factorpoly();	break;

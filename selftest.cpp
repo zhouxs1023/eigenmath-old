@@ -19,6 +19,8 @@ extern void test_derivative(void);
 extern void test_display(void);
 extern void test_divisors(void);
 extern void test_eigen(void);
+extern void test_expcos(void);
+extern void test_expsin(void);
 extern void test_factor_number(void);
 extern void test_factorpoly(void);
 extern void test_for(void);
@@ -108,6 +110,8 @@ selftest(void)
 	test_charpoly();
 	test_condense();
 	test_derivative();
+	test_expcos();
+	test_expsin();
 	test_gcd();
 	test_factorpoly();
 	test_floor();
