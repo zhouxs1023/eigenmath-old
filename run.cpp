@@ -105,7 +105,9 @@ run(char *s)
 		if (tty)
 			printline(p2);
 		else {
-#ifndef LINUX
+#ifdef LINUX
+			display(p2);
+#else
 			if (p1->k == SYM
 			&& p1 != symbol(LAST)
 			&& p1 != symbol(FORMAT)
@@ -116,8 +118,8 @@ run(char *s)
 				list(3);
 				p2 = pop();
 			}
-#endif
 			cmdisplay(p2);
+#endif
 		}
 	}
 }
