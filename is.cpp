@@ -202,3 +202,14 @@ iseveninteger(U *p)
 	else
 		return 0;
 }
+
+int
+isnegative(U *p)
+{
+	if (car(p) == symbol(ADD) && isnegativeterm(cadr(p)))
+		return 1;
+	else if (isnegativeterm(p))
+		return 1;
+	else
+		return 0;
+}

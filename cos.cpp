@@ -43,6 +43,14 @@ cosine_f(void)
 		return;
 	}
 
+	// cosine function is symmetric, cos(-x) = cos(x)
+
+	if (isnegative(p1)) {
+		push(p1);
+		negate();
+		p1 = pop();
+	}
+
 	// multiply by 180/pi
 
 	push(p1);
@@ -53,15 +61,12 @@ cosine_f(void)
 
 	n = pop_integer();
 
-	if (n == (int) 0x80000000) {
+	if (n < 0) {
 		push_symbol(COS);
 		push(p1);
 		list(2);
 		return;
 	}
-
-	if (n < 0)
-		n = -n;
 
 	switch (n % 360) {
 	case 0:
@@ -105,10 +110,10 @@ static char *s[] = {
 	"-1",
 
 	"cos(-5/6*pi)",		// -150 degrees
-	"cos(-5/6*pi)",
+	"cos(5/6*pi)",
 
 	"cos(-3/4*pi)",		// -135 degrees
-	"cos(-3/4*pi)",
+	"cos(3/4*pi)",
 
 	"cos(-pi*2/3)",		// -120 degrees
 	"-1/2",
@@ -120,10 +125,10 @@ static char *s[] = {
 	"1/2",
 
 	"cos(-1/4*pi)",		// -45 degrees
-	"cos(-1/4*pi)",
+	"cos(1/4*pi)",
 
 	"cos(-1/6*pi)",		// -30 degrees
-	"cos(-1/6*pi)",
+	"cos(1/6*pi)",
 
 	"cos(0)",		// 0 degrees
 	"1",
@@ -160,6 +165,14 @@ static char *s[] = {
 
 	"expomode=0",
 	"",
+
+	// cosine function is symmetric
+
+	"cos(-x)",
+	"cos(x)",
+
+	"cos(b-a)",
+	"cos(a-b)",
 };
 
 void

@@ -368,6 +368,7 @@ void gmp_collect(void);
 void denominator(void);
 void rationalize(void);
 int isnegativenumber(U *);
+int isnegative(U *);
 void test_gcd(void);
 void factor(void);
 void test_factor(void);

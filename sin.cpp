@@ -24,7 +24,7 @@ sine(void)
 static void
 sine_f(void)
 {
-	int n, u;
+	int n;
 	double d;
 
 	p1 = pop();
@@ -43,6 +43,16 @@ sine_f(void)
 		return;
 	}
 
+	// sine function is antisymmetric, sin(-x) = -sin(x)
+
+	if (isnegative(p1)) {
+		push(p1);
+		negate();
+		sine();
+		negate();
+		return;
+	}
+
 	// multiply by 180/pi
 
 	push(p1);
@@ -53,43 +63,37 @@ sine_f(void)
 
 	n = pop_integer();
 
-	if (n == (int) 0x80000000) {
+	if (n < 0) {
 		push_symbol(SIN);
 		push(p1);
 		list(2);
 		return;
 	}
 
-	if (n < 0) {
-		n = -n;
-		u = -1;
-	} else
-		u = 1;
-
 	switch (n % 360) {
 	case 0:
 		push_integer(0);
 		break;
 	case 30:
-		push_rational(u, 2);
+		push_rational(1, 2);
 		break;
 	case 90:
-		push_integer(u);
+		push_integer(1);
 		break;
 	case 150:
-		push_rational(u, 2);
+		push_rational(1, 2);
 		break;
 	case 180:
 		push_integer(0);
 		break;
 	case 210:
-		push_rational(-u, 2);
+		push_rational(-1, 2);
 		break;
 	case 270:
-		push_integer(-u);
+		push_integer(-1);
 		break;
 	case 330:
-		push_rational(-u, 2);
+		push_rational(-1, 2);
 		break;
 	default:
 		push_symbol(SIN);
@@ -111,19 +115,19 @@ static char *s[] = {
 	"-1/2",
 
 	"sin(-3/4*pi)",		// -135 degrees
-	"sin(-3/4*pi)",
+	"-sin(3/4*pi)",
 
 	"sin(-2/3*pi)",		// -120 degrees
-	"sin(-2/3*pi)",
+	"-sin(2/3*pi)",
 
 	"sin(-pi/2)",		// -90 degrees
 	"-1",
 
 	"sin(-1/3*pi)",		// -60 degrees
-	"sin(-1/3*pi)",
+	"-sin(1/3*pi)",
 
 	"sin(-1/4*pi)",		// -45 degrees
-	"sin(-1/4*pi)",
+	"-sin(1/4*pi)",
 
 	"sin(-pi/6)",		// -30 degrees
 	"-1/2",
@@ -166,6 +170,14 @@ static char *s[] = {
 
 	"expomode=0",
 	"",
+
+	// sine function is antisymmetric
+
+	"sin(-x)",
+	"-sin(x)",
+
+	"sin(b-a)",
+	"-sin(a-b)",
 };
 
 void
