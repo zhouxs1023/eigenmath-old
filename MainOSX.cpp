@@ -50,6 +50,7 @@ int max_y;
 int total_w;
 int total_h;
 int scroll_bar_dim = 15;
+int grow_dim = 0; // set to 15 to remove overlap w/grow control
 int input_control_height = 28;
 int update_display_request;
 
@@ -598,8 +599,8 @@ select_edit_window(void)
 
     r.left = 80;
     r.top = 44;
-    r.right = r.left + DEFAULT_WIDTH + scroll_bar_dim;
-    r.bottom = r.top + DEFAULT_HEIGHT + scroll_bar_dim;
+    r.right = r.left + DEFAULT_WIDTH + grow_dim;
+    r.bottom = r.top + DEFAULT_HEIGHT + grow_dim;
 
     CreateNewWindow(6, kWindowCollapseBoxAttribute | kWindowStandardHandlerAttribute, &r, &edit_window);
 
@@ -607,8 +608,8 @@ select_edit_window(void)
 
     r.left = 0;
     r.top = 0;
-    r.right = DEFAULT_WIDTH + scroll_bar_dim;
-    r.bottom = DEFAULT_HEIGHT + scroll_bar_dim;
+    r.right = DEFAULT_WIDTH + grow_dim;
+    r.bottom = DEFAULT_HEIGHT + grow_dim;
 
     CreateYASTControl(edit_window, &r, &edit_control);
 
@@ -789,8 +790,8 @@ create_main_window(void)
 
     r.left = 0;
     r.top = 44;
-    r.right = r.left + client_width + scroll_bar_dim;
-    r.bottom = r.top + client_height + scroll_bar_dim;
+    r.right = r.left + client_width + grow_dim;
+    r.bottom = r.top + client_height + grow_dim;
 
     //CreateNewWindow(6, kWindowCollapseBoxAttribute | kWindowStandardHandlerAttribute, &r, &gwindow);
 
@@ -1543,8 +1544,8 @@ erase_window_f(void)
     Rect r;
     r.left = 0;
     r.top = 0;
-    r.right = client_width + scroll_bar_dim;
-    r.bottom = client_height + scroll_bar_dim;
+    r.right = client_width + grow_dim;
+    r.bottom = client_height + grow_dim;
     ClipRect(&r);
     EraseRect(&r);
 }
@@ -1555,8 +1556,8 @@ do_resize(void)
     int i;
     Rect r;
     GetWindowBounds(gwindow, kWindowContentRgn, &r);
-    client_height = r.bottom - r.top - scroll_bar_dim;
-    client_width = r.right - r.left - scroll_bar_dim;
+    client_height = r.bottom - r.top - grow_dim;
+    client_width = r.right - r.left - grow_dim;
     display_width = client_width - scroll_bar_dim;
     display_height = client_height - 2 * line_height - input_control_height - scroll_bar_dim;
     //KillControls(gwindow); // cannot get it to work, new controls are never drawn
