@@ -67,9 +67,6 @@ init(void)
 	define_variable("xrange", XRANGE);
 	define_variable("yrange", YRANGE);
 
-	define_variable("D", SYMBOL_BIG_D);
-	define_variable("Q", SYMBOL_BIG_Q);
-
 	define_variable("d", SYMBOL_D);
 	define_variable("r", SYMBOL_R);
 	define_variable("t", SYMBOL_T);

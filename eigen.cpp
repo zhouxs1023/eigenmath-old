@@ -55,12 +55,12 @@ eval_eigen(void)
 
 	eigen(EIGEN);
 
-	p1 = symbol(SYMBOL_BIG_D);
+	p1 = get_symbol("D");
 
 	p1->u.sym.binding = p2;
 	p1->u.sym.binding2 = nil;
 
-	p1 = symbol(SYMBOL_BIG_Q);
+	p1 = get_symbol("Q");
 
 	p1->u.sym.binding = p3;
 	p1->u.sym.binding2 = nil;
