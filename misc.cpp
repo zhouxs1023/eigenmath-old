@@ -53,8 +53,6 @@ init(void)
 
 	init_alloc();
 
-	define_variable("?", ZZZ);
-
 	define_variable("autoexpand", AUTOEXPAND);
 	define_variable("~e", E); // tilde so sort puts it after scalar symbols
 	define_variable("expomode", EXPOMODE);

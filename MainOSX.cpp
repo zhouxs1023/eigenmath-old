@@ -28,13 +28,13 @@
 #define SMALL_SYMBOL_FONT 9 
 #define SMALL_ITALIC_SYMBOL_FONT 10
 
-#define DEFAULT_WIDTH 680
-#define DEFAULT_HEIGHT 460
+//#define DEFAULT_WIDTH 680
+//#define DEFAULT_HEIGHT 460
 
 // 70% of above
 
-//#define DEFAULT_WIDTH 476
-//#define DEFAULT_HEIGHT 322
+#define DEFAULT_WIDTH 476
+#define DEFAULT_HEIGHT 322
 
 int client_width = DEFAULT_WIDTH;
 int client_height = DEFAULT_HEIGHT;
