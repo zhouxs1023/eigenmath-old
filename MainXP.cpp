@@ -57,7 +57,7 @@ HWND input_window;
 HWND edit_window;
 HWND hscroll;
 HWND vscroll;
-#define NBUTTON 12
+#define NBUTTON 8
 HWND button[NBUTTON];
 HDC draw_hdc;
 HDC run_hdc;
@@ -150,7 +150,7 @@ enum {
 	ID_PASTE,
 	ID_COPY_ALL,
 
-	ID_CONDENSE,
+	ID_CLEAR,
 	ID_DERIVATIVE,
 	ID_DRAW,
 	ID_EXPAND,
@@ -359,7 +359,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	main_window = CreateWindow(
 		"Eigenmath",
-		"Eigenmath 102",
+		"Eigenmath 103",
 		WS_OVERLAPPEDWINDOW /* | WS_VSCROLL */ ,
 		CW_USEDEFAULT, 0,
 		CW_USEDEFAULT, 0,
@@ -379,16 +379,12 @@ static struct {
 	char *s;
 	long long id;
 } main_button[NBUTTON] = {
-	{"Derivative",		ID_DERIVATIVE},
-	{"Integral",		ID_INTEGRAL},
-	{"Condense",		ID_CONDENSE},
-	{"Expand",		ID_EXPAND},
-	{"Rationalize",		ID_RATIONALIZE},
+	{"Clear",		ID_CLEAR},
+	{"Draw",		ID_DRAW},
 	{"Simplify",		ID_SIMPLIFY},
 	{"Factor",		ID_FACTOR},
-	{"Roots",		ID_ROOTS},
-	{"Draw",		ID_DRAW},
-	{"Float",		ID_FLOAT},
+	{"Derivative",		ID_DERIVATIVE},
+	{"Integral",		ID_INTEGRAL},
 	{"Edit Script",		ID_EDIT_SCRIPT},
 	{"Run Script",		ID_RUN_SCRIPT},
 };
@@ -482,24 +478,25 @@ do_more_setup(void)
 
 	// create buttons
 
-	for (i = 0; i < 6; i++) {
-		j = i * main_client_width / 6;
-		k = (i + 1) * main_client_width / 6;
-		button[2 * i] = CreateWindow(
+	for (i = 0; i < NBUTTON; i++) {
+		j = i * main_client_width / NBUTTON;
+		k = (i + 1) * main_client_width / NBUTTON;
+		button[i] = CreateWindow(
 			"BUTTON",
-			main_button[2 * i].s,
+			main_button[i].s,
 			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
 			j, main_client_height - 2 * line_height,
-			k - j, line_height,
+			k - j, 2 * line_height,
 			main_window,
-			(HMENU) main_button[2 * i].id,
+			(HMENU) main_button[i].id,
 			hinst,
 			NULL);
 		SendMessage(
-			button[2 * i],
+			button[i],
 			WM_SETFONT,
 			(WPARAM) GetStockObject(ANSI_VAR_FONT),
 			0);
+#if 0
 		button[2 * i + 1] = CreateWindow(
 			"BUTTON",
 			main_button[2 * i + 1].s,
@@ -515,6 +512,7 @@ do_more_setup(void)
 			WM_SETFONT,
 			(WPARAM) GetStockObject(ANSI_VAR_FONT),
 			0);
+#endif
 	}
 
 	update_scroll_bars();
@@ -807,35 +805,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			else
 				goto_calc_mode();
 			break;
-		case ID_CONDENSE:
-			do_button("condense");
-			break;
-		case ID_DERIVATIVE:
-			do_button("d");
+		case ID_CLEAR:
+			do_button("clear");
 			break;
 		case ID_DRAW:
 			do_button("draw");
 			break;
-		case ID_EXPAND:
-			do_button("expand");
+		case ID_SIMPLIFY:
+			do_button("simplify");
 			break;
 		case ID_FACTOR:
 			do_button("factor");
 			break;
-		case ID_FLOAT:
-			do_button("float");
+		case ID_DERIVATIVE:
+			do_button("derivative");
 			break;
 		case ID_INTEGRAL:
 			do_button("integral");
-			break;
-		case ID_RATIONALIZE:
-			do_button("rationalize");
-			break;
-		case ID_ROOTS:
-			do_button("roots");
-			break;
-		case ID_SIMPLIFY:
-			do_button("simplify");
 			break;
 		case ID_RUN_SCRIPT:
 			run_script();
@@ -1055,10 +1041,10 @@ goto_edit_mode(void)
 
 	// dim buttons
 
-	for (i = 0; i < 10; i++)
+	for (i = 0; i < NBUTTON - 2; i++)
 		EnableWindow(button[i], FALSE);
 
-	SendMessage(button[10], WM_SETTEXT, 0, (LPARAM) "OK");
+	SendMessage(button[NBUTTON - 2], WM_SETTEXT, 0, (LPARAM) "OK");
 
 	ShowWindow(input_window, SW_HIDE);
 	ShowWindow(vscroll, SW_HIDE);
@@ -1079,10 +1065,10 @@ goto_calc_mode(void)
 
 	// light buttons
 
-	for (i = 0; i < 10; i++)
+	for (i = 0; i < NBUTTON - 2; i++)
 		EnableWindow(button[i], TRUE);
 
-	SendMessage(button[10], WM_SETTEXT, 0, (LPARAM) "Edit Script");
+	SendMessage(button[NBUTTON - 2], WM_SETTEXT, 0, (LPARAM) "Edit Script");
 
 	ShowWindow(edit_window, SW_HIDE);
 	ShowWindow(input_window, SW_SHOW);
@@ -1321,19 +1307,13 @@ static void
 move_buttons(void)
 {
 	int i, j, k;
-	j = 0;
-	for (i = 0; i < 6; i++) {
-		j = i * main_client_width / 6;
-		k = (i + 1) * main_client_width / 6;
+	for (i = 0; i < NBUTTON; i++) {
+		j = i * main_client_width / NBUTTON;
+		k = (i + 1) * main_client_width / NBUTTON;
 		MoveWindow(
-			button[2 * i],
+			button[i],
 			j, main_client_height - 2 * line_height,
-			k - j, line_height,
-			TRUE);
-		MoveWindow(
-			button[2 * i + 1],
-			j, main_client_height - line_height,
-			k - j, line_height,
+			k - j, 2 * line_height,
 			TRUE);
 	}
 }
@@ -1960,7 +1940,6 @@ static void
 create_task(void)
 {
 	DWORD id;
-	update_curr_cmd("");
 	timer = (unsigned int) time(NULL);
 	running = 1;
 	thread = CreateThread(
@@ -2015,7 +1994,7 @@ deactivate_controls(void)
 	if (shunted == 1)
 		return;
 	shunted = 1;
-	for (i = 0; i < 12; i++)
+	for (i = 0; i < NBUTTON; i++)
 		EnableWindow(button[i], FALSE);
 	EnableWindow(input_window, FALSE);
 }
@@ -2027,7 +2006,7 @@ activate_controls(void)
 	if (shunted == 0)
 		return;
 	shunted = 0;
-	for (i = 0; i < 12; i++)
+	for (i = 0; i < NBUTTON; i++)
 		EnableWindow(button[i], TRUE);
 	EnableWindow(input_window, TRUE);
 	SetFocus(input_window);
@@ -2045,6 +2024,7 @@ do_enter(void)
 	if (*inp == 0)
 		return;
 	echo_input(inp);
+	update_curr_cmd("");
 	create_task();
 }
 
@@ -2064,10 +2044,12 @@ do_button(char *s)
 		free(inp);
 		inp = (char *) malloc(strlen(s) + 7);
 		strcpy(inp, s);
-		strcat(inp, "(last)");
 	} else {
 		tmp = (char *) malloc(strlen(s) + strlen(inp) + 3);
-		strcpy(tmp, s);
+		if (strcmp(s, "derivative") == 0)
+			strcpy(tmp, "d");
+		else
+			strcpy(tmp, s);
 		strcat(tmp, "(");
 		strcat(tmp, inp);
 		strcat(tmp, ")");
@@ -2076,6 +2058,7 @@ do_button(char *s)
 	}
 	update_cmd_history(inp);
 	echo_input(inp);
+	update_curr_cmd("");
 	create_task();
 }
 
@@ -2084,7 +2067,7 @@ run_script(void)
 {
 	int len;
 	if (edit_mode == 0)
-		SetFocus(input_window);
+		SetFocus(input_window); // move focus from run button
 	if (running)
 		return;
 	if (inp)
@@ -2093,8 +2076,11 @@ run_script(void)
 	inp = (char *) malloc(len + 1);
 	GetWindowText(edit_window, inp, len + 1);
 	goto_calc_mode();
+	deactivate_controls();
 	clear();
+	update_display();
 	create_task();
+	update_curr_cmd("Working...");
 }
 
 static void
