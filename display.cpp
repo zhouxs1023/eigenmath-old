@@ -26,8 +26,6 @@ struct glyph {
 	int c, x, y;
 } chartab[YMAX];
 
-extern U *minus_one_half;
-
 static void emit_expr(U *);
 static void emit_term(U *);
 static void emit_multiply(U *, int);
@@ -590,11 +588,6 @@ emit_numerical_fraction(U *p)
 static int
 isfactor(U *p)
 {
-	// sqrt ?
-
-//	if (car(p) == symbol(POWER) && equal(caddr(p), plus_one_half))
-//		return 1;
-
 	if (iscons(p) && car(p) != symbol(ADD) && car(p) != symbol(MULTIPLY) && car(p) != symbol(POWER))
 		return 1;
 	if (issymbol(p))
@@ -620,13 +613,6 @@ emit_power(U *p)
 		__emit_char(')');
 		return;
 	}
-
-//	if (equal(caddr(p), plus_one_half)) {
-//		__emit_str("sqrt(");
-//		emit_expr(cadr(p));
-//		__emit_char(')');
-//		return;
-//	}
 
 	if (equal(p, unit_imaginary)) {
 		q = symbol(IM)->u.sym.binding;
@@ -703,15 +689,6 @@ emit_denominator(U *p, int n)
 			emit_factor(cadr(p));
 		return;
 	}
-
-	// special case: 1 over sqrt
-
-//	if (equal(caddr(p), minus_one_half)) {
-//		__emit_str("sqrt(");
-//		emit_expr(cadr(p));
-//		__emit_char(')');
-//		return;
-//	}
 
 	k1 = yindex;
 

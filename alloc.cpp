@@ -16,19 +16,12 @@ static U mem[MEM];
 static U *free_list;
 int total_count;		// total number of atoms
 int free_count;			// number of free atoms
-static int mark;
 
 void
 init_alloc(void)
 {
 	free_list = nil;
 	alloc_next_block();
-}
-
-void
-mark_alloc(void)
-{
-	mark = total_count - free_count;
 }
 
 U *
@@ -78,7 +71,11 @@ gc(void)
 
 	// untag what's used
 
-	untag_symbols(); // must be done first because tag is always zero
+	untag(_zero);
+	untag(_one);
+	untag(unit_imaginary);
+
+	untag_symbols();
 
 	untag(varlist);
 
@@ -105,7 +102,7 @@ gc(void)
 
 	free_list = nil;
 	free_count = 0;
-	for (i = mark; i < total_count; i++) {
+	for (i = 0; i < total_count; i++) {
 		if (mem[i].tag) {
 			switch (mem[i].k) {
 			case TENSOR:

@@ -19,6 +19,24 @@
 #include <errno.h>
 #include "U.h"
 
+// for fast symbol access (see symbol.cpp)
+
+enum {
+	AUTOEXPAND = 200,
+	E,
+	EXPOMODE,
+	IM,
+	LAST,
+	PI,
+	SYMBOL_D,
+	SYMBOL_R,
+	SYMBOL_T,
+	SYMBOL_X,
+	SYMBOL_Y,
+	SYMBOL_Z,
+	TTY,
+};
+
 #define MAXDIM 24
 
 typedef struct tensor {
@@ -145,10 +163,8 @@ extern U *_meta_x;
 extern U *_zero;
 extern U *_one;
 extern U *_minus_one;
-extern U *minus_one_half;
 extern U *minus_three_halves;
 extern U *unit_imaginary;
-extern U *plus_one_half;
 
 extern U *alloc();
 extern U *alloc_tensor();
@@ -307,7 +323,6 @@ extern void swap(void);
 char *get_name(U *);
 int new_name(char *);
 void init_alloc(void);
-void mark_alloc(void);
 void detg(void);
 void invg(void);
 void eval_tensor(void);

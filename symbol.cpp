@@ -56,7 +56,7 @@ clear_symbols(void)
 
 // keyword functions for quickly finding system symbols
 
-U *stab[300];
+U *stab[300]; // 0-199 for built-in functions, 200-299 for variables
 
 U *
 symbol(int k)

@@ -27,9 +27,7 @@ U *yyx;
 
 U *_zero;
 U *_one;
-U *_minus_one;
 U *unit_imaginary;
-U *plus_one_half;
 
 int expanding;
 int conjugating;

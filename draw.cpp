@@ -309,7 +309,7 @@ setup_trange_f(void)
 
 	tmax = M_PI;
 
-	p1 = symbol(TRANGE);
+	p1 = get_symbol("trange");
 
 	if (!issym(p1))
 		return;
@@ -363,7 +363,7 @@ setup_xrange_f(void)
 
 	xmax = 10.0;
 
-	p1 = symbol(XRANGE);
+	p1 = get_symbol("xrange");
 
 	if (!issym(p1))
 		return;
@@ -445,7 +445,7 @@ setup_yrange_f(void)
 
 	ymax = 10.0;
 
-	p1 = symbol(YRANGE);
+	p1 = get_symbol("yrange");
 
 	if (!issym(p1))
 		return;
@@ -522,41 +522,6 @@ fudge(void)
 	push(p1);
 
 	restore();
-}
-
-int
-overlay(void)
-{
-	if (iszero(symbol(OVERLAY)->u.sym.binding))
-		return 0;
-	else
-		return 1;
-}
-
-void
-get_pen_color(int *red, int *green, int *blue)
-{
-	U *p;
-
-	*red = 0;
-	*green = 0;
-	*blue = 0;
-
-	p = symbol(PENCOLOR);
-
-	p = p->u.sym.binding;
-
-	if (p->k != TENSOR || p->u.tensor->ndim != 1 || p->u.tensor->dim[0] != 3)
-		return;
-
-	push(p->u.tensor->elem[0]);
-	*red = pop_integer();
-
-	push(p->u.tensor->elem[1]);
-	*green = pop_integer();
-
-	push(p->u.tensor->elem[2]);
-	*blue = pop_integer();
 }
 
 #define XOFF 0

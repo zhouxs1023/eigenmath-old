@@ -110,7 +110,7 @@ run(char *s)
 #else
 			if (p1->k == SYM
 			&& p1 != symbol(LAST)
-			&& p1 != symbol(FORMAT)
+			&& p1 != symbol(TTY)
 			&& p1 != p2) {
 				push_symbol(SETQ);
 				push(p1);
@@ -129,7 +129,7 @@ get_format(void)
 {
 	int fmt;
 	save();
-	p1 = symbol(FORMAT);
+	p1 = symbol(TTY);
 	push(p1->u.sym.binding);
 	fmt = pop_integer();
 	if (fmt != 0)

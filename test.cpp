@@ -1345,7 +1345,7 @@ test(char *file, char **s, int n)
 
 	test_flag = 1;
 
-	p1 = symbol(FORMAT);
+	p1 = symbol(TTY);
 
 	p1->u.sym.binding = _one;
 

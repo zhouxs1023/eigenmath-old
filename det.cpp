@@ -103,9 +103,9 @@ determinant(int n)
 	for (;;) {
 
 		if (sign == 1)
-			push(_one);
+			push_integer(1);
 		else
-			push(_minus_one);
+			push_integer(-1);
 
 		for (i = 0; i < n; i++) {
 			k = n * a[i] + i;

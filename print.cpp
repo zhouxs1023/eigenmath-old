@@ -209,7 +209,7 @@ print_term(U *p)
 
 		// coeff -1?
 
-		if (equal(car(p), _minus_one)) {
+		if (isminusone(car(p))) {
 //			print_char('-');
 			p = cdr(p);
 		}
@@ -326,7 +326,7 @@ print_factor(U *p)
 			return;
 		}
 
-		if (equal(caddr(p), _minus_one)) {
+		if (isminusone(caddr(p))) {
 			if (test_flag == 0)
 				print_str("1 / ");
 			else

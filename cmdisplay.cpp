@@ -695,11 +695,6 @@ emit_numerical_fraction(U *p)
 static int
 isfactor(U *p)
 {
-	// sqrt ?
-
-//	if (car(p) == symbol(POWER) && equal(caddr(p), plus_one_half))
-//		return 1;
-
 	if (iscons(p) && car(p) != symbol(ADD) && car(p) != symbol(MULTIPLY) && car(p) != symbol(POWER))
 		return 1;
 	if (issymbol(p))

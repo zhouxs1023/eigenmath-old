@@ -456,7 +456,7 @@ negate(void)
 	if (isnum(stack[tos - 1]))
 		negate_number();
 	else {
-		push(_minus_one);
+		push_integer(-1);
 		multiply();
 	}
 }

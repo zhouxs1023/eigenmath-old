@@ -4,8 +4,6 @@
 extern void define_symbol(char *, int);
 extern void define_variable(char *, int);
 
-//U *minus_one_half;
-
 U *varlist;
 int symbol_level;
 

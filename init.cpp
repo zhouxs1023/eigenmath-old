@@ -38,16 +38,10 @@ init(void)
 	define_variable("autoexpand", AUTOEXPAND);
 	define_variable("~e", E); // tilde so sort puts it after scalar symbols
 	define_variable("expomode", EXPOMODE);
-	define_variable("tty", FORMAT);
+	define_variable("tty", TTY);
 	define_variable("*im", IM);
 	define_variable("last", LAST);
-	define_variable("overlay", OVERLAY);
-	define_variable("pencolor", PENCOLOR);
 	define_variable("pi", PI);
-
-	define_variable("trange", TRANGE);
-	define_variable("xrange", XRANGE);
-	define_variable("yrange", YRANGE);
 
 	define_variable("d", SYMBOL_D);
 	define_variable("r", SYMBOL_R);
@@ -175,28 +169,19 @@ init(void)
 	formal_arg[4] = get_symbol("@5");
 	formal_arg[5] = get_symbol("@6");
 
+	// if anything is added here be sure it gets untagged in gc()
+
 	push_integer(0);
 	_zero = pop();
 
 	push_integer(1);
 	_one = pop();
 
-	push_integer(-1);
-	_minus_one = pop();
-
-	push_rational(1, 2);
-	plus_one_half = pop();
-
-	//push_rational(-1, 2);
-	//minus_one_half = pop();
-
 	push_symbol(POWER);
 	push_integer(-1);
 	push_rational(1, 2);
 	list(3);
 	unit_imaginary = pop();
-
-	mark_alloc();
 
 	defn();
 }
@@ -205,8 +190,6 @@ static char *defn_str[] = {
 	"imagunit(i)",
 	"autoexpand=1",
 	"expomode=0",
-	"overlay=0",
-	"pencolor=(0,0,0)",
 	"trange=(-pi,pi)",
 	"xrange=(-10,10)",
 	"yrange=(-10,10)",
