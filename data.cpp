@@ -1,5 +1,4 @@
 #include "stdafx.h"
-
 #include "defs.h"
 
 U *p1;
@@ -14,8 +13,6 @@ U *last;
 U *tmp;
 U *nil;
 U *formal_arg[6];
-
-struct symbol *symtbl[64];
 
 U *table;
 U *a;
