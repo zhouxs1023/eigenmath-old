@@ -136,6 +136,8 @@ static void change_modes(void);
 static void create_task(char *);
 static void go_to_calc_mode(void);
 static void go_to_edit_mode(void);
+static void activate_controls(void);
+static void deactivate_controls(void);
 
 WindowRef gwindow;
 
@@ -371,8 +373,11 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
         if (running)
 	   break;
 	go_to_calc_mode();
+	deactivate_controls();
 	clear();
+	draw_display_now();
 	create_task(script_buf);
+	update_curr_cmd("Working...");
         break;
 
     // menu events
@@ -527,21 +532,7 @@ get_curr_cmd(void)
 void
 update_curr_cmd(char *s)
 {
-    //DeactivateControl(inputcontrol);
     SetControlData(inputcontrol, 0, kControlEditTextTextTag, strlen(s), s);
-    //ActivateControl(inputcontrol);
-    DrawOneControl(inputcontrol);
-}
-
-void
-select_all_input(int n)
-{
-    ControlEditTextSelectionRec sel;
-    sel.selStart = 0;
-    sel.selEnd = n;
-    DeactivateControl(inputcontrol); // this is needed otherwise hilite is wrong
-    SetControlData(inputcontrol, 0, kControlEditTextSelectionTag, sizeof sel, &sel);
-    ActivateControl(inputcontrol);
     DrawOneControl(inputcontrol);
 }
 
@@ -1354,23 +1345,25 @@ static int shunted;
 static void
 deactivate_controls(void)
 {
-    int i;
-    if (shunted == 0) {
-        for (i = 0; i < NBUTTONS; i++)
-            DeactivateControl(buttons[i]);
-        shunted = 1;
-    }
+	int i;
+	if (shunted == 1)
+		return;
+	DeactivateControl(inputcontrol);
+	for (i = 0; i < NBUTTONS; i++)
+		DeactivateControl(buttons[i]);
+	shunted = 1;
 }
 
 static void
 activate_controls(void)
 {
-    int i;
-    if (shunted == 1) {
-        for (i = 0; i < NBUTTONS; i++)
-            ActivateControl(buttons[i]);
-        shunted = 0;
-    }
+	int i;
+	if (shunted == 0)
+		return;
+	ActivateControl(inputcontrol);
+	for (i = 0; i < NBUTTONS; i++)
+		ActivateControl(buttons[i]);
+	shunted = 0;
 }
 
 static void
@@ -1391,9 +1384,8 @@ process_user_event(void)
         return;
 
     if (running == 2) {
+	update_curr_cmd("");
         activate_controls();
-        ActivateControl(inputcontrol);
-        update_curr_cmd("");
         update_display();
         running = 0;
         return;
@@ -1403,7 +1395,6 @@ process_user_event(void)
 
     if (dt > 1) {
         deactivate_controls();
-        DeactivateControl(inputcontrol);
         sprintf(buf, "Working on it for %d seconds. Esc might interrupt, otherwise press \021Q to quit.", dt);
         update_curr_cmd(buf);
         update_display();
@@ -1463,9 +1454,8 @@ do_resize(void)
 	erase_window();
 	create_controls();
 	if (running) {
-		shunted = 0;
+		shunted = 0; // controls were redrawn so no longer shunted
 		deactivate_controls();
-		DeactivateControl(inputcontrol);
     	}
 	DrawControls(gwindow);
 	if (edit_mode)
@@ -1630,13 +1620,13 @@ change_modes(void)
 static void
 go_to_calc_mode(void)
 {
-	if (edit_mode)
+	if (edit_mode == 1)
 		change_modes();
 }
 
 static void
 go_to_edit_mode(void)
 {
-	if (!edit_mode)
+	if (edit_mode == 0)
 		change_modes();
 }
