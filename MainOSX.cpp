@@ -1292,7 +1292,6 @@ create_task(char *s)
 {
     MPTaskID id;
     inp = s;
-    DeactivateControl(inputcontrol);
     timer = time(NULL);
     running = 1;
     MPCreateTask(
@@ -1394,7 +1393,7 @@ process_user_event(void)
     if (running == 2) {
         activate_controls();
         ActivateControl(inputcontrol);
-        //update_curr_cmd("");
+        update_curr_cmd("");
         update_display();
         running = 0;
         return;
@@ -1404,6 +1403,7 @@ process_user_event(void)
 
     if (dt > 1) {
         deactivate_controls();
+        DeactivateControl(inputcontrol);
         sprintf(buf, "Working on it for %d seconds. Esc might interrupt, otherwise press \021Q to quit.", dt);
         update_curr_cmd(buf);
         update_display();
