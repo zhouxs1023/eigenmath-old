@@ -9,6 +9,9 @@ extern U symtab[];
 void
 init(void)
 {
+	if (nil)
+		return;
+
 	nil = symtab; // this must be first, get_symbol() uses nil
 
 	get_symbol("nil"); // must be first symbol defined

@@ -3,25 +3,24 @@
 
 extern int scan(char *);
 extern void setup(void);
+extern void init(void);
 extern void selftest(void);
 extern void cmdisplay(U *);
-
-extern int symbol_level, test_flag;
+extern int symbol_level;
+extern int test_flag;
 extern U *varlist;
-
-static void check_frame(void);
+static void check_stack(void);
 static void print_mem_info(void);
 static int get_format(void);
-
+static int dash_dash_command(char *);
 jmp_buf stop_return;
-
 static char *errstr;
 static char buf[100];
 
 void
-stop(char *s)
+stop(char *str)
 {
-	errstr = s;
+	errstr = str; // don't print str now, jmp_buf might be redirected
 	longjmp(stop_return, 1);
 }
 
@@ -29,25 +28,6 @@ void
 run(char *s)
 {
 	int n, tty;
-
-	if (strcmp(s, "--mem") == 0) {
-		print_mem_info();
-		return;
-	}
-
-	if (strcmp(s, "--gc") == 0) {
-		varlist = nil;
-		symbol_level = 0;
-		tos = 0;
-		frame = stack + TOS;
-		gc();
-		return;
-	}
-
-	if (strcmp(s, "--test") == 0) {
-		selftest();
-		return;
-	}
 
 	if (setjmp(stop_return)) {
 		restore_symbols(0);
@@ -58,13 +38,18 @@ run(char *s)
 		return;
 	}
 
-	varlist = nil;
-
-	symbol_level = 0;
+	init();
 
 	tos = 0;
 
 	frame = stack + TOS;
+
+	symbol_level = 0;
+
+	varlist = nil;
+
+	if (dash_dash_command(s))
+		return;
 
 	while (1) {
 
@@ -78,11 +63,13 @@ run(char *s)
 		setup();
 
 		p1 = pop();
-		check_frame();
+		check_stack();
+
 		push(p1);
 		eval();
+
 		p2 = pop();
-		check_frame();
+		check_stack();
 
 		symbol(LAST)->u.sym.binding = last;
 		symbol(LAST)->u.sym.binding2 = nil;
@@ -125,6 +112,24 @@ run(char *s)
 }
 
 static int
+dash_dash_command(char *s)
+{
+	if (strncmp(s, "--mem", 5) == 0) {
+		print_mem_info();
+		return 1;
+	}
+	if (strncmp(s, "--gc", 4) == 0) {
+		gc();
+		return 1;
+	}
+	if (strncmp(s, "--test", 6) == 0) {
+		selftest();
+		return 1;
+	}
+	return 0;
+}
+
+static int
 get_format(void)
 {
 	int fmt;
@@ -138,26 +143,13 @@ get_format(void)
 	return fmt;
 }
 
-void
-check_frame(void)
+static void
+check_stack(void)
 {
 	if (tos != 0)
-		printstr("stack error\n");
+		stop("stack error");
 	if (frame != stack + TOS)
-		printstr("frame error\n");
-	tos = 0;
-	frame = stack + TOS;
-}
-
-void
-echo_input(char *s)
-{
-	int tty;
-	tty = get_format();
-	if (tty)
-		printstr("\n");
-	printstr(s);
-	printstr("\n");
+		stop("frame error");
 }
 
 extern int total_count;
@@ -166,7 +158,7 @@ extern int free_count;
 static void
 print_mem_info(void)
 {
-	sprintf(buf, "total atoms %d (%dM)   free atoms %d   used atoms %d   sizeof %d\n",
+	sprintf(buf, "total atoms %d (%dM)   free atoms %d   used atoms %d   sizeof atom %d\n",
 		total_count,
 		total_count / 1000000,
 		free_count,

@@ -120,6 +120,11 @@ static char *s[] = {
 
 	"taylor(ln(x),x,8)",
 	"undefined function",
+
+	// make sure x is restored after taylor breaks
+
+	"x",
+	"x",
 };
 
 void

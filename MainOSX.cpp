@@ -98,7 +98,6 @@ pascal OSStatus MainWindowCommandHandler( EventHandlerCallRef handlerRef, EventR
 extern void do_up_arrow(void);
 extern void do_down_arrow(void);
 extern void printstr(char *);
-extern void init(void);
 extern void clear(void);
 extern void draw_display(void);
 extern void run(char *);
@@ -199,18 +198,6 @@ int main(int argc, char* argv[])
 {
     IBNibRef 		nibRef;
     OSStatus err;
-
-    //TXNMacOSPreferredFontDescription font;
-
-    init();
-
-    //font.fontID = YYFONT;
-    //font.pointSize = YYSIZE;
-    //font.encoding = CreateTextEncoding(kTextEncodingMacRoman, kMacRomanDefaultVariant, kTextEncodingDefaultFormat);
-    //font.fontStyle = 0;
-
-    // This corrupts memory, "Save As" doesn't work. Why?
-    //err = TXNInitTextension(&font, 1, kTXNAlwaysUseQuickDrawTextMask); // added this to make YAST work
 
     err = TXNInitTextension(NULL, 0, 0);
     //require_noerr( err, CantGetNibRef );

@@ -305,6 +305,7 @@ extern int cmp(U **, U**);
 extern U *copy_number(U *);
 double convert_rational_to_double(U *);
 
+extern void run(char *);
 extern void save(void);
 extern void restore(void);
 extern void d_tensor_tensor(void);

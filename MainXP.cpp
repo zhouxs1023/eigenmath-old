@@ -92,7 +92,6 @@ static void MyRegisterClass(HINSTANCE hInstance);
 BOOL InitInstance(HINSTANCE, int);
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
-void init(void);
 void do_up_arrow(void);
 void do_down_arrow(void);
 void do_fonts(void);
@@ -213,8 +212,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
  	int tmp;
 	MSG msg;
 	HACCEL haccel;
-
-	init();
 
 	hinst = hInstance;
 

@@ -1,9 +1,5 @@
 #include "defs.h"
-
-extern void run(char *);
-
 int esc_flag;
-
 #define BUFLEN 100000
 static char buf[BUFLEN];
 
@@ -12,8 +8,6 @@ main(int argc, char *argv[])
 {
 	int i;
 	FILE *f;
-
-	init();
 
 	for (i = 1; i < argc; i++) {
 		f = fopen(argv[i], "r");
@@ -29,7 +23,6 @@ main(int argc, char *argv[])
 	for (;;) {
 		printf("> ");
 		fgets(buf, BUFLEN, stdin);
-		buf[strlen(buf) - 1] = 0; // remove newline
 		run(buf);
 	}
 }
