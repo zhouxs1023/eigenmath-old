@@ -17,7 +17,7 @@
 #include <math.h>
 //#include <sys/times.h>
 #include <errno.h>
-#include "u.h"
+#include "U.h"
 
 #define MAXDIM 24
 
