@@ -388,9 +388,11 @@ emit_multiply(U *p, int n)
 		emit_factor(car(p));
 		p = cdr(p);
 		while (iscons(p)) {
-			if (k > 1)
+			if (k > 1) {
+				emit_thin_space();
 				emit_char(SYMBOL_FONT, 180); // multiplication symbol
-			else {
+				emit_thin_space();
+			} else {
 #ifndef MAC
 				emit_thin_space_maybe(); // because sigma sqrt(a + b) looks funny
 #endif

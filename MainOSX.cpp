@@ -35,6 +35,8 @@
 #define DEFAULT_HEIGHT 240
 #endif
 
+#define WINATTR (kWindowStandardDocumentAttributes | kWindowStandardHandlerAttribute)
+
 int client_width = DEFAULT_WIDTH;
 int client_height = DEFAULT_HEIGHT;
 int line_height = 20;
@@ -56,6 +58,7 @@ int update_display_request;
 extern int esc_flag;
 static int running;
 static unsigned int timer;
+static int edit_mode;
 
 struct {
     int ascent, descent, width;
@@ -104,7 +107,6 @@ extern void do_help(int);
 extern char *get_tty_buf(void);
 
 void do_control_stuff(void);
-void create_controls(void);
 void create_input_control(void);
 void create_edit_control(void);
 void create_graph_control(void);
@@ -118,7 +120,6 @@ static void file_svas(void);
 static void do_save(void);
 static void file_open(void);
 static void do_example(int);
-static void select_edit_window(void);
 static void update_edit_control(void);
 static void select_font(int);
 static void update_scroll_bars(void);
@@ -127,7 +128,6 @@ static void hscroll_f(ControlRef, ControlPartCode);
 static void do_main_help(int);
 static void do_return_key(void);
 static void do_button(char *);
-static void do_run_button(void);
 static void draw_display_now(void);
 static void send_user_event(void);
 static void process_user_event(void);
@@ -136,9 +136,12 @@ static void do_resize(void);
 static void copy_display(void);
 static void copy_tty(void);
 static void update_display(void);
+static void create_controls(void);
+static void remove_controls(void);
+static void change_modes(void);
+static void create_task(void);
 
 WindowRef gwindow;
-WindowRef edit_window;
 
 ControlHandle inputcontrol;
 ControlHandle edit_control;
@@ -323,7 +326,7 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
         return err;
     }
 
-    if (yclass == kEventClassKeyboard) {
+    if (edit_mode == 0 && yclass == kEventClassKeyboard) {
         char keycode;
         GetEventParameter(event, kEventParamKeyMacCharCodes, typeChar, NULL, sizeof (char), NULL, &keycode);
         if (keycode == 27) {
@@ -360,36 +363,47 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
     switch( command.commandID ) {
 
     case 'PROG':
-        if (running == 0)
-            select_edit_window();
+        if (running)
+	    break;
+	change_modes();
         break;
 
     case 'RUN ':
-        if (running == 0)
-            do_run_button();
+        if (running)
+	   break;
+	if (edit_mode)
+	    change_modes();
+	clear();
+	create_task();
         break;
 
     // menu events
 
     case 'abou':
-        if (running == 0) {
-            printstr("This is Eigenmath version 102.\n");
-            update_display();
-        }
+        if (running)
+		break;
+	if (edit_mode)
+		change_modes();
+        printstr("This is Eigenmath version 103.\n");
+        update_display();
         break;
 
     case 'new ':
-        if (running == 0) {
-            select_edit_window();
-            *filename = 0;
-            *program_buf = 0;
-            update_edit_control();
-        }
+        if (running)
+	    break;
+	if (edit_mode == 0)
+	    change_modes();
+        *filename = 0;
+        *program_buf = 0;
+	update_edit_control();
         break;
 
     case 'open':
-        if (running == 0)
-            file_open();
+	if (running)
+	    break;
+	if (edit_mode == 0)
+		change_modes();
+        file_open();
         break;
 
     case 'clos':
@@ -409,9 +423,13 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
 // edit menu
 
     case 'CPY1':
+	if (edit_mode)
+	    change_modes();
         copy_display();
         break;
     case 'CPY2':
+	if (edit_mode)
+	    change_modes();
         copy_tty();
         break;
 
@@ -533,46 +551,6 @@ select_all_input(int n)
     DrawOneControl(inputcontrol);
 }
 
-static void
-select_edit_window(void)
-{
-    Rect r;
-
-    if (edit_window) {
-        SelectWindow(edit_window);
-        return;
-    }
-
-    r.left = 80;
-    r.top = 44;
-    r.right = r.left + DEFAULT_WIDTH + grow_dim;
-    r.bottom = r.top + DEFAULT_HEIGHT + grow_dim;
-
-    CreateNewWindow(6, kWindowCollapseBoxAttribute | kWindowStandardHandlerAttribute, &r, &edit_window);
-
-    // script edit control
-
-    r.left = 0;
-    r.top = 0;
-    r.right = DEFAULT_WIDTH + grow_dim;
-    r.bottom = DEFAULT_HEIGHT + grow_dim;
-
-    CreateYASTControl(edit_window, &r, &edit_control);
-
-    // This seems to fix the runt cursor problem
-
-    strcpy(program_buf, "Hello, world\n");
-    update_edit_control();
-    *program_buf = 0;
-    update_edit_control();
-
-    ShowWindow(edit_window);
-
-    SetKeyboardFocus(edit_window, edit_control, kControlFocusNextPart);
-
-    InstallWindowEventHandler(edit_window, NewEventHandlerUPP(MainWindowCommandHandler), 1, commSpec, (void *) edit_window, NULL);
-}
-
 #define BLUE_SHIM 6
 
 void
@@ -612,7 +590,10 @@ create_buttons(void)
         r.top = client_height - 2 * line_height + SHIM;
         r.right = k;
         r.bottom = r.top + AA;
-        s = button_name[2 * i];
+	if (edit_mode && i == 5)
+		s = "<<";
+	else
+        	s = button_name[2 * i];
         str = CFStringCreateWithCString(NULL, s, kCFStringEncodingMacRoman);
         CreateBevelButtonControl(gwindow, &r, str, 0, 0, 0, 0, 0, 0, buttons + 2 * i);
         CFRelease(str);
@@ -626,11 +607,14 @@ create_buttons(void)
         CFRelease(str);
     }
 
-    for (i = 0; i < 10; i++)
-        SetControlCommandID(buttons[i], 0xcafe0000 + i);
+	for (i = 0; i < 10; i++) {
+		SetControlCommandID(buttons[i], 0xcafe0000 + i);
+		if (edit_mode)
+			DisableControl(buttons[i]);
+	}
 
-    SetControlCommandID(buttons[10], 'PROG');
-    SetControlCommandID(buttons[11], 'RUN ');
+	SetControlCommandID(buttons[10], 'PROG');
+	SetControlCommandID(buttons[11], 'RUN ');
 }
 
 extern OSStatus CreateYASTControl(WindowRef, Rect *, ControlRef *);
@@ -739,11 +723,7 @@ create_main_window(void)
     r.right = r.left + client_width + grow_dim;
     r.bottom = r.top + client_height + grow_dim;
 
-    //CreateNewWindow(6, kWindowCollapseBoxAttribute | kWindowStandardHandlerAttribute, &r, &gwindow);
-
     CreateNewWindow(6, WINATTR, &r, &gwindow);
-
-    //SetWindowTitleWithCFString(gwindow, CFSTR("Eigenmath 67"));
 
     display_width = client_width - scroll_bar_dim;
     display_height = client_height - 2 * line_height - input_control_height - scroll_bar_dim;
@@ -842,31 +822,31 @@ extern char *example_script[7];
 static void
 do_example(int n)
 {
-    if (running)
-        return;
-    *filename = 0;
-    select_edit_window(); // may clobber program_buf
-    strcpy(program_buf, example_script[n]);
-    update_edit_control();
+	if (running)
+		return;
+	if (edit_mode == 0)
+		change_modes();
+	*filename = 0;
+	strcpy(program_buf, example_script[n]);
+	update_edit_control();
 }
 
 static void
 do_open(void)
 {
-    int n;
-    FILE *f;
-    select_edit_window(); // may clobber program_buf
-    f = fopen(filename, "r");
-    if (f == NULL) {
-        *filename = 0;
-        *program_buf = 0;
-    } else {
-        n = fread(program_buf, 1, MAX_PROGRAM_SIZE, f);
-        fclose(f);
-        program_buf[n] = 0;
-        fclose(f);
-    }
-    update_edit_control();
+	int n;
+	FILE *f;
+	f = fopen(filename, "r");
+	if (f == NULL) {
+		*filename = 0;
+		*program_buf = 0;
+	} else {
+		n = fread(program_buf, 1, MAX_PROGRAM_SIZE, f);
+		fclose(f);
+		program_buf[n] = 0;
+		fclose(f);
+	}
+	update_edit_control();
 }
 
 static void
@@ -1305,11 +1285,12 @@ hscroll_f(ControlRef ref, ControlPartCode part)
 static void
 do_main_help(int n)
 {
-    if (running)
-        return;
-    SelectWindow(gwindow);
-    do_help(n);
-    update_display();
+	if (running)
+		return;
+	if (edit_mode)
+		change_modes();
+	do_help(n);
+	update_display();
 }
 
 static char *inp;
@@ -1384,16 +1365,6 @@ do_button(char *s)
     create_task();
 }
 
-static void
-do_run_button(void)
-{
-    if (running)
-        return;
-    get_script();
-    clear();
-    create_task();
-}
-
 static int shunted;
 
 static void
@@ -1459,10 +1430,8 @@ get_script(void)
 {
     int i;
     Size len;
-    if (edit_control == 0) {
-        program_buf[0] = 0;
+    if (edit_mode == 0)
         return;
-    }
     GetControlData(edit_control, 0, kControlEditTextTextTag, MAX_PROGRAM_SIZE, program_buf, &len);
     program_buf[len] = 0;
     for (i = 0; i < len; i++)
@@ -1499,37 +1468,34 @@ erase_window_f(void)
 static void
 do_resize(void)
 {
-    int i;
-    Rect r;
-    GetWindowBounds(gwindow, kWindowContentRgn, &r);
-    client_height = r.bottom - r.top - grow_dim;
-    client_width = r.right - r.left - grow_dim;
-    display_width = client_width - scroll_bar_dim;
-    display_height = client_height - 2 * line_height - input_control_height - scroll_bar_dim;
-    //KillControls(gwindow); // cannot get it to work, new controls are never drawn
-    DisposeControl(hscroll);
-    DisposeControl(vscroll);
-    DisposeControl(inputcontrol);
-    for (i = 0; i < 12; i++)
-        DisposeControl(buttons[i]);
-    erase_window();
-    create_scroll_bar_controls();
-    create_input_control();
-    create_buttons();
-    SetKeyboardFocus(gwindow, inputcontrol, kControlFocusNextPart);
-    if (running) {
-        shunted = 0;
-        deactivate_controls();
-        DeactivateControl(inputcontrol);
-    }
-    DrawControls(gwindow);
-    // display_y ranges from 0 to max_y
-    max_y = total_h - display_height;
-    if (max_y < 0)
-        max_y = 0;
-    if (display_y > max_y)
-        display_y = max_y;
-    draw_display_now();
+	Rect r;
+	GetWindowBounds(gwindow, kWindowContentRgn, &r);
+	client_height = r.bottom - r.top - grow_dim;
+	client_width = r.right - r.left - grow_dim;
+	display_width = client_width - scroll_bar_dim;
+	display_height = client_height - 2 * line_height - input_control_height - scroll_bar_dim;
+
+	//KillControls(gwindow); // cannot get it to work, new controls are never drawn
+	remove_controls();
+	erase_window();
+	create_controls();
+	if (running) {
+		shunted = 0;
+		deactivate_controls();
+		DeactivateControl(inputcontrol);
+    	}
+	DrawControls(gwindow);
+	if (edit_mode)
+		update_edit_control();
+	else {
+		// display_y ranges from 0 to max_y
+		max_y = total_h - display_height;
+		if (max_y < 0)
+			max_y = 0;
+		if (display_y > max_y)
+			display_y = max_y;
+		draw_display_now();
+	}
 }
 
 static void
@@ -1594,4 +1560,85 @@ copy_tty(void)
         strlen(s),
         s);
     free(s);
+}
+
+static void create_calc_mode_controls(void);
+static void create_edit_mode_controls(void);
+
+static void
+create_controls(void)
+{
+	if (edit_mode)
+		create_edit_mode_controls();
+	else
+		create_calc_mode_controls();
+}
+
+static void
+create_calc_mode_controls(void)
+{
+	create_scroll_bar_controls();
+	create_input_control();
+	create_buttons();
+	SetKeyboardFocus(gwindow, inputcontrol, kControlFocusNextPart);
+}
+
+static void
+create_edit_mode_controls(void)
+{
+	Rect r;
+	create_buttons();
+	r.left = 3;
+	r.top = 3;
+	r.right = client_width - 3;
+	r.bottom = client_height - 2 * line_height - 3;
+	CreateYASTControl(gwindow, &r, &edit_control);
+	ShowControl(edit_control);
+	SetKeyboardFocus(gwindow, edit_control, kControlFocusNextPart);
+}
+
+static void remove_calc_mode_controls(void);
+static void remove_edit_mode_controls(void);
+
+static void
+remove_controls(void)
+{
+	if (edit_mode) {
+		get_script();
+		remove_edit_mode_controls();
+	} else
+		remove_calc_mode_controls();
+}
+
+static void
+remove_calc_mode_controls(void)
+{
+	int i;
+	DisposeControl(hscroll);
+	DisposeControl(vscroll);
+	DisposeControl(inputcontrol);
+	for (i = 0; i < 12; i++)
+		DisposeControl(buttons[i]);
+}
+
+static void
+remove_edit_mode_controls(void)
+{
+	DisposeControl(edit_control);
+	DisposeControl(buttons[10]);
+	DisposeControl(buttons[11]);
+}
+
+static void
+change_modes(void)
+{
+	remove_controls();
+	erase_window();
+	edit_mode ^= 1;
+	create_controls();
+	DrawControls(gwindow);
+	if (edit_mode)
+		update_edit_control();
+	else
+		draw_display_now();
 }
