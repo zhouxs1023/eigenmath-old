@@ -1,35 +1,19 @@
-#include "stdafx.h"
-
-//-----------------------------------------------------------------------------
+// This scanner uses the recursive descent method.
 //
-//	Formerly add() and multiply() were used to construct expressions but
-//	this preevaluation caused problems.
-//
-//	For example, suppose A has the floating point value inf.
-//
-//	Before, the expression A/A resulted in 1 because the scanner would
-//	divide the symbols.
-//
-//	After removing add() and multiply(), A/A results in nan which is the
-//	correct result.
-//
-//	The functions negate() and inverse() are used but they do not cause
-//	problems with preevaluation of symbols.
-//
-//	The char pointers token_str and scan_str point to the input string.
+// The char pointers token_str and scan_str are pointers to the input string as
+// in the following example.
 //
 //	| g | a | m | m | a |   | a | l | p | h | a |
 //	  ^                   ^
 //	  token_str           scan_str
 //
-//	The char pointer token_buf points to a malloc buffer.
+// The char pointer token_buf points to a malloc buffer.
 //
 //	| g | a | m | m | a | \0 |
 //	  ^
 //	  token_buf
-//
-//-----------------------------------------------------------------------------
 
+#include "stdafx.h"
 #include "defs.h"
 
 #define T_INTEGER 1001
@@ -701,3 +685,20 @@ test_scan(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+//	Notes:
+//
+//	Formerly add() and multiply() were used to construct expressions but
+//	this preevaluation caused problems.
+//
+//	For example, suppose A has the floating point value inf.
+//
+//	Before, the expression A/A resulted in 1 because the scanner would
+//	divide the symbols.
+//
+//	After removing add() and multiply(), A/A results in nan which is the
+//	correct result.
+//
+//	The functions negate() and inverse() are used but they do not cause
+//	problems with preevaluation of symbols.
+
