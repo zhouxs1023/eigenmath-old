@@ -236,3 +236,16 @@ issymbolic(U *p)
 		return 0;
 	}
 }
+
+// i.e. 2, 2^3, etc.
+
+int
+isintegerfactor(U *p)
+{
+	if (isinteger(p) || car(p) == symbol(POWER)
+	&& isinteger(cadr(p))
+	&& isinteger(caddr(p)))
+		return 1;
+	else
+		return 0;
+}

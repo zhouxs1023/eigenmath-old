@@ -489,6 +489,7 @@ int iszero(U *);
 int isplusone(U *);
 int isminusone(U *);
 int isinteger(U *);
+int isintegerfactor(U *);
 int isnonnegativeinteger(U *);
 int iseveninteger(U *);
 void ssinh(void);

@@ -360,22 +360,42 @@ count_denominators(U *p)
 	return count;
 }
 
+// an integer factor is 2, 2^3, etc.
+
+static int
+count_integer_factors(U *p)
+{
+	int n = 0;
+	while (iscons(p)) {
+		if (isintegerfactor(car(p)))
+			n++;
+		p = cdr(p);
+	}
+	return n;
+}
+
 // n is the number of denominators, not counting a fraction like 1/2
 
 static void
 emit_multiply(U *p, int n)
 {
+	int k;
 	if (n == 0) {
 		p = cdr(p);
 		if (isplusone(car(p)) || isminusone(car(p)))
 			p = cdr(p);
+		k = count_integer_factors(p);
 		emit_factor(car(p));
 		p = cdr(p);
 		while (iscons(p)) {
+			if (k > 1)
+				emit_char(SYMBOL_FONT, 180); // multiplication symbol
+			else {
 #ifndef MAC
-			emit_thin_space_maybe(); // because sigma sqrt(a + b) looks funny
+				emit_thin_space_maybe(); // because sigma sqrt(a + b) looks funny
 #endif
-			emit_thin_space();
+				emit_thin_space();
+			}
 			emit_factor(car(p));
 			p = cdr(p);
 		}

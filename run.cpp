@@ -154,6 +154,17 @@ check_stack(void)
 		stop("frame error");
 }
 
+void
+echo_input(char *s)
+{
+//	int tty;
+//	tty = get_format();
+//	if (tty)
+//		printstr("\n");
+	printstr(s);
+	printstr("\n");
+}
+
 extern int total_count;
 extern int free_count;
 
