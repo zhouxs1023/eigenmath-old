@@ -1331,7 +1331,6 @@ static char *inp;
 static OSStatus
 task(void *p)
 {
-    clear();
     run(program_buf);
     running = 2;
     send_user_event();
@@ -1406,6 +1405,7 @@ do_run_button(void)
     if (running)
         return;
     get_script();
+    clear();
     create_task();
 }
 
