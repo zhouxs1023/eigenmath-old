@@ -7,15 +7,6 @@ extern void define_variable(char *, int);
 U *varlist;
 int symbol_level;
 
-int
-is_blank(char *s)
-{
-	while (*s)
-		if (!isspace(*s++))
-			return 0;
-	return 1;
-}
-
 void
 list(int n)
 {
@@ -315,59 +306,6 @@ ssqrt(void)
 {
 	push_rational(1, 2);
 	power();
-}
-
-void
-slog(void)
-{
-	double d;
-
-	save();
-
-	p1 = pop();
-
-	if (p1->k == DOUBLE) {
-		d = p1->u.d;
-		if (d < 0.0) {
-			d = log(-d);
-			push_double(d);
-			push(imaginaryunit);
-			push_symbol(PI);
-			multiply();
-			add();
-		} else {
-			d = log(d);
-			push_double(d);
-		}
-		restore();
-		return;
-	}
-
-	if (equal(p1, one)) {
-		push_integer(0);
-		restore();
-		return;
-	}
-
-	if (p1 == symbol(E)) {
-		push(one);
-		restore();
-		return;
-	}
-
-	if (car(p1) == symbol(POWER)) {
-		push(caddr(p1));
-		push(cadr(p1));
-		slog();
-		multiply();
-		restore();
-		return;
-	}
-
-	push_symbol(LOG);
-	push(p1);
-	list(2);
-	restore();
 }
 
 void

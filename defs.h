@@ -188,7 +188,7 @@ extern void addk(int);
 extern void multiply_all(int);
 extern void divide(void);
 extern void multiply(void);
-extern void slog(void);
+extern void logarithm(void);
 extern void add(void);
 extern int lessp(U *, U *);
 extern void list(int);

@@ -233,7 +233,7 @@ dpower(void)
 	multiply();
 
 	push(cadr(p1));		// log u
-	slog();
+	logarithm();
 
 	push(caddr(p1));	// dv/dx
 	push(p2);

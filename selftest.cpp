@@ -30,6 +30,7 @@ extern void test_inner(void);
 extern void test_integral(void);
 extern void test_isprime(void);
 extern void test_lcm(void);
+extern void test_log(void);
 extern void test_madd(void);
 extern void test_mdiv(void);
 extern void test_mgcd(void);
@@ -118,6 +119,7 @@ selftest(void)
 	test_for();
 	test_inner();
 	test_lcm();
+	test_log();
 	test_mod();
 	test_outer();
 	test_product();

@@ -30,6 +30,7 @@ extern void eval_filter(void);
 extern void eval_floor(void);
 extern void eval_inner(void);
 extern void eval_isprime(void);
+extern void eval_log(void);
 extern void eval_mod(void);
 extern void eval_outer(void);
 extern void eval_product(void);
@@ -548,14 +549,6 @@ eval_legendre(void)
 	} else
 		push(zero);
 	legendre();
-}
-
-static void
-eval_log(void)
-{
-	push(cadr(p1));
-	eval();
-	slog();
 }
 
 static void
