@@ -36,7 +36,7 @@ char *
 get_printname(U *p)
 {
 	int n;
-	n = p - symtab;
+	n = (int) (p - symtab);
 	return printname[n];
 }
 
