@@ -138,10 +138,18 @@ printstr(char *s)
 void
 clear_term(void)
 {
-	max_x = 0;
+	while (head != tail) {
+		free(term[head].u.s);
+		head = (head + 1) % MAXHIST;
+	}
+	head = 0;
+	tail = 0;
 	display_x = 0;
-	max_y = total_h;
-	display_y = total_h;
+	display_y = 0;
+	max_x = 0;
+	max_y = 0;
+	total_w = 0;
+	total_h = 0;
 	update_display_request = 1;
 }
 

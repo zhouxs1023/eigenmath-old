@@ -5,13 +5,13 @@
 extern void run(char *);
 
 static char *exponent_help =
-"cls()\n"
+"clear()\n"
 "\"Type ^ for exponent, like this:\"\n"
 "\"x^2\"\n"
 "x^2\n";
 
 static char *help_multiply =
-"cls()\n"
+"clear()\n"
 "\"Type a space to indicate multiplication, like this:\"\n"
 "\"A (B + C)\"\n"
 "A (B + C)\n"
@@ -20,25 +20,25 @@ static char *help_multiply =
 "A(B + C)\n";
 
 static char *draw_help =
-"cls()\n"
+"clear()\n"
 "\"For example, type x^2 then click the draw button.\"\n"
 "\"draw(x^2)\"\n"
 "draw(x^2)\n";
 
 static char *factor_polynomial_help =
-"cls()\n"
+"clear()\n"
 "\"For example, type x^2 + 3 x + 2 then click the factor button.\"\n"
 "\"factor(x^2 + 3 x + 2)\"\n"
 "factor(x^2 + 3 x + 2)\n";
 
 static char *factor_number_help =
-"cls()\n"
+"clear()\n"
 "\"For example, type 900 then click the factor button.\"\n"
 "\"factor(900)\"\n"
 "factor(900)\n";
 
 static char *help_symbol =
-"cls()\n"
+"clear()\n"
 "\"For example, type\"\n"
 "\"x = a + b\"\n"
 "x = a + b\n"
@@ -47,7 +47,7 @@ static char *help_symbol =
 "x\n";
 
 static char *help_function =
-"cls()\n"
+"clear()\n"
 "\"For example, type\"\n"
 "\"f(x) = x^2 + 3\"\n"
 "f(x) = x^2 + 3\n"
@@ -59,8 +59,7 @@ static char *help_function =
 "f\n";
 
 static char *help_special_note_1 =
-"x = quote(x)\n"
-"cls()\n"
+"clear()\n"
 "\"Normally a function is not evaluated when it is defined.\"\n"
 "\"The eval function can be used to change this.\"\n"
 "\"Here is a before-and-after example.\"\n"
@@ -80,7 +79,7 @@ static char *help_special_note_2 =
 "f(0)\n";
 
 static char *help_type_vector =
-"cls()\n"
+"clear()\n"
 "\"For example, type\"\n"
 "\"X = (10,20)\"\n"
 "X = (10,20)\n"
@@ -89,7 +88,7 @@ static char *help_type_vector =
 "X\n";
 
 static char *help_type_matrix =
-"cls()\n"
+"clear()\n"
 "\"For example, type\"\n"
 "\"A = ((1,2),(3,4))\"\n"
 "A = ((1,2),(3,4))\n"
@@ -98,7 +97,7 @@ static char *help_type_matrix =
 "A\n";
 
 static char *help_matrix_times_vector =
-"cls()\n"
+"clear()\n"
 "\"Example:\"\n"
 "\"A = ((A11,A12),(A21,A22))\"\n"
 "A = ((A11,A12),(A21,A22))\n"
@@ -108,7 +107,7 @@ static char *help_matrix_times_vector =
 "dot(A,X)\n";
 
 static char *help_invert_matrix =
-"cls()\n"
+"clear()\n"
 "\"Example:\"\n"
 "\"A = ((1,2),(3,4))\"\n"
 "A = ((1,2),(3,4))\n"
@@ -118,7 +117,7 @@ static char *help_invert_matrix =
 "dot(A,inv(A))\n";
 
 static char *help_draw_circle =
-"cls()\n"
+"clear()\n"
 "\"r(t) = 5 (sin(t),cos(t))\"\n"
 "r(t) = 5 (sin(t),cos(t))\n"
 "\"draw(r(t),t)\"\n"
