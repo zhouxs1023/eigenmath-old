@@ -827,10 +827,10 @@ char *script[] = {
 	"inner(A,A)-A^2",
 	"((0,0),(0,0))",
 
-// rank
-
-	"clear",
+	"A=quote(A)",
 	"",
+
+// rank
 
 	"rank(A)",
 	"0",

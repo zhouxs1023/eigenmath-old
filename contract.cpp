@@ -134,7 +134,10 @@ static char *s[] = {
 	"contract(outer(A,B),2,3)",
 	"((a11*b11+a12*b21,a11*b12+a12*b22),(a21*b11+a22*b21,a21*b12+a22*b22))",
 
-	"clear",
+	"A=quote(A)",
+	"",
+
+	"B=quote(B)",
 	"",
 };
 
