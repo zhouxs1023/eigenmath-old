@@ -1,0 +1,48 @@
+\beginsection 18.3
+
+Use calculus to find the maximum and minimum of
+$f(x)=x^3-6x^2+9x+1$ on $[0,5)$.
+
+\medskip
+
+The maximum and minimum occur where $df/dx=0$.
+$$df/dx=3x^2-12x+9=0$$
+This equation has two solutions, $x=1$ and $x=3$.
+That was easy. Now we have to work harder.
+
+1. Use the ``first derivative test'' to see if $x=1$ is a minimum or maximum.
+Since $f'(0)>0$ and $f'(2)<0$ we conclude that $x=1$ is a local maximum.
+
+2. Repeat for $x=3$.
+Since $f'(2)<0$ and $f'(4)>0$ we conclude that $x=3$ is a local minimum.
+
+3. Now compute $f$ at $x=0,1,3,5$ and compare.
+
+$f(0)=1$
+
+$f(1)=5$
+
+$f(3)=1$
+
+$f(5)=21$.
+
+We observe that $f(5)=21$ is the maximum 
+but since the interval is open on the 5 side, we conclude that $f$
+has no maximum.
+The function $f$ has two minima, one at $f(0)$ and the other at $f(1)$.
+
+4. I just realized that I could have skipped steps 1 and 2.
+The computation of $f$ at $x=0,1,3,5$ is all that's needed.
+Also, the ``second derivative test'' is an easier way to find out if $x_0$ is a
+local minimum or maximum:
+
+$f''(x_0)>0$ means $x_0$ is a local minimum,
+
+$f''(x_0)<0$ means $x_0$ is a local maximum.
+
+
+\bigskip
+BTW, {\tt gnuplot} was a big help in solving the problem.
+
+\centerline{\tt plot [0:5] f(x)=x**3-6*x**2+9*x+1, f(x), g(x)=3*x**2-12*x+9, g(x)}
+

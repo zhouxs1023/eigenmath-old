@@ -1,0 +1,21 @@
+\beginsection 18.6
+
+Prove that $x=\cos x$ for some $x$ in $(0,\pi/2)$.
+
+\medskip
+
+Solution: We have $\cos(0)=1$ and $\cos(\pi/2)=0$.
+The problem is that the interval is open, not closed as required by IVT.
+However, since $\cos(0)\ne0$ and $\cos(\pi/2)\ne\pi/2$ we know that
+$\cos x=x$ does not occur at the endpoints.
+Therefore it is safe to use the closed interval $[0,\pi/2]$.
+%(Is this o.k. or b.s.?)
+Use the trick from Example 1: $f(x)=x-\cos x$.
+We have $f(0)=0-1=-1$ and $f(\pi/2)=\pi/2-0=\pi/2$ and
+therefore $f(0)<0<f(\pi/2)$.
+By IVT there exits an $x_0$ such that $f(x_0)=0$.
+Because $f(x_0)=x_0-\cos x_0=0$, we have a point $x_0$
+at which $x=\cos x$.
+We have already shown that $x\ne\cos x$ at either $0$ or $\pi/2$ so
+$x=\cos x$ must occur on the interval $(0,\pi/2)$.
+

@@ -1,0 +1,98 @@
+\beginsection 17.4
+
+Prove that the function $\sqrt x$ is continuous on its domain
+$[0,\infty)$. {\it Hint:} Apply Example 5 in \S8.
+
+\medskip
+
+Step 1. We want to convert $|f(x)-f(x_0)|$ to an expression involving $|x-x_0|$.
+The trick from \S8 is ``irrationalize the denominator.''
+
+\medskip
+
+$\displaystyle{
+|f(x)-f(x_0)|
+=\left|\sqrt x-\sqrt{x_0}\right|
+=\left|{(\sqrt x-\sqrt{x_0})(\sqrt x+\sqrt{x_0})\over\sqrt x+\sqrt{x_0}}\right|
+=\left|{x-x_0\over\sqrt x+\sqrt{x_0}}\right|
+={|x-x_0|\over\sqrt x+\sqrt{x_0}}
+}$
+
+\medskip
+
+Step 2. We want to get the $\sqrt x$ out of the denominator so that we can
+solve for $|x-x_0|$.
+One thing we can use to our advantage is that we don't necessarily have to use
+the exact representation of $|f(x)-f(x_0)|$.
+All we really need to say is that $|f(x)-f(x_0)|$ is less than something.
+We can do that if we can find an expression that is less than
+$\sqrt x+\sqrt{x_0}$ since making the denominator smaller makes the right
+side of the equation larger.
+We notice that $\sqrt{x_0}\le\sqrt x+\sqrt{x_0}$ so we can write
+
+\medskip
+
+$\displaystyle{
+|f(x)-f(x_0)|
+\le{|x-x_0|\over\sqrt{x_0}}
+}$
+
+\medskip
+
+Step 3. We want to arrange for $|f(x)-f(x_0)|$ to be less than some epsilon
+so we write
+
+\medskip
+
+$\displaystyle{
+|f(x)-f(x_0)|
+\le{|x-x_0|\over\sqrt{x_0}}<\epsilon
+}$
+
+
+\medskip
+
+Step 4. Solving for $|x-x_0|$ we have
+
+\medskip
+
+$\displaystyle{
+|x-x_0|<\epsilon\cdot\sqrt{x_0}
+}$
+
+\medskip
+
+So if we choose $\delta=\epsilon\cdot\sqrt x_0$ then $|x-x_0|<\delta$ implies
+that $|f(x)-f(x_0)|<\epsilon$.
+
+\medskip
+
+Step 5. Note that the above fails for $x_0=0$.
+We have to show by another means that $\sqrt x$ is continuous at zero.
+First we write
+
+\medskip
+
+$\displaystyle{
+|f(x)-f(0)|
+=\left|\sqrt x-\sqrt{0}\right|
+=\sqrt x<\epsilon
+}$
+
+\medskip
+
+Solving for $x$ we have
+
+\medskip
+
+$\displaystyle{
+x<\epsilon^2
+}$
+
+\medskip
+
+So if we choose $\delta=\epsilon^2$ then
+$|x-x_0|=x<\delta$ implies that $|f(x)-f(x_0)|=\sqrt x<\epsilon$.
+Note that we can say $|x-x_0|=x$ when $x_0=0$ because the domain we are using
+is $[0,\infty)$.
+
