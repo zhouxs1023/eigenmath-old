@@ -14,6 +14,7 @@ extern void eval_arctanh(void);
 extern void eval_atomize(void);
 extern void eval_binding2(void);
 extern void eval_ceiling(void);
+extern void eval_clear(void);
 extern void eval_condense(void);
 extern void eval_cos(void);
 extern void eval_cosh(void);
@@ -152,17 +153,6 @@ eval_check(void)
 	p1 = pop();
 	if (!iszero(p1))
 		stop("check stop");
-	push(nil);
-}
-
-extern void clear_mem(void);
-extern void clear_term(void);
-
-static void
-eval_clear(void)
-{
-	clear_mem();
-	clear_term();
 	push(nil);
 }
 

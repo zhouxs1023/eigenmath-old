@@ -40,7 +40,7 @@ sinh.o cosh.o tanh.o arcsinh.o arccosh.o arctanh.o \
 abs.o mod.o roots.o eigen.o simplify.o for.o isprime.o index.o wedge.o \
 rationalize.o prog.o lcm.o floor.o ceiling.o condense.o userfunc.o find.o \
 init.o primetab.o bignum.o symbol.o run.o atomize.o pollard.o outer.o inner.o \
-expcos.o expsin.o coeff.o \
+is.o clear.o expcos.o expsin.o coeff.o \
 main.o		\
 misc.o		\
 data.o		\

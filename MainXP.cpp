@@ -24,7 +24,6 @@
 extern void run(char *);
 extern void draw_display(void);
 extern void printstr(char *);
-extern void clear_term(void);
 extern void update_cmd_history(char *);
 extern void echo_input(char *);
 
@@ -1955,8 +1954,7 @@ static HANDLE thread;
 static DWORD WINAPI
 task(LPVOID p)
 {
-	clear_mem();
-	clear_term();
+	clear();
 	run_hdc = GetDC(main_window);
 	run(inp);
 	ReleaseDC(main_window, run_hdc);

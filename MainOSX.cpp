@@ -1366,8 +1366,7 @@ static char *inp;
 static OSStatus
 task(void *p)
 {
-    clear_mem();
-    clear_term();
+    clear();
     run(program_buf);
     running = 2;
     send_user_event();

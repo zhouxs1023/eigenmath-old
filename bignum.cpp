@@ -627,96 +627,6 @@ print_number(U *p)
 	}
 }
 
-int
-iszero(U *p)
-{
-	switch (p->k) {
-	case NUM:
-		if (MZERO(p->u.q.a))
-			return 1;
-		break;
-	case DOUBLE:
-		if (p->u.d == 0.0)
-			return 1;
-		break;
-	default:
-		break;
-	}
-	return 0;
-}
-
-int
-isnegativenumber(U *p)
-{
-	switch (p->k) {
-	case NUM:
-		if (MSIGN(p->u.q.a) == -1)
-			return 1;
-		break;
-	case DOUBLE:
-		if (p->u.d < 0.0)
-			return 1;
-		break;
-	default:
-		break;
-	}
-	return 0;
-}
-
-int
-isplusone(U *p)
-{
-	switch (p->k) {
-	case NUM:
-		if (MEQUAL(p->u.q.a, 1) && MEQUAL(p->u.q.b, 1))
-			return 1;
-		break;
-	case DOUBLE:
-		if (p->u.d == 1.0)
-			return 1;
-		break;
-	default:
-		break;
-	}
-	return 0;
-}
-
-int
-isminusone(U *p)
-{
-	switch (p->k) {
-	case NUM:
-		if (MEQUAL(p->u.q.a, -1) && MEQUAL(p->u.q.b, 1))
-			return 1;
-		break;
-	case DOUBLE:
-		if (p->u.d == -1.0)
-			return 1;
-		break;
-	default:
-		break;
-	}
-	return 0;
-}
-
-int
-isinteger(U *p)
-{
-	if (p->k == NUM && MEQUAL(p->u.q.b, 1))
-		return 1;
-	else
-		return 0;
-}
-
-int
-isnonnegativeinteger(U *p)
-{
-	if (p->k == NUM && MEQUAL(p->u.q.b, 1) && MSIGN(p->u.q.a) == 1)
-		return 1;
-	else
-		return 0;
-}
-
 void
 gcd_numbers(void)
 {
@@ -906,15 +816,6 @@ void
 mp_clr_bit(unsigned int *x, unsigned int k)
 {
 	x[k / 32] &= ~mask[k % 32];
-}
-
-int
-iseveninteger(U *p)
-{
-	if (isinteger(p) && (p->u.q.a[0] & 1) == 0)
-		return 1;
-	else
-		return 0;
 }
 
 void

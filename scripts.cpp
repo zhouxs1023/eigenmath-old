@@ -13,8 +13,6 @@ char *example_script[7] = {
 "# This script does a few of the exercises from Feynman's book \"Quantum Electrodynamics.\""EOL
 "# To run this script, click on the 'Run Script' button (in the main window)."EOL
 ""EOL
-"clear()"EOL
-""EOL
 "# Define the spacetime metric (for multiplying spacetime vectors)."EOL
 ""EOL
 "metric = ((-1, 0, 0, 0),"EOL
@@ -230,8 +228,6 @@ char *example_script[7] = {
 
 "# This script tests 10 vector calculus identities."EOL
 ""EOL
-"clear()"EOL
-""EOL
 "# Define the cross product, div, grad, curl and laplacian for"EOL
 "# rectangular coordinates."EOL
 ""EOL
@@ -366,8 +362,6 @@ char *example_script[7] = {
 "#"EOL
 "# The exponential forms lead to the required trigonometric simplifications."EOL
 ""EOL
-"clear()"EOL
-""EOL
 "# These are the components of the rotation matrix."EOL
 ""EOL
 "R11 = cos(phi2) cos(phi1) - cos(theta) sin(phi1) sin(phi2)"EOL
@@ -432,8 +426,6 @@ char *example_script[7] = {
 "#"EOL
 "# Hn(x) is the nth Hermite polynomial in x."EOL
 ""EOL
-"clear()"EOL
-""EOL
 "# Define the wave function."EOL
 " "EOL
 "psi(n) = exp(-1/2 x^2) hermite(x,n)"EOL
@@ -475,8 +467,6 @@ char *example_script[7] = {
 "#     psi(n,L,m)/n^2 = del^2 psi(n,L,m) + 2 psi(n,L,m)/r"EOL
 "#"EOL
 "# We use upper case L to avoid confusion with the numeral 1."EOL
-""EOL
-"clear()"EOL
 ""EOL
 "# Define the Laplacian operator for spherical coordinates (del-squared)."EOL
 ""EOL
@@ -547,8 +537,6 @@ char *example_script[7] = {
 "# r  d Omega  = r  (d theta  + sin  theta d phi )"EOL
 "#"EOL
 "# Note: Phi and Lambda are both functions of r."EOL
-""EOL
-"clear()"EOL
 ""EOL
 "# Given the line element we can write the metric tensor by inspection:"EOL
 ""EOL
@@ -733,8 +721,6 @@ char *example_script[7] = {
 "# energy."EOL
 ""EOL
 "# Verify a few solutions (Psi) to the above free-particle Dirac equation."EOL
-""EOL
-"clear()"EOL
 ""EOL
 "# Define the spacetime metric."EOL
 ""EOL
