@@ -1,0 +1,53 @@
+\beginsection 19.2
+
+Prove that each of the following functions is uniformly continuous on the
+indicated set by directly verifying the $\epsilon$-$\delta$ property in
+Definition 19.1.
+\medskip
+To verify the $\epsilon$-$\delta$ property, start with the expression
+$|x-y|<\delta$ and then find a way to transform it into the expression
+$|f(x)-f(y)|<\epsilon$.
+
+\medskip
+(a) $f(x)=3x+11$ on $R$.
+\medskip
+We have
+$$|f(x)-f(y)|=|3x+11-3y-11|=3|x-y|$$
+Starting with
+$$|x-y|<\delta$$
+we can make the substitution
+$$|f(x)-f(y)|<3\delta$$
+Then for $\epsilon=3\delta$ we have
+$$|f(x)-f(y)|<\epsilon$$
+
+\medskip
+(b) $f(x)=x^2$ on $[0,3]$
+\medskip
+We have
+$$|f(x)-f(y)|=|x^2-y^2|=|x+y|\cdot|x-y|$$
+and
+$$|f(x)-f(y)|\le6|x-y|$$
+on the interval $[0,3]$.
+Starting with
+$$|x-y|<\delta$$
+we can make the substitution
+$$|f(x)-f(y)|<6\delta$$
+Then for $\epsilon=6\delta$ we have
+$$|f(x)-f(y)|<\epsilon$$
+
+\medskip
+(c) $f(x)=1/x$ on $[{1\over2},\infty)$
+\medskip
+We have
+$$|f(x)-f(y)|=\left|{1\over x}-{1\over y}\right|
+=\left|{y-x}\over xy\right|
+={|x-y|\over|xy|}$$
+and
+$$|f(x)-f(y)|\le4|x-y|$$
+on the interval $[{1\over2},\infty)$.
+Starting with
+$$|x-y|<\delta$$
+we can make the substitution
+$$|f(x)-f(y)|<4\delta$$
+Then for $\epsilon=4\delta$ we have
+$$|f(x)-f(y)|<\epsilon$$

@@ -1,0 +1,62 @@
+\beginsection{28.15}
+
+Prove Leibniz' rule
+$$(fg)^{(n)}=\sum_{k=0}^n\left({n\atop k}\right)f^{(k)}(a)g^{(n-k)}(a)$$
+{\it Hint:} Use mathematical induction.
+For $n=1$, apply Theorem 28.3(iii).
+
+\medskip
+The following equalities will be used.
+$$\left({n\atop k}\right)+\left({n\atop k-1}\right)=\left({n+1\atop k}\right)
+\eqno\hbox{(A)}$$
+$$\left({n\atop0}\right)=1\eqno\hbox{(B)}$$
+$$\left({n\atop n}\right)=1\eqno\hbox{(C)}$$
+Theorem 28.3(iii) is not really needed.
+Just using the case $n=0$ for induction step 1.
+For induction step 2, show that Leibniz' rule is true for $n+1$ whenever it is
+true for $n$.
+$$\eqalign{
+(fg)^{(n+1)}&=((fg)^{(n)})^\prime\cr
+&=\left(\sum_{k=0}^n\left({n\atop k}\right)
+f^{(k)}g^{(n-k)}\right)^\prime\cr
+&=\sum_{k=0}^n\left({n\atop k}\right)
+\left[f^{(k)}\left(g^{(n-k)}\right)^\prime
++\left(f^{(k)}\right)^\prime g^{(n-k)}\right]\cr
+&=\sum_{k=0}^n\left({n\atop k}\right)
+\left[f^{(k)}g^{(n+1-k)}+f^{(k+1)}g^{(n-k)}\right]\cr
+&=\sum_{k=0}^n\left({n\atop k}\right)f^{(k)}g^{(n+1-k)}
++\sum_{k=0}^n\left({n\atop k}\right)f^{(k+1)}g^{(n-k)}
+}$$
+Use (B) to extract the $k=0$ term of the sum on the left and use (C)
+to extract the $k=n$ term of the sum on the right.
+$$\eqalign{
+(fg)^{(n+1)}&=
+f^{(0)}g^{(n+1)}
++\sum_{k=1}^n\left({n\atop k}\right)f^{(k)}g^{(n+1-k)}
++\sum_{k=0}^{n-1}\left({n\atop k}\right)f^{(k+1)}g^{(n-k)}
++f^{(n+1)}g^{(0)}
+}$$
+Here is the main trick.
+The index $k$ is just a dummy variable that takes on a range of values.
+We can shift the range of $k$ if we balance the math where $k$ is used.
+For the sum on the right, change $k$ so that it runs from
+1 to $n$.
+$$\eqalign{
+(fg)^{(n+1)}&=
+f^{(0)}g^{(n+1)}
++\sum_{k=1}^n\left({n\atop k}\right)f^{(k)}g^{(n+1-k)}
++\sum_{k=1}^n\left({n\atop k-1}\right)f^{(k)}g^{(n+1-k)}
++f^{(n+1)}g^{(0)}
+}$$
+Note that the $n$ in the binomial factor does not change because $n$ does
+not depend on $k$.
+Next use (A) to combine the two sums.
+$$\eqalign{
+(fg)^{(n+1)}&=
+f^{(0)}g^{(n+1)}
++\sum_{k=1}^n\left(n+1\atop k\right)f^{(k)}g^{(n+1-k)}
++f^{(n+1)}g^{(0)}
+}$$
+Finally, use (B) and (C) to combine all the terms.
+$$(fg)^{(n+1)}=\sum_{k=0}^{n+1}
+\left({n+1\atop k}\right)f^{(k)}g^{(n+1-k)}$$
