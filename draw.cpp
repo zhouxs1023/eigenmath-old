@@ -55,19 +55,35 @@ static int draw_count;
 void
 eval_draw(void)
 {
-	push(cadr(p1)); // 1st arg
-	if (caddr(p1) == nil) { // no 2nd arg, try guessing
-		if (find(cadr(p1), symbol(SYMBOL_X)))
-			push_symbol(SYMBOL_X);
-		else if (find(cadr(p1), symbol(SYMBOL_T)))
-			push_symbol(SYMBOL_T);
-		else if (find(cadr(p1), symbol(SYMBOL_R)))
-			push_symbol(SYMBOL_R);
+	p2 = caddr(p1);
+	p1 = cadr(p1);
+
+	// if first arg is a symbol then evaluate it
+
+	if (p1->k == SYM) {
+		push(p1);
+		eval();
+		p1 = pop();
+	}
+
+	// if second arg is nil then guess
+
+	if (p2 == nil) {
+		if (find(p1, symbol(SYMBOL_X)))
+			p2 = symbol(SYMBOL_X);
+		else if (find(p1, symbol(SYMBOL_T)))
+			p2 = symbol(SYMBOL_T);
+		else if (find(p1, symbol(SYMBOL_R)))
+			p2 = symbol(SYMBOL_R);
 		else
-			push_symbol(SYMBOL_X);
-	} else
-		push(caddr(p1)); // 2nd arg
+			p2 = symbol(SYMBOL_X);
+	}
+
+	push(p1);
+	push(p2);
+
 	draw();
+
 	push(nil);
 }
 
