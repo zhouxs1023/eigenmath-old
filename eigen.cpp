@@ -511,7 +511,7 @@ step2(int p, int q)
 static char *s[] = {
 
 	"eigen(A)",
-	"eigen: argument is not a square matrix",
+	"Stop: eigen: argument is not a square matrix",
 
 	"eigenval(A)",
 	"eigenval(A)",
@@ -520,10 +520,10 @@ static char *s[] = {
 	"eigenvec(A)",
 
 	"eigen((1,2))",
-	"eigen: argument is not a square matrix",
+	"Stop: eigen: argument is not a square matrix",
 
 	"eigen(((1,2),(1,2)))",
-	"eigen: matrix is not symmetrical",
+	"Stop: eigen: matrix is not symmetrical",
 
 	"eigenval(((1,1,1,1),(1,2,3,4),(1,3,6,10),(1,4,10,20)))",
 	"((0.038016,0,0,0),(0,0.453835,0,0),(0,0,2.20345,0),(0,0,0,26.3047))",

@@ -14,7 +14,7 @@ void
 multiply(void)
 {
 	if (esc_flag)
-		stop("esc");
+		stop("escape key stop");
 	if (isnum(stack[tos - 2]) && isnum(stack[tos - 1]))
 		multiply_numbers();
 	else {

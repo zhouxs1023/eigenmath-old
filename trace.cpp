@@ -83,7 +83,7 @@ static char *s[] = {
 	"a+d",
 
 	"trace((a,b))",
-	"trace(m): m is not a square matrix",
+	"Stop: trace(m): m is not a square matrix",
 };
 
 void

@@ -25,7 +25,7 @@ mod(void)
 	p1 = pop();
 
 	if (iszero(p2))
-		stop("mod: divide by zero");
+		stop("mod function: divide by zero");
 
 	if (!isnum(p1) || !isnum(p2)) {
 		push_symbol(MOD);
@@ -40,7 +40,7 @@ mod(void)
 		push(p1);
 		n = pop_integer();
 		if (n == (int) 0x80000000)
-			stop("mod: cannot convert float value to integer");
+			stop("mod function: cannot convert float value to integer");
 		push_integer(n);
 		p1 = pop();
 	}
@@ -49,13 +49,13 @@ mod(void)
 		push(p2);
 		n = pop_integer();
 		if (n == (int) 0x80000000)
-			stop("mod: cannot convert float value to integer");
+			stop("mod function: cannot convert float value to integer");
 		push_integer(n);
 		p2 = pop();
 	}
 
 	if (!isinteger(p1) || !isinteger(p2))
-		stop("mod: integer arguments expected");
+		stop("mod function: integer arguments expected");
 
 	p3 = alloc();
 	p3->k = NUM;
@@ -96,16 +96,16 @@ static char *s[] = {
 	"mod(a,b)",
 
 	"mod(2.0,0.0)",
-	"mod: divide by zero",
+	"Stop: mod function: divide by zero",
 
 	"mod(2,0)",
-	"mod: divide by zero",
+	"Stop: mod function: divide by zero",
 
 	"mod(1.2,2)",
-	"mod: cannot convert float value to integer",
+	"Stop: mod function: cannot convert float value to integer",
 
 	"mod(1/2,3)",
-	"mod: integer arguments expected",
+	"Stop: mod function: integer arguments expected",
 
 	"mod(15,8.0)",
 	"7",

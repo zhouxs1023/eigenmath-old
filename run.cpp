@@ -33,6 +33,7 @@ run(char *s)
 	if (setjmp(stop_return)) {
 		restore_symbols(0);
 		if (errstr) {
+			printstr("Stop: ");
 			printstr(errstr);
 			printstr("\n");
 		}

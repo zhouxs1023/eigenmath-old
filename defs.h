@@ -381,7 +381,6 @@ extern void qtrunc(void);
 extern void qpow(void);
 extern void conj_tensor(void);
 extern void build_tensor(int);
-extern int consistent(U *, U *);
 extern U *alloc_tensor(int);
 extern void print_unsigned_term(U *);
 extern void print_unsigned_factor(U *);

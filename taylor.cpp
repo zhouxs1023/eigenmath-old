@@ -119,7 +119,7 @@ static char *s[] = {
 	"1/9+2/81*x^2+5/1458*x^4+49/131220*x^6",
 
 	"taylor(ln(x),x,8)",
-	"undefined function",
+	"Stop: undefined function",
 
 	// make sure x is restored after taylor breaks
 

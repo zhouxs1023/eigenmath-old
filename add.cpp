@@ -11,7 +11,7 @@ void
 add()
 {
 	if (esc_flag)
-		stop("esc");
+		stop("escape key stop");
 	if (tos < 2)
 		stop("stack underflow");
 	if (isnum(stack[tos - 2]) && isnum(stack[tos - 1]))

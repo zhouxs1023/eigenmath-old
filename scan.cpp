@@ -263,7 +263,7 @@ scan_factor(void)
 	} else if (token == T_STRING)
 		scan_string();
 	else
-		error(NULL);
+		error("syntax error");
 
 	// index
 
@@ -400,95 +400,17 @@ build_tensor(int n)
 
 	s = stack + tos - n;
 
-#if 0	// used to do this in scanner, now do tensor promotion in evaluator
-
-	//---------------------------------------------------------------------
-	//
-	//	all of the expressions should have the same dimensions
-	//
-	//---------------------------------------------------------------------
-
-	p1 = s[0];
-
-	for (i = 1; i < n; i++) {
-		p2 = s[i];
-		if (!consistent(p1, p2))
-			error("inconsistent dimension");
-	}
-
-	if (istensor(p1)) {
-
-		//-------------------------------------------------------------
-		//
-		//	these are the dimensions of the new tensor
-		//
-		//-------------------------------------------------------------
-
-		ndim = p1->u.tensor->ndim + 1;
-
-		if (ndim >= MAXDIM)
-			error("too many indices");
-
-		nelem = n * p1->u.tensor->nelem;
-
-		p2 = alloc_tensor(nelem);
-
-		p2->u.tensor->ndim = ndim;
-
-		p2->u.tensor->dim[0] = n;
-
-		for (i = 0; i < p1->u.tensor->ndim; i++)
-			p2->u.tensor->dim[i + 1] = p1->u.tensor->dim[i];
-
-		k = 0;
-		for (i = 0; i < n; i++)
-			for (j = 0; j < p1->u.tensor->nelem; j++)
-				p2->u.tensor->elem[k++] = s[i]->u.tensor->elem[j];
-
-	} else {
-
-		p2 = alloc_tensor(n);
-
-		p2->u.tensor->ndim = 1;
-
-		p2->u.tensor->dim[0] = n;
-
-		for (i = 0; i < n; i++)
-			p2->u.tensor->elem[i] = s[i];
-	}
-#else
 	p2 = alloc_tensor(n);
 	p2->u.tensor->ndim = 1;
 	p2->u.tensor->dim[0] = n;
 	for (i = 0; i < n; i++)
 		p2->u.tensor->elem[i] = s[i];
-#endif
 
 	tos -= n;
 
 	push(p2);
 
 	restore();
-}
-
-int
-consistent(U *p1, U *p2)
-{
-	int i;
-
-	if (istensor(p1) && istensor(p2)) {
-		if (p1->u.tensor->ndim != p2->u.tensor->ndim)
-			return 0;
-		for (i = 0; i < p1->u.tensor->ndim; i++)
-			if (p1->u.tensor->dim[i] != p2->u.tensor->dim[i])
-				return 0;
-		return 1;
-	}
-
-	if (istensor(p1) || istensor(p2))
-		return 0;
-
-	return 1;
 }
 
 static void
@@ -566,7 +488,7 @@ get_token(void)
 		scan_str++;
 		while (*scan_str != '"') {
 			if (*scan_str == 0 || *scan_str == '\n' || *scan_str == '\r')
-				error("\" expected");
+				error("runaway string");
 			scan_str++;
 		}
 		scan_str++;
@@ -634,17 +556,16 @@ update_token_buf(char *a, char *b)
 static char *s[] = {
 
 	"a^^b",
-	"a^^ ? b",
+	"a^^ ? b\nStop: syntax error",
 
 	"(a+b",
-	"(a+b ? \n"
-	") expected",
+	"(a+b ? \nStop: ) expected",
 
 	"quote(1/(x*log(a*x)))",	// test case A
 	"1/(x*log(a*x))",
 
 	"\"hello",
-	"\"hello ? \n\" expected",
+	"\"hello ? \nStop: runaway string",
 
 #if 0 // does not work anymore because of "tensor expected" error
 
@@ -664,7 +585,7 @@ static char *s[] = {
 	// make sure question mark can appear after newlines
 
 	"a+\nb+\nc+",
-	"a+\nb+\nc+ ? ",
+	"a+\nb+\nc+ ? \nStop: syntax error",
 
 	// this bug fixed in version 30 (used to give one result, 14)
 
@@ -701,4 +622,3 @@ test_scan(void)
 //
 //	The functions negate() and inverse() are used but they do not cause
 //	problems with preevaluation of symbols.
-

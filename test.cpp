@@ -116,10 +116,10 @@ char *script[] = {
 // divide by zero
 
 	"1/0",
-	"divide by zero",
+	"Stop: divide by zero",
 
 	"1.0/0.0",
-	"divide by zero",
+	"Stop: divide by zero",
 
 /* sum */
 
@@ -811,7 +811,7 @@ char *script[] = {
 	"((9,-36,30),(-36,192,-180),(30,-180,180))",
 
 	"inv(((a,a),(a,a)))",
-	"inverse of singular matrix",
+	"Stop: inverse of singular matrix",
 
 // power of tensor
 
