@@ -133,7 +133,6 @@ extern void do_up_arrow(void);
 extern void do_down_arrow(void);
 extern void printstr(char *);
 extern void init(void);
-extern void defn(void);
 extern void draw_display(void);
 extern void run(char *);
 extern void do_help(int);
@@ -237,7 +236,6 @@ int main(int argc, char* argv[])
     //TXNMacOSPreferredFontDescription font;
 
     init();
-    defn();
 
     //font.fontID = YYFONT;
     //font.pointSize = YYSIZE;

@@ -197,6 +197,8 @@ init(void)
 	unit_imaginary = pop();
 
 	mark_alloc();
+
+	defn();
 }
 
 static char *defn_str[] = {

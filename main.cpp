@@ -14,7 +14,6 @@ main(int argc, char *argv[])
 	FILE *f;
 
 	init();
-	defn();
 
 	for (i = 1; i < argc; i++) {
 		f = fopen(argv[i], "r");
