@@ -14,6 +14,7 @@
 //	The window display code is in window.c
 
 #include "stdafx.h"
+#include <commdlg.h>
 #include <stdio.h>
 #include "htmlhelp.h"
 #define _USE_MATH_DEFINES // for MS C++
@@ -327,7 +328,7 @@ MyRegisterClass(HINSTANCE hInstance)
 
 	hicon = (HICON) LoadImage(
 		hInstance,
-		"Eigenmath16.ico",
+		"small.ico",
 		IMAGE_ICON,
 		0, 0,
 		LR_LOADFROMFILE);
@@ -365,7 +366,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	main_window = CreateWindow(
 		"Eigenmath",
-		"Eigenmath 79",
+		"Eigenmath 83",
 		WS_OVERLAPPEDWINDOW /* | WS_VSCROLL */ ,
 		CW_USEDEFAULT, 0,
 		CW_USEDEFAULT, 0,

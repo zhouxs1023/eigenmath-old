@@ -413,6 +413,8 @@ emit_fraction(U *p, int d)
 	A = _one;
 	B = _one;
 
+	// handle numerical coefficient
+
 	if (cadr(p)->k == NUM) {
 		push(cadr(p));
 		numerator();
@@ -423,6 +425,12 @@ emit_fraction(U *p, int d)
 		B = pop();
 	}
 
+	if (cadr(p)->k == DOUBLE) {
+		push(cadr(p));
+		absval();
+		A = pop();
+	}
+
 	// count numerators
 
 	if (isplusone(A))
@@ -430,7 +438,7 @@ emit_fraction(U *p, int d)
 	else
 		n = 1;
 	p1 = cdr(p);
-	if (car(p1)->k == NUM)
+	if (isnum(car(p1)))
 		p1 = cdr(p1);
 	while (iscons(p1)) {
 		p2 = car(p1);
@@ -449,14 +457,20 @@ emit_fraction(U *p, int d)
 
 	count = 0;
 
+	// emit numerical coefficient
+
 	if (!isplusone(A)) {
 		emit_number(A, 0);
 		count++;
 	}
 
+	// skip over "multiply"
+
 	p1 = cdr(p);
 
-	if (car(p1)->k == NUM)
+	// skip over numerical coefficient, already handled
+
+	if (isnum(car(p1)))
 		p1 = cdr(p1);
 
 	while (iscons(p1)) {
