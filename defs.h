@@ -421,6 +421,8 @@ extern void ycosh(void);
 extern char logbuf[];
 extern void logout(char *);
 extern void errout(void);
+extern void clear_mem(void);
+extern void clear_term(void);
 
 #define MSIGN(p) (((int *) (p))[-2])
 #define MLENGTH(p) (((int *) (p))[-1])
@@ -468,4 +470,3 @@ extern void power_numbers(void);
 extern void negate_number(void);
 extern void invert_number(void);
 extern void gcd_numbers(void);
-

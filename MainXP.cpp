@@ -1955,6 +1955,8 @@ static HANDLE thread;
 static DWORD WINAPI
 task(LPVOID p)
 {
+	clear_mem();
+	clear_term();
 	run_hdc = GetDC(main_window);
 	run(inp);
 	ReleaseDC(main_window, run_hdc);
