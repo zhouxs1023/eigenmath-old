@@ -161,15 +161,15 @@ void
 logout(char *s)
 {
 	printstr(s);
-	if (logfile)
-		fprintf(logfile, "%s", s);
+//	if (logfile)
+//		fprintf(logfile, "%s", s);
 }
 
 void
 errout(void)
 {
 	logout("\n");
-	if (logfile)
-		fclose(logfile);
+//	if (logfile)
+//		fclose(logfile);
 	longjmp(jbuf, 1);
 }

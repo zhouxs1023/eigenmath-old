@@ -1440,8 +1440,12 @@ test(char *file, char **s, int n)
 
 		t = out_buf;
 
+		// skip leading newlines
+
 		while (*t == '\n')
 			t++;
+
+		// remove trailing newlines
 
 		while (out_count && out_buf[out_count - 1] == '\n')
 			out_buf[--out_count] = 0;
@@ -1450,6 +1454,10 @@ test(char *file, char **s, int n)
 
 		if (strcmp(t, s[i]) == 0)
 			continue;
+
+		// make copy because logout clobbers out_buf
+
+		t = strdup(t);
 
 		logout("expected to get the following result:\n");
 		logout(s[i]);
@@ -1461,6 +1469,8 @@ test(char *file, char **s, int n)
 
 		logout(file);
 		logout("\n");
+
+		free(t);
 
 		errout();
 	}
@@ -1783,3 +1793,4 @@ test_k(void)
 }
 
 #endif
+

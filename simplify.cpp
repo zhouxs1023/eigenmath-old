@@ -1,23 +1,21 @@
+// Try to simplify an expression.
+
 #include "stdafx.h"
-
-//-----------------------------------------------------------------------------
-//
-//	simplify
-//
-//	Attempts to simplify an expression.
-//
-//-----------------------------------------------------------------------------
-
 #include "defs.h"
+
+extern int trigmode;
 
 void simplify(void);
 static void simplify_tensor(void);
-static void simplify_cons(void);
 static int count(U *);
-static void try_rationalizing(void);
-static void try_factoring(void);
-static void try_numden(void);
-static void try_sin_cos(void);
+static void f1(void);
+static void f2(void);
+static void f3(void);
+static void f4(void);
+static void f5(void);
+static void f9(void);
+
+// to here from eval.cpp
 
 void
 eval_simplify(void)
@@ -36,10 +34,15 @@ simplify(void)
 	p1 = pop();
 	if (istensor(p1))
 		simplify_tensor();
-	else if (iscons(p1))
-		simplify_cons();
-	else
+	else {
+		f1();
+		f2();
+		f3();
+		f4();
+		f5();
+		f9();
 		push(p1);
+	}
 	restore();
 }
 
@@ -60,27 +63,6 @@ simplify_tensor(void)
 	check_tensor();
 }
 
-static void
-simplify_cons(void)
-{
-	int h = tos;
-	push(car(p1));
-	p1 = cdr(p1);
-	while (iscons(p1)) {
-		push(car(p1));
-		simplify();
-		p1 = cdr(p1);
-	}
-	list(tos - h);
-	eval();
-	p1 = pop();
-	try_rationalizing();
-	try_numden();
-	try_factoring();
-	try_sin_cos();
-	push(p1);
-}
-
 static int
 count(U *p)
 {
@@ -96,20 +78,10 @@ count(U *p)
 	return n;
 }
 
-//-----------------------------------------------------------------------------
-//
-//	For all these "try" functions...
-//
-//	Input:		p1		expression
-//
-//	Output:		p1		simplified expression
-//
-//			p2-p8		clobbered
-//
-//-----------------------------------------------------------------------------
+// try rationalizing
 
 static void
-try_rationalizing(void)
+f1(void)
 {
 	if (car(p1)->k != ADD)
 		return;
@@ -120,10 +92,10 @@ try_rationalizing(void)
 		p1 = p2;
 }
 
-extern void condense(void);
+// try condensing
 
 static void
-try_factoring(void)
+f2(void)
 {
 	if (car(p1)->k != ADD)
 		return;
@@ -134,66 +106,47 @@ try_factoring(void)
 		p1 = p2;
 }
 
-// Example: (A-B)/(B-A) -> -1
+// this simplifies forms like (A-B) / (B-A)
 
 static void
-try_numden(void)
+f3(void)
 {
-	int h, sign;
-
-	if (car(p1)->k != MULTIPLY)
-		return;
-
-	// any add terms?
-
-	p2 = cdr(p1);
-	while (iscons(p2)) {
-		if (caar(p2)->k == ADD)
-			break;
-		p2 = cdr(p2);
-	}
-
-	if (p2 == nil)
-		return;
-
-	// negate add terms
-
-	h = tos;
-	sign = 1;
-	p2 = cdr(p1);
-	push_symbol(MULTIPLY);
-	while (iscons(p2)) {
-		p3 = car(p2);
-		push(p3);
-		if (car(p3)->k == ADD) {
-			negate_expand();
-			sign *= -1;
-		}
-		p2 = cdr(p2);
-	}
-
-	list(tos - h);
-	eval_noexpand();
-	if (sign == -1)
-		negate(); // use current expanding mode
-
+	push(p1);
+	rationalize();
+	negate();
+	rationalize();
+	negate();
+	rationalize();
 	p2 = pop();
-
 	if (count(p2) < count(p1))
 		p1 = p2;
 }
 
-extern int trigmode;
+// try expanding denominators
 
 static void
-try_sin_cos(void)
+f4(void)
+{
+	if (iszero(p1))
+		return;
+	push(p1);
+	rationalize();
+	inverse();
+	rationalize();
+	inverse();
+	rationalize();
+	p2 = pop();
+	if (count(p2) < count(p1))
+		p1 = p2;
+}
+
+// simplifies trig forms
+
+static void
+f5(void)
 {
 	if (find(p1, symbol(SIN)) == 0 || find(p1, symbol(COS)) == 0)
 		return;
-
-//	push(p1);
-//	expand();
-//	p2 = pop();
 
 	p2 = p1;
 
@@ -214,6 +167,26 @@ try_sin_cos(void)
 
 	if (count(p3) < count(p1))
 		p1 = p3;
+}
+
+// if it's a sum then try to simplify each term
+
+static void
+f9(void)
+{
+	if (car(p1) != symbol(ADD))
+		return;
+	push_integer(0);
+	p2 = cdr(p1);
+	while (iscons(p2)) {
+		push(car(p2));
+		simplify();
+		add();
+		p2 = cdr(p2);
+	}
+	p2 = pop();
+	if (count(p2) < count(p1))
+		p1 = p2;
 }
 
 static char *s[] = {
@@ -257,6 +230,9 @@ static char *s[] = {
 	" + 3 exp(-1/3 r + i phi) cos(theta) sin(theta)"
 	" + 3 exp(-1/3 r + i phi) cos(theta)^3 / sin(theta))",
 	"0",
+
+	"simplify((A^2 C^2 + A^2 D^2 + B^2 C^2 + B^2 D^2)/(A^2+B^2)/(C^2+D^2))",
+	"1",
 };
 
 void
@@ -264,3 +240,4 @@ test_simplify(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
