@@ -38,6 +38,7 @@ extern void test_mprime(void);
 extern void test_mroot(void);
 extern void test_msub(void);
 extern void test_multiply(void);
+extern void test_outer(void);
 extern void test_power(void);
 extern void test_product(void);
 extern void test_prog(void);
@@ -112,6 +113,7 @@ selftest(void)
 	test_for();
 	test_lcm();
 	test_mod();
+	test_outer();
 	test_product();
 	test_prog();
 	test_rationalize();

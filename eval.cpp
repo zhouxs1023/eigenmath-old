@@ -27,6 +27,7 @@ extern void eval_filter(void);
 extern void eval_floor(void);
 extern void eval_isprime(void);
 extern void eval_mod(void);
+extern void eval_outer(void);
 extern void eval_product(void);
 extern void eval_roots(void);
 extern void eval_sample(void);
@@ -636,20 +637,6 @@ eval_operator(void)
 		p1 = cdr(p1);
 	}
 	list(tos - h);
-}
-
-static void
-eval_outer(void)
-{
-	push(cadr(p1));
-	eval();
-	p1 = cddr(p1);
-	while (iscons(p1)) {
-		push(car(p1));
-		eval();
-		outer();
-		p1 = cdr(p1);
-	}
 }
 
 static void
