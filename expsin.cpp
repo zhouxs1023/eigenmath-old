@@ -24,8 +24,8 @@ expsin(void)
 	exponential();
 	push(unit_imaginary);
 	divide();
-	push_integer(2);
-	divide();
+	push_rational(1, 2);
+	multiply();
 
 	push(unit_imaginary);
 	negate();
@@ -34,8 +34,8 @@ expsin(void)
 	exponential();
 	push(unit_imaginary);
 	divide();
-	push_integer(2);
-	divide();
+	push_rational(1, 2);
+	multiply();
 
 	subtract();
 

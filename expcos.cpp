@@ -22,16 +22,16 @@ expcos(void)
 	push(p1);
 	multiply();
 	exponential();
-	push_integer(2);
-	divide();
+	push_rational(1, 2);
+	multiply();
 
 	push(unit_imaginary);
 	negate();
 	push(p1);
 	multiply();
 	exponential();
-	push_integer(2);
-	divide();
+	push_rational(1, 2);
+	multiply();
 
 	add();
 
