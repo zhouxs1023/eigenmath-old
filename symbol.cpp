@@ -40,6 +40,20 @@ get_printname(U *p)
 	return printname[n];
 }
 
+void
+clear_symbols(void)
+{
+	int i;
+	U *p;
+	for (i = 0; i < nsym; i++) {
+		p = symtab + i;
+		if (p->k == SYM) {
+			p->u.sym.binding = p;
+			p->u.sym.binding2 = nil;
+		}
+	}
+}
+
 // keyword functions for quickly finding system symbols
 
 U *stab[300];

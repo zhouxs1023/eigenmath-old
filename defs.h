@@ -422,6 +422,7 @@ extern char logbuf[];
 extern void logout(char *);
 extern void errout(void);
 extern void clear(void);
+extern void clear_symbols(void);
 extern void clear_term(void);
 
 #define MSIGN(p) (((int *) (p))[-2])
