@@ -996,17 +996,7 @@ eval(void)
 	case CONS:
 		eval_cons();
 		break;
-#if GMP
-	case QNUM:
-		push(p1);
-		if (floating)
-			bignum_float();
-		break;
 
-	case FNUM:
-		push(p1);
-		break;
-#else
 	case NUM:
 		push(p1);
 		if (floating)
@@ -1016,7 +1006,7 @@ eval(void)
 	case DOUBLE:
 		push(p1);
 		break;
-#endif
+
 	case STR:
 		push(p1);
 		break;
@@ -1039,7 +1029,13 @@ eval(void)
 		break;
 
 	default:
+
+		// it's a keyword, use last result for arg
+
 		push(p1);
+		push(get_symbol("last")->u.sym.binding);
+		list(2);
+		eval();
 		break;
 	}
 

@@ -554,13 +554,8 @@ print1(U *p)
 		print_str(p->u.str);
 		//print_str("\"");
 		break;
-#if GMP
-	case QNUM:
-	case FNUM:
-#else
 	case NUM:
 	case DOUBLE:
-#endif
 		print_number(p);
 		break;
 	default:

@@ -20,11 +20,7 @@ factorial(void)
 		restore();
 		return;
 	}
-#if GMP
-	gmp_factorial(n);
-#else
 	bignum_factorial(n);
-#endif
 	restore();
 }
 

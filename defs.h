@@ -159,8 +159,6 @@ enum {
 
 #define _USE_MATH_DEFINES // for MS C++
 
-#define GMP 0
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -209,11 +207,7 @@ struct display {
 extern U **frame;
 
 #define iscons(p) ((p)->k == CONS)
-#if GMP
-#define isnum(p) ((p)->k == QNUM || (p)->k == FNUM)
-#else
 #define isnum(p) ((p)->k == NUM || (p)->k == DOUBLE)
-#endif
 #define isstr(p) ((p)->k == STR)
 #define istensor(p) ((p)->k == TENSOR)
 #define isscalar(p) ((p)->k != TENSOR)

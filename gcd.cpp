@@ -1,6 +1,4 @@
 #include "stdafx.h"
-
-
 #include "defs.h"
 
 #define DEBUG 0
@@ -40,21 +38,14 @@ __gcd(void)
 		push(p1);
 		return;
 	}
-#if GMP
-	if (p1->k == QNUM && p2->k == QNUM) {
-		push(p1);
-		push(p2);
-		gcd_numbers();
-		return;
-	}
-#else
+
 	if (p1->k == NUM && p2->k == NUM) {
 		push(p1);
 		push(p2);
 		gcd_numbers();
 		return;
 	}
-#endif
+
 	if (car(p1) == symbol(ADD) && car(p2) == symbol(ADD)) {
 		gcd_expr_expr();
 		return;
