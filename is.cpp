@@ -213,3 +213,20 @@ isnegative(U *p)
 	else
 		return 0;
 }
+
+// returns 1 if there's a symbol somewhere
+
+int
+issymbolic(U *p)
+{
+	if (p->k == SYM)
+		return 1;
+	else {
+		while (iscons(p)) {
+			if (issymbolic(car(p)))
+				return 1;
+			p = cdr(p);
+		}
+		return 0;
+	}
+}

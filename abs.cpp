@@ -90,25 +90,6 @@ absval_tensor(void)
 	power();
 }
 
-// returns 1 if there's a symbol somewhere
-
-static int
-issymbolic(U *p)
-{
-	if (p->k == SYM)
-		return 1;
-
-	if (iscons(p)) {
-		while (iscons(p)) {
-			if (issymbolic(car(p)))
-				return 1;
-			p = cdr(p);
-		}
-	}
-
-	return 0;
-}
-
 // returns 1 if there's -1 to a power somewhere
 
 static int

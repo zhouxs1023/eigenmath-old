@@ -601,6 +601,7 @@ extern unsigned int *mscan(char *);
 extern char *mstr(unsigned int *);
 extern int mprime(unsigned int *);
 extern int mtotal;
+extern int issymbolic(U *);
 
 extern void qadd(void);
 extern void qsub(void);
