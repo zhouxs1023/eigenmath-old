@@ -542,7 +542,6 @@ void stop(char *);
 void top_eval(void);
 void hermite(void);
 void prime(void);
-void normalize_angle(void);
 int iszero(U *);
 int isplusone(U *);
 int isminusone(U *);
@@ -668,3 +667,4 @@ extern void power_numbers(void);
 extern void negate_number(void);
 extern void invert_number(void);
 extern void gcd_numbers(void);
+
