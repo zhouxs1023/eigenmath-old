@@ -60,8 +60,6 @@ eval_tensor(void)
 	push(p2);
 
 	promote_tensor();
-
-	check_tensor();
 }
 
 //-----------------------------------------------------------------------------
@@ -129,8 +127,6 @@ tensor_plus_tensor(void)
 	// push the result
 
 	push(p3);
-
-	check_tensor();
 
 	restore();
 }
@@ -278,222 +274,6 @@ cofactor(U *p, int n, int row, int col)
 
 //-----------------------------------------------------------------------------
 //
-//	transpose tos-2 along indices tos-1 and tos
-//
-//-----------------------------------------------------------------------------
-
-void
-transpose(void)
-{
-	int i, j, k, l, m, ndim, nelem, t;
-	int ai[MAXDIM], an[MAXDIM];
-	U **a, **b;
-
-	save();
-
-	p3 = pop();
-	p2 = pop();
-	p1 = pop();
-
-	if (!istensor(p1))
-		goto dont_evaluate;
-
-	ndim = p1->u.tensor->ndim;
-	nelem = p1->u.tensor->nelem;
-
-	push(p2);
-	l = pop_integer();
-
-	push(p3);
-	m = pop_integer();
-
-	if (l < 1 || l > ndim || m < 1 || m > ndim)
-		goto dont_evaluate;
-
-	l--;
-	m--;
-
-	p2 = alloc_tensor(nelem);
-
-	p2->u.tensor->ndim = ndim;
-
-	for (i = 0; i < ndim; i++)
-		p2->u.tensor->dim[i] = p1->u.tensor->dim[i];
-
-	p2->u.tensor->dim[l] = p1->u.tensor->dim[m];
-	p2->u.tensor->dim[m] = p1->u.tensor->dim[l];
-
-	a = p1->u.tensor->elem;
-	b = p2->u.tensor->elem;
-
-	for (i = 0; i < ndim; i++) {
-		ai[i] = 0;
-		an[i] = p1->u.tensor->dim[i];
-	}
-
-	//---------------------------------------------------------------------
-	//
-	//	copy elements from a to b
-	//
-	//---------------------------------------------------------------------
-
-	for (i = 0; i < nelem; i++) {
-
-		t = ai[l]; ai[l] = ai[m]; ai[m] = t;
-		t = an[l]; an[l] = an[m]; an[m] = t;
-
-		k = 0;
-		for (j = 0; j < ndim; j++)
-			k = (k * an[j]) + ai[j];
-
-		t = ai[l]; ai[l] = ai[m]; ai[m] = t;
-		t = an[l]; an[l] = an[m]; an[m] = t;
-
-		b[k] = a[i];
-
-		for (j = ndim - 1; j >= 0; j--) {
-			if (++ai[j] < an[j])
-				break;
-			ai[j] = 0;
-		}
-	}
-
-	push(p2);
-	restore();
-	return;
-
-dont_evaluate:
-
-	push_symbol(TRANSPOSE);
-	push(p1);
-	push(p2);
-	push(p3);
-	list(4);
-	restore();
-}
-
-#if 0
-
-//-----------------------------------------------------------------------------
-//
-//	tos-3		tensor
-//
-//	tos-2		index
-//
-//	tos-1		index
-//
-//-----------------------------------------------------------------------------
-
-void
-contract(void)
-{
-	int h, i, j, k, l, m, n, ndim, nelem;
-	int ai[MAXDIM], an[MAXDIM];
-	U **a, **b;
-
-	save();
-
-	p3 = pop();
-	p2 = pop();
-	p1 = pop();
-
-	if (!istensor(p1))
-		goto out;
-
-	ndim = p1->u.tensor->ndim;
-
-	push(p2);
-	l = pop_integer();
-
-	push(p3);
-	m = pop_integer();
-
-	if (l < 1 || l > ndim || m < 1 || m > ndim)
-		goto out;
-
-	if (l == m)
-		goto out;
-
-	l--;
-	m--;
-
-	n = p1->u.tensor->dim[l];
-
-	if (n != p1->u.tensor->dim[m])
-		goto out;
-
-	//---------------------------------------------------------------------
-	//
-	//	nelem is the number of elements in "b"
-	//
-	//---------------------------------------------------------------------
-
-	nelem = 1;
-	for (i = 0; i < ndim; i++)
-		if (i != l && i != m)
-			nelem *= p1->u.tensor->dim[i];
-
-	p2 = alloc_tensor(nelem);
-
-	p2->u.tensor->ndim = ndim - 2;
-
-	j = 0;
-	for (i = 0; i < ndim; i++)
-		if (i != l && i != m)
-			p2->u.tensor->dim[j++] = p1->u.tensor->dim[i];
-
-	a = p1->u.tensor->elem;
-	b = p2->u.tensor->elem;
-
-	for (i = 0; i < ndim; i++) {
-		ai[i] = 0;
-		an[i] = p1->u.tensor->dim[i];
-	}
-
-	for (i = 0; i < nelem; i++) {
-		push(zero);
-		for (j = 0; j < n; j++) {
-			ai[l] = j;
-			ai[m] = j;
-			h = 0;
-			for (k = 0; k < ndim; k++)
-				h = (h * an[k]) + ai[k];
-			push(a[h]);
-			add();
-		}
-		b[i] = pop();
-		for (j = ndim - 1; j >= 0; j--) {
-			if (j == l || j == m)
-				continue;
-			if (++ai[j] < an[j])
-				break;
-			ai[j] = 0;
-		}
-	}
-
-	if (nelem == 1) {
-		push(b[0]);
-		restore();
-		return;
-	}
-
-	push(p2);
-	check_tensor();
-	restore();
-	return;
-
-out:	push(_contract);
-	push(p1);
-	push(p2);
-	push(p3);
-	list(4);
-	restore();
-}
-
-#endif
-
-//-----------------------------------------------------------------------------
-//
 //	gradient of tensor
 //
 //-----------------------------------------------------------------------------
@@ -534,8 +314,6 @@ d_tensor_tensor(void)
 
 	push(p3);
 
-	check_tensor();
-
 	return;
 
 dont_evaluate:
@@ -575,8 +353,6 @@ d_scalar_tensor(void)
 	}
 
 	push(p3);
-
-	check_tensor();
 }
 
 //-----------------------------------------------------------------------------
@@ -609,8 +385,6 @@ d_tensor_scalar(void)
 	}
 
 	push(p3);
-
-	check_tensor();
 }
 
 int
@@ -641,62 +415,6 @@ compare_tensors(U *p1, U *p2)
 	}
 
 	return 0;
-}
-
-#if 0
-
-// complex conjugate of tensor
-
-void
-conj_tensor(void)
-{
-	int i;
-	U **a, **b;
-
-	p3 = alloc_tensor(p1->u.tensor->nelem);
-
-	p3->u.tensor->ndim = p1->u.tensor->ndim;
-
-	for (i = 0; i < p1->u.tensor->ndim; i++)
-		p3->u.tensor->dim[i] = p1->u.tensor->dim[i];
-
-	a = p1->u.tensor->elem;
-	b = p3->u.tensor->elem;
-
-	for (i = 0; i < p1->u.tensor->nelem; i++) {
-		push(a[i]);
-		sconj();
-		b[i] = pop();
-	}
-
-	push(p3);
-}
-
-#endif
-
-//-----------------------------------------------------------------------------
-//
-//	Replace zero tensor with scalar zero
-//
-//	Input:		Tensor on stack
-//
-//	Output:		Result on stack
-//
-//-----------------------------------------------------------------------------
-
-void
-check_tensor(void)
-{
-	int i, n;
-	U **a;
-	if (!istensor(stack[tos - 1]))
-		return;
-	n = stack[tos - 1]->u.tensor->nelem;
-	a = stack[tos - 1]->u.tensor->elem;
-	for (i = 0; i < n; i++)
-		if (!iszero(a[i]))
-			return;
-	stack[tos - 1] = zero;
 }
 
 //-----------------------------------------------------------------------------
@@ -894,13 +612,12 @@ static char *s[] = {
 	"(a,b,c)",
 	"((1,2,3),(4,5,6),(7,8,9))",
 
-	"a=quote(a)",
-	"",
+	// check tensor promotion
 
-	"b=quote(b)",
-	"",
+	"((1,0),(0,0))",
+	"((1,0),(0,0))",
 
-	"c=quote(c)",
+	"clear",
 	"",
 };
 
@@ -909,4 +626,3 @@ test_tensor(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
-

@@ -471,7 +471,6 @@ void charpoly(void);
 void init_stack(void);
 void push_zero_matrix(int, int);
 void push_identity_matrix(int);
-void check_tensor(void);
 void push_symbol(int);
 U *get_symbol(char *);
 char *get_printname(U *);

@@ -6,7 +6,7 @@ extern void setup(void);
 extern void selftest(void);
 extern void cmdisplay(U *);
 
-extern int symbol_level;
+extern int symbol_level, test_flag;
 extern U *varlist;
 
 static void check_frame(void);
@@ -102,7 +102,7 @@ run(char *s)
 
 		tty = get_format();
 
-		if (tty)
+		if (tty || test_flag)
 			printline(p2);
 		else {
 #ifdef LINUX

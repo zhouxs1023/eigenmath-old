@@ -88,18 +88,18 @@ wedge3(void)
 static char *s[] = {
 
 	"u=(u1,u2,u3,u4)",
-	"u",
+	"",
 
 	"v=(v1,v2,v3,v4)",
-	"v",
+	"",
 
 	"w=(w1,w2,w3,w4)",
-	"w",
+	"",
 
-	"wedge(u,v)-outer(u,v)+outer(v,u)",
+	"simplify(wedge(u,v)-outer(u,v)+outer(v,u))",
 	"0",
 
-	"wedge(u,v,w)-outer(u,v,w)-outer(v,w,u)-outer(w,u,v)+outer(v,u,w)+outer(u,w,v)+outer(w,v,u)",
+	"simplify(wedge(u,v,w)-outer(u,v,w)-outer(v,w,u)-outer(w,u,v)+outer(v,u,w)+outer(u,w,v)+outer(w,v,u))",
 	"0",
 };
 

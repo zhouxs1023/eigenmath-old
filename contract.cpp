@@ -1,39 +1,35 @@
 #include "stdafx.h"
-
-//-----------------------------------------------------------------------------
-//
-//	Contract tensor
-//
-//	Input:		tos-3		Tensor
-//
-//			tos-2		Index
-//
-//			tos-1		Index
-//
-//	Output:		On stack, tensor contracted across the two indices
-//
-//	Example:
-//
-//	> contract(((a,b),(c,d)),1,2)
-//	a+d
-//
-//-----------------------------------------------------------------------------
-
 #include "defs.h"
 
-static void __contract(void);
-static int check_args(int, int);
+static void contract_f(void);
+
+void
+eval_contract(void)
+{
+	push(cadr(p1));
+	eval();
+	if (cddr(p1) == nil) {
+		push_integer(1);
+		push_integer(2);
+	} else {
+		push(caddr(p1));
+		eval();
+		push(cadddr(p1));
+		eval();
+	}
+	contract();
+}
 
 void
 contract(void)
 {
 	save();
-	__contract();
+	contract_f();
 	restore();
 }
 
 void
-__contract(void)
+contract_f(void)
 {
 	int h, i, j, k, l, m, n, ndim, nelem;
 	int ai[MAXDIM], an[MAXDIM];
@@ -43,22 +39,24 @@ __contract(void)
 	p2 = pop();
 	p1 = pop();
 
+	if (p1->k != TENSOR) {
+		if (!iszero(p1))
+			stop("contract: tensor expected, 1st arg is not a tensor");
+		push(zero);
+		return;
+	}
+
 	push(p2);
 	l = pop_integer();
 
 	push(p3);
 	m = pop_integer();
 
-	if (check_args(l, m) == 0) {
-		push_symbol(CONTRACT);
-		push(p1);
-		push(p2);
-		push(p3);
-		list(4);
-		return;
-	}
-
 	ndim = p1->u.tensor->ndim;
+
+	if (l < 1 || l > ndim || m < 1 || m > ndim || l == m
+	|| p1->u.tensor->dim[l - 1] != p1->u.tensor->dim[m - 1])
+		stop("contract: index out of range");
 
 	l--;
 	m--;
@@ -112,26 +110,36 @@ __contract(void)
 
 	if (nelem == 1)
 		push(b[0]);
-	else {
+	else
 		push(p2);
-		check_tensor();
-	}
 }
 
-static int
-check_args(int l, int m)
+static char *s[] = {
+
+	"contract(0)",
+	"0",
+
+	"contract(((a,b),(c,d)))",
+	"a+d",
+
+	"contract(((1,2),(3,4)),1,2)",
+	"5",
+
+	"A=((a11,a12),(a21,a22))",
+	"((a11,a12),(a21,a22))",
+
+	"B=((b11,b12),(b21,b22))",
+	"((b11,b12),(b21,b22))",
+
+	"contract(outer(A,B),2,3)",
+	"((a11*b11+a12*b21,a11*b12+a12*b22),(a21*b11+a22*b21,a21*b12+a22*b22))",
+
+	"clear",
+	"",
+};
+
+void
+test_contract(void)
 {
-	int n;
-
-	if (!istensor(p1))
-		return 0;
-
-	n = p1->u.tensor->ndim;
-
-	if (l < 1 || l > n || m < 1 || m > n || l == m)
-		return 0;
-	else if (p1->u.tensor->dim[l - 1] != p1->u.tensor->dim[m - 1])
-		return 0;
-	else
-		return 1;
+	test(__FILE__, s, sizeof s / sizeof (char *));
 }

@@ -59,8 +59,9 @@ simplify_tensor(void)
 		simplify();
 		p2->u.tensor->elem[i] = pop();
 	}
+	if (iszero(p2))
+		p2 = zero; // null tensor becomes scalar zero
 	push(p2);
-	check_tensor();
 }
 
 static int

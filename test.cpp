@@ -825,66 +825,15 @@ char *script[] = {
 	"((1,0),(0,1))",
 
 	"inner(A,A)-A^2",
-	"0",
-
-//-----------------------------------------------------------------------------
-//
-//	transpose
-//
-//-----------------------------------------------------------------------------
-
-	"transpose(a)",
-	"transpose(a,1,2)",
-
-	"transpose(((a,b),(c,d)))",
-	"((a,c),(b,d))",
-
-	"transpose(a,b,c)",
-	"transpose(a,b,c)",
-
-	"transpose(((a,b),(c,d)),1,2)",
-	"((a,c),(b,d))",
-
-	"transpose(((a,b,c),(d,e,f)),1,2)",
-	"((a,d),(b,e),(c,f))",
-
-	"transpose(((a,d),(b,e),(c,f)),1,2)",
-	"((a,b,c),(d,e,f))",
-
-//-----------------------------------------------------------------------------
-//
-//	contract
-//
-//-----------------------------------------------------------------------------
-
-	"contract(a,b,c)",
-	"contract(a,b,c)",
-
-	"contract(((a,b),(c,d)))",
-	"a+d",
-
-	"contract(((1,2),(3,4)),1,2)",
-	"5",
-
-	"A=((a11,a12),(a21,a22))",
-	"((a11,a12),(a21,a22))",
-
-	"B=((b11,b12),(b21,b22))",
-	"((b11,b12),(b21,b22))",
-
-	"contract(outer(A,B),2,3)",
-	"((a11*b11+a12*b21,a11*b12+a12*b22),(a21*b11+a22*b21,a21*b12+a22*b22))",
-
-	"A=quote(A)",
-	"",
-
-	"B=quote(B)",
-	"",
+	"((0,0),(0,0))",
 
 // rank
 
+	"clear",
+	"",
+
 	"rank(A)",
-	"rank(A)",
+	"0",
 
 	"rank(1)",
 	"0",
@@ -970,34 +919,34 @@ char *script[] = {
 	"0",
 
 	"curl(grad(f))",
-	"0",
+	"(0,0,0)",
 
 	"div(grad(f))-laplacian(f)",
 	"0",
 
 	"curl(curl(F))-grad(div(F))+laplacian(F)",
-	"0",
+	"(0,0,0)",
 
 	"grad(f*g)-f*grad(g)-g*grad(f)",
-	"0",
+	"(0,0,0)",
 
 	"div(f*F)-f*div(F)-inner(grad(f),F)",
 	"0",
 
 	"curl(f*F)-f*curl(F)-cross(grad(f),F)",
-	"0",
+	"(0,0,0)",
 
 	"grad(inner(F,G))-inner(G,grad(F))-inner(F,grad(G))",
-	"0",
+	"(0,0,0)",
 
 	"grad(inner(F,G))-inner(grad(F),G)-inner(grad(G),F)-cross(G,curl(F))-cross(F,curl(G))",
-	"0",
+	"(0,0,0)",
 
 	"div(cross(F,G))-inner(G,curl(F))+inner(F,curl(G))",
 	"0",
 
 	"curl(cross(F,G))-F*div(G)+G*div(F)-inner(grad(F),G)+inner(grad(G),F)",
-	"0",
+	"(0,0,0)",
 
 //-----------------------------------------------------------------------------
 //
@@ -1205,10 +1154,6 @@ test(char *file, char **s, int n)
 	char *t;
 
 	test_flag = 1;
-
-	p1 = symbol(TTY);
-
-	p1->u.sym.binding = one;
 
 	for (i = 0; i < n; i++) {
 

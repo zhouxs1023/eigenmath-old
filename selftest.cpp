@@ -13,6 +13,7 @@ extern void test_ceiling(void);
 extern void test_charpoly(void);
 extern void test_coeff(void);
 extern void test_condense(void);
+extern void test_contract(void);
 extern void test_cos(void);
 extern void test_cosh(void);
 extern void test_derivative(void);
@@ -59,8 +60,10 @@ extern void test_taylor(void);
 extern void test_tensor(void);
 extern void test_test(void);
 extern void test_trace(void);
+extern void test_transpose(void);
 extern void test_user_func(void);
 extern void test_wedge(void);
+extern void test_zero(void);
 
 char logbuf[1000];
 static FILE *logfile;
@@ -110,6 +113,7 @@ selftest(void)
 	test_ceiling();
 	test_charpoly();
 	test_condense();
+	test_contract();
 	test_derivative();
 	test_expcos();
 	test_expsin();
@@ -128,6 +132,8 @@ selftest(void)
 	test_sum();
 	test_taylor();
 	test_trace();
+	test_transpose();
+	test_zero();
 
 	test_hermite();
 	test_laguerre();

@@ -1,7 +1,4 @@
 #include "stdafx.h"
-
-
-
 #include "defs.h"
 
 extern int powermode;
@@ -170,7 +167,7 @@ static char *s[] = {
 	"-5*x-2*x^0+x^2",
 
 	"f(A)",
-	"0",
+	"((0,0),(0,0))",
 
 	"A=((a,b),(c,d))",
 	"",
@@ -182,7 +179,7 @@ static char *s[] = {
 	"a*d*lambda^0-a*lambda-b*c*lambda^0-d*lambda+lambda^2",
 
 	"f(A)",
-	"0",
+	"((0,0),(0,0))",
 
 	"A=quote(A)",
 	"",

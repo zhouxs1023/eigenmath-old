@@ -16,6 +16,7 @@ extern void eval_binding2(void);
 extern void eval_ceiling(void);
 extern void eval_clear(void);
 extern void eval_condense(void);
+extern void eval_contract(void);
 extern void eval_cos(void);
 extern void eval_cosh(void);
 extern void eval_display(void);
@@ -44,8 +45,10 @@ extern void eval_sum(void);
 extern void eval_tan(void);
 extern void eval_tanh(void);
 extern void eval_trace(void);
+extern void eval_transpose(void);
 extern void eval_user_function(void);
 extern void eval_writefile(void);
+extern void eval_zero(void);
 
 extern void define_user_function(void);
 
@@ -171,23 +174,6 @@ eval_conj(void)
 	push(cadr(p1));
 	eval();
 	conjugate();
-}
-
-static void
-eval_contract(void)
-{
-	push(cadr(p1));
-	eval();
-	if (cddr(p1) == nil) {
-		push_integer(1);
-		push_integer(2);
-	} else {
-		push(caddr(p1));
-		eval();
-		push(cadddr(p1));
-		eval();
-	}
-	contract();
 }
 
 static void
@@ -614,16 +600,11 @@ eval_rank(void)
 {
 	push(cadr(p1));
 	eval();
-	p2 = pop();
-	if (isnum(p2))
+	p1 = pop();
+	if (p1->k == TENSOR)
+		push_integer(p1->u.tensor->ndim);
+	else
 		push(zero);
-	else if (p2->k == TENSOR)
-		push_integer(p2->u.tensor->ndim);
-	else {
-		push_symbol(RANK);
-		push(p2);
-		list(2);
-	}
 }
 
 static void
@@ -870,23 +851,6 @@ eval_testlt(void)
 }
 
 static void
-eval_transpose(void)
-{
-	push(cadr(p1));
-	eval();
-	if (cddr(p1) == nil) {
-		push_integer(1);
-		push_integer(2);
-	} else {
-		push(caddr(p1));
-		eval();
-		push(cadddr(p1));
-		eval();
-	}
-	transpose();
-}
-
-static void
 eval_unit(void)
 {
 	int i, n;
@@ -950,36 +914,6 @@ eval_wedge(void)
 		wedge3();
 	} else
 		wedge2();
-}
-
-static void
-eval_zero(void)
-{
-	int i, k[MAXDIM], m, n;
-	m = 1;
-	n = 0;
-	p2 = cdr(p1);
-	while (iscons(p2)) {
-		push(car(p2));
-		eval();
-		i = pop_integer();
-		if (i < 2) {
-			push(p1);
-			return;
-		}
-		m *= i;
-		k[n++] = i;
-		p2 = cdr(p2);
-	}
-	if (n == 0) {
-		push(p1);
-		return;
-	}
-	p1 = alloc_tensor(m);
-	p1->u.tensor->ndim = n;
-	for (i = 0; i < n; i++)
-		p1->u.tensor->dim[i] = k[i];
-	push(p1);
 }
 
 static void eval_cons(void);
@@ -1310,4 +1244,3 @@ filter_tensor(void)
 	}
 	push(p3);
 }
-

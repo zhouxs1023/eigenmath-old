@@ -107,7 +107,7 @@ static char *s[] = {
 	"H33444455=outer(H33,H44,H44,H55)",
 	"",
 
-	"inner(H3344,H4455)-contract(H33444455,4,5)",
+	"simplify(inner(H3344,H4455)-contract(H33444455,4,5))",
 	"0",
 };
 

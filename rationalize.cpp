@@ -176,8 +176,6 @@ __rationalize_tensor(void)
 	}
 
 	push(p1);
-
-	check_tensor();
 }
 
 static char *s[] = {

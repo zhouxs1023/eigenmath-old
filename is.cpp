@@ -4,6 +4,7 @@
 int
 iszero(U *p)
 {
+	int i;
 	switch (p->k) {
 	case NUM:
 		if (MZERO(p->u.q.a))
@@ -13,6 +14,11 @@ iszero(U *p)
 		if (p->u.d == 0.0)
 			return 1;
 		break;
+	case TENSOR:
+		for (i = 0; i < p->u.tensor->nelem; i++)
+			if (!iszero(p->u.tensor->elem[i]))
+				return 0;
+		return 1;
 	default:
 		break;
 	}
