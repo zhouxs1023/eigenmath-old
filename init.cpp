@@ -23,7 +23,7 @@ init(void)
 	p8 = nil;
 
 	last = nil;
-	table = nil;
+	table_of_integrals = nil;
 	varlist = nil;
 
 	init_alloc(); // init_alloc() uses nil too
@@ -142,6 +142,8 @@ init(void)
 	define_variable("last", LAST);
 	define_variable("pi", PI);
 
+	define_variable("a", SYMBOL_A);
+	define_variable("b", SYMBOL_B);
 	define_variable("d", SYMBOL_D);
 	define_variable("r", SYMBOL_R);
 	define_variable("t", SYMBOL_T);
@@ -149,21 +151,18 @@ init(void)
 	define_variable("y", SYMBOL_Y);
 	define_variable("z", SYMBOL_Z);
 
-	tmp		= get_symbol("*tmp");
+	meta_a = get_symbol("$a");
+	meta_b = get_symbol("$b");
+	meta_x = get_symbol("$x");
 
-	a		= get_symbol("a");
-	b		= get_symbol("b");
-	x		= get_symbol("x");
-	yya		= get_symbol("yya");
-	yyb		= get_symbol("yyb");
-	yyx		= get_symbol("yyx");
+	tmp = get_symbol("$tmp");
 
-	formal_arg[0] = get_symbol("@1");
-	formal_arg[1] = get_symbol("@2");
-	formal_arg[2] = get_symbol("@3");
-	formal_arg[3] = get_symbol("@4");
-	formal_arg[4] = get_symbol("@5");
-	formal_arg[5] = get_symbol("@6");
+	formal_arg[0] = get_symbol("$1");
+	formal_arg[1] = get_symbol("$2");
+	formal_arg[2] = get_symbol("$3");
+	formal_arg[3] = get_symbol("$4");
+	formal_arg[4] = get_symbol("$5");
+	formal_arg[5] = get_symbol("$6");
 
 	// if anything is added here be sure it gets untagged in gc()
 

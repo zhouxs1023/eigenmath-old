@@ -29,6 +29,7 @@ extern void eval_factor(void);
 extern void eval_filter(void);
 extern void eval_floor(void);
 extern void eval_inner(void);
+extern void eval_integral(void);
 extern void eval_isprime(void);
 extern void eval_log(void);
 extern void eval_mod(void);
@@ -443,29 +444,6 @@ eval_index(void)
 		p1 = cdr(p1);
 	}
 	index_function(tos - h);
-}
-
-static void
-eval_integral(void)
-{
-	push(cadr(p1));
-	eval();
-	if (caddr(p1) == nil) {
-		if (find(stack[tos - 1], symbol(SYMBOL_X)))
-			push_symbol(SYMBOL_X);
-		else if (find(stack[tos - 1], symbol(SYMBOL_T)))
-			push_symbol(SYMBOL_T);
-		else if (find(stack[tos - 1], symbol(SYMBOL_R)))
-			push_symbol(SYMBOL_R);
-		else
-			push_symbol(SYMBOL_X); // d(f()) -> d(f(),x)
-		integral();
-		return;
-	} else {
-		push(caddr(p1));
-		eval();
-	}
-	integral();
 }
 
 static void

@@ -1,48 +1,52 @@
-#include "stdafx.h"
+// Do the integral function.
 
+#include "stdafx.h"
 #include "defs.h"
 
-static void __integral(void);
+static void integral_f(void);
 static void integral_of_sum(void);
 static void integral_of_product(void);
 static void integral_of_form(void);
 static int match(U *, U *, U *, int, int);
+static void scan_integrals(void);
 
-int flag;
-
-void scan_integrals(int);
-void print_integrals(void);
+void
+eval_integral(void)
+{
+	push(cadr(p1));
+	eval();
+	if (caddr(p1) == nil)
+		guess();
+	else {
+		push(caddr(p1));
+		eval(); // need this for integrals in the result, see #64
+	}
+	integral();
+}
 
 void
 integral(void)
 {
 	save();
-	__integral();
+	integral_f();
 	restore();
 }
 
 static void
-__integral(void)
+integral_f(void)
 {
-	if (flag == 0) {
-		flag = 1;
-		scan_integrals(1);
-	}
+	if (table_of_integrals == nil)
+		scan_integrals();
 
 	p2 = pop();
 	p1 = pop();
 
-	if (isadd(p1)) {
+	if (car(p1) == symbol(ADD))
 		integral_of_sum();
-		return;
-	}
-
-	if (car(p1) == symbol(MULTIPLY)) {
+	else if (car(p1) == symbol(MULTIPLY))
 		integral_of_product();
-		return;
-	}
-
-	integral_of_form();
+	else
+		integral_of_form();
 }
 
 static void
@@ -50,11 +54,13 @@ integral_of_form(void)
 {
 	int h;
 
-	push(yya->u.sym.binding);
-	push(yyb->u.sym.binding);
-	push(yyx->u.sym.binding);
+	// save meta symbols
 
-	yyx->u.sym.binding = p2;
+	push(meta_a->u.sym.binding);
+	push(meta_b->u.sym.binding);
+	push(meta_x->u.sym.binding);
+
+	meta_x->u.sym.binding = p2;
 
 	h = tos;
 
@@ -65,7 +71,7 @@ integral_of_form(void)
 
 	distill();
 
-	p3 = table;
+	p3 = table_of_integrals;
 
 	while (iscons(p3)) {
 
@@ -91,9 +97,11 @@ integral_of_form(void)
 
 	tos = h;
 
-	yyx->u.sym.binding = pop();
-	yyb->u.sym.binding = pop();
-	yya->u.sym.binding = pop();
+	// restore meta symbols
+
+	meta_x->u.sym.binding = pop();
+	meta_b->u.sym.binding = pop();
+	meta_a->u.sym.binding = pop();
 
 	push(p3);
 }
@@ -101,19 +109,18 @@ integral_of_form(void)
 static void
 integral_of_sum(void)
 {
-	int h;
-
-	h = tos;
-
+	p1 = cdr(p1);
+	push(car(p1));
+	push(p2);
+	integral();
 	p1 = cdr(p1);
 	while (iscons(p1)) {
 		push(car(p1));
 		push(p2);
 		integral();
+		add();
 		p1 = cdr(p1);
 	}
-
-	addk(tos - h);
 }
 
 static void
@@ -160,8 +167,8 @@ match(U *actual, U *formal, U *caveats, int h1, int h2)
 	for (i = h1; i < h2; i++) {
 		for (j = h1; j < h2; j++) {
 
-			yya->u.sym.binding = stack[i];
-			yyb->u.sym.binding = stack[j];
+			meta_a->u.sym.binding = stack[i];
+			meta_b->u.sym.binding = stack[j];
 
 			// check caveats
 
@@ -931,8 +938,10 @@ char *integrals[] = {
 	NULL,
 };
 
-void
-scan_integrals(int flag)
+// build the table, subst. meta symbols for a, b and x.
+
+static void
+scan_integrals(void)
 {
 	int h, i, k;
 
@@ -946,17 +955,15 @@ scan_integrals(int flag)
 
 		while (integrals[i]) {
 			scan(integrals[i++]);
-			if (flag) {
-				push(a);
-				push(yya);
-				subst();
-				push(b);
-				push(yyb);
-				subst();
-				push(x);
-				push(yyx);
-				subst();
-			}
+			push_symbol(SYMBOL_A);
+			push(meta_a);
+			subst();
+			push_symbol(SYMBOL_B);
+			push(meta_b);
+			subst();
+			push_symbol(SYMBOL_X);
+			push(meta_x);
+			subst();
 		}
 
 		list(tos - h);
@@ -966,55 +973,19 @@ scan_integrals(int flag)
 
 	list(tos - k);
 
-	table = pop();
-}
-
-void
-print_integrals(void)
-{
-	int n = 1;
-
-	save();
-
-	scan_integrals(0);
-
-	p1 = table;
-
-	while (iscons(p1)) {
-
-		p2 = car(p1);
-
-		printf("integral %d:\n", n++);
-		push(car(p2));
-		//eval();
-		p3 = pop();
-		print(p3);
-		p2 = cdr(p2);
-
-		printf("solution:\n");
-		push(car(p2));
-		//eval();
-		p3 = pop();
-		print(p3);
-		p2 = cdr(p2);
-
-		if (iscons(p2))
-			printf("caveats:\n");
-
-		while (iscons(p2)) {
-			print(car(p2));
-			p2 = cdr(p2);
-		}
-
-		p1 = cdr(p1);
-
-		printf("\n");
-	}
-
-	restore();
+	table_of_integrals = pop();
 }
 
 static char *s[] = {
+
+	"clear()",
+	"",
+
+	"tty=1",
+	"",
+
+	"integral(x^2+x)",
+	"1/2*x^2+1/3*x^3",
 
 	"#1",
 	"integral(A,X)",

@@ -274,7 +274,7 @@ static char *s[] = {
 	"x^2",
 
 	"binding2(f)",
-	"@1^2",
+	"$1^2",
 
 	// symbols should be quoted in eval
 
@@ -325,13 +325,13 @@ static char *s[] = {
 	"sin(a)",
 
 	"binding2(x)",
-	"sin(@1)",
+	"sin($1)",
 
 	"y",
 	"cos(b)",
 
 	"binding2(y)",
-	"cos(@1)",
+	"cos($1)",
 
 	// clean up
 

@@ -7,7 +7,7 @@ extern void sort_stack(int);
 void roots(void);
 static void roots2(void);
 static void roots3(void);
-static void guess(void);
+static void iguess(void);
 static void mini_solve(void);
 
 #define POLY p1
@@ -46,7 +46,7 @@ eval_roots(void)
 
 	if (caddr(p1) == nil) {
 		p1 = pop();
-		guess();
+		iguess();
 		push(p1);
 		push(p2);
 	} else {
@@ -58,7 +58,7 @@ eval_roots(void)
 }
 
 static void
-guess(void)
+iguess(void)
 {
 	p2 = symbol(SYMBOL_X);
 	if (find(p1,p2))

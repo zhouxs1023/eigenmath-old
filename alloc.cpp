@@ -96,7 +96,7 @@ gc(void)
 	for (i = (int) (frame - stack); i < TOS; i++)
 		untag(stack[i]);
 
-	untag(table);	// table of integrals
+	untag(table_of_integrals);
 
 	// collect everything that's still tagged
 

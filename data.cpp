@@ -13,18 +13,8 @@ U *last;
 U *tmp;
 U *nil;
 U *formal_arg[6];
-
-U *table;
-U *a;
-U *b;
-U *x;
-U *yya;
-U *yyb;
-U *yyx;
-
-U *zero;
-U *one;
-U *imaginaryunit;
+U *zero, *one, *imaginaryunit;
+U *table_of_integrals, *meta_a, *meta_b, *meta_x;
 
 int expanding;
 int conjugating;

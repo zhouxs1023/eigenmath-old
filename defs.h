@@ -28,6 +28,8 @@ enum {
 	IM,
 	LAST,
 	PI,
+	SYMBOL_A,
+	SYMBOL_B,
 	SYMBOL_D,
 	SYMBOL_R,
 	SYMBOL_T,
@@ -143,26 +145,9 @@ extern U *p1, *p2, *p3, *p4, *p5, *p6, *p7, *p8;
 extern U *formal_arg[6];
 extern U *tmp;
 extern U *last;
-
 extern U *nil;
-
-extern U *table;
-extern U *a;
-extern U *b;
-extern U *x;
-extern U *yya;
-extern U *yyb;
-extern U *yyx;
-
-extern U *_integral_list;
-extern U *_meta_a;
-extern U *_meta_b;
-extern U *_meta_f;
-extern U *_meta_n;
-extern U *_meta_x;
-extern U *zero;
-extern U *one;
-extern U *imaginaryunit;
+extern U *zero, *one, *imaginaryunit;
+extern U *table_of_integrals, *meta_a, *meta_b, *meta_x;
 
 extern U *alloc();
 extern U *alloc_tensor();
@@ -269,11 +254,8 @@ extern void eval(void);
 extern void iterate(int);
 extern void adj(void);
 extern void arccos(void);
-//extern void arccosh(void);
 extern void arcsin(void);
-//extern void arcsinh(void);
 extern void arctan(void);
-//extern void arctanh(void);
 extern void contract(void);
 extern void scot(void);
 extern void scsc(void);
@@ -318,6 +300,7 @@ extern void mul2(void);
 extern void factorial(void);
 extern void hilbert(void);
 extern void swap(void);
+extern void guess(void);
 char *get_name(U *);
 int new_name(char *);
 void init_alloc(void);
