@@ -39,12 +39,6 @@ typedef struct node {
 	} u;
 } U;
 
-struct symbol {
-	U u;
-	struct symbol *next;
-	char name[1];
-};
-
 #define MAXDIM 24
 
 typedef struct tensor {
@@ -323,7 +317,6 @@ extern U *tmp;
 extern U *last;
 
 extern U *nil;
-extern struct symbol *symtbl[64];
 
 extern U *table;
 extern U *a;
@@ -531,7 +524,8 @@ void push_zero_matrix(int, int);
 void push_identity_matrix(int);
 void check_tensor(void);
 void push_symbol(int);
-U *new_symbol(char *);
+U *get_symbol(char *);
+char *get_printname(U *);
 U *symbol(int);
 void power(void);
 void exponential(void);

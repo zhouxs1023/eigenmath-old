@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "defs.h"
 
+extern int nsym;
+extern U symtab[];
 extern U *varlist;
 static void untag(U *);
 static void untag_symbols(void);
@@ -129,14 +131,9 @@ static void
 untag_symbols(void)
 {
 	int i;
-	struct symbol *p;
-	for (i = 0; i < 64; i++) {
-		p = symtbl[i];
-		while (p) {
-			untag(p->u.u.sym.binding);
-			untag(p->u.u.sym.binding2);
-			p = p->next;
-		}
+	for (i = 0; i < nsym; i++) {
+		untag(symtab[i].u.sym.binding);
+		untag(symtab[i].u.sym.binding2);
 	}
 }
 
@@ -182,17 +179,10 @@ void
 reset(void)
 {
 	int i;
-	struct symbol *p;
 
 	// clear symbols
 
-	for (i = 0; i < 64; i++) {
-		while (symtbl[i]) {
-			p = symtbl[i];
-			symtbl[i] = p->next;
-			free(p);
-		}
-	}
+	nsym = 0;
 
 	// clear bignums, strings and tensors
 

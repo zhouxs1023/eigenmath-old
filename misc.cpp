@@ -1,6 +1,8 @@
 #include "stdafx.h"
-
 #include "defs.h"
+
+extern void define_symbol(char *, int);
+extern void define_variable(char *, int);
 
 U *minus_one_half;
 
@@ -16,54 +18,23 @@ is_blank(char *s)
 	return 1;
 }
 
-static U *stab[256];
-
-U *
-symbol(int n)
-{
-	return stab[n];
-}
-
-void
-push_symbol(int k)
-{
-	if (k < 0 || k > 255)
-		stop("internal error: push_symbol");
-	push(stab[k]);
-}
-
-void
-define_symbol(char *s, int k)
-{
-	stab[k] = new_symbol(s);
-	stab[k]->k = k;
-}
-
-void
-define_variable(char *s, int n)
-{
-	stab[n] = new_symbol(s);
-}
-
 extern U *formal_arg[6];
 
 void
 init(void)
 {
-	int i;
-
 	tos = 0;
 
 	frame = stack + TOS;
 
-	nil = new_symbol("nil");
+	nil = get_symbol("nil");
 
 	nil->k = NIL;
 	nil->u.sym.binding = nil;
 	nil->u.sym.binding2 = nil;
 
-	for (i = 0; i < 256; i++)
-		stab[i] = nil;
+	//for (i = 0; i < 256; i++)
+	//	stab[i] = nil;
 
 	table = nil;
 
@@ -209,21 +180,21 @@ init(void)
 	define_symbol("wedge", WEDGE);
 	define_symbol("zero", ZERO);
 
-	tmp		= new_symbol("*tmp");
+	tmp		= get_symbol("*tmp");
 
-	a		= new_symbol("a");
-	b		= new_symbol("b");
-	x		= new_symbol("x");
-	yya		= new_symbol("yya");
-	yyb		= new_symbol("yyb");
-	yyx		= new_symbol("yyx");
+	a		= get_symbol("a");
+	b		= get_symbol("b");
+	x		= get_symbol("x");
+	yya		= get_symbol("yya");
+	yyb		= get_symbol("yyb");
+	yyx		= get_symbol("yyx");
 
-	formal_arg[0] = new_symbol("@1");
-	formal_arg[1] = new_symbol("@2");
-	formal_arg[2] = new_symbol("@3");
-	formal_arg[3] = new_symbol("@4");
-	formal_arg[4] = new_symbol("@5");
-	formal_arg[5] = new_symbol("@6");
+	formal_arg[0] = get_symbol("@1");
+	formal_arg[1] = get_symbol("@2");
+	formal_arg[2] = get_symbol("@3");
+	formal_arg[3] = get_symbol("@4");
+	formal_arg[4] = get_symbol("@5");
+	formal_arg[5] = get_symbol("@6");
 
 	push_integer(0);
 	_zero = pop();
@@ -256,37 +227,6 @@ list(int n)
 	push(nil);
 	for (i = 0; i < n; i++)
 		cons();
-}
-
-U *
-new_symbol(char *s)
-{
-	struct symbol *p;
-
-	p = symtbl[*s & 63];
-
-	while (p) {
-		if (strcmp(p->name, s) == 0)
-			return (U *) p;
-		p = p->next;
-	}
-
-	p = (struct symbol *) malloc(sizeof (struct symbol) + strlen(s) + 1);
-
-	if (p == NULL)
-		stop("malloc failure");
-
-	p->u.k = SYM;
-	p->u.tag = 0;
-	strcpy(p->name, s);
-
-	p->u.u.sym.binding = (U *) p;
-	p->u.u.sym.binding2 = nil;
-
-	p->next = symtbl[*s & 63];
-	symtbl[*s & 63] = p;
-
-	return (U *) p;
 }
 
 void
@@ -683,7 +623,7 @@ cmp_expr(U *p1, U *p2)
 		return 1;
 
 	if (issym(p1) && issym(p2))
-		return sign(strcmp(((struct symbol *) p1)->name, ((struct symbol *) p2)->name));
+		return sign(strcmp(get_printname(p1), get_printname(p2)));
 
 	if (issym(p1))
 		return -1;
@@ -1017,19 +957,19 @@ iscomplexnumber(U *p)
 		return 0;
 }
 
+extern int nsym;
+extern U symtab[];
+
 void
 clear_mem(void)
 {
 	int i;
-	struct symbol *p;
-	for (i = 0; i < 64; i++) {
-		p = symtbl[i];
-		while (p) {
-			if (p->u.k == SYM) {
-				p->u.u.sym.binding = &p->u;
-				p->u.u.sym.binding2 = nil;
-			}
-			p = p->next;
+	U *p;
+	for (i = 0; i < nsym; i++) {
+		p = symtab + i;
+		if (p->k == SYM) {
+			p->u.sym.binding = p;
+			p->u.sym.binding2 = nil;
 		}
 	}
 	defn();

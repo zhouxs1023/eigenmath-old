@@ -925,7 +925,7 @@ emit_symbol(U *p)
 		return;
 	}
 
-	s = ((struct symbol *) p)->name;
+	s = get_printname(p);
 
 	if (iskeyword(p)) {
 		emit_str(TIMES_FONT, s);

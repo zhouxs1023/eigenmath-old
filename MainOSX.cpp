@@ -31,6 +31,11 @@
 #define DEFAULT_WIDTH 680
 #define DEFAULT_HEIGHT 460
 
+// 70% of above
+
+//#define DEFAULT_WIDTH 476
+//#define DEFAULT_HEIGHT 322
+
 int client_width = DEFAULT_WIDTH;
 int client_height = DEFAULT_HEIGHT;
 int line_height = 20;

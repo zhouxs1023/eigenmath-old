@@ -699,6 +699,7 @@ static void
 emit_power(U *p)
 {
 	int k1, k2, x;
+	U *q;
 
 	if (cadr(p) == symbol(E)) {
 		__emit_str("exp(");
@@ -715,7 +716,11 @@ emit_power(U *p)
 //	}
 
 	if (equal(p, unit_imaginary)) {
-		__emit_str(((struct symbol *) symbol(IM)->u.sym.binding)->name);
+		q = symbol(IM)->u.sym.binding;
+		if (issymbol(q))
+			__emit_str(get_printname(q));
+		else
+			__emit_str("i");
 		return;
 	}
 
@@ -905,7 +910,7 @@ emit_symbol(U *p)
 		return;
 	}
 
-	s = ((struct symbol *) p)->name;
+	s = get_printname(p);
 	while (*s)
 		__emit_char(*s++);
 }

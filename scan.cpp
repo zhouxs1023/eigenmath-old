@@ -311,7 +311,7 @@ scan_symbol(void)
 {
 	if (token != T_SYMBOL)
 		error("symbol expected");
-	push(new_symbol(token_buf));
+	push(get_symbol(token_buf));
 	get_next_token();
 }
 
@@ -327,7 +327,7 @@ scan_function_call(void)
 {
 	int n = 1;
 	U *p;
-	p = new_symbol(token_buf);
+	p = get_symbol(token_buf);
 	if (p == symbol(SYMBOL_D))
 		push_symbol(DERIVATIVE);
 	else

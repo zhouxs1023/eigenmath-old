@@ -311,6 +311,8 @@ print_denom(U *p, int d)
 void
 print_factor(U *p)
 {
+	U *q;
+
 	if (isnum(p)) {
 		print_number(p);
 		return;
@@ -337,8 +339,12 @@ print_factor(U *p)
 
 	if (car(p) == symbol(POWER)) {
 
-		if (equal(p, unit_imaginary)) { // zzz
-			print_str(((struct symbol *) symbol(IM)->u.sym.binding)->name);
+		if (equal(p, unit_imaginary)) {
+			q = symbol(IM)->u.sym.binding;
+			if (issymbol(q))
+				print_str(get_printname(q));
+			else
+				print_str("i");
 			return;
 		}
 
@@ -444,7 +450,7 @@ print_factor(U *p)
 	else if (p == symbol(PI))
 		print_str("pi");
 	else
-		print_str(((struct symbol *) p)->name);
+		print_str(get_printname(p));
 }
 
 static void
@@ -529,7 +535,7 @@ print_char(int c)
 void
 print_function_definition(U *p)
 {
-	print_str(((struct symbol *) p)->name);
+	print_str(get_printname(p));
 	print_arg_list(cadr(p->u.sym.binding));
 	print_str("=");
 	print_expr(caddr(p->u.sym.binding));
@@ -541,11 +547,11 @@ print_arg_list(U *p)
 {
 	print_str("(");
 	if (iscons(p)) {
-		print_str(((struct symbol *) car(p))->name);
+		print_str(get_printname(car(p)));
 		p = cdr(p);
 		while (iscons(p)) {
 			print_str(",");
-			print_str(((struct symbol *) car(p))->name);
+			print_str(get_printname(car(p)));
 			p = cdr(p);
 		}
 	}
@@ -593,7 +599,7 @@ print1(U *p)
 		print_number(p);
 		break;
 	default:
-		print_str(((struct symbol *) p)->name);
+		print_str(get_printname(p));
 		break;
 	}
 }
