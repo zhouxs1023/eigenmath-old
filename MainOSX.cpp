@@ -427,7 +427,7 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
 
     case 'abou':
         if (running == 0) {
-            printstr("This is Eigenmath version 89.\n");
+            printstr("This is Eigenmath version 97.\n");
             update_display();
         }
         break;

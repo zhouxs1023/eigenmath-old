@@ -274,7 +274,7 @@ compare_numbers(U *a, U *b)
 	else
 		x = convert_rational_to_double(a);
 	if (b->k == DOUBLE)
-		y = a->u.d;
+		y = b->u.d;
 	else
 		y = convert_rational_to_double(b);
 	if (x < y)
