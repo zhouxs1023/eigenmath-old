@@ -724,7 +724,7 @@ emit_power(U *p)
 	}
 
 	if (equal(p, imaginaryunit)) {
-		emit_char(ITALIC_FONT, "i");
+		emit_char(ITALIC_TIMES_FONT, 'i');
 		return;
 	}
 

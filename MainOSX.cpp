@@ -62,38 +62,6 @@ struct {
     int ascent, descent, width;
 } text_metric[11];
 
-#if 0
-
-char *button_cmd[10] = {
-    "condense",
-    "d",
-    "draw",
-    "expand",
-    "factor",
-    "float",
-    "integral",
-    "rationalize",
-    "roots",
-    "simplify",
-};
-
-char *button_name[12] = {
-    "condense",
-    "derivative",
-    "draw",
-    "expand",
-    "factor",
-    "float",
-    "integral",
-    "rationalize",
-    "roots",
-    "simplify",
-    "Edit Script",
-    "Run Script",
-};
-
-#else
-
 char *button_cmd[10] = {
     "d",
     "integral",
@@ -122,8 +90,6 @@ char *button_name[12] = {
     "Run Script",
 };
 
-#endif
-
 #define YYFONT 0
 #define YYSIZE 13
 
@@ -133,6 +99,7 @@ extern void do_up_arrow(void);
 extern void do_down_arrow(void);
 extern void printstr(char *);
 extern void init(void);
+extern void clear(void);
 extern void draw_display(void);
 extern void run(char *);
 extern void do_help(int);
@@ -420,7 +387,7 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
 
     case 'abou':
         if (running == 0) {
-            printstr("This is Eigenmath version 101.\n");
+            printstr("This is Eigenmath version 102.\n");
             update_display();
         }
         break;
