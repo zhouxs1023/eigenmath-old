@@ -4,23 +4,14 @@
 extern void define_symbol(char *, int);
 extern void define_variable(char *, int);
 extern U *varlist;
+extern U symtab[];
 
 void
 init(void)
 {
-	tos = 0;
+	nil = symtab; // this must be first, get_symbol() uses nil
 
-	frame = stack + TOS;
-
-	nil = get_symbol("nil");
-
-	nil->k = NIL;
-	nil->u.sym.binding = nil;
-	nil->u.sym.binding2 = nil;
-
-	table = nil;
-
-	varlist = nil;
+	get_symbol("nil"); // must be first symbol defined
 
 	p1 = nil;
 	p2 = nil;
@@ -32,8 +23,10 @@ init(void)
 	p8 = nil;
 
 	last = nil;
+	table = nil;
+	varlist = nil;
 
-	init_alloc();
+	init_alloc(); // init_alloc() uses nil too
 
 	define_variable("autoexpand", AUTOEXPAND);
 	define_variable("~e", E); // tilde so sort puts it after scalar symbols
@@ -171,6 +164,9 @@ init(void)
 
 	// if anything is added here be sure it gets untagged in gc()
 
+	tos = 0;
+	frame = stack + TOS;
+
 	push_integer(0);
 	_zero = pop();
 
@@ -208,4 +204,3 @@ defn(void)
 		pop();
 	}
 }
-

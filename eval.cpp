@@ -585,12 +585,6 @@ eval_multiply(void)
 }
 
 static void
-eval_nil(void)
-{
-	push(nil);
-}
-
-static void
 eval_operator(void)
 {
 	int h = tos;
@@ -1170,7 +1164,6 @@ eval_cons(void)
 	case LOG:		eval_log();		break;
 	case MOD:		eval_mod();		break;
 	case MULTIPLY:		eval_multiply();	break;
-	case NIL:		eval_nil();		break;
 	case OPERATOR:		eval_operator();	break;
 	case OUTER:		eval_outer();		break;
 	case POWER:		eval_power();		break;

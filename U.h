@@ -114,7 +114,6 @@ enum {
 	LOG,
 	MOD,
 	MULTIPLY,
-	NIL,
 	OPERATOR,
 	OUTER,
 	POWER,
