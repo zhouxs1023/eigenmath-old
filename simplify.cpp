@@ -233,6 +233,12 @@ static char *s[] = {
 
 	"simplify((A^2 C^2 + A^2 D^2 + B^2 C^2 + B^2 D^2)/(A^2+B^2)/(C^2+D^2))",
 	"1",
+
+	"simplify(d(arctan(y/x),y))",
+	"x/(x^2+y^2)",
+
+	"simplify(d(arctan(y/x),x))",
+	"-y/(x^2+y^2)",
 };
 
 void
