@@ -935,87 +935,6 @@ d_tensor_scalar(void)
 	check_tensor();
 }
 
-#if 0
-
-void
-component(int n)
-{
-	int i, k, m, ndim, nelem, t;
-	U **s;
-
-	if (n == 0) {
-		push(_index);
-		return;
-	}
-
-	save();
-
-	s = stack + tos - n;
-
-	p1 = s[0];
-
-	if (!istensor(p1))
-		goto dont_evaluate;
-
-	ndim = p1->u.tensor->ndim;
-
-	m = n - 1;
-
-	if (m > ndim)
-		goto dont_evaluate;
-
-	k = 0;
-
-	for (i = 0; i < m; i++) {
-		push(s[i + 1]);
-		t = pop_integer();
-		if (t < 0 || t >= p1->u.tensor->dim[i])
-			goto dont_evaluate;
-		k = k * p1->u.tensor->dim[i] + t;
-	}
-
-	if (ndim == m) {
-		tos -= n;
-		push(p1->u.tensor->elem[k]);
-		restore();
-		return;
-	}
-
-	for (i = m; i < ndim; i++)
-		k = k * p1->u.tensor->dim[i] + 0;
-
-	nelem = 1;
-
-	for (i = m; i < ndim; i++)
-		nelem *= p1->u.tensor->dim[i];
-
-	p2 = alloc_tensor(nelem);
-
-	p2->u.tensor->ndim = ndim - m;
-
-	for (i = m; i < ndim; i++)
-		p2->u.tensor->dim[i - m] = p1->u.tensor->dim[i];
-
-	for (i = 0; i < nelem; i++)
-		p2->u.tensor->elem[i] = p1->u.tensor->elem[k + i];
-
-	tos -= n;
-	push(p2);
-	restore();
-	return;
-
-dont_evaluate:
-
-	list(n);
-	p1 = pop();
-	push(_component);
-	push(p1);
-	cons();
-	restore();
-}
-
-#endif
-
 int
 compare_tensors(U *p1, U *p2)
 {
@@ -1312,3 +1231,4 @@ test_tensor(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
