@@ -1,4 +1,4 @@
-// outer product of tensors
+// Do the outer product of tensors.
 
 #include "stdafx.h"
 #include "defs.h"
