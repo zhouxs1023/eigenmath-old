@@ -17,17 +17,17 @@
 //                       |       |    |       |    |       |
 //                       |_______|    |_______|    |_______|
 
-typedef struct u {
+typedef struct U {
 	unsigned char k, tag;
 	unsigned short pad;
 	union {
 		struct {
-			struct u *car; // pointing down
-			struct u *cdr; // pointing right
+			struct U *car;		// pointing down
+			struct U *cdr;		// pointing right
 		} cons;
 		struct {
-			struct u *binding;	// symbol's value binding
-			struct u *binding2;	// symbol's function binding
+			struct U *binding;	// symbol's value binding
+			struct U *binding2;	// symbol's function binding
 		} sym;
 		char *str;
 		struct tensor *tensor;
