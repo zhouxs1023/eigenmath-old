@@ -217,12 +217,6 @@ out_of_memory(void)
 }
 
 void
-maxdim_error(void)
-{
-	stop("maxdim error");
-}
-
-void
 append(void)
 {
 	int h;

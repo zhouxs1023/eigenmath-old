@@ -49,7 +49,7 @@ outer_f(void)
 	ndim = p1->u.tensor->ndim + p2->u.tensor->ndim;
 
 	if (ndim > MAXDIM)
-		maxdim_error();
+		stop("outer: rank of result exceeds maximum");
 
 	nelem = p1->u.tensor->nelem * p2->u.tensor->nelem;
 
