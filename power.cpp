@@ -66,14 +66,14 @@ __power(void)
 
 	//	a ^ 0		->	1
 
-	if (equal(p1, _one) || iszero(p2)) {
-		push(_one);
+	if (equal(p1, one) || iszero(p2)) {
+		push(one);
 		return;
 	}
 
 	//	a ^ 1		->	a
 
-	if (equal(p2, _one)) {
+	if (equal(p2, one)) {
 		push(p1);
 		return;
 	}
@@ -81,7 +81,7 @@ __power(void)
 	//	(a * b) ^ c	->	(a ^ c) * (b ^ c)
 
 	if (car(p1) == symbol(MULTIPLY)) {
-		push(_one);
+		push(one);
 		p1 = cdr(p1);
 		while (iscons(p1)) {
 			push(car(p1));
@@ -235,7 +235,7 @@ power_sum(int n)
 	if (a == NULL)
 		stop("malloc failure");
 
-	push(_zero);
+	push(zero);
 
 	multinomial_sum(k, n, a, 0, n);
 

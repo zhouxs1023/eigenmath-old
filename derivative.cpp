@@ -69,14 +69,14 @@ d_scalar_scalar_1(void)
 	// d(x,x)?
 
 	if (equal(p1, p2)) {
-		push(_one);
+		push(one);
 		return;
 	}
 
 	// d(a,x)?
 
 	if (!iscons(p1)) {
-		push(_zero);
+		push(zero);
 		return;
 	}
 
@@ -321,7 +321,7 @@ dfunction(void)
 		push(p2);
 		list(3);
 	} else
-		push(_zero);
+		push(zero);
 }
 
 void

@@ -344,7 +344,7 @@ mp_numerator(void)
 	p1 = pop();
 
 	if (p1->k != NUM) {
-		push(_one);
+		push(one);
 		restore();
 		return;
 	}
@@ -369,7 +369,7 @@ mp_denominator(void)
 	p1 = pop();
 
 	if (p1->k != NUM) {
-		push(_one);
+		push(one);
 		restore();
 		return;
 	}
@@ -665,12 +665,8 @@ power_numbers(void)
 	expo = pop_double();
 	base = pop_double();
 
-	if (base == 0.0 && expo < 0.0) {
+	if (base == 0.0 && expo < 0.0)
 		stop("divide by zero");
-		//divide_by_zero_count++;
-		push(nil);
-		return;
-	}
 
 	errno = 0;
 
@@ -692,7 +688,7 @@ power_numbers(void)
 			b = 0.0;
 		push_double(result * a);
 		push_double(result * b);
-		push(unit_imaginary);
+		push(imaginaryunit);
 		multiply();
 		add();
 		return;

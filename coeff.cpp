@@ -73,7 +73,7 @@ coeff(void)
 
 		push(p1);	// FIXME faster to use evalat
 		push(p2);
-		push(_zero);
+		push(zero);
 		subst();
 		eval();
 
@@ -86,7 +86,7 @@ coeff(void)
 
 		p1 = pop();
 
-		if (equal(p1, _zero)) {
+		if (equal(p1, zero)) {
 			n = tos - h;
 			restore();
 			return n;

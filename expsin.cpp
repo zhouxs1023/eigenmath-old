@@ -18,21 +18,21 @@ expsin(void)
 
 	p1 = pop();
 
-	push(unit_imaginary);
+	push(imaginaryunit);
 	push(p1);
 	multiply();
 	exponential();
-	push(unit_imaginary);
+	push(imaginaryunit);
 	divide();
 	push_rational(1, 2);
 	multiply();
 
-	push(unit_imaginary);
+	push(imaginaryunit);
 	negate();
 	push(p1);
 	multiply();
 	exponential();
-	push(unit_imaginary);
+	push(imaginaryunit);
 	divide();
 	push_rational(1, 2);
 	multiply();

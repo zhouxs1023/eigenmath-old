@@ -98,7 +98,7 @@ determinant(int n)
 
 	sign = 1;
 
-	push(_zero);
+	push(zero);
 
 	for (;;) {
 
@@ -224,22 +224,22 @@ decomp(int n)
 
 	h = tos - n * n;
 
-	p1 = _one;
+	p1 = one;
 
 	for (d = 0; d < n - 1; d++) {
 
 		// diagonal element zero?
 
-		if (equal(M(d, d), _zero)) {
+		if (equal(M(d, d), zero)) {
 
 			// find a new row
 
 			for (i = d + 1; i < n; i++)
-				if (!equal(M(i, d), _zero))
+				if (!equal(M(i, d), zero))
 					break;
 
 			if (i == n) {
-				p1 = _zero;
+				p1 = zero;
 				break;
 			}
 
@@ -280,7 +280,7 @@ decomp(int n)
 
 			// update one row
 
-			M(i, d) = _zero; // clear column below pivot d
+			M(i, d) = zero; // clear column below pivot d
 
 			for (j = d + 1; j < n; j++) {
 				push(M(d, j));

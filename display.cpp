@@ -291,8 +291,8 @@ emit_fraction(U *p, int d)
 
 	save();
 
-	A = _one;
-	B = _one;
+	A = one;
+	B = one;
 
 	// handle numerical coefficient
 
@@ -415,7 +415,7 @@ emit_numerators(U *p)
 
 	save();
 
-	p1 = _one;
+	p1 = one;
 
 	p = cdr(p);
 
@@ -605,7 +605,6 @@ static void
 emit_power(U *p)
 {
 	int k1, k2, x;
-	U *q;
 
 	if (cadr(p) == symbol(E)) {
 		__emit_str("exp(");
@@ -614,12 +613,8 @@ emit_power(U *p)
 		return;
 	}
 
-	if (equal(p, unit_imaginary)) {
-		q = symbol(IM)->u.sym.binding;
-		if (issymbol(q))
-			__emit_str(get_printname(q));
-		else
-			__emit_str("i");
+	if (equal(p, imaginaryunit)) {
+		__emit_str("i");
 		return;
 	}
 

@@ -28,7 +28,7 @@ arccosh(void)
 		return;
 	}
 	if (isplusone(p1)) {
-		push(_zero);
+		push(zero);
 		restore();
 		return;
 	}

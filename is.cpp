@@ -173,8 +173,8 @@ isimaginarynumber(U *p)
 	if ((car(p) == symbol(MULTIPLY)
 	&& length(p) == 3
 	&& isnum(cadr(p))
-	&& equal(caddr(p), unit_imaginary))
-	|| equal(p, unit_imaginary))
+	&& equal(caddr(p), imaginaryunit))
+	|| equal(p, imaginaryunit))
 		return 1;
 	else 
 

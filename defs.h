@@ -160,11 +160,9 @@ extern U *_meta_b;
 extern U *_meta_f;
 extern U *_meta_n;
 extern U *_meta_x;
-extern U *_zero;
-extern U *_one;
-extern U *_minus_one;
-extern U *minus_three_halves;
-extern U *unit_imaginary;
+extern U *zero;
+extern U *one;
+extern U *imaginaryunit;
 
 extern U *alloc();
 extern U *alloc_tensor();

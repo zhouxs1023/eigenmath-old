@@ -84,7 +84,7 @@ push_identity_matrix(int n)
 	int i;
 	push_zero_matrix(n, n);
 	for (i = 0; i < n; i++)
-		stack[tos - 1]->u.tensor->elem[i * n + i] = _one;
+		stack[tos - 1]->u.tensor->elem[i * n + i] = one;
 }
 
 void
@@ -331,7 +331,7 @@ slog(void)
 		if (d < 0.0) {
 			d = log(-d);
 			push_double(d);
-			push(unit_imaginary);
+			push(imaginaryunit);
 			push_symbol(PI);
 			multiply();
 			add();
@@ -343,14 +343,14 @@ slog(void)
 		return;
 	}
 
-	if (equal(p1, _one)) {
+	if (equal(p1, one)) {
 		push_integer(0);
 		restore();
 		return;
 	}
 
 	if (p1 == symbol(E)) {
-		push(_one);
+		push(one);
 		restore();
 		return;
 	}

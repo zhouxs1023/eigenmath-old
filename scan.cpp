@@ -219,7 +219,7 @@ scan_term(void)
 	}
 
 	if (h == tos)
-		push(_one);
+		push(one);
 	else if (tos - h > 1) {
 		list(tos - h);
 		push_symbol(MULTIPLY);

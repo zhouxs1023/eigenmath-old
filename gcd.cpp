@@ -91,16 +91,16 @@ __gcd(void)
 		p3 = caddr(p1);
 		p1 = cadr(p1);
 	} else
-		p3 = _one;
+		p3 = one;
 
 	if (car(p2) == symbol(POWER)) {
 		p4 = caddr(p2);
 		p2 = cadr(p2);
 	} else
-		p4 = _one;
+		p4 = one;
 
 	if (!equal(p1, p2)) {
-		push(_one);
+		push(one);
 		return;
 	}
 
@@ -133,12 +133,12 @@ __gcd(void)
 		if (car(p3) == symbol(MULTIPLY) && isnum(cadr(p3)))
 			p5 = cadr(p3);
 		else
-			p5 = _one;
+			p5 = one;
 
 		if (car(p4) == symbol(MULTIPLY) && isnum(cadr(p4)))
 			p6 = cadr(p4);
 		else
-			p6 = _one;
+			p6 = one;
 
 		if (lessp(p5, p6))
 			push(p3);
@@ -156,7 +156,7 @@ __gcd(void)
 	p5 = pop();
 
 	if (!isnum(p5)) {
-		push(_one);
+		push(one);
 		return;
 	}
 
@@ -178,7 +178,7 @@ static void
 gcd_expr_expr(void)
 {
 	if (length(p1) != length(p2)) {
-		push(_one);
+		push(one);
 		return;
 	}
 
@@ -219,7 +219,7 @@ gcd_expr_expr(void)
 		gcd();
 		multiply();
 	} else
-		push(_one);
+		push(one);
 }
 
 static void
@@ -238,7 +238,7 @@ gcd_expr(U *p)
 static void
 gcd_term_term(void)
 {
-	push(_one);
+	push(one);
 	p3 = cdr(p1);
 	while (iscons(p3)) {
 		p4 = cdr(p2);
@@ -256,7 +256,7 @@ gcd_term_term(void)
 static void
 gcd_term_factor(void)
 {
-	push(_one);
+	push(one);
 	p3 = cdr(p1);
 	while (iscons(p3)) {
 		push(car(p3));
@@ -270,7 +270,7 @@ gcd_term_factor(void)
 static void
 gcd_factor_term(void)
 {
-	push(_one);
+	push(one);
 	p4 = cdr(p2);
 	while (iscons(p4)) {
 		push(p1);

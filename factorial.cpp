@@ -60,7 +60,7 @@ simplifyfactorials(void)
 	p1 = pop();
 
 	if (car(p1) == symbol(ADD)) {
-		push(_zero);
+		push(zero);
 		p1 = cdr(p1);
 		while (iscons(p1)) {
 			push(car(p1));
@@ -112,7 +112,7 @@ sfac_product(void)
 		}
 	}
 
-	push(_one);
+	push(one);
 
 	for (i = 0; i < n; i++) {
 		if (s[i] == nil)
@@ -140,13 +140,13 @@ sfac_product_f(U **s, int a, int b)
 		p3 = caddr(p1);
 		p1 = cadr(p1);
 	} else
-		p3 = _one;
+		p3 = one;
 
 	if (ispower(p2)) {
 		p4 = caddr(p2);
 		p2 = cadr(p2);
 	} else
-		p4 = _one;
+		p4 = one;
 
 	if (isfactorial(p1) && isfactorial(p2)) {
 
@@ -182,7 +182,7 @@ sfac_product_f(U **s, int a, int b)
 			p4 = p5;
 		}
 
-		push(_one);
+		push(one);
 
 		for (i = 1; i <= n; i++) {
 			push(cadr(p2));

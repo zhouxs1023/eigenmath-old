@@ -138,7 +138,7 @@ eval_check(void)
 	|| car(p1) == symbol(TESTGT)) {
 		push(p1);
 		eval();
-		push(_one);
+		push(one);
 		subtract();
 	} else if (car(p1) == symbol(SETQ) || car(p1) == symbol(TESTEQ)) {
 		push(cadr(p1));
@@ -422,23 +422,11 @@ eval_identity(void)
 	p1->u.tensor->dim[0] = n;
 	p1->u.tensor->dim[1] = n;
 	for (i = 0; i < n; i++)
-		p1->u.tensor->elem[n * i + i] = _one;
+		p1->u.tensor->elem[n * i + i] = one;
 	push(p1);
 }
 
 #endif
-
-static void
-eval_imaginaryunit(void)
-{
-	p1 = cadr(p1);
-	if (p1 != nil && p1->k == SYM) {
-		symbol(IM)->u.sym.binding = p1;
-		p1->u.sym.binding = unit_imaginary;
-		p1->u.sym.binding2 = nil;
-	}
-	push(unit_imaginary);
-}
 
 extern void index_function(int);
 
@@ -504,17 +492,17 @@ eval_isinteger(void)
 	p1 = pop();
 	if (p1->k == NUM) {
 		if (isinteger(p1))
-			push(_one);
+			push(one);
 		else
-			push(_zero);
+			push(zero);
 		return;
 	}
 	if (p1->k == DOUBLE) {
 		n = (int) p1->u.d;
 		if (n == p1->u.d)
-			push(_one);
+			push(one);
 		else
-			push(_zero);
+			push(zero);
 		return;
 	}
 	push_symbol(ISINTEGER);
@@ -533,7 +521,7 @@ eval_laguerre(void)
 		push(cadddr(p1));
 		eval();
 	} else
-		push(_zero);
+		push(zero);
 	laguerre();
 }
 
@@ -558,7 +546,7 @@ eval_legendre(void)
 		push(cadddr(p1));
 		eval();
 	} else
-		push(_zero);
+		push(zero);
 	legendre();
 }
 
@@ -657,7 +645,7 @@ eval_rank(void)
 	eval();
 	p2 = pop();
 	if (isnum(p2))
-		push(_zero);
+		push(zero);
 	else if (p2->k == TENSOR)
 		push_integer(p2->u.tensor->ndim);
 	else {
@@ -795,7 +783,7 @@ eval_taylor(void)
 	if (iscons(cddddr(p1)))
 		push(caddddr(p1));
 	else
-		push(_zero); // default expansion point
+		push(zero); // default expansion point
 	eval();
 	taylor();
 }
@@ -829,9 +817,9 @@ eval_testeq(void)
 	p2 = pop();
 	if (isnum(p2))
 		if (iszero(p2))
-			push(_one);
+			push(one);
 		else
-			push(_zero);
+			push(zero);
 	else
 		push(p1);
 }
@@ -847,9 +835,9 @@ eval_testge(void)
 	p2 = pop();
 	if (isnum(p2))
 		if (isnegativenumber(p2))
-			push(_zero);
+			push(zero);
 		else
-			push(_one);
+			push(one);
 	else
 		push(p1);
 }
@@ -866,9 +854,9 @@ eval_testgt(void)
 	p2 = pop();
 	if (isnum(p2))
 		if (isnegativenumber(p2))
-			push(_one);
+			push(one);
 		else
-			push(_zero);
+			push(zero);
 	else
 		push(p1);
 }
@@ -885,9 +873,9 @@ eval_testle(void)
 	p2 = pop();
 	if (isnum(p2))
 		if (isnegativenumber(p2))
-			push(_zero);
+			push(zero);
 		else
-			push(_one);
+			push(one);
 	else
 		push(p1);
 }
@@ -903,9 +891,9 @@ eval_testlt(void)
 	p2 = pop();
 	if (isnum(p2))
 		if (isnegativenumber(p2))
-			push(_one);
+			push(one);
 		else
-			push(_zero);
+			push(zero);
 	else
 		push(p1);
 }
@@ -943,7 +931,7 @@ eval_unit(void)
 	p1->u.tensor->dim[0] = n;
 	p1->u.tensor->dim[1] = n;
 	for (i = 0; i < n; i++)
-		p1->u.tensor->elem[n * i + i] = _one;
+		p1->u.tensor->elem[n * i + i] = one;
 	push(p1);
 }
 
@@ -971,7 +959,7 @@ eval_unit(void)
 			k = k * p1->u.tensor->dim[j] + i;
 		}
 		if (k >= 0)
-			p1->u.tensor->elem[k] = _one;
+			p1->u.tensor->elem[k] = one;
 	}
 	push(p1);
 }
@@ -1150,7 +1138,6 @@ eval_cons(void)
 	case GCD:		eval_gcd();		break;
 	case HERMITE:		eval_hermite();		break;
 	case HILBERT:		eval_hilbert();		break;
-	case IMAGINARYUNIT:	eval_imaginaryunit();	break;
 	case INDEX:		eval_index();		break;
 	case INNER:		eval_inner();		break;
 	case INTEGRAL:		eval_integral();	break;

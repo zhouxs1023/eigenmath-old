@@ -500,7 +500,7 @@ fudge(void)
 	}
 
 	if (issymbol(p1)) {
-		push(_one);
+		push(one);
 		restore();
 		return;
 	}

@@ -28,7 +28,7 @@ arctanh(void)
 		return;
 	}
 	if (iszero(p1)) {
-		push(_zero);
+		push(zero);
 		restore();
 		return;
 	}

@@ -58,7 +58,7 @@ arcsin(void)
 		break;
 
 	case 0:
-		push(_zero);
+		push(zero);
 		break;
 
 	case 1:

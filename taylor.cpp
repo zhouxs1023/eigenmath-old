@@ -76,7 +76,7 @@ __taylor(void)
 	push(A);
 	evalat();
 
-	C = _one;
+	C = one;
 
 	for (i = 1; i <= k; i++) {
 

@@ -39,7 +39,7 @@ __binomial(void)
 	N = pop();
 
 	if (check_args() == 0) {
-		push(_zero);
+		push(zero);
 		return;
 	}
 
@@ -62,9 +62,9 @@ __binomial(void)
 static int
 check_args(void)
 {
-	if (isnum(N) && lessp(N, _zero))
+	if (isnum(N) && lessp(N, zero))
 		return 0;
-	else if (isnum(K) && lessp(K, _zero))
+	else if (isnum(K) && lessp(K, zero))
 		return 0;
 	else if (isnum(N) && isnum(K) && lessp(N, K))
 		return 0;

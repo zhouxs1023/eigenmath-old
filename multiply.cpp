@@ -57,7 +57,7 @@ __multiply(void)
 	// is either operand zero?
 
 	if (iszero(p1) || iszero(p2)) {
-		push(_zero);
+		push(zero);
 		return;
 	}
 
@@ -77,7 +77,7 @@ __multiply(void)
 
 	if (expanding && isadd(p1)) {
 		p1 = cdr(p1);
-		push(_zero);
+		push(zero);
 		while (iscons(p1)) {
 			push(car(p1));
 			push(p2);
@@ -90,7 +90,7 @@ __multiply(void)
 
 	if (expanding && isadd(p2)) {
 		p2 = cdr(p2);
-		push(_zero);
+		push(zero);
 		while (iscons(p2)) {
 			push(p1);
 			push(car(p2));
@@ -152,7 +152,7 @@ __multiply(void)
 		push(car(p2));
 		p2 = cdr(p2);
 	} else
-		push(_one);
+		push(one);
 
 	parse_p1();
 	parse_p2();
@@ -283,7 +283,7 @@ static void
 parse_p1(void)
 {
 	p3 = car(p1);
-	p5 = _one;
+	p5 = one;
 	if (car(p3) == symbol(POWER)) {
 		p5 = caddr(p3);
 		p3 = cadr(p3);
@@ -302,7 +302,7 @@ static void
 parse_p2(void)
 {
 	p4 = car(p2);
-	p6 = _one;
+	p6 = one;
 	if (car(p4) == symbol(POWER)) {
 		p6 = caddr(p4);
 		p4 = cadr(p4);
@@ -395,7 +395,7 @@ multiply_all(int n)
 	if (n == 1)
 		return;
 	if (n == 0) {
-		push(_one);
+		push(one);
 		return;
 	}
 	h = tos - n;
@@ -579,7 +579,7 @@ __normalize_radical_factors(int h)
 
 		push_symbol(POWER);
 		push(BASE);
-		push(_one);
+		push(one);
 		push(EXPO);
 		add();
 		list(3);
@@ -628,7 +628,7 @@ __normalize_radical_factors(int h)
 		push_symbol(POWER);
 		push(BASE);
 		push(EXPO);
-		push(_one);
+		push(one);
 		subtract();
 		list(3);
 		stack[i] = pop();

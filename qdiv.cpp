@@ -25,7 +25,7 @@ qdiv(void)
 		stop("divide by zero");
 
 	if (MZERO(p1->u.q.a)) {
-		push(_zero);
+		push(zero);
 		restore();
 		return;
 	}

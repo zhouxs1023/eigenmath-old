@@ -103,7 +103,7 @@ factorpoly2(void)
 	p1 = pop();
 	if (car(p1) == symbol(MULTIPLY)) {
 		p1 = cdr(p1);
-		push(_one);
+		push(one);
 		while (iscons(p1)) {
 			push(car(p1));
 			if (caar(p1) == symbol(ADD)) {
@@ -156,7 +156,7 @@ factorpoly3(void)
 
 	if (car(p1) == symbol(MULTIPLY)) {
 		p1 = cdr(p1);
-		push(_one);
+		push(one);
 		while (iscons(p1)) {
 			push(car(p1));
 			if (ispoly(car(p1), p2)) {
@@ -253,7 +253,7 @@ factorpoly4(void)
 
 	// unfactored polynomial
 
-	push(_zero);
+	push(zero);
 	for (i = 0; i <= expo; i++) {
 		push(polycoeff[i]);
 		push(X);
@@ -305,7 +305,7 @@ rationalize_coefficients(int h)
 	int i;
 	if (verbosing)
 		printf("rationalizing coefficients\n");
-	RESULT = _one;
+	RESULT = one;
 	for (i = h; i < tos; i++) {
 		if (isnum(stack[i])) {
 			push(stack[i]);
@@ -350,7 +350,7 @@ get_factor(void)
 	int a0, an, na0, nan;
 
 	if (verbosing) {
-		push(_zero);
+		push(zero);
 		for (i = 0; i <= expo; i++) {
 			push(polycoeff[i]);
 			push(X);
@@ -489,7 +489,7 @@ static void
 divpoly(void)
 {
 	int i;
-	Q = _zero;
+	Q = zero;
 	for (i = expo; i > 0; i--) {
 		push(polycoeff[i]);
 		polycoeff[i] = Q;
@@ -510,7 +510,7 @@ static void
 evalpoly(void)
 {
 	int i;
-	push(_zero);
+	push(zero);
 	for (i = expo; i >= 0; i--) {
 		push(Z);
 		multiply();

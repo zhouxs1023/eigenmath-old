@@ -68,7 +68,7 @@ arccos(void)
 		break;
 
 	case 2:
-		push(_zero);
+		push(zero);
 		break;
 
 	default:

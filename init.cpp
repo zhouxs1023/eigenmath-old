@@ -28,20 +28,7 @@ init(void)
 
 	init_alloc(); // init_alloc() uses nil too
 
-	define_variable("autoexpand", AUTOEXPAND);
-	define_variable("~e", E); // tilde so sort puts it after scalar symbols
-	define_variable("expomode", EXPOMODE);
-	define_variable("tty", TTY);
-	define_variable("*im", IM);
-	define_variable("last", LAST);
-	define_variable("pi", PI);
-
-	define_variable("d", SYMBOL_D);
-	define_variable("r", SYMBOL_R);
-	define_variable("t", SYMBOL_T);
-	define_variable("x", SYMBOL_X);
-	define_variable("y", SYMBOL_Y);
-	define_variable("z", SYMBOL_Z);
+	// built-in function names
 
 	define_symbol("abs", ABS);
 	define_symbol("add", ADD);
@@ -96,7 +83,6 @@ init(void)
 	define_symbol("hermite", HERMITE);
 	define_symbol("hilbert", HILBERT);
 	define_symbol("component", INDEX);
-	define_symbol("imagunit", IMAGINARYUNIT);
 	define_symbol("inner", INNER);
 	define_symbol("integral", INTEGRAL);
 	define_symbol("inv", INV);
@@ -146,6 +132,23 @@ init(void)
 	define_symbol("wedge", WEDGE);
 	define_symbol("zero", ZERO);
 
+	// built-in symbols
+
+	define_variable("autoexpand", AUTOEXPAND);
+	define_variable("~exp", E); // tilde so sort puts it after scalar symbols
+	define_variable("expomode", EXPOMODE);
+	define_variable("tty", TTY);
+	define_variable("*im", IM);
+	define_variable("last", LAST);
+	define_variable("pi", PI);
+
+	define_variable("d", SYMBOL_D);
+	define_variable("r", SYMBOL_R);
+	define_variable("t", SYMBOL_T);
+	define_variable("x", SYMBOL_X);
+	define_variable("y", SYMBOL_Y);
+	define_variable("z", SYMBOL_Z);
+
 	tmp		= get_symbol("*tmp");
 
 	a		= get_symbol("a");
@@ -168,22 +171,22 @@ init(void)
 	frame = stack + TOS;
 
 	push_integer(0);
-	_zero = pop();
+	zero = pop();
 
 	push_integer(1);
-	_one = pop();
+	one = pop();
 
 	push_symbol(POWER);
 	push_integer(-1);
 	push_rational(1, 2);
 	list(3);
-	unit_imaginary = pop();
+	imaginaryunit = pop();
 
 	defn();
 }
 
 static char *defn_str[] = {
-	"imagunit(i)",
+	"i=sqrt(-1)",
 	"autoexpand=1",
 	"expomode=0",
 	"trange=(-pi,pi)",

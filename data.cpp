@@ -22,9 +22,9 @@ U *yya;
 U *yyb;
 U *yyx;
 
-U *_zero;
-U *_one;
-U *unit_imaginary;
+U *zero;
+U *one;
+U *imaginaryunit;
 
 int expanding;
 int conjugating;

@@ -157,7 +157,7 @@ __add(void)
 
 	switch (n) {
 	case 0:
-		push(_zero);
+		push(zero);
 		break;
 	case 1:
 		break;
@@ -183,7 +183,7 @@ static void
 parse_p1(void)
 {
 	p3 = car(p1);
-	p5 = _one;
+	p5 = one;
 	if (car(p3) == symbol(MULTIPLY) && isnum(cadr(p3))) {
 		p5 = cadr(p3);
 		p3 = cddr(p3);
@@ -210,7 +210,7 @@ static void
 parse_p2(void)
 {
 	p4 = car(p2);
-	p6 = _one;
+	p6 = one;
 	if (car(p4) == symbol(MULTIPLY) && isnum(cadr(p4))) {
 		p6 = cadr(p4);
 		p4 = cddr(p4);
@@ -283,7 +283,7 @@ addk(int k)
 	if (k == 1)
 		return;
 	if (k == 0) {
-		push(_zero);
+		push(zero);
 		return;
 	}
 	h = tos - k;

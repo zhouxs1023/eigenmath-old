@@ -58,7 +58,7 @@ integral_of_form(void)
 
 	h = tos;
 
-	push(_one);
+	push(one);
 
 	push(p1);
 	push(p2);

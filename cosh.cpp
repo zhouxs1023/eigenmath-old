@@ -51,7 +51,7 @@ yycosh(void)
 		return;
 	}
 	if (iszero(p1)) {
-		push(_one);
+		push(one);
 		return;
 	}
 	push_symbol(COSH);

@@ -29,7 +29,7 @@ degree(void)
 	save();
 	X = pop();
 	POLY = pop();
-	DEGREE = _zero;
+	DEGREE = zero;
 	degree_f(POLY);
 	push(DEGREE);
 	restore();
@@ -40,7 +40,7 @@ degree_f(U *p)
 {
 	if (equal(p, X)) {
 		if (iszero(DEGREE))
-			DEGREE = _one;
+			DEGREE = one;
 	} else if (car(p) == symbol(POWER)) {
 		if (equal(cadr(p), X) && isnum(caddr(p)) && lessp(DEGREE, caddr(p)))
 			DEGREE = caddr(p);

@@ -59,7 +59,7 @@ __condense(void)
 
 	inverse();
 	p2 = pop();
-	push(_zero);
+	push(zero);
 	p3 = cdr(p1);
 	while (iscons(p3)) {
 		push(p2);

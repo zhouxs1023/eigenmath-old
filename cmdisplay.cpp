@@ -406,8 +406,8 @@ emit_fraction(U *p, int d)
 
 	save();
 
-	A = _one;
-	B = _one;
+	A = one;
+	B = one;
 
 	// handle numerical coefficient
 
@@ -530,7 +530,7 @@ emit_numerators(U *p)
 
 	save();
 
-	p1 = _one;
+	p1 = one;
 
 	p = cdr(p);
 
@@ -723,8 +723,8 @@ emit_power(U *p)
 		return;
 	}
 
-	if (equal(p, unit_imaginary)) {
-		emit_symbol(symbol(IM)->u.sym.binding);
+	if (equal(p, imaginaryunit)) {
+		emit_char(ITALIC_FONT, "i");
 		return;
 	}
 

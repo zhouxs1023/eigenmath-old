@@ -72,7 +72,7 @@ divisors_onstack(void)
 				push(caddr(p2));
 			} else {
 				push(p2);
-				push(_one);
+				push(one);
 			}
 			p1 = cdr(p1);
 		}
@@ -81,14 +81,14 @@ divisors_onstack(void)
 		push(caddr(p1));
 	} else {
 		push(p1);
-		push(_one);
+		push(one);
 	}
 
 	k = tos;
 
 	// contruct divisors by recursive descent
 
-	push(_one);
+	push(one);
 
 	gen(h, k);
 
@@ -200,7 +200,7 @@ __factor_add(void)
 	p2 = pop();
 	if (isplusone(p2)) {
 		push(p1);
-		push(_one);
+		push(one);
 		restore();
 		return;
 	}
@@ -217,17 +217,17 @@ __factor_add(void)
 			factor_small_number();
 		} else {
 			push(car(p3));
-			push(_one);
+			push(one);
 		}
 		p3 = cdr(p3);
 		while (iscons(p3)) {
 			push(car(p3));
-			push(_one);
+			push(one);
 			p3 = cdr(p3);
 		}
 	} else {
 		push(p2);
-		push(_one);
+		push(one);
 	}
 
 	// divide each term by gcd
@@ -236,7 +236,7 @@ __factor_add(void)
 	inverse();
 	p2 = pop();
 
-	push(_zero);
+	push(zero);
 	p3 = cdr(p1);
 	while (iscons(p3)) {
 		push(p2);
@@ -246,7 +246,7 @@ __factor_add(void)
 		p3 = cdr(p3);
 	}
 
-	push(_one);
+	push(one);
 
 	restore();
 }

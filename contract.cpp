@@ -90,7 +90,7 @@ __contract(void)
 	}
 
 	for (i = 0; i < nelem; i++) {
-		push(_zero);
+		push(zero);
 		for (j = 0; j < n; j++) {
 			ai[l] = j;
 			ai[m] = j;

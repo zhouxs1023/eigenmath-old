@@ -48,7 +48,7 @@ __rationalize(void)
 
 	// get common denominator
 
-	push(_one);
+	push(one);
 	multiply_denominators(p1);
 	p2 = pop();
 
@@ -59,7 +59,7 @@ __rationalize(void)
 
 	// multiply each term by common denominator
 
-	push(_zero);
+	push(zero);
 	p3 = cdr(p1);
 	while (iscons(p3)) {
 		push(p2);

@@ -451,7 +451,7 @@ contract(void)
 	}
 
 	for (i = 0; i < nelem; i++) {
-		push(_zero);
+		push(zero);
 		for (j = 0; j < n; j++) {
 			ai[l] = j;
 			ai[m] = j;
@@ -696,7 +696,7 @@ check_tensor(void)
 	for (i = 0; i < n; i++)
 		if (!iszero(a[i]))
 			return;
-	stack[tos - 1] = _zero;
+	stack[tos - 1] = zero;
 }
 
 //-----------------------------------------------------------------------------
@@ -749,7 +749,7 @@ power_tensor(void)
 		p1->u.tensor->dim[0] = n;
 		p1->u.tensor->dim[1] = n;
 		for (i = 0; i < n; i++)
-			p1->u.tensor->elem[n * i + i] = _one;
+			p1->u.tensor->elem[n * i + i] = one;
 		push(p1);
 		return;
 	}

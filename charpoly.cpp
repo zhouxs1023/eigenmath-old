@@ -47,7 +47,7 @@ charpoly(void)
 
 	push_symbol(POWER);
 	push(LAMBDA);
-	push(_zero);
+	push(zero);
 	list(3);
 	multiply();
 

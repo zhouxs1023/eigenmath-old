@@ -80,9 +80,9 @@ print_expr(U *p)
 static int
 sign_of_term(U *p)
 {
-	if (car(p) == symbol(MULTIPLY) && isnum(cadr(p)) && lessp(cadr(p), _zero))
+	if (car(p) == symbol(MULTIPLY) && isnum(cadr(p)) && lessp(cadr(p), zero))
 		return '-';
-	else if (isnum(p) && lessp(p, _zero))
+	else if (isnum(p) && lessp(p, zero))
 		return '-';
 	else
 		return '+';
@@ -121,8 +121,8 @@ print_a_over_b(U *p)
 			d++;
 		p1 = cdr(p1);
 	} else {
-		A = _one;
-		B = _one;
+		A = one;
+		B = one;
 	}
 
 	while (iscons(p1)) {
@@ -245,7 +245,7 @@ print_denom(U *p, int d)
 	if (d == 1 && !isminusone(EXPO))
 		print_char('(');
 
-	if (isfraction(BASE) || car(BASE) == symbol(ADD) || car(BASE) == symbol(MULTIPLY) || car(BASE) == symbol(POWER) || lessp(BASE, _zero)) {
+	if (isfraction(BASE) || car(BASE) == symbol(ADD) || car(BASE) == symbol(MULTIPLY) || car(BASE) == symbol(POWER) || lessp(BASE, zero)) {
 			print_char('(');
 			print_expr(BASE);
 			print_char(')');
@@ -282,8 +282,6 @@ print_denom(U *p, int d)
 void
 print_factor(U *p)
 {
-	U *q;
-
 	if (isnum(p)) {
 		print_number(p);
 		return;
@@ -310,12 +308,8 @@ print_factor(U *p)
 
 	if (car(p) == symbol(POWER)) {
 
-		if (equal(p, unit_imaginary)) {
-			q = symbol(IM)->u.sym.binding;
-			if (issymbol(q))
-				print_str(get_printname(q));
-			else
-				print_str("i");
+		if (equal(p, imaginaryunit)) {
+			print_str("i");
 			return;
 		}
 
@@ -344,7 +338,7 @@ print_factor(U *p)
 			print_str("(");
 			print_expr(cadr(p));
 			print_str(")");
-		} else if (isnum(cadr(p)) && (lessp(cadr(p), _zero) || isfraction(cadr(p)))) {
+		} else if (isnum(cadr(p)) && (lessp(cadr(p), zero) || isfraction(cadr(p)))) {
 			print_str("(");
 			print_factor(cadr(p));
 			print_str(")");
@@ -355,7 +349,7 @@ print_factor(U *p)
 			print_str(power_str);
 		else
 			print_str("^");
-		if (iscons(caddr(p)) || isfraction(caddr(p)) || (isnum(caddr(p)) && lessp(caddr(p), _zero))) {
+		if (iscons(caddr(p)) || isfraction(caddr(p)) || (isnum(caddr(p)) && lessp(caddr(p), zero))) {
 			print_str("(");
 			print_expr(caddr(p));
 			print_str(")");

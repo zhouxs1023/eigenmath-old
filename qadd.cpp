@@ -31,7 +31,7 @@ qadd(void)
 
 	if (MZERO(a)) {
 		mfree(a);
-		push(_zero);
+		push(zero);
 		restore();
 		return;
 	}

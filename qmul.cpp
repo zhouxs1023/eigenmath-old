@@ -22,7 +22,7 @@ qmul(void)
 	// zero?
 
 	if (MZERO(p1->u.q.a) || MZERO(p2->u.q.a)) {
-		push(_zero);
+		push(zero);
 		restore();
 		return;
 	}

@@ -111,9 +111,9 @@ __invg(void)
 	for (i = 0; i < n; i++)
 		for (j = 0; j < n; j++)
 			if (i == j)
-				push(_one);
+				push(one);
 			else
-				push(_zero);
+				push(zero);
 
 	for (i = 0; i < n * n; i++)
 		push(p1->u.tensor->elem[i]);
@@ -164,12 +164,12 @@ decomp(int n)
 
 		// diagonal element zero?
 
-		if (equal(A(d, d), _zero)) {
+		if (equal(A(d, d), zero)) {
 
 			// find a new row
 
 			for (i = d + 1; i < n; i++)
-				if (!equal(A(i, d), _zero))
+				if (!equal(A(i, d), zero))
 					break;
 
 			if (i == n)

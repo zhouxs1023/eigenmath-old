@@ -1347,7 +1347,7 @@ test(char *file, char **s, int n)
 
 	p1 = symbol(TTY);
 
-	p1->u.sym.binding = _one;
+	p1->u.sym.binding = one;
 
 	for (i = 0; i < n; i++) {
 
@@ -1571,7 +1571,7 @@ test_b(void)
 
 	t = times(&tms);
 
-	push(_zero);
+	push(zero);
 
 	for (i = 1; i < 1001; i++) {
 		push_integer(i);
@@ -1652,7 +1652,7 @@ test_d(void)
 
 	// sum over k from 1 to 10: k*y*t^k / (y+k*t)^k
 
-	push(_zero);
+	push(zero);
 	for (k = 1; k < 11; k++) {
 		push_integer(k);
 		push(Y);

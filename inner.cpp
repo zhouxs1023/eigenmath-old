@@ -109,7 +109,7 @@ inner_f(void)
 #else
 	for (i = 0; i < ak; i++) {
 		for (j = 0; j < bk; j++) {
-			push(_zero);
+			push(zero);
 			for (k = 0; k < n; k++) {
 				push(a[i * n + k]);
 				push(b[k * bk + j]);

@@ -51,7 +51,7 @@ divpoly(void)
 
 	x = m - n;
 
-	push(_zero);
+	push(zero);
 
 	while (x >= 0) {
 

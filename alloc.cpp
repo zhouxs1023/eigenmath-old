@@ -53,7 +53,7 @@ alloc_tensor(int nelem)
 		out_of_memory();
 	p->u.tensor->nelem = nelem;
 	for (i = 0; i < nelem; i++)
-		p->u.tensor->elem[i] = _zero;
+		p->u.tensor->elem[i] = zero;
 	return p;
 }
 
@@ -71,9 +71,9 @@ gc(void)
 
 	// untag what's used
 
-	untag(_zero);
-	untag(_one);
-	untag(unit_imaginary);
+	untag(zero);
+	untag(one);
+	untag(imaginaryunit);
 
 	untag_symbols();
 

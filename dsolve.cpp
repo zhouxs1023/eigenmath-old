@@ -79,7 +79,7 @@ int distilly()
 {
 	int n = 0;
 	save();
-	p4 = _one;
+	p4 = one;
 	p3 = pop();
 	p2 = pop();
 	p1 = pop();
@@ -87,7 +87,7 @@ int distilly()
 		n++;
 		push(p1);
 		push(p2);
-		push(_zero);
+		push(zero);
 		subst();
 		eval();
 		p5 = pop();
@@ -98,7 +98,7 @@ int distilly()
 		push(p5);
 		subtract();
 		p1 = pop();
-		if (equal(p1, _zero))
+		if (equal(p1, zero))
 			break;
 		p4 = p2;
 		push(p2);

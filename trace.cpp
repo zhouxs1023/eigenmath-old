@@ -60,7 +60,7 @@ trace3(void)
 
 	n = p1->u.tensor->dim[0];
 
-	push(_zero);
+	push(zero);
 
 	for (i = 0; i < n; i++) {
 		push(p1->u.tensor->elem[n * i + i]);

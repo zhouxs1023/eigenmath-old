@@ -51,7 +51,7 @@ yysinh(void)
 		return;
 	}
 	if (iszero(p1)) {
-		push(_zero);
+		push(zero);
 		return;
 	}
 	push_symbol(SINH);

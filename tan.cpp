@@ -37,12 +37,12 @@ __tangent(void)
 	}
 
 	if (expomode == 1) {
-		push(unit_imaginary);
+		push(imaginaryunit);
 		push(p1);
 		multiply();
 		exponential();
 		p2 = pop();
-		push(unit_imaginary);
+		push(imaginaryunit);
 		push(p1);
 		multiply();
 		negate();
@@ -51,7 +51,7 @@ __tangent(void)
 		push(p3);
 		push(p2);
 		subtract();
-		push(unit_imaginary);
+		push(imaginaryunit);
 		multiply();
 		push(p2);
 		push(p3);

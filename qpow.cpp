@@ -39,7 +39,7 @@ qpowf(void)
 	if (iszero(BASE)) {
 		if (isnegativenumber(EXPO))
 			stop("divide by zero");
-		push(_zero);
+		push(zero);
 		return;
 	}
 
