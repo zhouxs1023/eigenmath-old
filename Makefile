@@ -2,12 +2,12 @@
 #
 # 1. Unpack the tarball.
 #
-#	$ tar zxf math.tar.gz
+#	$ tar zxf math102.tar.gz
 #
 # 2. Compile it. (For Power PC and other big endian machines, first add -DMAC
 #    to CFLAGS below.)
 #
-#	$ cd math
+#	$ cd math102
 #	$ make
 #
 # 3. Test it.

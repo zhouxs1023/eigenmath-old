@@ -22,6 +22,7 @@
 #include <time.h>
 
 extern void run(char *);
+extern void clear(void);
 extern void draw_display(void);
 extern void printstr(char *);
 extern void update_cmd_history(char *);
@@ -362,7 +363,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	main_window = CreateWindow(
 		"Eigenmath",
-		"Eigenmath 101",
+		"Eigenmath 102",
 		WS_OVERLAPPEDWINDOW /* | WS_VSCROLL */ ,
 		CW_USEDEFAULT, 0,
 		CW_USEDEFAULT, 0,
@@ -1951,7 +1952,6 @@ static HANDLE thread;
 static DWORD WINAPI
 task(LPVOID p)
 {
-	clear();
 	run_hdc = GetDC(main_window);
 	run(inp);
 	ReleaseDC(main_window, run_hdc);
@@ -2098,6 +2098,7 @@ run_script(void)
 	inp = (char *) malloc(len + 1);
 	GetWindowText(edit_window, inp, len + 1);
 	goto_calc_mode();
+	clear();
 	create_task();
 }
 
