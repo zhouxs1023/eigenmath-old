@@ -20,3 +20,4 @@ int expanding;
 int conjugating;
 int verbosing;
 int floating;
+int esc_flag;

@@ -2,8 +2,6 @@
 
 #include "stdafx.h"
 #include "defs.h"
-
-extern int esc_flag;
 static void factor_a(unsigned int *);
 static void try_kth_prime(unsigned int **, int);
 static void push_factor(unsigned int *, int);

@@ -29,6 +29,8 @@ run(char *s)
 {
 	int n, tty;
 
+	esc_flag = 0;
+
 	if (setjmp(stop_return)) {
 		restore_symbols(0);
 		if (errstr) {

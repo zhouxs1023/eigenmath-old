@@ -1,20 +1,8 @@
+// Symbolic addition
+
 #include "stdafx.h"
-
-//-----------------------------------------------------------------------------
-//
-//	Symbolic addition
-//
-//	Input:		Addends on stack
-//
-//	Output:		Result on stack
-//
-//-----------------------------------------------------------------------------
-
 #include "defs.h"
-
-extern int esc_flag;
-
-static void __add(void);
+static void add_f(void);
 static void combine_terms(void);
 static void parse_p1(void);
 static void parse_p2(void);
@@ -30,13 +18,13 @@ add()
 		add_numbers();
 	else {
 		save();
-		__add();
+		add_f();
 		restore();
 	}
 }
 
 static void
-__add(void)
+add_f(void)
 {
 	int h, n;
 

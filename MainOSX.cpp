@@ -54,7 +54,7 @@ int grow_dim = 0; // set to 15 to remove overlap w/grow control
 int input_control_height = 28;
 int update_display_request;
 
-int esc_flag;
+extern int esc_flag;
 static int running;
 static unsigned int timer;
 
@@ -1330,7 +1330,6 @@ create_task(void)
     MPTaskID id;
     DeactivateControl(inputcontrol);
     update_curr_cmd("");
-    esc_flag = 0;
     timer = time(NULL);
     running = 1;
     MPCreateTask(

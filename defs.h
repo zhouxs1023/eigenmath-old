@@ -282,7 +282,7 @@ extern int verbosing;
 extern int floating;
 extern char program_buf[];
 extern int primetab[MAXPRIMETAB];
-
+extern int esc_flag;
 extern U *nil;
 extern U *stack[];
 

@@ -45,7 +45,7 @@ int max_y;
 int total_w;
 int total_h;
 int update_display_request;
-int esc_flag;
+extern int esc_flag;
 
 static int running;
 static unsigned int timer;
@@ -1962,7 +1962,6 @@ create_task(void)
 {
 	DWORD id;
 	update_curr_cmd("");
-	esc_flag = 0;
 	timer = (unsigned int) time(NULL);
 	running = 1;
 	thread = CreateThread(

@@ -1,20 +1,9 @@
+// Symbolic multiplication
+
 #include "stdafx.h"
-
-//-----------------------------------------------------------------------------
-//
-//	Symbolic multiplication
-//
-//	Input:		Multiplicand and multiplier on stack
-//
-//	Output:		Product on stack
-//
-//-----------------------------------------------------------------------------
-
 #include "defs.h"
 extern void append(void);
-extern int esc_flag;
-
-static void __multiply(void);
+static void multiply_f(void);
 static void parse_p1(void);
 static void parse_p2(void);
 //static void combine_gammas(int);
@@ -30,13 +19,13 @@ multiply(void)
 		multiply_numbers();
 	else {
 		save();
-		__multiply();
+		multiply_f();
 		restore();
 	}
 }
 
 void
-__multiply(void)
+multiply_f(void)
 {
 	int h, i, n;
 

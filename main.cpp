@@ -1,5 +1,4 @@
 #include "defs.h"
-int esc_flag;
 #define BUFLEN 100000
 static char buf[BUFLEN];
 
