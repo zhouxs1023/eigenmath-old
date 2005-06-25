@@ -20,13 +20,8 @@ numerator(void)
 
 	if (car(p1) == symbol(ADD)) {
 		push(p1);
-		rationalize();
-		p1 = pop();
-		if (car(p1) == symbol(ADD)) {
-			push(p1);
-			restore();
-			return;
-		}
+		restore();
+		return;
 	}
 
 	if (car(p1) == symbol(MULTIPLY)) {
@@ -74,7 +69,7 @@ static char *s[] = {
 	"a+b",
 
 	"numerator(1/a+1/b)",
-	"a+b",
+	"1/a+1/b",
 };
 
 void

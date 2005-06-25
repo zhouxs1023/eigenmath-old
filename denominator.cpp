@@ -19,14 +19,9 @@ denominator(void)
 	p1 = pop();
 
 	if (car(p1) == symbol(ADD)) {
-		push(p1);
-		rationalize();
-		p1 = pop();
-		if (car(p1) == symbol(ADD)) {
-			push(one);
-			restore();
-			return;
-		}
+		push(one);
+		restore();
+		return;
 	}
 
 	if (car(p1) == symbol(MULTIPLY)) {
@@ -75,7 +70,7 @@ static char *s[] = {
 	"1",
 
 	"denominator(1/a+1/b)",
-	"a*b",
+	"1",
 };
 
 void
