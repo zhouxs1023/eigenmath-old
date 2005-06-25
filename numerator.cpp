@@ -1,0 +1,84 @@
+#include "stdafx.h"
+#include "defs.h"
+
+void
+eval_numerator(void)
+{
+	push(cadr(p1));
+	eval();
+	numerator();
+}
+
+void
+numerator(void)
+{
+	int h;
+
+	save();
+
+	p1 = pop();
+
+	if (car(p1) == symbol(ADD)) {
+		push(p1);
+		rationalize();
+		p1 = pop();
+		if (car(p1) == symbol(ADD)) {
+			push(p1);
+			restore();
+			return;
+		}
+	}
+
+	if (car(p1) == symbol(MULTIPLY)) {
+		h = tos;
+		p1 = cdr(p1);
+		while (iscons(p1)) {
+			push(car(p1));
+			numerator();
+			p1 = cdr(p1);
+		}
+		multiply_all(tos - h);
+		restore();
+		return;
+	}
+
+	if (p1->k == NUM) {
+		push(p1);
+		mp_numerator();
+		restore();
+		return;
+	}
+
+	if (car(p1) == symbol(POWER) && isnegativeterm(caddr(p1))) {
+		push(one);
+		restore();
+		return;
+	}
+
+	push(p1);
+	restore();
+}
+
+static char *s[] = {
+
+	"numerator(2/3)",
+	"2",
+
+	"numerator(x)",
+	"x",
+
+	"numerator(1/x)",
+	"1",
+
+	"numerator(a+b)",
+	"a+b",
+
+	"numerator(1/a+1/b)",
+	"a+b",
+};
+
+void
+test_numerator(void)
+{
+	test(__FILE__, s, sizeof s / sizeof (char *));
+}

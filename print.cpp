@@ -109,11 +109,11 @@ print_a_over_b(U *p)
 
 	if (p2->k == NUM) {
 		push(p2);
-		numerator();
+		mp_numerator();
 		absval();
 		A = pop();
 		push(p2);
-		denominator();
+		mp_denominator();
 		B = pop();
 		if (!isplusone(A))
 			n++;

@@ -1,21 +1,16 @@
-// Try to simplify an expression.
-
 #include "stdafx.h"
 #include "defs.h"
-
 extern int trigmode;
-
 void simplify(void);
 static void simplify_tensor(void);
 static int count(U *);
+static int nterms(U *);
 static void f1(void);
 static void f2(void);
 static void f3(void);
 static void f4(void);
 static void f5(void);
 static void f9(void);
-
-// to here from eval.cpp
 
 void
 eval_simplify(void)
@@ -24,8 +19,6 @@ eval_simplify(void)
 	eval();
 	simplify();
 }
-
-// expression on stack
 
 void
 simplify(void)
@@ -146,7 +139,7 @@ f4(void)
 static void
 f5(void)
 {
-	if (find(p1, symbol(SIN)) == 0 || find(p1, symbol(COS)) == 0)
+	if (find(p1, symbol(SIN)) == 0 && find(p1, symbol(COS)) == 0)
 		return;
 
 	p2 = p1;
@@ -163,10 +156,10 @@ f5(void)
 
 	trigmode = 0;
 
-	if (count(p4) < count(p3))
+	if (count(p4) < count(p3) || nterms(p4) < nterms(p3))
 		p3 = p4;
 
-	if (count(p3) < count(p1))
+	if (count(p3) < count(p1) || nterms(p3) < nterms(p1))
 		p1 = p3;
 }
 
@@ -188,6 +181,15 @@ f9(void)
 	p2 = pop();
 	if (count(p2) < count(p1))
 		p1 = p2;
+}
+
+static int
+nterms(U *p)
+{
+	if (car(p) != symbol(ADD))
+		return 1;
+	else
+		return length(p) - 1;
 }
 
 static char *s[] = {
@@ -240,6 +242,18 @@ static char *s[] = {
 
 	"simplify(d(arctan(y/x),x))",
 	"-y/(x^2+y^2)",
+
+	"simplify(1-sin(x)^2)",
+	"cos(x)^2",
+
+	"simplify(1-cos(x)^2)",
+	"sin(x)^2",
+
+	"simplify(sin(x)^2-1)",
+	"-cos(x)^2",
+
+	"simplify(cos(x)^2-1)",
+	"-sin(x)^2",
 };
 
 void
@@ -247,4 +261,3 @@ test_simplify(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
-

@@ -3,7 +3,7 @@
 // For example, (a b + c) is built like this:
 //
 //           _______      _______                                _______
-// U *p --->|CONS   |--->|CONS   |----------------------------->|CONS   |
+//          |CONS   |--->|CONS   |----------------------------->|CONS   |
 //          |       |    |       |                              |       |
 //          |_______|    |_______|                              |_______|
 //              |            |                                      |
@@ -73,6 +73,7 @@ enum {
 	COS,
 	COSH,
 	DEGREE,
+	DENOMINATOR,
 	DERIVATIVE,
 	DET,
 	DIM,
@@ -113,6 +114,7 @@ enum {
 	LOG,
 	MOD,
 	MULTIPLY,
+	NUMERATOR,
 	OPERATOR,
 	OUTER,
 	POWER,
@@ -247,10 +249,10 @@ extern U **frame;
 #define ispower(p) (car(p) == symbol(POWER))
 #define isfactorial(p) (car(p) == symbol(FACTORIAL))
 
-#define numerator mp_numerator
+//#define numerator mp_numerator
 void mp_numerator(void);
 
-#define denominator mp_denominator
+//#define denominator mp_denominator
 void mp_denominator(void);
 
 #define isfraction mp_isfraction
@@ -446,6 +448,7 @@ extern void factorial(void);
 extern void hilbert(void);
 extern void swap(void);
 extern void guess(void);
+extern int isnegativeterm(U *);
 char *get_name(U *);
 int new_name(char *);
 void init_alloc(void);
@@ -493,7 +496,6 @@ int isnonnegativeinteger(U *);
 int iseveninteger(U *);
 void ssinh(void);
 void scosh(void);
-void gmp_factorial(int);
 void gcd(void);
 void laguerre(void);
 void lcm(void);
@@ -503,10 +505,6 @@ void test_hermite(void);
 void test_laguerre(void);
 void test_legendre(void);
 void square(void);
-void gmp_mark(void);
-void gmp_tag(void);
-void gmp_collect(void);
-void denominator(void);
 void rationalize(void);
 int isnegativenumber(U *);
 int isnegative(U *);
@@ -517,7 +515,6 @@ void fmt_char(int);
 void fmt_fraction(int, int, int);
 void fmt_test(U *);
 void scan2(char *);
-void gmp_numerator(void);
 void test_is_prime(void);
 void test_quickfactor(void);
 void factor_number(void);
@@ -566,6 +563,9 @@ extern void errout(void);
 extern void clear(void);
 extern void clear_symbols(void);
 extern void clear_term(void);
+extern void numerator(void);
+extern void denominator(void);
+extern void reciprocate(void);
 
 #define MSIGN(p) (((int *) (p))[-2])
 #define MLENGTH(p) (((int *) (p))[-1])

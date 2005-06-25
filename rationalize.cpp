@@ -1,18 +1,21 @@
 #include "stdafx.h"
-
-
 #include "defs.h"
-
 #define DEBUG 0
-
 extern void condense(void);
-
 static void __rationalize(void);
 static void __rationalize_tensor(void);
 static void multiply_denominators(U *);
 static void multiply_denominators_term(U *);
 static void multiply_denominators_factor(U *);
 static void __lcm(void);
+
+void
+eval_rationalize(void)
+{
+	push(cadr(p1));
+	eval();
+	rationalize();
+}
 
 void
 rationalize(void)

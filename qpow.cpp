@@ -110,11 +110,11 @@ qpowf(void)
 
 	if (!isinteger(BASE)) {
 		push(BASE);
-		numerator();
+		mp_numerator();
 		push(EXPO);
 		power_numbers();
 		push(BASE);
-		denominator();
+		mp_denominator();
 		push(EXPO);
 		negate();
 		power_numbers();

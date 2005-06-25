@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "defs.h"
-
 extern void define_symbol(char *, int);
 extern void define_variable(char *, int);
 extern U *varlist;
@@ -58,6 +57,7 @@ init(void)
 	define_symbol("cos", COS);
 	define_symbol("cosh", COSH);
 	define_symbol("degree", DEGREE);
+	define_symbol("denominator", DENOMINATOR);
 	define_symbol("det", DET);
 	define_symbol("derivative", DERIVATIVE);
 	define_symbol("dim", DIM);
@@ -98,6 +98,7 @@ init(void)
 	define_symbol("log", LOG);
 	define_symbol("mod", MOD);
 	define_symbol("multiply", MULTIPLY);
+	define_symbol("numerator", NUMERATOR);
 	define_symbol("operator", OPERATOR);
 	define_symbol("outer", OUTER);
 	define_symbol("power", POWER);

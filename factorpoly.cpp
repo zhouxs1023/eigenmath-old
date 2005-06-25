@@ -309,13 +309,13 @@ rationalize_coefficients(int h)
 	for (i = h; i < tos; i++) {
 		if (isnum(stack[i])) {
 			push(stack[i]);
-			denominator();
+			mp_denominator();
 			push(RESULT);
 			__lcm();
 			RESULT = pop();
 		} else if (car(stack[i]) == symbol(MULTIPLY) && isnum(cadr(stack[i]))) {
 			push(cadr(stack[i]));
-			denominator();
+			mp_denominator();
 			push(RESULT);
 			__lcm();
 			RESULT = pop();

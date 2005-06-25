@@ -1,9 +1,6 @@
 #include "stdafx.h"
-
 #include "defs.h"
-
 extern U *unique(U *);
-
 extern void eval_abs(void);
 extern void eval_arccos(void);
 extern void eval_arccosh(void);
@@ -19,6 +16,7 @@ extern void eval_condense(void);
 extern void eval_contract(void);
 extern void eval_cos(void);
 extern void eval_cosh(void);
+extern void eval_denominator(void);
 extern void eval_display(void);
 extern void eval_draw(void);
 extern void eval_eigen(void);
@@ -34,8 +32,10 @@ extern void eval_integral(void);
 extern void eval_isprime(void);
 extern void eval_log(void);
 extern void eval_mod(void);
+extern void eval_numerator(void);
 extern void eval_outer(void);
 extern void eval_product(void);
+extern void eval_rationalize(void);
 extern void eval_roots(void);
 extern void eval_sample(void);
 extern void eval_simplify(void);
@@ -608,14 +608,6 @@ eval_rank(void)
 }
 
 static void
-eval_rationalize(void)
-{
-	push(cadr(p1));
-	eval();
-	rationalize();
-}
-
-static void
 eval_return(void)
 {
 	push(cadr(p1));
@@ -1012,6 +1004,7 @@ eval_cons(void)
 	case COS:		eval_cos();		break;
 	case COSH:		eval_cosh();		break;
 	case DEGREE:		eval_degree();		break;
+	case DENOMINATOR:	eval_denominator();	break;
 	case DERIVATIVE:	eval_derivative();	break;
 	case DET:		eval_det();		break;
 	case DIM:		eval_dim();		break;
@@ -1052,6 +1045,7 @@ eval_cons(void)
 	case LOG:		eval_log();		break;
 	case MOD:		eval_mod();		break;
 	case MULTIPLY:		eval_multiply();	break;
+	case NUMERATOR:		eval_numerator();	break;
 	case OPERATOR:		eval_operator();	break;
 	case OUTER:		eval_outer();		break;
 	case POWER:		eval_power();		break;

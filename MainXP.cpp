@@ -15,7 +15,6 @@
 #include "stdafx.h"
 #include <commdlg.h>
 #include <stdio.h>
-#include "htmlhelp.h"
 #define _USE_MATH_DEFINES // for MS C++
 #include <math.h>
 #include <time.h>
@@ -26,6 +25,8 @@ extern void draw_display(void);
 extern void printstr(char *);
 extern void update_cmd_history(char *);
 extern void echo_input(char *);
+extern void print_mem_info(void);
+extern char *get_cmd_history(void);
 
 void update_display(void);
 
@@ -126,6 +127,8 @@ static void activate_controls(void);
 static void deactivate_controls(void);
 static void process_user_event(void);
 static void copy_all(void);
+static void do_special(char *);
+static void do_create_script(void);
 
 enum {
 
@@ -137,18 +140,21 @@ enum {
 	ID_UP_ARROW,
 	ID_DOWN_ARROW,
 
+	// file menu
+
 	ID_NEW,
 	ID_OPEN,
 	ID_SAVE,
 	ID_SAVEAS,
-	ID_PAGE_SETUP,
-	ID_PRINT,
+	//ID_PAGE_SETUP,
+	//ID_PRINT,
+
+	// edit menu
 
 	ID_UNDO,
 	ID_CUT,
 	ID_COPY,
 	ID_PASTE,
-	ID_COPY_ALL,
 
 	ID_CLEAR,
 	ID_DERIVATIVE,
@@ -185,10 +191,11 @@ enum {
 	ID_HELP_MATRIX_TIMES_VECTOR,
 	ID_HELP_INVERT_MATRIX,
 	ID_HELP_DRAW_CIRCLE,
-	ID_HELP_ABOUT,
 
-	ID_BUY_LICENSE,
-	ID_NOT_NOW,
+	ID_ABOUT,
+	ID_MEMORY,
+	ID_COPY_DISPLAY,
+	ID_CREATE_SCRIPT,
 };
 
 #define NACCEL 7
@@ -319,12 +326,12 @@ MyRegisterClass(HINSTANCE hInstance)
 {
 	static WNDCLASSEX wcex;
 
-	hicon = (HICON) LoadImage(
-		hInstance,
-		"small.ico",
-		IMAGE_ICON,
-		0, 0,
-		LR_LOADFROMFILE);
+//	hicon = (HICON) LoadImage(
+//		hInstance,
+//		"small.ico",
+//		IMAGE_ICON,
+//		0, 0,
+//		LR_LOADFROMFILE);
 
 	wcex.cbSize		= sizeof(WNDCLASSEX); 
 	wcex.style		= CS_HREDRAW | CS_VREDRAW;
@@ -332,12 +339,12 @@ MyRegisterClass(HINSTANCE hInstance)
 	wcex.cbClsExtra		= 0;
 	wcex.cbWndExtra		= 0;
 	wcex.hInstance		= hInstance;
-	wcex.hIcon		= hicon;
+	wcex.hIcon		= NULL; //LoadIcon(NULL, IDI_ICON1);
 	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
 	wcex.hbrBackground	= (HBRUSH)(COLOR_WINDOW + 1);
 	wcex.lpszMenuName	= NULL;
 	wcex.lpszClassName	= "Eigenmath";
-	wcex.hIconSm		= hicon;
+	wcex.hIconSm		= NULL; //LoadIcon(NULL, IDI_ICON2);
 
 	RegisterClassEx(&wcex);
 }
@@ -359,11 +366,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	main_window = CreateWindow(
 		"Eigenmath",
-		"Eigenmath 103",
-		WS_OVERLAPPEDWINDOW /* | WS_VSCROLL */ ,
+		"Eigenmath",
+		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0,
 		CW_USEDEFAULT, 0,
-		//400, 400,
 		NULL,
 		NULL,
 		hInstance,
@@ -538,10 +544,15 @@ static struct {
 	{"Cut\tCtrl+X",		ID_CUT},
 	{"Copy\tCtrl+C",	ID_COPY},
 	{"Paste\tCtrl+V",	ID_PASTE},
-	{"-",			0},
-	{"Copy Result Window",	ID_COPY_ALL},
 	{0,			0},
 
+	{"*",				0},
+	{"About",				ID_ABOUT},
+	{"Memory",				ID_MEMORY},
+	{"Copy display to clipboard",		ID_COPY_DISPLAY},
+	{"Create script from command history",	ID_CREATE_SCRIPT},
+	{0,					0},
+#if 0
 	{"Help",				0},
 	{"Help Pages",				ID_HELP_PAGES},
 	{"-",					0},
@@ -552,7 +563,7 @@ static struct {
 	{"How to factor a number",		ID_HELP_FACTOR_NUMBER},
 	{"How to define a symbol",		ID_HELP_SYMBOL},
 	{"How to define a function",		ID_HELP_FUNCTION},
-	{"A special note about functions",	ID_HELP_SPECIAL_NOTE},
+	//{"A special note about functions",	ID_HELP_SPECIAL_NOTE},
 	{"How to define a vector",		ID_HELP_TYPE_VECTOR},
 	{"How to define a matrix",		ID_HELP_TYPE_MATRIX},
 	{"How to multiply a matrix and vector",	ID_HELP_MATRIX_TIMES_VECTOR},
@@ -569,7 +580,7 @@ static struct {
 	{0,					0},
 	//{"About",				ID_HELP_ABOUT},
 	{0,					0},
-
+#endif
 	{0,					0},
 };
  
@@ -752,9 +763,29 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			else
 				SendMessage(edit_window, WM_PASTE, 0, 0);
 			break;
-		case ID_COPY_ALL:
+		case ID_ABOUT:
+			if (running)
+				break;
+			goto_calc_mode();
+			printstr("This is version 104. See eigenmath.com for help.\n");
+			update_display();
+			break;
+		case ID_MEMORY:
+			if (running)
+				break;
+			goto_calc_mode();
+			print_mem_info();
+			update_display();
+			break;
+		case ID_COPY_DISPLAY:
 			copy_all();
 			break;
+		case ID_CREATE_SCRIPT:
+			if (running)
+				break;
+			do_create_script();
+			break;
+#if 0
 		case ID_HELP_EXPONENT:
 			do_main_help(1);
 			break;
@@ -797,6 +828,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case ID_HELP_PAGES:
 			HtmlHelp(main_window, "help.chm", HH_DISPLAY_TOPIC, NULL);
 			break;
+#endif
 		case ID_EDIT_SCRIPT:
 			if (running)
 				break;
@@ -826,6 +858,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case ID_RUN_SCRIPT:
 			run_script();
 			break;
+#if 0
 		case ID_SAMPLE_GMA:
 			do_example(0);
 			break;
@@ -847,6 +880,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case ID_SAMPLE_FPDE:
 			do_example(6);
 			break;
+#endif
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);
 		}
@@ -1044,7 +1078,7 @@ goto_edit_mode(void)
 	for (i = 0; i < NBUTTON - 2; i++)
 		EnableWindow(button[i], FALSE);
 
-	SendMessage(button[NBUTTON - 2], WM_SETTEXT, 0, (LPARAM) "OK");
+	//SendMessage(button[NBUTTON - 2], WM_SETTEXT, 0, (LPARAM) "OK");
 
 	ShowWindow(input_window, SW_HIDE);
 	ShowWindow(vscroll, SW_HIDE);
@@ -1068,7 +1102,7 @@ goto_calc_mode(void)
 	for (i = 0; i < NBUTTON - 2; i++)
 		EnableWindow(button[i], TRUE);
 
-	SendMessage(button[NBUTTON - 2], WM_SETTEXT, 0, (LPARAM) "Edit Script");
+	//SendMessage(button[NBUTTON - 2], WM_SETTEXT, 0, (LPARAM) "Edit Script");
 
 	ShowWindow(edit_window, SW_HIDE);
 	ShowWindow(input_window, SW_SHOW);
@@ -1772,6 +1806,8 @@ char filename[1000];
 
 // f = fopen(s, "rb"); // must do rb for msdos files else \r changes to \n
 
+#if 0
+
 extern char *example_script[7];
 
 static void
@@ -1781,6 +1817,19 @@ do_example(int k)
 		return;
 	*filename = 0;
 	SetWindowText(edit_window, example_script[k]);
+	goto_edit_mode();
+}
+
+#endif
+
+static void
+do_create_script(void)
+{
+	char *s;
+	*filename = 0;
+	s = get_cmd_history();
+	SetWindowText(edit_window, s);
+	free(s);
 	goto_edit_mode();
 }
 
@@ -1908,8 +1957,8 @@ do_print(void)
 	}
 }
 
+#if 0
 extern void do_help(int);
-
 static void
 do_main_help(int n)
 {
@@ -1921,6 +1970,7 @@ do_main_help(int n)
 	ReleaseDC(main_window, run_hdc);
 	update_display();
 }
+#endif
 
 static char *inp;
 static HANDLE thread;
@@ -2111,4 +2161,19 @@ copy_all(void)
 	DeleteObject(bitmap);
 	DeleteDC(draw_hdc);
 	DeleteDC(tmp);
+}
+
+static void
+do_special(char *s)
+{
+	if (running)
+		return;
+	goto_calc_mode();
+	if (inp)
+		free(inp);
+	inp = strdup(s);
+	update_cmd_history(inp); // reset history pointer no matter what
+	echo_input(inp);
+	update_curr_cmd(""); // clear the command line
+	create_task(); // run whatever inp points to
 }

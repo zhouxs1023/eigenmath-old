@@ -298,11 +298,11 @@ emit_fraction(U *p, int d)
 
 	if (cadr(p)->k == NUM) {
 		push(cadr(p));
-		numerator();
+		mp_numerator();
 		absval();
 		A = pop();
 		push(cadr(p));
-		denominator();
+		mp_denominator();
 		B = pop();
 	}
 
@@ -421,7 +421,7 @@ emit_numerators(U *p)
 
 	if (car(p)->k == NUM) {
 		push(car(p));
-		numerator();
+		mp_numerator();
 		absval();
 		p1 = pop();
 		p = cdr(p);
@@ -472,7 +472,7 @@ emit_denominators(U *p)
 
 	if (isfraction(car(p))) {
 		push(car(p));
-		denominator();
+		mp_denominator();
 		p1 = pop();
 		emit_number(p1, 0);
 		n++;
@@ -554,12 +554,12 @@ emit_numerical_fraction(U *p)
 	save();
 
 	push(p);
-	numerator();
+	mp_numerator();
 	absval();
 	A = pop();
 
 	push(p);
-	denominator();
+	mp_denominator();
 	B = pop();
 
 	if (isplusone(B)) {

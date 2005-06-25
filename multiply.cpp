@@ -440,6 +440,17 @@ inverse(void)
 }
 
 void
+reciprocate(void)
+{
+	if (isnum(stack[tos - 1]))
+		invert_number();
+	else {
+		push_integer(-1);
+		power();
+	}
+}
+
+void
 negate(void)
 {
 	if (isnum(stack[tos - 1]))
@@ -530,7 +541,7 @@ __normalize_radical_factors(int h)
 	// numerator
 
 	push(stack[h]);
-	numerator();
+	mp_numerator();
 	A = pop();
 
 	for (i = h + 1; i < tos; i++) {
@@ -578,7 +589,7 @@ __normalize_radical_factors(int h)
 	// denominator
 
 	push(stack[h]);
-	denominator();
+	mp_denominator();
 	B = pop();
 
 	for (i = h + 1; i < tos; i++) {

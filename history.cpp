@@ -7,7 +7,7 @@ extern char *get_curr_cmd(void);
 extern void update_curr_cmd(char *);
 extern char *get_cmd_str(int);
 
-#define N 101
+#define N 1001
 
 static char *buf[N];
 static int i, j, k;
@@ -100,4 +100,41 @@ do_down_arrow(void)
 		update_curr_cmd(buf[k]);
 	else
 		update_curr_cmd("");
+}
+
+char *
+get_cmd_history(void)
+{
+	int k, n;
+	char *s, *t;
+
+	// measure
+
+	n = 0;
+	k = j;
+	while (k != i) {
+		n += (int) strlen(buf[k]) + 2;
+		k = (k + 1) % N;
+	}
+
+	s = (char *) malloc(n + 1);
+
+	if (s == NULL)
+		return NULL;
+
+	// copy
+
+	t = s;
+	k = j;
+	while (k != i) {
+		strcpy(t, buf[k]);
+		k = (k + 1) % N;
+		t += strlen(t);
+		*t++ = '\r';
+		*t++ = '\n';
+	}
+
+	*t = 0;
+
+	return s;
 }

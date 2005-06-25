@@ -10,7 +10,7 @@ extern int symbol_level;
 extern int test_flag;
 extern U *varlist;
 static void check_stack(void);
-static void print_mem_info(void);
+void print_mem_info(void);
 static int dash_dash_command(char *);
 jmp_buf stop_return;
 static char *errstr;
@@ -120,6 +120,7 @@ dash_dash_command(char *s)
 	}
 	if (strncmp(s, "--gc", 4) == 0) {
 		gc();
+		printstr("OK\n");
 		return 1;
 	}
 	if (strncmp(s, "--test", 6) == 0) {
@@ -150,12 +151,11 @@ echo_input(char *s)
 extern int total_count;
 extern int free_count;
 
-static void
+void
 print_mem_info(void)
 {
-	sprintf(buf, "total atoms %d (%dM)   free atoms %d   used atoms %d   sizeof atom %d\n",
+	sprintf(buf, "%d atoms, %d free, %d used, %d bytes/atom\n",
 		total_count,
-		total_count / 1000000,
 		free_count,
 		total_count - free_count,
 		(int) sizeof (U));
