@@ -46,7 +46,7 @@ factor.o quickfactor.o factorpoly.o tensor.o contract.o transpose.o \
 derivative.o integral.o prime.o dsolve.o distill.o display.o add.o multiply.o \
 power.o factorial.o sum.o product.o det.o inv.o hilbert.o taylor.o binomial.o \
 trace.o charpoly.o hermite.o laguerre.o legendre.o degree.o divisors.o \
-vectorize.o variables.o test.o selftest.o
+vectorize.o variables.o test.o selftest.o numerator.o denominator.o
 
 math : $(objects)
 	$(CXX) -o math $(objects) -lm

@@ -1,27 +1,10 @@
 #include "stdafx.h"
-
-//-----------------------------------------------------------------------------
-//
-//	Absolute value function
-//
-//	A number of things are done to produce a canonical form:
-//
-//	abs(-a) -> abs(a)
-//
-//	abs(b - a) -> abs(a - b)
-//
-//-----------------------------------------------------------------------------
-
 #include "defs.h"
-
 extern void conjugate(void);
 extern int isnegativeterm(U *);
-
-static void absval2(void);
+static void absval_f(void);
 static void absval_tensor(void);
 static int iscomplexnumber(U *);
-
-// to here from the evaluator
 
 void
 eval_abs(void)
@@ -35,12 +18,12 @@ void
 absval(void)
 {
 	save();
-	absval2();
+	absval_f();
 	restore();
 }
 
 static void
-absval2(void)
+absval_f(void)
 {
 	p1 = pop();
 

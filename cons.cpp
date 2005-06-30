@@ -6,7 +6,7 @@
 void
 cons(void)
 {
-	U *p; // it's ok, we don't do gc when p points to something
+	U *p; // auto var ok, no garbage collection is done here
 	p = alloc();
 	p->k = CONS;
 	p->u.cons.cdr = pop();

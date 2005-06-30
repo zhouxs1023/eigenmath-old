@@ -18,12 +18,6 @@ numerator(void)
 
 	p1 = pop();
 
-	if (car(p1) == symbol(ADD)) {
-		push(p1);
-		restore();
-		return;
-	}
-
 	if (car(p1) == symbol(MULTIPLY)) {
 		h = tos;
 		p1 = cdr(p1);
@@ -33,24 +27,14 @@ numerator(void)
 			p1 = cdr(p1);
 		}
 		multiply_all(tos - h);
-		restore();
-		return;
-	}
-
-	if (p1->k == NUM) {
+	} else if (p1->k == NUM) {
 		push(p1);
 		mp_numerator();
-		restore();
-		return;
-	}
-
-	if (car(p1) == symbol(POWER) && isnegativeterm(caddr(p1))) {
+	} else if (car(p1) == symbol(POWER) && isnegativeterm(caddr(p1)))
 		push(one);
-		restore();
-		return;
-	}
+	else 
+		push(p1);
 
-	push(p1);
 	restore();
 }
 
