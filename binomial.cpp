@@ -18,14 +18,25 @@
 
 #include "defs.h"
 
-static void __binomial(void);
+static void ybinomial(void);
 static int check_args(void);
+
+void
+eval_binomial(void)
+{
+	push(cadr(p1));
+	eval();
+	push(caddr(p1));
+	eval();
+	binomial();
+}
+
 
 void
 binomial(void)
 {
 	save();
-	__binomial();
+	ybinomial();
 	restore();
 }
 
@@ -33,7 +44,7 @@ binomial(void)
 #define K p2
 
 static void
-__binomial(void)
+ybinomial(void)
 {
 	K = pop();
 	N = pop();

@@ -2,7 +2,7 @@
 #include "defs.h"
 extern void conjugate(void);
 extern int isnegativeterm(U *);
-static void absval_f(void);
+static void yabsval(void);
 static void absval_tensor(void);
 static int iscomplexnumber(U *);
 
@@ -18,12 +18,12 @@ void
 absval(void)
 {
 	save();
-	absval_f();
+	yabsval();
 	restore();
 }
 
 static void
-absval_f(void)
+yabsval(void)
 {
 	p1 = pop();
 

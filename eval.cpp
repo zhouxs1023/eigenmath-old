@@ -10,6 +10,7 @@ extern void eval_arctan(void);
 extern void eval_arctanh(void);
 extern void eval_atomize(void);
 extern void eval_binding2(void);
+extern void eval_binomial(void);
 extern void eval_ceiling(void);
 extern void eval_clear(void);
 extern void eval_condense(void);
@@ -95,16 +96,6 @@ eval_adj(void)
 	push(cadr(p1));
 	eval();
 	adj();
-}
-
-static void
-eval_binomial(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	binomial();
 }
 
 extern void break_function(void);
