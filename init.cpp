@@ -189,7 +189,6 @@ init(void)
 }
 
 static char *defn_str[] = {
-	"e=exp(1)",
 	"i=sqrt(-1)",
 	"autoexpand=1",
 	"expomode=0",
