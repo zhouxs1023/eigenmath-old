@@ -1,9 +1,9 @@
-// Do the natural logarithm function.
+// natural logarithm
 
 #include "stdafx.h"
 #include "defs.h"
 
-static void logf(void);
+static void ylog(void);
 
 void
 eval_log(void)
@@ -17,12 +17,12 @@ void
 logarithm(void)
 {
 	save();
-	logf();
+	ylog();
 	restore();
 }
 
 static void
-logf(void)
+ylog(void)
 {
 	double d;
 

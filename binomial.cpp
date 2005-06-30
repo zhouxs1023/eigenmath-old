@@ -1,7 +1,3 @@
-#include "stdafx.h"
-
-//-----------------------------------------------------------------------------
-//
 //	Binomial coefficient
 //
 //	Input:		tos-2		n
@@ -13,11 +9,9 @@
 //	binomial(n, k) = n! / k! / (n - k)!
 //
 //	The binomial coefficient vanishes for k < 0 or k > n. (A=B, p. 19)
-//
-//-----------------------------------------------------------------------------
 
+#include "stdafx.h"
 #include "defs.h"
-
 static void ybinomial(void);
 static int check_args(void);
 

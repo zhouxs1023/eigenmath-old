@@ -1,7 +1,3 @@
-#include "stdafx.h"
-
-//-----------------------------------------------------------------------------
-//
 //	Input:		tos-4		Index variable
 //
 //			tos-3		Initial value
@@ -11,16 +7,13 @@
 //			tos-1		Statement
 //
 //	Output:		Result on stack
-//
-//-----------------------------------------------------------------------------
 
+#include "stdafx.h"
 #include "defs.h"
-
 #define A p1
 #define J p2
 #define K p3
 #define B p4
-
 static int level;
 static jmp_buf break_jmp_buf;
 

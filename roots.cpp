@@ -1,15 +1,11 @@
 #include "stdafx.h"
-
 #include "defs.h"
-
 extern void sort_stack(int);
-
 void roots(void);
 static void roots2(void);
 static void roots3(void);
 static void iguess(void);
 static void mini_solve(void);
-
 #define POLY p1
 #define X p2
 #define A p3
