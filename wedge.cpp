@@ -1,5 +1,4 @@
 #include "stdafx.h"
-
 #include "defs.h"
 
 #define U p1

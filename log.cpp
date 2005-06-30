@@ -2,7 +2,6 @@
 
 #include "stdafx.h"
 #include "defs.h"
-
 static void ylog(void);
 
 void

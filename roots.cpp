@@ -6,6 +6,7 @@ static void roots2(void);
 static void roots3(void);
 static void iguess(void);
 static void mini_solve(void);
+
 #define POLY p1
 #define X p2
 #define A p3

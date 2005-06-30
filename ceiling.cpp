@@ -1,8 +1,7 @@
 #include "stdafx.h"
 #include "defs.h"
-
 void ceiling(void);
-static void ceilingf(void);
+static void yceiling(void);
 
 void
 eval_ceiling(void)
@@ -16,12 +15,12 @@ void
 ceiling(void)
 {
 	save();
-	ceilingf();
+	yceiling();
 	restore();
 }
 
 static void
-ceilingf(void)
+yceiling(void)
 {
 	double d;
 

@@ -1,8 +1,6 @@
 #include "stdafx.h"
-
 #include "defs.h"
-
-static void __tangent(void);
+static void ytangent(void);
 
 void
 eval_tan(void)
@@ -16,12 +14,12 @@ void
 tangent(void)
 {
 	save();
-	__tangent();
+	ytangent();
 	restore();
 }
 
 static void
-__tangent(void)
+ytangent(void)
 {
 	int n;
 	double d;

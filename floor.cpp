@@ -1,27 +1,26 @@
 #include "stdafx.h"
 #include "defs.h"
-
-void sfloor(void);
-static void ssfloor(void);
+void yfloor(void);
+static void yyfloor(void);
 
 void
 eval_floor(void)
 {
 	push(cadr(p1));
 	eval();
-	sfloor();
+	yfloor();
 }
 
 void
-sfloor(void)
+yfloor(void)
 {
 	save();
-	ssfloor();
+	yyfloor();
 	restore();
 }
 
 static void
-ssfloor(void)
+yyfloor(void)
 {
 	double d;
 

@@ -1,9 +1,6 @@
-// Do the cosine function.
-
 #include "stdafx.h"
 #include "defs.h"
-
-static void cosine_f(void);
+static void ycosine(void);
 
 void
 eval_cos(void)
@@ -17,12 +14,12 @@ void
 cosine(void)
 {
 	save();
-	cosine_f();
+	ycosine();
 	restore();
 }
 
 static void
-cosine_f(void)
+ycosine(void)
 {
 	int n;
 	double d;

@@ -1,9 +1,6 @@
-// Do the sine function.
-
 #include "stdafx.h"
 #include "defs.h"
-
-static void sine_f(void);
+static void ysine(void);
 
 void
 eval_sin(void)
@@ -17,12 +14,12 @@ void
 sine(void)
 {
 	save();
-	sine_f();
+	ysine();
 	restore();
 }
 
 static void
-sine_f(void)
+ysine(void)
 {
 	int n;
 	double d;
