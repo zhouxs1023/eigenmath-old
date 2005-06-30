@@ -1,16 +1,8 @@
-#include "stdafx.h"
-
-//-----------------------------------------------------------------------------
-//
 //	Compute the trace of a matrix (sum of diagonal elements)
-//
-//-----------------------------------------------------------------------------
 
+#include "stdafx.h"
 #include "defs.h"
-
-static void trace2(void), trace3(void);
-
-// to here from the evaluator
+static void ytrace(void);
 
 void
 eval_trace(void)
@@ -24,13 +16,15 @@ void
 trace(void)
 {
 	save();
-	trace2();
+	ytrace();
 	restore();
 }
 
 static void
-trace2(void)
+ytrace(void)
 {
+	int i, n;
+
 	p1 = pop();
 
 	// trace of scalar is ok even though contract(scalar) is not
@@ -50,22 +44,12 @@ trace2(void)
 	if (p1->u.tensor->ndim != 2 || p1->u.tensor->dim[0] != p1->u.tensor->dim[1])
 		stop("trace(m): m is not a square matrix");
 
-	trace3();
-}
-
-static void
-trace3(void)
-{
-	int i, n;
-
 	n = p1->u.tensor->dim[0];
 
-	push(zero);
-
-	for (i = 0; i < n; i++) {
+	for (i = 0; i < n; i++)
 		push(p1->u.tensor->elem[n * i + i]);
-		add();
-	}
+
+	addk(n);
 }
 
 static char *s[] = {
