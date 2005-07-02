@@ -154,7 +154,7 @@ extern int free_count;
 void
 print_mem_info(void)
 {
-	sprintf(buf, "%d atoms, %d free, %d used, %d bytes/atom\n",
+	sprintf(buf, "%d atoms   %d free   %d used   %d bytes/atom\n",
 		total_count,
 		free_count,
 		total_count - free_count,

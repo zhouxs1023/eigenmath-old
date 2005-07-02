@@ -767,7 +767,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			if (running)
 				break;
 			goto_calc_mode();
-			printstr("This is version 104. See eigenmath.com for help.\n");
+			printstr("Version 104   Help is available at eigenmath.com\n");
 			update_display();
 			break;
 		case ID_MEMORY:
@@ -1032,7 +1032,7 @@ do_fonts(void)
 	lf.lfWeight = FW_BOLD;
 	lf.lfCharSet = ANSI_CHARSET;
 	lf.lfQuality = ANTIALIASED_QUALITY;
-	lf.lfPitchAndFamily = FF_SWISS | VARIABLE_PITCH;
+	lf.lfPitchAndFamily = FF_MODERN;
 	strcpy(lf.lfFaceName, "");
 	display_font[DEFAULT_FONT] = CreateFontIndirect(&lf);
 
