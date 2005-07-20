@@ -13,6 +13,7 @@
 // The window display code is in window.c
 
 #include "stdafx.h"
+
 #include <commdlg.h>
 #include <stdio.h>
 #define _USE_MATH_DEFINES // for MS C++
@@ -319,32 +320,23 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 //    with it.
 //
 
-HICON hicon;
-
 static void
 MyRegisterClass(HINSTANCE hInstance)
 {
 	static WNDCLASSEX wcex;
 
-//	hicon = (HICON) LoadImage(
-//		hInstance,
-//		"small.ico",
-//		IMAGE_ICON,
-//		0, 0,
-//		LR_LOADFROMFILE);
-
-	wcex.cbSize		= sizeof(WNDCLASSEX); 
-	wcex.style		= CS_HREDRAW | CS_VREDRAW;
+	wcex.cbSize			= sizeof(WNDCLASSEX); 
+	wcex.style			= CS_HREDRAW | CS_VREDRAW;
 	wcex.lpfnWndProc	= (WNDPROC)WndProc;
 	wcex.cbClsExtra		= 0;
 	wcex.cbWndExtra		= 0;
 	wcex.hInstance		= hInstance;
-	wcex.hIcon		= NULL; //LoadIcon(NULL, IDI_ICON1);
+	wcex.hIcon			= LoadIcon(hInstance, (LPCSTR) IDI_ICON1);
 	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
 	wcex.hbrBackground	= (HBRUSH)(COLOR_WINDOW + 1);
 	wcex.lpszMenuName	= NULL;
 	wcex.lpszClassName	= "Eigenmath";
-	wcex.hIconSm		= NULL; //LoadIcon(NULL, IDI_ICON2);
+	wcex.hIconSm		= NULL;
 
 	RegisterClassEx(&wcex);
 }
