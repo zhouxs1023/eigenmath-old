@@ -2,6 +2,7 @@
 #include "defs.h"
 extern int trigmode;
 void simplify(void);
+static void ysimplify(void);
 static void simplify_tensor(void);
 static int count(U *);
 static int nterms(U *);
@@ -25,21 +26,34 @@ void
 simplify(void)
 {
 	save();
-	p1 = pop();
-	if (istensor(p1))
-		simplify_tensor();
-	else {
-		f1();
-		f2();
-		f3();
-		f4();
-		f5();
-		f9();
-		push(p1);
-		if (find(p1, symbol(FACTORIAL)))
-			simfac();
-	}
+	ysimplify();
 	restore();
+}
+
+static void
+ysimplify(void)
+{
+	p1 = pop();
+
+	if (istensor(p1)) {
+		simplify_tensor();
+		return;
+	}
+
+	if (find(p1, symbol(FACTORIAL))) {
+		push(p1);
+		simfac();
+		return;
+	}
+
+	f1();
+	f2();
+	f3();
+	f4();
+	f5();
+	f9();
+
+	push(p1);
 }
 
 static void
@@ -262,6 +276,12 @@ static char *s[] = {
 	"0",
 
 	"simplify(n/n!)-1/(n-1)!",
+	"0",
+
+	"simplify((n+k+1)/(n+k+1)!)-1/(n+k)!",
+	"0",
+
+	"simplify((n+1) n!)-(n+1)!",
 	"0",
 };
 

@@ -20,11 +20,11 @@ ysimfac(void)
 
 	p1 = pop();
 
-	// if sum then try to rationalize
+	// if sum then try condense
 
 	if (car(p1) == symbol(ADD)) {
 		push(p1);
-		rationalize();
+		condense();
 		p1 = pop();
 	}
 
@@ -44,11 +44,15 @@ ysimfac(void)
 		p1 = cdr(p1);
 	}
 
+	// keep going until done
+
 	while (yysimfac(h))
 		;
 
 	multiply_all(tos - h);
 }
+
+// try all pairs of factors
 
 static int
 yysimfac(int h)
@@ -58,19 +62,9 @@ yysimfac(int h)
 	for (i = h; i < tos; i++) {
 		p1 = stack[i];
 		for (j = h; j < tos; j++) {
+			if (i == j)
+				continue;
 			p2 = stack[j];
-
-			//	n n!		->	(n + 1)!
-
-			if (car(p1) == symbol(FACTORIAL)
-			&& equal(cadr(p1), p2)) {
-				push(p2);
-				push(one);
-				add();
-				stack[i] = pop();
-				stack[j] = one;
-				return 1;
-			}
 
 			//	n! / n		->	(n - 1)!
 
@@ -101,6 +95,22 @@ yysimfac(int h)
 				stack[i] = pop();
 				stack[j] = one;
 				return 1;
+			}
+
+			//	(n + 1) n!	->	(n + 1)!
+
+			if (car(p2) == symbol(FACTORIAL)) {
+				push(p1);
+				push(cadr(p2));
+				subtract();
+				p3 = pop();
+				if (isplusone(p3)) {
+					push(p1);
+					factorial();
+					stack[i] = pop();
+					stack[j] = one;
+					return 1;
+				}
 			}
 		}
 	}
