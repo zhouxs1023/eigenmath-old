@@ -11,6 +11,7 @@ static void f3(void);
 static void f4(void);
 static void f5(void);
 static void f9(void);
+extern void simfac(void);
 
 void
 eval_simplify(void)
@@ -35,6 +36,8 @@ simplify(void)
 		f5();
 		f9();
 		push(p1);
+		if (find(p1, symbol(FACTORIAL)))
+			simfac();
 	}
 	restore();
 }
@@ -254,6 +257,12 @@ static char *s[] = {
 
 	"simplify(cos(x)^2-1)",
 	"-sin(x)^2",
+
+	"simplify(n!/n)-(n-1)!",
+	"0",
+
+	"simplify(n/n!)-1/(n-1)!",
+	"0",
 };
 
 void

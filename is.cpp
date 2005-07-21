@@ -249,3 +249,13 @@ isintegerfactor(U *p)
 	else
 		return 0;
 }
+
+int
+isoneover(U *p)
+{
+	if (car(p) == symbol(POWER)
+	&& isminusone(caddr(p)))
+		return 1;
+	else
+		return 0;
+}
