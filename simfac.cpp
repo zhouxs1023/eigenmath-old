@@ -121,13 +121,38 @@ yysimfac(int h)
 			&& isminusone(caddr(p2))
 			&& caadr(p2) == symbol(FACTORIAL)) {
 				push(cadr(p1));
-				p3 = cadr(p2);
-				push(cadr(p3));
+				push(cadr(cadr(p2)));
 				subtract();
 				p3 = pop();
 				if (isplusone(p3)) {
 					push(cadr(p1));
 					factorial();
+					reciprocate();
+					stack[i] = pop();
+					stack[j] = one;
+					return 1;
+				}
+			}
+
+			//	(n + 1)! / n!	->	n + 1
+
+			//	n! / (n + 1)!	->	1 / (n + 1)
+
+			if (car(p1) == symbol(FACTORIAL)
+			&& car(p2) == symbol(POWER)
+			&& isminusone(caddr(p2))
+			&& caadr(p2) == symbol(FACTORIAL)) {
+				push(cadr(p1));
+				push(cadr(cadr(p2)));
+				subtract();
+				p3 = pop();
+				if (isplusone(p3)) {
+					stack[i] = cadr(p1);
+					stack[j] = one;
+					return 1;
+				}
+				if (isminusone(p3)) {
+					push(cadr(cadr(p2)));
 					reciprocate();
 					stack[i] = pop();
 					stack[j] = one;
