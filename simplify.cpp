@@ -281,7 +281,10 @@ static char *s[] = {
 	"simplify((n+k+1)/(n+k+1)!)-1/(n+k)!",
 	"0",
 
-	"simplify((n+1) n!)-(n+1)!",
+	"simplify((n+1)*n!)-(n+1)!",
+	"0",
+
+	"simplify(1/((n+1)*n!))-1/(n+1)!",
 	"0",
 };
 

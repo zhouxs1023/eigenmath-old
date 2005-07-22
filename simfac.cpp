@@ -112,6 +112,28 @@ yysimfac(int h)
 					return 1;
 				}
 			}
+
+			//	1 / ((n + 1) n!)	->	1 / (n + 1)!
+
+			if (car(p1) == symbol(POWER)
+			&& isminusone(caddr(p1))
+			&& car(p2) == symbol(POWER)
+			&& isminusone(caddr(p2))
+			&& caadr(p2) == symbol(FACTORIAL)) {
+				push(cadr(p1));
+				p3 = cadr(p2);
+				push(cadr(p3));
+				subtract();
+				p3 = pop();
+				if (isplusone(p3)) {
+					push(cadr(p1));
+					factorial();
+					reciprocate();
+					stack[i] = pop();
+					stack[j] = one;
+					return 1;
+				}
+			}
 		}
 	}
 
