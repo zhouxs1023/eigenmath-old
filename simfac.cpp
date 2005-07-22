@@ -44,7 +44,7 @@ ysimfac(void)
 		p1 = cdr(p1);
 	}
 
-	// keep going until done
+	// keep trying until no more to do
 
 	while (yysimfac(h))
 		;

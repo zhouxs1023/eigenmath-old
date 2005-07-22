@@ -292,6 +292,12 @@ static char *s[] = {
 
 	"simplify(n!/(n+1)!)-1/(n+1)",
 	"0",
+
+	"simplify(binomial(n+1,k)/binomial(n,k))",
+	"(1+n)/(1-k+n)",
+
+	"simplify(binomial(n,k)/binomial(n+1,k))",
+	"(1-k+n)/(1+n)",
 };
 
 void
