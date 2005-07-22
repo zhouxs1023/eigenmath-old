@@ -12,7 +12,6 @@ static void f3(void);
 static void f4(void);
 static void f5(void);
 static void f9(void);
-extern void simfac(void);
 
 void
 eval_simplify(void)
