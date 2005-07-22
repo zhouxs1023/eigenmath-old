@@ -49,7 +49,7 @@ ysimfac(void)
 	while (yysimfac(h))
 		;
 
-	multiply_all(tos - h);
+	multiply_all_noexpand(tos - h);
 }
 
 // try all pairs of factors
