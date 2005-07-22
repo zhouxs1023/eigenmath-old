@@ -1,37 +1,90 @@
-// simplify factorials
+/* Simplify factorials
+
+This script:
+
+	F(n,k) = k binomial(n,k)
+	(F(n,k)+F(n,k-1))/F(n+1,k)
+
+Generates the following output:
+
+       k! n!             n! (1 - k + n)!              k! n!
+ -------------------- + -------------------- - ----------------------
+ (-1 + k)! (1 + n)!     (1 + n)! (-k + n)!     k (-1 + k)! (1 + n)!
+
+The algorithm that works for simplifying this is:
+
+	Simplify each term, then simplify the sum
+
+"Simplify each term" yields the following:
+
+   k       1 - k + n       1
+------- + ----------- - -------
+ 1 + n       1 + n       1 + n
+
+Then the final simplify yields:
+
+   n
+-------
+ 1 + n
+
+*/
 
 #include "stdafx.h"
 #include "defs.h"
-static void ysimfac(void);
+static void simfac_term(void);
 static int yysimfac(int);
 
 void
 simfac(void)
 {
+	int h;
+
 	save();
-	ysimfac();
+
+	p1 = pop();
+
+	if (car(p1) == symbol(ADD)) {
+		h = tos;
+		p1 = cdr(p1);
+		while (p1 != nil) {
+			push(car(p1));
+			simfac_term();
+			p1 = cdr(p1);
+		}
+		addk(tos - h);
+		p1 = pop();
+		if (find(p1, symbol(FACTORIAL))) {
+			push(p1);
+			if (car(p1) == symbol(ADD)) {
+				condense();
+				simfac_term();
+			}
+		} else {
+			push(p1);
+			simplify();
+		}
+	} else {
+		push(p1);
+		simfac_term();
+	}
+
 	restore();
 }
 
 static void
-ysimfac(void)
+simfac_term(void)
 {
 	int h;
 
+	save();
+
 	p1 = pop();
-
-	// if sum then try condense
-
-	if (car(p1) == symbol(ADD)) {
-		push(p1);
-		condense();
-		p1 = pop();
-	}
 
 	// if not a product of factors then done
 
 	if (car(p1) != symbol(MULTIPLY)) {
 		push(p1);
+		restore();
 		return;
 	}
 
@@ -50,6 +103,8 @@ ysimfac(void)
 		;
 
 	multiply_all_noexpand(tos - h);
+
+	restore();
 }
 
 // try all pairs of factors
