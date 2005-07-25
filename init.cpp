@@ -113,6 +113,7 @@ init(void)
 	define_symbol("roots", ROOTS);
 	define_symbol("equals", SETQ);
 	define_symbol("sample", SAMPLE);
+	define_symbol("simfac", SIMFAC);
 	define_symbol("simplify", SIMPLIFY);
 	define_symbol("sin", SIN);
 	define_symbol("sinh", SINH);

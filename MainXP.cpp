@@ -759,7 +759,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			if (running)
 				break;
 			goto_calc_mode();
-			printstr("Version 104   Help is available at eigenmath.com\n");
+			printstr("Version 105   Help is available at eigenmath.com\n");
 			update_display();
 			break;
 		case ID_MEMORY:
@@ -1070,7 +1070,7 @@ goto_edit_mode(void)
 	for (i = 0; i < NBUTTON - 2; i++)
 		EnableWindow(button[i], FALSE);
 
-	//SendMessage(button[NBUTTON - 2], WM_SETTEXT, 0, (LPARAM) "OK");
+	SendMessage(button[NBUTTON - 2], WM_SETTEXT, 0, (LPARAM) "<<");
 
 	ShowWindow(input_window, SW_HIDE);
 	ShowWindow(vscroll, SW_HIDE);
@@ -1094,7 +1094,7 @@ goto_calc_mode(void)
 	for (i = 0; i < NBUTTON - 2; i++)
 		EnableWindow(button[i], TRUE);
 
-	//SendMessage(button[NBUTTON - 2], WM_SETTEXT, 0, (LPARAM) "Edit Script");
+	SendMessage(button[NBUTTON - 2], WM_SETTEXT, 0, (LPARAM) "Edit Script");
 
 	ShowWindow(edit_window, SW_HIDE);
 	ShowWindow(input_window, SW_SHOW);

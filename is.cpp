@@ -259,3 +259,21 @@ isoneover(U *p)
 	else
 		return 0;
 }
+
+int
+equaln(U *p, int n)
+{
+	switch (p->k) {
+	case NUM:
+		if (MEQUAL(p->u.q.a, n) && MEQUAL(p->u.q.b, 1))
+			return 1;
+		break;
+	case DOUBLE:
+		if (p->u.d == (double) n)
+			return 1;
+		break;
+	default:
+		break;
+	}
+	return 0;
+}

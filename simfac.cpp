@@ -1,27 +1,23 @@
 /* Simplify factorials
 
-This script:
+The following script
 
 	F(n,k) = k binomial(n,k)
-	(F(n,k)+F(n,k-1))/F(n+1,k)
+	(F(n,k) + F(n,k-1)) / F(n+1,k)
 
-Generates the following output:
+generates
 
        k! n!             n! (1 - k + n)!              k! n!
  -------------------- + -------------------- - ----------------------
  (-1 + k)! (1 + n)!     (1 + n)! (-k + n)!     k (-1 + k)! (1 + n)!
 
-The algorithm that works for simplifying this is:
-
-	Simplify each term, then simplify the sum
-
-"Simplify each term" yields the following:
+Simplify each term to get
 
    k       1 - k + n       1
 ------- + ----------- - -------
  1 + n       1 + n       1 + n
 
-Then the final simplify yields:
+Then simplify the sum to get
 
    n
 -------
@@ -31,18 +27,52 @@ Then the final simplify yields:
 
 #include "stdafx.h"
 #include "defs.h"
+static void simfac(void);
 static void simfac_term(void);
 static int yysimfac(int);
+
+// simplify factorials term-by-term
+
+void
+eval_simfac(void)
+{
+	push(cadr(p1));
+	eval();
+	simfac();
+}
+
+#if 1
+
+static void
+simfac(void)
+{
+	int h;
+	save();
+	p1 = pop();
+	if (car(p1) == symbol(ADD)) {
+		h = tos;
+		p1 = cdr(p1);
+		while (p1 != nil) {
+			push(car(p1));
+			simfac_term();
+			p1 = cdr(p1);
+		}
+		addk(tos - h);
+	} else {
+		push(p1);
+		simfac_term();
+	}
+	restore();
+}
+
+#else
 
 void
 simfac(void)
 {
 	int h;
-
 	save();
-
 	p1 = pop();
-
 	if (car(p1) == symbol(ADD)) {
 		h = tos;
 		p1 = cdr(p1);
@@ -59,17 +89,15 @@ simfac(void)
 				condense();
 				simfac_term();
 			}
-		} else {
-			push(p1);
-			simplify();
 		}
 	} else {
 		push(p1);
 		simfac_term();
 	}
-
 	restore();
 }
+
+#endif
 
 static void
 simfac_term(void)
@@ -143,8 +171,8 @@ yysimfac(int h)
 			&& caadr(p2) == symbol(FACTORIAL)
 			&& equal(p1, cadadr(p2))) {
 				push(p1);
-				push(one);
-				subtract();
+				push_integer(-1);
+				add();
 				factorial();
 				reciprocate();
 				stack[i] = pop();
@@ -211,6 +239,25 @@ yysimfac(int h)
 					reciprocate();
 					stack[i] = pop();
 					stack[j] = one;
+					return 1;
+				}
+				if (equaln(p3, 2)) {
+					stack[i] = cadr(p1);
+					push(cadr(p1));
+					push_integer(-1);
+					add();
+					stack[j] = pop();
+					return 1;
+				}
+				if (equaln(p3, -2)) {
+					push(cadr(cadr(p2)));
+					reciprocate();
+					stack[i] = pop();
+					push(cadr(cadr(p2)));
+					push_integer(-1);
+					add();
+					reciprocate();
+					stack[j] = pop();
 					return 1;
 				}
 			}

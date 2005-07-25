@@ -1136,6 +1136,19 @@ char *script[] = {
 
 	"a=quote(a)",
 	"",
+
+	// equality of tensors
+
+	"testeq((1,2),(1,2))",
+	"1",
+
+	"testeq((1,2),(1,3))",
+	"0",
+
+	// the "check" function with tensor arg
+
+	"check((1,2)-(1,2))",
+	"",
 };
 
 void

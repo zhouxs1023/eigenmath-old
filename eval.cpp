@@ -39,6 +39,7 @@ extern void eval_product(void);
 extern void eval_rationalize(void);
 extern void eval_roots(void);
 extern void eval_sample(void);
+extern void eval_simfac(void);
 extern void eval_simplify(void);
 extern void eval_sin(void);
 extern void eval_sinh(void);
@@ -148,7 +149,7 @@ eval_check(void)
 	}
 	p1 = pop();
 	if (!iszero(p1))
-		stop("check stop");
+		stop("check(arg): arg is not zero");
 	push(nil);
 }
 
@@ -748,15 +749,12 @@ eval_testeq(void)
 	eval();
 	push(caddr(p1));
 	eval();
-	subtract();
 	p2 = pop();
-	if (isnum(p2))
-		if (iszero(p2))
-			push(one);
-		else
-			push(zero);
+	p1 = pop();
+	if (equal(p1, p2))
+		push(one);
 	else
-		push(p1);
+		push(zero);
 }
 
 static void
@@ -950,7 +948,8 @@ eval(void)
 		// it's a keyword, use last result for arg
 
 		push(p1);
-		push(get_symbol("last")->u.sym.binding);
+		//push(symbol(LAST)->u.sym.binding);
+		push(symbol(LAST));
 		list(2);
 		eval();
 		break;
@@ -1051,6 +1050,7 @@ eval_cons(void)
 	case ROOTS:		eval_roots();		break;
 	case SETQ:		eval_setq();		break;
 	case SAMPLE:		eval_sample();		break;
+	case SIMFAC:		eval_simfac();		break;
 	case SIMPLIFY:		eval_simplify();	break;
 	case SIN:		eval_sin();		break;
 	case SINH:		eval_sinh();		break;
