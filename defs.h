@@ -129,6 +129,7 @@ enum {
 	ROOTS,
 	SAMPLE,
 	SETQ,
+	SIMFAC,
 	SIMPLIFY,
 	SIN,
 	SINH,
@@ -315,6 +316,7 @@ extern void d_tensor_scalar(void);
 extern void d_scalar_tensor(void);
 extern void d_scalar_scalar(void);
 extern int equal(U *, U *);
+extern int equaln(U *, int);
 extern int length(U *);
 extern void push(U *);
 extern void addk(int);
