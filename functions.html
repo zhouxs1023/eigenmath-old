@@ -1,0 +1,1630 @@
+<html>
+<pre>
+ 1. <a href="#abs">abs</a>		absolute value
+ 2. <a href="#adj">adj</a>		adjunct of matrix
+ 3. <a href="#arccos">arccos</a>
+ 4. <a href="#arccosh">arccosh</a>
+ 5. <a href="#arcsin">arcsin</a>
+ 6. <a href="#arcsinh">arcsinh</a>
+ 7. <a href="#arctan">arctan</a>
+ 8. <a href="#arctanh">arctanh</a>
+ 9. <a href="#binomial">binomial</a>
+10. <a href="#break">break</a>	break out of a loop
+11. <a href="#ceiling">ceiling</a>
+12. <a href="#check">check</a>	stop if not zero
+13. <a href="#condense">condense</a>	find subexpressions
+14. <a href="#conj">conj</a>	complex conjugate
+15. <a href="#contract">contract</a>	contract across tensor indices
+16. <a href="#cos">cos</a>
+17. <a href="#cosh">cosh</a>
+18. <a href="#d">d</a>		derivative and gradient
+19. <a href="#denominator">denominator</a>
+20. <a href="#det">det</a>		determinant of a matrix
+21. <a href="#dim">dim</a>
+22. <a href="#display">display</a>	display an expression
+23. <a href="#do">do</a>		evaluate multiple expressions
+24. <a href="#dot">dot</a>		inner product of tensors
+25. <a href="#draw">draw</a>	draw a graph
+26. <a href="#eigen">eigen</a>
+27. <a href="#eval">eval</a>	normalize an expression
+28. <a href="#exp">exp</a>
+29. <a href="#expcos">expcos</a>	exponential cosine
+30. <a href="#expsin">expsin</a>	exponential sine
+31. <a href="#factor">factor</a>	factor a number or polynomial
+32. <a href="#factorial">factorial</a>
+33. <a href="#filter">filter</a>
+34. <a href="#float">float</a>
+35. <a href="#floor">floor</a>
+36. <a href="#for">for</a>
+37. <a href="#gcd">gcd</a>
+38. <a href="#hermite">hermite</a>	emit a hermite polynomial
+39. <a href="#hilbert">hilbert</a>	emit a hilbert matrix
+40. <a href="#inner">inner</a>	inner product of tensors
+41. <a href="#integral">integral</a>
+42. <a href="#inv">inv</a>		invert a matrix
+43. <a href="#isprime">isprime</a>
+44. <a href="#laguerre">laguerre</a>	emit a laguerre polynomial
+45. <a href="#lcm">lcm</a>		least common multiple
+46. <a href="#legendre">legendre</a>	emit a legendre polynomial
+47. <a href="#log">log</a>		natural logarithm
+48. <a href="#mod">mod</a>
+49. <a href="#numerator">numerator</a>
+50. <a href="#outer">outer</a>	outer product of tensors
+51. <a href="#prime">prime</a>
+52. <a href="#print">print</a>
+53. <a href="#product">product</a>	multiply over an index
+54. <a href="#prog">prog</a>	evaluate with scoped variables
+55. <a href="#quote">quote</a>
+56. <a href="#rank">rank</a>	rank of tensor
+57. <a href="#rationalize">rationalize</a>	combine fractions
+58. <a href="#return">return</a>	early return from a function
+59. <a href="#roots">roots</a>	find roots of a polynomial
+60. <a href="#simfac">simfac</a>	simplify factorials
+61. <a href="#simplify">simplify</a>	simplify an expression
+62. <a href="#sin">sin</a>
+63. <a href="#sinh">sinh</a>
+64. <a href="#sqrt">sqrt</a>	square root
+65. <a href="#stop">stop</a>	stop running a script
+66. <a href="#subst">subst</a>	substitute expressions
+67. <a href="#sum">sum</a>		sum over an index
+68. <a href="#tan">tan</a>
+69. <a href="#tanh">tanh</a>
+70. <a href="#taylor">taylor</a>	emit a taylor series
+71. <a href="#test">test</a>	conditional evaluation
+72. <a href="#trace">trace</a>	trace of matrix
+73. <a href="#transpose">transpose</a>	transpose tensor indices
+74. <a href="#unit">unit</a>	emit a unit matrix
+75. <a href="#wedge">wedge</a>	wedge product of tensors
+76. <a href="#zero">zero</a>	emit a zero tensor
+</pre>
+
+<tt>
+
+<p>
+<hr>
+
+<p>
+<h1><tt><a name="abs">abs(<i>x</i>)</a></tt></h1>
+Returns the absolute value (vector length, magnitude) of <i>x</i>.
+<pre>
+<i>Enter</i>
+
+     abs(a - b) + abs(b - a)
+
+<i>Result</i>
+
+     2 abs(a - b)
+
+<i>Enter</i>
+
+     abs(3 + 4 i)
+
+<i>Result</i>
+
+     5
+
+<i>Enter</i>
+
+     abs((a,b,c))
+
+<i>Result</i>
+
+                   1/2
+       2    2    2
+     (a  + b  + c )
+
+<i>Enter</i>
+
+     A = (1,i,-i)
+
+     sqrt(dot(A,conj(A))) - abs(A)
+
+<i>Result</i>
+
+     0
+
+<i>Enter</i>
+
+     A = ((1,2),(3,4))
+
+     abs(A)
+
+<i>Result</i>
+
+     stop: abs(tensor) with tensor rank &gt; 1
+</pre>
+<p>
+<h1><tt><a name="adj">adj(<i>m</i>)</a></tt></h1>
+Returns the adjunct of matrix <i>m</i>.
+<pre>
+<i>Enter</i>
+
+     A = ((a,b),(c,d))
+
+     adj(A)
+
+<i>Result</i>
+
+     d     -b
+ 
+     -c    a
+</pre>
+The inverse of a matrix is equal to the adjunct divided by the determinant.
+<pre>
+<i>Enter</i>
+
+     inv(A) - adj(A) / det(A)
+
+<i>Result</i>
+
+     0
+</pre>
+<p>
+<h1><tt><a name="arccos">arccos(<i>x</i>)</a></tt></h1>
+Returns the inverse cosine of <i>x</i>.
+<p>
+<h1><tt><a name="arccosh">arccosh(<i>x</i>)</a></tt></h1>
+Returns the inverse hyperbolic cosine of <i>x</i>.
+<p>
+<h1><tt><a name="arcsin">arcsin(<i>x</i>)</a></tt></h1>
+Returns the inverse sine of <i>x</i>.
+<p>
+<h1><tt><a name="arcsinh">arcsinh(<i>x</i>)</a></tt></h1>
+Returns the inverse hyperbolic sine of <i>x</i>.
+<p>
+<h1><tt><a name="arctan">arctan(<i>x</i>)</a></tt></h1>
+Returns the inverse tangent of <i>x</i>.
+<p>
+<h1><tt><a name="arctanh">arctanh(<i>x</i>)</a></tt></h1>
+Returns the inverse hyperbolic tangent of <i>x</i>.
+<p>
+<h1><tt><a name="binomial">binomial(<i>n,k</i>)</a></tt></h1>
+Returns the binomial coefficient.
+<pre>
+<i>Enter</i>
+
+     binomial(10,5)
+
+<i>Result</i>
+
+     252
+</pre>
+<p>
+<h1><tt><a name="break">break(<i>x</i>)</a></tt></h1>
+Causes an immediate return from a <tt>for</tt> function.
+Expression <i>x</i> is evaluated and returned as the <tt>for</tt> function
+value.
+A <tt>break</tt> with no argument returns the symbol <tt>nil</tt>.
+A <tt>break</tt> can be evaluated at any function level.
+For example, <tt>for()</tt> can evaluate <tt>f()</tt> which evaluates
+<tt>g()</tt> which evaluates <tt>break()</tt>.
+<p>
+<h1><tt><a name="ceiling">ceiling(<i>x</i>)</a></tt></h1>
+Returns the smallest integer not less than <i>x</i>.
+<p>
+<h1><tt><a name="check">check(<i>x</i>)</a></tt></h1>
+If <i>x</i> is zero then continue, else stop.
+<p>
+<h1><tt><a name="condense">condense(<i>x</i>)</a></tt></h1>
+Attempts to simplify x by factoring common terms.
+<pre>
+<i>Enter</i>
+
+     2 a (x + 1)
+
+<i>Result</i>
+
+     2 a + 2 a x
+
+<i>Enter</i>
+
+     condense(last)
+
+<i>Result</i>
+
+     2 a (x + 1)
+</pre>
+<p>
+<h1><tt><a name="conj">conj(<i>x</i>)</a></tt></h1>
+Returns the complex conjugate of <i>x</i>.
+<pre>
+<i>Enter</i>
+
+     conj(3+4i)
+
+<i>Result</i>
+
+     3 - 4 i
+</pre>
+<p>
+<h1><tt><a name="contract">contract(<i>a,i,j</i>)</a></tt></h1>
+Returns the contraction of tensor <i>a</i> across indices <i>i</i>
+and <i>j</i>.
+If <i>i</i> and <i>j</i> are omitted then indices 1 and 2 are used.
+The following example shows how contract adds diagonal elements.
+<pre>
+<i>Enter</i>
+
+     A = ((a,b),(c,d))
+
+     contract(A,1,2)
+
+<i>Result</i>
+
+     a + d
+</pre>
+<p>
+<h1><tt><a name="cos">cos(<i>x</i>)</a></tt></h1>
+Returns the cosine of <i>x</i>.
+<p>
+<h1><tt><a name="cosh">cosh(<i>x</i>)</a></tt></h1>
+Returns the hyperbolic cosine of <i>x</i>.
+<p>
+<h1><tt><a name="d">d(<i>f,x</i>)</a></tt></h1>
+Returns the partial derivative of <i>f</i> with respect to <i>x</i>.
+The second argument can be omitted in which case the computer will guess which
+symbol to use.
+<pre>
+<i>Enter</i>
+
+     d(x^2,x)
+
+<i>Result</i>
+
+     2 x
+</pre>
+For tensor <i>f</i> the derivative of each element is computed.
+<pre>
+<i>Enter</i>
+
+     d((x,x^2),x)
+
+<i>Result</i>
+
+      1
+ 
+     2 x
+</pre>
+Returns the gradient of <i>f</i> when <i>x</i> is a vector.
+Note that gradient raises the rank of <i>f</i> by 1.
+<pre>
+<i>Enter</i>
+
+     u = x^2 + y^3
+
+     d(u,(x,y))
+
+<i>Result</i>
+
+     2 x
+ 
+ 
+        2
+     3 y
+</pre>
+Functions with 0-arity are treated as dependent on all variables.
+<pre>
+<i>Enter</i>
+
+     d(f(),(x,y))
+
+<i>Result</i>
+
+     d(f(),x)
+ 
+     d(f(),y)
+</pre>
+Since partial derivatives commute, multi-derivatives are ordered to produce a
+canonical form.
+<pre>
+<i>Enter</i>
+
+     d(d(f(),y),x)
+
+<i>Result</i>
+
+     d(d(f(),x),y)
+</pre>
+<p>
+<h1><tt><a name="denominator">denominator(x)</a></tt></h1>
+Returns the denominator of expression x. (Not in Mac version yet.)
+<pre>
+<i>Enter</i>
+
+     denominator(a/b)
+
+<i>Result</i>
+
+	b
+</pre>
+<p>
+<h1><tt><a name="det">det(<i>m</i>)</a></tt></h1>
+Returns the determinant of matrix <i>m</i>.
+<pre>
+<i>Enter</i>
+
+     A = ((a,b),(c,d))
+
+     det(A)
+
+<i>Result</i>
+
+     a d - b c
+</pre>
+<p>
+<h1><tt><a name="dim">dim(<i>a,i</i>)</a></tt></h1>
+Returns the dimension of the <i>i</i>th index of tensor <i>a</i>.
+If <i>i</i> is omitted then the dimension of the first index is returned.
+<pre>
+<i>Enter</i>
+
+     A = (1,2,3,4)
+
+     dim(A)
+
+<i>Result</i>
+
+     4
+
+<i>Enter</i>
+
+     A = ((1,2,3),(4,5,6))
+
+     dim(A,1)
+
+<i>Result</i>
+
+     2
+
+<i>Enter</i>
+
+     dim(A,2)
+
+<i>Result</i>
+
+     3
+</pre>
+<p>
+<h1><tt><a name="display">display(<i>x</i>)</a></tt></h1>
+Evaluates expression <i>x</i> and displays the result using Times and Symbol
+fonts.
+User symbols are scanned for the keywords shown below.
+Each keyword is replaced with its associated Greek letter glyph.
+Multiglyph symbols are displayed using subscripts.
+This function can be selected as the default display mode by setting tty = 0.
+<p>
+<table>
+
+<tr>
+<td>Gamma</td><td>&#915</td>
+<td width="10"></td>
+<td>alpha</td><td>&#945</td>
+<td width="10"></td>
+<td>mu</td><td>&#956</td>
+</tr>
+
+<tr>
+<td>Delta</td><td>&#916</td>
+<td></td>
+<td>beta</td><td>&#946</td>
+<td></td>
+<td>nu</td><td>&#957</td>
+</tr>
+
+<tr>
+<td>Theta</td><td>&#920</td>
+<td></td>
+<td>gamma</td><td>&#947</td>
+<td></td>
+<td>xi</td><td>&#958</td>
+</tr>
+
+<tr>
+<td>Lambda</td><td>&#923</td>
+<td></td>
+<td>delta</td><td>&#948</td>
+<td></td>
+<td>pi</td><td>&#960</td>
+</tr>
+
+<tr>
+<td>Xi</td><td>&#926</td>
+<td></td>
+<td>epsilon</td><td>&#949</td>
+<td></td>
+<td>rho</td><td>&#961</td>
+</tr>
+
+<tr>
+<td>Pi</td><td>&#928</td>
+<td></td>
+<td>zeta</td><td>&#950</td>
+<td></td>
+<td>sigma</td><td>&#963</td>
+</tr>
+
+<tr>
+<td>Sigma</td><td>&#931</td>
+<td></td>
+<td>eta</td><td>&#951</td>
+<td></td>
+<td>tau</td><td>&#964</td>
+</tr>
+
+<tr>
+<td>Upsilon</td><td>&#933</td>
+<td></td>
+<td>theta</td><td>&#952</td>
+<td></td>
+<td>upsilon</td><td>&#965</td>
+</tr>
+
+<tr>
+<td>Phi</td><td>&#934</td>
+<td></td>
+<td>iota</td><td>&#953</td>
+<td></td>
+<td>phi</td><td>&#966</td>
+</tr>
+
+<tr>
+<td>Psi</td><td>&#936</td>
+<td></td>
+<td>kappa</td><td>&#954</td>
+<td></td>
+<td>chi</td><td>&#967</td>
+</tr>
+
+<tr>
+<td>Omega</td><td>&#937</td>
+<td></td>
+<td>lambda</td><td>&#955</td>
+<td></td>
+<td>psi</td><td>&#968</td>
+</tr>
+
+<tr>
+<td></td><td></td>
+<td></td>
+<td></td><td></td>
+<td></td>
+<td>omega</td><td>&#969</td>
+</tr>
+
+</table>
+<p>
+<h1><tt><a name="do">do(<i>a,b,...</i>)</a></tt></h1>
+Evaluates each statement in sequence.
+Returns the value of the last statement.
+<p>
+<h1><tt><a name="dot">dot(<i>a,b,...</i>)</a></tt></h1>
+Returns the dot product of tensors (aka inner product).
+<pre>
+<i>Enter</i>
+
+     A = (A1,A2,A3)
+
+     B = (B1,B2,B3)
+
+     dot(A,B)
+
+<i>Result</i>
+
+     A1 B1 + A2 B2 + A3 B3
+</pre>
+The dot product is equivalent to an outer product followed by a contraction
+across the inner indices.
+<pre>
+<i>Enter</i>
+
+     A = hilbert(10)
+
+     dot(A,A) - contract(outer(A,A),2,3)
+
+<i>Result</i>
+
+     0
+</pre>
+<p>
+<h1><tt><a name="draw">draw(<i>f,x</i>)</a></tt></h1>
+Draws a graph of <i>f</i>.
+The second argument can be omitted in which case the computer will
+guess what variable to use.
+Parametric drawing occurs when <i>f</i> returns a vector.
+Ranges are set with <tt>xrange</tt> and <tt>yrange</tt>.
+The defaults are <tt>xrange = (-10,10)</tt> and
+<tt>yrange = (-10,10)</tt>.
+The parametric variable range is set with <tt>trange</tt>.
+The default is <tt>trange = (-pi,pi)</tt>.
+<p>
+<h1><tt><a name="eigen">eigen(<i>m</i>)</a></tt></h1>
+<h1><tt>eigenval(<i>m</i>)</tt></h1>
+<h1><tt>eigenvec(<i>m</i>)</tt></h1>
+These functions compute eigenvalues and eigenvectors numerically.
+Matrix m must be both numerical and symmetric.
+The eigenval function returns a matrix with the eigenvalues along
+the diagonal.
+The eigenvec function returns a matrix with the eigenvectors arranged as row
+vectors.
+The eigen function does not return anything but stores the eigenvalue matrix 
+in D and the eigenvector matrix in Q.
+<p>
+Example 1. Check the relation AX = lambda X where lambda is an eigenvalue and
+X is the associated eigenvector.
+<pre>
+<i>Enter</i>
+
+     A = hilbert(3)
+
+     eigen(A)
+
+     lambda = D[1,1]
+
+     X = Q[1]
+
+     dot(A,X) - lambda X
+
+<i>Result</i>
+
+     -1.16435e-14
+ 
+     -6.46705e-15
+ 
+     -4.55191e-15
+</pre> 
+<p>
+Example 2: Check the relation A = Q<sup>T</sup>DQ.
+<pre>
+<i>Enter</i>
+
+	A - dot(transpose(Q),D,Q)
+
+<i>Result</i>
+ 
+	6.27365e-12    -1.58236e-11   1.81902e-11
+ 
+	-1.58236e-11   -1.95365e-11   2.56514e-12
+ 
+	1.81902e-11    2.56514e-12    1.32627e-11
+</pre>
+<p>
+<h1><tt><a name="eval">eval(<i>x</i>)</a></tt></h1>
+Returns the evaluation of expression <i>x</i>.
+<pre>
+<i>Enter</i>
+
+     A = quote(sin(pi/6))
+
+     A
+
+<i>Result</i>
+
+          1
+     sin(--- pi)
+          6
+
+<i>Enter</i>
+
+     eval(A)
+
+<i>Result</i>
+
+      1
+     ---
+      2
+</pre>
+<p>
+<h1><tt><a name="exp">exp(<i>x</i>)</a></tt></h1>
+Returns the exponential of <i>x</i>.
+The expression exp(1) should be used to represent the natural number <i>e</i>.
+<pre>
+<i>Enter</i>
+
+     exp(1.0)
+
+<i>Result</i>
+
+     2.71828
+
+<i>Enter</i>
+
+     exp(a) exp(b)
+
+<i>Result</i>
+
+     exp(a + b)
+</pre>
+<p>
+<h1><tt><a name="expcos">expcos(<i>x</i>)</a></tt></h1>
+Returns the exponential cosine of <i>x</i>.
+<pre>
+<i>Enter</i>
+
+     expcos(x)
+
+<i>Result</i>
+
+      1               1
+     --- exp(-i x) + --- exp(i x)
+      2               2
+</pre>
+<p>
+<h1><tt><a name="expsin">expsin(<i>x</i>)</a></tt></h1>
+Returns the exponential sine of <i>x</i>.
+<pre>
+<i>Enter</i>
+
+     expsin(x)
+
+<i>Result</i>
+
+      1                 1
+     --- i exp(-i x) - --- i exp(i x)
+      2                 2
+</pre>
+<p>
+<h1><tt><a name="factor">factor(<i>n</i>)</a></tt></h1>
+<h1><tt>factor(<i>p,x</i>)</tt></h1>
+The first form returns the prime factors for integer <i>n</i>.
+<pre>
+<i>Enter</i>
+
+     factor(12345)
+
+<i>Result</i>
+
+     3 5 823
+</pre>
+The second form factors polynomial <i>p</i> in <i>x</i>.
+The argument <i>x</i> can be omitted in which case the computer will
+guess which symbol to use.
+<pre>
+<i>Enter</i>
+
+     factor(x^3 + x^2 + x + 1)
+
+<i>Result</i>
+
+                   2
+     (1 + x) (1 + x )
+</pre>
+<p>
+<h1><tt><a name="factorial">factorial(<i>x</i>)</a></tt></h1>
+Returns the factorial of <i>x</i>.
+The syntax <i>x</i>! can also be used.
+<pre>
+<i>Enter</i>
+
+     factorial(100)
+
+<i>Result</i>
+
+     93326215443944152681699238856266700490715968264381621468592963895217599993229915
+     608941463976156518286253697920827223758251185210916864000000000000000000000000
+
+<i>Enter</i>
+
+     factorial(100) - 100!
+
+<i>Result</i>
+
+     0
+</pre>
+<h1><tt><a name="filter">filter(<i>f,a,b,...</i>)</a></tt></h1>
+Returns <i>f</i> with terms containing <i>a</i> (or <i>b</i> or...) removed.
+Useful for implementing a "poor man's" Fourier transform.
+<pre>
+<i>Enter</i>
+
+     Y = A exp(-i k x) + B exp(i k x)
+
+     filter(Y exp(-i k x), x)
+
+<i>Result</i>
+
+     B
+</pre>
+<p>
+<h1><tt><a name="float">float(<i>x</i>)</a></tt></h1>
+Converts rational numbers and integers in <i>x</i> to floating
+point values. The symbol <i>pi</i> is also converted.
+<pre>
+<i>Enter</i>
+
+     float(100!)
+
+<i>Result</i>
+
+     9.33262e+157
+</pre>
+<p>
+<h1><tt><a name="floor">floor(<i>x</i>)</a></tt></h1>
+Returns the largest integer not greater than <i>x</i>.
+<p>
+<h1><tt><a name="for">for(<i>a,i,j,b</i>)</a></tt></h1>
+For <i>a</i> equals <i>i</i> through <i>j</i> evaluate <i>b</i>.
+Normally <tt>for()</tt> returns the symbol <tt>nil</tt>.
+A <tt>break()</tt> function can be used to return a different value.
+The variable <i>a</i> has local scope within the <tt>for</tt> function.
+The variable <i>a</i> remains unmodified after <tt>for</tt> returns.
+The expressions <i>i</i> and <i>j</i> must evaluate to integers.
+Usually <i>b</i> is a <tt>do()</tt> function.
+<pre>
+<i>Enter</i>
+
+     for(k,1,4,print(1/k,tab(10),1/k^2))
+
+<i>Result</i>
+ 
+     1         1
+ 
+      1         1
+     ---       ---
+      2         4
+ 
+      1         1
+     ---       ---
+      3         9
+ 
+      1         1
+     ---       ----
+      4         16
+</pre>
+<p>
+<h1><tt><a name="gcd">gcd(<i>a,b</i>)</a></tt></h1>
+Returns the greatest common divisor of <i>a</i> and <i>b</i>.
+<p>
+<h1><tt><a name="hermite">hermite(<i>x,n</i>)</a></tt></h1>
+Returns the <i>n</i>th Hermite polynomial in <i>x</i>.
+<pre>
+<i>Enter</i>
+
+     hermite(x,3)
+
+<i>Result</i>
+
+                3
+     -12 x + 8 x
+</pre>
+<p>
+<h1><tt><a name="hilbert">hilbert(<i>n</i>)</a></tt></h1>
+Returns a Hilbert matrix of order <i>n</i>.
+<pre>
+<i>Enter</i>
+
+     hilbert(3)
+
+<i>Result</i>
+
+             1      1
+      1     ---    ---
+             2      3
+ 
+      1      1      1
+     ---    ---    ---
+      2      3      4
+ 
+      1      1      1
+     ---    ---    ---
+      3      4      5
+</pre>
+<p>
+<h1><tt><a name="inner">inner(<i>a,b,...</i>)</a></tt></h1>
+Returns the inner product of tensors.
+This is the same function as the dot product.
+<pre>
+<i>Enter</i>
+
+     A = (A1,A2,A3)
+
+     B = (B1,B2,B3)
+
+     inner(A,B)
+
+<i>Result</i> 
+
+     A1 B1 + A2 B2 + A3 B3
+</pre>
+<p>
+<h1><tt><a name="integral">integral(<i>f,x</i>)</a></tt></h1>
+Returns the integral of <i>f</i> with respect to <i>x</i>.
+The second argument can be omitted in which case the computer will guess which
+symbol to use.
+<pre>
+<i>Enter</i>
+
+     integral(log(x),x)
+
+<i>Result</i>
+
+     -x + x log(x)
+</pre>
+<p>
+<h1><tt><a name="inv">inv(<i>m</i>)</a></tt></h1>
+Returns the inverse of matrix <i>m</i>.
+<pre>
+<i>Enter</i>
+
+     A = ((a,b),(c,d))
+
+     inv(A)
+
+<i>Result</i>
+
+           d                 b
+      -----------     - -----------
+       a d - b c         a d - b c
+ 
+            c               a
+     - -----------     -----------
+        a d - b c       a d - b c
+</pre>
+<p>
+<h1><tt><a name="isprime">isprime(<i>n</i>)</a></tt></h1>
+Returns 1 if integer <i>n</i> is a prime number. Returns 0 if <i>n</i> is not
+a prime number.
+<pre>
+<i>Enter</i>
+
+     isprime(9007199254740991)
+
+<i>Result</i>
+
+     0
+
+<i>Enter</i>
+
+     isprime(2^53 - 111)
+
+<i>Result</i>
+
+     1
+</pre>
+<p>
+<h1><tt><a name="laguerre">laguerre(<i>x,n,a</i>)</a></tt></h1>
+Returns the <i>n</i>th Laguerre polynomial in <i>x</i>.
+If the argument <i>a</i> is omitted or <i>a</i> equals zero
+then the function returns the non-associated Laguerre polynomial.
+<pre>
+<i>Enter</i>
+
+     laguerre(x,2)
+
+<i>Result</i>
+
+                1   2
+     1 - 2 x + --- x
+                2
+
+<i>Enter</i>
+
+     laguerre(x,2,a)
+
+<i>Result</i>
+
+          3                   1   2    1   2
+     1 + --- a - 2 x - a x + --- a  + --- x
+          2                   2        2
+</pre>
+<p>
+<h1><tt><a name="lcm">lcm(<i>a,b</i>)</a></tt></h1>
+Returns the least common multiple of <i>a</i> and <i>b</i>.
+The least common multiple is the smallest value or expression divisible
+by both <i>a</i> and <i>b</i>.
+<pre>
+<i>Enter</i>
+
+     lcm(4,6)
+
+<i>Result</i>
+
+     12
+
+<i>Enter</i>
+
+     lcm(4 x, 6 x y)
+
+<i>Result</i>
+
+     12 x y
+</pre>
+<p>
+<h1><tt><a name="legendre">legendre(<i>x,n,m</i>)</a></tt></h1>
+Returns the <i>n</i>th Legendre polynomial in <i>x</i>.
+<pre>
+<i>Enter</i>
+
+     legendre(x,2)
+
+<i>Result</i>
+
+        1     3   2
+     - --- + --- x
+        2     2
+
+<i>Enter</i>
+
+     legendre(x,2,0)
+
+<i>Result</i>
+
+        1     3   2
+     - --- + --- x
+        2     2
+
+<i>Enter</i>
+
+     legendre(x,2,1)
+
+<i>Result</i>
+
+                  1/2
+                2
+     -3 x (1 - x )
+</pre>
+<p>
+<h1><tt><a name="log">log(<i>x</i>)</a></tt></h1>
+Returns the natural logarithm of <i>x</i>.
+<pre>
+<i>Enter</i>
+
+     log(10.0)
+
+<i>Result</i>
+
+     2.30259
+
+<i>Enter</i>
+
+     log(-10.0)
+
+<i>Result</i>
+
+     2.30259 + i &#960
+</pre>
+<p>
+<h1><tt><a name="mod">mod(<i>a,b</i>)</a></tt></h1>
+Returns the remainder of <i>a</i> divided by <i>b</i>.
+<p>
+<h1><tt><a name="outer">outer(<i>a,b,...</i>)</a></tt></h1>
+Returns the outer product of tensors (aka tensor product).
+<pre>
+<i>Enter</i>
+
+     A = (A1,A2,A3)
+
+     B = (B1,B2,B3)
+
+     outer(A,B)
+
+<i>Result</i>
+
+     A1 B1    A1 B2    A1 B3
+
+     A2 B1    A2 B2    A2 B3
+
+     A3 B1    A3 B2    A3 B3
+</pre>
+<p>
+<h1><tt><a name="numerator">numerator(x)</a></tt></h1>
+Returns the numerator of expression x. (Not in Mac version yet.)
+<pre>
+<i>Enter</i>
+
+     numerator(a/b)
+
+<i>Result</i>
+
+	a
+</pre>
+<p>
+<h1><tt><a name="prime">prime(<i>n</i>)</a></tt></h1>
+Returns the <i>n</i>th prime number.
+The value of <i>n</i> must be greater than zero and less than 10,001.
+<pre>
+<i>Enter</i>
+
+     prime(1)
+
+<i>Result</i>
+
+     2
+
+<i>Enter</i>
+
+     prime(10000)
+
+<i>Result</i>
+
+     104729
+</pre>
+<p>
+<h1><tt><a name="print">print(<i>a,b,...</i>)</a></tt></h1>
+The <tt>print</tt> function evaluates and prints each expression.
+The printing is done in tty mode.
+The symbol <tt>nil</tt> is returned as the function value.
+Spaces and other text can be printed by using quoted strings for print
+arguments.
+This function can be selected as the default printing mode by setting the
+symbol tty = 1.
+<p>
+<h1><tt><a name="product">product(<i>a,i,j,b</i>)</a></tt></h1>
+For <i>a</i> equals <i>i</i> through <i>j</i> evaluate <i>b</i>.
+Returns the product of all <i>b</i>.
+The variable <i>a</i> has local scope within the product function,
+<i>a</i> remains unchanged after the product function returns.
+The expressions <i>i</i> and <i>j</i> should evaluate to integers.
+<pre>
+<i>Enter</i>
+
+     product(k,1,3,1/(1-(1/prime(k)^s)))
+
+<i>Result</i>
+
+                     1
+     ----------------------------------
+            1          1          1
+      (1 - ----) (1 - ----) (1 - ----)
+             s          s          s
+            2          3          5
+</pre>
+<p>
+<h1><tt><a name="prog">prog(<i>a,b,...,f</i>)</a></tt></h1>
+The <tt>prog</tt> function evaluates <i>f</i>.
+The result of the evaluation of <i>f</i> is returned as the <tt>prog</tt>
+value.
+The variables <i>a,b,...</i> have local scope within <tt>prog</tt>.
+The variables <i>a,b,...</i> remain unmodified after <tt>prog</tt> returns.
+Usually <i>f</i> is a <tt>do</tt> function.
+<p>
+<h1><tt><a name="quote">quote(<i>x</i>)</a></tt></h1>
+Returns expression <i>x</i> without evaluating symbols or functions.
+Can be used to clear symbolic values.
+<pre>
+<i>Enter</i>
+
+     n = 3
+
+     n
+
+<i>Result</i>
+
+     3
+
+<i>Enter</i>
+
+     n = quote(n)
+
+     n
+
+<i>Result</i>
+
+     n
+</pre>
+<p>
+<h1><tt><a name="rank">rank(<i>a</i>)</a></tt></h1>
+Returns the rank (number of indices) of tensor <i>a</i>.
+<pre>
+<i>Enter</i>
+
+     U = (u1,u2,u3,u4)
+
+     rank(U)
+
+<i>Result</i>
+
+     1
+</pre>
+<p>
+<h1><tt><a name="rationalize">rationalize(<i>x</i>)</a></tt></h1>
+Puts terms in <i>x</i> over a common denominator.
+<pre>
+<i>Enter</i>
+
+     rationalize(1/x + 1/y)
+
+<i>Result</i>
+
+      x + y
+     -------
+       x y
+</pre>
+Rationalize can often simplify expressions.
+<pre>
+<i>Enter</i>
+
+     A = ((a,b),(c,d))
+
+     B = inv(A)
+
+     dot(A,B)
+
+<i>Result</i>
+
+         a d           b c
+     ----------- - -----------                0
+      a d - b c     a d - b c
+ 
+                                      a d           b c
+                 0                ----------- - -----------
+                                   a d - b c     a d - b c
+
+<i>Enter</i>
+
+     rationalize(last)
+
+<i>Result</i>
+
+     1    0
+ 
+     0    1
+</pre>
+<p>
+<h1><tt><a name="return">return(<i>x</i>)</a></tt></h1>
+Evaluation of <tt>return</tt> causes an immediate exit from <tt>prog</tt>.
+Expression <i>x</i> is evaluated and returned as the <tt>prog</tt> value.
+A <tt>return</tt> with no argument returns the symbol <tt>nil</tt>.
+A <tt>return</tt> can be evaluated at any function level.
+For example, <tt>prog()</tt> can evaluate <tt>f()</tt> which evaluates
+<tt>g()</tt> which evaluates <tt>return()</tt>.
+<p>
+<h1><tt><a name="roots">roots(<i>p,x</i>)</a></tt></h1>
+Finds the values of <i>x</i> for which the polynomial <i>p(x)</i> equals zero.
+Graphically, the roots of <i>p</i> are the <i>x</i> coordinates where the curve
+<i>p(x)</i> crosses the horizontal line.
+The argument <i>p</i> may be expressed as an equality.
+The argument <i>x</i> can be omitted if it is literally
+<i>x</i>, <i>y</i>, <i>z</i>, <i>t</i> or <i>r</i>.
+If there is more than one root then a vector containing the roots is returned.
+If <i>p</i> cannot be factored then <tt>roots</tt> returns the symbol
+<tt>nil</tt>.
+Note: The symbol <tt>nil</tt> is not normally printed so no result is visible
+when <i>p</i> cannot be factored.
+<pre>
+<i>Enter</i>
+
+     (x - 1/2) (x - 1/3) (x + 1/4) / x^3
+
+<i>Result</i>
+
+            1         1        7
+     1 + ------- - ------- - ------
+              3         2     12 x
+          24 x      24 x
+
+<i>Enter</i>
+
+     roots(last,x)
+
+<i>Result</i>
+
+        1
+     - ---
+        4
+
+       1
+      ---
+       3
+
+       1
+      ---
+       2
+
+<i>Enter</i>
+
+     roots(a x = b)
+
+<i>Result</i>
+
+      b
+     ---
+      a
+
+<i>Enter</i>
+
+     roots(a x^2 + b x + c)
+
+<i>Result</i>
+
+                             1/2
+                           2
+         b      (-4 a c + b )
+     - ----- - ------------------
+        2 a           2 a
+
+                             1/2
+                           2
+         b      (-4 a c + b )
+     - ----- + ------------------
+        2 a           2 a
+</pre>
+<h1><tt><a name="simfac">simfac(<i>x</i>)</a></tt></h1>
+Simplifies factorials in expression x according to
+the following rules. (Not in Mac version yet.)
+<pre>
+	This			is converted to this
+
+	n! / n			(n - 1)!
+
+	n (n - 1)! 		n!
+
+	(n + 1)! / n!		n + 1
+
+	(n + 2)! / n!		(n + 1) (n + 2)
+</pre>
+Example 1.
+<pre>
+<i>Enter</i>
+
+     F(n,k) = k binomial(n,k)
+
+     (F(n,k) + F(n,k-1)) / F(n+1,k)
+
+<i>Result</i>
+
+            k! n!             n! (1 - k + n)!              k! n!
+     -------------------- + -------------------- - ----------------------
+      (-1 + k)! (1 + n)!     (1 + n)! (-k + n)!     k (-1 + k)! (1 + n)!
+
+<i>Enter</i>
+
+     simfac
+
+<i>Result</i>
+
+        1       1 - k + n       1
+     ------- + ----------- - -------
+      1 + n       1 + n       1 + n
+
+<i>Enter</i>
+
+     simplify
+
+<i>Result</i>
+
+        n
+     -------
+      1 + n
+</pre>
+Example 2. It may be necessary to rationalize or condense an expression first.
+<pre>
+<i>Enter</i>
+
+     (n + 1) / (n + 1)!
+
+<i>Result</i>
+
+         n            1
+     ---------- + ----------
+      (1 + n)!     (1 + n)!
+
+<i>Enter</i>
+
+     simfac
+
+<i>Result</i>
+
+         n            1
+     ---------- + ----------
+      (1 + n)!     (1 + n)!
+
+<i>Enter</i>
+
+     rationalize
+
+<i>Result</i>
+
+       1 + n
+     ----------
+      (1 + n)!
+
+<i>Enter</i>
+
+     simfac
+
+<i>Result</i>
+
+      1
+     ----
+      n!
+</pre>
+<p>
+<h1><tt><a name="simplify">simplify(<i>x</i>)</a></tt></h1>
+Evaluates expression x and then attempts to simplify the result.
+<pre>
+<i>Enter</i>
+
+     (A-B)/(B-A)
+
+<i>Result</i>
+
+        A          B
+     -------- - --------
+      -A + B     -A + B
+ 
+<i>Enter</i>
+
+     simplify(last)
+
+<i>Result</i>
+
+     -1
+
+<i>Enter</i>
+
+     A = ((A11,A12),(A21,A22))
+
+     det(A) inv(A) - adj(A)
+
+<i>Result</i>
+
+     ((-A22 + A11 A22^2 / (A11 A22 - A12 A21) - A12 A21 A22 / (A11 A22 - A12 A21),
+     A12 - A11 A12 A22 / (A11 A22 - A12 A21) + A12^2 A21 / (A11 A22 - A12 A21)),
+     (A21 - A11 A21 A22 / (A11 A22 - A12 A21) + A12 A21^2 / (A11 A22 - A12 A21),
+     -A11 - A11 A12 A21 / (A11 A22 - A12 A21) + A11^2 A22 / (A11 A22 - A12 A21)))
+
+<i>Enter</i>
+
+     simplify(last)
+
+<i>Result</i>
+
+     0
+</pre> 
+The <tt>simplify</tt> function can return factored
+(unexpanded)
+expressions.
+Factored expressions can fail in tests for equality.
+The <tt>eval</tt> function can be used to expand factored expressions.
+<p>
+<h1><tt><a name="sin">sin(<i>x</i>)</a></tt></h1>
+Returns the sine of <i>x</i>.
+<p>
+<h1><tt><a name="sinh">sinh(<i>x</i>)</a></tt></h1>
+Returns the hyperbolic sine of <i>x</i>.
+<p>
+<h1><tt><a name="sqrt">sqrt(<i>x</i>)</a></tt></h1>
+Returns the square root of <i>x</i>.
+<p>
+<h1><tt><a name="stop">stop()</a></tt></h1>
+When evaluated in a script, the stop function exits run mode and
+returns to interactive mode.
+<p>
+<h1><tt><a name="subst">subst(<i>a,b,c</i>)</a></tt></h1>
+Substitutes <i>a</i> for <i>b</i> in <i>c</i> and returns the result.
+Note that this operation can return a denormalized expression.
+Use <tt>eval</tt> to normalize the result of <tt>subst</tt>.
+<pre>
+<i>Enter</i>
+
+     f = x^2
+
+     subst(sqrt(x),x,f)
+
+<i>Result</i>
+
+           2
+       1/2
+     (x   )
+
+<i>Enter</i>
+
+     eval(last)
+
+<i>Result</i>
+
+     x
+</pre>
+<p>
+<h1><tt><a name="sum">sum(<i>a,i,j,b</i>)</a></tt></h1>
+For <i>a</i> equals <i>i</i> through <i>j</i> evaluate <i>b</i>.
+Returns the sum of all <i>b</i>.
+The variable <i>a</i> has local scope within the sum function,
+<i>a</i> remains unchanged after the sum function returns.
+The expressions <i>i</i> and <i>j</i> should evaluate to integers.
+<pre>
+<i>Enter</i>
+
+     sum(k,1,3,1/k^s)
+
+<i>Result</i>
+
+          1      1
+     1 + ---- + ----
+           s      s
+          2      3
+</pre>
+<p>
+<h1><tt><a name="tan">tan(<i>x</i>)</a></tt></h1>
+Returns the tangent of <i>x</i>.
+<p>
+<h1><tt><a name="tanh">tanh(<i>x</i>)</a></tt></h1>
+Returns the hyperbolic tangent of <i>x</i>.
+<p>
+<h1><tt><a name="taylor">taylor(<i>f,x,n,a</i>)</a></tt></h1>
+Returns the Taylor expansion of <i>f</i> at <i>a</i>.
+If <i>a</i> is omitted then zero is used.
+The argument <i>x</i> is the free variable in <i>f</i>
+and <i>n</i> is the power of the expansion.
+<pre>
+<i>Enter</i>
+
+     taylor(1/cos(x),x,6)
+
+<i>Result</i>
+
+          1   2    5    4    61    6
+     1 + --- x  + ---- x  + ----- x
+          2        24        720
+</pre>
+<p>
+<h1><tt><a name="test">test(<i>a,b,c,d,...</i>)</a></tt></h1>
+If <i>a</i> is true then <i>b</i> is returned
+else if <i>c</i> is true then <i>d</i> is returned, etc.
+If none are true then the test function is returned unevaluated.
+An expression is true if it evaluates to a nonzero numerical value.
+If an expression evaluates to zero or a symbolic expression then it is not
+true.
+The following relational operators and their equivalent functions can be used:
+<pre>
+	==	testeq
+
+	&gt;=	testge
+
+	&gt;	testgt
+
+	&lt;=	testle
+
+	&lt;	testlt
+</pre>
+Each relational operator evaluates to 1 if the relation is true and 0 if the
+relation is false.
+If the relation cannot be determined then the associated relational function
+is returned unevaluated.
+<pre>
+<i>Enter</i>
+
+	2 &lt; 3
+
+<i>Result</i>
+
+	1
+
+<i>Enter</i>
+
+	3 &lt; 2
+
+<i>Result</i>
+
+	0
+
+<i>Enter</i>
+
+	a &lt; b
+
+<i>Result</i>
+
+	testlt(a,b)
+</pre>
+The AND and OR of relations can be implemented using multiplication and
+addition.
+For example, the following function returns 1 when x is between a and b,
+otherwise 0 is returned.
+<pre>
+     pulse(x) = test(
+          (x &gt;= a) * (x &lt;= b), 1,
+          (x &lt; a) + (x &gt; b), 0)		# could use else clause "1, 0)"
+</pre>
+Relational operators have lower precedence than addition and multiplication
+so the relational expressions are parenthesized in this case.
+In this example the else clause is not used so that pulse
+returns unevaluated if the relation cannot be determined.
+<p>
+<h1><tt><a name="trace">trace(<i>m</i>)</a></tt></h1>
+Returns the trace of matrix <i>m</i>.
+<pre>
+<i>Enter</i>
+
+     A = ((a,b),(c,d))
+
+     trace(A)
+
+<i>Result</i>
+
+     a + d
+</pre>
+Note that trace is equivalent to contract.
+<pre>
+<i>Enter</i>
+
+     trace(A) - contract(A,1,2)
+
+<i>Result</i>
+
+     0
+</pre>
+<p>
+<h1><tt><a name="transpose">transpose(<i>a,i,j</i>)</a></tt></h1>
+Returns the transpose of tensor <i>a</i> across indices <i>i</i> and
+<i>j</i>.
+If <i>i</i> and <i>j</i> are omitted then indices 1 and 2 are used.
+<p>
+<h1><tt><a name="unit">unit(<i>n</i>)</a></tt></h1>
+Returns a unit matrix with dimension <i>n</i>.
+<pre>
+<i>Enter</i>
+
+     unit(4)
+
+<i>Result</i>
+
+     1    0    0    0
+
+     0    1    0    0
+
+     0    0    1    0
+
+     0    0    0    1
+</pre>
+<p>
+<h1><tt><a name="wedge">wedge(<i>u,v</i>)</a></tt></h1>
+<h1><tt>wedge(<i>u,v,w</i>)</tt></h1>
+Returns the wedge product of tensors.
+<pre>
+<i>Enter</i>
+
+     u = (u1,u2,u3,u4)
+
+     v = (v1,v2,v3,v4)
+
+     wedge(u,v)
+
+<i>Result</i>
+
+           0           u1 v2 - u2 v1     u1 v3 - u3 v1     u1 v4 - u4 v1
+
+     -u1 v2 + u2 v1          0           u2 v3 - u3 v2     u2 v4 - u4 v2
+
+     -u1 v3 + u3 v1    -u2 v3 + u3 v2          0           u3 v4 - u4 v3
+
+     -u1 v4 + u4 v1    -u2 v4 + u4 v2    -u3 v4 + u4 v3          0
+
+<i>Enter</i>
+
+     wedge(u,v) + wedge(v,u)
+
+<i>Result</i>
+
+     0
+</pre>
+<p>
+<h1><tt><a name="zero">zero(<i>i,j,...</i>)</a></tt></h1>
+Returns a zero tensor with dimensions <i>i,j,...</i>
+The zero function is useful for creating a tensor and then setting the component values.
+<pre>
+<i>Enter</i>
+
+     A = zero(2,2)
+     A
+
+<i>Result</i>
+
+     0    0
+
+     0    0
+
+<i>Enter</i>
+
+     A[1,2] = a
+     A
+
+<i>Result</i>
+
+     0    a
+
+     0    0
+</pre>
+
+<p>
+<hr>
+</html>
