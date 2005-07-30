@@ -97,6 +97,7 @@ gc(void)
 		untag(stack[i]);
 
 	untag(table_of_integrals);
+	untag(table_of_fourier);
 
 	// collect everything that's still tagged
 

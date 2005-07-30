@@ -759,7 +759,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			if (running)
 				break;
 			goto_calc_mode();
-			printstr("Version 105   Help is available at eigenmath.com\n");
+			printstr("Version 106   Help is available at eigenmath.com\n");
 			update_display();
 			break;
 		case ID_MEMORY:

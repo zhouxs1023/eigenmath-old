@@ -14,7 +14,13 @@ U *tmp;
 U *nil;
 U *formal_arg[6];
 U *zero, *one, *imaginaryunit;
-U *table_of_integrals, *meta_a, *meta_b, *meta_x;
+U *table_of_integrals;
+U *meta_a;
+U *meta_b;
+U *meta_c;
+U *meta_n;
+U *meta_x;
+U *table_of_fourier;
 
 int expanding;
 int conjugating;

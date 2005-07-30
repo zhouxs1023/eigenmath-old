@@ -21,6 +21,18 @@ static void dtanh(void);
 static void darcsinh(void);
 static void darccosh(void);
 static void darctanh(void);
+static void dbesselj0(void);
+static void dbesseljn(void);
+static void dbessely0(void);
+static void dbesselyn(void);
+static void dheaviside(void);
+static void dabs(void);
+static void dsgn(void);
+static void dcarac(void);
+static void dhermite(void);
+static void derf(void);
+static void derfc(void);
+static void derivative_of_integral(void);
 
 void
 derivative(void)
@@ -162,6 +174,61 @@ d_scalar_scalar_1(void)
 
 	if (car(p1) == symbol(ARCTANH)) {
 		darctanh();
+		return;
+	}
+	if (car(p1) == symbol(HEAVISIDE)) {
+		dheaviside();
+		return;
+	}
+
+	if (car(p1) == symbol(ABS)) {
+		dabs();
+		return;
+	}
+
+	if (car(p1) == symbol(SGN)) {
+		dsgn();
+		return;
+	}
+
+	if (car(p1) == symbol(CARAC)) {
+		dcarac();
+		return;
+	}
+
+	if (car(p1) == symbol(HERMITE)) {
+		dhermite();
+		return;
+	}
+
+	if (car(p1) == symbol(ERF)) {
+		derf();
+		return;
+	}
+
+	if (car(p1) == symbol(ERFC)) {
+		derfc();
+		return;
+	}
+
+	if (car(p1) == symbol(BESSELJ)) {
+		if (iszero(caddr(p1))) {
+			dbesselj0();
+			return;}
+		else {	dbesseljn();
+			return;}
+	}
+
+	if (car(p1) == symbol(BESSELY)) {
+		if (iszero(caddr(p1))) {
+			dbessely0();
+			return;}
+		else {	dbesselyn();
+			return;}
+	}
+
+	if (car(p1) == symbol(INTEGRAL) && caddr(p1) == p2) {
+		derivative_of_integral();
 		return;
 	}
 
@@ -490,6 +557,208 @@ darctanh(void)
 	multiply();
 }
 
+static void
+dheaviside(void)
+{
+	push(cadr(p1));
+	push(p2);
+	derivative();
+	push(cadr(p1));
+	dirac();
+	multiply();
+}
+
+static void
+dabs(void)
+{
+	push(cadr(p1));
+	push(p2);
+	derivative();
+	push(cadr(p1));
+	sgn();
+	multiply();
+}
+
+static void
+dsgn(void)
+{
+	push(cadr(p1));
+	push(p2);
+	derivative();
+	push(cadr(p1));
+	dirac();
+	multiply();
+	push_integer(2);
+	multiply();
+}
+
+static void
+dcarac(void)
+{
+	push(cadr(p1));
+	push(p2);
+	derivative();
+	push(cadr(p1));
+	push(caddr(p1));
+	negate();
+	add();
+	dirac();
+	push(cadr(p1));
+	push(cadddr(p1));
+	negate();
+	add();
+	dirac();
+	add();
+	multiply();
+}
+
+
+static void
+dhermite(void)
+{
+	push(cadr(p1));
+	push(p2);
+	derivative();
+	push_integer(2);
+	push(caddr(p1));
+	multiply();
+	multiply();
+	push(cadr(p1));
+	push(caddr(p1));
+	push_integer(-1);
+	add();
+	hermite();
+	multiply();
+}
+
+static void
+derf(void)
+{
+	push(cadr(p1));
+	push_integer(2);
+	power();
+	push_integer(-1);
+	multiply();
+	exponential();
+	push_symbol(PI);
+	push_rational(-1,2);
+	power();
+	multiply();
+	push_integer(2);
+	multiply();
+	push(cadr(p1));
+	push(p2);
+	derivative();
+	multiply();
+
+}
+
+static void
+derfc(void)
+{
+	push(cadr(p1));
+	push_integer(2);
+	power();
+	push_integer(-1);
+	multiply();
+	exponential();
+	push_symbol(PI);
+	push_rational(-1,2);
+	power();
+	multiply();
+	push_integer(-2);
+	multiply();
+	push(cadr(p1));
+	push(p2);
+	derivative();
+	multiply();
+
+}
+
+static void
+dbesselj0(void)
+{
+	push(cadr(p1));
+	push(p2);
+	derivative();
+	push(cadr(p1));
+	push_integer(1);
+	besselj();
+	multiply();
+	push_integer(-1);
+	multiply();
+}
+
+static void
+dbesseljn(void)
+{
+	push(cadr(p1));
+	push(p2);
+	derivative();
+	push(cadr(p1));
+	push(caddr(p1));
+	push_integer(-1);
+	add();
+	besselj();
+	push(caddr(p1));
+	push_integer(-1);
+	multiply();
+	push(cadr(p1));
+	divide();
+	push(cadr(p1));
+	push(caddr(p1));
+	besselj();
+	multiply();
+	add();
+	multiply();
+}
+
+
+static void
+dbessely0(void)
+{
+	push(cadr(p1));
+	push(p2);
+	derivative();
+	push(cadr(p1));
+	push_integer(1);
+	besselj();
+	multiply();
+	push_integer(-1);
+	multiply();
+}
+
+
+static void
+dbesselyn(void)
+{
+	push(cadr(p1));
+	push(p2);
+	derivative();
+	push(cadr(p1));
+	push(caddr(p1));
+	push_integer(-1);
+	add();
+	bessely();
+	push(caddr(p1));
+	push_integer(-1);
+	multiply();
+	push(cadr(p1));
+	divide();
+	push(cadr(p1));
+	push(caddr(p1));
+	bessely();
+	multiply();
+	add();
+	multiply();
+}
+
+static void
+derivative_of_integral(void)
+{
+	push(cadr(p1));
+}
+
 static char *s[] = {
 
 	"x=quote(x)",
@@ -606,6 +875,12 @@ static char *s[] = {
 
 	"d(sin(cos(x)),cos(x))-cos(cos(x))",
 	"0",
+
+	"d(abs(x),x)",
+	"sgn(x)",
+	
+	"d(sgn(x),x)",
+	"2*dirac(x)",
 
 // generic functions
 

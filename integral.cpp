@@ -1,9 +1,6 @@
-// Do the integral function.
-
 #include "stdafx.h"
 #include "defs.h"
-
-static void integral_f(void);
+static void yintegral(void);
 static void integral_of_sum(void);
 static void integral_of_product(void);
 static void integral_of_form(void);
@@ -19,7 +16,9 @@ eval_integral(void)
 		guess();
 	else {
 		push(caddr(p1));
-		eval(); // need this for integrals in the result, see #64
+		eval();	// need this for integrals in the result, see #64
+			// i.e. caddr(p1) might be meta_x
+			// after this eval becomes just plain x
 	}
 	integral();
 }
@@ -28,12 +27,12 @@ void
 integral(void)
 {
 	save();
-	integral_f();
+	yintegral();
 	restore();
 }
 
 static void
-integral_f(void)
+yintegral(void)
 {
 	if (table_of_integrals == nil)
 		scan_integrals();

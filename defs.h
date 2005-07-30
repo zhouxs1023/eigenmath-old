@@ -58,9 +58,12 @@ enum {
 	ARCTAN,
 	ARCTANH,
 	ATOMIZE,
+	BESSELJ,
+	BESSELY,
 	BINDING2,
 	BINOMIAL,
 	BREAK,
+	CARAC,
 	CEILING,
 	CHARPOLY,
 	CHECK,
@@ -70,6 +73,7 @@ enum {
 	CONDENSE,
 	CONJ,
 	CONTRACT,
+	CONVOLUTION,
 	COS,
 	COSH,
 	DEGREE,
@@ -77,6 +81,7 @@ enum {
 	DERIVATIVE,
 	DET,
 	DIM,
+	DIRAC,
 	DISPLAY,
 	DIVISORS,
 	DO,
@@ -86,6 +91,8 @@ enum {
 	EIGEN,
 	EIGENVAL,
 	EIGENVEC,
+	ERF,
+	ERFC,
 	EVAL,
 	EXP,
 	EXPAND,
@@ -98,13 +105,17 @@ enum {
 	FLOATF,
 	FLOOR,
 	FOR,
+	FOURIER,
+	GAMMA,
 	GCD,
+	HEAVISIDE,
 	HERMITE,
 	HILBERT,
 	INDEX,
 	INNER,
 	INTEGRAL,
 	INV,
+	INVFOURIER,
 	INVG,
 	ISINTEGER,
 	ISPRIME,
@@ -129,6 +140,7 @@ enum {
 	ROOTS,
 	SAMPLE,
 	SETQ,
+	SGN,
 	SIMFAC,
 	SIMPLIFY,
 	SIN,
@@ -141,6 +153,8 @@ enum {
 	TAN,
 	TANH,
 	TAYLOR,
+	TCHEBYCHEVT,
+	TCHEBYCHEVU,
 	TEST,
 	TESTEQ,
 	TESTGE,
@@ -182,7 +196,9 @@ enum {
 	PI,
 	SYMBOL_A,
 	SYMBOL_B,
+	SYMBOL_C,
 	SYMBOL_D,
+	SYMBOL_N,
 	SYMBOL_R,
 	SYMBOL_T,
 	SYMBOL_X,
@@ -239,6 +255,7 @@ extern U **frame;
 #define caddddr(p) car(cdr(cdr(cdr(cdr(p)))))
 #define cadaddr(p) car(cdr(car(cdr(cdr(p)))))
 #define cddaddr(p) cdr(cdr(car(cdr(cdr(p)))))
+#define caddadr(p) car(cdr(cdr(car(cdr(p)))))
 #define cdddaddr(p) cdr(cdr(cdr(car(cdr(cdr(p))))))
 #define caddaddr(p) car(cdr(cdr(car(cdr(cdr(p))))))
 
@@ -295,7 +312,13 @@ extern U *tmp;
 extern U *last;
 extern U *nil;
 extern U *zero, *one, *imaginaryunit;
-extern U *table_of_integrals, *meta_a, *meta_b, *meta_x;
+extern U *table_of_integrals;
+extern U *table_of_fourier;
+extern U *meta_a;
+extern U *meta_b;
+extern U *meta_c;
+extern U *meta_n;
+extern U *meta_x;
 
 extern U *alloc();
 extern U *alloc_tensor();
@@ -617,3 +640,18 @@ extern void power_numbers(void);
 extern void negate_number(void);
 extern void invert_number(void);
 extern void gcd_numbers(void);
+
+extern void besselj(void);
+extern void bessely(void);
+extern void carac(void);
+extern void convolution(void);
+extern void dirac(void);
+extern void gammaf(void);
+extern void yerf(void);
+extern void yerfc(void);
+extern void fourier(void);
+extern void heaviside(void);
+extern void invfourier(void);
+extern void sgn(void);
+extern void tchebychevT(void);
+extern void tchebychevU(void);

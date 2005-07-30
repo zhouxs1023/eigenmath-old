@@ -25,8 +25,10 @@ init(void)
 	p8 = nil;
 
 	last = nil;
-	table_of_integrals = nil;
 	varlist = nil;
+
+	table_of_integrals = nil;
+	table_of_fourier = nil;
 
 	init_alloc(); // init_alloc() uses nil too
 
@@ -42,9 +44,12 @@ init(void)
 	define_symbol("arctan", ARCTAN);
 	define_symbol("arctanh", ARCTANH);
 	define_symbol("atomize", ATOMIZE);
+	define_symbol("besselj", BESSELJ);
+	define_symbol("bessely", BESSELY);
 	define_symbol("binding2", BINDING2);
 	define_symbol("binomial", BINOMIAL);
 	define_symbol("break", BREAK);
+	define_symbol("carac", CARAC);
 	define_symbol("ceiling", CEILING);
 	define_symbol("charpoly", CHARPOLY);
 	define_symbol("check", CHECK);
@@ -54,6 +59,7 @@ init(void)
 	define_symbol("condense", CONDENSE);
 	define_symbol("conj", CONJ);
 	define_symbol("contract", CONTRACT);
+	define_symbol("convolution", CONVOLUTION);
 	define_symbol("cos", COS);
 	define_symbol("cosh", COSH);
 	define_symbol("degree", DEGREE);
@@ -61,12 +67,15 @@ init(void)
 	define_symbol("det", DET);
 	define_symbol("derivative", DERIVATIVE);
 	define_symbol("dim", DIM);
+	define_symbol("dirac", DIRAC);
 	define_symbol("display", DISPLAY);
 	define_symbol("divisors", DIVISORS);
 	define_symbol("do", DO);
 	define_symbol("dot", DOT);
 	define_symbol("draw", DRAW);
 	define_symbol("dsolve", DSOLVE);
+	define_symbol("erf", ERF);
+	define_symbol("erfc", ERFC);
 	define_symbol("eigen", EIGEN);
 	define_symbol("eigenval", EIGENVAL);
 	define_symbol("eigenvec", EIGENVEC);
@@ -82,13 +91,17 @@ init(void)
 	define_symbol("float", FLOATF);
 	define_symbol("floor", FLOOR);
 	define_symbol("for", FOR);
+	define_symbol("fourier", FOURIER);
+	define_symbol("Gamma", GAMMA);
 	define_symbol("gcd", GCD);
+	define_symbol("heaviside", HEAVISIDE);
 	define_symbol("hermite", HERMITE);
 	define_symbol("hilbert", HILBERT);
 	define_symbol("component", INDEX);
 	define_symbol("inner", INNER);
 	define_symbol("integral", INTEGRAL);
 	define_symbol("inv", INV);
+	define_symbol("invfourier", INVFOURIER);
 	define_symbol("invg", INVG);
 	define_symbol("isinteger", ISINTEGER);
 	define_symbol("isprime", ISPRIME);
@@ -113,6 +126,7 @@ init(void)
 	define_symbol("roots", ROOTS);
 	define_symbol("equals", SETQ);
 	define_symbol("sample", SAMPLE);
+	define_symbol("sgn", SGN);
 	define_symbol("simfac", SIMFAC);
 	define_symbol("simplify", SIMPLIFY);
 	define_symbol("sin", SIN);
@@ -125,6 +139,8 @@ init(void)
 	define_symbol("tan", TAN);
 	define_symbol("tanh", TANH);
 	define_symbol("taylor", TAYLOR);
+	define_symbol("tchebychevT", TCHEBYCHEVT);
+	define_symbol("tchebychevU", TCHEBYCHEVU);
 	define_symbol("test", TEST);
 	define_symbol("testeq", TESTEQ);
 	define_symbol("testge", TESTGE);
@@ -149,7 +165,9 @@ init(void)
 
 	define_variable("a", SYMBOL_A);
 	define_variable("b", SYMBOL_B);
+	define_variable("c", SYMBOL_C);
 	define_variable("d", SYMBOL_D);
+	define_variable("n", SYMBOL_N);
 	define_variable("r", SYMBOL_R);
 	define_variable("t", SYMBOL_T);
 	define_variable("x", SYMBOL_X);
@@ -158,6 +176,8 @@ init(void)
 
 	meta_a = get_symbol("$a");
 	meta_b = get_symbol("$b");
+	meta_c = get_symbol("$c");
+	meta_n = get_symbol("$n");
 	meta_x = get_symbol("$x");
 
 	tmp = get_symbol("$tmp");
