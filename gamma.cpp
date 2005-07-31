@@ -8,9 +8,7 @@
 
 #include "stdafx.h"
 #include "defs.h"
-
-void gammag(void);
-extern int isnegativeterm(U *);
+void gamma(void);
 static void gammaf(void);
 static void gamma_of_sum(void);
 
@@ -19,11 +17,11 @@ eval_gamma(void)
 {
 	push(cadr(p1));
 	eval();
-	gammag();
+	gamma();
 }
 
 void
-gammag(void)
+gamma(void)
 {
 	save();
 	gammaf();
@@ -71,7 +69,7 @@ gammaf(void)
 		multiply();
 		push(p1);
 		negate();
-		gammag();
+		gamma();
 		multiply();
 		divide();
 		return;
@@ -96,13 +94,13 @@ gamma_of_sum(void)
 	if (car(p3)->k == NUM && MEQUAL(car(p3)->u.q.a, 1) && MEQUAL(car(p3)->u.q.b, 1)) {
 		push(cadr(p3));
 		push(cadr(p3));
-		gammag();
+		gamma();
 		multiply();
 	}
 	else {
 		if (car(p3)->k == NUM && MEQUAL(car(p3)->u.q.a, -1) && MEQUAL(car(p3)->u.q.b, 1)) {
 			push(cadr(p3));
-			gammag();
+			gamma();
 			push(cadr(p3));
 			push_integer(-1);
 			add();

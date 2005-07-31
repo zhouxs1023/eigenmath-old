@@ -52,3 +52,4 @@ yinvfourier(void)
 	multiply();
 	divide();
 }
+

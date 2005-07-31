@@ -646,7 +646,7 @@ extern void bessely(void);
 extern void carac(void);
 extern void convolution(void);
 extern void dirac(void);
-extern void gammaf(void);
+extern void gamma(void);
 extern void yerf(void);
 extern void yerfc(void);
 extern void fourier(void);
@@ -655,3 +655,4 @@ extern void invfourier(void);
 extern void sgn(void);
 extern void tchebychevT(void);
 extern void tchebychevU(void);
+

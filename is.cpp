@@ -277,3 +277,4 @@ equaln(U *p, int n)
 	}
 	return 0;
 }
+

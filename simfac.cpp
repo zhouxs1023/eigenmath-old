@@ -27,7 +27,7 @@ Then simplify the sum to get
 
 #include "stdafx.h"
 #include "defs.h"
-static void simfac(void);
+void simfac(void);
 static void simfac_term(void);
 static int yysimfac(int);
 
@@ -43,7 +43,7 @@ eval_simfac(void)
 
 #if 1
 
-static void
+void
 simfac(void)
 {
 	int h;

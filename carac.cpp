@@ -136,3 +136,4 @@ test_carac(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
