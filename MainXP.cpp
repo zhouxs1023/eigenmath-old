@@ -538,41 +538,13 @@ static struct {
 	{"Paste\tCtrl+V",	ID_PASTE},
 	{0,			0},
 
-	{"*",				0},
+	{"*",					0},
 	{"About",				ID_ABOUT},
 	{"Memory",				ID_MEMORY},
 	{"Copy display to clipboard",		ID_COPY_DISPLAY},
 	{"Create script from command history",	ID_CREATE_SCRIPT},
 	{0,					0},
-#if 0
-	{"Help",				0},
-	{"Help Pages",				ID_HELP_PAGES},
-	{"-",					0},
-	{"Type ^ for exponent",			ID_HELP_EXPONENT},
-	{"Type a space to multiply",		ID_HELP_MULTIPLY},
-	{"How to draw a graph",			ID_HELP_DRAW},
-	{"How to factor a polynomial",		ID_HELP_FACTOR_POLYNOMIAL},
-	{"How to factor a number",		ID_HELP_FACTOR_NUMBER},
-	{"How to define a symbol",		ID_HELP_SYMBOL},
-	{"How to define a function",		ID_HELP_FUNCTION},
-	//{"A special note about functions",	ID_HELP_SPECIAL_NOTE},
-	{"How to define a vector",		ID_HELP_TYPE_VECTOR},
-	{"How to define a matrix",		ID_HELP_TYPE_MATRIX},
-	{"How to multiply a matrix and vector",	ID_HELP_MATRIX_TIMES_VECTOR},
-	{"How to invert a matrix",		ID_HELP_INVERT_MATRIX},
-	{"How to draw a parametric graph",	ID_HELP_DRAW_CIRCLE},
-	{"Sample Scripts",			0},
-	{"Gamma Matrix Algebra",		ID_SAMPLE_GMA},
-	{"Vector Calculus",			ID_SAMPLE_VC},
-	{"Rotation Matrix",			ID_SAMPLE_RM},
-	{"Quantum Harmonic Oscillator",		ID_SAMPLE_QHO},
-	{"Hydrogenic Wavefunctions",		ID_SAMPLE_HW},
-	{"Static Spherical Metric",		ID_SAMPLE_SSM},
-	{"Free Particle Dirac Equation",	ID_SAMPLE_FPDE},
-	{0,					0},
-	//{"About",				ID_HELP_ABOUT},
-	{0,					0},
-#endif
+
 	{0,					0},
 };
  
@@ -723,6 +695,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 //		case ID_PRINT:
 //			do_print();
 //			break;
+
 		case ID_UNDO:
 			if (running)
 				break;
@@ -755,11 +728,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			else
 				SendMessage(edit_window, WM_PASTE, 0, 0);
 			break;
+
+		// "asterisk" pull-down menu
+
 		case ID_ABOUT:
 			if (running)
 				break;
 			goto_calc_mode();
-			printstr("Version 106   Help is available at eigenmath.com\n");
+			printstr("Version 106 - Help is available at eigenmath.com\n");
 			update_display();
 			break;
 		case ID_MEMORY:
@@ -777,58 +753,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				break;
 			do_create_script();
 			break;
-#if 0
-		case ID_HELP_EXPONENT:
-			do_main_help(1);
-			break;
-		case ID_HELP_MULTIPLY:
-			do_main_help(2);
-			break;
-		case ID_HELP_DRAW:
-			do_main_help(3);
-			break;
-		case ID_HELP_FACTOR_POLYNOMIAL:
-			do_main_help(4);
-			break;
-		case ID_HELP_FACTOR_NUMBER:
-			do_main_help(5);
-			break;
-		case ID_HELP_SYMBOL:
-			do_main_help(6);
-			break;
-		case ID_HELP_FUNCTION:
-			do_main_help(7);
-			break;
-		case ID_HELP_SPECIAL_NOTE:
-			do_main_help(8);
-			break;
-		case ID_HELP_TYPE_VECTOR:
-			do_main_help(9);
-			break;
-		case ID_HELP_TYPE_MATRIX:
-			do_main_help(10);
-			break;
-		case ID_HELP_MATRIX_TIMES_VECTOR:
-			do_main_help(11);
-			break;
-		case ID_HELP_INVERT_MATRIX:
-			do_main_help(12);
-			break;
-		case ID_HELP_DRAW_CIRCLE:
-			do_main_help(13);
-			break;
-		case ID_HELP_PAGES:
-			HtmlHelp(main_window, "help.chm", HH_DISPLAY_TOPIC, NULL);
-			break;
-#endif
-		case ID_EDIT_SCRIPT:
-			if (running)
-				break;
-			if (edit_mode == 0)
-				goto_edit_mode();
-			else
-				goto_calc_mode();
-			break;
+
+		// window buttons, clear, draw, etc.
+
 		case ID_CLEAR:
 			do_button("clear");
 			break;
@@ -847,32 +774,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case ID_INTEGRAL:
 			do_button("integral");
 			break;
+		case ID_EDIT_SCRIPT:
+			if (running)
+				break;
+			if (edit_mode == 0)
+				goto_edit_mode();
+			else
+				goto_calc_mode();
+			break;
 		case ID_RUN_SCRIPT:
 			run_script();
 			break;
-#if 0
-		case ID_SAMPLE_GMA:
-			do_example(0);
-			break;
-		case ID_SAMPLE_VC:
-			do_example(1);
-			break;
-		case ID_SAMPLE_RM:
-			do_example(2);
-			break;
-		case ID_SAMPLE_QHO:
-			do_example(3);
-			break;
-		case ID_SAMPLE_HW:
-			do_example(4);
-			break;
-		case ID_SAMPLE_SSM:
-			do_example(5);
-			break;
-		case ID_SAMPLE_FPDE:
-			do_example(6);
-			break;
-#endif
+
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);
 		}

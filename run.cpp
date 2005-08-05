@@ -73,7 +73,7 @@ run(char *s)
 		p2 = pop();
 		check_stack();
 
-		symbol(LAST)->u.sym.binding = last;
+		symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
 		symbol(LAST)->u.sym.binding2 = nil;
 
 		// print string w/o quotes

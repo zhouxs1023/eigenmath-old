@@ -30,16 +30,16 @@ yerf(void)
 static void
 yyerf(void)
 {
-	//double d;
+	double d;
 
 	p1 = pop();
-#if 0
+
 	if (p1->k == DOUBLE) {
-		d = erf(p1->u.d);
+		d = 1.0 - erfc(p1->u.d);
 		push_double(d);
 		return;
 	}
-#endif
+
 	if (isnegativeterm(p1)) {
 		push_symbol(ERF);
 		push(p1);
@@ -59,10 +59,13 @@ static char *s[] = {
 
 	"erf(a)",
 	"erf(a)",
+
+	"erf(0.0) + 1",		// add 1 to round off
+	"1",
+
+	"float(erf(0)) + 1",	// add 1 to round off
+	"1",
 #if 0
-	"float(erf(0))",
-	"0",
-	
 	"float(erf(1))",
 	"0.842701",
 #endif

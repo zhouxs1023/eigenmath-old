@@ -205,6 +205,10 @@ enum {
 	SYMBOL_Y,
 	SYMBOL_Z,
 	TTY,
+
+	// system symbols
+
+	YYLAST,
 };
 
 #define MAXDIM 24
@@ -309,7 +313,6 @@ extern U *stack[];
 extern U *p1, *p2, *p3, *p4, *p5, *p6, *p7, *p8;
 extern U *formal_arg[6];
 extern U *tmp;
-extern U *last;
 extern U *nil;
 extern U *zero, *one, *imaginaryunit;
 extern U *table_of_integrals;
@@ -655,4 +658,4 @@ extern void invfourier(void);
 extern void sgn(void);
 extern void tchebychevT(void);
 extern void tchebychevU(void);
-
+extern double erfc(double);

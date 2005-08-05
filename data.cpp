@@ -9,7 +9,7 @@ U *p5;
 U *p6;
 U *p7;
 U *p8;
-U *last;
+
 U *tmp;
 U *nil;
 U *formal_arg[6];

@@ -934,6 +934,10 @@ char *integrals[] = {
 	"exp(a*x^2)*exp(b)*(x^2/a-1/(a^2))/2",
 	NULL,
 
+	"exp(a*x^2)",
+	"-i*sqrt(pi)*erf(i*sqrt(a)*x)/sqrt(a)/2",
+	NULL,
+
 	NULL,
 };
 
@@ -1580,6 +1584,17 @@ static char *s[] = {
 
 	"#572",
 	"integral(cosh(X)^2,X)-sinh(2*X)/4-X/2",
+	"0",
+
+// test integral(exp(a*x^2))
+
+	"integral(exp(a*x^2))+i*sqrt(pi)*erf(i*sqrt(a)*x)/sqrt(a)/2",
+	"0",
+
+	"integral(exp(-x^2))-sqrt(pi)*erf(x)/2",
+	"0",
+
+	"integral(exp(-3*x^2))-sqrt(pi/3)*erf(sqrt(3)*x)/2",
 	"0",
 };
 

@@ -898,6 +898,11 @@ static char *s[] = {
 
 	"d(g(f(x)),x)",
 	"d(g(f(x)),x)",
+
+// other functions
+
+	"d(erf(x))-2*exp(-x^2)/sqrt(pi)",
+	"0",
 };
 
 void

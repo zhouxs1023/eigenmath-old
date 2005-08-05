@@ -55,8 +55,18 @@ static int draw_count;
 void
 eval_draw(void)
 {
-	p2 = caddr(p1);
-	p1 = cadr(p1);
+	// save "last" so we can do, for example,
+	//
+	//	x^2
+	//	draw
+	//	integral
+	//
+	// and have integral do integral(x^2)
+
+	push(symbol(YYLAST)->u.sym.binding);
+
+	p2 = caddr(p1);	// free variable in function
+	p1 = cadr(p1);	// function to draw
 
 	// if first arg is a symbol then evaluate it
 
@@ -79,12 +89,15 @@ eval_draw(void)
 			p2 = symbol(SYMBOL_X);
 	}
 
-	push(p1);
-	push(p2);
 
+	push(p1); // function to draw
+	push(p2); // free variable in function
 	draw();
 
-	push(nil);
+	symbol(YYLAST)->u.sym.binding = pop();
+
+	push(nil);	// so no result is printed
+			// also, "last" is not modified when result is "nil"
 }
 
 static void

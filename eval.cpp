@@ -974,7 +974,7 @@ eval(void)
 	// save last non-nil result
 
 	if (stack[tos - 1] != nil)
-		last = stack[tos - 1];
+		symbol(YYLAST)->u.sym.binding = stack[tos - 1];
 }
 
 static void

@@ -24,7 +24,6 @@ init(void)
 	p7 = nil;
 	p8 = nil;
 
-	last = nil;
 	varlist = nil;
 
 	table_of_integrals = nil;
@@ -153,7 +152,7 @@ init(void)
 	define_symbol("wedge", WEDGE);
 	define_symbol("zero", ZERO);
 
-	// built-in symbols
+	// user symbols
 
 	define_variable("autoexpand", AUTOEXPAND);
 	define_variable("~exp", E); // tilde so sort puts it after scalar symbols
@@ -173,6 +172,10 @@ init(void)
 	define_variable("x", SYMBOL_X);
 	define_variable("y", SYMBOL_Y);
 	define_variable("z", SYMBOL_Z);
+
+	// system symbols
+
+	define_variable("$last", YYLAST);
 
 	meta_a = get_symbol("$a");
 	meta_b = get_symbol("$b");

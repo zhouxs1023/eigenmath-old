@@ -88,8 +88,6 @@ gc(void)
 	untag(p7);
 	untag(p8);
 
-	untag(last);
-
 	for (i = 0; i < tos; i++)
 		untag(stack[i]);
 
