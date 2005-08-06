@@ -36,7 +36,7 @@ mod(void)
 		return;
 	}
 
-	if (p1->k == DOUBLE) {
+	if (isdouble(p1)) {
 		push(p1);
 		n = pop_integer();
 		if (n == (int) 0x80000000)
@@ -45,7 +45,7 @@ mod(void)
 		p1 = pop();
 	}
 
-	if (p2->k == DOUBLE) {
+	if (isdouble(p2)) {
 		push(p2);
 		n = pop_integer();
 		if (n == (int) 0x80000000)

@@ -18,7 +18,7 @@ arccosh(void)
 	double d;
 	save();
 	p1 = pop();
-	if (p1->k == DOUBLE) {
+	if (isdouble(p1)) {
 		d = p1->u.d;
 		if (d < 1.0)
 			stop("arccosh function argument is less than 1.0");

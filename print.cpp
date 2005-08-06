@@ -107,7 +107,7 @@ print_a_over_b(U *p)
 	p1 = cdr(p);
 	p2 = car(p1);
 
-	if (p2->k == NUM) {
+	if (isrational(p2)) {
 		push(p2);
 		mp_numerator();
 		absval();
@@ -139,7 +139,7 @@ print_a_over_b(U *p)
 	else {
 		flag = 0;
 		p1 = cdr(p);
-		if (car(p1)->k == NUM)
+		if (isrational(car(p1)))
 			p1 = cdr(p1);
 		if (!isplusone(A)) {
 			print_factor(A);
@@ -171,7 +171,7 @@ print_a_over_b(U *p)
 	flag = 0;
 	p1 = cdr(p);
 
-	if (car(p1)->k == NUM)
+	if (isrational(car(p1)))
 		p1 = cdr(p1);
 
 	if (!isplusone(B)) {
@@ -374,7 +374,7 @@ print_factor(U *p)
 //		return;
 //	}
 
-	if (car(p) == symbol(INDEX) && cadr(p)->k == SYM) {
+	if (car(p) == symbol(INDEX) && issymbol(cadr(p))) {
 		print_index_function(p);
 		return;
 	}
@@ -558,8 +558,11 @@ print1(U *p)
 	case DOUBLE:
 		print_number(p);
 		break;
-	default:
+	case SYM:
 		print_str(get_printname(p));
+		break;
+	default:
+		print_str("<tensor>");
 		break;
 	}
 }

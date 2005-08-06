@@ -19,7 +19,7 @@ arccos(void)
 
 	p1 = pop();
 
-	if (p1->k == DOUBLE) {
+	if (isdouble(p1)) {
 		errno = 0;
 		d = acos(p1->u.d);
 		if (errno)
@@ -29,7 +29,7 @@ arccos(void)
 		return;
 	}
 
-	if (p1->k != NUM) {
+	if (!isrational(p1)) {
 		push_symbol(ARCCOS);
 		push(p1);
 		list(2);

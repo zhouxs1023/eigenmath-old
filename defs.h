@@ -18,8 +18,6 @@
 //                       |_______|    |_______|    |_______|
 
 typedef struct U {
-	unsigned char k, tag;
-	unsigned short pad;
 	union {
 		struct {
 			struct U *car;		// pointing down
@@ -36,9 +34,10 @@ typedef struct U {
 		} q;
 		double d;
 	} u;
+	unsigned char k, tag;
 } U;
 
-// Here's what goes in the k field.
+// the following enum is for struct U member j
 
 enum {
 	CONS,
@@ -47,6 +46,13 @@ enum {
 	STR,
 	TENSOR,
 	SYM,
+};
+
+// the following enum is for indexing the symbol table
+
+enum {
+
+	// standard functions first, then nil, then everything else
 
 	ABS,
 	ADD,
@@ -166,6 +172,29 @@ enum {
 	UNIT,
 	WEDGE,
 	ZERO,
+
+	NIL, // nil goes here, after standard functions
+
+	AUTOEXPAND,
+	E,
+	EXPOMODE,
+	IM,
+	LAST,
+	PI,
+	SYMBOL_A,
+	SYMBOL_B,
+	SYMBOL_C,
+	SYMBOL_D,
+	SYMBOL_N,
+	SYMBOL_R,
+	SYMBOL_T,
+	SYMBOL_X,
+	SYMBOL_Y,
+	SYMBOL_Z,
+	TTY,
+	YYLAST,
+
+	USER_SYMBOLS, // this must be last
 };
 
 #define TOS 1000000
@@ -184,32 +213,6 @@ enum {
 #include <setjmp.h>
 #include <math.h>
 #include <errno.h>
-
-// for fast symbol access (see symbol.cpp)
-
-enum {
-	AUTOEXPAND = 200,
-	E,
-	EXPOMODE,
-	IM,
-	LAST,
-	PI,
-	SYMBOL_A,
-	SYMBOL_B,
-	SYMBOL_C,
-	SYMBOL_D,
-	SYMBOL_N,
-	SYMBOL_R,
-	SYMBOL_T,
-	SYMBOL_X,
-	SYMBOL_Y,
-	SYMBOL_Z,
-	TTY,
-
-	// system symbols
-
-	YYLAST,
-};
 
 #define MAXDIM 24
 
@@ -230,13 +233,15 @@ struct display {
 extern U **frame;
 
 #define iscons(p) ((p)->k == CONS)
-#define isnum(p) ((p)->k == NUM || (p)->k == DOUBLE)
+#define isrational(p) ((p)->k == NUM)
+#define isdouble(p) ((p)->k == DOUBLE)
+#define isnum(p) (isrational(p) || isdouble(p))
 #define isstr(p) ((p)->k == STR)
 #define istensor(p) ((p)->k == TENSOR)
 #define isscalar(p) ((p)->k != TENSOR)
-#define issym(p) ((p)->k >= SYM)
 #define issymbol(p) ((p)->k == SYM)
-#define iskeyword(p) ((p)->k > SYM)
+#define iskeyword(p) (issymbol(p) && symbol_index(p) <= NIL)
+#define isusersym(p) (issymbol(p) && symbol_index(p) > NIL)
 
 #define car(p) (iscons(p) ? (p)->u.cons.car : nil)
 #define cdr(p) (iscons(p) ? (p)->u.cons.cdr : nil)
@@ -659,3 +664,6 @@ extern void sgn(void);
 extern void tchebychevT(void);
 extern void tchebychevU(void);
 extern double erfc(double);
+extern void std_symbol(char *, int);
+extern int symbol_index(U *);
+extern int iscomplexnumber(U *);

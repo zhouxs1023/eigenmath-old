@@ -26,7 +26,7 @@ index_function(int n)
 		return;
 	}
 
-	if (p1->k != TENSOR)
+	if (!istensor(p1))
 		stop("tensor expected");
 
 	ndim = p1->u.tensor->ndim;
@@ -117,7 +117,7 @@ set_component(int n)
 
 	LVALUE = s[1];
 
-	if (LVALUE->k != TENSOR)
+	if (!istensor(LVALUE))
 		stop("error in indexed assign");
 
 	ndim = LVALUE->u.tensor->ndim;
@@ -155,7 +155,7 @@ set_component(int n)
 	LVALUE = TMP;
 
 	if (ndim == m) {
-		if (RVALUE->k == TENSOR)
+		if (istensor(RVALUE))
 			stop("error in indexed assign");
 		LVALUE->u.tensor->elem[k] = RVALUE;
 		tos -= n;
@@ -166,7 +166,7 @@ set_component(int n)
 
 	// see if the rvalue matches
 
-	if (RVALUE->k != TENSOR)
+	if (!istensor(RVALUE))
 		stop("error in indexed assign");
 
 	if (ndim - m != RVALUE->u.tensor->ndim)

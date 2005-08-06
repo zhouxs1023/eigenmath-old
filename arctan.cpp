@@ -18,7 +18,7 @@ arctan(void)
 
 	p1 = pop();
 
-	if (p1->k == DOUBLE) {
+	if (isdouble(p1)) {
 		errno = 0;
 		d = atan(p1->u.d);
 		if (errno)

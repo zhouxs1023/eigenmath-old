@@ -48,7 +48,7 @@ __bessely(void)
 	push(N);
 	n = pop_integer();
 
-	if ((X->k == DOUBLE) && (isinteger(N))) {
+	if (isdouble(X) && (isinteger(N))) {
 		d = yn(n,X->u.d);
 		push_double(d);
 		return;

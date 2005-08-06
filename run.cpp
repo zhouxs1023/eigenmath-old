@@ -78,7 +78,7 @@ run(char *s)
 
 		// print string w/o quotes
 
-		if (p2->k == STR) {
+		if (isstr(p2)) {
 			printstr(p2->u.str);
 			printstr("\n");
 			continue;
@@ -86,7 +86,7 @@ run(char *s)
 
 		// don't print nil unless it was due to eval of a symbol
 
-		if (p2 == nil && !issymbol(p1))
+		if (p2 == nil && !isusersym(p1))
 			continue;
 
 		if (equal(symbol(TTY)->u.sym.binding, one) || test_flag) // tty mode?
@@ -95,7 +95,7 @@ run(char *s)
 #ifdef LINUX
 			display(p2);
 #else
-			if (p1->k == SYM
+			if (isusersym(p1)
 			&& p1 != symbol(LAST)
 			&& p1 != symbol(TTY)
 			&& p1 != p2) {

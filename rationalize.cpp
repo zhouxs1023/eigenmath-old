@@ -32,7 +32,7 @@ __rationalize(void)
 {
 	p1 = pop();
 
-	if (p1->k == TENSOR) {
+	if (istensor(p1)) {
 		__rationalize_tensor();
 		return;
 	}
@@ -165,7 +165,7 @@ __rationalize_tensor(void)
 
 	p1 = pop();
 
-	if (p1->k != TENSOR) { // might be zero
+	if (!istensor(p1)) { // might be zero
 		push(p1);
 		return;
 	}

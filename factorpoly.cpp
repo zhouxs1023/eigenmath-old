@@ -1,5 +1,3 @@
-#include "stdafx.h"
-
 //-----------------------------------------------------------------------------
 //
 //	Factor polynomial
@@ -12,7 +10,19 @@
 //
 //-----------------------------------------------------------------------------
 
+#include "stdafx.h"
 #include "defs.h"
+static void factorpoly2(void);
+static void factorpoly3(void);
+static void factorpoly4(void);
+static void rationalize_coefficients(int);
+static int get_factor(void);
+static void evalpoly(void);
+static void divpoly(void);
+static void __lcm(void);
+int isnegativeterm(U *);
+static int expo;
+static U **polycoeff;
 
 #define POLY p1
 #define X p2
@@ -23,20 +33,6 @@
 #define RESULT p7
 #define FACTOR p8
 
-static void factorpoly_auto(void);
-static void factorpoly2(void);
-static void factorpoly3(void);
-static void factorpoly4(void);
-static void rationalize_coefficients(int);
-static int get_factor(void);
-static void evalpoly(void);
-static void divpoly(void);
-static void __lcm(void);
-int isnegativeterm(U *);
-
-static int expo;
-static U **polycoeff;
-
 void
 factorpoly(void)
 {
@@ -46,47 +42,27 @@ factorpoly(void)
 	p1 = pop();
 	if (p2 == nil) {
 		push(p1);
-		factorpoly_auto();
-		restore();
-		return;
+		variables();
+		p2 = pop();
+		if (!istensor(p2)) {
+			push(p1);
+			restore();
+			return;
+		}
 	}
-	if (p2->k == TENSOR) {
+	if (istensor(p2)) {
 		n = p2->u.tensor->nelem;
 		push(p1);
 		for (i = 0; i < n; i++) {
 			push(p2->u.tensor->elem[i]);
 			factorpoly2();
 		}
-	} else {
-		push(p1);
-		push(p2);
-		factorpoly2();
-	}
-	restore();
-}
-
-// scan to find vars
-
-static void
-factorpoly_auto(void)
-{
-	int i, n;
-	save();
-	p1 = pop();
-	push(p1);
-	variables();
-	p2 = pop();
-	if (p2 == nil) {
-		push(p1);
 		restore();
 		return;
 	}
-	n = p2->u.tensor->nelem;
 	push(p1);
-	for (i = 0; i < n; i++) {
-		push(p2->u.tensor->elem[i]);
-		factorpoly2();
-	}
+	push(p2);
+	factorpoly2();
 	restore();
 }
 

@@ -19,7 +19,7 @@ arcsin(void)
 
 	p1 = pop();
 
-	if (p1->k == DOUBLE) {
+	if (isdouble(p1)) {
 		errno = 0;
 		d = asin(p1->u.d);
 		if (errno)
@@ -29,7 +29,7 @@ arcsin(void)
 		return;
 	}
 
-	if (p1->k != NUM) {
+	if (!isrational(p1)) {
 		push_symbol(ARCSIN);
 		push(p1);
 		list(2);

@@ -43,7 +43,7 @@ __carac(void)
 	A = pop();
 	X = pop();
 	
-	if (X->k == DOUBLE && A->k == DOUBLE && B->k == DOUBLE) {
+	if (isdouble(X) && isdouble(A) && isdouble(B)) {
 		if (X->u.d > B->u.d && X->u.d < A->u.d) 
 			{push_integer(1);
 			 return;}
@@ -56,7 +56,7 @@ __carac(void)
 				 return;}
 	}
 
-	if (X->k == NUM && A->k == NUM && B->k == NUM) {
+	if (isrational(X) && isrational(A) && isrational(B)) {
 		if (MSIGN(msub(mmul(X->u.q.b,A->u.q.a),mmul(X->u.q.a,A->u.q.b))) == -1
 			&&
 			MSIGN(msub(mmul(X->u.q.a,B->u.q.b),mmul(X->u.q.b,B->u.q.a))) == -1) 

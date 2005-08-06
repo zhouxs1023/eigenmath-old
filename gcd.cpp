@@ -39,7 +39,7 @@ __gcd(void)
 		return;
 	}
 
-	if (p1->k == NUM && p2->k == NUM) {
+	if (isrational(p1) && isrational(p2)) {
 		push(p1);
 		push(p2);
 		gcd_numbers();

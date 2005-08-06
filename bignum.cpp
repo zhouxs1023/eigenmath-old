@@ -96,7 +96,7 @@ add_numbers(void)
 {
 	double a, b;
 
-	if (stack[tos - 1]->k == NUM && stack[tos - 2]->k == NUM) {
+	if (isrational(stack[tos - 1]) && isrational(stack[tos - 2])) {
 		qadd();
 		return;
 	}
@@ -106,12 +106,12 @@ add_numbers(void)
 	p2 = pop();
 	p1 = pop();
 
-	if (p1->k == DOUBLE)
+	if (isdouble(p1))
 		a = p1->u.d;
 	else
 		a = convert_rational_to_double(p1);
 
-	if (p2->k == DOUBLE)
+	if (isdouble(p2))
 		b = p2->u.d;
 	else
 		b = convert_rational_to_double(p2);
@@ -126,7 +126,7 @@ subtract_numbers(void)
 {
 	double a, b;
 
-	if (stack[tos - 1]->k == NUM && stack[tos - 2]->k == NUM) {
+	if (isrational(stack[tos - 1]) && isrational(stack[tos - 2])) {
 		qsub();
 		return;
 	}
@@ -136,12 +136,12 @@ subtract_numbers(void)
 	p2 = pop();
 	p1 = pop();
 
-	if (p1->k == DOUBLE)
+	if (isdouble(p1))
 		a = p1->u.d;
 	else
 		a = convert_rational_to_double(p1);
 
-	if (p2->k == DOUBLE)
+	if (isdouble(p2))
 		b = p2->u.d;
 	else
 		b = convert_rational_to_double(p2);
@@ -156,7 +156,7 @@ multiply_numbers(void)
 {
 	double a, b;
 
-	if (stack[tos - 1]->k == NUM && stack[tos - 2]->k == NUM) {
+	if (isrational(stack[tos - 1]) && isrational(stack[tos - 2])) {
 		qmul();
 		return;
 	}
@@ -166,12 +166,12 @@ multiply_numbers(void)
 	p2 = pop();
 	p1 = pop();
 
-	if (p1->k == DOUBLE)
+	if (isdouble(p1))
 		a = p1->u.d;
 	else
 		a = convert_rational_to_double(p1);
 
-	if (p2->k == DOUBLE)
+	if (isdouble(p2))
 		b = p2->u.d;
 	else
 		b = convert_rational_to_double(p2);
@@ -186,7 +186,7 @@ divide_numbers(void)
 {
 	double a, b;
 
-	if (stack[tos - 1]->k == NUM && stack[tos - 2]->k == NUM) {
+	if (isrational(stack[tos - 1]) && isrational(stack[tos - 2])) {
 		qdiv();
 		return;
 	}
@@ -199,12 +199,12 @@ divide_numbers(void)
 	if (iszero(p2))
 		stop("divide by zero");
 
-	if (p1->k == DOUBLE)
+	if (isdouble(p1))
 		a = p1->u.d;
 	else
 		a = convert_rational_to_double(p1);
 
-	if (p2->k == DOUBLE)
+	if (isdouble(p2))
 		b = p2->u.d;
 	else
 		b = convert_rational_to_double(p2);
@@ -226,7 +226,7 @@ invert_number(void)
 	if (iszero(p1))
 		stop("divide by zero");
 
-	if (p1->k == DOUBLE) {
+	if (isdouble(p1)) {
 		push_double(1 / p1->u.d);
 		restore();
 		return;
@@ -267,13 +267,13 @@ int
 compare_numbers(U *a, U *b)
 {
 	double x, y;
-	if (a->k == NUM && b->k == NUM)
+	if (isrational(a) && isrational(b))
 		return compare_rationals(a, b);
-	if (a->k == DOUBLE)
+	if (isdouble(a))
 		x = a->u.d;
 	else
 		x = convert_rational_to_double(a);
-	if (b->k == DOUBLE)
+	if (isdouble(b))
 		y = b->u.d;
 	else
 		y = convert_rational_to_double(b);

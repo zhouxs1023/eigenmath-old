@@ -115,7 +115,7 @@ gc(void)
 				mfree(mem[i].u.q.b);
 				break;
 			}
-			mem[i].k = 0; // so no more free above
+			mem[i].k = CONS; // so no more free above
 			mem[i].u.cons.cdr = free_list;
 			free_list = mem + i;
 			free_count++;
@@ -191,7 +191,7 @@ reset(void)
 			mfree(mem[i].u.q.a);
 			mfree(mem[i].u.q.b);
 		}
-		mem[i].k = 0;
+		mem[i].k = CONS;
 	}
 
 	total_count = 0;
@@ -211,7 +211,7 @@ alloc_next_block(void)
 	j = total_count;
 	total_count += BLOCK_SIZE;
 	for (i = j; i < total_count - 1; i++) {
-		mem[i].k = 0; // so no free in gc
+		mem[i].k = CONS; // so no free in gc
 		mem[i].u.cons.cdr = mem + i + 1;
 	}
 	mem[total_count - 1].u.cons.cdr = free_list;

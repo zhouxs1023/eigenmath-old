@@ -37,7 +37,7 @@ ydirac(void)
 
 
 	
-	if (X->k == DOUBLE) {
+	if (isdouble(X)) {
 		if (X->u.d == 0) 
 			{push_integer(1);
 			 return;}
@@ -46,7 +46,7 @@ ydirac(void)
 			 return;}
 	}
 
-	if (X->k == NUM) {
+	if (isrational(X)) {
 		if (MZERO(mmul(X->u.q.a,X->u.q.b))) 
 			{push_integer(1);
 			 return;}

@@ -35,14 +35,14 @@ gammaf(void)
 
 	p1 = pop();
 
-	if (p1->k == NUM && MEQUAL(p1->u.q.a, 1) && MEQUAL(p1->u.q.b, 2))  {
+	if (isrational(p1) && MEQUAL(p1->u.q.a, 1) && MEQUAL(p1->u.q.b, 2))  {
 		push_symbol(PI);;
 		push_rational(1,2);
 		power();
 		return;
 	}
 
-	if (p1->k == NUM && MEQUAL(p1->u.q.a, 3) && MEQUAL(p1->u.q.b, 2))  {
+	if (isrational(p1) && MEQUAL(p1->u.q.a, 3) && MEQUAL(p1->u.q.b, 2))  {
 		push_symbol(PI);;
 		push_rational(1,2);
 		power();
@@ -91,14 +91,14 @@ static void
 gamma_of_sum(void)
 {
 	p3 = cdr(p1);
-	if (car(p3)->k == NUM && MEQUAL(car(p3)->u.q.a, 1) && MEQUAL(car(p3)->u.q.b, 1)) {
+	if (isrational(car(p3)) && MEQUAL(car(p3)->u.q.a, 1) && MEQUAL(car(p3)->u.q.b, 1)) {
 		push(cadr(p3));
 		push(cadr(p3));
 		gamma();
 		multiply();
 	}
 	else {
-		if (car(p3)->k == NUM && MEQUAL(car(p3)->u.q.a, -1) && MEQUAL(car(p3)->u.q.b, 1)) {
+		if (isrational(car(p3)) && MEQUAL(car(p3)->u.q.a, -1) && MEQUAL(car(p3)->u.q.b, 1)) {
 			push(cadr(p3));
 			gamma();
 			push(cadr(p3));

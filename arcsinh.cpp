@@ -18,7 +18,7 @@ arcsinh(void)
 	double d;
 	save();
 	p1 = pop();
-	if (p1->k == DOUBLE) {
+	if (isdouble(p1)) {
 		d = p1->u.d;
 		d = log(d + sqrt(d * d + 1.0));
 		push_double(d);

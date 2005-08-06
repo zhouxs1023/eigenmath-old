@@ -57,7 +57,7 @@ __power(void)
 		return;
 	}
 
-	if (p1 == symbol(E) && p2->k == DOUBLE) {
+	if (p1 == symbol(E) && isdouble(p2)) {
 		push_double(exp(p2->u.d));
 		return;
 	}

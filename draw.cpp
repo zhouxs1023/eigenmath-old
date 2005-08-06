@@ -70,7 +70,7 @@ eval_draw(void)
 
 	// if first arg is a symbol then evaluate it
 
-	if (p1->k == SYM) {
+	if (issymbol(p1)) {
 		push(p1);
 		eval();
 		p1 = pop();
@@ -240,7 +240,7 @@ eval_point(double t)
 
 	p1 = pop();
 
-	if (p1->k == TENSOR && p1->u.tensor->nelem >= 2) {
+	if (istensor(p1) && p1->u.tensor->nelem >= 2) {
 		push(p1->u.tensor->elem[0]);
 		push(p1->u.tensor->elem[1]);
 	} else {
@@ -324,14 +324,14 @@ setup_trange_f(void)
 
 	p1 = get_symbol("trange");
 
-	if (!issym(p1))
+	if (!issymbol(p1))
 		return;
 
 	p1 = p1->u.sym.binding;
 
 	// must be two element vector
 
-	if (p1->k != TENSOR || p1->u.tensor->ndim != 1 || p1->u.tensor->nelem != 2)
+	if (!istensor(p1) || p1->u.tensor->ndim != 1 || p1->u.tensor->nelem != 2)
 		return;
 
 	push(p1->u.tensor->elem[0]);
@@ -378,14 +378,14 @@ setup_xrange_f(void)
 
 	p1 = get_symbol("xrange");
 
-	if (!issym(p1))
+	if (!issymbol(p1))
 		return;
 
 	p1 = p1->u.sym.binding;
 
 	// must be two element vector
 
-	if (p1->k != TENSOR || p1->u.tensor->ndim != 1 || p1->u.tensor->nelem != 2)
+	if (!istensor(p1) || p1->u.tensor->ndim != 1 || p1->u.tensor->nelem != 2)
 		return;
 
 	push(p1->u.tensor->elem[0]);
@@ -460,14 +460,14 @@ setup_yrange_f(void)
 
 	p1 = get_symbol("yrange");
 
-	if (!issym(p1))
+	if (!issymbol(p1))
 		return;
 
 	p1 = p1->u.sym.binding;
 
 	// must be two element vector
 
-	if (p1->k != TENSOR || p1->u.tensor->ndim != 1 || p1->u.tensor->nelem != 2)
+	if (!istensor(p1) || p1->u.tensor->ndim != 1 || p1->u.tensor->nelem != 2)
 		return;
 
 	push(p1->u.tensor->elem[0]);
@@ -920,7 +920,7 @@ draw_discrete_signal(void)
 	for (i = 0; i < n; i++) {
 		x = 4 * i + XSHIM;
 		YT = F->u.tensor->elem[i];
-		if (YT->k != NUM && YT->k != DOUBLE)
+		if (YT->j != NUM && YT->j != DOUBLE)
 			continue;
 		push(YT);
 		yt = pop_double();

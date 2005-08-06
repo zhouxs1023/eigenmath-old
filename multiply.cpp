@@ -522,7 +522,7 @@ __normalize_radical_factors(int h)
 
 	// if coeff is 1 or floating then don't bother
 
-	if (isplusone(stack[h]) || isminusone(stack[h]) || stack[h]->k == DOUBLE)
+	if (isplusone(stack[h]) || isminusone(stack[h]) || isdouble(stack[h]))
 		return;
 
 	// if no radicals then don't bother

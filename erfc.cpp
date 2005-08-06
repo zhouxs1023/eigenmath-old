@@ -35,7 +35,7 @@ yyerfc(void)
 
 	p1 = pop();
 
-	if (p1->k == DOUBLE) {
+	if (isdouble(p1)) {
 		d = erfc(p1->u.d);
 		push_double(d);
 		return;

@@ -33,7 +33,7 @@ denominator(void)
 			p1 = cdr(p1);
 		}
 		multiply_all(tos - h);
-	} else if (p1->k == NUM) {
+	} else if (isrational(p1)) {
 		push(p1);
 		mp_denominator();
 	} else if (car(p1) == symbol(POWER) && isnegativeterm(caddr(p1))) {

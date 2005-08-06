@@ -26,7 +26,7 @@ ycosine(void)
 
 	p1 = pop();
 
-	if (p1->k == DOUBLE) {
+	if (isdouble(p1)) {
 		d = cos(p1->u.d);
 		if (fabs(d) < 1e-10)
 			d = 0.0;

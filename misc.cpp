@@ -1,9 +1,5 @@
 #include "stdafx.h"
 #include "defs.h"
-
-extern void define_symbol(char *, int);
-extern void define_variable(char *, int);
-
 U *varlist;
 int symbol_level;
 
@@ -129,13 +125,13 @@ cmp_expr(U *p1, U *p2)
 	if (isstr(p2))
 		return 1;
 
-	if (issym(p1) && issym(p2))
+	if (issymbol(p1) && issymbol(p2))
 		return sign(strcmp(get_printname(p1), get_printname(p2)));
 
-	if (issym(p1))
+	if (issymbol(p1))
 		return -1;
 
-	if (issym(p2))
+	if (issymbol(p2))
 		return 1;
 
 	if (istensor(p1) && istensor(p2))
@@ -194,7 +190,7 @@ unique(U *p)
 static void
 unique_f(U *p)
 {
-	if (p->k == SYM) {
+	if (isstr(p)) {
 		if (p1 == nil)
 			p1 = p;
 		else if (p != p1)
@@ -282,7 +278,7 @@ save_symbols(int n)
 
 	for (i = 0; i < n; i++) {
 		p1 = stack[h + i];
-		if (p1->k != SYM)
+		if (!issymbol(p1))
 			continue;
 		push(p1);
 		push(p1->u.sym.binding);

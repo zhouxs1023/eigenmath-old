@@ -27,7 +27,7 @@ ylog(void)
 
 	p1 = pop();
 
-	if (p1->k == DOUBLE) {
+	if (isdouble(p1)) {
 		d = p1->u.d;
 		if (d < 0.0) {
 			d = log(-d);

@@ -95,7 +95,7 @@ count(U *p)
 static void
 f1(void)
 {
-	if (car(p1)->k != ADD)
+	if (car(p1) != symbol(ADD))
 		return;
 	push(p1);
 	rationalize();
@@ -109,7 +109,7 @@ f1(void)
 static void
 f2(void)
 {
-	if (car(p1)->k != ADD)
+	if (car(p1) != symbol(ADD))
 		return;
 	push(p1);
 	condense();

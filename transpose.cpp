@@ -39,7 +39,7 @@ transpose_f(void)
 	p2 = pop();
 	p1 = pop();
 
-	if (p1->k != TENSOR) {
+	if (!istensor(p1)) {
 		if (!iszero(p1))
 			stop("transpose: tensor expected, 1st arg is not a tensor");
 		push(zero);

@@ -30,21 +30,21 @@ define_user_function(void)
 	ARGS = cdadr(p1);
 	BODY = caddr(p1);
 
-	if (NAME->k != SYM)
-		stop("In function definition, user symbol expected for function name.");
+	if (!issymbol(NAME))
+		stop("in function definition, user symbol expected for function name");
 
 	n = length(ARGS);
 
 	if (n > 6)
-		stop("More than 6 formal args in function definition.");
+		stop("more than 6 formal args in function definition");
 
 	// subst args in body
 
 	push(BODY);
 	TMP = ARGS;
 	for (i = 0; i < n; i++) {
-		if (car(TMP)->k != SYM)
-			stop("In function definition, formal arg is not a user symbol.");
+		if (!issymbol(car(TMP)))
+			stop("in function definition, formal arg is not a user symbol");
 		push(car(TMP));
 		push(formal_arg[i]);
 		subst();
@@ -194,8 +194,8 @@ void
 eval_binding2(void)
 {
 	p1 = cadr(p1);
-	if (p1->k != SYM)
-		stop("Symbol expected in binding2.");
+	if (!issymbol(p1))
+		stop("symbol expected in binding2");
 	push(p1->u.sym.binding2);
 }
 
@@ -227,7 +227,7 @@ evalat(void)
 	VAL = pop();
 	X = pop();
 
-	if (X->k != SYM) {
+	if (!issymbol(X)) {
 		push(X);
 		push(VAL);
 		subst();

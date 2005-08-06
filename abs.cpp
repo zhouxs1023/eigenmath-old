@@ -4,7 +4,6 @@ extern void conjugate(void);
 extern int isnegativeterm(U *);
 static void yabsval(void);
 static void absval_tensor(void);
-static int iscomplexnumber(U *);
 
 void
 eval_abs(void)
@@ -27,7 +26,7 @@ yabsval(void)
 {
 	p1 = pop();
 
-	if (p1->k == TENSOR) {
+	if (istensor(p1)) {
 		absval_tensor();
 		return;
 	}
@@ -71,34 +70,6 @@ absval_tensor(void)
 	inner();
 	push_rational(1, 2);
 	power();
-}
-
-// returns 1 if there's -1 to a power somewhere
-
-static int
-iscomplex(U *p)
-{
-	if (car(p) == symbol(POWER) && isminusone(cadr(p)))
-		return 1;
-
-	if (iscons(p)) {
-		while (iscons(p)) {
-			if (iscomplex(car(p)))
-				return 1;
-			p = cdr(p);
-		}
-	}
-
-	return 0;
-}
-
-static int
-iscomplexnumber(U *p)
-{
-	if (iscomplex(p) && !issymbolic(p))
-		return 1;
-	else
-		return 0;
 }
 
 static char *s[] = {

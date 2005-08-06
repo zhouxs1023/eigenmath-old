@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "defs.h"
-
 extern int powermode;
-
 static int check_args(void);
 static void charpoly_n(void);
 static void charpoly_s(void);
@@ -60,7 +58,7 @@ check_args(void)
 		return 0;
 	else if (A->u.tensor->dim[0] != A->u.tensor->dim[1])
 		return 0;
-	else if (!issym(LAMBDA))
+	else if (!issymbol(LAMBDA))
 		return 0;
 	else
 		return 1;

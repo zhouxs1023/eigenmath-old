@@ -1,5 +1,3 @@
-#include "stdafx.h"
-
 //-----------------------------------------------------------------------------
 //
 //	Scan expr for vars, return in vector
@@ -10,54 +8,41 @@
 //
 //-----------------------------------------------------------------------------
 
+#include "stdafx.h"
 #include "defs.h"
-
-static void __scan(U *);
+static void scan(U *);
 static int __cmp(const void *, const void *);
-
 static int h;
 
 void
 variables(void)
 {
 	int i, n;
-
 	save();
-
 	p1 = pop();
-
 	h = tos;
-
-	__scan(p1);
-
+	scan(p1);
 	n = tos - h;
-
 	if (n > 1)
 		qsort(stack + h, n, sizeof (U *), __cmp);
-
 	p1 = alloc_tensor(n);
-
 	p1->u.tensor->ndim = 1;
 	p1->u.tensor->dim[0] = n;
-
 	for (i = 0; i < n; i++)
 		p1->u.tensor->elem[i] = stack[i];
-
 	tos = h;
-
 	push(p1);
-
 	restore();
 }
 
 static void
-__scan(U *p)
+scan(U *p)
 {
 	int i;
 	if (iscons(p)) {
-		p1 = cdr(p);
+		p = cdr(p);
 		while (iscons(p)) {
-			__scan(car(p));
+			scan(car(p));
 			p = cdr(p);
 		}
 	} else if (issymbol(p) && p != symbol(E)) {

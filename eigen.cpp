@@ -116,7 +116,7 @@ check_arg(void)
 	p1 = pop();
 	floating = x;
 
-	if (p1->k != TENSOR)
+	if (!istensor(p1))
 		return 0;
 
 	if (p1->u.tensor->ndim != 2 || p1->u.tensor->dim[0] != p1->u.tensor->dim[1])
@@ -126,7 +126,7 @@ check_arg(void)
 
 	for (i = 0; i < n; i++)
 		for (j = 0; j < n; j++)
-			if (p1->u.tensor->elem[n * i + j]->k != DOUBLE)
+			if (!isdouble(p1->u.tensor->elem[n * i + j]))
 				stop("eigen: matrix is not numerical");
 
 	for (i = 0; i < n - 1; i++)

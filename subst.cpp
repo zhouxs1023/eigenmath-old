@@ -24,7 +24,7 @@ subst(void)
 	p3 = pop(); // new expr
 	p2 = pop(); // old expr
 	p1 = pop(); // expr
-	if (p1->k == TENSOR) {
+	if (istensor(p1)) {
 		p4 = alloc_tensor(p1->u.tensor->nelem);
 		p4->u.tensor->ndim = p1->u.tensor->ndim;
 		for (i = 0; i < p1->u.tensor->ndim; i++)

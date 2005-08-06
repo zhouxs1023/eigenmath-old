@@ -12,7 +12,7 @@ eval_tanh(void)
 	push(cadr(p1));
 	eval();
 	p1 = pop();
-	if (p1->k == DOUBLE) {
+	if (isdouble(p1)) {
 		d = tanh(p1->u.d);
 		if (fabs(d) < 1e-10)
 			d = 0.0;

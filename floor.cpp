@@ -33,7 +33,7 @@ yyfloor(void)
 		return;
 	}
 
-	if (p1->k == DOUBLE) {
+	if (isdouble(p1)) {
 		d = floor(p1->u.d);
 		push_double(d);
 		return;

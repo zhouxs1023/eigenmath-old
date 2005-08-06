@@ -50,7 +50,7 @@ for_function(void)
 	save_tos = tos;
 	save_frame = frame;
 
-	if (A->k != SYM)
+	if (!issymbol(A))
 		stop("variable expected in 1st arg of \"for\" function");
 	push(A);
 	mark = save_symbols(1);

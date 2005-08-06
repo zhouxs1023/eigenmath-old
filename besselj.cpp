@@ -45,7 +45,7 @@ __besselj(void)
 	N = pop();
 	X = pop();
 
-	if ((X->k == DOUBLE) && (isinteger(N))) {
+	if (isdouble(X) && (isinteger(N))) {
 		push(N);
 		n = pop_integer();
 		d = jn(n,X->u.d);

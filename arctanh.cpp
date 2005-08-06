@@ -18,7 +18,7 @@ arctanh(void)
 	double d;
 	save();
 	p1 = pop();
-	if (p1->k == DOUBLE) {
+	if (isdouble(p1)) {
 		d = p1->u.d;
 		if (d < -1.0 || d > 1.0)
 			stop("arctanh function argument is not in the interval [-1,1]");

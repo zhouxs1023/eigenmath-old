@@ -11,7 +11,7 @@ find(U *p, U *q)
 	if (equal(p, q))
 		return 1;
 
-	if (p->k == TENSOR) {
+	if (istensor(p)) {
 		for (i = 0; i < p->u.tensor->nelem; i++)
 			if (find(p->u.tensor->elem[i], q))
 				return 1;

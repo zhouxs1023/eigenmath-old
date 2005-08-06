@@ -249,7 +249,7 @@ eval_dim(void)
 		n = pop_integer();
 	} else
 		n = 1;
-	if (p2->k != TENSOR || n < 1 || n > p2->u.tensor->ndim)
+	if (!istensor(p2) || n < 1 || n > p2->u.tensor->ndim)
 		push(p1);
 	else
 		push_integer(p2->u.tensor->dim[n - 1]);
@@ -461,14 +461,14 @@ eval_isinteger(void)
 	push(cadr(p1));
 	eval();
 	p1 = pop();
-	if (p1->k == NUM) {
+	if (isrational(p1)) {
 		if (isinteger(p1))
 			push(one);
 		else
 			push(zero);
 		return;
 	}
-	if (p1->k == DOUBLE) {
+	if (isdouble(p1)) {
 		n = (int) p1->u.d;
 		if (n == p1->u.d)
 			push(one);
@@ -607,7 +607,7 @@ eval_rank(void)
 	push(cadr(p1));
 	eval();
 	p1 = pop();
-	if (p1->k == TENSOR)
+	if (istensor(p1))
 		push_integer(p1->u.tensor->ndim);
 	else
 		push(zero);
@@ -642,7 +642,7 @@ setq_indexed(void)
 {
 	int h;
 	p4 = cadadr(p1);
-	if (p4->k != SYM)
+	if (!issymbol(p4))
 		stop("indexed assignment: error in symbol");
 	h = tos;
 	push(caddr(p1));
@@ -673,7 +673,7 @@ eval_setq(void)
 		return;
 	}
 
-	if (cadr(p1)->k != SYM)
+	if (!issymbol(cadr(p1)))
 		stop("symbol assignment: error in symbol");
 
 	push(caddr(p1));
@@ -916,36 +916,35 @@ static void eval_cons(void);
 void
 eval(void)
 {
+	static char s[24];
 	save();
-
 	p1 = pop();
-
 	switch (p1->k) {
-
 	case CONS:
 		eval_cons();
 		break;
-
 	case NUM:
 		push(p1);
 		if (floating)
 			bignum_float();
 		break;
-
 	case DOUBLE:
 		push(p1);
 		break;
-
 	case STR:
 		push(p1);
 		break;
-
 	case TENSOR:
 		eval_tensor();
 		break;
-
 	case SYM:
-		if (floating) {
+		if (symbol_index(p1) < NIL) {
+			// bare keyword, eval using last result
+			push(p1);
+			push(symbol(LAST));
+			list(2);
+			eval();
+		} else if (floating) {
 			p1 = p1->u.sym.binding;
 			if (p1 == symbol(PI))
 				push_double(M_PI);
@@ -956,33 +955,25 @@ eval(void)
 		} else
 			push(p1->u.sym.binding);
 		break;
-
 	default:
-
-		// it's a keyword, use last result for arg
-
-		push(p1);
-		//push(symbol(LAST)->u.sym.binding);
-		push(symbol(LAST));
-		list(2);
-		eval();
+		sprintf(s, "atom %d?", p1->k);
+		stop(s);
 		break;
 	}
-
-	restore();
-
-	// save last non-nil result
-
 	if (stack[tos - 1] != nil)
 		symbol(YYLAST)->u.sym.binding = stack[tos - 1];
+	restore();
 }
 
 static void
 eval_cons(void)
 {
-	switch (car(p1)->k) {
-
-	case SYM:		eval_user_function();	break;
+	static char s[24];
+	if (!issymbol(car(p1))) {
+		sprintf(s, "form %d?", car(p1)->k);
+		stop(s);
+	}
+	switch (symbol_index(car(p1))) {
 	case ABS:		eval_abs();		break;
 	case ADD:		eval_add();		break;
 	case ADJ:		eval_adj();		break;
@@ -1101,11 +1092,8 @@ eval_cons(void)
 	case UNIT:		eval_unit();		break;
 	case WEDGE:		eval_wedge();		break;
 	case ZERO:		eval_zero();		break;
-
-	default:
-		stop("internal error: eval_cons");
-		break;
-	}
+	default:		eval_user_function();	break;
+	}	
 }
 
 void
@@ -1218,7 +1206,7 @@ filter_f(void)
 {
 	if (car(p1) == symbol(ADD))
 		filter_sum();
-	else if (p1->k == TENSOR)
+	else if (istensor(p1))
 		filter_tensor();
 	else if (find(p1, p2))
 		push_integer(0);

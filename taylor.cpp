@@ -56,7 +56,7 @@ __taylor(void)
 	X = pop();
 	F = pop();
 
-	if (X->k != SYM)
+	if (!issymbol(X))
 		stop("taylor: symbol expected, 2nd arg is not a symbol");
 
 	push(N);

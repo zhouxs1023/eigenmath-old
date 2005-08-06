@@ -38,7 +38,7 @@ ysgn(void)
 	X = pop();
 
 	
-	if (p1->k == DOUBLE) {
+	if (isdouble(p1)) {
 		if (p1->u.d > 0) 
 			{push_integer(1);
 			 return;}
@@ -51,7 +51,7 @@ ysgn(void)
 				 return;}
 	}
 
-	if (p1->k == NUM) {
+	if (isrational(p1)) {
 		if (MSIGN(mmul(p1->u.q.a,p1->u.q.b)) == -1) 
 			{push_integer(-1);
 			 return;}

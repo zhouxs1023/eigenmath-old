@@ -1,17 +1,11 @@
 // The symbol table is an array of structs.
-//
-//	U *get_symbol(char *printname)		Adds symbol if not in table.
-//
-//	char *get_printname(U *)
 
 #include "stdafx.h"
 #include "defs.h"
-
-int nsym; // number of symbols in table
-
 #define YMAX 1000
 U symtab[YMAX];
-static char *printname[YMAX];
+char *printname[YMAX];
+int nsym; // number of symbols in table;
 
 U *
 get_symbol(char *s)
@@ -32,6 +26,17 @@ get_symbol(char *s)
 	return p;
 }
 
+void
+std_symbol(char *s, int n)
+{
+	U *p;
+	p = symtab + n;
+	p->k = SYM;
+	p->u.sym.binding = p;
+	p->u.sym.binding2 = nil;
+	printname[n] = strdup(s);
+}
+
 char *
 get_printname(U *p)
 {
@@ -47,38 +52,25 @@ clear_symbols(void)
 	U *p;
 	for (i = 0; i < nsym; i++) {
 		p = symtab + i;
-		if (p->k == SYM) {
-			p->u.sym.binding = p;
-			p->u.sym.binding2 = nil;
-		}
+		p->u.sym.binding = p;
+		p->u.sym.binding2 = nil;
 	}
 }
-
-// keyword functions for quickly finding system symbols
-
-U *stab[300]; // 0-199 for built-in functions, 200-299 for variables
 
 U *
 symbol(int k)
 {
-	return stab[k];
+	return symtab + k;
 }
 
 void
 push_symbol(int k)
 {
-	push(stab[k]);
+	push(symtab + k);
 }
 
-void
-define_symbol(char *s, int k)
+int
+symbol_index(U *p)
 {
-	stab[k] = get_symbol(s);
-	stab[k]->k = k;
-}
-
-void
-define_variable(char *s, int k)
-{
-	stab[k] = get_symbol(s);
+	return (int) (p - symtab);
 }

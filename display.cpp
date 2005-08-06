@@ -99,7 +99,7 @@ emit_top_expr(U *p)
 		return;
 	}
 
-	if (p->k == TENSOR)
+	if (istensor(p))
 		emit_tensor(p);
 	else
 		emit_expr(p);
@@ -296,7 +296,7 @@ emit_fraction(U *p, int d)
 
 	// handle numerical coefficient
 
-	if (cadr(p)->k == NUM) {
+	if (isrational(cadr(p))) {
 		push(cadr(p));
 		mp_numerator();
 		absval();
@@ -306,7 +306,7 @@ emit_fraction(U *p, int d)
 		B = pop();
 	}
 
-	if (cadr(p)->k == DOUBLE) {
+	if (isdouble(cadr(p))) {
 		push(cadr(p));
 		absval();
 		A = pop();
@@ -387,7 +387,7 @@ emit_fraction(U *p, int d)
 
 	p1 = cdr(p);
 
-	if (car(p1)->k == NUM)
+	if (isrational(car(p1)))
 		p1 = cdr(p1);
 
 	while (iscons(p1)) {
@@ -419,13 +419,13 @@ emit_numerators(U *p)
 
 	p = cdr(p);
 
-	if (car(p)->k == NUM) {
+	if (isrational(car(p))) {
 		push(car(p));
 		mp_numerator();
 		absval();
 		p1 = pop();
 		p = cdr(p);
-	} else if (car(p)->k == DOUBLE) {
+	} else if (isdouble(car(p))) {
 		push(car(p));
 		absval();
 		p1 = pop();
@@ -495,7 +495,7 @@ emit_denominators(U *p)
 static void
 emit_factor(U *p)
 {
-	if (p->k == TENSOR) {
+	if (istensor(p)) {
 		if (level == 0)
 			//emit_tensor(p);
 			emit_flat_tensor(p);
@@ -504,7 +504,7 @@ emit_factor(U *p)
 		return;
 	}
 
-	if (p->k == DOUBLE) {
+	if (isdouble(p)) {
 		emit_number(p, 0);
 		return;
 	}
@@ -535,12 +535,12 @@ emit_factor(U *p)
 		return;
 	}
 
-	if (issym(p)) {
+	if (issymbol(p)) {
 		emit_symbol(p);
 		return;
 	}
 
-	if (p->k == STR) {
+	if (isstr(p)) {
 		emit_string(p);
 		return;
 	}
@@ -710,7 +710,7 @@ emit_denominator(U *p, int n)
 static void
 emit_function(U *p)
 {
-	if (car(p) == symbol(INDEX) && cadr(p)->k == SYM) {
+	if (car(p) == symbol(INDEX) && issymbol(cadr(p))) {
 		emit_index_function(p);
 		return;
 	}

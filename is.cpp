@@ -91,7 +91,7 @@ isinteger(U *p)
 int
 isnonnegativeinteger(U *p)
 {
-	if (p->k == NUM && MEQUAL(p->u.q.b, 1) && MSIGN(p->u.q.a) == 1)
+	if (isrational(p) && MEQUAL(p->u.q.b, 1) && MSIGN(p->u.q.a) == 1)
 		return 1;
 	else
 		return 0;
@@ -225,7 +225,7 @@ isnegative(U *p)
 int
 issymbolic(U *p)
 {
-	if (p->k == SYM)
+	if (issymbol(p))
 		return 1;
 	else {
 		while (iscons(p)) {
@@ -242,7 +242,7 @@ issymbolic(U *p)
 int
 isintegerfactor(U *p)
 {
-	if (isinteger(p) || car(p)->k == POWER
+	if (isinteger(p) || car(p) == symbol(POWER)
 	&& isinteger(cadr(p))
 	&& isinteger(caddr(p)))
 		return 1;
