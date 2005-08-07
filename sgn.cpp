@@ -10,7 +10,6 @@
 #include "stdafx.h"
 #include "defs.h"
 static void ysgn(void);
-static int iscomplexnumber(U *);
 extern int isnegativeterm(U *);
 
 void
@@ -96,34 +95,6 @@ ysgn(void)
 	push(X);
 	list(2);
 }
-
-
-static int
-iscomplex(U *p)
-{
-	if (car(p) == symbol(POWER) && isminusone(cadr(p)))
-		return 1;
-
-	if (iscons(p)) {
-		while (iscons(p)) {
-			if (iscomplex(car(p)))
-				return 1;
-			p = cdr(p);
-		}
-	}
-
-	return 0;
-}
-
-static int
-iscomplexnumber(U *p)
-{
-	if (iscomplex(p) && !issymbolic(p))
-		return 1;
-	else
-		return 0;
-}
-
 
 static char *s[] = {
 
