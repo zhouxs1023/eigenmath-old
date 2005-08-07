@@ -1,7 +1,8 @@
+// Transpose tensor indices
+
 #include "stdafx.h"
 #include "defs.h"
-
-static void transpose_f(void);
+static void ytranspose(void);
 
 void
 eval_transpose(void)
@@ -24,12 +25,12 @@ void
 transpose(void)
 {
 	save();
-	transpose_f();
+	ytranspose();
 	restore();
 }
 
 static void
-transpose_f(void)
+ytranspose(void)
 {
 	int i, j, k, l, m, ndim, nelem, t;
 	int ai[MAXDIM], an[MAXDIM];
@@ -109,6 +110,9 @@ transpose_f(void)
 static char *s[] = {
 
 	"transpose(0)",
+	"0",
+
+	"transpose(0.0)",
 	"0",
 
 	"transpose(((a,b),(c,d)))",

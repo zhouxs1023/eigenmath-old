@@ -940,7 +940,7 @@ emit_symbol(U *p)
 
 	s = get_printname(p);
 
-	if (iskeyword(p)) {
+	if (symbol_index(p) < PI) {
 		emit_str(TIMES_FONT, s);
 		return;
 	}

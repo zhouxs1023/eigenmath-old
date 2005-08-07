@@ -8,9 +8,9 @@ void
 init(void)
 {
 	if (nil)
-		return; // already initted
+		return;		// already initted
 
-	nsym = USER_SYMBOLS;
+	nsym = USR_SYMBOLS;
 
 	nil = symtab + NIL;
 
@@ -154,9 +154,10 @@ init(void)
 	std_symbol("autoexpand", AUTOEXPAND);
 	std_symbol("~exp", E); // tilde so sort puts it after scalar symbols
 	std_symbol("expomode", EXPOMODE);
-	std_symbol("tty", TTY);
-	std_symbol("*im", IM);
 	std_symbol("last", LAST);
+	std_symbol("tty", TTY);
+	std_symbol("", YYLAST);
+
 	std_symbol("pi", PI);
 
 	std_symbol("a", SYMBOL_A);
@@ -170,22 +171,20 @@ init(void)
 	std_symbol("y", SYMBOL_Y);
 	std_symbol("z", SYMBOL_Z);
 
-	std_symbol("$last", YYLAST);
+	meta_a = usr_symbol("$a");
+	meta_b = usr_symbol("$b");
+	meta_c = usr_symbol("$c");
+	meta_n = usr_symbol("$n");
+	meta_x = usr_symbol("$x");
 
-	meta_a = get_symbol("$a");
-	meta_b = get_symbol("$b");
-	meta_c = get_symbol("$c");
-	meta_n = get_symbol("$n");
-	meta_x = get_symbol("$x");
+	tmp = usr_symbol("$tmp");
 
-	tmp = get_symbol("$tmp");
-
-	formal_arg[0] = get_symbol("$1");
-	formal_arg[1] = get_symbol("$2");
-	formal_arg[2] = get_symbol("$3");
-	formal_arg[3] = get_symbol("$4");
-	formal_arg[4] = get_symbol("$5");
-	formal_arg[5] = get_symbol("$6");
+	formal_arg[0] = usr_symbol("$1");
+	formal_arg[1] = usr_symbol("$2");
+	formal_arg[2] = usr_symbol("$3");
+	formal_arg[3] = usr_symbol("$4");
+	formal_arg[4] = usr_symbol("$5");
+	formal_arg[5] = usr_symbol("$6");
 
 	// if anything is added here be sure it gets untagged in gc()
 

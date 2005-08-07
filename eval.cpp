@@ -60,16 +60,21 @@ extern void eval_tan(void);
 extern void eval_tanh(void);
 extern void eval_tchebychevT(void);
 extern void eval_tchebychevU(void);
+extern void eval_test(void);
+extern void eval_testeq(void);
+extern void eval_testge(void);
+extern void eval_testgt(void);
+extern void eval_testle(void);
+extern void eval_testlt(void);
 extern void eval_trace(void);
 extern void eval_transpose(void);
 extern void eval_user_function(void);
 extern void eval_writefile(void);
 extern void eval_zero(void);
-
 extern void define_user_function(void);
-
 int expomode;
 int trigmode;
+static char errstr[24];
 
 void
 setup(void)
@@ -739,113 +744,6 @@ eval_taylor(void)
 }
 
 static void
-eval_test(void)
-{
-	p2 = cdr(p1);
-	while (iscons(p2)) {
-		push(car(p2));
-		eval();
-		p3 = pop();
-		if (isnum(p3) && !iszero(p3)) {
-			push(cadr(p2));
-			eval();
-			return;
-		}
-		p2 = cddr(p2);
-	}
-	push(p1);
-}
-
-static void
-eval_testeq(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	p2 = pop();
-	p1 = pop();
-	if (equal(p1, p2))
-		push(one);
-	else
-		push(zero);
-}
-
-static void
-eval_testge(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	subtract();
-	p2 = pop();
-	if (isnum(p2))
-		if (isnegativenumber(p2))
-			push(zero);
-		else
-			push(one);
-	else
-		push(p1);
-}
-
-static void
-eval_testgt(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	swap();
-	subtract();
-	p2 = pop();
-	if (isnum(p2))
-		if (isnegativenumber(p2))
-			push(one);
-		else
-			push(zero);
-	else
-		push(p1);
-}
-
-static void
-eval_testle(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	swap();
-	subtract();
-	p2 = pop();
-	if (isnum(p2))
-		if (isnegativenumber(p2))
-			push(zero);
-		else
-			push(one);
-	else
-		push(p1);
-}
-
-static void
-eval_testlt(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	subtract();
-	p2 = pop();
-	if (isnum(p2))
-		if (isnegativenumber(p2))
-			push(one);
-		else
-			push(zero);
-	else
-		push(p1);
-}
-
-static void
 eval_unit(void)
 {
 	int i, n;
@@ -864,37 +762,6 @@ eval_unit(void)
 		p1->u.tensor->elem[n * i + i] = one;
 	push(p1);
 }
-
-#if 0
-
-static void eval_zero(void);
-
-static void
-eval_unit(void)
-{
-	int i, j, k;
-	eval_zero();
-	p1 = pop();
-	if (p1->k != TENSOR || p1->u.tensor->ndim < 2) {
-		push(p1);
-		return;
-	}
-	for (i = 0; i < p1->u.tensor->dim[0]; i++) {
-		k = 0;
-		for (j = 0; j < p1->u.tensor->ndim; j++) {
-			if (i >= p1->u.tensor->dim[j]) {
-				k = -1;
-				break;
-			}
-			k = k * p1->u.tensor->dim[j] + i;
-		}
-		if (k >= 0)
-			p1->u.tensor->elem[k] = one;
-	}
-	push(p1);
-}
-
-#endif
 
 static void
 eval_wedge(void)
@@ -916,7 +783,6 @@ static void eval_cons(void);
 void
 eval(void)
 {
-	static char s[24];
 	save();
 	p1 = pop();
 	switch (p1->k) {
@@ -956,8 +822,8 @@ eval(void)
 			push(p1->u.sym.binding);
 		break;
 	default:
-		sprintf(s, "atom %d?", p1->k);
-		stop(s);
+		sprintf(errstr, "atom %d?", p1->k);
+		stop(errstr);
 		break;
 	}
 	if (stack[tos - 1] != nil)
@@ -968,10 +834,9 @@ eval(void)
 static void
 eval_cons(void)
 {
-	static char s[24];
 	if (!issymbol(car(p1))) {
-		sprintf(s, "form %d?", car(p1)->k);
-		stop(s);
+		sprintf(errstr, "form %d?", car(p1)->k);
+		stop(errstr);
 	}
 	switch (symbol_index(car(p1))) {
 	case ABS:		eval_abs();		break;
@@ -1103,72 +968,6 @@ eval_noexpand(void)
 	expanding = 0;
 	eval();
 	expanding = x;
-}
-
-static char *s[] = {
-
-	"1==1",
-	"1",
-
-	"1==2",
-	"0",
-
-	"a==b",
-	"testeq(a,b)",
-
-	"1>=1",
-	"1",
-
-	"1>=2",
-	"0",
-
-	"2>=1",
-	"1",
-
-	"a>=b",
-	"testge(a,b)",
-
-	"1>1",
-	"0",
-
-	"1>2",
-	"0",
-
-	"2>1",
-	"1",
-
-	"a>b",
-	"testgt(a,b)",
-
-	"1<=1",
-	"1",
-
-	"1<=2",
-	"1",
-
-	"2<=1",
-	"0",
-
-	"a<=b",
-	"testle(a,b)",
-
-	"1<1",
-	"0",
-
-	"1<2",
-	"1",
-
-	"2<1",
-	"0",
-
-	"a<b",
-	"testlt(a,b)",
-};
-
-void
-test_test(void)
-{
-	test(__FILE__, s, sizeof s / sizeof (char *));
 }
 
 extern void filter(void);

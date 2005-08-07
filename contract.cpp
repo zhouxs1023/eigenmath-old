@@ -1,7 +1,8 @@
+// Contract across tensor indices
+
 #include "stdafx.h"
 #include "defs.h"
-
-static void contract_f(void);
+static void ycontract(void);
 
 void
 eval_contract(void)
@@ -24,12 +25,12 @@ void
 contract(void)
 {
 	save();
-	contract_f();
+	ycontract();
 	restore();
 }
 
 void
-contract_f(void)
+ycontract(void)
 {
 	int h, i, j, k, l, m, n, ndim, nelem;
 	int ai[MAXDIM], an[MAXDIM];
@@ -117,6 +118,9 @@ contract_f(void)
 static char *s[] = {
 
 	"contract(0)",
+	"0",
+
+	"contract(0.0)",
 	"0",
 
 	"contract(((a,b),(c,d)))",

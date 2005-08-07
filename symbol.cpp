@@ -7,8 +7,19 @@ U symtab[YMAX];
 char *printname[YMAX];
 int nsym; // number of symbols in table;
 
+void
+std_symbol(char *s, int n)
+{
+	U *p;
+	p = symtab + n;
+	p->k = SYM;
+	p->u.sym.binding = p;
+	p->u.sym.binding2 = nil;
+	printname[n] = strdup(s);
+}
+
 U *
-get_symbol(char *s)
+usr_symbol(char *s)
 {
 	int i;
 	U *p;
@@ -24,17 +35,6 @@ get_symbol(char *s)
 	p->u.sym.binding = p;
 	p->u.sym.binding2 = nil;
 	return p;
-}
-
-void
-std_symbol(char *s, int n)
-{
-	U *p;
-	p = symtab + n;
-	p->k = SYM;
-	p->u.sym.binding = p;
-	p->u.sym.binding2 = nil;
-	printname[n] = strdup(s);
 }
 
 char *

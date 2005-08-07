@@ -86,7 +86,7 @@ run(char *s)
 
 		// don't print nil unless it was due to eval of a symbol
 
-		if (p2 == nil && !isusersym(p1))
+		if (p2 == nil && (iskeyword(p1) || !issymbol(p1)))
 			continue;
 
 		if (equal(symbol(TTY)->u.sym.binding, one) || test_flag) // tty mode?
@@ -95,10 +95,8 @@ run(char *s)
 #ifdef LINUX
 			display(p2);
 #else
-			if (isusersym(p1)
-			&& p1 != symbol(LAST)
-			&& p1 != symbol(TTY)
-			&& p1 != p2) {
+			if (issymbol(p1) && !iskeyword(p1) && p1 != p2) {
+				// print as a = b
 				push_symbol(SETQ);
 				push(p1);
 				push(p2);

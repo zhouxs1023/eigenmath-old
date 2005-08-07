@@ -322,7 +322,7 @@ setup_trange_f(void)
 
 	tmax = M_PI;
 
-	p1 = get_symbol("trange");
+	p1 = usr_symbol("trange");
 
 	if (!issymbol(p1))
 		return;
@@ -376,7 +376,7 @@ setup_xrange_f(void)
 
 	xmax = 10.0;
 
-	p1 = get_symbol("xrange");
+	p1 = usr_symbol("xrange");
 
 	if (!issymbol(p1))
 		return;
@@ -458,7 +458,7 @@ setup_yrange_f(void)
 
 	ymax = 10.0;
 
-	p1 = get_symbol("yrange");
+	p1 = usr_symbol("yrange");
 
 	if (!issymbol(p1))
 		return;

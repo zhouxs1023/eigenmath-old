@@ -1,5 +1,3 @@
-#include "stdafx.h"
-
 //-----------------------------------------------------------------------------
 //
 //	Compute eigenvalues and eigenvectors
@@ -34,6 +32,7 @@
 //
 //-----------------------------------------------------------------------------
 
+#include "stdafx.h"
 #include "defs.h"
 
 #define D(i, j) dd[n * (i) + (j)]
@@ -55,12 +54,12 @@ eval_eigen(void)
 
 	eigen(EIGEN);
 
-	p1 = get_symbol("D");
+	p1 = usr_symbol("D");
 
 	p1->u.sym.binding = p2;
 	p1->u.sym.binding2 = nil;
 
-	p1 = get_symbol("Q");
+	p1 = usr_symbol("Q");
 
 	p1->u.sym.binding = p3;
 	p1->u.sym.binding2 = nil;

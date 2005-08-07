@@ -37,7 +37,7 @@ typedef struct U {
 	unsigned char k, tag;
 } U;
 
-// the following enum is for struct U member j
+// the following enum is for struct U, member k
 
 enum {
 	CONS,
@@ -173,13 +173,19 @@ enum {
 	WEDGE,
 	ZERO,
 
-	NIL, // nil goes here, after standard functions
+	NIL,	// nil goes here, after standard functions
 
 	AUTOEXPAND,
 	E,
 	EXPOMODE,
-	IM,
 	LAST,
+	TTY,
+	YYLAST,
+
+	// symbols appearing above are printed in roman type
+
+	// the following symbols are printed in italic type
+
 	PI,
 	SYMBOL_A,
 	SYMBOL_B,
@@ -191,10 +197,8 @@ enum {
 	SYMBOL_X,
 	SYMBOL_Y,
 	SYMBOL_Z,
-	TTY,
-	YYLAST,
 
-	USER_SYMBOLS, // this must be last
+	USR_SYMBOLS,	// this must be last
 };
 
 #define TOS 1000000
@@ -238,10 +242,8 @@ extern U **frame;
 #define isnum(p) (isrational(p) || isdouble(p))
 #define isstr(p) ((p)->k == STR)
 #define istensor(p) ((p)->k == TENSOR)
-#define isscalar(p) ((p)->k != TENSOR)
 #define issymbol(p) ((p)->k == SYM)
-#define iskeyword(p) (issymbol(p) && symbol_index(p) <= NIL)
-#define isusersym(p) (issymbol(p) && symbol_index(p) > NIL)
+#define iskeyword(p) (issymbol(p) && symbol_index(p) < NIL)
 
 #define car(p) (iscons(p) ? (p)->u.cons.car : nil)
 #define cdr(p) (iscons(p) ? (p)->u.cons.cdr : nil)
@@ -509,7 +511,6 @@ void init_stack(void);
 void push_zero_matrix(int, int);
 void push_identity_matrix(int);
 void push_symbol(int);
-U *get_symbol(char *);
 char *get_printname(U *);
 U *symbol(int);
 void power(void);
@@ -665,5 +666,6 @@ extern void tchebychevT(void);
 extern void tchebychevU(void);
 extern double erfc(double);
 extern void std_symbol(char *, int);
+extern U *usr_symbol(char *);
 extern int symbol_index(U *);
 extern int iscomplexnumber(U *);
