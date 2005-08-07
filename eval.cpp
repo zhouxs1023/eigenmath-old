@@ -49,7 +49,6 @@ extern void eval_outer(void);
 extern void eval_product(void);
 extern void eval_rationalize(void);
 extern void eval_roots(void);
-extern void eval_sample(void);
 extern void eval_simfac(void);
 extern void eval_simplify(void);
 extern void eval_sgn(void);
@@ -929,7 +928,6 @@ eval_cons(void)
 	case RATIONALIZE:	eval_rationalize();	break;
 	case RETURN:		eval_return();		break;
 	case ROOTS:		eval_roots();		break;
-	case SAMPLE:		eval_sample();		break;
 	case SETQ:		eval_setq();		break;
 	case SGN:		eval_sgn();		break;
 	case SIMFAC:		eval_simfac();		break;

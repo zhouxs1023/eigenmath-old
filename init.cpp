@@ -121,7 +121,6 @@ init(void)
 	std_symbol("return", RETURN);
 	std_symbol("roots", ROOTS);
 	std_symbol("equals", SETQ);
-	std_symbol("sample", SAMPLE);
 	std_symbol("sgn", SGN);
 	std_symbol("simfac", SIMFAC);
 	std_symbol("simplify", SIMPLIFY);
@@ -152,14 +151,13 @@ init(void)
 	std_symbol("nil", NIL);
 
 	std_symbol("autoexpand", AUTOEXPAND);
-	std_symbol("~exp", E); // tilde so sort puts it after scalar symbols
 	std_symbol("expomode", EXPOMODE);
 	std_symbol("last", LAST);
 	std_symbol("tty", TTY);
+	std_symbol("~", YYE); // tilde so sort puts it after other symbols
 	std_symbol("", YYLAST);
 
 	std_symbol("pi", PI);
-
 	std_symbol("a", SYMBOL_A);
 	std_symbol("b", SYMBOL_B);
 	std_symbol("c", SYMBOL_C);
@@ -186,22 +184,22 @@ init(void)
 	formal_arg[4] = usr_symbol("$5");
 	formal_arg[5] = usr_symbol("$6");
 
-	// if anything is added here be sure it gets untagged in gc()
+	// set up for evaluation
 
 	tos = 0;
 	frame = stack + TOS;
 
 	push_integer(0);
-	zero = pop();
+	zero = pop();		// must be untagged in gc
 
 	push_integer(1);
-	one = pop();
+	one = pop();		// must be untagged in gc
 
 	push_symbol(POWER);
 	push_integer(-1);
 	push_rational(1, 2);
 	list(3);
-	imaginaryunit = pop();
+	imaginaryunit = pop();	// must be untagged in gc
 
 	defn();
 }

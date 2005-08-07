@@ -144,7 +144,6 @@ enum {
 	RATIONALIZE,
 	RETURN,
 	ROOTS,
-	SAMPLE,
 	SETQ,
 	SGN,
 	SIMFAC,
@@ -176,10 +175,10 @@ enum {
 	NIL,	// nil goes here, after standard functions
 
 	AUTOEXPAND,
-	E,
 	EXPOMODE,
 	LAST,
 	TTY,
+	YYE,
 	YYLAST,
 
 	// symbols appearing above are printed in roman type
@@ -200,6 +199,8 @@ enum {
 
 	USR_SYMBOLS,	// this must be last
 };
+
+#define E YYE
 
 #define TOS 1000000
 #define BUF 10000

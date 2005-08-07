@@ -71,13 +71,7 @@ gc(void)
 
 	// untag what's used
 
-	untag(zero);
-	untag(one);
-	untag(imaginaryunit);
-
 	untag_symbols();
-
-	untag(varlist);
 
 	untag(p1);
 	untag(p2);
@@ -88,14 +82,19 @@ gc(void)
 	untag(p7);
 	untag(p8);
 
+	untag(one);
+	untag(zero);
+	untag(imaginaryunit);
+
+	untag(varlist);
+	untag(table_of_integrals);
+	untag(table_of_fourier);
+
 	for (i = 0; i < tos; i++)
 		untag(stack[i]);
 
 	for (i = (int) (frame - stack); i < TOS; i++)
 		untag(stack[i]);
-
-	untag(table_of_integrals);
-	untag(table_of_fourier);
 
 	// collect everything that's still tagged
 

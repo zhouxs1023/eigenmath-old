@@ -77,7 +77,6 @@ extern void test_transpose(void);
 extern void test_user_func(void);
 extern void test_wedge(void);
 extern void test_zero(void);
-
 char logbuf[1000];
 static FILE *logfile;
 static jmp_buf jbuf;
