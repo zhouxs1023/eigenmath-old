@@ -178,6 +178,7 @@ enum {
 	EXPOMODE,
 	LAST,
 	TTY,
+	YVOID,
 	YYE,
 	YYLAST,
 
@@ -390,6 +391,7 @@ extern int ispoly_expr(U *, U *);
 extern void subst(void);
 extern int coeff(void);
 extern void eval(void);
+extern void eval_predicate(void);
 extern void eval_noexpand(void);
 extern void evalat(void);
 extern int find(U *, U *);
