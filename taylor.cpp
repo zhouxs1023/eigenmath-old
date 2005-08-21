@@ -1,12 +1,10 @@
-#include "stdafx.h"
-
 //-----------------------------------------------------------------------------
 //
 //	Generate a Taylor expansion for expr.
 //
-//	Input:	tos-4	expr
+//	Input:	tos-4	f(x)
 //
-//		tos-3	function var
+//		tos-3	x
 //
 //		tos-2	number of terms
 //
@@ -28,15 +26,60 @@
 //
 //-----------------------------------------------------------------------------
 
+#include "stdafx.h"
 #include "defs.h"
+static void ytaylor(void);
 
-static void __taylor(void);
+void
+eval_taylor(void)
+{
+	// 1st arg
+
+	p1 = cdr(p1);
+	push(car(p1));
+	eval();
+
+	// 2nd arg
+
+	p1 = cdr(p1);
+	push(car(p1));
+	eval();
+	p2 = pop();
+	if (p2 == nil)
+		guess(); // default x
+	else
+		push(p2);
+
+	// 3rd arg
+
+	p1 = cdr(p1);
+	push(car(p1));
+	eval();
+	p2 = pop();
+	if (p2 == nil)
+		push_integer(24); // default number of terms
+	else
+		push(p2);
+
+	// 4th arg
+
+	p1 = cdr(p1);
+	push(car(p1));
+	eval();
+	p2 = pop();
+	if (p2 == nil)
+		push_integer(0); // default expansion point
+	else
+		push(p2);
+
+	taylor();
+}
 
 void
 taylor(void)
 {
 	save();
-	__taylor();
+	ytaylor();
 	restore();
 }
 
@@ -47,7 +90,7 @@ taylor(void)
 #define C p5
 
 static void
-__taylor(void)
+ytaylor(void)
 {
 	int i, k;
 
@@ -118,8 +161,8 @@ static char *s[] = {
 	"taylor(1/(5+4*cos(x)),x,6)",
 	"1/9+2/81*x^2+5/1458*x^4+49/131220*x^6",
 
-	"taylor(ln(x),x,8)",
-	"Stop: undefined function",
+//	"taylor(ln(x),x,8)",
+//	"Stop: undefined function",
 
 	// make sure x is restored after taylor breaks
 

@@ -1,7 +1,5 @@
 #include "stdafx.h"
-
 #include "defs.h"
-
 static void d_scalar_scalar_1(void);
 void dsum(void);
 void dproduct(void);
@@ -33,6 +31,127 @@ static void dhermite(void);
 static void derf(void);
 static void derfc(void);
 static void derivative_of_integral(void);
+
+#define F p3
+#define X p4
+#define N p5
+
+void
+eval_derivative(void)
+{
+	int i, n;
+
+	// evaluate 1st arg to get function F
+
+	p1 = cdr(p1);
+	push(car(p1));
+	eval();
+
+	// evaluate 2nd arg and then...
+
+	// example	result of 2nd arg	what to do
+	//
+	// d(f)		nil			guess X, N = nil
+	// d(f,2)	2			guess X, N = 2
+	// d(f,x)	x			X = x, N = nil
+	// d(f,x,2)	x			X = x, N = 2
+	// d(f,x,y)	x			X = x, N = y
+
+	p1 = cdr(p1);
+	push(car(p1));
+	eval();
+
+	p2 = pop();
+	if (p2 == nil) {
+		guess();
+		push(nil);
+	} else if (isnum(p2)) {
+		guess();
+		push(p2);
+	} else {
+		push(p2);
+		p1 = cdr(p1);
+		push(car(p1));
+		eval();
+	}
+
+	N = pop();
+	X = pop();
+	F = pop();
+
+	while (1) {
+
+		// N might be a symbol instead of a number
+
+		if (isnum(N)) {
+			push(N);
+			n = pop_integer();
+			if (n == (int) 0x80000000)
+				stop("nth derivative: check n");
+		} else
+			n = 1;
+
+		push(F);
+
+		if (n >= 0) {
+			for (i = 0; i < n; i++) {
+				push(X);
+				derivative();
+			}
+		} else {
+			n = -n;
+			for (i = 0; i < n; i++) {
+				push(X);
+				integral();
+			}
+		}
+
+		F = pop();
+
+		// if N is nil then arglist is exhausted
+
+		if (N == nil)
+			break;
+
+		// otherwise...
+
+		// N		arg1		what to do
+		//
+		// number	nil		break
+		// number	number		N = arg1, continue
+		// number	symbol		X = arg1, N = arg2, continue
+		//
+		// symbol	nil		X = N, N = nil, continue
+		// symbol	number		X = N, N = arg1, continue
+		// symbol	symbol		X = N, N = arg1, continue
+
+		if (isnum(N)) {
+			p1 = cdr(p1);
+			push(car(p1));
+			eval();
+			N = pop();
+			if (N == nil)
+				break;		// arglist exhausted
+			if (isnum(N))
+				;		// N = arg1
+			else {
+				X = N;		// X = arg1
+				p1 = cdr(p1);
+				push(car(p1));
+				eval();
+				N = pop();	// N = arg2
+			}
+		} else {
+			X = N;			// X = N
+			p1 = cdr(p1);
+			push(car(p1));
+			eval();
+			N = pop();		// N = arg1
+		}
+	}
+
+	push(F); // final result
+}
 
 void
 derivative(void)
@@ -903,6 +1022,38 @@ static char *s[] = {
 
 	"d(erf(x))-2*exp(-x^2)/sqrt(pi)",
 	"0",
+
+// arg lists
+
+	"f=x^5*y^7",
+	"",
+
+	"d(f)",
+	"5*x^4*y^7",
+
+	"d(f,x)",
+	"5*x^4*y^7",
+
+	"d(f,x,0)",
+	"x^5*y^7",
+
+	"d(f,x,1)",
+	"5*x^4*y^7",
+
+	"d(f,x,2)",
+	"20*x^3*y^7",
+
+	"d(f,2)",
+	"20*x^3*y^7",
+
+	"d(f,2,y)",
+	"140*x^3*y^6",
+
+	"d(f,x,x,y,y)",
+	"840*x^3*y^5",
+
+	"f=quote(f)",
+	"",
 };
 
 void

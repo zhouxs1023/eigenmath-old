@@ -1,3 +1,14 @@
+// Draw evaluates the first argument.
+//
+// Test case 1. Checks default arg and verifies "last" is correct.
+//	x^2
+//	draw
+//	integral			result should be 1/3 x^3
+//
+// Test case 2. Checks that 1st arg is evaluated and "last" is correct.
+//	draw(integral(erf(x)))
+//	derivative			result should be erf(x)
+
 #include "stdafx.h"
 #include "defs.h"
 
@@ -50,11 +61,14 @@ static struct {
 
 static int draw_count;
 
-// to here from eval.cpp
-
 void
 eval_draw(void)
 {
+	// 1st arg
+
+	push(cadr(p1));
+	eval();
+
 	// save "last" so we can do, for example,
 	//
 	//	x^2
@@ -65,33 +79,18 @@ eval_draw(void)
 
 	push(symbol(YYLAST)->u.sym.binding);
 
-	p2 = caddr(p1);	// free variable in function
-	p1 = cadr(p1);	// function to draw
+	// must eval 2nd arg in case it's $1, $2, etc.
 
-	// if first arg is a symbol then evaluate it
+	push(caddr(p1));
+	eval();
 
-	if (issymbol(p1)) {
-		push(p1);
-		eval();
-		p1 = pop();
-	}
+	p2 = pop();
 
-	// if second arg is nil then guess
+	if (p2 == nil)
+		guess();
+	else
+		push(p2);
 
-	if (p2 == nil) {
-		if (find(p1, symbol(SYMBOL_X)))
-			p2 = symbol(SYMBOL_X);
-		else if (find(p1, symbol(SYMBOL_T)))
-			p2 = symbol(SYMBOL_T);
-		else if (find(p1, symbol(SYMBOL_R)))
-			p2 = symbol(SYMBOL_R);
-		else
-			p2 = symbol(SYMBOL_X);
-	}
-
-
-	push(p1); // function to draw
-	push(p2); // free variable in function
 	draw();
 
 	symbol(YYLAST)->u.sym.binding = pop();

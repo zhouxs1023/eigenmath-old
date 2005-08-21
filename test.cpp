@@ -1,22 +1,30 @@
+// If odd number of args then last arg is a default case.
+
 #include "stdafx.h"
 #include "defs.h"
 
 void
 eval_test(void)
 {
-	p2 = cdr(p1);
-	while (iscons(p2)) {
-		push(car(p2));
-		eval();
-		p3 = pop();
-		if (isnum(p3) && !iszero(p3)) {
-			push(cadr(p2));
+	p1 = cdr(p1);
+	while (p1 != nil) {
+		if (cdr(p1) == nil) {
+			// default case
+			push(car(p1));
 			eval();
 			return;
 		}
-		p2 = cddr(p2);
+		push(car(p1));
+		eval_predicate();
+		p2 = pop();
+		if (isnum(p2) && !iszero(p2)) {
+			push(cadr(p1));
+			eval();
+			return;
+		}
+		p1 = cddr(p1);
 	}
-	push(p1);
+	push(symbol(YVOID));
 }
 
 void
@@ -49,7 +57,7 @@ eval_testge(void)
 		else
 			push(one);
 	else
-		push(p1);
+		push(symbol(YVOID));
 }
 
 void
@@ -68,7 +76,7 @@ eval_testgt(void)
 		else
 			push(zero);
 	else
-		push(p1);
+		push(symbol(YVOID));
 }
 
 void
@@ -87,7 +95,7 @@ eval_testle(void)
 		else
 			push(one);
 	else
-		push(p1);
+		push(symbol(YVOID));
 }
 
 void
@@ -105,7 +113,7 @@ eval_testlt(void)
 		else
 			push(zero);
 	else
-		push(p1);
+		push(symbol(YVOID));
 }
 
 static char *s[] = {
@@ -117,7 +125,7 @@ static char *s[] = {
 	"0",
 
 	"a==b",
-	"testeq(a,b)",
+	"void",
 
 	"1>=1",
 	"1",
@@ -129,7 +137,7 @@ static char *s[] = {
 	"1",
 
 	"a>=b",
-	"testge(a,b)",
+	"void",
 
 	"1>1",
 	"0",
@@ -141,7 +149,7 @@ static char *s[] = {
 	"1",
 
 	"a>b",
-	"testgt(a,b)",
+	"void",
 
 	"1<=1",
 	"1",
@@ -153,7 +161,7 @@ static char *s[] = {
 	"0",
 
 	"a<=b",
-	"testle(a,b)",
+	"void",
 
 	"1<1",
 	"0",
@@ -165,7 +173,19 @@ static char *s[] = {
 	"0",
 
 	"a<b",
-	"testlt(a,b)",
+	"void",
+
+	"test(0,A,B)",
+	"B",
+
+	"test(1,A,B)",
+	"A",
+
+	"test(0,A,0,B)",
+	"void",
+
+	"test(0,A,0,B,C)",
+	"C",
 };
 
 void

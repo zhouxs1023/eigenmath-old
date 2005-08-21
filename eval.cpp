@@ -22,6 +22,7 @@ extern void eval_convolution(void);
 extern void eval_cos(void);
 extern void eval_cosh(void);
 extern void eval_denominator(void);
+extern void eval_derivative(void);
 extern void eval_dirac(void);
 extern void eval_display(void);
 extern void eval_draw(void);
@@ -57,6 +58,7 @@ extern void eval_sinh(void);
 extern void eval_sum(void);
 extern void eval_tan(void);
 extern void eval_tanh(void);
+extern void eval_taylor(void);
 extern void eval_tchebychevT(void);
 extern void eval_tchebychevU(void);
 extern void eval_test(void);
@@ -204,32 +206,6 @@ eval_degree(void)
 	push(caddr(p1));
 	eval();
 	degree();
-}
-
-static void
-eval_derivative(void)
-{
-	push(cadr(p1));
-	eval();
-	if (caddr(p1) == nil) {
-		if (find(stack[tos - 1], symbol(SYMBOL_X)))
-			push_symbol(SYMBOL_X);
-		else if (find(stack[tos - 1], symbol(SYMBOL_T)))
-			push_symbol(SYMBOL_T);
-		else if (find(stack[tos - 1], symbol(SYMBOL_R)))
-			push_symbol(SYMBOL_R);
-		else
-			push_symbol(SYMBOL_X); // d(f()) -> d(f(),x)
-		derivative();
-		return;
-	}
-	p1 = cddr(p1);
-	while (iscons(p1)) {
-		push(car(p1));
-		eval();
-		derivative();
-		p1 = cdr(p1);
-	}
 }
 
 static void
@@ -726,23 +702,6 @@ eval_tab(void)
 }
 
 static void
-eval_taylor(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	push(cadddr(p1));
-	eval();
-	if (iscons(cddddr(p1)))
-		push(caddddr(p1));
-	else
-		push(zero); // default expansion point
-	eval();
-	taylor();
-}
-
-static void
 eval_unit(void)
 {
 	int i, n;
@@ -1041,4 +1000,20 @@ filter_tensor(void)
 		p3->u.tensor->elem[i] = pop();
 	}
 	push(p3);
+}
+
+// like eval() except "=" is evaluated as "=="
+
+void
+eval_predicate(void)
+{
+	save();
+	p1 = pop();
+	if (car(p1) == symbol(SETQ))
+		eval_testeq();
+	else {
+		push(p1);
+		eval();
+	}
+	restore();
 }
