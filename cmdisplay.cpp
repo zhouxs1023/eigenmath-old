@@ -40,7 +40,6 @@ static int mheight(void);
 static int shim(void);
 static int hrule_thickness(void);
 static void emit_hrule(int);
-static int isnegativeterm(U *);
 static int isgreek(char *);
 static void do_groups(void);
 static void do_group(int, int);
@@ -67,7 +66,7 @@ static void emit_paren_space_maybe(void);
 #define DRAW_LEFT_DELIMETER 21
 #define DRAW_RIGHT_DELIMETER 22
 
-extern struct {
+extern struct y {
 	int ascent, descent, width;
 } text_metric[11];
 
@@ -309,17 +308,6 @@ emit_expr(U *p)
 		}
 		emit_term(p);
 	}
-}
-
-static int
-isnegativeterm(U *p)
-{
-	if (isnegativenumber(p))
-		return 1;
-	else if (car(p) == symbol(MULTIPLY) && isnegativenumber(cadr(p)))
-		return 1;
-	else
-		return 0;
 }
 
 static void

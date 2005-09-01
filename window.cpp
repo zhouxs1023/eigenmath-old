@@ -46,7 +46,7 @@ int term_flag;
 //
 //	1	display
 
-struct {
+struct yy {
 	unsigned char type, attr;
 	int w, h;
 	union {

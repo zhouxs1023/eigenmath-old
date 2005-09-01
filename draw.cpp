@@ -15,7 +15,7 @@
 extern int text_width(int, char *);
 extern void shipout(unsigned char *, int, int);
 
-extern struct {
+extern struct y {
 	int ascent, descent, width;
 } text_metric[11];
 

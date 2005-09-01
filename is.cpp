@@ -165,10 +165,10 @@ ispoly_factor(U *p, U *x)
 int
 isnegativeterm(U *p)
 {
-	if (isnum(p))
-		return isnegativenumber(p);
-	else if (car(p) == symbol(MULTIPLY) && isnum(cadr(p)))
-		return isnegativenumber(cadr(p));
+	if (isnegativenumber(p))
+		return 1;
+	else if (car(p) == symbol(MULTIPLY) && isnegativenumber(cadr(p)))
+		return 1;
 	else
 		return 0;
 }

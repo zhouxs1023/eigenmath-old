@@ -60,7 +60,7 @@ static int running;
 static unsigned int timer;
 static int edit_mode;
 
-struct {
+struct y {
     int ascent, descent, width;
 } text_metric[11];
 
@@ -97,7 +97,6 @@ extern void printstr(char *);
 extern void clear(void);
 extern void draw_display(void);
 extern void run(char *);
-extern void do_help(int);
 extern char *get_tty_buf(void);
 
 void do_control_stuff(void);
@@ -113,13 +112,11 @@ void update_curr_cmd(char *);
 static void file_svas(void);
 static void do_save(void);
 static void file_open(void);
-static void do_example(int);
 static void update_edit_control(void);
 static void select_font(int);
 static void update_scroll_bars(void);
 static void vscroll_f(ControlRef, ControlPartCode);
 static void hscroll_f(ControlRef, ControlPartCode);
-static void do_main_help(int);
 static void do_return_key(void);
 static void do_button(char *);
 static void draw_display_now(void);
@@ -155,8 +152,8 @@ static char script_buf[SCRIPT_BUF_LEN + 1];
 static char tmp_buf[TMP_BUF_LEN + 1];
 static char *inp;
 
+#if 0
 /* Register help book */
-
 static void
 register_help(void)
 {
@@ -178,6 +175,7 @@ register_help(void)
         CFRelease(mainBundle);
     }
 }
+#endif
 
 static void
 timer_function(EventLoopTimerRef ref, void *data)
@@ -224,7 +222,7 @@ int main(int argc, char* argv[])
     // We don't need the nib reference anymore.
     DisposeNibReference(nibRef);
 
-    register_help();
+    //register_help();
 
     // The window was created hidden so show it.
     //ShowWindow( window );
@@ -384,19 +382,19 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
 
     case 'abou':
         if (running)
-		break;
-	go_to_calc_mode();
-        printstr("This is Eigenmath version 103.\n");
+			break;
+		go_to_calc_mode();
+        printstr("(version 108) home page: eigenmath.sourceforge.net\n");
         update_display();
         break;
 
     case 'new ':
         if (running)
 	    break;
-	go_to_edit_mode();
+		go_to_edit_mode();
         *filename = 0;
         *script_buf = 0;
-	update_edit_control();
+		update_edit_control();
         break;
 
     case 'open':
@@ -423,79 +421,13 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
 // edit menu
 
     case 'CPY1':
-	go_to_calc_mode();
+		go_to_calc_mode();
         copy_display();
         break;
 
     case 'CPY2':
-	go_to_calc_mode();
+		go_to_calc_mode();
         copy_tty();
-        break;
-
-// howto menu
-
-    case 'H001':
-        do_main_help(1);
-        break;
-    case 'H002':
-        do_main_help(2);
-        break;
-    case 'H003':
-        do_main_help(3);
-        break;
-    case 'H004':
-        do_main_help(4);
-        break;
-    case 'H005':
-        do_main_help(5);
-        break;
-    case 'H006':
-        do_main_help(6);
-        break;
-    case 'H007':
-        do_main_help(7);
-        break;
-    case 'H008':
-        do_main_help(8);
-        break;
-    case 'H009':
-        do_main_help(9);
-        break;
-    case 'H010':
-        do_main_help(10);
-        break;
-    case 'H011':
-        do_main_help(11);
-        break;
-    case 'H012':
-        do_main_help(12);
-        break;
-    case 'H013':
-        do_main_help(13);
-        break;
-
-    // sample scripts
-
-    case 'GMA ':
-        do_example(0);
-        break;
-    case 'VC  ':
-        do_example(1);
-        break;
-    case 'RM  ':
-        do_example(2);
-        break;
-    case 'QHO ':
-        do_example(3);
-        break;
-    case 'HW  ':
-        do_example(4);
-        break;
-    case 'SSM ':
-        do_example(5);
-        break;
-    case 'FPDE':
-        do_example(6);
         break;
 
     default:
@@ -792,19 +724,6 @@ update_edit_control(void)
     sel.selEnd = 0;
     SetControlData(edit_control, 0, kYASTControlSelectionRangeTag, sizeof sel, &sel);
     ShowControl(edit_control);
-}
-
-extern char *example_script[7];
-
-static void
-do_example(int n)
-{
-	if (running)
-		return;
-	go_to_edit_mode();
-	*filename = 0;
-	strcpy(script_buf, example_script[n]);
-	update_edit_control();
 }
 
 static void
@@ -1257,16 +1176,6 @@ hscroll_f(ControlRef ref, ControlPartCode part)
     DisposeRgn(tmp);
 
     update_scroll_bars();
-}
-
-static void
-do_main_help(int n)
-{
-	if (running)
-		return;
-	go_to_calc_mode();
-	do_help(n);
-	update_display();
 }
 
 static OSStatus
