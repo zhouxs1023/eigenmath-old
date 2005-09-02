@@ -2,6 +2,7 @@
 #include "defs.h"
 extern U *unique(U *);
 extern void eval_abs(void);
+extern void eval_and(void);
 extern void eval_arccos(void);
 extern void eval_arccosh(void);
 extern void eval_arcsin(void);
@@ -45,7 +46,9 @@ extern void eval_invfourier(void);
 extern void eval_isprime(void);
 extern void eval_log(void);
 extern void eval_mod(void);
+extern void eval_not(void);
 extern void eval_numerator(void);
+extern void eval_or(void);
 extern void eval_outer(void);
 extern void eval_product(void);
 extern void eval_rationalize(void);
@@ -148,28 +151,11 @@ eval_charpoly(void)
 static void
 eval_check(void)
 {
-	p1 = cadr(p1);
-	if (car(p1) == symbol(TESTLE)
-	|| car(p1) == symbol(TESTLT)
-	|| car(p1) == symbol(TESTGE)
-	|| car(p1) == symbol(TESTGT)) {
-		push(p1);
-		eval();
-		push(one);
-		subtract();
-	} else if (car(p1) == symbol(SETQ) || car(p1) == symbol(TESTEQ)) {
-		push(cadr(p1));
-		eval();
-		push(caddr(p1));
-		eval();
-		subtract();
-	} else {
-		push(p1);
-		eval();
-	}
+	push(cadr(p1));
+	eval_predicate();
 	p1 = pop();
-	if (!iszero(p1))
-		stop("check(arg): arg is not zero");
+	if (!iszero(p1) && p1 != symbol(YYTRUE))
+		stop("check(arg): arg is not zero and not true");
 	push(nil);
 }
 
@@ -800,6 +786,7 @@ eval_cons(void)
 	case ABS:		eval_abs();		break;
 	case ADD:		eval_add();		break;
 	case ADJ:		eval_adj();		break;
+	case AND:		eval_and();		break;
 	case ARCCOS:		eval_arccos();		break;
 	case ARCCOSH:		eval_arccosh();		break;
 	case ARCSIN:		eval_arcsin();		break;
@@ -874,8 +861,10 @@ eval_cons(void)
 	case LOG:		eval_log();		break;
 	case MOD:		eval_mod();		break;
 	case MULTIPLY:		eval_multiply();	break;
+	case NOT:		eval_not();		break;
 	case NUMERATOR:		eval_numerator();	break;
 	case OPERATOR:		eval_operator();	break;
+	case OR:		eval_or();		break;
 	case OUTER:		eval_outer();		break;
 	case POWER:		eval_power();		break;
 	case PRIME:		eval_prime();		break;

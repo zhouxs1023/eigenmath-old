@@ -15,9 +15,7 @@
 extern int text_width(int, char *);
 extern void shipout(unsigned char *, int, int);
 
-extern struct y {
-	int ascent, descent, width;
-} text_metric[11];
+extern struct text_metric text_metric[11];
 
 #define SMALL_FONT 1
 #define DEFAULT_FONT 2

@@ -57,6 +57,7 @@ enum {
 	ABS,
 	ADD,
 	ADJ,
+	AND,
 	ARCCOS,
 	ARCCOSH,
 	ARCSIN,
@@ -131,8 +132,10 @@ enum {
 	LOG,
 	MOD,
 	MULTIPLY,
+	NOT,
 	NUMERATOR,
 	OPERATOR,
+	OR,
 	OUTER,
 	POWER,
 	PRIME,
@@ -178,9 +181,11 @@ enum {
 	EXPOMODE,
 	LAST,
 	TTY,
-	YVOID,
+	YYVOID,
 	YYE,
 	YYLAST,
+	YYTRUE,
+	YYFALSE,
 
 	// symbols appearing above are printed in roman type
 
@@ -234,6 +239,10 @@ struct display {
 	struct {
 		int c, x, y;
 	} a[1]; // a for array
+};
+
+struct text_metric {
+	int ascent, descent, width;
 };
 
 extern U **frame;
@@ -672,3 +681,8 @@ extern void std_symbol(char *, int);
 extern U *usr_symbol(char *);
 extern int symbol_index(U *);
 extern int iscomplexnumber(U *);
+
+// In case I forget to use YY...
+
+#undef TRUE
+#undef FALSE

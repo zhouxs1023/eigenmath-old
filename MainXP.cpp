@@ -69,7 +69,7 @@ HMENU main_menu;
 
 HFONT display_font[NFONT];
 
-struct {
+struct text_metric {
 	int ascent, descent, width;
 } text_metric[NFONT];
 

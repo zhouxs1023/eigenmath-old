@@ -420,7 +420,7 @@ match(U *actual, U *formal, U *caveats, int h1, int h2)
 						push(car(p1));
 						eval();
 						p2 = pop();
-						if (!isnum(p2) || iszero(p2))
+						if (p2 != symbol(YYTRUE))
 							break;
 						p1 = cdr(p1);
 						}

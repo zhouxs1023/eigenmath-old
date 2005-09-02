@@ -60,7 +60,7 @@ static int running;
 static unsigned int timer;
 static int edit_mode;
 
-struct y {
+struct text_metric {
     int ascent, descent, width;
 } text_metric[11];
 

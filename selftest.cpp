@@ -1302,10 +1302,10 @@ char *script[] = {
 	// equality of tensors
 
 	"testeq((1,2),(1,2))",
-	"1",
+	"true",
 
 	"testeq((1,2),(1,3))",
-	"0",
+	"false",
 
 	// the "check" function with tensor arg
 

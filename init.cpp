@@ -33,6 +33,7 @@ init(void)
 	std_symbol("abs", ABS);
 	std_symbol("add", ADD);
 	std_symbol("adj", ADJ);
+	std_symbol("and", AND);
 	std_symbol("arccos", ARCCOS);
 	std_symbol("arccosh", ARCCOSH);
 	std_symbol("arcsin", ARCSIN);
@@ -107,8 +108,10 @@ init(void)
 	std_symbol("log", LOG);
 	std_symbol("mod", MOD);
 	std_symbol("multiply", MULTIPLY);
+	std_symbol("not", NOT);
 	std_symbol("numerator", NUMERATOR);
 	std_symbol("operator", OPERATOR);
+	std_symbol("or", OR);
 	std_symbol("outer", OUTER);
 	std_symbol("power", POWER);
 	std_symbol("prime", PRIME);
@@ -154,9 +157,11 @@ init(void)
 	std_symbol("expomode", EXPOMODE);
 	std_symbol("last", LAST);
 	std_symbol("tty", TTY);
-	std_symbol("void", YVOID);
+	std_symbol("void", YYVOID);
 	std_symbol("~", YYE); // tilde so sort puts it after other symbols
 	std_symbol("", YYLAST);
+	std_symbol("true", YYTRUE);
+	std_symbol("false", YYFALSE);
 
 	std_symbol("pi", PI);
 	std_symbol("a", SYMBOL_A);

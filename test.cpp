@@ -17,14 +17,14 @@ eval_test(void)
 		push(car(p1));
 		eval_predicate();
 		p2 = pop();
-		if (isnum(p2) && !iszero(p2)) {
+		if (p2 == symbol(YYTRUE)) {
 			push(cadr(p1));
 			eval();
 			return;
 		}
 		p1 = cddr(p1);
 	}
-	push(symbol(YVOID));
+	push(symbol(YYVOID));
 }
 
 void
@@ -37,9 +37,9 @@ eval_testeq(void)
 	p2 = pop();
 	p1 = pop();
 	if (equal(p1, p2))
-		push(one);
+		push(symbol(YYTRUE));
 	else
-		push(zero);
+		push(symbol(YYFALSE));
 }
 
 void
@@ -53,11 +53,11 @@ eval_testge(void)
 	p2 = pop();
 	if (isnum(p2))
 		if (isnegativenumber(p2))
-			push(zero);
+			push(symbol(YYFALSE));
 		else
-			push(one);
+			push(symbol(YYTRUE));
 	else
-		push(symbol(YVOID));
+		push(symbol(YYVOID));
 }
 
 void
@@ -72,11 +72,11 @@ eval_testgt(void)
 	p2 = pop();
 	if (isnum(p2))
 		if (isnegativenumber(p2))
-			push(one);
+			push(symbol(YYTRUE));
 		else
-			push(zero);
+			push(symbol(YYFALSE));
 	else
-		push(symbol(YVOID));
+		push(symbol(YYVOID));
 }
 
 void
@@ -91,11 +91,11 @@ eval_testle(void)
 	p2 = pop();
 	if (isnum(p2))
 		if (isnegativenumber(p2))
-			push(zero);
+			push(symbol(YYFALSE));
 		else
-			push(one);
+			push(symbol(YYTRUE));
 	else
-		push(symbol(YVOID));
+		push(symbol(YYVOID));
 }
 
 void
@@ -109,11 +109,65 @@ eval_testlt(void)
 	p2 = pop();
 	if (isnum(p2))
 		if (isnegativenumber(p2))
-			push(one);
+			push(symbol(YYTRUE));
 		else
-			push(zero);
+			push(symbol(YYFALSE));
 	else
-		push(symbol(YVOID));
+		push(symbol(YYVOID));
+}
+
+void
+eval_not(void)
+{
+	push(cadr(p1));
+	eval_predicate();
+	p1 = pop();
+	if (p1 == symbol(YYTRUE))
+		push(symbol(YYFALSE));
+	else if (p1 == symbol(YYFALSE))
+		push(symbol(YYTRUE));
+	else
+		push(symbol(YYVOID));
+}
+
+void
+eval_and(void)
+{
+	p2 = symbol(YYTRUE);
+	p1 = cdr(p1);
+	while (iscons(p1)) {
+		push(car(p1));
+		eval_predicate();
+		p3 = pop();
+		if (p3 == symbol(YYFALSE)) {
+			push(p3);
+			return;
+		}
+		if (p3 != symbol(YYTRUE))
+			p2 = symbol(YYVOID);
+		p1 = cdr(p1);
+	}
+	push(p2);
+}
+
+void
+eval_or(void)
+{
+	p2 = symbol(YYFALSE);
+	p1 = cdr(p1);
+	while (iscons(p1)) {
+		push(car(p1));
+		eval_predicate();
+		p3 = pop();
+		if (p3 == symbol(YYTRUE)) {
+			push(p3);
+			return;
+		}
+		if (p3 != symbol(YYFALSE))
+			p2 = symbol(YYVOID);
+		p1 = cdr(p1);
+	}
+	push(p2);
 }
 
 static char *s[] = {
@@ -128,64 +182,100 @@ static char *s[] = {
 	"void",
 
 	"1>=1",
-	"1",
+	"true",
 
 	"1>=2",
-	"0",
+	"false",
 
 	"2>=1",
-	"1",
+	"true",
 
 	"a>=b",
 	"void",
 
 	"1>1",
-	"0",
+	"false",
 
 	"1>2",
-	"0",
+	"false",
 
 	"2>1",
-	"1",
+	"true",
 
 	"a>b",
 	"void",
 
 	"1<=1",
-	"1",
+	"true",
 
 	"1<=2",
-	"1",
+	"true",
 
 	"2<=1",
-	"0",
+	"false",
 
 	"a<=b",
 	"void",
 
 	"1<1",
-	"0",
+	"false",
 
 	"1<2",
-	"1",
+	"true",
 
 	"2<1",
-	"0",
+	"false",
 
 	"a<b",
 	"void",
 
-	"test(0,A,B)",
+	"test(false,A,B)",
 	"B",
 
-	"test(1,A,B)",
+	"test(true,A,B)",
 	"A",
 
-	"test(0,A,0,B)",
+	"test(false,A,false,B)",
 	"void",
 
-	"test(0,A,0,B,C)",
+	"test(false,A,false,B,C)",
 	"C",
+
+	"not(true)",
+	"false",
+
+	"not(false)",
+	"true",
+
+	"not(0)",
+	"void",
+
+	"not(a=a)",
+	"false",
+
+	"and(true,true)",
+	"true",
+
+	"and(true,false)",
+	"false",
+
+	"and(true,void)",
+	"void",
+
+	"and(false,void)",
+	"false",
+
+	"or(true,false)",
+	"true",
+
+	"or(false,false)",
+	"false",
+
+	"or(false,void)",
+	"void",
+
+	"or(true,void)",
+	"true",
 };
 
 void

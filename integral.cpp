@@ -300,7 +300,7 @@ match(U *actual, U *formal, U *caveats, int h1, int h2)
 				push(car(p1));
 				eval();
 				p2 = pop();
-				if (!isnum(p2) || iszero(p2))
+				if (p2 != symbol(YYTRUE))
 					break;
 				p1 = cdr(p1);
 			}
@@ -928,14 +928,14 @@ char *integrals[] = {
 
 	"1/(a+b*sin(x))",
 	"1/sqrt(b^2-a^2)*log((a*tan(x/2)+b-sqrt(b^2-a^2))/(a*tan(x/2)+b+sqrt(b^2-a^2)))",
-	"test(a==b,0,1,1)",
+	"test(a=b,false,true)",
 	NULL,
 
 // 341
 
 	"1/(a+b*cos(x))",
 	"1/sqrt(b^2-a^2)*log((sqrt(b^2-a^2)*tan(x/2)+a+b)/(sqrt(b^2-a^2)*tan(x/2)-a-b))",
-	"test(a==b,0,1,1)",
+	"test(a=b,false,true)",
 	NULL,
 
 // 441

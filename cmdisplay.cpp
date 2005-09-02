@@ -66,9 +66,7 @@ static void emit_paren_space_maybe(void);
 #define DRAW_LEFT_DELIMETER 21
 #define DRAW_RIGHT_DELIMETER 22
 
-extern struct y {
-	int ascent, descent, width;
-} text_metric[11];
+extern struct text_metric text_metric[11];
 
 #define NGREEK 34
 
