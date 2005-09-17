@@ -331,7 +331,8 @@ MyRegisterClass(HINSTANCE hInstance)
 	wcex.cbClsExtra		= 0;
 	wcex.cbWndExtra		= 0;
 	wcex.hInstance		= hInstance;
-	wcex.hIcon			= LoadIcon(hInstance, (LPCSTR) IDI_ICON1);
+	wcex.hIcon		= LoadIcon(hInstance, (LPCSTR) IDI_ICON1);
+	//wcex.hIcon		= CreateIcon(hInstance, 0, 0, 0, 0, NULL, NULL);
 	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
 	wcex.hbrBackground	= (HBRUSH)(COLOR_WINDOW + 1);
 	wcex.lpszMenuName	= NULL;
@@ -472,7 +473,7 @@ do_more_setup(void)
 		hinst,
 		NULL);
 
-	SendMessage(edit_window, WM_SETFONT, (WPARAM) GetStockObject(OEM_FIXED_FONT), 0);
+	SendMessage(edit_window, WM_SETFONT, (WPARAM) display_font[DEFAULT_FONT], 0);
 
 	// create buttons
 
@@ -1710,22 +1711,6 @@ OPENFILENAME ofn;
 char filename[1000];
 
 // f = fopen(s, "rb"); // must do rb for msdos files else \r changes to \n
-
-#if 0
-
-extern char *example_script[7];
-
-static void
-do_example(int k)
-{
-	if (running)
-		return;
-	*filename = 0;
-	SetWindowText(edit_window, example_script[k]);
-	goto_edit_mode();
-}
-
-#endif
 
 static void
 do_create_script(void)
