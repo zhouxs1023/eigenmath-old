@@ -736,7 +736,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			if (running)
 				break;
 			goto_calc_mode();
-			printstr("(version 108) home page: eigenmath.sourceforge.net\n");
+			printstr("version 109 eigenmath.sourceforge.net\n");
 			update_display();
 			break;
 		case ID_MEMORY:

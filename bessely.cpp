@@ -12,8 +12,7 @@
 
 #include "stdafx.h"
 #include "defs.h"
-static void __bessely(void);
-extern int isnegativeterm(U *);
+static void yybessely(void);
 
 void
 eval_bessely(void)
@@ -29,15 +28,15 @@ void
 bessely(void)
 {
 	save();
-	__bessely();
+	yybessely();
 	restore();
 }
 
 #define X p1
 #define N p2
 
-void
-__bessely(void)
+static void
+yybessely(void)
 {
 	double d;
 	int n;
@@ -48,8 +47,8 @@ __bessely(void)
 	push(N);
 	n = pop_integer();
 
-	if (isdouble(X) && (isinteger(N))) {
-		d = yn(n,X->u.d);
+	if (isdouble(X) && n != (int) 0x80000000) {
+		d = yn(n, X->u.d);
 		push_double(d);
 		return;
 	}
@@ -67,23 +66,17 @@ __bessely(void)
 		return;
 	}
 
-
-	
 	push_symbol(BESSELY);
 	push(X);
 	push(N);
 	list(3);
 	return;
-
 }
-
 
 static char *s[] = {
 
 	"bessely(x,n)",
 	"bessely(x,n)",
-
-
 };
 
 void

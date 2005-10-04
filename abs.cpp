@@ -1,8 +1,8 @@
+// Absolute value, aka vector magnitude
+
 #include "stdafx.h"
 #include "defs.h"
-extern void conjugate(void);
-extern int isnegativeterm(U *);
-static void yabsval(void);
+static void yyabsval(void);
 static void absval_tensor(void);
 
 void
@@ -17,13 +17,15 @@ void
 absval(void)
 {
 	save();
-	yabsval();
+	yyabsval();
 	restore();
 }
 
 static void
-yabsval(void)
+yyabsval(void)
 {
+	int h;
+
 	p1 = pop();
 
 	if (istensor(p1)) {
@@ -45,6 +47,30 @@ yabsval(void)
 		multiply();
 		push_rational(1, 2);
 		power();
+		return;
+	}
+
+	// abs(1/a) evaluates to 1/abs(a)
+
+	if (car(p1) == symbol(POWER) && isnegativeterm(caddr(p1))) {
+		push(p1);
+		reciprocate();
+		absval();
+		reciprocate();
+		return;
+	}
+
+	// abs(a*b) evaluates to abs(a)*abs(b)
+
+	if (car(p1) == symbol(MULTIPLY)) {
+		h = tos;
+		p1 = cdr(p1);
+		while (iscons(p1)) {
+			push(car(p1));
+			absval();
+			p1 = cdr(p1);
+		}
+		multiply_all(tos - h);
 		return;
 	}
 
@@ -93,16 +119,16 @@ static char *s[] = {
 	"abs(a)",
 
 	"abs(2*a)",
-	"abs(2*a)",
+	"2*abs(a)",
 
 	"abs(-2*a)",
-	"abs(2*a)",
+	"2*abs(a)",
 
 	"abs(2.0*a)",
-	"abs(2*a)",
+	"2*abs(a)",
 
 	"abs(-2.0*a)",
-	"abs(2*a)",
+	"2*abs(a)",
 
 	"abs(a-b)+abs(b-a)",
 	"2*abs(a-b)",
@@ -112,6 +138,15 @@ static char *s[] = {
 
 	"abs((2,3,4))",
 	"29^(1/2)",
+
+	"abs(a*b)",
+	"abs(a)*abs(b)",
+
+	"abs(a/b)",
+	"abs(a)/abs(b)",
+
+	"abs(1/a^b)",
+	"1/(abs(a^b))",
 };
 
 void
