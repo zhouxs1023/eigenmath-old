@@ -2,12 +2,12 @@
 #
 # 1. Unpack the tarball.
 #
-#	$ tar zxf math102.tar.gz
+#	$ tar zxf eigenmath-linux.tar.gz
 #
 # 2. Compile it. (For Power PC and other big endian machines, first add -DMAC
 #    to CFLAGS below.)
 #
-#	$ cd math102
+#	$ cd eigenmath
 #	$ make
 #
 # 3. Test it.
@@ -15,7 +15,7 @@
 #	$ ./math
 #	> --test
 #
-# 4. Press control-c to get out.
+# 4. Press control-c to quit.
 #
 #	> ^C
 #	$
@@ -24,7 +24,9 @@
 #
 #	$ ./math StaticSphericalMetric
 #
-# 6. See eigenhead.com for more examples.
+#	$ ./math script1 script2 script3
+#
+# 6. See eigenmath.sourceforge.net for more.
 
 
 # CXX and CXXFLAGS are used by make's implicit rule for compiling C++ files.

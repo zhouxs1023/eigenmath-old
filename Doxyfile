@@ -3,7 +3,7 @@
 #---------------------------------------------------------------------------
 # Project related configuration options
 #---------------------------------------------------------------------------
-PROJECT_NAME           = "Eigenmath 107"
+PROJECT_NAME           = "Eigenmath 109"
 PROJECT_NUMBER         = 
 OUTPUT_DIRECTORY       = 
 CREATE_SUBDIRS         = NO
