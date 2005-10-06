@@ -205,7 +205,7 @@ static char *s[] = {
 	"besselj(x,3/2)-(1/x)*besselj(x,1/2)+besselj(x,-1/2)",
 	"0",
 
-	"besselj(x,-3/2)+(1/x)besselj(x,-1/2)+besselj(x,1/2)",
+	"besselj(x,-3/2)+(1/x)*besselj(x,-1/2)+besselj(x,1/2)",
 	"0",
 };
 
