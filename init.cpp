@@ -40,6 +40,7 @@ init(void)
 	std_symbol("arcsinh", ARCSINH);
 	std_symbol("arctan", ARCTAN);
 	std_symbol("arctanh", ARCTANH);
+	std_symbol("arg", ARG);
 	std_symbol("atomize", ATOMIZE);
 	std_symbol("besselj", BESSELJ);
 	std_symbol("bessely", BESSELY);
@@ -94,6 +95,7 @@ init(void)
 	std_symbol("heaviside", HEAVISIDE);
 	std_symbol("hermite", HERMITE);
 	std_symbol("hilbert", HILBERT);
+	std_symbol("imag", IMAG);
 	std_symbol("component", INDEX);
 	std_symbol("inner", INNER);
 	std_symbol("integral", INTEGRAL);
@@ -106,6 +108,7 @@ init(void)
 	std_symbol("lcm", LCM);
 	std_symbol("legendre", LEGENDRE);
 	std_symbol("log", LOG);
+	std_symbol("mag", MAG);
 	std_symbol("mod", MOD);
 	std_symbol("multiply", MULTIPLY);
 	std_symbol("not", NOT);
@@ -121,6 +124,8 @@ init(void)
 	std_symbol("quote", QUOTE);
 	std_symbol("rank", RANK);
 	std_symbol("rationalize", RATIONALIZE);
+	std_symbol("real", REAL);
+	std_symbol("rect", YYRECT);
 	std_symbol("return", RETURN);
 	std_symbol("roots", ROOTS);
 	std_symbol("equals", SETQ);
@@ -221,6 +226,8 @@ static char *defn_str[] = {
 	"tty=0",
 	"curl(v)=(d(v[3],y)-d(v[2],z),d(v[1],z)-d(v[3],x),d(v[2],x)-d(v[1],y))",
 	"div(v)=d(v[1],x)+d(v[2],y)+d(v[3],z)",
+	"real(z)=(z+conj(z))/2",
+	"imag(z)=(z-conj(z))/(2i)",
 };
 
 void

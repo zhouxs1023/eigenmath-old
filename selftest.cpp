@@ -7,6 +7,7 @@ extern void test_arcsin(void);
 extern void test_arcsinh(void);
 extern void test_arctan(void);
 extern void test_arctanh(void);
+extern void test_arg(void);
 extern void test_besselj(void);
 extern void test_bessely(void);
 extern void test_carac(void);
@@ -121,6 +122,7 @@ selftest(void)
 	test_tensor();
 
 	test_abs();
+	test_arg();
 	test_besselj();
 	test_bessely();
 	test_carac();

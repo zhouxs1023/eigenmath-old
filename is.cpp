@@ -277,3 +277,21 @@ equaln(U *p, int n)
 	}
 	return 0;
 }
+
+int
+equalq(U *p, int a, int b)
+{
+	switch (p->k) {
+	case NUM:
+		if (MEQUAL(p->u.q.a, a) && MEQUAL(p->u.q.b, b))
+			return 1;
+		break;
+	case DOUBLE:
+		if (p->u.d == (double) a / b)
+			return 1;
+		break;
+	default:
+		break;
+	}
+	return 0;
+}

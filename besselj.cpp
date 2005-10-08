@@ -65,9 +65,25 @@ yybesselj(void)
 	push(N);
 	n = pop_integer();
 
+	// numerical result
+
 	if (isdouble(X) && n != (int) 0x80000000) {
 		d = jn(n, X->u.d);
 		push_double(d);
+		return;
+	}
+
+	// bessej(0,0) = 1
+
+	if (iszero(X) && iszero(N)) {
+		push_integer(1);
+		return;
+	}
+
+	// besselj(0,n) = 0
+
+	if (iszero(X) && n != (int) 0x80000000) {
+		push_integer(0);
 		return;
 	}
 
@@ -181,6 +197,15 @@ static char *s[] = {
 
 	"besselj(x,n)",
 	"besselj(x,n)",
+
+	"besselj(0,0)",
+	"1",
+
+	"besselj(0,1)",
+	"0",
+
+	"besselj(0,-1)",
+	"0",
 
 	"besselj(x,1/2)-sqrt(2/pi/x)*sin(x)",
 	"0",

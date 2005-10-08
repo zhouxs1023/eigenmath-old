@@ -74,8 +74,36 @@ ysine(void)
 	case 30:
 		push_rational(1, 2);
 		break;
+	case 45:
+		push_rational(1, 2);
+		push_integer(2);
+		push_rational(1, 2);
+		power();
+		multiply();
+		break;
+	case 60:
+		push_rational(1, 2);
+		push_integer(3);
+		push_rational(1, 2);
+		power();
+		multiply();
+		break;
 	case 90:
 		push_integer(1);
+		break;
+	case 120:
+		push_rational(1, 2);
+		push_integer(3);
+		push_rational(1, 2);
+		power();
+		multiply();
+		break;
+	case 135:
+		push_rational(1, 2);
+		push_integer(2);
+		push_rational(1, 2);
+		power();
+		multiply();
 		break;
 	case 150:
 		push_rational(1, 2);
@@ -102,71 +130,59 @@ ysine(void)
 
 static char *s[] = {
 
-	"expomode=0",
-	"",
-
-	"sin(-pi)",		// -180 degrees
+	"sin(-pi)",			// -180 degrees
 	"0",
 
-	"sin(-pi*5/6)",		// -150 degrees
+	"sin(-pi*5/6)",			// -150 degrees
 	"-1/2",
 
-	"sin(-3/4*pi)",		// -135 degrees
-	"-sin(3/4*pi)",
+	"sin(-3/4*pi)+sqrt(2)/2",	// -135 degrees
+	"0",
 
-	"sin(-2/3*pi)",		// -120 degrees
-	"-sin(2/3*pi)",
+	"sin(-2/3*pi)+sqrt(3)/2",	// -120 degrees
+	"0",
 
-	"sin(-pi/2)",		// -90 degrees
+	"sin(-pi/2)",			// -90 degrees
 	"-1",
 
-	"sin(-1/3*pi)",		// -60 degrees
-	"-sin(1/3*pi)",
-
-	"sin(-1/4*pi)",		// -45 degrees
-	"-sin(1/4*pi)",
-
-	"sin(-pi/6)",		// -30 degrees
-	"-1/2",
-
-	"sin(0)",		// 0 degrees
+	"sin(-1/3*pi)+sqrt(3)/2",	// -60 degrees
 	"0",
 
-	"sin(pi/6)",		// 30 degrees
+	"sin(-1/4*pi)+sqrt(2)/2",	// -45 degrees
+	"0",
+
+	"sin(-pi/6)",			// -30 degrees
+	"-1/2",
+
+	"sin(0)",			// 0 degrees
+	"0",
+
+	"sin(pi/6)",			// 30 degrees
 	"1/2",
 
-	"sin(1/4*pi)",		// 45 degrees
-	"sin(1/4*pi)",
+	"sin(1/4*pi)-sqrt(2)/2",	// 45 degrees
+	"0",
 
-	"sin(1/3*pi)",		// 60 degrees
-	"sin(1/3*pi)",
+	"sin(1/3*pi)-sqrt(3)/2",	// 60 degrees
+	"0",
 
-	"sin(pi/2)",		// 90 degrees
+	"sin(pi/2)",			// 90 degrees
 	"1",
 
-	"sin(2/3*pi)",		// 120 degrees
-	"sin(2/3*pi)",
-
-	"sin(3/4*pi)",		// 135 degrees
-	"sin(3/4*pi)",
-
-	"sin(pi*5/6)",		// 150 degrees
-	"1/2",
-
-	"sin(pi)",		// 180 degrees
+	"sin(2/3*pi)-sqrt(3)/2",	// 120 degrees
 	"0",
 
-	"sin(pi*7/6)",		// 210 degrees
+	"sin(3/4*pi)-sqrt(2)/2",	// 135 degrees
+	"0",
+
+	"sin(pi*5/6)",			// 150 degrees
+	"1/2",
+
+	"sin(pi)",			// 180 degrees
+	"0",
+
+	"sin(pi*7/6)",			// 210 degrees
 	"-1/2",
-
-	"expomode=1",
-	"",
-
-	"sin(x)",
-	"1/2*i*exp(-i*x)-1/2*i*exp(i*x)",
-
-	"expomode=0",
-	"",
 
 	// sine function is antisymmetric
 

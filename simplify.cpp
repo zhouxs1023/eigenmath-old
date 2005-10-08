@@ -154,6 +154,16 @@ f4(void)
 
 // simplifies trig forms
 
+void
+simplify_trig(void)
+{
+	save();
+	p1 = pop();
+	f5();
+	push(p1);
+	restore();
+}
+
 static void
 f5(void)
 {

@@ -64,6 +64,7 @@ enum {
 	ARCSINH,
 	ARCTAN,
 	ARCTANH,
+	ARG,
 	ATOMIZE,
 	BESSELJ,
 	BESSELY,
@@ -118,6 +119,7 @@ enum {
 	HEAVISIDE,
 	HERMITE,
 	HILBERT,
+	IMAG,
 	INDEX,
 	INNER,
 	INTEGRAL,
@@ -130,6 +132,7 @@ enum {
 	LCM,
 	LEGENDRE,
 	LOG,
+	MAG,
 	MOD,
 	MULTIPLY,
 	NOT,
@@ -145,6 +148,8 @@ enum {
 	QUOTE,
 	RANK,
 	RATIONALIZE,
+	REAL,
+	YYRECT,
 	RETURN,
 	ROOTS,
 	SETQ,
@@ -681,6 +686,13 @@ extern void std_symbol(char *, int);
 extern U *usr_symbol(char *);
 extern int symbol_index(U *);
 extern int iscomplexnumber(U *);
+extern void real(void);
+extern void imag(void);
+extern void mag(void);
+extern void arg(void);
+extern void rect(void);
+extern void simplify_trig(void);
+extern int equalq(U *, int, int);
 
 // In case I forget to use YY...
 
