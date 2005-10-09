@@ -51,7 +51,7 @@ trace.o charpoly.o hermite.o laguerre.o legendre.o degree.o divisors.o \
 vectorize.o variables.o test.o selftest.o numerator.o denominator.o simfac.o \
 besselj.cpp bessely.cpp carac.cpp convolution.cpp dirac.cpp erf.cpp erfc.cpp \
 fourier.cpp gamma.cpp heaviside.cpp invfourier.cpp sgn.cpp \
-tchebychevT.cpp tchebychevU.cpp
+tchebychevT.cpp tchebychevU.cpp arg.cpp imag.cpp mag.cpp real.cpp rect.cpp
 
 math : $(objects)
 	$(CXX) -o math $(objects) -lm
