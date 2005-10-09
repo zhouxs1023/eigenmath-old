@@ -1,26 +1,26 @@
-/* Returns the real part of complex z
+/* Returns the coefficient of the imaginary part of complex z
 
-	z		real(z)
+	z		imag(z)
 	-		-------
 
-	a + i b		a
+	a + i b		b
 
-	exp(i a)	cos(a)
+	exp(i a)	sin(a)
 */
 
 #include "stdafx.h"
 #include "defs.h"
 
 void
-eval_real(void)
+eval_imag(void)
 {
 	push(cadr(p1));
 	eval();
-	real();
+	imag();
 }
 
 void
-real(void)
+imag(void)
 {
 	save();
 	p1 = pop();
@@ -31,15 +31,17 @@ real(void)
 		push(p1);
 		push(p1);
 		conjugate();
-		add();
+		subtract();
 		push_integer(2);
+		divide();
+		push(imaginaryunit);
 		divide();
 	} else {
 		push(p1);
 		mag();
 		push(p1);
 		arg();
-		cosine();
+		sine();
 		multiply();
 	}
 	restore();
@@ -47,21 +49,24 @@ real(void)
 
 static char *s[] = {
 
-	"real(a+i*b)",
-	"a",
+	"imag(a+i*b)",
+	"b",
 
-	"real(1+exp(i*pi/3))",
-	"3/2",
+	"imag(1+exp(i*pi/3))",
+	"1/2*3^(1/2)",
 
-	"real(i)",
-	"0",
+	"imag(i)",
+	"1",
 
-	"real((-1)^(1/3))",
-	"1/2",
+	"imag((-1)^(1/3))",
+	"1/2*3^(1/2)",
+
+	"imag(-i)",
+	"-1",
 };
 
 void
-test_real(void)
+test_imag(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }

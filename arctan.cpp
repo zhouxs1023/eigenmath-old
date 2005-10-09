@@ -124,6 +124,12 @@ static char *s[] = {
 
 	"arctan(sqrt(3))-pi/3",		// 60 degrees
 	"0",
+
+	"arctan(a-b)",
+	"arctan(a-b)",
+
+	"arctan(b-a)",
+	"-arctan(a-b)",
 };
 
 void

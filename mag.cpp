@@ -1,17 +1,23 @@
-/* mag(z) Magnitude of complex z
+/* Magnitude of complex z
 
-	Input		Output
+	z		mag(z)
+	-		------
 
-	(-1) ^ A	1
+	a		a
 
-	exp(A + B i)	exp(A)
+	-a		a
 
-	A B		mag(A) * mag(B)
+	(-1)^a		1
 
-	A + B i		sqrt(A^2 + B^2)
+	exp(a + i b)	exp(a)
 
-Handles mixed polar and rectangular forms, e.g. 1 + exp(i pi/3)
+	a b		mag(a) mag(b)
 
+	a + i b		sqrt(a^2 + b^2)
+
+Note
+
+	Handles mixed polar and rectangular forms, e.g. 1 + exp(i pi/3)
 */
 
 #include "stdafx.h"
@@ -30,7 +36,10 @@ mag(void)
 {
 	save();
 	p1 = pop();
-	if (car(p1) == symbol(POWER) && equaln(cadr(p1), -1))
+	if (isnegativenumber(p1)) {
+		push(p1);
+		negate();
+	} else if (car(p1) == symbol(POWER) && equaln(cadr(p1), -1))
 		// -1 to a power
 		push_integer(1);
 	else if (car(p1) == symbol(POWER) && cadr(p1) == symbol(E)) {
@@ -69,4 +78,28 @@ mag(void)
 		// default (all real)
 		push(p1);
 	restore();
+}
+
+static char *s[] = {
+
+	"mag(a+i*b)",
+	"(a^2+b^2)^(1/2)",
+
+	"mag(exp(a+i*b))",
+	"exp(a)",
+
+	"mag(1)",
+	"1",
+
+	"mag(-1)",
+	"1",
+
+	"mag(1+exp(i*pi/3))",
+	"3^(1/2)",
+};
+
+void
+test_mag(void)
+{
+	test(__FILE__, s, sizeof s / sizeof (char *));
 }
