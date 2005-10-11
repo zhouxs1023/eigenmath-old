@@ -23,27 +23,16 @@ void
 imag(void)
 {
 	save();
+	rect();
 	p1 = pop();
-	if (car(p1) == symbol(ADD)) {
-		push(p1);
-		rect();
-		p1 = pop();
-		push(p1);
-		push(p1);
-		conjugate();
-		subtract();
-		push_integer(2);
-		divide();
-		push(imaginaryunit);
-		divide();
-	} else {
-		push(p1);
-		mag();
-		push(p1);
-		arg();
-		sine();
-		multiply();
-	}
+	push(p1);
+	push(p1);
+	conjugate();
+	subtract();
+	push_integer(2);
+	divide();
+	push(imaginaryunit);
+	divide();
 	restore();
 }
 
