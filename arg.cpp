@@ -1,4 +1,4 @@
-/* Argument (angle) of complex z
+/** Argument (angle) of complex z
 
 	z		arg(z)
 	-		------
