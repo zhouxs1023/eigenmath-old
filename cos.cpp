@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "defs.h"
-static void ycosine(void);
+void yycosine(void);
 
 void
 eval_cos(void)
@@ -14,12 +14,12 @@ void
 cosine(void)
 {
 	save();
-	ycosine();
+	yycosine();
 	restore();
 }
 
-static void
-ycosine(void)
+void
+yycosine(void)
 {
 	int n;
 	double d;
@@ -59,39 +59,65 @@ ycosine(void)
 	n = pop_integer();
 
 	if (n < 0) {
-		push_symbol(COS);
+		push(symbol(COS));
 		push(p1);
 		list(2);
 		return;
 	}
 
 	switch (n % 360) {
-	case 0:
-		push_integer(1);
-		break;
-	case 60:
-		push_rational(1, 2);
-		break;
 	case 90:
+	case 270:
 		push_integer(0);
 		break;
+	case 60:
+	case 300:
+		push_rational(1, 2);
+		break;
 	case 120:
+	case 240:
 		push_rational(-1, 2);
+		break;
+	case 45:
+	case 315:
+		push_rational(1, 2);
+		push_integer(2);
+		push_rational(1, 2);
+		power();
+		multiply();
+		break;
+	case 135:
+	case 225:
+		push_rational(-1, 2);
+		push_integer(2);
+		push_rational(1, 2);
+		power();
+		multiply();
+		break;
+	case 30:
+	case 330:
+		push_rational(1, 2);
+		push_integer(3);
+		push_rational(1, 2);
+		power();
+		multiply();
+		break;
+	case 150:
+	case 210:
+		push_rational(-1, 2);
+		push_integer(3);
+		push_rational(1, 2);
+		power();
+		multiply();
+		break;
+	case 0:
+		push_integer(1);
 		break;
 	case 180:
 		push_integer(-1);
 		break;
-	case 240:
-		push_rational(-1, 2);
-		break;
-	case 270:
-		push_integer(0);
-		break;
-	case 300:
-		push_rational(1, 2);
-		break;
 	default:
-		push_symbol(COS);
+		push(symbol(SIN));
 		push(p1);
 		list(2);
 		break;
@@ -100,76 +126,121 @@ ycosine(void)
 
 static char *s[] = {
 
-	"expomode=0",
-	"",
-
-	"cos(-pi)",		// -180 degrees
-	"-1",
-
-	"cos(-5/6*pi)",		// -150 degrees
-	"cos(5/6*pi)",
-
-	"cos(-3/4*pi)",		// -135 degrees
-	"cos(3/4*pi)",
-
-	"cos(-pi*2/3)",		// -120 degrees
-	"-1/2",
-
-	"cos(-pi/2)",		// -90 degrees
-	"0",
-
-	"cos(-pi/3)",		// -60 degrees
-	"1/2",
-
-	"cos(-1/4*pi)",		// -45 degrees
-	"cos(1/4*pi)",
-
-	"cos(-1/6*pi)",		// -30 degrees
-	"cos(1/6*pi)",
-
-	"cos(0)",		// 0 degrees
-	"1",
-
-	"cos(1/6*pi)",		// 30 degrees
-	"cos(1/6*pi)",
-
-	"cos(1/4*pi)",		// 45 degrees
-	"cos(1/4*pi)",
-
-	"cos(pi/3)",		// 60 degrees
-	"1/2",
-
-	"cos(pi/2)",		// 90 degrees
-	"0",
-
-	"cos(pi*2/3)",		// 120 degrees
-	"-1/2",
-
-	"cos(3/4*pi)",		// 135 degrees
-	"cos(3/4*pi)",
-
-	"cos(5/6*pi)",		// 150 degrees
-	"cos(5/6*pi)",
-
-	"cos(pi)",		// 180 degrees
-	"-1",
-
-	"expomode=1",
-	"",
-
 	"cos(x)",
-	"1/2*exp(-i*x)+1/2*exp(i*x)",
-
-	"expomode=0",
-	"",
-
-	// cosine function is symmetric
+	"cos(x)",
 
 	"cos(-x)",
 	"cos(x)",
 
 	"cos(b-a)",
 	"cos(a-b)",
+
+	// check against the floating point math library
+
+	"f(a,x)=1+cos(float(a/360*2*pi))-float(x)+cos(a/360*2*pi)-x",
+	"",
+
+	"f(0,1)",			// 0
+	"1",
+
+	"f(90,0)",			// 90
+	"1",
+
+	"f(180,-1)",			// 180
+	"1",
+
+	"f(270,0)",			// 270
+	"1",
+
+	"f(360,1)",			// 360
+	"1",
+
+	"f(-90,0)",			// -90
+	"1",
+
+	"f(-180,-1)",			// -180
+	"1",
+
+	"f(-270,0)",			// -270
+	"1",
+
+	"f(-360,1)",			// -360
+	"1",
+
+	"f(45,sqrt(2)/2)",		// 45
+	"1",
+
+	"f(135,-sqrt(2)/2)",		// 135
+	"1",
+
+	"f(225,-sqrt(2)/2)",		// 225
+	"1",
+
+	"f(315,sqrt(2)/2)",		// 315
+	"1",
+
+	"f(-45,sqrt(2)/2)",		// -45
+	"1",
+
+	"f(-135,-sqrt(2)/2)",		// -135
+	"1",
+
+	"f(-225,-sqrt(2)/2)",		// -225
+	"1",
+
+	"f(-315,sqrt(2)/2)",		// -315
+	"1",
+
+	"f(30,sqrt(3)/2)",		// 30
+	"1",
+
+	"f(150,-sqrt(3)/2)",		// 150
+	"1",
+
+	"f(210,-sqrt(3)/2)",		// 210
+	"1",
+
+	"f(330,sqrt(3)/2)",		// 330
+	"1",
+
+	"f(-30,sqrt(3)/2)",		// -30
+	"1",
+
+	"f(-150,-sqrt(3)/2)",		// -150
+	"1",
+
+	"f(-210,-sqrt(3)/2)",		// -210
+	"1",
+
+	"f(-330,sqrt(3)/2)",		// -330
+	"1",
+
+	"f(60,1/2)",			// 60
+	"1",
+
+	"f(120,-1/2)",			// 120
+	"1",
+
+	"f(240,-1/2)",			// 240
+	"1",
+
+	"f(300,1/2)",			// 300
+	"1",
+
+	"f(-60,1/2)",			// -60
+	"1",
+
+	"f(-120,-1/2)",			// -120
+	"1",
+
+	"f(-240,-1/2)",			// -240
+	"1",
+
+	"f(-300,1/2)",			// -300
+	"1",
+
+	"f=quote(f)",
+	"",
 };
 
 void

@@ -1,10 +1,4 @@
-/* Convert complex z to rectangular coordinates
-
-	z		rect(z)
-	-		-------
-
-	exp(i a)	cos(a) + i sin(a)
-*/
+// Return complex z in rectangular form
 
 #include "stdafx.h"
 #include "defs.h"
@@ -32,8 +26,7 @@ rect(void)
 			p1 = cdr(p1);
 		}
 	} else {
-		// rect(z) = mag(z) * (cos(arg(z)) + i sin(arg(z)))
-		push(p1);
+		push(p1);	// mag(z) * (cos(arg(z)) + i sin(arg(z)))
 		mag();
 		push(p1);
 		arg();

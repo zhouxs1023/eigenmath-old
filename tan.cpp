@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "defs.h"
-static void ytangent(void);
+void yytangent(void);
 
 void
 eval_tan(void)
@@ -14,12 +14,12 @@ void
 tangent(void)
 {
 	save();
-	ytangent();
+	yytangent();
 	restore();
 }
 
-static void
-ytangent(void)
+void
+yytangent(void)
 {
 	int n;
 	double d;
@@ -58,6 +58,16 @@ ytangent(void)
 		return;
 	}
 
+	// tan function is antisymmetric, tan(-x) = -tan(x)
+
+	if (isnegative(p1)) {
+		push(p1);
+		negate();
+		tangent();
+		negate();
+		return;
+	}
+
 	// multiply by 180/pi
 
 	push(p1);
@@ -68,49 +78,57 @@ ytangent(void)
 
 	n = pop_integer();
 
-	if (n == (int) 0x80000000) {
-		push_symbol(TAN);
+	if (n < 0) {
+		push(symbol(TAN));
 		push(p1);
 		list(2);
 		return;
 	}
 
-	switch(n % 360) {
-	case -315:
-		push_integer(1);
-		break;
-	case -225:
-		push_integer(-1);
-		break;
-	case -180:
-		push_integer(0);
-		break;
-	case -135:
-		push_integer(1);
-		break;
-	case -45:
-		push_integer(-1);
-		break;
+	switch (n % 360) {
 	case 0:
-		push_integer(0);
-		break;
-	case 45:
-		push_integer(1);
-		break;
-	case 135:
-		push_integer(-1);
-		break;
 	case 180:
 		push_integer(0);
 		break;
+	case 30:
+	case 210:
+		push_rational(1, 3);
+		push_integer(3);
+		push_rational(1, 2);
+		power();
+		multiply();
+		break;
+	case 150:
+	case 330:
+		push_rational(-1, 3);
+		push_integer(3);
+		push_rational(1, 2);
+		power();
+		multiply();
+		break;
+	case 45:
 	case 225:
 		push_integer(1);
 		break;
+	case 135:
 	case 315:
 		push_integer(-1);
 		break;
+	case 60:
+	case 240:
+		push_integer(3);
+		push_rational(1, 2);
+		power();
+		break;
+	case 120:
+	case 300:
+		push_integer(3);
+		push_rational(1, 2);
+		power();
+		negate();
+		break;
 	default:
-		push_symbol(TAN);
+		push(symbol(TAN));
 		push(p1);
 		list(2);
 		break;
@@ -122,91 +140,105 @@ static char *s[] = {
 	"tan(x)",
 	"tan(x)",
 
-	"tan(-2 pi)",
-	"0",
+	"tan(-x)",
+	"-tan(x)",
 
-	"tan(-7 pi/4)",
-	"1",
+	"tan(b-a)",
+	"-tan(a-b)",
 
-	"tan(-5 pi/4)",
-	"-1",
+	// check against the floating point math library
 
-	"tan(-pi)",
-	"0",
-
-	"tan(-3 pi/4)",
-	"1",
-
-	"tan(-pi/4)",
-	"-1",
-
-	"tan(0)",
-	"0",
-
-	"tan(pi/4)",
-	"1",
-
-	"tan(3 pi/4)",
-	"-1",
-
-	"tan(pi)",
-	"0",
-
-	"tan(5 pi/4)",
-	"1",
-
-	"tan(7 pi/4)",
-	"-1",
-
-	"tan(2 pi)",
-	"0",
-
-	"tan(-2 pi)+tan(float(-2 pi))",
-	"0",
-
-	"tan(-7 pi/4)+tan(float(-7 pi/4))",
-	"2",
-
-	"tan(-5 pi/4)+tan(float(-5 pi/4))",
-	"-2",
-
-	"tan(-pi)+tan(float(-pi))",
-	"0",
-
-	"tan(-3 pi/4)+tan(float(-3 pi/4))",
-	"2",
-
-	"tan(-pi/4)+tan(float(-pi/4))",
-	"-2",
-
-	"tan(0)+tan(0.0)",
-	"0",
-
-	"tan(pi/4)+tan(float(pi/4))",
-	"2",
-
-	"tan(3 pi/4)+tan(float(3 pi/4))",
-	"-2",
-
-	"tan(pi)+tan(float(pi))",
-	"0",
-
-	"tan(5 pi/4)+tan(float(5 pi/4))",
-	"2",
-
-	"tan(7 pi/4)+tan(float(7 pi/4))",
-	"-2",
-
-	"tan(2 pi)+tan(float(2 pi))",
-	"0",
-
-	"expomode=1",
+	"f(a,x)=1+tan(float(a/360*2*pi))-float(x)+tan(a/360*2*pi)-x",
 	"",
 
-	"tan(x)",
-	"i*exp(-i*x)/(exp(-i*x)+exp(i*x))-i*exp(i*x)/(exp(-i*x)+exp(i*x))",
+	"f(0,0)",			// 0
+	"1",
 
-	"expomode=0",
+	"f(180,0)",			// 180
+	"1",
+
+	"f(360,0)",			// 360
+	"1",
+
+	"f(-180,0)",			// -180
+	"1",
+
+	"f(-360,0)",			// -360
+	"1",
+
+	"f(45,1)",			// 45
+	"1",
+
+	"f(135,-1)",			// 135
+	"1",
+
+	"f(225,1)",			// 225
+	"1",
+
+	"f(315,-1)",			// 315
+	"1",
+
+	"f(-45,-1)",			// -45
+	"1",
+
+	"f(-135,1)",			// -135
+	"1",
+
+	"f(-225,-1)",			// -225
+	"1",
+
+	"f(-315,1)",			// -315
+	"1",
+
+	"f(30,sqrt(3)/3)",		// 30
+	"1",
+
+	"f(150,-sqrt(3)/3)",		// 150
+	"1",
+
+	"f(210,sqrt(3)/3)",		// 210
+	"1",
+
+	"f(330,-sqrt(3)/3)",		// 330
+	"1",
+
+	"f(-30,-sqrt(3)/3)",		// -30
+	"1",
+
+	"f(-150,sqrt(3)/3)",		// -150
+	"1",
+
+	"f(-210,-sqrt(3)/3)",		// -210
+	"1",
+
+	"f(-330,sqrt(3)/3)",		// -330
+	"1",
+
+	"f(60,sqrt(3))",		// 60
+	"1",
+
+	"f(120,-sqrt(3))",		// 120
+	"1",
+
+	"f(240,sqrt(3))",		// 240
+	"1",
+
+	"f(300,-sqrt(3))",		// 300
+	"1",
+
+	"f(-60,-sqrt(3))",		// -60
+	"1",
+
+	"f(-120,sqrt(3))",		// -120
+	"1",
+
+	"f(-240,-sqrt(3))",		// -240
+	"1",
+
+	"f(-300,sqrt(3))",		// -300
+	"1",
+
+	"f=quote(f)",
 	"",
 };
 
