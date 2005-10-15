@@ -1,3 +1,5 @@
+// Tangent function of numerical and symbolic arguments
+
 #include "stdafx.h"
 #include "defs.h"
 void yytangent(void);
