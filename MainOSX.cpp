@@ -1,16 +1,18 @@
-// Eigenmath by George Weigt (gweigt@yahoo.com)
-//
-// This file does all the things required by the OS X API.
-//
-// The starting point for a symbolic computation is in run.cpp
-//
-// Input is scanned in scan.cpp
-//
-// Expression evaluation is done in eval.cpp
-//
-// Output is formatted in cmdisplay.cpp
-//
-// The window display code is in window.cpp
+/* Eigenmath by George Weigt (gweigt@yahoo.com)
+
+This file does all the things required by the OS X API.
+
+The starting point for a symbolic computation is in run.cpp
+
+Input is scanned in scan.cpp
+
+Expression evaluation is done in eval.cpp
+
+Output is formatted in cmdisplay.cpp
+
+The window display code is in window.cpp
+
+*/
 
 #include <Carbon/Carbon.h>
 
@@ -384,7 +386,7 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
         if (running)
 			break;
 		go_to_calc_mode();
-        printstr("version 110 eigenmath.sourceforge.net\n");
+        printstr("version 111 eigenmath.sourceforge.net\n");
         update_display();
         break;
 
