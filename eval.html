@@ -1,0 +1,88 @@
+<body>
+<h3>How expressions are evaluated</h3>
+
+Some computer algebra systems evaluate an expression over and over until it
+stops changing.
+Eigenmath does not work that way.
+Eigenmath evaluates an expression once and then returns the result.
+For example,
+<pre>
+<i>Enter</i>
+	A = B
+	B = C
+	A
+
+<i>Result</i>
+	B
+</pre>
+In the above example the symbol A evaluates to B and then stops.
+B is not converted to C.
+However, the eval function can be used to do another evaluation.
+<pre>
+<i>Enter</i>
+	eval(A)
+
+<i>Result</i>
+	C
+</pre>
+Here A evaluates to B
+then the eval function evaluates B and returns C.
+
+<p>
+Although it is rarely needed, the eval function can be applied multiple times.
+<pre>
+<i>Enter</i>
+	C = D
+	eval(eval(A))
+
+<i>Result</i>
+	D
+</pre>
+Here is a more practical example of when to use eval.
+Suppose a general electromagnetic field tensor is defined.
+<pre>
+<i>Enter</i>
+	F = ((0,EX,EY,EZ),(EX,0,BZ,-BY),(EY,-BZ,0,BX),(EZ,BY,-BX,0))
+</pre>
+Next, the components of the tensor are defined.
+<pre>
+<i>Enter</i>
+	EX = sin(z - t)
+	EY = 0
+	EZ = 0
+
+	BX = 0
+	BY = sin(z - t)
+	BZ = 0
+</pre>
+Although the components have been defined, the symbol F has not changed.
+<pre>
+<i>Enter</i>
+	F
+
+<i>Result</i>
+	 0    EX    EY    EZ
+
+	EX     0    BZ    -BY
+
+	EY    -BZ    0    BX
+
+	EZ    BY    -BX    0
+</pre>
+The components of F can be updated by using eval.
+<pre>
+<i>Enter</i>
+	F = eval(F)
+	F
+
+<i>Result</i>
+	     0        -sin(t - z)        0             0
+
+	-sin(t - z)        0             0        sin(t - z)
+
+	     0             0             0             0
+
+	     0        -sin(t - z)        0             0
+</pre>
+So, a general rule of thumb is to use eval when the definition of a symbol
+changes.
