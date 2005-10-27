@@ -19,8 +19,8 @@ using prototypes.
 
 The following code is a work-around for the prototype rule.
 
-It generates a prototype file so I can avoid writing and maintaining prototype
-declarations and still keep the code rightside up.
+It generates a prototype file so I can avoid prototypes and still keep the code
+rightside up.
 
 */
 
