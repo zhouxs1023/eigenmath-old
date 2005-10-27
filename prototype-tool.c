@@ -1,29 +1,3 @@
-/* Progress in computer science does not always go forward.
-
-Using Pascal, people had to write their programs upside down.
-
-Then wonderful C came along. K & R created a perfect programming language.
-
-And with C, people no longer had to write their programs upside down.
-
-They could put main at the top.
-
-Then a committee came along and broke C by adding a prototype rule.
-
-After that, people had to start writing their programs upside down again.
-
-Technically, prototypes should not be necessary.
-
-In the 1980's Borland had a beautiful C compiler that did type checking without
-using prototypes.
-
-The following code is a work-around for the prototype rule.
-
-It generates a prototype file so I can avoid prototypes and still keep the code
-rightside up.
-
-*/
-
 #include <stdio.h>
 #include <dirent.h>
 
