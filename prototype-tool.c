@@ -8,7 +8,7 @@ And with C, people no longer had to write their programs upside down.
 
 They could put main at the top.
 
-Then a committee came along and broke C with their prototype rule.
+Then a committee came along and broke C by adding a prototype rule.
 
 After that, people had to start writing their programs upside down again.
 
@@ -58,7 +58,7 @@ g(char *s)
 	FILE *f;
 	if (strcmp(s, "MainOSX.cpp") == 0 || strcmp(s, "MainXP.cpp") == 0)
 		return;
-	printf("// %s\n", s);
+	printf("\n// %s\n", s);
 	f = fopen(s, "r");
 	if (f == NULL) {
 		printf("cannot open %s\n", s);
