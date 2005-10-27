@@ -14,11 +14,13 @@ After that, people had to start writing their programs upside down again.
 
 Technically, prototypes should not be necessary.
 
-In the mid-1980's Borland had a beautiful C compiler that did type checking
-without prototypes.
+In the 1980's Borland had a beautiful C compiler that did type checking without
+using prototypes.
 
-This tool generates a prototype file so I can avoid prototype declarations
-and still keep the code rightside up.
+The following code is a work-around for the prototype rule.
+
+It generates a prototype file so I can avoid writing and maintaining prototype
+declarations and still keep the code rightside up.
 
 */
 
