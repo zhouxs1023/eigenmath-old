@@ -255,10 +255,10 @@ scan_factor(void)
 	else if (token == T_FUNCTION)
 		scan_function_call();
 	else if (token == T_INTEGER) {
-		scan_integer(token_buf);
+		bignum_scan_integer(token_buf);
 		get_next_token();
 	} else if (token == T_DOUBLE) {
-		scan_float(token_buf);
+		bignum_scan_float(token_buf);
 		get_next_token();
 	} else if (token == T_STRING)
 		scan_string();

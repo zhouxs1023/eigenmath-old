@@ -11,8 +11,6 @@
 
 #include "stdafx.h"
 #include "defs.h"
-static void yheaviside(void);
-int isnegativeterm(U *);
 
 void
 eval_heaviside(void)
@@ -26,14 +24,14 @@ void
 heaviside(void)
 {
 	save();
-	yheaviside();
+	yyheaviside();
 	restore();
 }
 
 #define X p1
 
 void
-yheaviside(void)
+yyheaviside(void)
 {
 	
 	X = pop();

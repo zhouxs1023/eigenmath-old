@@ -7,8 +7,6 @@ void dpower(void);
 void dd(void);
 void dlog(void);
 void dfunction(void);
-static void dsin(void);
-static void dcos(void);
 static void dtan(void);
 static void darcsin(void);
 static void darccos(void);

@@ -18,7 +18,7 @@ static void factorpoly4(void);
 static void rationalize_coefficients(int);
 static int get_factor(void);
 static void evalpoly(void);
-static void divpoly(void);
+static void yydivpoly(void);
 static void __lcm(void);
 int isnegativeterm(U *);
 static int expo;
@@ -108,7 +108,7 @@ factorpoly2(void)
 //
 //-----------------------------------------------------------------------------
 
-void
+static void
 factorpoly3(void)
 {
 	save();
@@ -221,7 +221,7 @@ factorpoly4(void)
 		multiply_noexpand();
 		RESULT = pop();
 
-		divpoly();
+		yydivpoly();
 
 		while (expo && iszero(polycoeff[expo]))
 			expo--;
@@ -462,7 +462,7 @@ get_factor(void)
 //-----------------------------------------------------------------------------
 
 static void
-divpoly(void)
+yydivpoly(void)
 {
 	int i;
 	Q = zero;

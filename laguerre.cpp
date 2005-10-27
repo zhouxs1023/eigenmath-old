@@ -1,5 +1,3 @@
-#include "stdafx.h"
-
 //-----------------------------------------------------------------------------
 //
 //	Laguerre polynomial
@@ -26,6 +24,7 @@
 //
 //-----------------------------------------------------------------------------
 
+#include "stdafx.h"
 #include "defs.h"
 
 #define X p1
@@ -35,18 +34,16 @@
 #define Y0 p5
 #define Y1 p6
 
-static void __laguerre(void), __laguerre2(int n);
-
 void
 laguerre(void)
 {
 	save();
-	__laguerre();
+	yylaguerre();
 	restore();
 }
 
 void
-__laguerre(void)
+yylaguerre(void)
 {
 	int n;
 
@@ -67,11 +64,11 @@ __laguerre(void)
 	}
 
 	if (issymbol(X))
-		__laguerre2(n);
+		yylaguerre2(n);
 	else {
 		Y = X;			// do this when X is an expr
 		X = tmp;
-		__laguerre2(n);
+		yylaguerre2(n);
 		X = Y;
 		push(tmp);
 		push(X);
@@ -80,8 +77,8 @@ __laguerre(void)
 	}
 }
 
-static void
-__laguerre2(int n)
+void
+yylaguerre2(int n)
 {
 	int i;
 

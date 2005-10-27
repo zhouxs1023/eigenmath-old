@@ -29,7 +29,6 @@ Examples
 
 #include "stdafx.h"
 #include "defs.h"
-static void yybesselj(void);
 
 void
 eval_besselj(void)

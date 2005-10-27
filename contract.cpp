@@ -2,7 +2,6 @@
 
 #include "stdafx.h"
 #include "defs.h"
-static void ycontract(void);
 
 void
 eval_contract(void)
@@ -25,12 +24,12 @@ void
 contract(void)
 {
 	save();
-	ycontract();
+	yycontract();
 	restore();
 }
 
 void
-ycontract(void)
+yycontract(void)
 {
 	int h, i, j, k, l, m, n, ndim, nelem;
 	int ai[MAXDIM], an[MAXDIM];

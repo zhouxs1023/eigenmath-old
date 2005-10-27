@@ -14,8 +14,6 @@
 
 #include "stdafx.h"
 #include "defs.h"
-static void ytchebychevT(void);
-static void ytchebychevT2(int);
 
 void
 eval_tchebychevT(void)
@@ -31,10 +29,9 @@ void
 tchebychevT(void)
 {
 	save();
-	ytchebychevT();
+	yytchebychevT();
 	restore();
 }
-
 
 #define X p1
 #define N p2
@@ -43,7 +40,7 @@ tchebychevT(void)
 #define Y0 p5
 
 void
-ytchebychevT(void)
+yytchebychevT(void)
 {
 	int n;
 
@@ -65,11 +62,11 @@ ytchebychevT(void)
 		return;
 	}
 	if (issymbol(X))
-		ytchebychevT2(n-1);
+		yytchebychevT2(n-1);
 	else {
 		Y = X;			// do this when X is an expr
 		X = tmp;
-		ytchebychevT2(n-1);
+		yytchebychevT2(n-1);
 		X = Y;
 		push(tmp);
 		push(X);
@@ -78,8 +75,8 @@ ytchebychevT(void)
 	}
 }
 
-static void
-ytchebychevT2(int n)
+void
+yytchebychevT2(int n)
 {
 	int i;
 

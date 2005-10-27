@@ -9,8 +9,6 @@
 
 #include "stdafx.h"
 #include "defs.h"
-static void ysgn(void);
-extern int isnegativeterm(U *);
 
 void
 eval_sgn(void)
@@ -24,14 +22,14 @@ void
 sgn(void)
 {
 	save();
-	ysgn();
+	yysgn();
 	restore();
 }
 
 #define X p1
 
 void
-ysgn(void)
+yysgn(void)
 {
 	
 	X = pop();

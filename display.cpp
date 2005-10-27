@@ -39,8 +39,6 @@ static void get_size(int, int, int *, int *, int *);
 static void emit_function(U *);
 static void emit_symbol(U *);
 static void emit_string(U *);
-static void fixup_fraction(int, int, int);
-static void emit_number(U *, int);
 static void __emit_char(int);
 static void __emit_str(char *);
 static void print_it();

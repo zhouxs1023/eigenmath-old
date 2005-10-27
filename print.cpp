@@ -8,17 +8,17 @@ int out_index, out_length;
 char *out_str;
 static int char_count, last_char;
 
-static void print_expr(U *);
-static void print_multiply_sign(void);
-static void print_denom(U *, int);
-static void print_a_over_b(U *);
-static int is_denominator(U *);
-static int any_denominators(U *);
+//static void print_expr(U *);
+//static void print_multiply_sign(void);
+//static void print_denom(U *, int);
+//static void print_a_over_b(U *);
+//static int is_denominator(U *);
+//static int any_denominators(U *);
 int isnegativeterm(U *);
-static void print_subexpr(U *);
-static void print_index_function(U *);
-static void print_factorial_function(U *);
-static int sign_of_term(U *);
+//static void print_subexpr(U *);
+//static void print_index_function(U *);
+//static void print_factorial_function(U *);
+//static int sign_of_term(U *);
 
 extern int test_flag;
 
@@ -37,9 +37,7 @@ printline(U *p)
 	print_char('\n');
 }
 
-static void print_term(U *);
-
-static void
+void
 print_subexpr(U *p)
 {
 	print_char('(');
@@ -47,7 +45,7 @@ print_subexpr(U *p)
 	print_char(')');
 }
 
-static void
+void
 print_expr(U *p)
 {
 	if (isadd(p)) {
@@ -77,7 +75,7 @@ print_expr(U *p)
 	}
 }
 
-static int
+int
 sign_of_term(U *p)
 {
 	if (car(p) == symbol(MULTIPLY) && isnum(cadr(p)) && lessp(cadr(p), zero))
@@ -91,7 +89,7 @@ sign_of_term(U *p)
 #define A p3
 #define B p4
 
-static void
+void
 print_a_over_b(U *p)
 {
 	int flag, n, d;
@@ -196,7 +194,7 @@ print_a_over_b(U *p)
 	restore();
 }
 
-static void
+void
 print_term(U *p)
 {
 	if (car(p) == symbol(MULTIPLY) && any_denominators(p)) {
@@ -232,7 +230,7 @@ print_term(U *p)
 #define BASE p1
 #define EXPO p2
 
-static void
+void
 print_denom(U *p, int d)
 {
 	save();
@@ -418,7 +416,7 @@ print_factor(U *p)
 		print_str(get_printname(p));
 }
 
-static void
+void
 print_index_function(U *p)
 {
 	p = cdr(p);
@@ -440,7 +438,7 @@ print_index_function(U *p)
 	print_char(']');
 }
 
-static void
+void
 print_factorial_function(U *p)
 {
 	p = cadr(p);
@@ -576,7 +574,7 @@ print_multiply_sign(void)
 		print_str("*");
 }
 
-static int
+int
 is_denominator(U *p)
 {
 	if (car(p) == symbol(POWER) && cadr(p) != symbol(E) && isnegativeterm(caddr(p)))
@@ -589,7 +587,7 @@ is_denominator(U *p)
 
 // we want 2/3*a*b*c instead of 2*a*b*c/3
 
-static int
+int
 any_denominators(U *p)
 {
 	U *q;

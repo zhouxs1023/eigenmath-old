@@ -3,11 +3,9 @@
 #include "stdafx.h"
 #include "defs.h"
 extern void append(void);
-static void multiply_f(void);
 static void parse_p1(void);
 static void parse_p2(void);
 //static void combine_gammas(int);
-static void combine_factors(int);
 static void __normalize_radical_factors(int);
 
 void
@@ -19,13 +17,13 @@ multiply(void)
 		multiply_numbers();
 	else {
 		save();
-		multiply_f();
+		yymultiply();
 		restore();
 	}
 }
 
 void
-multiply_f(void)
+yymultiply(void)
 {
 	int h, i, n;
 

@@ -541,7 +541,7 @@ pop_integer(void)
 }
 
 int
-mp_isfraction(U *p)
+isfraction(U *p)
 {
 	if (p->k == NUM && !MEQUAL(p->u.q.b, 1))
 		return 1;
@@ -609,7 +609,7 @@ print_number(U *p)
 		if (*s == '+' || *s == '-')
 			s++;
 		print_str(s);
-		if (mp_isfraction(p)) {
+		if (isfraction(p)) {
 			print_str("/");
 			s = mstr(p->u.q.b);
 			print_str(s);

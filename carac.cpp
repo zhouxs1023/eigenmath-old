@@ -9,8 +9,6 @@
 
 #include "stdafx.h"
 #include "defs.h"
-static void __carac(void);
-extern int isnegativeterm(U *);
 
 void
 eval_carac(void)
@@ -28,7 +26,7 @@ void
 carac(void)
 {
 	save();
-	__carac();
+	yycarac();
 	restore();
 }
 
@@ -37,7 +35,7 @@ carac(void)
 #define B p3
 
 void
-__carac(void)
+yycarac(void)
 {
 	B = pop();
 	A = pop();

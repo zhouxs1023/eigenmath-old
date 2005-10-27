@@ -164,9 +164,6 @@ ucmp(unsigned int *a, unsigned int *b)
 
 // small integer tests
 
-static void test_maddf(int, int, int);
-static void test_msubf(int, int, int);
-
 void
 test_madd(void)
 {

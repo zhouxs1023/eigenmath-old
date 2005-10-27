@@ -3,7 +3,6 @@
 
 #define DEBUG 0
 
-static void __gcd(void);
 static void gcd_expr_expr(void);
 static void gcd_expr(U *);
 static void gcd_term_term(void);
@@ -15,13 +14,13 @@ gcd(void)
 {
 	int x = expanding;
 	save();
-	__gcd();
+	yygcd();
 	restore();
 	expanding = x;
 }
 
 void
-__gcd(void)
+yygcd(void)
 {
 	expanding = 1;
 

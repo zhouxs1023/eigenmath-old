@@ -35,8 +35,8 @@
 #include "stdafx.h"
 #include "defs.h"
 
-#define D(i, j) dd[n * (i) + (j)]
-#define Q(i, j) qq[n * (i) + (j)]
+#define D(i, j) yydd[n * (i) + (j)]
+#define Q(i, j) yyqq[n * (i) + (j)]
 
 extern void copy_tensor(void);
 static void eigen(int);
@@ -44,7 +44,7 @@ static int check_arg(void);
 static int step(void);
 static void step2(int, int);
 static int n;
-static double *dd, *qq;
+static double *yydd, *yyqq;
 
 void
 eval_eigen(void)
@@ -153,14 +153,14 @@ eigen(int op)
 
 	// malloc working vars
 
-	dd = (double *) malloc(n * n * sizeof (double));
+	yydd = (double *) malloc(n * n * sizeof (double));
 
-	if (dd == NULL)
+	if (yydd == NULL)
 		stop("malloc failure");
 
-	qq = (double *) malloc(n * n * sizeof (double));
+	yyqq = (double *) malloc(n * n * sizeof (double));
 
-	if (qq == NULL)
+	if (yyqq == NULL)
 		stop("malloc failure");
 
 	// initialize D
@@ -226,8 +226,8 @@ eigen(int op)
 
 	// free working vars
 
-	free(dd);
-	free(qq);
+	free(yydd);
+	free(yyqq);
 }
 
 //-----------------------------------------------------------------------------

@@ -56,4 +56,4 @@ tchebychevT.o tchebychevU.o arg.o imag.o mag.o real.o rect.o
 math : $(objects)
 	$(CXX) -o math $(objects) -lm
 
-$(objects) : defs.h
+$(objects) : defs.h prototypes.h

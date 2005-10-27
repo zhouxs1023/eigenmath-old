@@ -1,5 +1,3 @@
-#include "stdafx.h"
-
 //-----------------------------------------------------------------------------
 //
 //	Hermite polynomial
@@ -12,15 +10,14 @@
 //
 //-----------------------------------------------------------------------------
 
+#include "stdafx.h"
 #include "defs.h"
-
-static void __hermite(void), __hermite2(int);
 
 void
 hermite(void)
 {
 	save();
-	__hermite();
+	yyhermite();
 	restore();
 }
 
@@ -33,7 +30,7 @@ hermite(void)
 #define Y0 p5
 
 void
-__hermite(void)
+yyhermite(void)
 {
 	int n;
 
@@ -52,11 +49,11 @@ __hermite(void)
 	}
 
 	if (issymbol(X))
-		__hermite2(n);
+		yyhermite2(n);
 	else {
 		Y = X;			// do this when X is an expr
 		X = tmp;
-		__hermite2(n);
+		yyhermite2(n);
 		X = Y;
 		push(tmp);
 		push(X);
@@ -65,8 +62,8 @@ __hermite(void)
 	}
 }
 
-static void
-__hermite2(int n)
+void
+yyhermite2(int n)
 {
 	int i;
 

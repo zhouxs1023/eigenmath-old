@@ -1,9 +1,7 @@
-// Do the outer product of tensors.
+// Outer product of tensors
 
 #include "stdafx.h"
 #include "defs.h"
-
-static void outer_f(void);
 
 void
 eval_outer(void)
@@ -27,7 +25,7 @@ outer(void)
 	p2 = pop();
 	p1 = pop();
 	if (istensor(p1) && istensor(p2))
-		outer_f();
+		yyouter();
 	else {
 		push(p1);
 		push(p2);
@@ -42,7 +40,7 @@ outer(void)
 }
 
 void
-outer_f(void)
+yyouter(void)
 {
 	int i, j, k, ndim, nelem;
 
