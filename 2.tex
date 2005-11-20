@@ -1,0 +1,189 @@
+\magnification=1200
+\raggedright
+\parindent=0pt
+Determine whether the set $\{x^2+2x-7,x^2-3,x+1\}$ is linearly independent.
+
+\bigskip
+We need to determine if there is a linear combination of the set
+elements that sums to zero, like this:
+$$c_1(x^2+2x-7)+c_2(x^2-3)+c_3(x+1)=0$$
+Multiplying it out and then collecting like terms we have
+$$(c_1+c_2)x^2+(2c_1+c_3)x-7c_1-3c_2+c_3=0$$
+This is equivalent to solving the following equation:
+$$
+\left(
+\matrix{
+1&1&0\cr
+2&0&1\cr
+-7&-3&1
+}
+\right)
+\left(
+\matrix{
+c_1\cr c_2\cr c_3}
+\right)
+=
+\left(\matrix{0\cr0\cr0}\right)
+$$
+Call the square matrix $A$.
+The determinant of $A$ by cofactor exapansion of row 1 is
+$1(0+3)-1(2+7)=-6$.
+The nonzero determinant indicates that the inverse of $A$ exists.
+Therefore we can multiply both sides of the equation by $A^{-1}$ to
+obtain
+$$
+\left(
+\matrix{
+c_1\cr c_2\cr c_3}
+\right)
+=
+\left(\matrix{0\cr0\cr0}\right)
+$$
+This is a trivial solution so we conclude that there is no linear combination
+of the set elements that sums to zero. Therefore the set elements are indeed
+linearly
+independent.
+\vfill\eject
+$$A=\left(\matrix{
+1&2&1&3\cr
+2&4&3&7\cr
+3&6&2&8\cr
+}\right)
+$$
+Find a column basis for $A$.
+\bigskip
+The column vectors in $A$ span a column space.
+By row reducing the column vectors we can find the minimum set of vectors that
+span the same space.
+$$\pmatrix{
+1&2&1&3\cr
+2&4&3&7\cr
+3&6&2&8\cr
+}^T
+=
+\pmatrix{
+1&2&3\cr
+2&4&6\cr
+1&3&2\cr
+3&7&8\cr
+}
+$$
+$R_2-2R_1\rightarrow R_2$
+
+$R_3-R_1\rightarrow R_3$
+
+$R_4-3R_1\rightarrow R_4$
+$$
+\pmatrix{
+1&2&3\cr
+0&0&0\cr
+0&1&-1\cr
+0&1&-1\cr
+}
+$$
+$R_4-R_3\rightarrow R_4$
+$$
+\pmatrix{
+1&2&3\cr
+0&0&0\cr
+0&1&-1\cr
+0&0&0\cr
+}
+$$
+Transposing the result, the column basis is the set of nonzero column vectors.
+$$
+\left\{
+\pmatrix{1\cr2\cr3}
+,
+\pmatrix{0\cr1\cr-1}
+\right\}
+$$
+\vfill\eject
+$$A=\left(\matrix{
+1&2&1&3\cr
+2&4&3&7\cr
+3&6&2&8\cr
+}\right)
+$$
+Find a row basis for $A$.
+\bigskip
+The row vectors in $A$ span a row space.
+By row reduction we can find the minimum set of vectors
+that span the same space.
+\bigskip
+$R_2-2R_1\rightarrow R_2$
+
+$R_3-3R_1\rightarrow R_3$
+$$\pmatrix{
+1&2&1&3\cr
+0&0&1&1\cr
+0&0&-1&-1\cr
+}$$
+$R_3+R2\rightarrow R_3$
+$$\pmatrix{
+1&2&1&3\cr
+0&0&1&1\cr
+0&0&0&0\cr
+}$$
+The set of nonzero row vectors is the row basis.
+$$\left\{
+\pmatrix{1\cr2\cr1\cr3}
+,
+\pmatrix{0\cr0\cr1\cr1}
+\right\}
+$$
+\vfill\eject
+$$A=\left(\matrix{
+1&2&1&3\cr
+2&4&3&7\cr
+3&6&2&8\cr
+}\right)
+$$
+Find a basis for the null space of $A$.
+\bigskip
+The null space of $A$ is the set of all vectors $x$ such that $Ax=0$.
+From the row space calculation, perform one additional elementary
+row operation.
+$$\pmatrix{
+1&2&1&3\cr
+0&0&1&1\cr
+0&0&0&0\cr
+}$$
+$R_1-R_2\rightarrow R_1$
+$$
+\pmatrix{
+1&2&0&3\cr
+0&0&1&1\cr
+0&0&0&0\cr
+}$$
+This corresponds to the system of equations
+$$
+\left\{{\eqalign{
+x+2y+2w&=0\cr
+z+w&=0}}\right.
+$$
+Let $y=s$ and $w=t$ to obtain the solution set
+$\{(-2s-2t,s,-t,t)^\tau:s,t\in\cal R\}$.
+Multiply by $A$ to check the result.
+$$
+\pmatrix{
+1&2&1&3\cr
+2&4&3&7\cr
+3&6&2&8\cr
+}
+\pmatrix{
+-2s-2t\cr
+s\cr
+-t\cr
+t}
+=
+\pmatrix{
+-2s-2t+2s-t+3t\cr
+-4s-4t+4s-3t+7t\cr
+-6s-6t+6s-2t+8t
+}
+=
+\pmatrix{0\cr0\cr0}
+$$
+
+\end
