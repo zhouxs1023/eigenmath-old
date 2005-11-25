@@ -1,0 +1,97 @@
+April 4, 2003. Exercise from A=B, p. 50.
+
+$$\sum_k
+\bigg({n\atop k}\bigg)
+\bigg({n+a\atop k}\bigg)
+\bigg({n-a\atop n-k}\bigg)
+$$
+
+We have...
+
+$$
+t_k=
+\bigg({n\atop k}\bigg)
+\bigg({n+a\atop k}\bigg)
+\bigg({n-a\atop n-k}\bigg)
+$$
+and
+$$
+t_{k+1}=
+\bigg({n\atop k+1}\bigg)
+\bigg({n+a\atop k+1}\bigg)
+\bigg({n-a\atop n-k-1}\bigg)
+$$
+
+Compute $t_{k+1}/t_k$ by combining 1st, 2nd and 3rd terms.
+
+$${
+\displaystyle{\left({n\atop k+1}\right)}
+\over
+\displaystyle{\left({n\atop k}\right)}
+}=
+{
+n!/[(n-k-1)!(k+1)!]
+\over
+n!/[(n-k)!k!]
+}
+=
+{(n-k)!k!\over(n-k-1)!(k+1)!}
+=
+{(n-k)\over(k+1)}
+$$
+
+$${
+\displaystyle{\left({n+a\atop k+1}\right)}
+\over
+\displaystyle{\left({n+a\atop k}\right)}
+}=
+{
+(n+a)!/[(n+a-k-1)!(k+1)!]
+\over
+(n+a)!/[(n+a-k)!k!]
+}
+=
+{(n+a-k)!k!\over(n+a-k-1)!(k+1)!}
+=
+{(n+a-k)\over(k+1)}
+$$
+
+$${
+\displaystyle{\left({n-a\atop n-k-1}\right)}
+\over
+\displaystyle{\left({n-a\atop n-k}\right)}
+}=
+{
+(n-a)!/[(k-a+1)!(n-k-1)!]
+\over
+(n-a)!/[(k-a)!(n-k)!]
+}
+=
+{(k-a)!(n-k)!\over(k-a+1)!(n-k-1)!}
+=
+{(n-k)\over(k-a+1)}
+$$
+
+$$\eqalign{
+{t_{k+1}\over t_k}
+&=
+{(n-k)\over(k+1)}
+\times
+{(n+a-k)\over(k+1)}
+\times
+{(n-k)\over(k-a+1)}\cr
+&=
+-1\times
+{(k-n)\over(k+1)}
+\times
+{(k-n-a)\over(k+1)}
+\times
+{(k-n)\over(k-a+1)}\cr
+&=
+{}_3F_2\left[
+\matrix{
+-n&-n&-n-a\cr
+1&-a+1&{}};\;-1\right]
+}$$
+
+\end
