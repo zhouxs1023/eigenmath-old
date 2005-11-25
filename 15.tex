@@ -1,0 +1,277 @@
+\parindent=0pt
+
+\beginsection Feynman
+
+This is a problem from Feynman's ``Quantum Electrodynamics.''
+Show that $\nabla_\mu A_\mu=0$ implies that $k\cdot e=0$.
+The easiest way to do this is to write down all the components.
+
+$$\nabla_\mu=(\partial/\partial t, -\partial/\partial x, -\partial/\partial y, -\partial/\partial z)$$
+
+$$\nabla_\mu A_\mu=\nabla\cdot A={\partial A_t\over\partial t}+{\partial A_x\over\partial x}+{\partial A_y\over\partial y}+{\partial A_z\over\partial z}$$
+
+$$A_t=e_t\exp[-i(k_tt-k_xx-k_yy-k_zz)]$$
+
+$$A_x=e_x\exp[-i(k_tt-k_xx-k_yy-k_zz)]$$
+
+$$A_y=e_y\exp[-i(k_tt-k_xx-k_yy-k_zz)]$$
+
+$$A_z=e_z\exp[-i(k_tt-k_xx-k_yy-k_zz)]$$
+
+$${\partial A_t\over\partial t}=(-ik_t)e_t\exp[-i(k_tt-k_xx-k_yy-k_zz)]$$
+
+$${\partial A_x\over\partial x}=(+ik_x)e_x\exp[-i(k_tt-k_xx-k_yy-k_zz)]$$
+
+$${\partial A_y\over\partial y}=(+ik_y)e_y\exp[-i(k_tt-k_xx-k_yy-k_zz)]$$
+
+$${\partial A_z\over\partial z}=(+ik_z)e_z\exp[-i(k_tt-k_xx-k_yy-k_zz)]$$
+
+$$\nabla_\mu A_\mu=-i(k\cdot e)\exp[-i(k_tt-k_xx-k_yy-k_zz)]$$
+
+\beginsection Stefanovich
+
+I stumbled across Stefanovich's web site and he has an interesting program
+for doing QED calculations.
+
+Here is Stefanovich's ``V'' file (shown with line numbers):
+
+{
+\tt
+{\it\ 01}\ \char49
+\ 
+\ 
+\char49
+\ 
+\ 
+\char48
+\ 
+\ 
+\char49
+\ 
+\ 
+\char45
+\char51
+\ 
+\ 
+\char50
+\ 
+\ 
+\char48
+\ 
+\char48
+\ \par
+{\it\ 02}\ \char120
+\ \par
+{\it\ 03}\ \char43
+\char91
+\char43
+\char79
+\char122
+\char40
+\char43
+\char107
+\char42
+\char41
+\char93
+\ \par
+{\it\ 04}\ \char120
+\ \par
+{\it\ 05}\ \char43
+\char69
+\char105
+\char43
+\char91
+\char45
+\char79
+\char109
+\char40
+\char43
+\char112
+\char42
+\char43
+\char107
+\char42
+\char41
+\char43
+\char79
+\char109
+\char40
+\char43
+\char112
+\char42
+\char41
+\char43
+\char79
+\char115
+\char40
+\char43
+\char107
+\char42
+\char41
+\char93
+\char116
+\ \par
+{\it\ 06}\ \char120
+\ \par
+{\it\ 07}\ \char65
+\char94
+\char40
+\char43
+\char112
+\char42
+\char41
+\ \par
+{\it\ 08}\ \char49
+\ 
+\char48
+\ \par
+{\it\ 09}\ \char65
+\char95
+\char40
+\char43
+\char112
+\char42
+\char43
+\char107
+\char42
+\char41
+\ \par
+{\it\ 10}\ \char50
+\ 
+\char48
+\ \par
+{\it\ 11}\ \char67
+\char94
+\char40
+\char43
+\char107
+\char42
+\char41
+\ \par
+{\it\ 12}\ \char49
+\ 
+\char50
+\ \par
+{\it\ 13}\ \char120
+\ \par
+{\it\ 14}\ \char49
+\ 
+\ 
+\char49
+\ 
+\ 
+\char48
+\ 
+\ 
+\char49
+\ 
+\ 
+\char45
+\char51
+\ 
+\ 
+\char50
+\ 
+\ 
+\char48
+\ 
+\char48
+\ \par
+{\it\ 15}\ \char120
+\ \par
+{\it\ 16}\ \char43
+\char91
+\char43
+\char79
+\char122
+\char40
+\char43
+\char107
+\char42
+\char41
+\char93
+\ \par
+{\it\ 17}\ \char120
+\ \par
+{\it\ 18}\ \char43
+\char69
+\char105
+\char43
+\char91
+\char45
+\char79
+\char109
+\char40
+\char43
+\char112
+\char42
+\char45
+\char107
+\char42
+\char41
+\char43
+\char79
+\char109
+\char40
+\char43
+\char112
+\char42
+\char41
+\char45
+\char79
+\char115
+\char40
+\char43
+\char107
+\char42
+\char41
+\char93
+\char116
+\ \par
+{\it\ 19}\ \char120
+\ \par
+{\it\ 20}\ \char65
+\char94
+\char40
+\char43
+\char112
+\char42
+\char41
+\ \par
+{\it\ 21}\ \char49
+\ 
+\char48
+\ \par
+{\it\ 22}\ \char65
+\char95
+\char40
+\char43
+\char112
+\char42
+\char45
+\char107
+\char42
+\char41
+\ \par
+{\it\ 23}\ \char50
+\ 
+\char48
+\ \par
+{\it\ 24}\ \char67
+\char95
+\char40
+\char43
+\char107
+\char42
+\char41
+\ \par
+{\it\ 25}\ \char49
+\ 
+\char50
+\ \par
+{\it\ 26}\ \char120
+\ \par
+\end
+}
+
+\end

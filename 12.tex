@@ -1,0 +1,52 @@
+\magnification=1200
+\parindent=0pt
+
+Problem 8.1 (c) on page 32.
+
+$$c_n={4n+3\over7n-5}$$
+
+1. Limit looks to be $c={4\over7}$, set up the relation:
+
+$$\left|{4n+3\over7n-5}-{4\over7}\right|<\epsilon$$
+
+2. Combine denominators to get:
+
+$$\left|{7(4n+3)-4(7n-5)\over7(7n-5)}\right|<\epsilon$$
+
+3. Multiply out and simplify to get:
+
+$$\left|{28n+21-28n+35\over49n-35}\right|
+=\left|{41\over49n-35}\right|<\epsilon$$
+
+4. Term is positive so drop absolute value:
+
+$${41\over49n-35}<\epsilon$$
+
+5. Multiply both sides by $(49n-35)/\epsilon$ to get:
+
+$${41\over\epsilon}<49n-35$$
+
+6. Add 35 to both sides and divide by 49 to get:
+
+$${41\over49\epsilon}+{5\over7}<n$$
+
+7. Set $N$ to $41/49\epsilon+5/7$. Then $N<n$ implies that
+
+$${41\over49\epsilon}+{5\over7}<n$$
+
+8. Subtract ${5\over7}$ from both sides to get:
+
+$${41\over49\epsilon}<n-{5\over7}$$
+
+9. Multiply both sides by $49\over41$ to get:
+
+$${1\over\epsilon}<{49n-35\over41}$$
+
+10. Mutiply both sides by inverses to get:
+
+$${41\over49n-35}<\epsilon$$
+
+11. This is the same as the result in step 4. We can work backwards from there
+to get the equation in step 1 so the limit is proved.
+
+\end
