@@ -1,0 +1,38 @@
+\documentclass[12pt]{book}
+\usepackage{plain, amsmath, amssymb}
+\newcommand{\bo}{\raise-1mm\hbox{\Large$\Box$}}
+\begin{document}
+
+$$\bo - m^2$$
+
+$$\Box - m^2$$
+
+The Fourier transform is a function that finds the spectrum of another function.
+In the signal processing world we say that the Fourier transform converts
+between the time domain and the frequency domain.
+
+Let's try doing the Fourier transform of a pure tone.
+$$x(t) = \sin(2\pi\cdot440t)$$
+The Fourier transform is
+\begin{plain}
+$$X(f)=\int_{-\infty}^{+\infty}\sin(2\pi\,440t)\cos(2\pi ft)\,dt
++i\int_{-\infty}^{+\infty}\sin(2\pi\,440t)\sin(2\pi ft)\,dt
+$$
+\end{plain}
+For $f=440$ we have
+$$X(440)=\int_{-\infty}^{+\infty}\sin(2\pi\,440t)\cos(2\pi\,440t)\,dt
++i\int_{-\infty}^{+\infty}\sin(2\pi\cdot440t)^2\,dt
+$$
+By the identity $\sin x\cos x={1\over2}\sin2 x$ we can put
+$$X(440)=\hbox{$1\over2$}\int_{-\infty}^{+\infty}\sin(4\pi\,440t)\,dt
++i\int_{-\infty}^{+\infty}\sin(2\pi\cdot440t)^2\,dt
+$$
+This equation can now be solved by inspection.
+A sine function summed over infinity is zero because there are equal amounts
+of ``stuff'' above and below the $x$-axis.
+A sine squared function, however, has all of its stuff above the
+$x$-axis so the sum over infinity totals up to$\ldots$ infinity. So we have
+$$X(440)=i\infty$$
+
+\end{document}
+
