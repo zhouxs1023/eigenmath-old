@@ -1,0 +1,87 @@
+\beginsection{Mandl and Shaw Problem 3.2}
+
+From Eq.~3.27 we have
+$$\eqalign{
+\phi(x)&=
+\sum_{\bf k}\left(1\over2V\omega({\bf k})\right)^{1/2}
+[a({\bf k})\exp(-ikx)+b^\dagger({\bf k})\exp(ikx)]\cr
+\phi^\dagger(x)&=
+\sum_{\bf k}\left(1\over2V\omega({\bf k})\right)^{1/2}
+[b({\bf k})\exp(-ikx)+a^\dagger({\bf k})\exp(ikx)]\cr
+}$$
+From Eq.~3.36 we have
+$$\eqalign{
+\phi(x)&={1\over\sqrt2}(\phi_1(x)+i\phi_2(x))\cr
+\phi^\dagger(x)&={1\over\sqrt2}(\phi_1(x)-i\phi_2(x))\cr
+}$$
+Now, given
+$$\eqalign{
+\phi_1(x)&=\sum_{\bf k}\left(1\over2V\omega({\bf k})\right)^{1/2}
+[a_1({\bf k})\exp(-ikx)+a_1^\dagger({\bf k})\exp(ikx)] \cr
+\phi_2(x)&=\sum_{\bf k}\left(1\over2V\omega({\bf k})\right)^{1/2}
+[a_2({\bf k})\exp(-ikx)+a_2^\dagger({\bf k})\exp(ikx)] \cr
+}$$
+show that
+$$\eqalign{
+a({\bf k})&={1\over\sqrt2}[a_1({\bf k})+ia_2({\bf k})]\cr
+b({\bf k})&={1\over\sqrt2}[a_1({\bf k})-ia_2({\bf k})]\cr
+}$$
+
+\beginsection{Solution}
+
+This problem seems simple compared to the epic Problem 3.1.
+All we have to do is take the Fourier transform of $\phi$,
+$\phi^\dagger$, $\phi_1$ and $\phi_2$.
+%
+$$\eqalign{
+\int_{-\infty}^{+\infty}\phi(x)\exp(ikx)\,dx&=
+\left(1\over2V\omega({\bf k})\right)^{1/2}
+a({\bf k})\cr
+\int_{-\infty}^{+\infty}\phi^\dagger(x)\exp(ikx)\,dx&=
+\left(1\over2V\omega({\bf k})\right)^{1/2}
+b({\bf k})\cr
+\int_{-\infty}^{+\infty}\phi_1(x)\exp(ikx)\,dx&=
+\left(1\over2V\omega({\bf k})\right)^{1/2}
+a_1({\bf k})\cr
+\int_{-\infty}^{+\infty}\phi_2(x)\exp(ikx)\,dx&=
+\left(1\over2V\omega({\bf k})\right)^{1/2}
+a_2({\bf k})\cr
+}$$
+
+\vfill
+\break
+
+{\tt\obeylines
+clear()
+N = 2
+V = L\char94 3
+x = (x0,x1,x2,x3)
+k() = (omega(), 2 pi / L n1, 2 pi / L n2, 2 pi / L n3)
+omega() = sqrt(m\char94 2 + (2 pi / L (n1,n2,n3))\char94 2)
+phi = sum(n1, -N, N, sum(n2, -N, N, sum(n3, -N, N,
+\ (a(n1,n2,n3) exp(-i dot(k(),x)) + b(n1,n2,n3) exp(i dot(k(),x))) /
+\ sqrt(2 V omega())
+)))
+phi1 = sum(n1, -N, N, sum(n2, -N, N, sum(n3, -N, N,
+\ (a1(n1,n2,n3) exp(-i dot(k(),x)) + a1dag(n1,n2,n3) exp(i dot(k(),x))) /
+\ sqrt(2 V omega())
+)))
+phi2 = sum(n1, -N, N, sum(n2, -N, N, sum(n3, -N, N,
+\ (a2(n1,n2,n3) exp(-i dot(k(),x)) + a2dag(n1,n2,n3) exp(i dot(k(),x))) /
+\ sqrt(2 V omega())
+)))
+n1 = 1
+n2 = 2
+n3 = -1
+A = (phi1 + i phi2) / sqrt(2)
+A = A V exp(i dot(k(),x))
+A = filter(A,x0,x1,x2,x3)
+display(A)
+B = phi V exp(i dot(k(),x))
+B = filter(B,x0,x1,x2,x3)
+display(B)
+T = (a1(n1,n2,n3) + i a2(n1,n2,n3)) / sqrt(2)
+B = eval(subst(T,a(n1,n2,n3),B))
+A - B
+}
+

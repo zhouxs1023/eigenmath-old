@@ -1,0 +1,65 @@
+\beginsection{Mandl and Shaw Problem 1.1(v)}
+
+The radiation field inside a cubic enclosure, which contains no charges,
+is specified by the state
+$$|c\rangle=\exp(-\hbox{$1\over2$}|c|^2)\sum_{n=0}^\infty
+{c^n\over\sqrt{n!}}\,|n\rangle$$
+where $c$ is any complex number $c=|c|\exp(i\delta)$
+and $|n\rangle$ is the state in which
+there are $n$ photons.
+Show that the expectation value of the electric field $\bf E$ is
+$$\langle c|{\bf E}|c\rangle=-\varepsilon
+\left({2\omega\over V}\right)^{1/2}|c|\sin(kx-\omega t+\delta)$$
+
+\beginsection{Solution}
+
+The vector potential operator is
+$${\bf A}=\varepsilon\left({1\over2V\omega}\right)^{1/2}
+[a\exp(ikx-i\omega t)+a^\dagger\exp(-ikx+i\omega t)]$$
+where $\varepsilon$ is the polarization vector and $a$ and $a^\dagger$
+are the destruction and creation operators.
+We have to differentiate $\bf A$ to get the electric field operator.
+$${\bf E}=-{\partial {\bf A}\over\partial t}$$
+We need to employ a few tricks to get the demo to work out.
+Since we use a finite number of terms to represent
+$|c\rangle$ we end up with a truncated exponential series
+which must be corrected.
+Also, we need to use the exponential form of the sine function.
+
+\vfill
+\break
+
+{\tt\obeylines
+clear()
+N = 6
+\#Init absorption operator.
+a = zero(N, N)
+for(j, 1, N - 1, a[j, j + 1] = sqrt(j))
+\#Vector potential operator
+A = 1 / sqrt(2 V omega) epsilon (a exp(i k x - i omega t) +
+\ transpose(conj(a)) exp(-i k x + i omega t))
+\#Electric field operator
+E = -d(A, t)
+\#ket(n) returns a basis vector
+I = unit(N)
+ket(n) = I[n + 1]
+\#Use r instead of |c|
+c = r exp(i delta)
+ketc = exp(-1/2 r\char94 2) sum(n, 0, N - 1, c\char94 n / sqrt(n!)~ket(n))
+\#L is the left-hand side, R is the right-hand side.
+L = dot(conj(ketc), E, ketc)
+SIN(x) = (exp(i x) - exp(-i x)) / (2 i)
+R = -epsilon sqrt(2 omega / V) r SIN(k x - omega t + delta)
+EXP(x) = eval(taylor(exp(x), x, N - 2))
+\#Multiply both sides by exp(r\char94 2), except EXP(r\char94 2) is a truncated series.
+L = L exp(r\char94 2)
+R = R EXP(r\char94 2)
+\#Display L and R.
+L
+R
+check(L - R)
+\#If we get here then L = R, print OK.
+"OK"
+
+}
+

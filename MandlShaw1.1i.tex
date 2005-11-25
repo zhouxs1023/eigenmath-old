@@ -1,0 +1,86 @@
+\beginsection{Mandl and Shaw Problem 1.1(i)}
+
+The radiation field inside a cubic enclosure, which contains no charges,
+is specified by the state
+$$|\psi\rangle=\exp(-\hbox{$1\over2$}|c|^2)\sum_{n=0}^\infty{c^n\over\sqrt{n!}}
+\,|n\rangle$$
+where $c$ is any complex number and $|n\rangle$ is the state
+in which there are $n$ photons.
+Show that $\langle \psi|\psi\rangle=1$.
+
+\beginsection{Solution}
+
+Let's review what is going on here.
+The state $|\psi\rangle$ is a mixture of photon states $|n\rangle$ where $n$
+is the number of photons.
+Each photon state $|n\rangle$ is a basis vector with infinite dimension, like
+this:
+$$
+|0\rangle=\left[\matrix{1\cr0\cr0\cr0\cr0\cr\vdots}\right]
+\quad
+|1\rangle=\left[\matrix{0\cr1\cr0\cr0\cr0\cr\vdots}\right]
+\quad
+|2\rangle=\left[\matrix{0\cr0\cr1\cr0\cr0\cr\vdots}\right]
+\quad
+|3\rangle=\left[\matrix{0\cr0\cr0\cr1\cr0\cr\vdots}\right]
+$$
+Fortunately we don't have to deal with these vectors directly,
+we only have to compute vector dot products.
+Since the vectors are orthonormal, the dot product is either 0 or 1.
+Here are a few examples.
+$$\matrix{
+\langle0|0\rangle=1&\langle0|1\rangle=0&\langle0|2\rangle=0\cr
+\langle1|0\rangle=0&\langle1|1\rangle=1&\langle1|2\rangle=0\cr
+\langle2|0\rangle=0&\langle2|1\rangle=0&\langle2|2\rangle=1\cr
+}$$
+%
+OK, now let's go ahead and do the multiply and see what happens.
+We have
+$$\eqalign{
+\langle\psi|\psi\rangle&=
+\left(\exp(-\hbox{$1\over2$}|c|^2)\sum_{n=0}^\infty{(c^*)^n\over\sqrt{n!}}\,\langle n|\right)
+\left(\exp(-\hbox{$1\over2$}|c|^2)\sum_{n=0}^\infty{c^n\over\sqrt{n!}}\,|n\rangle\right)
+\cr
+&=\exp(-|c|^2)\left[{(c^*)^0c^0\over0!}\langle0|0\rangle
++{(c^*)^1c^1\over1!}\langle1|1\rangle
++{(c^*)^2c^2\over2!}\langle2|2\rangle+\cdots\right]\cr
+&=\exp(-|c|^2)\exp(|c|^2)\cr
+&=1
+}$$
+Now we see what the $\sqrt{n!}$ is all about.
+It's all cooked up so that after we multiply we get a series expansion
+for an exponential.
+Note also that we used the relation
+$$(c^*)^nc^n=(c^*\times c^* \times c^*\times\cdots)(c\times c\times c\times\cdots)
+=(c^*c)^n=|c|^{2n}$$
+The following script demonstrates the above calculation.
+The main idea is that we limit $n$ to a finite value so we can have a
+representation for $|n\rangle$.
+
+\vfill
+\eject
+
+{\tt\obeylines
+
+clear()
+\# This is the number of terms to use for psi.
+N = 6
+\# This returns basis vector n.
+I = unit(N)
+ket(n) = I[n + 1]
+\# This is an arbitrary complex number.
+c = r exp(i phi)
+\# Calculate psi.
+psi = exp(-1/2 r\char94 2) sum(n, 0, N - 1, c\char94 n / sqrt(n!)~ket(n))
+\# Calculate < psi | psi >
+P = dot(conj(psi), psi)
+P = condense(P)
+display(P)
+"Replace the truncated series with an exponential."
+EXP(x) = eval(taylor(exp(x), x, N - 1))
+P = subst(exp(r\char94 2), EXP(r\char94 2), P)
+P = eval(P)
+display(P)
+
+}
+

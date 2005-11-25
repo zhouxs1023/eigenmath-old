@@ -1,0 +1,74 @@
+\beginsection{Mandl and Shaw Problem 1.3}
+
+For Thomson scattering of an unpolarized beam of photons, obtain the
+differential cross-section for scattering through an angle $\theta$,
+with the scattered radiation being linearly polarized in a given
+direction. By considering two mutually perpendicular such directions,
+use your result to re-derive Eq.~(1.69a) for the unpolarized differential
+cross-section. Show that for $\theta=90^\circ$, the scattered beam is
+100 per cent linearly polarized in the direction of the normal to the
+plane of scattering.
+
+\beginsection{Solution}
+
+Thomson scattering is the scattering of a photon by an electron.
+In this model the photon energy must be small so that the electron is
+pretty much unaffected.
+First let's review the cast of vectors:
+\medskip
+\settabs 5 \columns
+\+& Incident & Scattered\cr
+\+& photon & photon \cr
+\smallskip
+\+& $k$ & $k^\prime$ & Direction of propagation\cr
+\+& $\hat k$ & ${\hat k}^\prime$ & Unit direction of propagation\cr
+\+& $\epsilon_1$ & ${\epsilon_1}^\prime$ & Unit direction of electric field\cr
+\+& $\epsilon_2$ & ${\epsilon_2}^\prime$ & Unit direction of magnetic field\cr
+\medskip
+The key thing to keep in mind is the projection property of
+an orthonormal coordinate system. For orthonormal unit vectors
+$\epsilon_1$, $\epsilon_2$ and $\hat k$ and for unit vector $u$
+we have
+$$(\epsilon_1\cdot u)^2+(\epsilon_2\cdot u)^2+(\hat k\cdot u)^2=|u|^2=1\eqno({\rm A})$$
+The differential cross section formula is
+$$\sigma_{\alpha\rightarrow\beta}\,d\Omega
+=r_0^2(\epsilon_\alpha\cdot\epsilon_\beta^\prime)^2\,d\Omega$$
+For an unpolarized beam we average over the initial polarization states.
+Letting $\sigma_1$ be the differential cross section for final polarization
+state $\epsilon_1^\prime$ we have
+$$\eqalign{
+\sigma_1&=\hbox{$1\over2$}\sum_{\alpha=1}^2 r_0^2(\epsilon_\alpha
+\cdot\epsilon_1^\prime)^2\cr
+&=\hbox{$1\over2$}r_0^2[(\epsilon_1\cdot\epsilon_1^\prime)^2
++(\epsilon_2\cdot\epsilon_1^\prime)^2]\cr
+}$$
+By A we have
+$$(\epsilon_1\cdot\epsilon_1^\prime)^2
++(\epsilon_2\cdot\epsilon_1^\prime)^2=1-(\hat k\cdot\epsilon_1^\prime)^2$$
+so we can put
+$$\sigma_1=\hbox{$1\over2$}r_0^2[1-(\hat k\cdot\epsilon_1^\prime)^2]$$
+Now what we want to do is express $\sigma_1$ in terms of the scattering angle
+$\theta$, that is, the angle between $k$ and $k^\prime$.
+Again by A we note that
+$$(\hat k\cdot\epsilon_1^\prime)^2=1-(\hat k\cdot\epsilon_2^\prime)^2
+-(\hat k\cdot\hat k^\prime)^2$$
+so we can put
+$$\sigma_1=\hbox{$1\over2$}r_0^2[(\hat k\cdot\epsilon_2^\prime)^2
++(\hat k\cdot\hat k^\prime)^2]$$
+From $a\cdot b=|a||b|\cos\theta$ we have $(\hat k\cdot\hat k^\prime)^2
+=\cos^2\theta$ and
+$$\sigma_1=\hbox{$1\over2$}r_0^2[(\hat k\cdot\epsilon_2^\prime)^2
++\cos^2\theta]$$
+Likewise for $\sigma_2$ we have
+$$\sigma_2=\hbox{$1\over2$}r_0^2[(\hat k\cdot\epsilon_1^\prime)^2
++\cos^2\theta]$$
+The unpolarized differential cross section is
+$$\sigma=\sigma_1+\sigma_2=\hbox{$1\over2$}r_0^2[(\hat k\cdot\epsilon_1^\prime)^2
++(\hat k\cdot\epsilon_2^\prime)^2+2\cos^2\theta]$$
+Again by A we have
+$$\eqalign{
+\sigma&=\hbox{$1\over2$}r_0^2[(1-\cos^2\theta)+2\cos^2\theta]\cr
+&=\hbox{$1\over2$}r_0^2(1+\cos^2\theta)
+}$$
+which is Eq.~(1.69a).
+

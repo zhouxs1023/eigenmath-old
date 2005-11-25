@@ -1,0 +1,432 @@
+\beginsection{Mandl and Shaw Problem 3.1}
+
+Given the field
+%
+$$
+\phi(x)=\sum_{\bf k}
+\left(
+{1\over2V\omega({\bf k})}
+\right)^{1/2}
+a({\bf k})
+\exp(-ikx)
++
+\sum_{\bf k}
+\left(
+{1\over2V\omega({\bf k})}
+\right)^{1/2}
+a^\dagger({\bf k})
+\exp(ikx)
+$$
+%
+and the equal-time field commutator equation
+%
+$$
+[\phi({\bf x},t),\dot\phi({\bf x^\prime},t)]=i\delta({\bf x}-{\bf x^\prime})
+$$
+%
+derive the following operator commutator equation
+%
+$$
+[a({\bf k})a^\dagger({\bf k^\prime})]=\delta_{\bf kk^\prime}
+$$
+%
+where
+%
+$$
+\delta_{\bf kk^\prime}=\cases{
+1,&${\bf k}={\bf k^\prime}$\cr
+0,&${\bf k}\ne{\bf k^\prime}$\cr
+}
+$$
+
+\beginsection{Solution}
+
+The trick is to do two Fourier transforms of the field commutator equation.
+
+\medskip
+
+Step 1.
+We start by working on the right-hand side.
+To do the Fourier transform of a delta function we use the
+``sifting property,''
+$$
+\int\delta(t)f(t)\,dt=f(0)
+$$
+%
+Since we have $\delta({\bf x}-{\bf x^\prime})$ we use the change of variable technique.
+%
+$$\eqalign{
+\int i\delta({\bf x}-{\bf x^\prime})\exp(-i{\bf k}\cdot{\bf x})\,d{\bf x}&=
+i\int\delta({\bf y})\exp(-i{\bf k}\cdot({\bf y}+{\bf x^\prime}))
+\,d{\bf y},\quad{\bf x}={\bf y}+{\bf x^\prime}\cr
+&=i\exp(-i{\bf k}\cdot({\bf y}+{\bf x^\prime}))\big|_{{\bf y}=0}\cr
+&=i\exp(-i{\bf k}\cdot{\bf x^\prime})\cr
+}$$
+%
+Step 2.
+Do a second Fourier transform.
+%
+$$\eqalign{
+\int i\exp(-i{\bf k}\cdot{\bf x^\prime})\exp(i{\bf k^\prime}\cdot{\bf x^\prime})
+&=i\int\exp(-i({\bf k}-{\bf k^\prime})\cdot{\bf x^\prime})\,d{\bf x^\prime}\cr
+&=iV\delta_{\bf kk^\prime}
+}$$
+%
+This result is due to the fact that when ${\bf k}={\bf k^\prime}$ the exponential
+disappears and the integral becomes $\int d{\bf x^\prime}=V$.
+When ${\bf k}\ne{\bf k^\prime}$ the integral is zero so we need to include a delta
+function in the result.
+We have now completed two Fourier transforms of the right-hand side of the field
+commutator equation.
+Overall we have
+%
+$$
+\int\int i\delta({\bf x}-{\bf x^\prime})
+\exp(-i{\bf k}\cdot{\bf x})
+\exp(i{\bf k^\prime}\cdot{\bf x^\prime})\,d{\bf x}\,d{\bf x^\prime}
+=iV\delta_{\bf kk^\prime}
+$$
+%
+We now turn to the left-hand side of the field commutator equation.
+%
+\vfill
+\break
+%
+Step 3.
+Write down $\phi$ and $\dot\phi=\partial\phi/\partial t$.
+%
+$$\phi({\bf x},t)=
+\overbrace{
+\sum_{\bf k}
+{
+a({\bf k})\exp(-i\omega({\bf k})t+i{\bf k}\cdot{\bf x})
+\over
+\sqrt{2V\omega({\bf k})}
+}
+}^A
++
+\overbrace{
+\sum_{\bf k}
+{
+a^\dagger({\bf k})\exp(i\omega({\bf k})t-i{\bf k}\cdot{\bf x})
+\over
+\sqrt{2V\omega({\bf k})}
+}
+}^B
+$$
+%
+$$\dot\phi({\bf x^\prime},t)=
+\overbrace{
+-i
+\sum_{\bf k^\prime}
+{
+a({\bf k^\prime})\exp(-i\omega({\bf k^\prime})t
++i{\bf k^\prime}\cdot{\bf x^\prime})
+\over
+\sqrt{2V/\omega({\bf k^\prime})}
+}
+}^C
++
+\overbrace{
+i
+\sum_{\bf k^\prime}
+{
+a^\dagger({\bf k^\prime})\exp(i\omega({\bf k^\prime})t
+-i{\bf k^\prime}\cdot{\bf x^\prime})
+\over
+\sqrt{2V/\omega({\bf k^\prime})}
+}
+}^D
+$$
+%
+Step 4.
+Expand the product $\phi\dot\phi$.
+%
+$$\eqalignno{
+\phi\dot\phi=
+-&i\sum_{{\bf k},{\bf k^\prime}}
+{
+a({\bf k})a({\bf k^\prime})
+\exp(-i\omega({\bf k})t+i{\bf k}\cdot{\bf x}
+-i\omega({\bf k^\prime})t+i{\bf k^\prime}\cdot{\bf x^\prime})
+\over
+2V\sqrt{\omega({\bf k})/\omega({\bf k^\prime})}
+}
+&AC
+\cr
++&i\sum_{{\bf k},{\bf k^\prime}}
+{
+a({\bf k})a^\dagger({\bf k^\prime})
+\exp(-i\omega({\bf k})t+i{\bf k}\cdot{\bf x}
++i\omega({\bf k^\prime})t-i{\bf k^\prime}\cdot{\bf x^\prime})
+\over
+2V\sqrt{\omega({\bf k})/\omega({\bf k^\prime})}
+}
+&AD
+\cr
+-&i\sum_{{\bf k},{\bf k^\prime}}
+{
+a^\dagger({\bf k})a({\bf k^\prime})
+\exp(i\omega({\bf k})t-i{\bf k}\cdot{\bf x}
+-i\omega({\bf k^\prime})t+i{\bf k^\prime}\cdot{\bf x^\prime})
+\over
+2V\sqrt{\omega({\bf k})/\omega({\bf k^\prime})}
+}
+&BC
+\cr
++&i\sum_{{\bf k},{\bf k^\prime}}
+{
+a^\dagger({\bf k})a^\dagger({\bf k^\prime})
+\exp(i\omega({\bf k})t-i{\bf k}\cdot{\bf x}
++i\omega({\bf k^\prime})t-i{\bf k^\prime}\cdot{\bf x^\prime})
+\over
+2V\sqrt{\omega({\bf k})/\omega({\bf k^\prime})}
+}
+&BD
+\cr
+}$$
+%
+Step 5.
+Expand the product $\dot\phi\phi$.
+It is the same as $\phi\dot\phi$ except the order of the operators is swapped.
+%
+$$\eqalignno{
+\dot\phi\phi=
+-&i\sum_{{\bf k},{\bf k^\prime}}
+{
+a({\bf k^\prime})a({\bf k})
+\exp(-i\omega({\bf k})t+i{\bf k}\cdot{\bf x}
+-i\omega({\bf k^\prime})t+i{\bf k^\prime}\cdot{\bf x^\prime})
+\over
+2V\sqrt{\omega({\bf k})/\omega({\bf k^\prime})}
+}
+&CA
+\cr
++&i\sum_{{\bf k},{\bf k^\prime}}
+{
+a^\dagger({\bf k^\prime})a({\bf k})
+\exp(-i\omega({\bf k})t+i{\bf k}\cdot{\bf x}
++i\omega({\bf k^\prime})t-i{\bf k^\prime}\cdot{\bf x^\prime})
+\over
+2V\sqrt{\omega({\bf k})/\omega({\bf k^\prime})}
+}
+&DA
+\cr
+-&i\sum_{{\bf k},{\bf k^\prime}}
+{
+a({\bf k^\prime})a^\dagger({\bf k})
+\exp(i\omega({\bf k})t-i{\bf k}\cdot{\bf x}
+-i\omega({\bf k^\prime})t+i{\bf k^\prime}\cdot{\bf x^\prime})
+\over
+2V\sqrt{\omega({\bf k})/\omega({\bf k^\prime})}
+}
+&CB
+\cr
++&i\sum_{{\bf k},{\bf k^\prime}}
+{
+a^\dagger({\bf k^\prime})a^\dagger({\bf k})
+\exp(i\omega({\bf k})t-i{\bf k}\cdot{\bf x}
++i\omega({\bf k^\prime})t-i{\bf k^\prime}\cdot{\bf x^\prime})
+\over
+2V\sqrt{\omega({\bf k})/\omega({\bf k^\prime})}
+}
+&DB
+\cr
+}$$
+\vfill
+\break
+Step 6.
+Do two Fourier transforms of $[\phi,\dot\phi]$.
+%
+$$\eqalignno{
+&\int\int(\phi\dot\phi-\dot\phi\phi)
+\exp(-i{\bf k}\cdot{\bf x})
+\exp(i{\bf k^\prime}\cdot{\bf x^\prime})
+\,d{\bf x}\,d{\bf x^\prime}=\cr
+\cr
+&\quad-X a({\bf k})a(-{\bf k^\prime})
+\exp(-i\omega({\bf k})t-i\omega({\bf k^\prime})t)			&AC\cr
+&\quad+X a({\bf k})a^\dagger({\bf k^\prime})
+\exp(-i\omega({\bf k})t+i\omega({\bf k^\prime})t)			&AD\cr
+&\quad-X a^\dagger(-{\bf k})a(-{\bf k^\prime})
+\exp(i\omega({\bf k})t-i\omega({\bf k^\prime})t)			&BC\cr
+&\quad+X a^\dagger(-{\bf k})a^\dagger({\bf k^\prime})
+\exp(i\omega({\bf k})t+i\omega({\bf k^\prime})t)			&BD\cr
+\cr
+&\quad+X a(-{\bf k^\prime})a({\bf k})
+\exp(-i\omega({\bf k})t-i\omega({\bf k^\prime})t)			&-CA\cr
+&\quad-X a^\dagger({\bf k^\prime})a({\bf k})
+\exp(-i\omega({\bf k})t+i\omega({\bf k^\prime})t)			&-DA\cr
+&\quad+X a(-{\bf k^\prime})a^\dagger(-{\bf k})
+\exp(i\omega({\bf k})t-i\omega({\bf k^\prime})t)			&-CB\cr
+&\quad-X a^\dagger({\bf k^\prime})a^\dagger(-{\bf k})
+\exp(i\omega({\bf k})t+i\omega({\bf k^\prime})t)			&-DB\cr
+}$$
+%
+$$
+X={iV\over2\sqrt{\omega({\bf k})/\omega({\bf k^\prime})}}
+$$
+%
+Step 7.
+Rewrite as commutators and set equal to the right-hand side of the field commutator
+equation.
+%
+$$\eqalignno{
+iV\delta_{\bf kk^\prime}=
+-&X
+[a({\bf k}),a(-{\bf k^\prime})]
+\exp(-i\omega({\bf k})t-i\omega({\bf k^\prime})t)	&(1)
+\cr
++&X
+[a({\bf k}),a^\dagger({\bf k^\prime})]
+\exp(-i\omega({\bf k})t+i\omega({\bf k^\prime})t)	&(2)
+\cr
+-&X
+[a^\dagger(-{\bf k}),a(-{\bf k^\prime})]
+\exp(i\omega({\bf k})t-i\omega({\bf k^\prime})t)	&(3)
+\cr
++&
+X [a^\dagger(-{\bf k}),a^\dagger({\bf k^\prime})]
+\exp(i\omega({\bf k})t+i\omega({\bf k^\prime})t)	&(4)
+\cr
+}$$
+%
+Step 8.
+Since all of this is equal to $iV\delta_{\bf kk^\prime}$ we can take
+${\bf k}={\bf k'}$.
+This eliminates the exponentials in (2) and (3) and
+eliminates (1) and (4) entirely (${\bf k}\ne-{\bf k}$).
+It also eliminates the
+$\omega({\bf k})/\omega({\bf k^\prime})$ term. We have
+%
+$$
+{iV\over2}[a({\bf k}),a^\dagger({\bf k^\prime})]
+-{iV\over2}[a^\dagger(-{\bf k}),a(-{\bf k^\prime})]
+=iV\delta_{\bf kk^\prime}
+$$
+%
+Cancel $i$ and $V$.
+%
+$$
+{1\over2}[a({\bf k}),a^\dagger({\bf k^\prime})]
+-{1\over2}[a^\dagger(-{\bf k}),a(-{\bf k^\prime})]
+=\delta_{\bf kk^\prime}
+$$
+%
+Transpose the second commutator by reversing the sign.
+%
+$$
+{1\over2}[a({\bf k}),a^\dagger({\bf k^\prime})]
++{1\over2}[a(-{\bf k}),a^\dagger(-{\bf k^\prime})]
+=\delta_{\bf kk^\prime}
+$$
+%
+We can sum the two commutators because ${\bf k}={\bf k^\prime}$ implies
+$-{\bf k}=-{\bf k^\prime}$.
+%
+$$
+[a({\bf k}),a^\dagger({\bf k^\prime})]=\delta_{\bf kk^\prime}
+$$
+
+\vfill
+\break
+
+\beginsection{Notes}
+
+In Step 6, where did the $-\bf k$'s come from?
+Remember that the sum over $\bf k$ includes both positive and negative $\bf k$.
+What is happening is that the Fourier transform is keeping the terms where the
+exponential cancels out, that is, where the integral reduces to a constant
+times $\int d{\bf x}\,d{\bf x^\prime}$.
+In some cases $-\bf k$ causes the exponential to cancel out.
+
+\vfill
+\break
+
+\beginsection{Demo}
+
+In Eigenmath we can use a tensor to represent a Klein-Gordon field.
+The field consists of operators and each operator is multiplied by a coefficient.
+We can take the operators to be tensor indices in which case all we need are
+the coefficients to represent the field.
+For example, the field
+$$
+\phi(x)=\sum_k C(k)a(k)+\sum_k D(k)a^\dagger(k)
+$$
+can be written in tensor notation as
+$$
+\phi(x)=
+\bordermatrix{
+&&k=-2&k=-1&k=0&k=1&k=2\cr
+a&\ldots&C(-2)&C(-1)&C(0)&C(1)&C(2)&\ldots\cr
+a^\dagger&\ldots&D(-2)&D(-1)&D(0)&D(1)&D(2)&\ldots\cr
+}
+$$
+In this simple example we used a scalar $k$ but what we really need is a vector $\bf k$.
+This promotes the tensor to rank-4.
+We need one index to select $a$ or $a^\dagger$ and three indices to select the mode,
+$n_1,n_2,n_3$. Also, the Eigenmath index numbering starts at 1 so we have to bias the
+index as {\tt B = 2 N + 1} to accommodate an index range of {\tt -N} to {\tt +N}.
+$$
+\matrix{
+&a \hbox{\ or\ } a^\dagger&n_1&n_2&n_3\cr
+&\downarrow&\downarrow&\downarrow&\downarrow\cr
+\hbox{\tt T[}&\hbox{\tt 1..2,}&\hbox{\tt 1..B,}
+&\hbox{\tt 1..B,}&\hbox{\tt 1..B}&\hbox{\tt ]}\cr
+}$$
+The product of two fields such as $\phi\dot\phi$ is computed by using the outer product
+which yields the following tensor indices.
+$$
+\hbox{\tt T[}\overbrace{\tt2,B,B,B,}^\phi\overbrace{\tt2,B,B,B}^{\dot\phi}\hbox{\tt]}
+$$
+Next we compute $\phi\dot\phi-\dot\phi\phi$ which produces a tensor of the same rank.
+Since we only want terms where ${\bf k}={\bf k^\prime}$ we contract across pairs of
+{\tt B} to get
+$$\hbox{\tt T[2,2]}$$
+We then do a dual Fourier transform that produces the final result
+$$T=\left(\matrix{0&iV\cr -iV&0}\right)$$
+The result is more meaningful if we add index labels.
+$$T=\bordermatrix{
+&a&a^\dagger\cr
+a&0&iV\cr
+a^\dagger&-iV&0\cr
+}$$
+So what we have is
+$$T=iV(aa^\dagger-a^\dagger a)$$
+which corresponds to the left-hand side of our result in Step 8.
+
+\vfill
+\break
+
+{\tt\obeylines
+
+clear()
+N = 2
+x = (x1,x2,x3)
+xp = (xp1,xp2,xp3)
+phi = zero(2,2N+1,2N+1,2N+1)
+for(n1, -N, N, for(n2, -N, N, for(n3, -N, N, do(
+\ k = 2 pi / L (n1,n2,n3),
+\ omega = sqrt(mu\char94 2 + k\char94 2),
+\ C = 1 / sqrt(2 V omega),
+\ phi[1,n1+N+1,n2+N+1,n3+N+1] = C exp(-i omega t + i dot(k,x)),
+\ phi[2,n1+N+1,n2+N+1,n3+N+1] = C exp(i omega t - i dot(k,x))
+))))
+phidot = d(phi, t)
+phidot = subst(xp1,x1,phidot)
+phidot = subst(xp2,x2,phidot)
+phidot = subst(xp3,x3,phidot)
+phidot = eval(phidot)
+T = outer(phi,phidot) - outer(phidot,phi)
+T = contract(T,2,6)
+T = contract(T,2,5)
+T = contract(T,2,4)
+\# Poor man's dual Fourier transform for an arbitrary k.
+k = 2 pi / L (-1,1,2)
+T = T V\char94 2 exp(-i dot(k,x)) exp(i dot(k,xp))
+T = filter(T,x1,x2,x3)
+T = filter(T,xp1,xp2,xp3)
+display(T)
+
+}
+

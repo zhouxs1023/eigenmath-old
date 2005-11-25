@@ -1,0 +1,123 @@
+\beginsection{Mandl and Shaw Problem 1.1(iii)}
+
+The radiation field inside a cubic enclosure, which contains no charges,
+is specified by the state
+$$|c\rangle=\exp(-\hbox{$1\over2$}|c|^2)\sum_{n=0}^\infty
+{c^n\over\sqrt{n!}}\,|n\rangle$$
+where $c$ is any complex number and $|n\rangle$ is the state in which
+there are $n$ photons.
+Show that the average number of photons observed is
+$$\langle c|a^\dagger a|c\rangle=|c|^2$$
+
+\beginsection{Solution}
+
+The average number of photons observed is the expectation value
+$$\bar N=\sum_{n=1}^\infty nP_n$$
+where $P_n$ is the probability of measuring $n$ photons:
+$$|\psi_n\rangle=\exp(-\hbox{$1\over2$}|c|^2){c^n\over\sqrt{n!}}\,|n\rangle$$
+$$P_n=\langle\psi_n|\psi_n\rangle=\exp(-|c|^2){|c|^{2n}\over n!}$$
+
+Computing $\bar N$ we have
+$$\eqalign{
+\bar N&=\sum_{n=1}^\infty nP_n\cr
+&=\sum_{n=1}^\infty n\exp(-|c|^2){|c|^{2n}\over n!}\cr
+&=|c|^2\exp(-|c|^2)\sum_{n=1}^\infty {|c|^{2(n-1)}\over(n-1)!}\cr
+&=|c|^2\exp(-|c|^2)\exp(|c|^2)=|c|^2\cr
+}$$
+
+We want to show that
+$$\langle c|a^\dagger a|c\rangle=|c|^2$$
+where $a$ and $a^\dagger$ are the destruction and creation operators
+$$
+a|n\rangle=\sqrt{n}\,|n-1\rangle
+\qquad
+a^\dagger|n\rangle=\sqrt{n+1}\,|n+1\rangle
+$$
+
+When written as matrices the operators look like this:
+$$
+a=\left[\matrix{
+0	&1	&0	&0	&0	&\cdots	\cr
+0	&0	&\sqrt2	&0	&0	&\cdots	\cr
+0	&0	&0	&\sqrt3	&0	&\cdots	\cr
+0	&0	&0	&0	&\sqrt4	&\cdots	\cr
+0	&0	&0	&0	&0	&\cdots	\cr
+\vdots	&\vdots	&\vdots	&\vdots	&\vdots	&\ddots	\cr
+}\right]
+\quad
+a^\dagger=\left[\matrix{
+0	&0	&0	&0	&0	&\cdots	\cr
+1	&0	&0	&0	&0	&\cdots	\cr
+0	&\sqrt2	&0	&0	&0	&\cdots	\cr
+0	&0	&\sqrt3	&0	&0	&\cdots	\cr
+0	&0	&0	&\sqrt4	&0	&\cdots	\cr
+\vdots	&\vdots	&\vdots	&\vdots	&\vdots	&\ddots	\cr
+}\right]
+$$
+Multiplying the two matrices we get
+$$a^\dagger a=\left[\matrix{
+0	&0	&0	&0	&0	&\cdots	\cr
+0	&1	&0	&0	&0	&\cdots	\cr
+0	&0	&2	&0	&0	&\cdots	\cr
+0	&0	&0	&3	&0	&\cdots	\cr
+0	&0	&0	&0	&4	&\cdots	\cr
+\vdots	&\vdots	&\vdots	&\vdots	&\vdots	&\ddots	\cr
+}\right]
+$$
+Now let's multiply the matrix $a^\dagger a$ times the vector
+$|c\rangle$ and have a look.
+$$
+a^\dagger a|c\rangle=\exp(-\hbox{$1\over2$}|c|^2)\left[
+0\times{c^0\over\sqrt{0!}}\,|0\rangle+
+1\times{c^1\over\sqrt{1!}}\,|1\rangle+
+2\times{c^2\over\sqrt{2!}}\,|2\rangle+
+3\times{c^3\over\sqrt{3!}}\,|3\rangle+
+\cdots\right]
+$$
+We see that $a^\dagger a$ is now distributed across each term of the
+series, poised to cancel the last factor in each factorial.
+Multiplying by $\langle c|$ we have
+$$
+\eqalign{
+\langle c|a^\dagger a|c\rangle&=\exp(-|c|^2)\left[
+1\times{|c|^2\over1!}\,\langle1|1\rangle+
+2\times{|c|^4\over2!}\,\langle2|2\rangle+
+3\times{|c|^6\over3!}\,\langle3|3\rangle+
+\cdots\right]\cr
+&=|c|^2\exp(-|c|^2)\left[
+{|c|^0\over1!}\,\langle1|1\rangle+
+{|c|^2\over1!}\,\langle2|2\rangle+
+{|c|^4\over2!}\,\langle3|3\rangle+
+\cdots\right]\cr
+&=|c|^2\exp(-|c|^2)\exp(|c|^2)=|c|^2\cr
+}$$
+We see that the matrix $a^\dagger a$ has changed each $n$ factorial into an
+$(n-1)$ factorial.
+This ``shifts'' the series and permits us to factor out a $|c|^2$.
+The following Eigenmath script repeats the calculation
+except the script uses a finite
+number of terms for $|c\rangle$.
+
+\vfill
+\break
+
+{\obeylines\tt
+clear()
+N = 6 {\it \#number of terms to use for $|c\rangle$}
+a = zero(N, N)
+for(k, 1, N - 1, a[k, k + 1] = sqrt(k)) {\it \#init absorption operator}
+I = unit(N)
+ket(n) = I[n + 1] {\it \#trick to get basis vector $|n\rangle$}
+c = r exp(i phi) {\it \#c is an arbitrary complex number, use r instead of $|c|$}
+ketc = exp(-1/2 conj(c) c) sum(n, 0, N - 1, c\char94 n / sqrt(n!)~ket(n))
+P = dot(conj(ketc), transpose(conj(a)), a, ketc) {\it \#$P=\langle c|a^\dagger a|c\rangle$}
+P = simplify(P)
+display(P)
+"Replace the truncated series with an exponential."
+EXP(x) = eval(taylor(exp(x), x, N - 2))
+P = subst(exp(r\char94 2), EXP(r\char94 2), P)
+P = eval(P)
+display(P)
+
+}
+
