@@ -1,0 +1,75 @@
+\magnification=1200
+\raggedright
+\parindent=0pt
+{\bf Problem 1.}
+
+$$a=\pmatrix{1\cr-2\cr-1\cr},\quad
+b=\pmatrix{2\cr1\cr-2}
+$$
+
+$$\langle a,b\rangle=a^\tau b=(1)(2)+(-2)(1)+(-1)(-2)=2-2+2=2$$
+
+$$\langle b,b\rangle=b^\tau b=(2)(2)+(1)(1)+(-2)(-2)=9$$
+
+$$|b|=\sqrt{\langle b,b\rangle}=3$$
+
+$$3a=\pmatrix{3\cr-6\cr-3},\quad a+b=\pmatrix{3\cr-1\cr-3}$$
+
+$$\langle3a,a+b\rangle=(3)(3)+(-6)(-1)+(-3)(-3)=9+6+9=24$$
+
+$$\langle a,a\rangle=(1)(1)+(-2)(-2)+(-1)(-1)=6$$
+
+$$|a|=\sqrt{\langle a,a\rangle}=\sqrt6$$
+
+$$\theta=\cos^{-1}{\langle a,b\rangle\over|a||b|}=\cos^{-1}{2\over3\sqrt6}=
+\cos^{-1}{\sqrt2\over3\sqrt3}$$
+
+\vfill\eject
+{\bf Problem 2.} The expression $x_1y_1+x_3y_3$ is not an inner product
+because for some $a\ne0$ we obtain the result $\langle a,a\rangle=0$.
+Specifically, for an $a$ in the set $\{(0,t,0):t\in{\cal R},t\ne0\}$
+we obtain
+$\langle a,a\rangle=0$.
+
+\vfill\eject
+
+{\bf Problem 3.}
+
+$$
+b_1=\pmatrix{0\cr0\cr1\cr0},\quad
+b_2=\pmatrix{1\cr1\cr2\cr1},\quad
+b_3=\pmatrix{1\cr0\cr1\cr1}
+$$
+
+$$|b_1|=1,\quad\hat b_1=|b_1|^{-1}b_1=\pmatrix{0\cr0\cr1\cr0}$$
+
+$$\langle b_2,\hat b_1\rangle=\pmatrix{1&1&2&1}\pmatrix{0\cr0\cr1\cr0}=2$$
+
+$$b_2^\prime=b_2-\langle b_2,\hat b_1\rangle\hat b_1=
+\pmatrix{1\cr1\cr2\cr1}-2\pmatrix{0\cr0\cr1\cr0}=\pmatrix{1\cr1\cr0\cr1}$$
+
+$$\hat b_2=|b_2^\prime|^{-1}b_2^\prime={1\over\sqrt3}\pmatrix{1\cr1\cr0\cr1}$$
+
+$$\langle b_3,\hat b_1\rangle=\pmatrix{1&0&1&1}\pmatrix{0\cr0\cr1\cr0}=1$$
+
+$$\langle b_3,\hat b_2\rangle={1\over\sqrt3}\pmatrix{1&0&1&1}\pmatrix{1\cr1\cr0\cr1}
+={2\over\sqrt3}$$
+
+$$b_3^\prime=b_3-\langle b_3,\hat b_1\rangle\hat b_1-\langle b_3,\hat b_2\rangle\hat b_2
+=\pmatrix{1\cr0\cr1\cr1}-\pmatrix{0\cr0\cr1\cr0}-{2\over3}\pmatrix{1\cr1\cr0\cr1}
+=\pmatrix{1/3\cr-2/3\cr0\cr1/3}$$
+
+$$|b_3^\prime|=\sqrt{(1/3)^2+(-2/3)^2+(1/3)^2}=\sqrt{6/9}=\sqrt{2/3}$$
+
+$$\hat b_3=|b_3^\prime|^{-1}b_3^\prime=\sqrt{3/2}\pmatrix{1/3\cr-2/3\cr0\cr1/3}
+={1\over\sqrt6}\pmatrix{1\cr-2\cr0\cr1}$$
+
+Answer...
+
+$$
+\hat b_1=\pmatrix{0\cr0\cr1\cr0},\quad
+\hat b_2={1\over\sqrt3}\pmatrix{1\cr1\cr0\cr1},\quad
+\hat b_3={1\over\sqrt6}\pmatrix{1\cr-2\cr0\cr1}
+$$
+
+\end
