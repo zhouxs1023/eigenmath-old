@@ -1,0 +1,87 @@
+\parindent=0pt
+
+Determine whether the following set is linearly independent.
+
+$$\left\{
+\pmatrix{2\cr1\cr1}
+,
+\pmatrix{1\cr3\cr2}
+\right\}$$
+
+\bigskip
+
+See Unit 11.
+A set of elements is linearly dependent if there is
+a linear combination that sums to zero.
+In other words, can we solve the following?
+
+$$
+c_1\pmatrix{2\cr1\cr1}
++
+c_2\pmatrix{1\cr3\cr2}
+=
+\pmatrix{0\cr0\cr0}
+$$
+
+This corresponds to the following system of linear equations.
+
+$$\left\{
+\eqalign{
+2\cdot c_1 + 1\cdot c_2 &= 0\cr
+1\cdot c_1 + 3\cdot c_2 &= 0\cr
+1\cdot c_1 + 2\cdot c_2 &= 0\cr
+}\right.$$
+
+This in turn is equivalent to the following.
+
+$$\pmatrix{
+2&1\cr
+1&3\cr
+1&2\cr}
+\cdot
+\pmatrix{c_1\cr c_2}
+=
+\pmatrix{0\cr0\cr0}
+$$
+
+The augmented matrix is
+
+$$\pmatrix{
+2&1&:&0\cr
+1&3&:&0\cr
+1&2&:&0}
+$$
+
+$R_1-2R_3\rightarrow R_1$
+
+$R_2-R_3\rightarrow R_2$
+
+$$\pmatrix{
+0&-3&:&0\cr
+0&1&:&0\cr
+1&2&:&0}
+$$
+
+$R_1+3R_2\rightarrow R_1$
+
+$R_3-2R_2\rightarrow R_3$
+
+$$\pmatrix{
+0&0&:&0\cr
+0&1&:&0\cr
+1&0&:&0}
+$$
+
+This corresponds to the folowing system
+of linear equations.
+
+$$\left\{\eqalign{
+c_2&=0\cr
+c_1&=0\cr
+}\right.
+$$
+
+Since this is a trivial solution,
+the set is linearly independent.
+
+\end
