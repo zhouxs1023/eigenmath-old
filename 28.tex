@@ -1,0 +1,53 @@
+\parindent=0pt
+
+For the following linear transformation
+find the kernel of $T$ and its basis.
+
+$$
+T\pmatrix{a\cr b\cr c}
+=
+\pmatrix{a-b\cr c}
+$$
+
+\bigskip
+
+The kernel of $T$ is the set of vectors
+that $T$ maps to zero.
+To find the kernel of $T$, first find
+$[T]_{std}$ and then solve
+
+$$[T]_{std}
+\pmatrix{a\cr b\cr c}
+=
+\pmatrix{0\cr0}
+$$
+
+We have
+
+$$
+T\pmatrix{1\cr0\cr0}=\pmatrix{1\cr0}
+,\quad
+T\pmatrix{0\cr1\cr0}=\pmatrix{-1\cr0}
+,\quad
+T\pmatrix{0\cr0\cr1}=\pmatrix{0\cr1}
+$$
+
+and
+
+$$[T]_{std}=\pmatrix{1&-1&0\cr0&0&1}$$
+
+This is already in reduced row echelon form.
+The corresponding system of equations is
+
+$$\left\{\eqalign{
+a-b&=0\cr
+c=0\cr
+}\right.
+$$
+
+Letting $t=b$ we have the result $a=t$ and the solution
+(the kernel of $T$) is $\{(t,t,0):t\in R\}$.
+
+
+\end
+
