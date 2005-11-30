@@ -1,0 +1,39 @@
+Simple Lisp
+
+<pre>
+	[roscoe ~/lisp]$ gcc -o lisp lisp.c
+	[roscoe ~/lisp]$ ./lisp example
+	Bondi metric...
+	Is the Einstein tensor GUU divergence-free?
+	t
+	&ge; (length GUU)
+	280
+	&ge; (length (covariant-derivative-of-up-up GUU))
+	6723
+	&ge; ^C
+	[roscoe ~/lisp]$ ./lisp example2
+	connection coefficients (p. 210)
+	t
+	divergence of einstein is zero (p. 222)
+	t
+	computing riemann tensor (p. 219)
+	t
+	symmetry of covariant derivative (p. 252)
+	t
+	covariant derivative chain rule (p. 252)
+	t
+	additivity of covariant derivative (p. 257)
+	t
+	riemann is antisymmetric on last two indices (p. 286)
+	t
+	riemann vanishes when antisymmetrized on last three indices (p. 286)
+	t
+	double dual of riemann (p. 325)
+	t
+	noncommutation of covariant derivatives (p. 389)
+	t
+	bondi metric
+	t
+	t
+	&ge;
+</pre>
