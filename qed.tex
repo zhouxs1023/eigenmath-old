@@ -1,0 +1,535 @@
+\parindent=0pt
+{\tt ;\ From\ "Quantum\ Electrodynamics"\ by\ Richard\ P.\ Feynman}
+
+{\tt ;\ pp.\ 40-43}
+
+$$
+a=\left(\matrix{
+a_t\cr
+a_x\cr
+a_y\cr
+a_z\cr
+}\right)
+\quad
+b=\left(\matrix{
+b_t\cr
+b_x\cr
+b_y\cr
+b_z\cr
+}\right)
+\quad
+c=\left(\matrix{
+c_t\cr
+c_x\cr
+c_y\cr
+c_z\cr
+}\right)
+$$
+{\tt ;\ generic\ spacetime\ vectors\ a,\ b\ and\ c}
+
+{\tt (setq\ a\ (sum}
+
+{\tt \ \ (product\ at\ (tensor\ t))}
+
+{\tt \ \ (product\ ax\ (tensor\ x))}
+
+{\tt \ \ (product\ ay\ (tensor\ y))}
+
+{\tt \ \ (product\ az\ (tensor\ z))}
+
+{\tt ))}
+
+{\tt (setq\ b\ (sum}
+
+{\tt \ \ (product\ bt\ (tensor\ t))}
+
+{\tt \ \ (product\ bx\ (tensor\ x))}
+
+{\tt \ \ (product\ by\ (tensor\ y))}
+
+{\tt \ \ (product\ bz\ (tensor\ z))}
+
+{\tt ))}
+
+{\tt (setq\ c\ (sum}
+
+{\tt \ \ (product\ ct\ (tensor\ t))}
+
+{\tt \ \ (product\ cx\ (tensor\ x))}
+
+{\tt \ \ (product\ cy\ (tensor\ y))}
+
+{\tt \ \ (product\ cz\ (tensor\ z))}
+
+{\tt ))}
+
+{\tt ;\ define\ this\ function\ for\ multiplying\ spactime\ vectors}
+
+{\tt ;\ how\ it\ works:\ (dot\ arg1\ (tensor\ t))\ picks\ off\ the\ t'th\ element,\ etc.}
+
+{\tt ;\ the\ -1's\ are\ for\ the\ spacetime\ metric}
+
+{\tt (define\ spacetime-dot\ (sum}
+
+{\tt \ \ (dot\ (dot\ arg1\ (tensor\ t))\ (dot\ arg2\ (tensor\ t)))}
+
+{\tt \ \ (dot\ -1\ (dot\ arg1\ (tensor\ x))\ (dot\ arg2\ (tensor\ x)))}
+
+{\tt \ \ (dot\ -1\ (dot\ arg1\ (tensor\ y))\ (dot\ arg2\ (tensor\ y)))}
+
+{\tt \ \ (dot\ -1\ (dot\ arg1\ (tensor\ z))\ (dot\ arg2\ (tensor\ z)))}
+
+{\tt ))}
+
+$$a^2\mathrel{\mathop=^?}a_t^2-a_x^2-a_y^2-a_z^2$$
+{\tt (setq\ temp1\ (spacetime-dot\ a\ a))}
+
+{\tt (setq\ temp2\ (sum}
+
+{\tt \ \ (power\ at\ 2)}
+
+{\tt \ \ (product\ -1\ (power\ ax\ 2))}
+
+{\tt \ \ (product\ -1\ (power\ ay\ 2))}
+
+{\tt \ \ (product\ -1\ (power\ az\ 2))}
+
+{\tt ))}
+
+{\tt (equal\ temp1\ temp2)\ ;\ print\ "t"\ if\ it's\ true}
+
+$$I=\left(\matrix{
+1&0&0&0\cr
+0&1&0&0\cr
+0&0&1&0\cr
+0&0&0&1\cr
+}\right)$$
+{\tt (setq\ I\ (sum}
+
+{\tt \ \ (tensor\ t\ t)}
+
+{\tt \ \ (tensor\ x\ x)}
+
+{\tt \ \ (tensor\ y\ y)}
+
+{\tt \ \ (tensor\ z\ z)}
+
+{\tt ))}
+
+$$\gamma_t=\left(\matrix{
+1&0&0&0\cr
+0&1&0&0\cr
+0&0&-1&0\cr
+0&0&0&-1\cr
+}\right)$$
+{\tt (setq\ gammat\ (sum}
+
+{\tt \ \ (tensor\ t\ t)}
+
+{\tt \ \ (tensor\ x\ x)}
+
+{\tt \ \ (product\ -1\ (tensor\ y\ y))}
+
+{\tt \ \ (product\ -1\ (tensor\ z\ z))}
+
+{\tt ))}
+
+$$\gamma_x=\left(\matrix{
+0&0&0&1\cr
+0&0&1&0\cr
+0&-1&0&0\cr
+-1&0&0&0\cr
+}\right)$$
+{\tt (setq\ gammax\ (sum}
+
+{\tt \ \ (tensor\ t\ z)}
+
+{\tt \ \ (tensor\ x\ y)}
+
+{\tt \ \ (product\ -1\ (tensor\ y\ x))}
+
+{\tt \ \ (product\ -1\ (tensor\ z\ t))}
+
+{\tt ))}
+
+$$\gamma_y=\left(\matrix{
+0&0&0&-i\cr
+0&0&i&0\cr
+0&i&0&0\cr
+-i&0&0&0\cr
+}\right)$$
+{\tt (setq\ gammay\ (sum}
+
+{\tt \ \ (product\ -1\ i\ (tensor\ t\ z))}
+
+{\tt \ \ (product\ i\ (tensor\ x\ y))}
+
+{\tt \ \ (product\ i\ (tensor\ y\ x))}
+
+{\tt \ \ (product\ -1\ i\ (tensor\ z\ t))}
+
+{\tt ))}
+
+$$\gamma_z=\left(\matrix{
+0&0&1&0\cr
+0&0&0&-1\cr
+-1&0&0&0\cr
+0&1&0&0\cr
+}\right)$$
+{\tt (setq\ gammaz\ (sum}
+
+{\tt \ \ (tensor\ t\ y)}
+
+{\tt \ \ (product\ -1\ (tensor\ x\ z))}
+
+{\tt \ \ (product\ -1\ (tensor\ y\ t))}
+
+{\tt \ \ (tensor\ z\ x)}
+
+{\tt ))}
+
+$$\gamma_t^2\mathrel{\mathop=^?}1$$
+{\tt (equal\ (dot\ gammat\ gammat)\ I)\ ;\ print\ "t"\ if\ it's\ true}
+
+$$\gamma_x^2=\gamma_y^2=\gamma_z^2\mathrel{\mathop=^?}-1$$
+{\tt (equal\ (dot\ gammax\ gammax)\ (dot\ -1\ I))\ ;\ print\ "t"\ if\ it's\ true}
+
+{\tt (equal\ (dot\ gammay\ gammay)\ (dot\ -1\ I))\ ;\ print\ "t"\ if\ it's\ true}
+
+{\tt (equal\ (dot\ gammaz\ gammaz)\ (dot\ -1\ I))\ ;\ print\ "t"\ if\ it's\ true}
+
+$$\gamma_5=\gamma_x\gamma_y\gamma_z\gamma_t$$
+{\tt (setq\ gamma5\ (dot\ gammax\ gammay\ gammaz\ gammat))}
+
+$$\gamma_5^2\mathrel{\mathop=^?}-1$$
+{\tt (equal\ (dot\ gamma5\ gamma5)\ (dot\ -1\ I))\ ;\ print\ "t"\ if\ it's\ true}
+
+$$\gamma=\left(\matrix{
+\gamma_t\cr
+\gamma_x\cr
+\gamma_y\cr
+\gamma_z\cr
+}\right)$$
+{\tt ;\ gamma\ is\ a\ "vector"\ of\ dirac\ matrices}
+
+{\tt (setq\ gamma\ (sum}
+
+{\tt \ \ (product\ gammat\ (tensor\ t))}
+
+{\tt \ \ (product\ gammax\ (tensor\ x))}
+
+{\tt \ \ (product\ gammay\ (tensor\ y))}
+
+{\tt \ \ (product\ gammaz\ (tensor\ z))}
+
+{\tt ))}
+
+$$a\!\!\!/=a\gamma\qquad b\!\!\!/=b\gamma\qquad c\!\!\!/=c\gamma$$
+{\tt (setq\ agamma\ (spacetime-dot\ a\ gamma))}
+
+{\tt (setq\ bgamma\ (spacetime-dot\ b\ gamma))}
+
+{\tt (setq\ cgamma\ (spacetime-dot\ c\ gamma))}
+
+$$a\!\!\!/\mathrel{\mathop=^?}a_t\gamma_t-a_x\gamma_x-a_y\gamma_y-a_x\gamma_x$$
+{\tt (setq\ temp1\ agamma)}
+
+{\tt (setq\ temp2\ (sum}
+
+{\tt \ \ (product\ at\ gammat)}
+
+{\tt \ \ (product\ -1\ ax\ gammax)}
+
+{\tt \ \ (product\ -1\ ay\ gammay)}
+
+{\tt \ \ (product\ -1\ az\ gammaz)}
+
+{\tt ))}
+
+{\tt (equal\ temp1\ temp2)\ ;\ print\ "t"\ if\ it's\ true}
+
+$$a\!\!\!/b\!\!\!/\mathrel{\mathop=^?}-b\!\!\!/a\!\!\!/ + 2ab$$
+{\tt ;\ note:\ gammas\ are\ square\ matrices,\ use\ "dot"\ to\ multiply}
+
+{\tt ;\ use\ "spacetime-dot"\ to\ multiply\ spacetime\ vectors}
+
+{\tt (setq\ temp1\ (dot\ agamma\ bgamma))}
+
+{\tt (setq\ temp2\ (sum}
+
+{\tt \ \ (dot\ -1\ bgamma\ agamma)}
+
+{\tt \ \ (dot\ 2\ (spacetime-dot\ a\ b)\ I)}
+
+{\tt ))}
+
+{\tt (equal\ temp1\ temp2)\ ;\ print\ "t"\ if\ it's\ true}
+
+$$a\!\!\!/\gamma_5\mathrel{\mathop=^?}-\gamma_5a\!\!\!/$$
+{\tt (setq\ temp1\ (dot\ agamma\ gamma5))}
+
+{\tt (setq\ temp2\ (dot\ -1\ gamma5\ agamma))}
+
+{\tt (equal\ temp1\ temp2)\ ;\ print\ "t"\ if\ it's\ true}
+
+$$\gamma_x a\!\!\!/\gamma_x\mathrel{\mathop=^?}a\!\!\!/+2a_x\gamma_x$$
+{\tt (setq\ temp1\ (dot\ gammax\ agamma\ gammax))}
+
+{\tt (setq\ temp2\ (sum\ agamma\ (dot\ 2\ ax\ gammax)))}
+
+{\tt (equal\ temp1\ temp2)\ ;\ print\ "t"\ if\ it's\ true}
+
+$$\gamma\gamma\mathrel{\mathop=^?}4$$
+{\tt (setq\ temp1\ (spacetime-dot\ gamma\ gamma))}
+
+{\tt (setq\ temp2\ (dot\ 4\ I))}
+
+{\tt (equal\ temp1\ temp2)\ ;\ print\ "t"\ if\ it's\ true}
+
+$$\gamma a\!\!\!/\gamma\mathrel{\mathop=^?}-2a\!\!\!/$$
+{\tt (setq\ temp1\ (spacetime-dot\ gamma\ (dot\ agamma\ gamma)))}
+
+{\tt (setq\ temp2\ (dot\ -2\ agamma))}
+
+{\tt (equal\ temp1\ temp2)\ ;\ print\ "t"\ if\ it's\ true}
+
+$$\gamma a\!\!\!/b\!\!\!/\gamma\mathrel{\mathop=^?}4ab$$
+{\tt (setq\ temp1\ (spacetime-dot\ gamma\ (dot\ agamma\ bgamma\ gamma)))}
+
+{\tt (setq\ temp2\ (dot\ 4\ (spacetime-dot\ a\ b)\ I))}
+
+{\tt (equal\ temp1\ temp2)\ ;\ print\ "t"\ if\ it's\ true}
+
+$$\gamma a\!\!\!/b\!\!\!/c\!\!\!/\gamma\mathrel{\mathop=^?}
+-2c\!\!\!/b\!\!\!/a\!\!\!/$$
+{\tt (setq\ temp1\ (spacetime-dot\ gamma\ (dot\ agamma\ bgamma\ cgamma\ gamma)))}
+
+{\tt (setq\ temp2\ (dot\ -2\ cgamma\ bgamma\ agamma))}
+
+{\tt (equal\ temp1\ temp2)\ ;\ print\ "t"\ if\ it's\ true}
+
+{\tt ;\ define\ series\ approximations\ for\ some\ transcendental\ functions}
+
+{\tt ;\ for\ 32-bit\ integers,\ overflow\ occurs\ for\ powers\ above\ 5}
+
+{\tt (define\ order\ 5)}
+
+{\tt (define\ yexp\ (prog\ temp\ count}
+
+{\tt \ \ (setq\ temp\ 0)}
+
+{\tt \ \ (setq\ count\ order)}
+
+{\tt loop}
+
+{\tt \ \ (setq\ temp\ (product\ (power\ count\ -1)\ arg\ (sum\ 1\ temp)))}
+
+{\tt \ \ (setq\ count\ (sum\ count\ -1))}
+
+{\tt \ \ (cond\ ((greaterp\ count\ 0)\ (goto\ loop)))}
+
+{\tt \ \ (return\ (sum\ 1\ temp))}
+
+{\tt ))}
+
+{\tt (define\ ysin\ (sum}
+
+{\tt \ \ (product\ -1/2\ i\ (yexp\ (product\ i\ arg)))}
+
+{\tt \ \ (product\ 1/2\ i\ (yexp\ (product\ -1\ i\ arg)))}
+
+{\tt ))}
+
+{\tt (define\ ycos\ (sum}
+
+{\tt \ \ (product\ 1/2\ (yexp\ (product\ i\ arg)))}
+
+{\tt \ \ (product\ 1/2\ (yexp\ (product\ -1\ i\ arg)))}
+
+{\tt ))}
+
+{\tt (define\ ysinh\ (sum}
+
+{\tt \ \ (product\ 1/2\ (yexp\ arg))}
+
+{\tt \ \ (product\ -1/2\ (yexp\ (product\ -1\ arg)))}
+
+{\tt ))}
+
+{\tt (define\ ycosh\ (sum}
+
+{\tt \ \ (product\ 1/2\ (yexp\ arg))}
+
+{\tt \ \ (product\ 1/2\ (yexp\ (product\ -1\ arg)))}
+
+{\tt ))}
+
+{\tt ;\ same\ as\ above\ but\ for\ matrices}
+
+{\tt (define\ YEXP\ (prog\ temp\ count}
+
+{\tt \ \ (setq\ temp\ 0)}
+
+{\tt \ \ (setq\ count\ order)}
+
+{\tt loop}
+
+{\tt \ \ (setq\ temp\ (dot\ (power\ count\ -1)\ arg\ (sum\ I\ temp)))}
+
+{\tt \ \ (setq\ count\ (sum\ count\ -1))}
+
+{\tt \ \ (cond\ ((greaterp\ count\ 0)\ (goto\ loop)))}
+
+{\tt \ \ (return\ (sum\ I\ temp))}
+
+{\tt ))}
+
+{\tt (define\ YSIN\ (sum}
+
+{\tt \ \ (product\ -1/2\ i\ (YEXP\ (product\ i\ arg)))}
+
+{\tt \ \ (product\ 1/2\ i\ (YEXP\ (product\ -1\ i\ arg)))}
+
+{\tt ))}
+
+{\tt (define\ YCOS\ (sum}
+
+{\tt \ \ (product\ 1/2\ (YEXP\ (product\ i\ arg)))}
+
+{\tt \ \ (product\ 1/2\ (YEXP\ (product\ -1\ i\ arg)))}
+
+{\tt ))}
+
+{\tt (define\ YSINH\ (sum}
+
+{\tt \ \ (product\ 1/2\ (YEXP\ arg))}
+
+{\tt \ \ (product\ -1/2\ (YEXP\ (product\ -1\ arg)))}
+
+{\tt ))}
+
+{\tt (define\ YCOSH\ (sum}
+
+{\tt \ \ (product\ 1/2\ (YEXP\ arg))}
+
+{\tt \ \ (product\ 1/2\ (YEXP\ (product\ -1\ arg)))}
+
+{\tt ))}
+
+{\tt ;\ for\ truncating\ products\ of\ power\ series}
+
+{\tt (define\ POWER\ (cond}
+
+{\tt \ \ ((greaterp\ arg2\ order)\ 0)}
+
+{\tt \ \ (t\ (list\ 'power\ arg1\ arg2))}
+
+{\tt ))}
+
+{\tt (define\ truncate\ (eval\ (subst\ 'POWER\ 'power\ arg)))}
+
+$$\exp[(u/2)\gamma_t\gamma_x]\mathrel{\mathop=^?}
+\cosh(u/2)+\gamma_t\gamma_x\sinh(u/2)$$
+{\tt (setq\ temp1\ (YEXP\ (dot\ 1/2\ u\ gammat\ gammax)))}
+
+{\tt (setq\ temp2\ (sum}
+
+{\tt \ \ (product\ I\ (ycosh\ (product\ 1/2\ u)))\ ;\ could\ use\ "dot"\ but\ not\ necessary}
+
+{\tt \ \ (dot\ gammat\ gammax\ (ysinh\ (product\ 1/2\ u)))}
+
+{\tt ))}
+
+{\tt (equal\ temp1\ temp2)\ ;\ print\ t\ if\ it's\ true}
+
+$$\exp[(\theta/2)\gamma_x\gamma_y]\mathrel{\mathop=^?}
+\cos(\theta/2)+\gamma_x\gamma_y\sin(\theta/2)$$
+{\tt (setq\ temp1\ (YEXP\ (dot\ 1/2\ theta\ gammax\ gammay)))}
+
+{\tt (setq\ temp2\ (sum}
+
+{\tt \ \ (product\ I\ (ycos\ (product\ 1/2\ theta)))\ ;\ could\ use\ "dot"\ but\ not\ necessary}
+
+{\tt \ \ (dot\ gammax\ gammay\ (ysin\ (product\ 1/2\ theta)))}
+
+{\tt ))}
+
+{\tt (equal\ temp1\ temp2)\ ;\ print\ t\ if\ it's\ true}
+
+$$\exp[-(u/2)\gamma_t\gamma_z]\gamma_t
+\exp[(u/2)\gamma_t\gamma_z]
+\mathrel{\mathop=^?}\gamma_t\cosh u+\gamma_z\sinh u$$
+{\tt (setq\ temp1\ (truncate\ (dot}
+
+{\tt \ \ (YEXP\ (dot\ -1/2\ u\ gammat\ gammaz))}
+
+{\tt \ \ gammat}
+
+{\tt \ \ (YEXP\ (dot\ 1/2\ u\ gammat\ gammaz))}
+
+{\tt )))}
+
+{\tt (setq\ temp2\ (sum}
+
+{\tt \ \ (product\ gammat\ (ycosh\ u))\ ;\ could\ use\ "dot"\ but\ not\ necessary}
+
+{\tt \ \ (product\ gammaz\ (ysinh\ u))\ ;\ could\ use\ "dot"\ but\ not\ necessary}
+
+{\tt ))}
+
+{\tt (equal\ temp1\ temp2)\ ;\ print\ t\ if\ it's\ true}
+
+$$\exp[-(u/2)\gamma_t\gamma_z]\gamma_z
+\exp[(u/2)\gamma_t\gamma_z]
+\mathrel{\mathop=^?}\gamma_z\cosh u+\gamma_t\sinh u$$
+{\tt (setq\ temp1\ (truncate\ (dot}
+
+{\tt \ \ (YEXP\ (dot\ -1/2\ u\ gammat\ gammaz))}
+
+{\tt \ \ gammaz}
+
+{\tt \ \ (YEXP\ (dot\ 1/2\ u\ gammat\ gammaz))}
+
+{\tt )))}
+
+{\tt (setq\ temp2\ (sum}
+
+{\tt \ \ (product\ gammaz\ (ycosh\ u))\ ;\ could\ use\ "dot"\ but\ not\ necessary}
+
+{\tt \ \ (product\ gammat\ (ysinh\ u))\ ;\ could\ use\ "dot"\ but\ not\ necessary}
+
+{\tt ))}
+
+{\tt (equal\ temp1\ temp2)\ ;\ print\ t\ if\ it's\ true}
+
+$$\exp[-(u/2)\gamma_t\gamma_z]\gamma_y
+\exp[(u/2)\gamma_t\gamma_z]
+\mathrel{\mathop=^?}\gamma_y$$
+{\tt (setq\ temp1\ (truncate\ (dot}
+
+{\tt \ \ (YEXP\ (dot\ -1/2\ u\ gammat\ gammaz))}
+
+{\tt \ \ gammay}
+
+{\tt \ \ (YEXP\ (dot\ 1/2\ u\ gammat\ gammaz))}
+
+{\tt )))}
+
+{\tt (equal\ temp1\ gammay)\ ;\ print\ t\ if\ it's\ true}
+
+$$\exp[-(u/2)\gamma_t\gamma_z]\gamma_x
+\exp[(u/2)\gamma_t\gamma_z]
+\mathrel{\mathop=^?}\gamma_x$$
+{\tt (setq\ temp1\ (truncate\ (dot}
+
+{\tt \ \ (YEXP\ (dot\ -1/2\ u\ gammat\ gammaz))}
+
+{\tt \ \ gammax}
+
+{\tt \ \ (YEXP\ (dot\ 1/2\ u\ gammat\ gammaz))}
+
+{\tt )))}
+
+{\tt (equal\ temp1\ gammax)\ ;\ print\ t\ if\ it's\ true}
+
+\end
