@@ -1,4 +1,4 @@
-/* Scan an HTML file and extract TEX code. */
+/* Scan a file and emit HTML, LISP and TEX files. */
 
 #include <stdio.h>
 
