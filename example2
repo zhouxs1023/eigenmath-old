@@ -1,52 +1,32 @@
 ; Page references are for the book "Gravitation."
-
 ; generic metric
-
 (setq gdd (sum
   (product (g00) (tensor x0 x0))
   (product (g11) (tensor x1 x1))
   (product (g22) (tensor x2 x2))
   (product (g33) (tensor x3 x3))
 ))
-
 (gr) ; compute g, guu, GAMUDD, RUDDD, RDD, R, GDD, GUD and GUU
-
 ; generic vectors
-
 (setq u (sum
   (product (u0) (tensor x0))
   (product (u1) (tensor x1))
   (product (u2) (tensor x2))
   (product (u3) (tensor x3))
 ))
-
 (setq v (sum
   (product (v0) (tensor x0))
   (product (v1) (tensor x1))
   (product (v2) (tensor x2))
   (product (v3) (tensor x3))
 ))
-
 (setq w (sum
   (product (w0) (tensor x0))
   (product (w1) (tensor x1))
   (product (w2) (tensor x2))
   (product (w3) (tensor x3))
 ))
-
-<hr>
-
-$$V_{[\mu\nu\lambda]}={1\over3!}
-(V_{\mu\nu\lambda}
-+V_{\nu\lambda\mu}
-+V_{\lambda\mu\nu}
--V_{\nu\mu\lambda}
--V_{\mu\lambda\nu}
--V_{\lambda\nu\mu}
-)$$
-
 ; how to antisymmetrize three indices (p. 86)
-
 (setq V (sum
   (product 1/6 V)
   (product 1/6 (transpose12 (transpose23 V))) ; nu lambda mu -> mu nu lambda
@@ -55,97 +35,42 @@ $$V_{[\mu\nu\lambda]}={1\over3!}
   (product -1/6 (transpose23 V))              ; mu lambda nu -> mu nu lambda
   (product -1/6 (transpose13 V))              ; lambda nu mu -> mu nu lambda
 ))
-
-<hr>
-
-$$[{\bf u},{\bf v}]=
-(u^\beta{v^\alpha}_{,\beta}-v^\beta{u^\alpha}_{,\beta}){\bf e}_\alpha$$
-
 ; commutator (p. 206)
-
 (define commutator (sum
   (contract13 (product +1 arg1 (gradient arg2)))
   (contract13 (product -1 arg2 (gradient arg1)))
 ))
-
-<hr>
-
-$${\Gamma^\alpha}_{\mu\nu}=\hbox{$1\over2$}g^{\alpha\beta}
-(g_{\beta\mu,\nu}+g_{\beta\nu,\mu}-g_{\mu\nu,\beta})$$
-
 (print "connection coefficients (p. 210)")
-
 (setq temp (gradient gdd))
-
 (setq Gamma (contract23 (product 1/2 guu (sum
   temp
   (transpose23 temp)
   (product -1 (transpose12 (transpose23 temp)))
 ))))
-
 ; check
-
 (print (equal Gamma GAMUDD))
-
-<hr>
-
-$${T^\alpha}_{;\gamma}={T^\alpha}_{,\gamma}+
-T^\mu{\Gamma^\alpha}_{\mu\gamma}$$
-
 ; covariant derivative of a vector (p. 211)
-
 (define covariant-derivative (sum
   (gradient arg)
   (contract13 (product arg GAMUDD))
 ))
-
-<hr>
-
-$${G^{\mu\nu}}_{;\nu}=0$$
-
 (print "divergence of einstein is zero (p. 222)")
-
 ; covariant-derivative-of-up-up is already defined in grlib
-
 (setq temp (covariant-derivative-of-up-up GUU))
-
 (setq temp (contract23 temp)) ; sum over 2nd and 3rd indices
-
 (print (equal temp 0))
-
-<hr>
-
-$${R^\alpha}_{\beta\gamma\delta}=
-{\partial{\Gamma^\alpha}_{\beta\delta}\over\partial x^\gamma}-
-{\partial{\Gamma^\alpha}_{\beta\gamma}\over\partial x^\delta}+
-{\Gamma^\alpha}_{\mu\gamma}{\Gamma^\mu}_{\beta\delta}-
-{\Gamma^\alpha}_{\mu\delta}{\Gamma^\mu}_{\beta\gamma}$$
-
 (print "computing riemann tensor (p. 219)")
-
 (setq temp1 (gradient GAMUDD))
-
 (setq temp2 (contract24 (product GAMUDD GAMUDD)))
-
 (setq riemann (sum
   (transpose34 temp1)
   (product -1 temp1)
   (transpose23 temp2)
   (product -1 (transpose34 (transpose23 temp2)))
 ))
-
 ; check
-
 (print (equal riemann RUDDD))
-
-<hr>
-
-$$T_{\alpha\beta;\gamma}=T_{\alpha\beta,\gamma}
--T_{\mu\beta}{\Gamma^\mu}_{\alpha\gamma}
--T_{\alpha\mu}{\Gamma^\mu}_{\beta\gamma}$$
-
 ; p. 259
-
 (define covariant-derivative-of-down-down (prog (temp)
   (setq temp (product arg GAMUDD))
   (return (sum
@@ -154,13 +79,6 @@ $$T_{\alpha\beta;\gamma}=T_{\alpha\beta,\gamma}
     (product -1 (contract23 temp))
   ))
 ))
-
-<hr>
-
-$${T^\alpha}_{\beta;\gamma}={T^\alpha}_{\beta,\gamma}+
-{T^\mu}_\beta{\Gamma^\alpha}_{\mu\gamma}-
-{T^\alpha}_\mu{\Gamma^\mu}_{\beta\gamma}$$
-
 (define covariant-derivative-of-up-down (prog (temp)
   (setq temp (product arg GAMUDD))
   (return (sum
@@ -169,81 +87,37 @@ $${T^\alpha}_{\beta;\gamma}={T^\alpha}_{\beta,\gamma}+
     (product -1 (contract23 temp))
   ))
 ))
-
-<hr>
-
-$$\nabla_{\bf u}{\bf v}={v^\alpha}_{;\beta}u^{\beta}$$
-
 (define directed-covariant-derivative
   (contract23 (product (covariant-derivative arg1) arg2))
 )
-
-<hr>
-
-$$\nabla_{\bf u}{\bf v}-\nabla_{\bf v}{\bf u}=[{\bf u},{\bf v}]$$
-
 (print "symmetry of covariant derivative (p. 252)")
-
 (setq temp1 (sum
   (directed-covariant-derivative v u)
   (product -1 (directed-covariant-derivative u v))
 ))
-
 (setq temp2 (commutator u v))
-
 (equal temp1 temp2)
-
-<hr>
-
-$$\nabla_{\bf u}(f{\bf v})=
-f\nabla_{\bf u}{\bf v}+{\bf v}\partial_{\bf u}f$$
-
 (print "covariant derivative chain rule (p. 252)")
-
 (setq temp1 (directed-covariant-derivative (product (f) v) u))
-
 (setq temp2 (sum
   (product (f) (directed-covariant-derivative v u))
   (product v (contract12 (product (gradient (f)) u)))
 ))
-
 (print (equal temp1 temp2))
-
-<hr>
-
-$$\nabla_{{\bf v}+{\bf w}}{\bf u}=
-\nabla_{\bf v}{\bf u}+\nabla_{\bf w}{\bf u}$$
-
 (print "additivity of covariant derivative (p. 257)")
-
 (setq temp1 (directed-covariant-derivative u (sum v w)))
-
 (setq temp2 (sum
   (directed-covariant-derivative u v)
   (directed-covariant-derivative u w)
 ))
-
 (print (equal temp1 temp2))
-
-<hr>
-
-$${R^\alpha}_{\beta\gamma\delta}={R^\alpha}_{\beta[\gamma\delta]}$$
-
 (print "riemann is antisymmetric on last two indices (p. 286)")
-
 (setq temp (sum
   (product 1/2 RUDDD)
   (product -1/2 (transpose34 RUDDD))
 ))
-
 (print (equal RUDDD temp))
-
-<hr>
-
-$${R^\alpha}_{[\beta\gamma\delta]}=0$$
-
 (print "riemann vanishes when antisymmetrized on last three indices (p. 286)")
-
 (setq temp (sum
   (product 1/6 RUDDD)
   (product 1/6 (transpose34 (transpose24 RUDDD)))
@@ -252,92 +126,51 @@ $${R^\alpha}_{[\beta\gamma\delta]}=0$$
   (product -1/6 (transpose34 RUDDD))
   (product -1/6 (transpose24 RUDDD))
 ))
-
 (print (equal temp 0))
-
-<hr>
-
-$${G^{\alpha\beta}}_{\gamma\delta}=
-\hbox{$1\over2$}\epsilon^{\alpha\beta\mu\nu}
-{R_{\mu\nu}}^{\rho\sigma}
-\hbox{$1\over2$}\epsilon_{\rho\sigma\gamma\delta}$$
-
 (print "double dual of riemann (p. 325)")
-
 (setq temp (contract23 (product gdd RUDDD))) ; lower 1st index
 (setq temp (transpose34 (contract35 (product temp guu)))) ; raise 3rd index
 (setq RDDUU (contract45 (product temp guu))) ; raise 4th index
-
 (setq temp (product epsilon RDDUU))
-
 (setq temp (contract35 temp)) ; sum over mu
 (setq temp (contract34 temp)) ; sum over nu
-
 (setq temp (product temp epsilon))
-
 (setq temp (contract35 temp)) ; sum over rho
 (setq temp (contract34 temp)) ; sum over sigma
-
 (setq GUUDD (product -1/4 temp)) ; negative due to levi-civita tensor
-
 ; check
-
 (print (equal
   (contract13 GUUDD)
   GUD
 ))
-
-<hr>
-
-$${B^\mu}_{;\alpha\beta}-{B^\mu}_{;\beta\alpha}=
-{R^\mu}_{\nu\beta\alpha}B^\nu$$
-
 (print "noncommutation of covariant derivatives (p. 389)")
-
 (setq B (sum
   (product (B0) (tensor x0))
   (product (B1) (tensor x1))
   (product (B2) (tensor x2))
   (product (B3) (tensor x3))
 ))
-
 (setq temp (covariant-derivative-of-up-down (covariant-derivative B)))
-
 (setq temp1 (sum temp (product -1 (transpose23 temp))))
-
 (setq temp2 (transpose23 (contract25 (product RUDDD B))))
-
 (print (equal temp1 temp2))
-
-<hr>
-
 (print "bondi metric")
-
 ; erase any definitions for U, V, beta and gamma
-
 (setq U (quote U))
 (setq V (quote V))
 (setq beta (quote beta))
 (setq gamma (quote gamma))
-
 ; erase any definitions for u, r, theta and phi
-
 (setq u (quote u))
 (setq r (quote r))
 (setq theta (quote theta))
 (setq phi (quote phi))
-
 ; new coordinate system
-
 (setq x0 u)
 (setq x1 r)
 (setq x2 theta)
 (setq x3 phi)
-
 ; U, V, beta and gamma are functions of u, r and theta
-
-$$g_{uu}=Ve^{2\beta}/r-U^2r^2e^{2\gamma}$$
-
 (setq g_uu (sum
   (product
     (V u r theta)
@@ -351,39 +184,25 @@ $$g_{uu}=Ve^{2\beta}/r-U^2r^2e^{2\gamma}$$
     (power e (product 2 (gamma u r theta)))
   )
 ))
-
-$$g_{ur}=2e^{2\beta}$$
-
 (setq g_ur (product 2 (power e (product 2 (beta u r theta)))))
-
-$$g_{u\theta}=2Ur^2e^{2\gamma}$$
-
 (setq g_utheta (product
   2
   (U u r theta)
   (power r 2)
   (power e (product 2 (gamma u r theta)))
 ))
-
-$$g_{\theta\theta}=-r^2e^{2\gamma}$$
-
 (setq g_thetatheta (product
   -1
   (power r 2)
   (power e (product 2 (gamma u r theta)))
 ))
-
-$$g_{\phi\phi}=-r^2e^{-2\gamma}\sin^2\theta$$
-
 (setq g_phiphi (product
   -1
   (power r 2)
   (power e (product -2 (gamma u r theta)))
   (power (sin theta) 2)
 ))
-
 ; metric tensor
-
 (setq gdd (sum
   (product g_uu (tensor u u))
   (product g_ur (tensor u r))
@@ -393,15 +212,9 @@ $$g_{\phi\phi}=-r^2e^{-2\gamma}\sin^2\theta$$
   (product g_thetatheta (tensor theta theta))
   (product g_phiphi (tensor phi phi))
 ))
-
 (gr) ; compute g, guu, GAMUDD, RUDDD, RDD, R, GDD, GUD and GUU
-
 ; is covariant derivative of metric zero?
-
 (print (equal (covariant-derivative-of-down-down gdd) 0))
-
 ; is divergence of einstein zero?
-
 (setq temp (contract23 (covariant-derivative-of-up-up GUU)))
-
 (print (equal temp 0))
