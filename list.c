@@ -29,7 +29,7 @@ main()
 */
 	// printf("\\hsize=6in\n");
 
-	for (i = 0; i < 200; i++)
+	for (i = 0; i < 1000; i++)
 		process(i);
 
 	printf("\\end\n");
