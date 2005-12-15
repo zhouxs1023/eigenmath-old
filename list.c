@@ -73,7 +73,7 @@ remove_comment_delimiters()
 	len = strlen(str);
 
 	for (i = 0; i < len - 1; i++)
-		if (str[i] == '/' && str[i + 1] == '*' || str[i] == '*' && str[i + 1] == '/') {
+		if (str[i] == '/' && str[i + 1] == '*' || str[i] == '*' && str[i + 1] == '/' || str[i] == '/' && str[i + 1] == '/') {
 			str[i] = ' ';
 			str[i + 1] = ' ';
 		}

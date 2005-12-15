@@ -1,4 +1,4 @@
-/* demo program that prints all decodings of a binary sequence */
+// demo program that prints all decodings of a binary sequence
 
 char result[100];
 
