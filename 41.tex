@@ -7,10 +7,17 @@ $$A=\pmatrix{1&2\cr3&4}$$
 Solution: Apply elementary row operations that turn $A$ into $I$,
 like this:
 $$E_3E_2E_1A=I$$
-Multiply both sides of this equation by $A^{-1}$ to prove to yourself that
+If you are used to this sort of thing you can see that the product $E_3E_2E_1$
+must be $A^{-1}$ since the whole thing multiplied by $A$
+works out to be the identity matrix $I$.
+However, another way to see this is to multiply both sides of the equation
+by $A^{-1}$
+and immediately obtain
 $$E_3E_2E_1=A^{-1}$$
-Use an augmented matrix to apply row operations
-to both $A$ and $I$
+Back to the task at hand of finding an inverse,
+it is convenient to apply the row operations to an augmented matrix
+instead of just $A$.
+That way we can do the row operations on both $A$ and $I$
 simultaneously.
 
 $$\pmatrix{
