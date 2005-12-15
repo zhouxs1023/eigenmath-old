@@ -162,6 +162,7 @@ enum {
 	STOP,
 	SUBST,
 	SUM,
+	SUMMARIZE,
 	TAB,
 	TAN,
 	TANH,
@@ -207,6 +208,13 @@ enum {
 	SYMBOL_X,
 	SYMBOL_Y,
 	SYMBOL_Z,
+
+	C1,
+	C2,
+	C3,
+	C4,
+	C5,
+	C6,
 
 	USR_SYMBOLS,	// this must be last
 };

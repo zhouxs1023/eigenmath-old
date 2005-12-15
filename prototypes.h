@@ -697,6 +697,12 @@ void subst(void);
 void eval_sum(void);
 void test_sum(void);
 
+// summarize.cpp
+void eval_summarize(void);
+void summarize(void);
+void yysummarize(void);
+void symbolize(void);
+
 // symbol.cpp
 void std_symbol(char *s, int n);
 U * usr_symbol(char *s);

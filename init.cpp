@@ -138,6 +138,7 @@ init(void)
 	std_symbol("stop", STOP);
 	std_symbol("subst", SUBST);
 	std_symbol("sum", SUM);
+	std_symbol("summarize", SUMMARIZE);
 	std_symbol("tab", TAB);
 	std_symbol("tan", TAN);
 	std_symbol("tanh", TANH);
@@ -179,6 +180,13 @@ init(void)
 	std_symbol("x", SYMBOL_X);
 	std_symbol("y", SYMBOL_Y);
 	std_symbol("z", SYMBOL_Z);
+
+	std_symbol("$C1", C1);
+	std_symbol("$C2", C2);
+	std_symbol("$C3", C3);
+	std_symbol("$C4", C4);
+	std_symbol("$C5", C5);
+	std_symbol("$C6", C6);
 
 	meta_a = usr_symbol("$a");
 	meta_b = usr_symbol("$b");
