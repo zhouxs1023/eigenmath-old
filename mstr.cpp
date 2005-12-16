@@ -79,13 +79,14 @@ divby1billion(unsigned int *a)
 
 	for (i = MLENGTH(a) - 1; i >= 0; i--) {
 
-#ifndef MAC
-		((unsigned int *) &kk)[1] = ((unsigned int *) &kk)[0];
-		((unsigned int *) &kk)[0] = a[i];
-#else
-		((unsigned int *) &kk)[0] = ((unsigned int *) &kk)[1];
-		((unsigned int *) &kk)[1] = a[i];
-#endif
+		if (little_endian) {
+			((unsigned int *) &kk)[1] = ((unsigned int *) &kk)[0];
+			((unsigned int *) &kk)[0] = a[i];
+		} else {
+			((unsigned int *) &kk)[0] = ((unsigned int *) &kk)[1];
+			((unsigned int *) &kk)[1] = a[i];
+		}
+
 		a[i] = (int) (kk / 1000000000);
 
 		kk -= (unsigned long long) 1000000000 * a[i];
@@ -99,9 +100,8 @@ divby1billion(unsigned int *a)
 
 	MLENGTH(a) = i + 1;
 
-#ifndef MAC
-	return ((unsigned int *) &kk)[0];
-#else
-	return ((unsigned int *) &kk)[1];
-#endif
+	if (little_endian)
+		return ((unsigned int *) &kk)[0];
+	else
+		return ((unsigned int *) &kk)[1];
 }

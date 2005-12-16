@@ -1731,3 +1731,34 @@ test_integral(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+int
+compare_them(const void *a, const void *b)
+{
+	return cmp_expr(((U **) a)[0], ((U **) b)[0]);
+}
+
+void
+make_integral_code(void)
+{
+	int i, h, n;
+	scan_integrals();
+	p1 = table_of_integrals;
+	h = tos;
+	while (iscons(p1)) {
+		p2 = caar(p1);
+		// printline(p2);
+		if (iscons(p2))
+			push(car(p2));
+		else
+			push(p2);
+		p1 = cdr(p1);
+	}
+
+	n = tos - h;
+
+	qsort(stack + h, n, sizeof (U *), compare_them);
+
+	for (i = 0; i < n; i++)
+		printline(stack[i]);
+}

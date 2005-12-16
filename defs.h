@@ -316,6 +316,7 @@ extern int floating;
 extern int primetab[MAXPRIMETAB];
 extern int esc_flag;
 extern int mtotal;
+extern int little_endian;
 extern char logbuf[];
 extern char program_buf[];
 extern U *nil;

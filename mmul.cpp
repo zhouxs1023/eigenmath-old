@@ -108,13 +108,14 @@ mdiv(unsigned int *a, unsigned int *b)
 
 			/* estimate the partial quotient */
 
-#ifndef MAC
-			((unsigned int *) &jj)[0] = x[alen - i - 1];
-			((unsigned int *) &jj)[1] = x[alen - i - 0];
-#else
-			((unsigned int *) &jj)[1] = x[alen - i - 1];
-			((unsigned int *) &jj)[0] = x[alen - i - 0];
-#endif
+			if (little_endian) {
+				((unsigned int *) &jj)[0] = x[alen - i - 1];
+				((unsigned int *) &jj)[1] = x[alen - i - 0];
+			} else {
+				((unsigned int *) &jj)[1] = x[alen - i - 1];
+				((unsigned int *) &jj)[0] = x[alen - i - 0];
+			}
+
 			c = (unsigned int) (jj / kk);
 
 			if (c == 0) {
@@ -239,13 +240,14 @@ mmod(unsigned int *a, unsigned int *b)
 
 			/* estimate the partial quotient */
 
-#ifndef MAC
-			((unsigned int *) &jj)[0] = x[alen - i - 1];
-			((unsigned int *) &jj)[1] = x[alen - i - 0];
-#else
-			((unsigned int *) &jj)[1] = x[alen - i - 1];
-			((unsigned int *) &jj)[0] = x[alen - i - 0];
-#endif
+			if (little_endian) {
+				((unsigned int *) &jj)[0] = x[alen - i - 1];
+				((unsigned int *) &jj)[1] = x[alen - i - 0];
+			} else {
+				((unsigned int *) &jj)[1] = x[alen - i - 1];
+				((unsigned int *) &jj)[0] = x[alen - i - 0];
+			}
+
 			c = (int) (jj / kk);
 
 			if (c == 0) {
@@ -333,13 +335,14 @@ mdivrem(unsigned int **q, unsigned int **r, unsigned int *a, unsigned int *b)
 
 			/* estimate the partial quotient */
 
-#ifndef MAC
-			((unsigned int *) &jj)[0] = x[alen - i - 1];
-			((unsigned int *) &jj)[1] = x[alen - i - 0];
-#else
-			((unsigned int *) &jj)[1] = x[alen - i - 1];
-			((unsigned int *) &jj)[0] = x[alen - i - 0];
-#endif
+			if (little_endian) {
+				((unsigned int *) &jj)[0] = x[alen - i - 1];
+				((unsigned int *) &jj)[1] = x[alen - i - 0];
+			} else {
+				((unsigned int *) &jj)[1] = x[alen - i - 1];
+				((unsigned int *) &jj)[0] = x[alen - i - 0];
+			}
+
 			c = (int) (jj / kk);
 
 			if (c == 0) {

@@ -4,8 +4,7 @@
 #
 #	$ tar zxf eigenmath-linux.tar.gz
 #
-# 2. Compile it. (For Power PC and other big endian machines, first add -DMAC
-#    to CFLAGS below.)
+# 2. Compile it.
 #
 #	$ cd eigenmath
 #	$ make
@@ -32,8 +31,6 @@
 # CXX and CXXFLAGS are used by make's implicit rule for compiling C++ files.
 # divby1billion() in mstr.c doesn't work with -O2
 CXXFLAGS = -Wall -Wuninitialized -O -DLINUX
-# For big endian machines add -DMAC
-#CXXFLAGS = -Wall -Wuninitialized -O -DLINUX -DMAC
 
 objects = madd.o mmul.o mprime.o mgcd.o mpow.o mroot.o mcmp.o mstr.o mscan.o mmodpow.o \
 qadd.o qsub.o qmul.o qdiv.o qpow.o \

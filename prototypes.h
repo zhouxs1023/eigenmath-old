@@ -359,6 +359,7 @@ void eval_integral(void);
 void eval_integral(void);
 void integral(void);
 void test_integral(void);
+void make_integral_code(void);
 
 // inv.cpp
 void inv(void);
@@ -634,6 +635,8 @@ void test_roots(void);
 // run.cpp
 void stop(char *str);
 void run(char *s);
+int dash_dash_command(char *s);
+void check_stack(void);
 void echo_input(char *s);
 void print_mem_info(void);
 

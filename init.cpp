@@ -10,6 +10,11 @@ init(void)
 	if (nil)
 		return;		// already initted
 
+	// endianess
+
+	little_endian = 1;
+	little_endian = *((unsigned char *) &little_endian);
+
 	nsym = USR_SYMBOLS;
 
 	nil = symtab + NIL;

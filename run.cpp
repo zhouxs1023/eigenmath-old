@@ -1,17 +1,11 @@
 #include "stdafx.h"
 #include "defs.h"
 
-extern int scan(char *);
-extern void setup(void);
-extern void init(void);
-extern void selftest(void);
-extern void cmdisplay(U *);
+void make_integral_code(void);
+
 extern int symbol_level;
 extern int test_flag;
 extern U *varlist;
-static void check_stack(void);
-void print_mem_info(void);
-static int dash_dash_command(char *);
 jmp_buf stop_return;
 static char *errstr;
 static char buf[100];
@@ -109,7 +103,7 @@ run(char *s)
 	}
 }
 
-static int
+int
 dash_dash_command(char *s)
 {
 	if (strncmp(s, "--mem", 5) == 0) {
@@ -125,10 +119,14 @@ dash_dash_command(char *s)
 		selftest();
 		return 1;
 	}
+	if (strncmp(s, "--mic", 3) == 0) {
+		make_integral_code();
+		return 1;
+	}
 	return 0;
 }
 
-static void
+void
 check_stack(void)
 {
 	if (tos != 0)
