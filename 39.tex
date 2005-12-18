@@ -1,0 +1,84 @@
+\parindent=0pt
+
+Find the column space of
+$$A=\pmatrix{
+1&0&-1\cr
+1&1&1\cr
+-2&1&2\cr
+1&0&3\cr
+}$$
+
+\bigskip
+Solution: Row reduce the columns $A$.
+$$\pmatrix{
+1&1&-2&1\cr
+0&1&1&0\cr
+-1&1&2&3\cr
+}$$
+$R_3+R_1\rightarrow R_3$
+$$
+\pmatrix{
+1&1&-2&1\cr
+0&1&1&0\cr
+0&2&0&4\cr
+}$$
+%
+$R_3-2R_2\rightarrow R_3$
+$$\pmatrix{
+1&1&-2&1\cr
+0&1&1&0\cr
+0&0&-2&4\cr
+}$$
+
+\bigskip
+We could stop here. Having shown that the original column vectors
+are linearly independent, the original column vectors themselves
+form a basis for the column space.
+However, let us continue to row reduce and get a simpler basis.
+
+\bigskip
+$-R_3/2\rightarrow R_3$
+$$\pmatrix{
+1&1&-2&1\cr
+0&1&1&0\cr
+0&0&1&-2\cr
+}$$
+
+$R_1-R_2\rightarrow R_1$
+$$\pmatrix{
+1&0&-3&1\cr
+0&1&1&0\cr
+0&0&1&-2\cr
+}$$
+
+$R_2-R_3\rightarrow R_2$
+$$\pmatrix{
+1&0&-3&1\cr
+0&1&0&2\cr
+0&0&1&-2\cr
+}$$
+
+$R_1+3R_3\rightarrow R_1$
+$$\pmatrix{
+1&0&0&-5\cr
+0&1&0&2\cr
+0&0&1&-2\cr
+}$$
+
+Transpose...
+$$\pmatrix{
+1&0&0\cr
+0&1&0\cr
+0&0&1\cr
+-5&2&-2\cr
+}$$
+
+The column space is all the linear combinations of the column vectors.
+$$\left\{
+\pmatrix{a\cr b\cr c\cr-5a+2b-2c}
+:a,b,c\in R
+\right\}$$
+
+{\it 39.tex }
+
+\end
