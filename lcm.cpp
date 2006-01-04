@@ -1,8 +1,7 @@
+// Find the least common multiple of two expressions.
+
 #include "stdafx.h"
-
 #include "defs.h"
-
-static void __lcm(void);
 
 void
 lcm(void)
@@ -10,13 +9,13 @@ lcm(void)
 	int x;
 	x = expanding;
 	save();
-	__lcm();
+	yylcm();
 	restore();
 	expanding = x;
 }
 
-static void
-__lcm(void)
+void
+yylcm(void)
 {
 	expanding = 1;
 

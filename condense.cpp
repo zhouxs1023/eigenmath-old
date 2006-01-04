@@ -1,14 +1,7 @@
-#include "stdafx.h"
-
-//-----------------------------------------------------------------------------
-//
-//      Condense an expression by factoring common terms.
-//
-//-----------------------------------------------------------------------------
+// Condense an expression by factoring common terms.
                                                                                 
+#include "stdafx.h"
 #include "defs.h"
-
-static void __condense(void);
 
 void
 eval_condense(void)
@@ -24,13 +17,13 @@ condense(void)
 	int tmp;
 	tmp = expanding;
 	save();
-	__condense();
+	yycondense();
 	restore();
 	expanding = tmp;
 }
 
-static void
-__condense(void)
+void
+yycondense(void)
 {
 	expanding = 0;
 

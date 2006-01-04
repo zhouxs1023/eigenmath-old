@@ -153,6 +153,7 @@ void test_coeff(void);
 // condense.cpp
 void eval_condense(void);
 void condense(void);
+void yycondense(void);
 void test_condense(void);
 
 // cons.cpp
@@ -468,6 +469,7 @@ void test_laguerre(void);
 
 // lcm.cpp
 void lcm(void);
+void yylcm(void);
 void test_lcm(void);
 
 // legendre.cpp
