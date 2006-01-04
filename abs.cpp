@@ -2,8 +2,6 @@
 
 #include "stdafx.h"
 #include "defs.h"
-static void yyabsval(void);
-static void absval_tensor(void);
 
 void
 eval_abs(void)
@@ -21,7 +19,7 @@ absval(void)
 	restore();
 }
 
-static void
+void
 yyabsval(void)
 {
 	int h;
@@ -85,7 +83,7 @@ yyabsval(void)
 	list(2);
 }
 
-static void
+void
 absval_tensor(void)
 {
 	if (p1->u.tensor->ndim != 1)

@@ -12,7 +12,6 @@
 
 #include "stdafx.h"
 #include "defs.h"
-static void yybessely(void);
 
 void
 eval_bessely(void)
@@ -35,7 +34,7 @@ bessely(void)
 #define X p1
 #define N p2
 
-static void
+void
 yybessely(void)
 {
 	double d;

@@ -2,7 +2,6 @@
 
 #include "stdafx.h"
 #include "defs.h"
-static void ylog(void);
 
 void
 eval_log(void)
@@ -16,12 +15,12 @@ void
 logarithm(void)
 {
 	save();
-	ylog();
+	yylog();
 	restore();
 }
 
-static void
-ylog(void)
+void
+yylog(void)
 {
 	double d;
 

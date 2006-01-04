@@ -2,6 +2,8 @@
 // abs.cpp
 void eval_abs(void);
 void absval(void);
+void yyabsval(void);
+void absval_tensor(void);
 void test_abs(void);
 
 // add.cpp
@@ -67,6 +69,7 @@ void test_besselj(void);
 // bessely.cpp
 void eval_bessely(void);
 void bessely(void);
+void yybessely(void);
 void test_bessely(void);
 
 // bignum.cpp
@@ -421,6 +424,7 @@ void list(int n);
 // log.cpp
 void eval_log(void);
 void logarithm(void);
+void yylog(void);
 void test_log(void);
 
 // madd.cpp
