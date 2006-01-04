@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "defs.h"
-void yfloor(void);
-static void yyfloor(void);
 
 void
 eval_floor(void)
@@ -19,7 +17,7 @@ yfloor(void)
 	restore();
 }
 
-static void
+void
 yyfloor(void)
 {
 	double d;

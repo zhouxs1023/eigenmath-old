@@ -4,9 +4,6 @@
 extern int nsym;
 extern U symtab[];
 extern U *varlist;
-static void untag(U *);
-static void untag_symbols(void);
-static void alloc_next_block(void);
 
 #define BLOCK_COUNT 10
 #define BLOCK_SIZE 1000000
@@ -122,7 +119,7 @@ gc(void)
 	}
 }
 
-static void
+void
 untag_symbols(void)
 {
 	int i;
@@ -132,7 +129,7 @@ untag_symbols(void)
 	}
 }
 
-static void
+void
 untag(U *p)
 {
 	int i;
@@ -201,7 +198,7 @@ reset(void)
 	defn();
 }
 
-static void
+void
 alloc_next_block(void)
 {
 	int i, j;

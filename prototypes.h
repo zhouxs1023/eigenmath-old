@@ -16,8 +16,11 @@ void init_alloc(void);
 U * alloc(void);
 U * alloc_tensor(int nelem);
 void gc(void);
+void untag_symbols(void);
+void untag(U *p);
 int count_freelist(void);
 void reset(void);
+void alloc_next_block(void);
 
 // append.cpp
 void append(void);
@@ -124,6 +127,7 @@ void test_carac(void);
 // ceiling.cpp
 void eval_ceiling(void);
 void ceiling(void);
+void yyceiling(void);
 void test_ceiling(void);
 
 // charpoly.cpp
@@ -257,12 +261,63 @@ double erfc(double x);
 void test_erfc(void);
 
 // eval.cpp
-void setup(void);
-void eval_print(void);
 void eval(void);
+void eval_cons(void);
+void setup(void);
+void eval_add(void);
+void eval_adj(void);
+void eval_break(void);
+void eval_charpoly(void);
+void eval_check(void);
+void eval_cls(void);
+void eval_conj(void);
+void eval_coeff(void);
+void eval_degree(void);
+void eval_det(void);
+void eval_dim(void);
+void eval_divisors(void);
+void eval_do(void);
+void eval_dsolve(void);
+void eval_eval(void);
+void eval_exp(void);
+void eval_expand(void);
+void eval_factorial(void);
+void eval_factorpoly(void);
+void eval_float(void);
+void eval_for(void);
+void eval_gcd(void);
+void eval_hermite(void);
+void eval_hilbert(void);
+void eval_index(void);
+void eval_inv(void);
+void eval_invg(void);
+void eval_isinteger(void);
+void eval_laguerre(void);
+void eval_lcm(void);
+void eval_legendre(void);
+void eval_multiply(void);
+void eval_operator(void);
+void eval_power(void);
+void eval_prime(void);
+void eval_print(void);
+void eval_prog(void);
+void eval_quote(void);
+void eval_rank(void);
+void eval_return(void);
+void setq_indexed(void);
+void eval_setq(void);
+void eval_sqrt(void);
+void eval_stop(void);
+void eval_subst(void);
+void eval_tab(void);
+void eval_unit(void);
+void eval_wedge(void);
 void eval_noexpand(void);
 void eval_filter(void);
 void filter(void);
+void filter_f(void);
+void filter_sum(void);
+void filter_tensor(void);
 void eval_predicate(void);
 
 // expcos.cpp
@@ -296,6 +351,7 @@ int find(U *p, U *q);
 // floor.cpp
 void eval_floor(void);
 void yfloor(void);
+void yyfloor(void);
 void test_floor(void);
 
 // for.cpp

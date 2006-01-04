@@ -6,650 +6,6 @@ int trigmode;
 static char errstr[24];
 
 void
-setup(void)
-{
-	U *p;
-
-	trigmode = 0;
-
-	p = symbol(AUTOEXPAND);
-	if (iszero(p->u.sym.binding))
-		expanding = 0;
-	else
-		expanding = 1;
-
-	p = symbol(EXPOMODE);
-	if (iszero(p->u.sym.binding))
-		expomode = 0;
-	else
-		expomode = 1;
-}
-
-static void
-eval_add(void)
-{
-	push(cadr(p1));
-	eval();
-	p1 = cddr(p1);
-	while (iscons(p1)) {
-		push(car(p1));
-		eval();
-		add();
-		p1 = cdr(p1);
-	}
-}
-
-static void
-eval_adj(void)
-{
-	push(cadr(p1));
-	eval();
-	adj();
-}
-
-extern void break_function(void);
-
-static void
-eval_break(void)
-{
-	push(cadr(p1));
-	eval();
-	break_function();
-}
-
-static void
-eval_charpoly(void)
-{
-	push(cadr(p1));
-	eval();
-	if (caddr(p1) == nil)
-		push_symbol(SYMBOL_X);
-	else {
-		push(caddr(p1));
-		eval();
-	}
-	charpoly();
-}
-
-// accepts an equality, i.e. check(A = B)
-
-static void
-eval_check(void)
-{
-	push(cadr(p1));
-	eval_predicate();
-	p1 = pop();
-	if (!iszero(p1) && p1 != symbol(YYTRUE))
-		stop("check(arg): arg is not zero and not true");
-	push(nil);
-}
-
-static void
-eval_cls(void)
-{
-	clear_term();
-	push(nil);
-}
-
-static void
-eval_conj(void)
-{
-	push(cadr(p1));
-	eval();
-	conjugate();
-}
-
-static void
-eval_coeff(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	coeff_cooked();
-}
-
-static void
-eval_degree(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	degree();
-}
-
-static void
-eval_det(void)
-{
-	push(cadr(p1));
-	eval();
-	det();
-}
-
-static void
-eval_dim(void)
-{
-	int n;
-	push(cadr(p1));
-	eval();
-	p2 = pop();
-	if (iscons(cddr(p1))) {
-		push(caddr(p1));
-		eval();
-		n = pop_integer();
-	} else
-		n = 1;
-	if (!istensor(p2) || n < 1 || n > p2->u.tensor->ndim)
-		push(p1);
-	else
-		push_integer(p2->u.tensor->dim[n - 1]);
-}
-
-static void
-eval_divisors(void)
-{
-	push(cadr(p1));
-	eval();
-	divisors();
-}
-
-static void
-eval_do(void)
-{
-	push(car(p1));
-	p1 = cdr(p1);
-	while (iscons(p1)) {
-		pop();
-		push(car(p1));
-		eval();
-		p1 = cdr(p1);
-	}
-}
-
-static void
-eval_dsolve(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	push(cadddr(p1));
-	eval();
-	dsolve();
-}
-
-static void
-eval_eval(void)
-{
-	push(cadr(p1));
-	eval();
-	eval();
-}
-
-static void
-eval_exp(void)
-{
-	push(cadr(p1));
-	eval();
-	exponential();
-}
-
-static void
-eval_expand(void)
-{
-	push(cadr(p1));
-	eval();
-	expand();
-}
-
-static void
-eval_factorial(void)
-{
-	push(cadr(p1));
-	eval();
-	factorial();
-}
-
-static void
-eval_factorpoly(void)
-{
-	p1 = cdr(p1);
-	push(car(p1));
-	eval();
-	p1 = cdr(p1);
-	push(car(p1));
-	eval();
-	factorpoly();
-	p1 = cdr(p1);
-	while (iscons(p1)) {
-		push(car(p1));
-		eval();
-		factorpoly();
-		p1 = cdr(p1);
-	}
-}
-
-// Must do eval then second eval to handle functions that want integer args
-
-static void
-eval_float(void)
-{
-	int f;
-	push(cadr(p1));
-	eval();
-	f = floating;
-	floating = 1;
-	eval();
-	floating = f;
-}
-
-extern void for_function(void);
-
-static void
-eval_for(void)
-{
-	push(cadr(p1));
-	push(caddr(p1));
-	push(cadddr(p1));
-	push(caddddr(p1));
-	for_function();
-}
-
-static void
-eval_gcd(void)
-{
-	p1 = cdr(p1);
-	push(car(p1));
-	eval();
-	p1 = cdr(p1);
-	while (iscons(p1)) {
-		push(car(p1));
-		eval();
-		gcd();
-		p1 = cdr(p1);
-	}
-}
-
-static void
-eval_hermite(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	hermite();
-}
-
-static void
-eval_hilbert(void)
-{
-	push(cadr(p1));
-	eval();
-	hilbert();
-}
-
-#if 0
-
-static void
-eval_identity(void)
-{
-	int i, n;
-	push(cadr(p1));
-	eval();
-	n = pop_integer();
-	if (n < 2) {
-		push(p1);
-		return;
-	}
-	p1 = alloc_tensor(n * n);
-	p1->u.tensor->ndim = 2;
-	p1->u.tensor->dim[0] = n;
-	p1->u.tensor->dim[1] = n;
-	for (i = 0; i < n; i++)
-		p1->u.tensor->elem[n * i + i] = one;
-	push(p1);
-}
-
-#endif
-
-extern void index_function(int);
-
-static void
-eval_index(void)
-{
-	int h;
-	h = tos;
-	p1 = cdr(p1);
-	while (iscons(p1)) {
-		push(car(p1));
-		eval();
-		p1 = cdr(p1);
-	}
-	index_function(tos - h);
-}
-
-static void
-eval_inv(void)
-{
-	push(cadr(p1));
-	eval();
-	inv();
-}
-
-static void
-eval_invg(void)
-{
-	push(cadr(p1));
-	eval();
-	invg();
-}
-
-static void
-eval_isinteger(void)
-{
-	int n;
-	push(cadr(p1));
-	eval();
-	p1 = pop();
-	if (isrational(p1)) {
-		if (isinteger(p1))
-			push(one);
-		else
-			push(zero);
-		return;
-	}
-	if (isdouble(p1)) {
-		n = (int) p1->u.d;
-		if (n == p1->u.d)
-			push(one);
-		else
-			push(zero);
-		return;
-	}
-	push_symbol(ISINTEGER);
-	push(p1);
-	list(2);
-}
-
-static void
-eval_laguerre(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	if (iscons(cdddr(p1))) {
-		push(cadddr(p1));
-		eval();
-	} else
-		push(zero);
-	laguerre();
-}
-
-static void
-eval_lcm(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	lcm();
-}
-
-static void
-eval_legendre(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	if (iscons(cdddr(p1))) {
-		push(cadddr(p1));
-		eval();
-	} else
-		push(zero);
-	legendre();
-}
-
-static void
-eval_multiply(void)
-{
-	push(cadr(p1));
-	eval();
-	p1 = cddr(p1);
-	while (iscons(p1)) {
-		push(car(p1));
-		eval();
-		multiply();
-		p1 = cdr(p1);
-	}
-}
-
-static void
-eval_operator(void)
-{
-	int h = tos;
-	push_symbol(OPERATOR);
-	p1 = cdr(p1);
-	while (iscons(p1)) {
-		push(car(p1));
-		eval();
-		p1 = cdr(p1);
-	}
-	list(tos - h);
-}
-
-static void
-eval_power(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	power();
-}
-
-static void
-eval_prime(void)
-{
-	push(cadr(p1));
-	eval();
-	prime();
-}
-
-extern void printstack(int);
-
-void
-eval_print(void)
-{
-	p1 = cdr(p1);
-	push(car(p1));
-	eval();
-	print(pop());
-	p1 = cdr(p1);
-	while (iscons(p1)) {
-		printchar(' ');
-		push(car(p1));
-		eval();
-		print(pop());
-		p1 = cdr(p1);
-	}
-	printchar('\n');
-	push(nil);
-}
-
-static void
-eval_prog(void)
-{
-	push(cdr(p1));
-	prog();
-}
-
-static void
-eval_quote(void)
-{
-	push(cadr(p1));
-}
-
-static void
-eval_rank(void)
-{
-	push(cadr(p1));
-	eval();
-	p1 = pop();
-	if (istensor(p1))
-		push_integer(p1->u.tensor->ndim);
-	else
-		push(zero);
-}
-
-static void
-eval_return(void)
-{
-	push(cadr(p1));
-	eval();
-	prog_return();
-}
-
-//-----------------------------------------------------------------------------
-//
-//	Example: a[1] = b
-//
-//	p1	*-------*-----------------------*
-//		|	|			|
-//		setq	*-------*-------*	b
-//			|	|	|
-//			index	a	1
-//
-//	cadadr(p1) -> a
-//
-//-----------------------------------------------------------------------------
-
-extern void set_component(int);
-
-static void
-setq_indexed(void)
-{
-	int h;
-	p4 = cadadr(p1);
-	if (!issymbol(p4))
-		stop("indexed assignment: error in symbol");
-	h = tos;
-	push(caddr(p1));
-	eval();
-	p2 = cdadr(p1);
-	while (iscons(p2)) {
-		push(car(p2));
-		eval();
-		p2 = cdr(p2);
-	}
-	set_component(tos - h);
-	p3 = pop();
-	p4->u.sym.binding = p3;
-	p4->u.sym.binding2 = nil;
-	push(nil);
-}
-
-static void
-eval_setq(void)
-{
-	if (caadr(p1) == symbol(INDEX)) {
-		setq_indexed();
-		return;
-	}
-
-	if (iscons(cadr(p1))) {
-		define_user_function();
-		return;
-	}
-
-	if (!issymbol(cadr(p1)))
-		stop("symbol assignment: error in symbol");
-
-	push(caddr(p1));
-	eval();
-	p2 = pop();
-	cadr(p1)->u.sym.binding = p2;
-	cadr(p1)->u.sym.binding2 = nil;
-
-	push(nil);
-}
-
-static void
-eval_sqrt(void)
-{
-	push(cadr(p1));
-	eval();
-	push_rational(1, 2);
-	power();
-}
-
-static void
-eval_stop(void)
-{
-	stop("user stop");
-}
-
-static void
-eval_subst(void)
-{
-	push(cadddr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	push(cadr(p1));
-	eval();
-	subst();
-}
-
-static void
-eval_tab(void)
-{
-	push(car(p1));
-	push(cadr(p1));
-	eval();
-	list(2);
-}
-
-static void
-eval_unit(void)
-{
-	int i, n;
-	push(cadr(p1));
-	eval();
-	n = pop_integer();
-	if (n < 2) {
-		push(p1);
-		return;
-	}
-	p1 = alloc_tensor(n * n);
-	p1->u.tensor->ndim = 2;
-	p1->u.tensor->dim[0] = n;
-	p1->u.tensor->dim[1] = n;
-	for (i = 0; i < n; i++)
-		p1->u.tensor->elem[n * i + i] = one;
-	push(p1);
-}
-
-static void
-eval_wedge(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	if (iscons(cdddr(p1))) {
-		push(cadddr(p1));
-		eval();
-		wedge3();
-	} else
-		wedge2();
-}
-
-static void eval_cons(void);
-
-void
 eval(void)
 {
 	save();
@@ -700,7 +56,7 @@ eval(void)
 	restore();
 }
 
-static void
+void
 eval_cons(void)
 {
 	if (!issymbol(car(p1))) {
@@ -839,6 +195,616 @@ eval_cons(void)
 }
 
 void
+setup(void)
+{
+	U *p;
+
+	trigmode = 0;
+
+	p = symbol(AUTOEXPAND);
+	if (iszero(p->u.sym.binding))
+		expanding = 0;
+	else
+		expanding = 1;
+
+	p = symbol(EXPOMODE);
+	if (iszero(p->u.sym.binding))
+		expomode = 0;
+	else
+		expomode = 1;
+}
+
+void
+eval_add(void)
+{
+	push(cadr(p1));
+	eval();
+	p1 = cddr(p1);
+	while (iscons(p1)) {
+		push(car(p1));
+		eval();
+		add();
+		p1 = cdr(p1);
+	}
+}
+
+void
+eval_adj(void)
+{
+	push(cadr(p1));
+	eval();
+	adj();
+}
+
+void
+eval_break(void)
+{
+	push(cadr(p1));
+	eval();
+	break_function();
+}
+
+void
+eval_charpoly(void)
+{
+	push(cadr(p1));
+	eval();
+	if (caddr(p1) == nil)
+		push_symbol(SYMBOL_X);
+	else {
+		push(caddr(p1));
+		eval();
+	}
+	charpoly();
+}
+
+// accepts an equality, i.e. check(A = B)
+
+void
+eval_check(void)
+{
+	push(cadr(p1));
+	eval_predicate();
+	p1 = pop();
+	if (!iszero(p1) && p1 != symbol(YYTRUE))
+		stop("check(arg): arg is not zero and not true");
+	push(nil);
+}
+
+void
+eval_cls(void)
+{
+	clear_term();
+	push(nil);
+}
+
+void
+eval_conj(void)
+{
+	push(cadr(p1));
+	eval();
+	conjugate();
+}
+
+void
+eval_coeff(void)
+{
+	push(cadr(p1));
+	eval();
+	push(caddr(p1));
+	eval();
+	coeff_cooked();
+}
+
+void
+eval_degree(void)
+{
+	push(cadr(p1));
+	eval();
+	push(caddr(p1));
+	eval();
+	degree();
+}
+
+void
+eval_det(void)
+{
+	push(cadr(p1));
+	eval();
+	det();
+}
+
+void
+eval_dim(void)
+{
+	int n;
+	push(cadr(p1));
+	eval();
+	p2 = pop();
+	if (iscons(cddr(p1))) {
+		push(caddr(p1));
+		eval();
+		n = pop_integer();
+	} else
+		n = 1;
+	if (!istensor(p2) || n < 1 || n > p2->u.tensor->ndim)
+		push(p1);
+	else
+		push_integer(p2->u.tensor->dim[n - 1]);
+}
+
+void
+eval_divisors(void)
+{
+	push(cadr(p1));
+	eval();
+	divisors();
+}
+
+void
+eval_do(void)
+{
+	push(car(p1));
+	p1 = cdr(p1);
+	while (iscons(p1)) {
+		pop();
+		push(car(p1));
+		eval();
+		p1 = cdr(p1);
+	}
+}
+
+void
+eval_dsolve(void)
+{
+	push(cadr(p1));
+	eval();
+	push(caddr(p1));
+	eval();
+	push(cadddr(p1));
+	eval();
+	dsolve();
+}
+
+void
+eval_eval(void)
+{
+	push(cadr(p1));
+	eval();
+	eval();
+}
+
+void
+eval_exp(void)
+{
+	push(cadr(p1));
+	eval();
+	exponential();
+}
+
+void
+eval_expand(void)
+{
+	push(cadr(p1));
+	eval();
+	expand();
+}
+
+void
+eval_factorial(void)
+{
+	push(cadr(p1));
+	eval();
+	factorial();
+}
+
+void
+eval_factorpoly(void)
+{
+	p1 = cdr(p1);
+	push(car(p1));
+	eval();
+	p1 = cdr(p1);
+	push(car(p1));
+	eval();
+	factorpoly();
+	p1 = cdr(p1);
+	while (iscons(p1)) {
+		push(car(p1));
+		eval();
+		factorpoly();
+		p1 = cdr(p1);
+	}
+}
+
+// Must do eval then second eval to handle functions that want integer args
+
+void
+eval_float(void)
+{
+	int f;
+	push(cadr(p1));
+	eval();
+	f = floating;
+	floating = 1;
+	eval();
+	floating = f;
+}
+
+void
+eval_for(void)
+{
+	push(cadr(p1));
+	push(caddr(p1));
+	push(cadddr(p1));
+	push(caddddr(p1));
+	for_function();
+}
+
+void
+eval_gcd(void)
+{
+	p1 = cdr(p1);
+	push(car(p1));
+	eval();
+	p1 = cdr(p1);
+	while (iscons(p1)) {
+		push(car(p1));
+		eval();
+		gcd();
+		p1 = cdr(p1);
+	}
+}
+
+void
+eval_hermite(void)
+{
+	push(cadr(p1));
+	eval();
+	push(caddr(p1));
+	eval();
+	hermite();
+}
+
+void
+eval_hilbert(void)
+{
+	push(cadr(p1));
+	eval();
+	hilbert();
+}
+
+void
+eval_index(void)
+{
+	int h;
+	h = tos;
+	p1 = cdr(p1);
+	while (iscons(p1)) {
+		push(car(p1));
+		eval();
+		p1 = cdr(p1);
+	}
+	index_function(tos - h);
+}
+
+void
+eval_inv(void)
+{
+	push(cadr(p1));
+	eval();
+	inv();
+}
+
+void
+eval_invg(void)
+{
+	push(cadr(p1));
+	eval();
+	invg();
+}
+
+void
+eval_isinteger(void)
+{
+	int n;
+	push(cadr(p1));
+	eval();
+	p1 = pop();
+	if (isrational(p1)) {
+		if (isinteger(p1))
+			push(one);
+		else
+			push(zero);
+		return;
+	}
+	if (isdouble(p1)) {
+		n = (int) p1->u.d;
+		if (n == p1->u.d)
+			push(one);
+		else
+			push(zero);
+		return;
+	}
+	push_symbol(ISINTEGER);
+	push(p1);
+	list(2);
+}
+
+void
+eval_laguerre(void)
+{
+	push(cadr(p1));
+	eval();
+	push(caddr(p1));
+	eval();
+	if (iscons(cdddr(p1))) {
+		push(cadddr(p1));
+		eval();
+	} else
+		push(zero);
+	laguerre();
+}
+
+void
+eval_lcm(void)
+{
+	push(cadr(p1));
+	eval();
+	push(caddr(p1));
+	eval();
+	lcm();
+}
+
+void
+eval_legendre(void)
+{
+	push(cadr(p1));
+	eval();
+	push(caddr(p1));
+	eval();
+	if (iscons(cdddr(p1))) {
+		push(cadddr(p1));
+		eval();
+	} else
+		push(zero);
+	legendre();
+}
+
+void
+eval_multiply(void)
+{
+	push(cadr(p1));
+	eval();
+	p1 = cddr(p1);
+	while (iscons(p1)) {
+		push(car(p1));
+		eval();
+		multiply();
+		p1 = cdr(p1);
+	}
+}
+
+void
+eval_operator(void)
+{
+	int h = tos;
+	push_symbol(OPERATOR);
+	p1 = cdr(p1);
+	while (iscons(p1)) {
+		push(car(p1));
+		eval();
+		p1 = cdr(p1);
+	}
+	list(tos - h);
+}
+
+void
+eval_power(void)
+{
+	push(cadr(p1));
+	eval();
+	push(caddr(p1));
+	eval();
+	power();
+}
+
+void
+eval_prime(void)
+{
+	push(cadr(p1));
+	eval();
+	prime();
+}
+
+extern void printstack(int);
+
+void
+eval_print(void)
+{
+	p1 = cdr(p1);
+	push(car(p1));
+	eval();
+	print(pop());
+	p1 = cdr(p1);
+	while (iscons(p1)) {
+		printchar(' ');
+		push(car(p1));
+		eval();
+		print(pop());
+		p1 = cdr(p1);
+	}
+	printchar('\n');
+	push(nil);
+}
+
+void
+eval_prog(void)
+{
+	push(cdr(p1));
+	prog();
+}
+
+void
+eval_quote(void)
+{
+	push(cadr(p1));
+}
+
+void
+eval_rank(void)
+{
+	push(cadr(p1));
+	eval();
+	p1 = pop();
+	if (istensor(p1))
+		push_integer(p1->u.tensor->ndim);
+	else
+		push(zero);
+}
+
+void
+eval_return(void)
+{
+	push(cadr(p1));
+	eval();
+	prog_return();
+}
+
+//-----------------------------------------------------------------------------
+//
+//	Example: a[1] = b
+//
+//	p1	*-------*-----------------------*
+//		|	|			|
+//		setq	*-------*-------*	b
+//			|	|	|
+//			index	a	1
+//
+//	cadadr(p1) -> a
+//
+//-----------------------------------------------------------------------------
+
+void
+setq_indexed(void)
+{
+	int h;
+	p4 = cadadr(p1);
+	if (!issymbol(p4))
+		stop("indexed assignment: error in symbol");
+	h = tos;
+	push(caddr(p1));
+	eval();
+	p2 = cdadr(p1);
+	while (iscons(p2)) {
+		push(car(p2));
+		eval();
+		p2 = cdr(p2);
+	}
+	set_component(tos - h);
+	p3 = pop();
+	p4->u.sym.binding = p3;
+	p4->u.sym.binding2 = nil;
+	push(nil);
+}
+
+void
+eval_setq(void)
+{
+	if (caadr(p1) == symbol(INDEX)) {
+		setq_indexed();
+		return;
+	}
+
+	if (iscons(cadr(p1))) {
+		define_user_function();
+		return;
+	}
+
+	if (!issymbol(cadr(p1)))
+		stop("symbol assignment: error in symbol");
+
+	push(caddr(p1));
+	eval();
+	p2 = pop();
+	cadr(p1)->u.sym.binding = p2;
+	cadr(p1)->u.sym.binding2 = nil;
+
+	push(nil);
+}
+
+void
+eval_sqrt(void)
+{
+	push(cadr(p1));
+	eval();
+	push_rational(1, 2);
+	power();
+}
+
+void
+eval_stop(void)
+{
+	stop("user stop");
+}
+
+void
+eval_subst(void)
+{
+	push(cadddr(p1));
+	eval();
+	push(caddr(p1));
+	eval();
+	push(cadr(p1));
+	eval();
+	subst();
+}
+
+void
+eval_tab(void)
+{
+	push(car(p1));
+	push(cadr(p1));
+	eval();
+	list(2);
+}
+
+void
+eval_unit(void)
+{
+	int i, n;
+	push(cadr(p1));
+	eval();
+	n = pop_integer();
+	if (n < 2) {
+		push(p1);
+		return;
+	}
+	p1 = alloc_tensor(n * n);
+	p1->u.tensor->ndim = 2;
+	p1->u.tensor->dim[0] = n;
+	p1->u.tensor->dim[1] = n;
+	for (i = 0; i < n; i++)
+		p1->u.tensor->elem[n * i + i] = one;
+	push(p1);
+}
+
+void
+eval_wedge(void)
+{
+	push(cadr(p1));
+	eval();
+	push(caddr(p1));
+	eval();
+	if (iscons(cdddr(p1))) {
+		push(cadddr(p1));
+		eval();
+		wedge3();
+	} else
+		wedge2();
+}
+
+void
 eval_noexpand(void)
 {
 	int x = expanding;
@@ -846,11 +812,6 @@ eval_noexpand(void)
 	eval();
 	expanding = x;
 }
-
-extern void filter(void);
-static void filter_f(void);
-static void filter_sum(void);
-static void filter_tensor(void);
 
 void
 eval_filter(void)
@@ -877,7 +838,7 @@ filter(void)
 	restore();
 }
 
-static void
+void
 filter_f(void)
 {
 	if (car(p1) == symbol(ADD))
@@ -890,7 +851,7 @@ filter_f(void)
 		push(p1);
 }
 
-static void
+void
 filter_sum(void)
 {
 	push_integer(0);
@@ -904,7 +865,7 @@ filter_sum(void)
 	}
 }
 
-static void
+void
 filter_tensor(void)
 {
 	int i, n;
