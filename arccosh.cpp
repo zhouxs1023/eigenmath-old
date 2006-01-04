@@ -1,8 +1,5 @@
 #include "stdafx.h"
-
 #include "defs.h"
-
-static void arccosh(void);
 
 void
 eval_arccosh(void)
@@ -12,7 +9,7 @@ eval_arccosh(void)
 	arccosh();
 }
 
-static void
+void
 arccosh(void)
 {
 	double d;

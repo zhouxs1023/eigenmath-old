@@ -2,7 +2,6 @@
 
 #include "stdafx.h"
 #include "defs.h"
-void yycosine(void);
 
 void
 eval_cos(void)

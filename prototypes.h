@@ -27,6 +27,7 @@ void test_arccos(void);
 
 // arccosh.cpp
 void eval_arccosh(void);
+void arccosh(void);
 void test_arccosh(void);
 
 // arcsin.cpp
@@ -36,6 +37,7 @@ void test_arcsin(void);
 
 // arcsinh.cpp
 void eval_arcsinh(void);
+void arcsinh(void);
 void test_arcsinh(void);
 
 // arctan.cpp
@@ -45,6 +47,7 @@ void test_arctan(void);
 
 // arctanh.cpp
 void eval_arctanh(void);
+void arctanh(void);
 void test_arctanh(void);
 
 // arg.cpp
@@ -168,6 +171,7 @@ void test_cos(void);
 // cosh.cpp
 void eval_cosh(void);
 void ycosh(void);
+void yycosh(void);
 void test_cosh(void);
 
 // data.cpp
@@ -359,6 +363,7 @@ void eval_integral(void);
 void eval_integral(void);
 void integral(void);
 void test_integral(void);
+int compare_them(const void *a, const void *b);
 void make_integral_code(void);
 
 // inv.cpp
@@ -681,6 +686,7 @@ void test_sin(void);
 // sinh.cpp
 void eval_sinh(void);
 void ysinh(void);
+void yysinh(void);
 void test_sinh(void);
 
 // stack.cpp

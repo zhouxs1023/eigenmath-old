@@ -4,8 +4,6 @@
 
 #include "stdafx.h"
 #include "defs.h"
-void ysinh(void);
-static void yysinh(void);
 
 void
 eval_sinh(void)
@@ -23,7 +21,7 @@ ysinh(void)
 	restore();
 }
 
-static void
+void
 yysinh(void)
 {
 	double d;

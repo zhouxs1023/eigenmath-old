@@ -2,7 +2,6 @@
 
 #include "stdafx.h"
 #include "defs.h"
-void yysine(void);
 
 void
 eval_sin(void)

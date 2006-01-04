@@ -4,8 +4,6 @@
 
 #include "stdafx.h"
 #include "defs.h"
-void ycosh(void);
-static void yycosh(void);
 
 void
 eval_cosh(void)
@@ -23,7 +21,7 @@ ycosh(void)
 	restore();
 }
 
-static void
+void
 yycosh(void)
 {
 	double d;

@@ -2,7 +2,6 @@
 
 #include "stdafx.h"
 #include "defs.h"
-void yytangent(void);
 
 void
 eval_tan(void)

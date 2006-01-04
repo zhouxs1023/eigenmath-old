@@ -1,8 +1,5 @@
 #include "stdafx.h"
-
 #include "defs.h"
-
-static void arcsinh(void);
 
 void
 eval_arcsinh(void)
@@ -12,7 +9,7 @@ eval_arcsinh(void)
 	arcsinh();
 }
 
-static void
+void
 arcsinh(void)
 {
 	double d;
