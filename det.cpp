@@ -1,5 +1,3 @@
-#include "stdafx.h"
-
 //-----------------------------------------------------------------------------
 //
 //	Input:		Matrix on stack
@@ -17,9 +15,8 @@
 //
 //-----------------------------------------------------------------------------
 
+#include "stdafx.h"
 #include "defs.h"
-
-static void __detg(void);
 
 static int
 check_arg(void)
@@ -61,7 +58,7 @@ det(void)
 			break;
 
 	if (i == n)
-		__detg();
+		yydetg();
 	else {
 		for (i = 0; i < p1->u.tensor->nelem; i++)
 			push(p1->u.tensor->elem[i]);
@@ -164,8 +161,6 @@ determinant(int n)
 //
 //-----------------------------------------------------------------------------
 
-static void decomp(int);
-
 void
 detg(void)
 {
@@ -181,13 +176,13 @@ detg(void)
 		return;
 	}
 
-	__detg();
+	yydetg();
 
 	restore();
 }
 
-static void
-__detg(void)
+void
+yydetg(void)
 {
 	int i, n;
 
@@ -196,7 +191,7 @@ __detg(void)
 	for (i = 0; i < n * n; i++)
 		push(p1->u.tensor->elem[i]);
 
-	decomp(n);
+	lu_decomp(n);
 
 	tos -= n * n;
 
@@ -217,8 +212,8 @@ __detg(void)
 
 #define M(i, j) stack[h + n * (i) + (j)]
 
-static void
-decomp(int n)
+void
+lu_decomp(int n)
 {
 	int d, h, i, j;
 

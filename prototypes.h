@@ -210,6 +210,8 @@ void test_derivative(void);
 void det(void);
 void determinant(int n);
 void detg(void);
+void yydetg(void);
+void lu_decomp(int n);
 
 // dirac.cpp
 void eval_dirac(void);
@@ -429,6 +431,8 @@ void make_integral_code(void);
 // inv.cpp
 void inv(void);
 void invg(void);
+void yyinvg(void);
+void decomp(int n);
 
 // invfourier.cpp
 void eval_invfourier(void);

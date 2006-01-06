@@ -1,5 +1,3 @@
-#include "stdafx.h"
-
 //-----------------------------------------------------------------------------
 //
 //	Input:		Matrix on stack
@@ -17,9 +15,8 @@
 //
 //-----------------------------------------------------------------------------
 
+#include "stdafx.h"
 #include "defs.h"
-
-static void __invg(void);
 
 static int
 check_arg(void)
@@ -61,7 +58,7 @@ inv(void)
 			break;
 
 	if (i == n)
-		__invg();
+		yyinvg();
 	else {
 		push(p1);
 		adj();
@@ -76,8 +73,6 @@ inv(void)
 
 	restore();
 }
-
-static void decomp(int);
 
 void
 invg(void)
@@ -94,13 +89,15 @@ invg(void)
 		return;
 	}
 
-	__invg();
+	yyinvg();
 
 	restore();
 }
 
-static void
-__invg(void)
+// inverse using gaussian elimination
+
+void
+yyinvg(void)
 {
 	int h, i, j, n;
 
@@ -151,7 +148,7 @@ __invg(void)
 #define A(i, j) stack[a + n * (i) + (j)]
 #define U(i, j) stack[u + n * (i) + (j)]
 
-static void
+void
 decomp(int n)
 {
 	int a, d, i, j, u;
