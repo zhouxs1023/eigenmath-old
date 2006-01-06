@@ -6,26 +6,24 @@
 #define M 100
 #define N 100000
 
-U *free_list;
 U *mem[M];
 int mcount;
-int total_count;
-int free_count;
 
-void
-init_alloc(void)
-{
-	alloc_next_block();
-}
+U *free_list;
+int free_count;
 
 U *
 alloc(void)
 {
 	U *p;
 	if (free_count == 0) {
-		gc();
-		if (free_count < total_count / 2)
-			alloc_next_block();
+		if (mcount == 0)
+			alloc_mem();
+		else {
+			gc();
+			if (free_count < N * mcount / 2)
+				alloc_mem();
+		}
 		if (free_count == 0)
 			stop("atom space exhausted");
 	}
@@ -159,7 +157,7 @@ untag(U *p)
 // get memory for 100,000 atoms
 
 void
-alloc_next_block(void)
+alloc_mem(void)
 {
 	int i;
 	U *p;
@@ -176,5 +174,16 @@ alloc_next_block(void)
 	p[N - 1].u.cons.cdr = free_list;
 	free_list = p;
 	free_count += N;
-	total_count += N;
+}
+
+void
+print_mem_info(void)
+{
+	static char buf[100];
+	sprintf(buf, "%d atoms   %d free   %d used   %d bytes/atom\n",
+		N * mcount,
+		free_count,
+		N * mcount - free_count,
+		(int) sizeof (U));
+	printstr(buf);
 }

@@ -1,8 +1,5 @@
 #include "stdafx.h"
 #include "defs.h"
-extern U *varlist;
-extern U symtab[];
-extern int nsym;
 
 void
 init(void)
@@ -32,8 +29,6 @@ init(void)
 
 	table_of_integrals = nil;
 	table_of_fourier = nil;
-
-	init_alloc();
 
 	std_symbol("abs", ABS);
 	std_symbol("add", ADD);

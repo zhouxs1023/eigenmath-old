@@ -17,15 +17,13 @@ void adj(void);
 void test_adj(void);
 
 // alloc.cpp
-void init_alloc(void);
 U * alloc(void);
 U * alloc_tensor(int nelem);
 void gc(void);
 void untag_symbols(void);
 void untag(U *p);
-int count_freelist(void);
-void reset(void);
-void alloc_next_block(void);
+void alloc_mem(void);
+void print_mem_info(void);
 
 // append.cpp
 void append(void);
@@ -718,7 +716,6 @@ void run(char *s);
 int dash_dash_command(char *s);
 void check_stack(void);
 void echo_input(char *s);
-void print_mem_info(void);
 
 // sample.cpp
 void eval_sample(void);

@@ -1,14 +1,11 @@
 #include "stdafx.h"
 #include "defs.h"
 
-void make_integral_code(void);
-
 extern int symbol_level;
 extern int test_flag;
 extern U *varlist;
 jmp_buf stop_return;
 static char *errstr;
-static char buf[100];
 
 void
 stop(char *str)
@@ -119,10 +116,6 @@ dash_dash_command(char *s)
 		selftest();
 		return 1;
 	}
-	if (strncmp(s, "--mic", 3) == 0) {
-		make_integral_code();
-		return 1;
-	}
 	return 0;
 }
 
@@ -142,18 +135,4 @@ echo_input(char *s)
 		printstr("\n");
 	printstr(s);
 	printstr("\n");
-}
-
-extern int total_count;
-extern int free_count;
-
-void
-print_mem_info(void)
-{
-	sprintf(buf, "%d atoms   %d free   %d used   %d bytes/atom\n",
-		total_count,
-		free_count,
-		total_count - free_count,
-		(int) sizeof (U));
-	printstr(buf);
 }
