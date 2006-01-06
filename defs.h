@@ -318,6 +318,7 @@ extern int primetab[MAXPRIMETAB];
 extern int esc_flag;
 extern int mtotal;
 extern int little_endian;
+extern int nsym;
 extern char logbuf[];
 extern char program_buf[];
 extern U *nil;
@@ -334,6 +335,8 @@ extern U *meta_b;
 extern U *meta_c;
 extern U *meta_n;
 extern U *meta_x;
+extern U *varlist;
+extern U symtab[];
 
 // In case I forget to use YY...
 

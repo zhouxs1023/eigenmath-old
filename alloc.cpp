@@ -1,18 +1,16 @@
 #include "stdafx.h"
 #include "defs.h"
 
-extern int nsym;
-extern U symtab[];
-extern U *varlist;
+// up to 100 blocks of 100,000 atoms
 
-#define BLOCK_COUNT 10
-#define BLOCK_SIZE 1000000
-#define MEM (BLOCK_COUNT * BLOCK_SIZE)
+#define M 100
+#define N 100000
 
-static U mem[MEM];
-static U *free_list;
-int total_count;		// total number of atoms
-int free_count;			// number of free atoms
+U *free_list;
+U *mem[M];
+int mcount;
+int total_count;
+int free_count;
 
 void
 init_alloc(void)
@@ -59,12 +57,16 @@ alloc_tensor(int nelem)
 void
 gc(void)
 {
-	int i;
+	int i, j;
+	U *p;
 
 	// tag everything
 
-	for (i = 0; i < total_count; i++)
-		mem[i].tag = 1;
+	for (i = 0; i < mcount; i++) {
+		p = mem[i];
+		for (j = 0; j < N; j++)
+			p[j].tag = 1;
+	}
 
 	// untag what's used
 
@@ -97,23 +99,28 @@ gc(void)
 
 	free_list = nil;
 	free_count = 0;
-	for (i = 0; i < total_count; i++) {
-		if (mem[i].tag) {
-			switch (mem[i].k) {
+
+	for (i = 0; i < mcount; i++) {
+		p = mem[i];
+		for (j = 0; j < N; j++) {
+			if (p[j].tag == 0)
+				continue;
+			// still tagged so it's unused, put on free list
+			switch (p[j].k) {
 			case TENSOR:
-				free(mem[i].u.tensor);
+				free(p[j].u.tensor);
 				break;
 			case STR:
-				free(mem[i].u.str);
+				free(p[j].u.str);
 				break;
 			case NUM:
-				mfree(mem[i].u.q.a);
-				mfree(mem[i].u.q.b);
+				mfree(p[j].u.q.a);
+				mfree(p[j].u.q.b);
 				break;
 			}
-			mem[i].k = CONS; // so no more free above
-			mem[i].u.cons.cdr = free_list;
-			free_list = mem + i;
+			p[j].k = CONS; // so no double free occurs above
+			p[j].u.cons.cdr = free_list;
+			free_list = p + j;
 			free_count++;
 		}
 	}
@@ -151,66 +158,25 @@ untag(U *p)
 	}
 }
 
-#if 0
-int
-count_freelist(void)
-{
-	int n;
-	U *p;
-	n = 0;
-	p = freelist;
-	while (p != nil) {
-		n++;
-		p = p->u.cons.cdr;
-	}
-	return n;
-}
-#endif
-
-void
-reset(void)
-{
-	int i;
-
-	// clear symbols
-
-	nsym = 0;
-
-	// clear bignums, strings and tensors
-
-	for (i = 0; i < total_count; i++) {
-		if (mem[i].k == TENSOR)
-			free(mem[i].u.tensor);
-		else if (mem[i].k == STR)
-			free(mem[i].u.str);
-		else if (mem[i].k == NUM) {
-			mfree(mem[i].u.q.a);
-			mfree(mem[i].u.q.b);
-		}
-		mem[i].k = CONS;
-	}
-
-	total_count = 0;
-	free_count = 0;
-
-	init();
-
-	defn();
-}
+// get memory for 100,000 atoms
 
 void
 alloc_next_block(void)
 {
-	int i, j;
-	if (total_count == MEM)
+	int i;
+	U *p;
+	if (mcount == M)
 		return;
-	j = total_count;
-	total_count += BLOCK_SIZE;
-	for (i = j; i < total_count - 1; i++) {
-		mem[i].k = CONS; // so no free in gc
-		mem[i].u.cons.cdr = mem + i + 1;
+	p = (U *) malloc(N * sizeof (struct U));
+	if (p == NULL)
+		return;
+	mem[mcount++] = p;
+	for (i = 0; i < N; i++) {
+		p[i].k = CONS; // so no free in gc
+		p[i].u.cons.cdr = p + i + 1;
 	}
-	mem[total_count - 1].u.cons.cdr = free_list;
-	free_list = mem + j;
-	free_count += BLOCK_SIZE;
+	p[N - 1].u.cons.cdr = free_list;
+	free_list = p;
+	free_count += N;
+	total_count += N;
 }
