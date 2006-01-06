@@ -45,6 +45,7 @@ yinvfourier(void)
 	push(p2);
 	negate();
 	subst();
+	eval();
 	push(p2);
 	fourier();
 	push_symbol(PI);

@@ -2,7 +2,7 @@
 
 #include "defs.h"
 
-//	y' + p(x)*y = g(x)
+//	q(x)y' + p(x)*y = g(x)
 //
 //	u(x) = exp(integral(p))
 //
@@ -15,8 +15,9 @@
 
 #define p p4
 #define g p5
+#define q p6
 
-#define mu p6
+#define mu p7
 
 void
 dsolve(void)
@@ -38,17 +39,20 @@ dsolve(void)
 	if (n != 3)
 		stop("error in dsolve");
 
-	pop();
+	q=pop();
 
 	p = pop();
 
 	negate();
 	g = pop();
 
-	print(g);
+/*	print(g);
 	print(p);
-
+	print(p);
+*/
 	push(p);
+	push(q);
+	divide();
 	push(x);
 	integral();
 	exponential();
@@ -56,6 +60,8 @@ dsolve(void)
 
 	push(mu);
 	push(g);
+	push(q);
+	divide();
 	multiply();
 	push(x);
 	integral();

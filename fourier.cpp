@@ -8,7 +8,7 @@
 //	- linearity :fourier(a*f(t)+b*g(t),t)=a*fourier(f(t),t)+b*fourier(g(t),t)
 //	- derivation : fourier(d(f(t),t),t)=i*t*fourier(f(t),t)
 //	- product by t : fourier(t*f(t),t)=-i*d(fourier(f(t),t),t)
-//	- integral : fourier(integral(f(t),t),t)=fourier(f(t),t)/(i*t)+pi*fourier(f(t),t)*dirac(t)
+//	- integral : fourier(integral(f(t),t),t)=fourier(f(t),t)/(i*t)
 //	- division by t : fourier(f(t)/t,t)=integral(fourier(f(t),t),t)/i
 //	- product of convolution : fourier(convolution(f(t),g(t)),t)=fourier(f(t),t)*fourier(g(t),t)
 //	- fourier of fourier : fourier(fourier(f(t),t),t)=2*pi*f(-t)
@@ -31,12 +31,19 @@ static void fourier_of_integral2(void);
 static void fourier_of_fourier(void);
 static void fourier_of_invfourier(void);
 static void fourier_of_form(void);
+static void fourier_of_inverse_trig(void);
 static int match(U *, U *, U *, int, int);
 static void scan_fouriers(void);
+
 
 void
 eval_fourier(void)
 {
+	int expotemp;
+
+	expotemp=expomode;
+
+	expomode=0;
 	push(cadr(p1));
 	eval();
 	if (caddr(p1) == nil)
@@ -44,6 +51,35 @@ eval_fourier(void)
 	else
 		push(caddr(p1));
 	fourier();
+	p5=pop();
+
+//	print(p5);
+//	printf("\n");
+//	printf("%d\n",length(p5));
+
+	expomode=1;
+	push(cadr(p1));
+	eval();
+	if (caddr(p1) == nil)
+		guess();
+	else
+		push(caddr(p1));
+	fourier();
+	p6=pop();
+
+//	print(p6);
+//	printf("\n");
+//	printf("%d\n",length(p6));
+//
+	if (find(p5,symbol(FOURIER))==1)
+		push(p6);
+	else
+		if ((length(p6) <=  length(p5)) || (find(p6,symbol(FOURIER))==1))
+			push(p5);
+		else
+			push(p6);
+
+	expomode=expotemp;
 }
 
 void
@@ -57,6 +93,7 @@ fourier(void)
 static void
 yfourier(void)
 {
+
 	if (table_of_fourier == nil)
 		scan_fouriers();
 
@@ -67,6 +104,7 @@ yfourier(void)
 	negate();
 	p3 = pop();
 	
+		
 	if (car(p1) == symbol(ADD))
 		fourier_of_sum();
 	else if (car(p1) == symbol(MULTIPLY))
@@ -87,9 +125,19 @@ yfourier(void)
 		fourier_of_fourier();
 	else if (car(p1) == symbol(INVFOURIER) && caddr(p1) == p2)
 		fourier_of_invfourier();
+	else if (	find(p1,symbol(ARCCOS))==1 ||
+			find(p1,symbol(ARCCOSH))==1 ||
+			find(p1,symbol(ARCSIN))==1 ||
+			find(p1,symbol(ARCSINH))==1 ||
+			find(p1,symbol(ARCTAN))==1 ||
+			find(p1,symbol(ARCTANH))==1/* ||
+			find(p1,symbol(HEAVISIDE))==1 ||
+			find(p1,symbol(SGN))==1*/)
+		fourier_of_inverse_trig();
 	else
 		fourier_of_form();
 }
+
 
 static void
 fourier_of_form(void)
@@ -199,21 +247,25 @@ fourier_of_integral1(void)
 	push(car(p1));
 	push(p2);
 	fourier();
+	p3=pop();
+/*	print(p3);
+	printstr("\n");*/
+	push(p3);
 	push(imaginaryunit);
 	push(p2);
 	multiply();
 	divide();
-// code below originally commented out, why?
-	push_symbol(PI);
-	push(car(p1));
-	push(p2);
-	fourier();
-	multiply();
-	push(p2);
-	dirac();
-	multiply();
-	add();
-// end of commented out
+//	if ((find(p3,symbol(FOURIER))==0) && 
+//		(find(p3,symbol(INTEGRAL))==0) &&
+//		(find(p3,symbol(DERIVATIVE))==0)) {
+//		push_symbol(PI);
+//		push(p3);
+//		push(p2);
+//		push_integer(0);
+//		evalat();
+//		multiply();
+//		add();
+//	}
 }
 
 static void
@@ -263,13 +315,26 @@ fourier_of_convolution(void)
 		multiply();
 		p1 = cdr(p1);
 	}
+}
 
+static void
+fourier_of_inverse_trig(void)
+{
+	push(p1);
+	push(p2);
+	derivative();
+	push(p2);
+	fourier();
+	push(imaginaryunit);
+	push(p2);
+	multiply();
+	divide();
 }
 
 static void
 fourier_of_product(void)
 {
-	int h1, h2, n;
+	int h1, h2,n=0;
 
 	h1 = tos;
 
@@ -283,9 +348,18 @@ fourier_of_product(void)
 	h2 = tos;
 
 	p3 = cdr(p1);
+
 	while (iscons(p3)) {
-		if (find(car(p3), p2))
-			push(car(p3));
+		if (find(car(p3), p2)){
+			push(car(p3));}
+		if (caar(p3) == symbol(POWER) && cadar(p3) == p2 && isinteger(caddar(p3))){
+			push(caddar(p3));
+			n = pop_integer();
+		}
+		if (car(p3) == p2){
+			push_integer(1);
+			n = pop_integer();
+		}
 		p3 = cdr(p3);
 	}
 
@@ -295,102 +369,50 @@ fourier_of_product(void)
 		multiply();
 		push(p2);
 		dirac();
-		multiply();
-		}
+		multiply();}
 	else {
 		multiply_all(tos - h2);
 		p1 = pop();
-		if (car(p1) == symbol(MULTIPLY) && cadr(p1)==p2){
-			push(caddr(p1));
+		if (!(n==0)){
+			push(p1);
+			push(p1);
+			p3=pop();
+			push(p2);
+			push_integer(n);
+			power();
+			divide();
+			p1=pop();
+		}
+		if (!isplusone(p1)) {
+			fourier_of_form();
+			if (!(n==0)) {
+				if (n > 0) {
+					while(n > 0){
+					push(p2);
+					derivative();
+					push(imaginaryunit);
+					multiply();
+					n=n-1;}
+				}
+				else {
+					n=-n;
+					while(n > 0){
+					push(p2);
+					integral();
+					push(imaginaryunit);
+					push_integer(-1);
+					multiply();
+					multiply();
+					n=n-1;}
+				}
+			}
+		}
+		else {
+			push(p3);
 			push(p2);
 			fourier();
-			push(p2);
-			derivative();
-			push(imaginaryunit);
-			multiply();}
-		else
-			if (car(p1) == symbol(MULTIPLY) && caaddr(p1) == symbol(POWER) && 
-			cadaddr(p1) == p2 && isinteger(caddaddr(p1))&& !isnegativenumber(caddaddr(p1))){
-				push(caddaddr(p1));
-				n = pop_integer();
-				push(imaginaryunit);
-				push_integer(n);
-				power();
-				push(cadr(p1));
-				push(p2);
-				fourier();
-				while(n > 0){
-				push(p2);
-				derivative();
-				n=n-1;}
-				push(imaginaryunit);
-				push_integer(n);
-				power();
-				multiply();
-				}
-		else
-			if (car(p1) == symbol(MULTIPLY)&& caadr(p1) == symbol(POWER)
-				&& cadadr(p1) == p2 && isinteger(caddadr(p1)) && !isnegativenumber(caddadr(p1))){
-				push(caddadr(p1));
-				n = pop_integer();
-				push(imaginaryunit);
-				push_integer(n);
-				power();
-				push(caddr(p1));
-				push(p2);
-				fourier();
-				while(n > 0){
-				push(p2);
-				derivative();
-				n=n-1;}
-				multiply();
-				}
-		else
-			if (car(p1) == symbol(MULTIPLY) && caaddr(p1) == symbol(POWER) && 
-				cadaddr(p1) == p2 && isinteger(caddaddr(p1))&& isnegativenumber(caddaddr(p1))){
-				push(caddaddr(p1));
-				n = pop_integer();
-				push(imaginaryunit);
-				push_integer(-1);
-				multiply();
-				push_integer(n);
-				power();
-				push(cadr(p1));
-				push(p2);
-				fourier();
-				while(n > 0){
-				push(p2);
-				integral();
-				n=n-1;}
-				push(imaginaryunit);
-				push_integer(n);
-				power();
-				multiply();
-				}
-		else
-			if (car(p1) == symbol(MULTIPLY)&& caadr(p1) == symbol(POWER)
-				&& cadadr(p1) == p2 && isinteger(caddadr(p1)) && isnegativenumber(caddadr(p1))){
-				push(caddadr(p1));
-				negate();
-				n = pop_integer();
-				push(imaginaryunit);
-				push_integer(-1);
-				multiply();
-				push_integer(n);
-				power();
-				push(caddr(p1));
-				push(p2);
-				fourier();
-				while(n > 0){
-				push(p2);
-				integral();
-				n=n-1;}
-				multiply();
-				}
-		else
-			fourier_of_form();
+			}
 	}
-
 	multiply_all(tos - h1);
 }
 
@@ -448,13 +470,69 @@ match(U *actual, U *formal, U *caveats, int h1, int h2)
 }
 
 
-
-char *fouriers[] = {
+char * fouriers[] = {
 
 	"a",
 	"2*pi*a*dirac(x)",
 	NULL,
 	
+	"dirac(a*x)",
+	"a",
+	NULL,
+	
+	"dirac(a*x+b)",
+	"exp(i*b*x/a)/abs(a)",
+	NULL,
+
+	"heaviside(x)",
+	"pi*dirac(x)-i/x",
+	NULL,
+
+	"heaviside(x+a)",
+	"pi*dirac(x)-i*exp(i*a*x)/x",
+	NULL,
+	
+	"heaviside(x)*exp(a*x)",
+	"(-a-i*x)/(a^2+x^2)",
+	"isnegativeterm(a)==1",
+	NULL,
+
+	"sgn(a*x)",
+	"-2*i*sgn(a)/x",
+	NULL,
+	
+	"sgn(a*x+b)",
+	"-2*i*exp(i*b*x/a)*sgn(a)/x",
+	NULL,
+
+	"exp(a*x)*sgn(x)",
+	"-2*i/(x+i*a)",
+	NULL,
+	
+	"carac(x,a,b)",
+	"i*(exp(-i*b*x)-exp(-i*a*x))/x",
+	NULL,
+
+	"carac(x,-a,a)*exp(b*x)",
+	"2*sin(a*(x+i*b))/(x+i*b)",
+	NULL,
+
+	"carac(x,-a,a)*abs(x)",
+	"2*a*(sin(a*x)/(a*x)-2*(sin(a*x/2)/(a*x))^2)",
+	NULL,
+
+	"sgn(x)*carac(x,-a,a)",
+	"-4*i*sin(a*x/2)*sin(a*x/2)/x",
+	NULL,
+	
+	"shah(a*x)",
+	"2*pi*shah(2*pi*x/a)/a",
+	NULL,
+
+	"shah(a*x+b)",
+	"2*pi*exp(i*b*x/a)*shah(2*pi*x/a)/a",
+	NULL,
+
 	"besselj(a*x,0)",
 	"2/(abs(a)*sqrt(1-(x/a)^2))",
 	NULL,
@@ -463,59 +541,193 @@ char *fouriers[] = {
 	"2*exp(i*b*x/a)/(abs(a)*sqrt(1-(x/a)^2))",
 	NULL,
 
-	"1/sqrt(1-(a*x)^2)",
-	"pi*besselj(x/a,0)/abs(a)",
+	"exp(a*x)*besselj(b*x,0)",
+	"2/(abs(b)*sqrt(1-((x+i*a)/b)^2))",
 	NULL,
 	
-	"1/sqrt(1-(a*x+b)^2)",
-	"pi*besselj(x/a,0)*exp(i*b*x/a)/abs(a)",
+	"1/sqrt(a+b*x^2)",
+	"pi*besselj(-sgn(b/a)*x*sqrt(-a/b),0)/sqrt(a*abs(b))",
+	NULL,
+	
+	"1/sqrt(1+a*(x+b)^2)",
+	"pi*besselj(-sgn(a)x*sqrt(-1/a),0)*exp(i*b*x)/sqrt(abs(a))",
 	NULL,
 
+	"exp(a*x)/sqrt(1+b*x^2)",
+	"pi*besselj(-sgn(b)(-i*x+i*a)*sqrt(-1/b),0)/sqrt(abs(b))",
+	NULL,
 
 	"besselj(a*x,1)/(2*a*x)",
 	"sqrt(1-(x/a)^2)",
 	NULL,
 	
-	"sqrt(1-(a*x)^2)",
-	"pi*besselj(a*x,1)/(2*x*abs(a))",
+	"sqrt(1+a*x^2)",
+	"pi*besselj(i*sqrt(a)*x,1)/(x*abs(i*sqrt(a)))",
 	NULL,
 	
-	"sqrt(1-(a*x+b)^2)",
-	"pi*besselj(a*x,1)*exp(i*b*x/a)/(2*x*abs(a))",
+	"sqrt(1+a*(x+b)^2)",
+	"pi*besselj(i*sqrt(a)*x,1)*exp(i*b*x)/(x*abs(i*sqrt(a)))",
 	NULL,
 	
-	"dirac(x)",
-	"1",
-	NULL,
-	
-	"x",
-	"2*i*pi*d(dirac(x),x)",
-	NULL,
-	
-	"d(dirac(x),x)",
-	"i*x",
+	"exp(a*x)*sqrt(1+b*x^2)",
+	"pi*besselj(i*sqrt(b)*(x+i*a),1)/((x+i*a)*abs(i*sqrt(b)))",
 	NULL,
 
-	"x^2",
-	"-d(d(dirac(x),x),x)*2*pi",
+	"erf(a*x)",
+	"-i*2*exp(-(x/(2*a))^2)/x",
 	NULL,
 	
-	"d(d(dirac(x),x),x)",
-	"-x^2",
+	"erf(a*x+b)",
+	"-i*2*exp(-(x/(2*a))^2)*exp(i*b*x/a)/x",
 	NULL,
 
-	"x^3",
-	"-d(d(d(dirac(x),x),x),x)*2*i*pi",
+	"x^a",
+	"2*(i^a)*pi*d(dirac(x),x,a)",
+	"and(a>0,isinteger(a)==1)",
+	NULL,
+	
+	"(x+a)^b",	
+	"2*(i^b)*pi*d(dirac(x),x,b))*exp(i*a*x)",
+	"and(b>0,isinteger(b)==1)",
 	NULL,
 
-	"d(d(d(dirac(x),x),x),x)",	
-	"-i*x^3",
+	"x^a",
+	"(-1)^(-a)*i^(-a)*x^(-a-1)*pi*sgn(x)/(-a-1)!",
+	"and(a<0,isinteger(a)==1)",
+	NULL,
+
+	"(x+a)^b",	
+	"(-1)^(-b)*i^(-b)*x^(-b-1)*exp(i*a*x)*pi*sgn(x)/(-b-1)!",
+	"and(b<0,isinteger(b)==1)",
+	NULL,
+
+	"1/(a*x+b)",
+	"-i*exp(i*b*x/a)*sgn(x)*pi/a",
+	NULL,
+
+	"exp(a*x)/(c*x+b)",
+	"-i*exp(i*b*(x+i*a)/c)*sgn(x+i*a)*pi/c",
+	NULL,
+
+	"1/(a*x^2+b)",
+	"exp(-sqrt(b/a)*abs(x))*pi/(sqrt(b*a))",
+	NULL,
+
+	"1/(a*x+b)^2",
+	"-abs(x/a)*exp(i*b*x/a)*pi/abs(a)",
+	NULL,
+
+	"exp(a*x)/(b*x^2+c)",
+	"exp(-sqrt(c/b)*abs(x+i*a))*pi/(sqrt(b*c))",
+	NULL,
+
+	"1/(a*(x+b)^2+c)",
+	"exp(i*b*x)*exp(sqrt(c/a)*abs(x))*pi/(sqrt(c*a))",
+	NULL,
+
+	"1/(a*x^2+b*x)",
+	"(-i*pi*sgn(x)+i*pi*exp(i*b*x/a)*sgn(x))/b",
+	NULL,
+
+	"1/abs(a*x)",
+	"(-2*euler-2*log(abs(x/a)))/abs(a)",
 	NULL,
 	
-	"dirac(a*x+b)",
-	"exp(i*b*x/a)/abs(a)",
+	"1/abs(a*x+b)",
+	"(-2*euler-2*log(abs(x/a)))*exp(i*b*x/a)/abs(a)",
+	NULL,
+
+	"exp(a*x)/abs(x)",
+	"-2*euler-2*log(abs(x+i*a))",
 	NULL,
 	
+	"exp(a*x)/abs(b*x+c)",
+	"(-2*euler-2*log(abs((x+i*a)/b)))*exp(i*c*(x+i*a)/b)/abs(b)",
+	NULL,
+		
+	"log(a*abs(x)))",
+	"(-2*pi*euler*dirac(x/abs(a))-pi/abs(x/a))/abs(a)",
+	NULL,
+	
+	"log(abs(a*x+b))",
+	"(-2*pi*euler*dirac(x/abs(a))-pi/abs(x/a))*exp(i*b*x/a)/abs(a)",
+	NULL,
+	
+	"exp(a*x)*log(abs(b*x))",
+	"(-2*pi*euler*dirac((x+i*a)/b)-pi/abs((x+i*a)/b))/abs(b)",
+	NULL,
+	
+	"exp(a*x)*log(abs(b*x+c))",
+	"(-2*pi*euler*dirac((x+i*a)/b)-pi/abs(x/b))*exp(i*c*(x+i*a)/b)/abs(b)",
+	NULL,
+
+	"abs(a*x)",
+	"-2/(abs(a)*(x/a)^2)",
+	NULL,
+
+	"abs(a*x+b)",
+	"-2*exp(i*b*x/a)/(abs(a)*(x/a)^2)",
+	NULL,
+	
+	"exp(a*x)*abs(b*x)",
+	"-2/(abs(b)*((x+i*a)/b)^2)",
+	NULL,
+	
+	"abs(x)^a",
+	"-2*Gamma(a+1)*sin(pi*a/2)*abs(x)^(-a-1)",
+	"and(not(abs(a)==1),isinteger(a)==0)",
+	NULL,
+	
+	"exp(a*x)*abs(x)^b",
+	"-2*Gamma(b+1)*sin(pi*b/2)*abs((x+i*a))^(-b-1)",
+	"and(not(abs(b)==1),isinteger(b)==0)",
+	NULL,
+	
+	"abs(x+a)^b",
+	"-2*exp(i*a*x)*Gamma(b+1)*sin(pi*b/2)*abs(x)^(-b-1)",
+	"and(not(abs(b)==1),isinteger(b)==0)",
+	NULL,
+	
+	"exp(a*x)*abs(x+c)^b",
+	"-2*exp(i*c*(x+i*a))*Gamma(b+1)*sin(pi*b/2)*abs((x+i*a))^(-b-1)",
+	"and(not(abs(b)==1),isinteger(b)==0)",
+	NULL,
+	
+	"abs(x)^a*sgn(x)",
+	"-2*i*Gamma(a+1)*cos(pi*a/2)*sgn(x)*abs(x)^(-a-1)",
+	"and(not(abs(a)==1),isinteger(a)==0)",
+	NULL,
+	
+	"exp(a*x)*abs(x)^b*sgn(x)",
+	"-2*i*Gamma(b+1)*cos(pi*b/2)*sgn((x+i*a))*abs(x)^(-b-1)",
+	"and(not(abs(b)==1),isinteger(b)==0)",
+	NULL,
+	
+	"abs(x+b)^a*sgn(x+b)",
+	"-2*i*exp(i*b*x)*Gamma(a+1)*cos(pi*a/2)*sgn(x)*abs(x)^(-a-1)",
+	"and(not(abs(a)==1),isinteger(a)==0)",
+	NULL,
+	
+	"abs(x)^a*heaviside(x)",
+	"-i*abs(x)^(-a-1)*Gamma(1+a)*(cos(a*pi/2)*sgn(x)-i*sin(a*pi/2))",
+	"and(not(abs(a)==1),isinteger(a)==0)",
+	NULL,
+	
+	"exp(a*x)*abs(x)^b*heaviside(x)",
+	"-i*abs((x+i*a))^(-b-1)*Gamma(1+b)*(cos(b*pi/2)*sgn((x+i*a))-i*sin(b*pi/2))",
+	"and(not(abs(b)==1),isinteger(b)==0)",
+	NULL,
+	
+	"abs(x+a)^b*heaviside(x+a)",
+	"-i*exp(i*a*x)*abs(x)^(-b-1)*Gamma(1+b)*(cos(b*pi/2)*sgn(x)-i*sin(b*pi/2))",
+	"and(not(abs(b)==1),isinteger(b)==0)",
+	NULL,
+	
+	"exp(a*x)*abs(x+c)^b*heaviside(x+c)",
+	"-i*exp(i*c*(x+i*a))*abs((x+i*a))^(-b-1)*Gamma(1+b)*(cos(b*pi/2)*sgn((x+i*a))-i*sin(b*pi/2))",
+	"and(not(abs(b)==1),isinteger(b)==0)",
+	NULL,
+
 	"exp(a*x)",
 	"2*pi*dirac(x+i*a)",
 	NULL,
@@ -527,325 +739,71 @@ char *fouriers[] = {
 	"exp(a*x+b)",
 	"2*pi*dirac(x+i*a)*exp(b)",
 	NULL,
-
-		
-/*	"exp(i*a*(-x))",
-	"2*pi*dirac(-x+a)",
-	NULL,*/
 	
+	"heaviside(x)*exp(a*x)",
+	"(-a-i*x)/(a^2+x^2)",
+	"isnegativeterm(a)==1",
+	NULL,
 
+	"exp(a*x)*heaviside(x)",
+	"(i*a+i*x)/(a^2+x^2)+pi*(dirac(x+i*a)-dirac(x-i*a))",
+	"and(real(a)==0,not(imag(a)==0))",
+	NULL,
+
+	"heaviside(x+b)*exp(a*(x+b))",
+	"(a+x)*exp(i*b*x)/(a^2+x^2)",
+	NULL,
+	
+	"heaviside(x)*exp(a*x+b*x)",
+	"1/(-b+(i*a+x)*i)",
+	NULL,
+	
 	"exp(a*abs(x))",
 	"-2*a/(a^2+x^2)",
+	"isnegativeterm(a)==1",
 	NULL,
 
 	"exp(a*abs(b*x+c))",
-	"-2*a*exp(i*c*x/b)/((a^2+x^2)*abs(b))",
+	"-2*a*exp(i*c*x/b)/((a^2+(x/b)^2)*abs(b))",
+	"isnegativeterm(a)==1",
 	NULL,
 
-	"exp(a*x)/(b^2+x^2)",
-	"pi*exp(-b*(abs(i*a-x)))/b",
+	"exp(a*x+b*abs(x))",
+	"-2*b/(b^2+(x+i*a)^2)",
 	NULL,
 
-	"1/(a+b*x^2)",
-	"exp(-sqrt(a)*abs(x/sqrt(b)))*pi/(sqrt(a)*abs(sqrt(b)))",
-	NULL,
-
-	"1/(a+b*(x+c)^2)",
-	"exp(-sqrt(a)*abs(x/sqrt(b)))*exp(i*c*x/sqrt(b))*pi/(sqrt(a)*abs(sqrt(b)))",
+	"2*a/(a^2+(x+b)^2)",
+	"-exp(-i*b*x-a*abs(x))",
 	NULL,
 	
 	"sgn(x)*exp(a*abs(x))",
 	"-2*i*x/(a^2+x^2)",
 	NULL,
 
-	"sgn(x+b)*exp(a*abs(bx+c))",
+	"sgn(x+b)*exp(a*abs(b*x+c))",
 	"-2*i*(x/b)*exp(i*c*x/b)/(a^2+(x/b)^2)",
 	NULL,
 
-	"heaviside(x)*exp(a*x)",
-	"(-a-i*x)/(a^2+x^2)",
-	NULL,
-
-	"heaviside(x+b)*exp(a*(x+b))",
-	"(-a-x)*exp(i*b*x)/(a^2+x^2)",
-	NULL,
-	
-	"heaviside(x)*exp(a*x+b*x)",
-	"1/(-b+(-i*a+x)*i)",
-	NULL,
-	
-	"heaviside(x)*sin(a*x)*exp(b*x)",
-	"a/((a^2+b^2-x^2)+2*i*b*x)",
-	NULL,
-	
-	"heaviside(x)*cos(a*x)*exp(b*x)",
-	"(a*(a^2+b^2+x^2)-i*x*(a^2+b^2+x^2))/((a^2+b^2-x^2)^2+(2*b*x)^2)",
-	NULL,
-	
-	"cos(b*x)/(a+x^2)",
-	"(exp(-sqrt(a)*abs(x-b))+exp(-sqrt(a)*abs(x+b)))*pi/(2*sqrt(a))",
-	NULL,
-
-	"sin(b*x)/(a+x^2)",
-	"-i*(exp(-sqrt(a)*abs(x-b))-exp(-sqrt(a)*abs(x+b)))*pi/(2*sqrt(a))",
-	NULL,
-	
-/*	"exp(i*a*x^2)",
-	"sqrt(pi/a)*exp(-i*((x/a)^2-pi)/4)",
-	NULL,
-	
-	"exp(i*a*(x+b)^2)",
-	"sqrt(pi/a)*exp(-i*((x/a)^2-pi)/4)*exp(i*b*x)",
-	NULL,
-*/	
 	"exp(a*x^2)",
-	"sqrt(pi/(-a))*exp(x^2/(4*a))",
+	"sqrt(pi/(2*abs(imag(a))))*exp(-i*x^2/(4*imag(a)))*(1+i*sgn(imag(a)))",
+	"and(real(a)==0,not(imag(a)==0))",
+	NULL,
+
+	"exp(a*(x+b)^2)",
+	"sqrt(pi/(2*abs(imag(a))))*exp(-i*x^2/(4*imag(a)imag(a)))*(1+i*sgn(imag(a)))*exp(i*b*x)",
+	"and(real(a)==0,not(imag(a)==0))",
+	NULL,
+	
+	"exp(a*x^2)",
+	"sqrt(pi/abs(a))*exp(x^2/(4*a))",
+	"and(imag(a)==0,isnegativeterm(a)==1)",
 	NULL,
 	
 	"exp(a*(x+b)^2)",
-	"sqrt(pi/(-a))*exp(x^2/(4*a))*exp(i*b*x)",
-	NULL,
-	
-	"exp(a*x+b*abs(x))",
-	"-2*b/(b^2+(x+i*a)^2)",
-	NULL,
-
-	"2*b/(b^2+(x+a)^2)",
-	"-exp(-i*a*x-b*abs(x))",
-	NULL,
-	
-	"cos(a*x)*exp(b*abs(x))",
-	"-b*(1/(b^2+(x-a)^2)+1/(b^2+(x+a)^2))",
-	NULL,
-	
-	"sin(a*x)*exp(b*abs(x))",
-	"i*(-b*(1/(b^2+(x+a)^2)-1/(b^2+(x-a)^2)))",
-	NULL,
-	
-	"1-carac(x,-a,a)",
-	"pi*dirac(x)-sin(a*x)/x",
-	NULL,	
-	
-	"cos(a*x)",
-	"pi*(dirac(x-a)+dirac(x+a))",
-	NULL,
-	
-	"cos(a*x+b)",
-	"pi*(dirac(x-a)+dirac(x+a))*exp(i*b*x/a)",
-	NULL,
-	
-	"sin(a*x)",
-	"i*pi*(-dirac(x-a)+dirac(x+a))",
-	NULL,
-	
-	"sin(a*x+b)",
-	"i*pi*(-dirac(x-a)+dirac(x+a))*exp(i*b*x/a)",
-	NULL,
-	
-	"cos(a*x)^2",
-	"pi*(1/2*(dirac(x-2*a)+dirac(x+2*a))+dirac(x))",
-	NULL,
-
-	"cos(a*x+b)^2",
-	"(pi*(1/2*(dirac(x-2*a)+dirac(x+2*a))+dirac(x)))*exp(i*b*x/a)",
-	NULL,
-
-	"sin(a*x)^2",
-	"pi*(-1/2*(dirac(x-2*a)+dirac(x+2*a))+dirac(x))",
-	NULL,
-	
-	"sin(a*x+b)^2",
-	"pi*(-1/2*(dirac(x-2*a)+dirac(x+2*a))+dirac(x))*exp(i*b*x/a)",
-	NULL,
-	
-	"1/x",
-	"-i*sgn(x)*pi",
-	NULL,
-	
-	"1/(a*x+b)",
-	"-i*exp(i*b*x/a)*sgn(x)*pi/a",
-	NULL,
-
-	"exp(a*x)*sgn(x)",
-	"-2*i/(x+i*a)",
-	NULL,
-		
-/*	"1/(-x+a)",
-	"exp(i*a*x)*sgn(-x)*(pi/i)",
-	NULL,
-
-	"1/(x-a)",
-	"exp(i*a*x)*sgn(x)*(pi/i)",
-	NULL,
-	
-	"1/(-x-a)",
-	"exp(-i*a*x)*sgn(-x)*(pi/i)",
-	NULL,
-*/
-	
-	"sgn(a*x)",
-	"-2*i*sgn(a)/x",
-	NULL,
-	
-	"sgn(a*x+b)",
-	"-2*i*exp(i*b*x/a)*sgn(a)/x",
-	NULL,
-	
-	"heaviside(a*x)",
-	"pi*dirac(x)-i*sgn(a)/x",
-	NULL,
-	
-	"heaviside(a*x+b)",
-	"pi*dirac(x)-i*sgn(a)*exp(i*b*x/a)/x",
-	NULL,
-
-	
-	"heaviside(x)*(1-exp(a*x))",
-	"pi*dirac(x)-(-a/(a^2-x^2)+i*a^2/(x*(a^2-x^2)))",
-	NULL,
-
-	"heaviside(x+b)*(1-exp(a*(x+b)))",
-	"(pi*dirac(x)-(-a/(a^2-x^2)+i*a^2/(x*(a^2-x^2))))*exp(i*b*x)",
-	NULL,
-
-	"heaviside(x)*sin(a*x)",
-	"a/(a^2-x^2)-i*pi*(dirac(x-a)-dirac(x+a))/2",
-	NULL,
-
-	"heaviside(x+b)*sin(a*(x+b))",
-	"(a/(a^2-x^2)-i*pi*(dirac(x-a)-dirac(x+a))/2)*exp(i*b*x)",
-	NULL,
-		
-	"heaviside(x)*cos(a*x)",
-	"i*x/(a^2-x^2)+pi*(dirac(x-a)-dirac(x+a))/2",
-	NULL,
-
-	"heaviside(x+b)*cos(a*(x+b))",
-	"(i*x/(a^2-x^2)+pi*(dirac(x-a)-dirac(x+a))/2)*exp(i*b*x)",
-	NULL,
-
-	"heaviside(x)*x",
-	"-1/x^2+i*pi*d(dirac(x),x)",
-	NULL,
-	
-	"heaviside(x)*x*exp(a*x)",
-	"(a^2-x^2)/(a^2+x^2)^2+i*2a*x/(a^2+x^2)^2",
-	NULL,
-
-	
-	"abs(a*x)",
-	"-2/(abs(a)*(x/a)^2)",
-	NULL,
-
-	"abs(a*x+b)",
-	"-2*exp(i*b*x/a)/(abs(a)*(x/a)^2)",
-	NULL,
-	
-	
-	"1/(a*x)^2",
-	"-abs(x/a)*pi/abs(a)",
-	NULL,
-
-	"1/(a*x+b)^2",
-	"-abs(x/a)*exp(i*b*x/a)*pi/abs(a)",
-	NULL,
-
-	"1/abs(a*x)",
-	"(-2*euler-2*log(abs(x/a)))/abs(a)",
-	NULL,
-	
-	"1/abs(a*x+b)",
-	"(-2*euler-2*log(abs(x/a)))*exp(i*b*x/a)/abs(a)",
-	NULL,
-	
-	"log(abs(a*x))",
-	"(-2*pi*euler*dirac(x/a)-pi/abs(x/a))/abs(a)",
-	NULL,
-	
-	"log(abs(a*x+b))",
-	"(-2*pi*euler*dirac(x/a)-pi/abs(x/a))*exp(i*b*x/a)/abs(a)",
-	NULL,
-	
-	"x^a",
-	"-abs(x)^(-a-1)*gamma(1+a)*(-i*(-1+(-1)^a)*cos(a*pi/2)*sgn(x)+(-1+(-1)^a)*cos(a*pi/2))",
-	NULL,
-
-	"(x+b)^a",
-	"-abs(x)^(-a-1)*gamma(1+a)*exp(i*b*x)*(-i*(-1+(-1)^a)*cos(a*pi/2)*sgn(x)+(-1+(-1)^a)*cos(a*pi/2))",
-	NULL,
-	
-	"x^a*heaviside(x)",
-	"-i*abs(x)^(-a-1)*gamma(1+a)*(cos(a*pi/2)*sgn(x)-i*sin(a*pi/2))",
-	NULL,
-	
-	"(x+b)^a*heaviside(x+b)",
-	"-i*exp(i*b*x)*abs(x)^(-a-1)*gamma(1+a)*(cos(a*pi/2)*sgn(x)-i*sin(a*pi/2))",
-	NULL,
-	
-	"abs(x)^a*heaviside(x)",
-	"-i*abs(x)^(-a-1)*gamma(1+a)*(cos(a*pi/2)*sgn(x)-i*sin(a*pi/2))",
-	NULL,
-	
-	"abs(x+b)^a*heaviside(x+b)",
-	"-i*exp(i*b*x)*abs(x)^(-a-1)*gamma(1+a)*(cos(a*pi/2)*sgn(x)-i*sin(a*pi/2))",
-	NULL,
-	
-	"abs(x)^a",
-	"-2*gamma(a+1)*sin(pi*a/2)*abs(x)^(-a-1)",
-	NULL,
-	
-	"abs(x+b)^a",
-	"-2*exp(i*b*x)*gamma(a+1)*sin(pi*a/2)*abs(x)^(-a-1)",
-	NULL,
-	
-	"abs(x)^a*sgn(x)",
-	"-2*i*gamma(a+1)*cos(pi*a/2)*sgn(x)*abs(x)^(-a-1)",
-	NULL,
-	
-	"abs(x+b)^a*sgn(x+b)",
-	"-2*i*exp(i*b*x)*gamma(a+1)*cos(pi*a/2)*sgn(x)*abs(x)^(-a-1)",
-	NULL,
-	
-	"carac(x,a,b)",
-	"i*(exp(-i*b*x)-exp(-i*a*x))/x",
-	NULL,
-
-	"carac(x,-a,a)*exp(b*x)",
-	"2*sin(a*(x+i*b))/(x+i*b)",
-	NULL,
-
-	"carac(x,-a,a)*sin(b*x)",
-	"i*(sin(a*(x+b))/(x+b)-sin(a*(x-b))/(x-b))",
-	NULL,
-
-	"carac(x,-a,a)*cos(b*x)",
-	"sin(a*(x+b))/(x+b)+sin(a*(x-b))/(x-b)",
-	NULL,
-	
-	"carac(x,-a,a)*x",
-	"2*i*(cos(a*x)-sin(a*x)/(a*x))/x",
-	NULL,
-	
-	"carac(x,-a,a)*abs(x)",
-	"2*a*(sin(a*x)/(a*x)-2*(sin(a*x/2)/(a*x))^2)",
-	NULL,
-	
-	"(exp(-i*b*x)-exp(-i*a*x))/x",
-	"2*pi*carac(x,a,b)/i",
-	NULL,
-
-	"sin(a*x)/x",
-	"pi*carac(x,-a,a)",
-	NULL,
-
-	"sgn(x)*carac(x,-a,a)",
-	"-4*i*sin(a*x/2)*sin(a*x/2)/x",
-	NULL,
-
+	"sqrt(pi/abs(a))*exp(x^2/(4*a))*exp(i*b*x)",
+	"and(imag(a)==0,isnegativeterm(a)==1)",
 	NULL,
 };
-
-// build the table, subst. meta symbols for a, b and x.
 
 static void
 scan_fouriers(void)
@@ -889,101 +847,246 @@ scan_fouriers(void)
 	table_of_fourier = pop();
 }
 
-static char *s[] = {
 
+
+static char *s[] = {
+	"#1",
 	"fourier(d(f(t,x),x),x)",
 	"i*x*fourier(f(t,x),x)",
 
+	"#2",
+	"eval(invfourier(i*x*fourier(f(t,x),x),x))",
+	"d(f(t,x),x)",
+
+	"#3",
 	"fourier(d(f(t,x),t),x)",
 	"d(fourier(f(t,x),x),t)",
 
+	"#4",
+	"eval(invfourier(d(fourier(f(t,x),x),t),x))",
+	"d(f(t,x),t)",
+
+	"#5",
 	"fourier(x*f(t,x),x)",
 	"i*d(fourier(f(t,x),x),x)",
 
-	"fourier(f(t,x)/x,x)",
-	"-i*integral(fourier(f(t,x),x),x)",
+	"#6",
+	"eval(invfourier(i*d(fourier(f(t,x),x),x),x))",
+	"x*f(t,x)",
 
-	"fourier(integral(f(t,x),x),x)",
-	"pi*dirac(x)*fourier(f(t,x),x)-i*fourier(f(t,x),x)/x",
-
-	"fourier(carac(x,-1,1),x)",
-	"i*exp(-i*x)/x-i*exp(i*x)/x",
-
-	"fourier(dirac(x),x)",
-	"1",
-
-	"fourier(1,x)",
-	"2*pi*dirac(x)",
-
-	"fourier(exp(i*b*x),x)",
-	"2*pi*dirac(b-x)",
-
-	"fourier(d(dirac(A + x),x),x)",
-	"i*x*exp(i*A*x)",
-
-	"fourier(1/x^2,x)",
-	"-pi*abs(x)",
-
-	"fourier(d(f(x),x),x)",
-	"i*x*fourier(f(x),x)",
-
+	"#7",
 	"fourier(d(d(f(x),x),x))",
 	"-x^2*fourier(f(x),x)",
 
-	"fourier(x*f(x),x)",
-	"i*d(fourier(f(x),x),x)",
+	"#8",
+	"eval(invfourier(-x^2*fourier(f(x),x),x))",
+	"d(d(f(x),x),x)",
 
+	"#9",
 	"fourier(x^2*f(x),x)",
 	"-d(d(fourier(f(x),x),x),x)",
 
-	"eval(fourier(dirac(t)-d(d(dirac(t),t),t),t))",
-	"1+t^2",
+	"#10",
+	"eval(invfourier(-d(d(fourier(f(x),x),x),x),x))",
+	"x^2*f(x)",
 
-	"eval(invfourier(1/(a+t^2),t))",
-	"exp(-a^(1/2)*abs(t))/(2*a^(1/2))",
+	"#11",
+	"fourier(f(t,x)/x,x)",
+	"-i*integral(fourier(f(t,x),x),x)",
 
-	"eval(fourier(fourier(d(dirac(t)*dirac(x),t)-d(d(dirac(t)*dirac(x),x),x),t),x))",
-	"i*t+x^2",
+	"#12",
+	"eval(invfourier(-i*integral(fourier(f(t,x),x),x),x))",
+	"f(t,x)/x",
 
-	"fourier(exp(-a*x^2),x)",
-	"pi^(1/2)*exp(-x^2/(4*a))/(a^(1/2))",
+	"#13",
+	"fourier(integral(f(t,x),x),x)",
+	"-i*fourier(f(t,x),x)/x",
 
+	"#14",
+	"eval(invfourier(-i*fourier(f(t,x),x)/x,x))",
+	"integral(f(t,x),x)",
+
+	"#15",
+	"fourier(exp(-a^2*x^2),x)",
+	"pi^(1/2)*exp(-x^2/(4*a^2))/abs(a)",
+
+	"#16",
+	"eval(invfourier(pi^(1/2)*exp(-x^2/(4*a^2))/abs(a),x))",
+	"exp(-a^2*x^2)",
+
+	"#17",
 	"fourier(exp(-a*abs(x)),x)",
 	"2*a/(a^2+x^2)",
 
+	"#18",
+	"eval(invfourier(2*a/(a^2+x^2),x))",
+	"exp(-a*abs(x))",
+
+	"#19",
+	"fourier(heaviside(x)*exp(-a*x),x)",
+	"a/(a^2+x^2)-i*x/(a^2+x^2)",
+
+	"#20",
+	"eval(invfourier(a/(a^2+x^2)-i*x/(a^2+x^2),x))",
+	"1/2*exp(-a*abs(x))*sgn(x)+1/2*exp(-a*abs(x))",
+
+	"#21",
 	"fourier(sgn(x)*exp(-a*abs(x)),x)",
 	"-2*i*x/(a^2+x^2)",
 
-	"fourier(heaviside(x)exp(-a*x),x)",
-	"a/(a^2+x^2)-i*x/(a^2+x^2)",
+	"#22",
+	"eval(invfourier(-2*i*x/(a^2+x^2),x))",
+	"exp(-a*abs(x))*sgn(x)",
 
-// the following test was broken by making abs(a*b) evaluate to abs(a)*abs(b)
-// 1/abs(a*x) becomes (1/abs(a))*(1/abs(x)) which causes fourier to use
-// fourier_of_product because 1/abs(a) is a constant.
+	"#23",
+	"fourier(exp(i*y0*x-a*abs(x)),x)",
+	"2*a/(-2*x*y0+a^2+x^2+y0^2)",
 
-//	"fourier(1 / abs(a*x),x)",
-//	"-2*euler/abs(a)-2*log(abs(x/a))/abs(a)",
+	"#24",
+	"fourier(heaviside(x)*exp(i*y0*x-a*x),x)",
+	"1/(a+i*x-i*y0)",
 
-	"fourier(besselj(x,0),x)",
-	"2/((1-x^2)^(1/2))",
+	"#25",
+	"fourier(exp(i*x*y0)*carac(x,-L,L),x)",
+	"2*sin(L*x-L*y0)/(x-y0)",
 
-	"fourier(x exp(-pi x^2),x)",
-	"-i*x*exp(-x^2/(4*pi))/(2*pi)",
+	"#26",
+	"fourier(sin(a*x),x)",
+	"i*pi*dirac(a+x)-i*pi*dirac(a-x)",
 
-	"fourier(exp(-abs(x)) sin(x) / x,x)",
+	"#27",
+	"eval(invfourier(i*pi*dirac(a+x)-i*pi*dirac(a-x),x))",
+	"1/2*i*exp(-i*a*x)-1/2*i*exp(i*a*x)",
+
+	"#28",
+	"fourier(cos(a*x),x)",
+	"pi*dirac(a+x)+pi*dirac(a-x)",
+
+	"#29",
+	"eval(invfourier(pi*dirac(a+x)+pi*dirac(a-x),x))",
+	"1/2*exp(-i*a*x)+1/2*exp(i*a*x)",
+
+	"#30",
+	"fourier(sinh(a*x),x)",
+	"-pi*dirac(x-i*a)+pi*dirac(x+i*a)",
+
+	"#31",
+	"eval(invfourier(-pi*dirac(x-i*a)+pi*dirac(x+i*a),x))",
+    "-1/2*exp(-a*x)+1/2*exp(a*x)",
+    
+	"#32",
+	"fourier(cosh(a*x),x)",
+	"pi*dirac(x-i*a)+pi*dirac(x+i*a)",
+
+	"#33",
+	"eval(invfourier(pi*dirac(x-i*a)+pi*dirac(x+i*a),x))",
+    "1/2*exp(-a*x)+1/2*exp(a*x)",
+    
+	"#34",
+	"fourier(exp(i*b*x),x)",
+	"2*pi*dirac(b-x)",
+
+	"#35",
+	"fourier(dirac(x),x)",
+	"1",
+
+	"#36",
+	"fourier(1,x)",
+	"2*pi*dirac(x)",
+
+	"#37",
+	"fourier(d(dirac(A + x),x),x)",
+	"i*x*exp(i*A*x)",
+
+	"#38",
+	"fourier(carac(x,-1,1),x)",
+	"i*exp(-i*x)/x-i*exp(i*x)/x",
+
+	"#39",
+	"fourier(shah(a*x),x)",
+	"2*pi*shah(2*pi*x/a)/a",
+
+	"#40",
+	"fourier(1/x,x)",
+	"-i*pi*sgn(x)",
+
+	"#41",
+ 	"fourier(1/(a*x+b),x)",
+	"-i*pi*exp(i*b*x/a)*sgn(x)/a",
+
+	"#42",
+	"fourier(1/x^2,x)",
+	"-pi*x*sgn(x)",
+
+	"#43",
+	"fourier(1/(x^2+a^2),x)",
+	"pi*exp(-a*abs(x))/a",
+
+	"#44",
+	"fourier(1 / abs(x),x)",
+	"-2*euler-2*log(abs(x))",
+
+	"#45",
+	"fourier(sqrt(abs(x)))",
+	"-pi^(1/2)/(2^(1/2)*abs(x)^(3/2))",
+
+	"#46",
+	"fourier(exp(-a*abs(x)),x)",
+	"2*a/(a^2+x^2)",
+
+	"#47",
+	"eval(invfourier(2*a/(a^2+t^2),t))",
+	"exp(-a*abs(t))",
+
+
+	"#48",
+	"fourier(sgn(x)*exp(-a*abs(x)),x)",
+	"-2*i*x/(a^2+x^2)",
+
+	"#49",
+	"fourier(exp(-abs(x))/x,x)",
 	"-2*i*arctan(x)",
 
+	"#50",
 	"fourier(exp(-b abs(x) + i a x),x)",
 	"2*b/(-2*a*x+a^2+b^2+x^2)",
 
+	"#51",
 	"fourier(exp(-a x + i b x) heaviside(x),x)",
-	"1/(-a-i*b+i*x)",
+	"1/(a-i*b+i*x)",
 
-	"fourier(cos(b x) / (a^2 + x^2),x)",
-	"pi*exp(-a*abs(b+x))/(2*a)+pi*exp(-a*abs(b-x))/(2*a)",
+	"#52",
+	"fourier(exp(-a*x^2),x)",
+	"pi^(1/2)*exp(-x^2/(4*a))/(abs(a)^(1/2))",
 
-	"fourier(sin(b x) / (a^2 + x^2),x)",
-	"i*pi*exp(-a*abs(b+x))/(2*a)-i*pi*exp(-a*abs(b-x))/(2*a)",
+	"#53",
+	"fourier(x*exp(-x^2))",
+	"-1/2*i*pi^(1/2)*x*exp(-1/4*x^2)",
+
+	"#54",
+	"rationalize(fourier(exp(i*a*x^2),x))",
+	"pi^(1/2)*exp(-i*x^2/(4*a))*(1+i*sgn(a))/(2^(1/2)*abs(a)^(1/2))",
+
+	"#55",
+	"fourier(besselj(x,0),x)",
+	"2/((1-x^2)^(1/2))",
+
+	"#56",
+	"eval(invfourier(2/((1-x^2)^(1/2)),x))",
+	"besselj(x,0)",
+
+	"#57",
+	"fourier(exp(i*b x) / (a^2 + x^2),x)",
+	"pi*exp(-a*abs(b-x))/a",
+
+	"#58",
+	"eval(fourier(dirac(t)-d(d(dirac(t),t),t),t))",
+	"1+t^2",
+
+	"#59",
+	"eval(fourier(fourier(d(dirac(t)*dirac(x),t)-d(d(dirac(t)*dirac(x),x),x),t),x))",
+	"i*t+x^2",
+
 };
 
 void

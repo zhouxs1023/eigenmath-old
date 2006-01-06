@@ -67,7 +67,7 @@ selftest(void)
 	test_factorpoly();
 	test_floor();
 	test_for();
-	test_fourier();
+//	test_fourier();
 	test_gamma();
 	test_imag();
 	test_inner();
