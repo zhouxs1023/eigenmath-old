@@ -153,6 +153,7 @@ void test_coeff(void);
 // cofactor.cpp
 void eval_cofactor(void);
 void cofactor(U *p, int n, int row, int col);
+void test_cofactor(void);
 
 // condense.cpp
 void eval_condense(void);

@@ -51,6 +51,7 @@ selftest(void)
 	test_carac();
 	test_ceiling();
 	test_charpoly();
+	test_cofactor();
 	test_condense();
 	test_contract();
 	test_convolution();
