@@ -15,7 +15,6 @@ int free_count;
 void
 init_alloc(void)
 {
-	free_list = nil;
 	alloc_next_block();
 }
 
@@ -23,11 +22,11 @@ U *
 alloc(void)
 {
 	U *p;
-	if (free_list == nil) {
+	if (free_count == 0) {
 		gc();
 		if (free_count < total_count / 2)
 			alloc_next_block();
-		if (free_list == nil)
+		if (free_count == 0)
 			stop("atom space exhausted");
 	}
 	p = free_list;
@@ -97,7 +96,6 @@ gc(void)
 
 	// collect everything that's still tagged
 
-	free_list = nil;
 	free_count = 0;
 
 	for (i = 0; i < mcount; i++) {
