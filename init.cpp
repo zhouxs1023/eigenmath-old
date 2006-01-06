@@ -59,6 +59,7 @@ init(void)
 	std_symbol("clear", CLEAR);
 	std_symbol("cls", CLS);
 	std_symbol("coeff", COEFF);
+	std_symbol("cofactor", COFACTOR);
 	std_symbol("condense", CONDENSE);
 	std_symbol("conj", CONJ);
 	std_symbol("contract", CONTRACT);

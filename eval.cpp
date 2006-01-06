@@ -88,6 +88,7 @@ eval_cons(void)
 	case CLEAR:		eval_clear();		break;
 	case CLS:		eval_cls();		break;
 	case COEFF:		eval_coeff();		break;
+	case COFACTOR:		eval_cofactor();	break;
 	case CONDENSE:		eval_condense();	break;
 	case CONJ:		eval_conj();		break;
 	case CONTRACT:		eval_contract();	break;

@@ -78,6 +78,7 @@ enum {
 	CLEAR,
 	CLS,
 	COEFF,
+	COFACTOR,
 	CONDENSE,
 	CONJ,
 	CONTRACT,

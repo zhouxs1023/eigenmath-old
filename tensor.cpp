@@ -259,19 +259,6 @@ adj(void)
 	restore();
 }
 
-void
-cofactor(U *p, int n, int row, int col)
-{
-	int i, j;
-	for (i = 0; i < n; i++)
-		for (j = 0; j < n; j++)
-			if (i != row && j != col)
-				push(p->u.tensor->elem[n * i + j]);
-	determinant(n - 1);
-	if ((row + col) % 2)
-		negate();
-}
-
 //-----------------------------------------------------------------------------
 //
 //	gradient of tensor

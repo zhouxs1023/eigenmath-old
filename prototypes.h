@@ -150,6 +150,10 @@ void coeff_cooked(void);
 int coeff(void);
 void test_coeff(void);
 
+// cofactor.cpp
+void eval_cofactor(void);
+void cofactor(U *p, int n, int row, int col);
+
 // condense.cpp
 void eval_condense(void);
 void condense(void);
@@ -821,7 +825,6 @@ void tensor_times_scalar(void);
 void scalar_times_tensor(void);
 int is_square_matrix(U *p);
 void adj(void);
-void cofactor(U *p, int n, int row, int col);
 void d_tensor_tensor(void);
 void d_scalar_tensor(void);
 void d_tensor_scalar(void);
