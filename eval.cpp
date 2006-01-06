@@ -230,14 +230,6 @@ eval_add(void)
 }
 
 void
-eval_adj(void)
-{
-	push(cadr(p1));
-	eval();
-	adj();
-}
-
-void
 eval_break(void)
 {
 	push(cadr(p1));

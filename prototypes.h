@@ -11,6 +11,11 @@ void add();
 void addk(int k);
 void subtract(void);
 
+// adj.cpp
+void eval_adj(void);
+void adj(void);
+void test_adj(void);
+
 // alloc.cpp
 void init_alloc(void);
 U * alloc(void);
@@ -273,7 +278,6 @@ void eval(void);
 void eval_cons(void);
 void setup(void);
 void eval_add(void);
-void eval_adj(void);
 void eval_break(void);
 void eval_charpoly(void);
 void eval_check(void);
@@ -825,7 +829,6 @@ void tensor_plus_tensor(void);
 void tensor_times_scalar(void);
 void scalar_times_tensor(void);
 int is_square_matrix(U *p);
-void adj(void);
 void d_tensor_tensor(void);
 void d_scalar_tensor(void);
 void d_tensor_scalar(void);
