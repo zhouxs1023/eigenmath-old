@@ -75,17 +75,8 @@ sum(void)
 
 static char *s[] = {
 
-	"n=quote(n)",
-	"",
-
-	"sum(n,1,3,n)",
-	"6",
-
-	"n",
-	"n",
-
-	"sum(n,1,100,isprime(n))",
-	"25",
+	"sum(n,0,10,(-1/3)^n)",
+	"44287/59049",
 };
 
 void
