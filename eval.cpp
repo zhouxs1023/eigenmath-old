@@ -251,7 +251,7 @@ eval_charpoly(void)
 	charpoly();
 }
 
-// accepts an equality, i.e. check(A = B)
+// checks a predicate, i.e. check(A = B)
 
 void
 eval_check(void)
@@ -259,9 +259,9 @@ eval_check(void)
 	push(cadr(p1));
 	eval_predicate();
 	p1 = pop();
-	if (!iszero(p1) && p1 != symbol(YYTRUE))
-		stop("check(arg): arg is not zero and not true");
-	push(nil);
+	if (iszero(p1))
+		stop("check(arg): arg is zero");
+	push_integer(1);
 }
 
 void

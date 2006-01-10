@@ -188,11 +188,8 @@ enum {
 	EXPOMODE,
 	LAST,
 	TTY,
-	YYVOID,
 	YYE,
 	YYLAST,
-	YYTRUE,
-	YYFALSE,
 
 	// symbols appearing above are printed in roman type
 
@@ -337,10 +334,5 @@ extern U *meta_n;
 extern U *meta_x;
 extern U *varlist;
 extern U symtab[];
-
-// In case I forget to use YY...
-
-#undef TRUE
-#undef FALSE
 
 #include "prototypes.h"

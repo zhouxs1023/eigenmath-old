@@ -17,14 +17,14 @@ eval_test(void)
 		push(car(p1));
 		eval_predicate();
 		p2 = pop();
-		if (p2 == symbol(YYTRUE)) {
+		if (!iszero(p2)) {
 			push(cadr(p1));
 			eval();
 			return;
 		}
 		p1 = cddr(p1);
 	}
-	push(symbol(YYVOID));
+	push_integer(0);
 }
 
 void
@@ -36,10 +36,14 @@ eval_testeq(void)
 	eval();
 	p2 = pop();
 	p1 = pop();
-	if (equal(p1, p2))
-		push(symbol(YYTRUE));
+	if (iszero(p1))
+		p1 = zero; // in case p1 is a zero tensor
+	if (iszero(p2))
+		p2 = zero; // in case p2 is a zero tensor
+	if (cmp_expr(p1, p2) == 0)
+		push_integer(1);
 	else
-		push(symbol(YYFALSE));
+		push_integer(0);
 }
 
 void
@@ -49,15 +53,12 @@ eval_testge(void)
 	eval();
 	push(caddr(p1));
 	eval();
-	subtract();
 	p2 = pop();
-	if (isnum(p2))
-		if (isnegativenumber(p2))
-			push(symbol(YYFALSE));
-		else
-			push(symbol(YYTRUE));
+	p1 = pop();
+	if (cmp_expr(p1, p2) >= 0)
+		push_integer(1);
 	else
-		push(symbol(YYVOID));
+		push_integer(0);
 }
 
 void
@@ -67,16 +68,12 @@ eval_testgt(void)
 	eval();
 	push(caddr(p1));
 	eval();
-	swap();
-	subtract();
 	p2 = pop();
-	if (isnum(p2))
-		if (isnegativenumber(p2))
-			push(symbol(YYTRUE));
-		else
-			push(symbol(YYFALSE));
+	p1 = pop();
+	if (cmp_expr(p1, p2) > 0)
+		push_integer(1);
 	else
-		push(symbol(YYVOID));
+		push_integer(0);
 }
 
 void
@@ -86,16 +83,12 @@ eval_testle(void)
 	eval();
 	push(caddr(p1));
 	eval();
-	swap();
-	subtract();
 	p2 = pop();
-	if (isnum(p2))
-		if (isnegativenumber(p2))
-			push(symbol(YYFALSE));
-		else
-			push(symbol(YYTRUE));
+	p1 = pop();
+	if (cmp_expr(p1, p2) <= 0)
+		push_integer(1);
 	else
-		push(symbol(YYVOID));
+		push_integer(0);
 }
 
 void
@@ -105,15 +98,12 @@ eval_testlt(void)
 	eval();
 	push(caddr(p1));
 	eval();
-	subtract();
 	p2 = pop();
-	if (isnum(p2))
-		if (isnegativenumber(p2))
-			push(symbol(YYTRUE));
-		else
-			push(symbol(YYFALSE));
+	p1 = pop();
+	if (cmp_expr(p1, p2) < 0)
+		push_integer(1);
 	else
-		push(symbol(YYVOID));
+		push_integer(0);
 }
 
 void
@@ -122,52 +112,44 @@ eval_not(void)
 	push(cadr(p1));
 	eval_predicate();
 	p1 = pop();
-	if (p1 == symbol(YYTRUE))
-		push(symbol(YYFALSE));
-	else if (p1 == symbol(YYFALSE))
-		push(symbol(YYTRUE));
+	if (iszero(p1))
+		push_integer(1);
 	else
-		push(symbol(YYVOID));
+		push_integer(0);
 }
 
 void
 eval_and(void)
 {
-	p2 = symbol(YYTRUE);
 	p1 = cdr(p1);
 	while (iscons(p1)) {
 		push(car(p1));
 		eval_predicate();
-		p3 = pop();
-		if (p3 == symbol(YYFALSE)) {
-			push(p3);
+		p2 = pop();
+		if (iszero(p2)) {
+			push_integer(0);
 			return;
 		}
-		if (p3 != symbol(YYTRUE))
-			p2 = symbol(YYVOID);
 		p1 = cdr(p1);
 	}
-	push(p2);
+	push_integer(1);
 }
 
 void
 eval_or(void)
 {
-	p2 = symbol(YYFALSE);
 	p1 = cdr(p1);
 	while (iscons(p1)) {
 		push(car(p1));
 		eval_predicate();
-		p3 = pop();
-		if (p3 == symbol(YYTRUE)) {
-			push(p3);
+		p2 = pop();
+		if (!iszero(p2)) {
+			push_integer(1);
 			return;
 		}
-		if (p3 != symbol(YYFALSE))
-			p2 = symbol(YYVOID);
 		p1 = cdr(p1);
 	}
-	push(p2);
+	push_integer(0);
 }
 
 static char *s[] = {
@@ -179,103 +161,88 @@ static char *s[] = {
 	"0",
 
 	"a==b",
-	"void",
+	"0",
 
 	"1>=1",
-	"true",
+	"1",
 
 	"1>=2",
-	"false",
+	"0",
 
 	"2>=1",
-	"true",
+	"1",
 
 	"a>=b",
-	"void",
+	"0",
 
 	"1>1",
-	"false",
+	"0",
 
 	"1>2",
-	"false",
+	"0",
 
 	"2>1",
-	"true",
+	"1",
 
 	"a>b",
-	"void",
+	"0",
 
 	"1<=1",
-	"true",
+	"1",
 
 	"1<=2",
-	"true",
+	"1",
 
 	"2<=1",
-	"false",
+	"0",
 
 	"a<=b",
-	"void",
+	"1",
 
 	"1<1",
-	"false",
+	"0",
 
 	"1<2",
-	"true",
+	"1",
 
 	"2<1",
-	"false",
+	"0",
 
 	"a<b",
-	"void",
+	"1",
 
-	"test(false,A,B)",
+	"test(0,A,B)",
 	"B",
 
-	"test(true,A,B)",
+	"test(1,A,B)",
 	"A",
 
-	"test(false,A,false,B)",
-	"void",
+	"test(0,A,0,B)",
+	"0",
 
-	"test(false,A,false,B,C)",
+	"test(0,A,0,B,C)",
 	"C",
 
-	"not(true)",
-	"false",
-
-	"not(false)",
-	"true",
+	"not(1)",
+	"0",
 
 	"not(0)",
-	"void",
+	"1",
 
 	"not(a=a)",
-	"false",
+	"0",
 
-	"and(true,true)",
-	"true",
+	"and(1,1)",
+	"1",
 
-	"and(true,false)",
-	"false",
+	"and(1,0)",
+	"0",
 
-	"and(true,void)",
-	"void",
+	"or(1,0)",
+	"1",
 
-	"and(false,void)",
-	"false",
-
-	"or(true,false)",
-	"true",
-
-	"or(false,false)",
-	"false",
-
-	"or(false,void)",
-	"void",
-
-	"or(true,void)",
-	"true",
+	"or(0,0)",
+	"0",
 };
 
 void

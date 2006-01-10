@@ -300,7 +300,7 @@ match(U *actual, U *formal, U *caveats, int h1, int h2)
 				push(car(p1));
 				eval();
 				p2 = pop();
-				if (p2 != symbol(YYTRUE))
+				if (iszero(p2))
 					break;
 				p1 = cdr(p1);
 			}

@@ -164,11 +164,8 @@ init(void)
 	std_symbol("expomode", EXPOMODE);
 	std_symbol("last", LAST);
 	std_symbol("tty", TTY);
-	std_symbol("void", YYVOID);
 	std_symbol("~", YYE); // tilde so sort puts it after other symbols
 	std_symbol("", YYLAST);
-	std_symbol("true", YYTRUE);
-	std_symbol("false", YYFALSE);
 
 	std_symbol("pi", PI);
 	std_symbol("a", SYMBOL_A);
