@@ -7,40 +7,45 @@ eval_isprime(void)
 	push(cadr(p1));
 	eval();
 	p1 = pop();
-	if (isnonnegativeinteger(p1)) {
-		if (mprime(p1->u.q.a))
-			push(symbol(YYTRUE));
-		else
-			push(symbol(YYFALSE));
-	} else
-		stop("isprime: nonnegative integer arg expected");
+	if (isnonnegativeinteger(p1) && mprime(p1->u.q.a))
+		push_integer(1);
+	else
+		push_integer(0);
 }
 
 static char *s[] = {
 
+	// 0 and 1 are not prime numbers
+
+	"isprime(0)",
+	"0",
+
+	"isprime(1)",
+	"0",
+
 	"isprime(13)",
-	"true",
+	"1",
 
 	"isprime(14)",
-	"false",
+	"0",
 
 	// from the Prime Curios web page
 
 	"isprime(9007199254740991)",
-	"false",
+	"0",
 
 	// The largest prime that JavaScript supports
 
 	"isprime(2^53 - 111)",
-	"true",
+	"1",
 
 	// misc. primes
 
 	"isprime(2^50-71)",
-	"true",
+	"1",
 
 	"isprime(2^40-87)",
-	"true",
+	"1",
 };
 
 void
