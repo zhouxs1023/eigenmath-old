@@ -1,0 +1,112 @@
+\parindent=0pt
+Construct truth tables for the following logical expressions.
+
+\bigskip
+{\bf a.} $p\land(q\to p)$
+
+$$\matrix{
+p&q&q\to p&p\land(q\to p)\cr
+T&T&T&T\cr
+T&F&T&T\cr
+F&T&F&F\cr
+F&F&T&F\cr
+}$$
+
+\bigskip
+{\bf b.} $(p\lor q)\to(p\land r)$
+
+$$\matrix{
+p&q&r&(p\lor q)&(p\land r)&(p\lor q)\to(p\land r)\cr
+T&T&T&T&T&T\cr
+T&T&F&T&F&F\cr
+T&F&T&T&T&T\cr
+T&F&F&T&F&F\cr
+F&T&T&T&F&F\cr
+F&T&F&T&F&F\cr
+F&F&T&F&F&T\cr
+F&F&F&F&F&T\cr
+}$$
+
+\bigskip
+Determine if the following expressions are equivalent.
+
+\bigskip
+{\bf a.} $p\to(q\land r)$ and $(p\to q)\land r$.
+
+$$\matrix{
+p&q&r&q\land r&p\to(q\land r)\cr
+T&T&T&T&T\cr
+T&T&F&F&F\cr
+T&F&T&F&F\cr
+T&F&F&F&F\cr
+F&T&T&T&T\cr
+F&T&F&F&T\cr
+F&F&T&F&T\cr
+F&F&F&F&T\cr
+}\qquad\qquad\matrix{
+p&q&r&p\to q&(p\to q)\land r\cr
+T&T&T&T&T\cr
+T&T&F&T&T\cr
+T&F&T&F&F\cr
+T&F&F&F&F\cr
+F&T&T&T&F\cr
+F&T&F&T&F\cr
+F&F&T&T&F\cr
+F&F&F&T&F\cr
+}$$
+The truth tables show that the two expressions are not equivalent.
+
+\bigskip
+{\bf b.} $p\to(q\lor r)$ and $(p\to q)\lor(p\to r)$.
+
+$$\matrix{
+p&q&r&q\lor r&p\to(q\lor r)\cr
+T&T&T&T&T\cr
+T&T&F&T&T\cr
+T&F&T&T&T\cr
+T&F&F&F&F\cr
+F&T&T&T&T\cr
+F&T&F&T&T\cr
+F&F&T&T&T\cr
+F&F&F&F&T\cr
+}\qquad\qquad\matrix{
+p&q&r&p\to q&p\to r&(p\to q)\lor(p\to r)\cr
+T&T&T&T&T&T\cr
+T&T&F&T&F&T\cr
+T&F&T&F&T&T\cr
+T&F&F&F&F&F\cr
+F&T&T&T&T&T\cr
+F&T&F&T&T&T\cr
+F&F&T&T&T&T\cr
+F&F&F&T&T&T\cr
+}$$
+The truth tables show that the two expressions are indeed equivalent.
+
+\vfill\eject
+Negate the following expressions.
+
+\bigskip
+{\bf a.} $p\to(q\land{\sim}\,r)$
+$$\eqalign{
+{\sim}\,(p\to(q\land{\sim}\,r))&\equiv{\sim}\,({\sim}\,p\lor(q\land{\sim}\,r))\cr
+&\equiv p\land{\sim}\,(q\land{\sim}\,r)\cr
+&\equiv p\land({\sim}\,q\lor r)\cr
+}$$
+
+\bigskip
+{\bf b.} ${\sim}\,p\to(q\lor r)$
+$$\eqalign{
+{\sim}\,({\sim}\,p\to(q\lor r))&\equiv{\sim}\,(p\lor(q\lor r))\cr
+&\equiv{\sim}\,p\land{\sim}\,(q\lor r)\cr
+&\equiv{\sim}\,p\land{\sim}\,q\land{\sim}\,r
+}$$
+
+\bigskip
+{\bf c.} $p\land(q\to r)$
+$$\eqalign{
+{\sim}\,(p\land(q\to r))&\equiv{\sim}\,p\lor{\sim}\,({\sim}\,q\lor r)\cr
+&\equiv{\sim}\,p\lor(q\land{\sim}\,r)\cr
+}$$
+
+\end
+
