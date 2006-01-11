@@ -928,14 +928,14 @@ char *integrals[] = {
 
 	"1/(a+b*sin(x))",
 	"1/sqrt(b^2-a^2)*log((a*tan(x/2)+b-sqrt(b^2-a^2))/(a*tan(x/2)+b+sqrt(b^2-a^2)))",
-	"test(a=b,false,true)",
+	"not(a=b)",
 	NULL,
 
 // 341
 
 	"1/(a+b*cos(x))",
 	"1/sqrt(b^2-a^2)*log((sqrt(b^2-a^2)*tan(x/2)+a+b)/(sqrt(b^2-a^2)*tan(x/2)-a-b))",
-	"test(a=b,false,true)",
+	"not(a=b)",
 	NULL,
 
 // 441
