@@ -844,6 +844,7 @@ void eval_testlt(void);
 void eval_not(void);
 void eval_and(void);
 void eval_or(void);
+int cmp_args(void);
 void test_test(void);
 
 // trace.cpp
