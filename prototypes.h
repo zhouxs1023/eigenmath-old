@@ -306,6 +306,7 @@ void eval_laguerre(void);
 void eval_lcm(void);
 void eval_legendre(void);
 void eval_multiply(void);
+void eval_number(void);
 void eval_operator(void);
 void eval_power(void);
 void eval_prime(void);

@@ -147,6 +147,7 @@ eval_cons(void)
 	case MOD:		eval_mod();		break;
 	case MULTIPLY:		eval_multiply();	break;
 	case NOT:		eval_not();		break;
+	case NUMBER:		eval_number();		break;
 	case NUMERATOR:		eval_numerator();	break;
 	case OPERATOR:		eval_operator();	break;
 	case OR:		eval_or();		break;
@@ -576,6 +577,18 @@ eval_multiply(void)
 		multiply();
 		p1 = cdr(p1);
 	}
+}
+
+void
+eval_number(void)
+{
+	push(cadr(p1));
+	eval();
+	p1 = pop();
+	if (p1->k == NUM || p1->k == DOUBLE)
+		push_integer(1);
+	else
+		push_integer(0);
 }
 
 void

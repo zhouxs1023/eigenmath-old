@@ -26,14 +26,31 @@ eval_test(void)
 	push_integer(0);
 }
 
+// The test for equality is weaker than the other relational operators.
+
+// For example, A<=B causes a stop when the result of A minus B is not a
+// numerical value.
+
+// However, A==B never causes a stop.
+
+// For A==B, any nonzero result for A minus B indicates inequality.
+
 void
 eval_testeq(void)
 {
-	if (cmp_args() == 0)
+	push(cadr(p1));
+	eval();
+	push(caddr(p1));
+	eval();
+	subtract();
+	p1 = pop();
+	if (iszero(p1))
 		push_integer(1);
 	else
 		push_integer(0);
 }
+
+// Relational operators expect a numeric result for operand difference.
 
 void
 eval_testge(void)

@@ -113,6 +113,7 @@ init(void)
 	std_symbol("mod", MOD);
 	std_symbol("multiply", MULTIPLY);
 	std_symbol("not", NOT);
+	std_symbol("number", NUMBER);
 	std_symbol("numerator", NUMERATOR);
 	std_symbol("operator", OPERATOR);
 	std_symbol("or", OR);

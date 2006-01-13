@@ -137,6 +137,7 @@ enum {
 	MOD,
 	MULTIPLY,
 	NOT,
+	NUMBER,
 	NUMERATOR,
 	OPERATOR,
 	OR,

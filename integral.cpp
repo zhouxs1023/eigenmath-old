@@ -371,12 +371,12 @@ char *integrals[] = {
 // 15
 	"a^x",
 	"a^x/log(a)",
-	"a>0",
+	"or(not(number(a)),a>0)",
 	NULL,
 // 16
 	"1/(a+x^2)",
 	"1/sqrt(a)*arctan(x/sqrt(a))",
-	"a>0",
+	"or(not(number(a)),a>0)",
 	NULL,
 
 // 17
@@ -464,12 +464,12 @@ char *integrals[] = {
 // 60
 	"1/(a+b*x^2)",
 	"1/sqrt(a*b)*arctan(x*sqrt(a*b)/a)",
-	"a*b>0",
+	"or(not(number(a*b)),a*b>0)",
 	NULL,
 // 61
 	"1/(a+b*x^2)",
 	"1/(2*sqrt(-a*b))*log((a+x*sqrt(-a*b))/(a-x*sqrt(-a*b)))",
-	"a*b<0",
+	"or(not(number(a*b)),a*b<0)",
 	NULL,
 // 62 is the same as 60
 // 63
@@ -504,32 +504,32 @@ char *integrals[] = {
 //77
 	"1/(a+b*x^4)",
 	"1/2*1/a*(a/b/4)^(1/4)*(1/2*log((x^2+2*(a/b/4)^(1/4)*x+2*(a/b/4)^(1/2))/(x^2-2*(a/b/4)^(1/4)*x+2*(a/b/4)^(1/2)))+arctan(2*(a/b/4)^(1/4)*x/(2*(a/b/4)^(1/2)-x^2)))",
-	"a*b>0",
+	"or(not(number(a*b)),a*b>0)",
 	NULL,
 //78
 	"1/(a+b*x^4)",
 	"1/2*(-a/b)^(1/4)/a*(1/2*log((x+(-a/b)^(1/4))/(x-(-a/b)^(1/4)))+arctan(x*(-a/b)^(-1/4)))",
-	"a*b<0",
+	"or(not(number(a*b)),a*b<0)",
 	NULL,
 //79
 	"x/(a+b*x^4)",
 	"1/2*sqrt(b/a)/b*arctan(x^2*sqrt(b/a))",
-	"a*b>0",
+	"or(not(number(a*b)),a*b>0)",
 	NULL,
 //80
 	"x/(a+b*x^4)",
 	"1/4*sqrt(-b/a)/b*log((x^2-sqrt(-a/b))/(x^2+sqrt(-a/b)))",
-	"a*b<0",
+	"or(not(number(a*b)),a*b<0)",
 	NULL,
 //81
 	"x^2/(a+b*x^4)",
 	"1/4*1/b*(a/b/4)^(-1/4)*(1/2*log((x^2-2*(a/b/4)^(1/4)*x+2*sqrt(a/b/4))/(x^2+2*(a/b/4)^(1/4)*x+2*sqrt(a/b/4)))+arctan(2*(a/b/4)^(1/4)*x/(2*sqrt(a/b/4)-x^2)))",
-	"a*b>0",
+	"or(not(number(a*b)),a*b>0)",
 	NULL,
 //82
 	"x^2/(a+b*x^4)",
 	"1/4*1/b*(-a/b)^(-1/4)*(log((x-(-a/b)^(1/4))/(x+(-a/b)^(1/4)))+2*arctan(x*(-a/b)^(-1/4)))",
-	"a*b<0",
+	"or(not(number(a*b)),a*b<0)",
 	NULL,
 //83
 	"x^3/(a+b*x^4)",
@@ -570,12 +570,12 @@ char *integrals[] = {
 //135
 	"1/x*1/sqrt(a+b*x)",
 	"1/sqrt(a)*log((sqrt(a+b*x)-sqrt(a))/(sqrt(a+b*x)+sqrt(a)))",
-	"a>0",
+	"or(not(number(a)),a>0)",
 	NULL,
 //136
 	"1/x*1/sqrt(a+b*x)",
 	"2/sqrt(-a)*arctan(sqrt(-(a+b*x)/a))",
-	"a<0",
+	"or(not(number(a)),a<0)",
 	NULL,
 //137
 	"1/x^2*1/sqrt(a+b*x)",
@@ -592,22 +592,22 @@ char *integrals[] = {
 //158
 	"1/x*1/sqrt(x^2+a)",
 	"arcsec(x/sqrt(-a))/sqrt(-a)",
-	"a<0",
+	"or(not(number(a)),a<0)",
 	NULL,
 //159
 	"1/x*1/sqrt(x^2+a)",
 	"-1/sqrt(a)*log((sqrt(a)+sqrt(x^2+a))/x)",
-	"a>0",
+	"or(not(number(a)),a>0)",
 	NULL,
 //160
 	"sqrt(x^2+a)/x",
 	"sqrt(x^2+a)-sqrt(a)*log((sqrt(a)+sqrt(x^2+a))/x)",
-	"a>0",
+	"or(not(number(a)),a>0)",
 	NULL,
 //161
 	"sqrt(x^2+a)/x",
 	"sqrt(x^2+a)-sqrt(-a)*arcsec(x/sqrt(-a))",
-	"a<0",
+	"or(not(number(a)),a<0)",
 	NULL,
 //162
 	"x/sqrt(x^2+a)",
@@ -661,12 +661,12 @@ char *integrals[] = {
 //174
 	"1/x^3*1/sqrt(x^2+a)",
 	"-1/2*sqrt(x^2+a)/a/x^2+1/2*log((sqrt(a)+sqrt(x^2+a))/x)/a^(3/2)",
-	"a>0",
+	"or(not(number(a)),a>0)",
 	NULL,
 //175
 	"1/x^3*1/sqrt(x^2-a)",
 	"1/2*sqrt(x^2-a)/a/x^2+1/2*1/(a^(3/2))*arcsec(x/(a^(1/2)))",
-	"a>0",
+	"or(not(number(a)),a>0)",
 	NULL,
 //176+
 	"x^2*sqrt(a+x^6+3*a^(1/3)*x^4+3*a^(2/3)*x^2)",
@@ -674,7 +674,7 @@ char *integrals[] = {
 	"-1/24*a^(1/3)*x*sqrt((x^2+a^(1/3))^3)"
 	"-1/16*a^(2/3)*x*sqrt(x^2+a^(1/3))"
 	"-1/16*a*log(x+sqrt(x^2+a^(1/3)))",
-	"a>0",
+	"or(not(number(a)),a>0)",
 	NULL,
 //176-
 	"x^2*sqrt(-a-3*a^(1/3)*x^4+3*a^(2/3)*x^2+x^6)",
@@ -682,17 +682,17 @@ char *integrals[] = {
 	"+1/24*a^(1/3)*x*sqrt((x^2-a^(1/3))^3)"
 	"-1/16*a^(2/3)*x*sqrt(x^2-a^(1/3))"
 	"+1/16*a*log(x+sqrt(x^2-a^(1/3)))",
-	"a>0",
+	"or(not(number(a)),a>0)",
 	NULL,
 //177+
 	"x^3*sqrt(a+x^6+3*a^(1/3)*x^4+3*a^(2/3)*x^2)",
 	"1/7*sqrt((x^2+a^(1/3))^7)-1/5*a^(1/3)*sqrt((x^2+a^(1/3))^5)",
-	"a>0",
+	"or(not(number(a)),a>0)",
 	NULL,
 //177-
 	"x^3*sqrt(-a-3*a^(1/3)*x^4+3*a^(2/3)*x^2+x^6)",
 	"1/7*sqrt((x^2-a^(1/3))^7)+1/5*a^(1/3)*sqrt((x^2-a^(1/3))^5)",
-	"a>0",
+	"or(not(number(a)),a>0)",
 	NULL,
 //200+
 	"sqrt(a-x^2)",
@@ -702,12 +702,12 @@ char *integrals[] = {
 //202
 	"1/x*1/sqrt(a-x^2)",
 	"-1/sqrt(a)*log((sqrt(a)+sqrt(a-x^2))/x)",
-	"a>0",
+	"or(not(number(a)),a>0)",
 	NULL,
 //203
 	"sqrt(a-x^2)/x",
 	"sqrt(a-x^2)-sqrt(a)*log((sqrt(a)+sqrt(a-x^2))/x)",
-	"a>0",
+	"or(not(number(a)),a>0)",
 	NULL,
 //204
 	"x/sqrt(a-x^2)",
@@ -720,37 +720,37 @@ char *integrals[] = {
 //210
 	"x^2*sqrt(a-x^2)",
 	"-x/4*sqrt((a-x^2)^3)+1/8*a*(x*sqrt(a-x^2)+a*arcsin(x/sqrt(a)))",
-	"a>0",
+	"or(not(number(a)),a>0)",
 	NULL,
 //211
 	"x^3*sqrt(a-x^2)",
 	"(-1/5*x^2-2/15*a)*sqrt((a-x^2)^3)",
-	"a>0",
+	"or(not(number(a)),a>0)",
 	NULL,
 //214
 	"x^2/sqrt(a-x^2)",
 	"-x/2*sqrt(a-x^2)+a/2*arcsin(x/sqrt(a))",
-	"a>0",
+	"or(not(number(a)),a>0)",
 	NULL,
 //215
 	"1/x^2*1/sqrt(a-x^2)",
 	"-sqrt(a-x^2)/a/x",
-	"a>0",
+	"or(not(number(a)),a>0)",
 	NULL,
 //216
 	"sqrt(a-x^2)/x^2",
 	"-sqrt(a-x^2)/x-arcsin(x/sqrt(a))",
-	"a>0",
+	"or(not(number(a)),a>0)",
 	NULL,
 //217
 	"sqrt(a-x^2)/x^3",
 	"-1/2*sqrt(a-x^2)/x^2+1/2*log((sqrt(a)+sqrt(a-x^2))/x)/sqrt(a)",
-	"a>0",
+	"or(not(number(a)),a>0)",
 	NULL,
 //218
 	"sqrt(a-x^2)/x^4",
 	"-1/3*sqrt((a-x^2)^3)/a/x^3",
-	"a>0",
+	"or(not(number(a)),a>0)",
 	NULL,
 // 290
 
@@ -928,14 +928,14 @@ char *integrals[] = {
 
 	"1/(a+b*sin(x))",
 	"1/sqrt(b^2-a^2)*log((a*tan(x/2)+b-sqrt(b^2-a^2))/(a*tan(x/2)+b+sqrt(b^2-a^2)))",
-	"not(a=b)",
+	"b^2-a^2", // check that b^2-a^2 is not zero
 	NULL,
 
 // 341
 
 	"1/(a+b*cos(x))",
 	"1/sqrt(b^2-a^2)*log((sqrt(b^2-a^2)*tan(x/2)+a+b)/(sqrt(b^2-a^2)*tan(x/2)-a-b))",
-	"not(a=b)",
+	"b^2-a^2", // check that b^2-a^2 is not zero
 	NULL,
 
 // 441
