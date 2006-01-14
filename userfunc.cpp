@@ -125,7 +125,6 @@ define_user_function(void)
 
 #define FUNC_NAME p2
 #define ACTUAL_ARGLIST p3
-#define TMP p6
 
 void
 eval_user_function(void)
