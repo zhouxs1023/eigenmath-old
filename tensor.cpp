@@ -88,14 +88,14 @@ tensor_plus_tensor(void)
 	ndim = p1->u.tensor->ndim;
 
 	if (ndim != p2->u.tensor->ndim) {
-		push(nil);
+		push(Nil);
 		restore();
 		return;
 	}
 
 	for (i = 0; i < ndim; i++)
 		if (p1->u.tensor->dim[i] != p2->u.tensor->dim[i]) {
-			push(nil);
+			push(Nil);
 			restore();
 			return;
 		}

@@ -37,8 +37,8 @@ add_f(void)
 
 	// is either operand nil?
 
-	if (p1 == nil || p2 == nil) {
-		push(nil);
+	if (p1 == Nil || p2 == Nil) {
+		push(Nil);
 		return;
 	}
 
@@ -93,7 +93,7 @@ add_f(void)
 			push(car(p2));
 			tensor_plus_tensor();
 			p7 = pop();
-			if (p7 != nil) {
+			if (p7 != Nil) {
 				push(p7);
 				p1 = cdr(p1);
 				p2 = cdr(p2);
@@ -175,7 +175,7 @@ parse_p1(void)
 	if (car(p3) == symbol(MULTIPLY) && isnum(cadr(p3))) {
 		p5 = cadr(p3);
 		p3 = cddr(p3);
-		if (cdr(p3) == nil)
+		if (cdr(p3) == Nil)
 			p3 = car(p3);
 		else {
 			push_symbol(MULTIPLY);
@@ -202,7 +202,7 @@ parse_p2(void)
 	if (car(p4) == symbol(MULTIPLY) && isnum(cadr(p4))) {
 		p6 = cadr(p4);
 		p4 = cddr(p4);
-		if (cdr(p4) == nil)
+		if (cdr(p4) == Nil)
 			p4 = car(p4);
 		else {
 			push_symbol(MULTIPLY);

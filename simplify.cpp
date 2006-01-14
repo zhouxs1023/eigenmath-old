@@ -112,7 +112,7 @@ f2(void)
 	if (car(p1) != symbol(ADD))
 		return;
 	push(p1);
-	condense();
+	Condense();
 	p2 = pop();
 	if (count(p2) <= count(p1))
 		p1 = p2;

@@ -26,7 +26,7 @@ coeff_cooked(void)
 	p2 = pop();
 	p1 = pop();
 	h = tos;
-	if (p2 == nil) {
+	if (p2 == Nil) {
 		push(p1);
 		variables();
 		p2 = pop();

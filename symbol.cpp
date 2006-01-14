@@ -16,7 +16,7 @@ std_symbol(char *s, int n)
 	p = symtab + n;
 	p->k = SYM;
 	p->u.sym.binding = p;
-	p->u.sym.binding2 = nil;
+	p->u.sym.binding2 = Nil;
 	printname[n] = s;
 }
 
@@ -37,7 +37,7 @@ usr_symbol(char *s)
 	nsym++;
 	p->k = SYM;
 	p->u.sym.binding = p;
-	p->u.sym.binding2 = nil;
+	p->u.sym.binding2 = Nil;
 	return p;
 }
 
@@ -83,6 +83,6 @@ clear_symbols(void)
 	for (i = 0; i < nsym; i++) {
 		p = symtab + i;
 		p->u.sym.binding = p;
-		p->u.sym.binding2 = nil;
+		p->u.sym.binding2 = Nil;
 	}
 }

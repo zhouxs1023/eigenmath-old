@@ -45,7 +45,7 @@ eval_taylor(void)
 	push(car(p1));
 	eval();
 	p2 = pop();
-	if (p2 == nil)
+	if (p2 == Nil)
 		guess(); // default x
 	else
 		push(p2);
@@ -56,7 +56,7 @@ eval_taylor(void)
 	push(car(p1));
 	eval();
 	p2 = pop();
-	if (p2 == nil)
+	if (p2 == Nil)
 		push_integer(24); // default number of terms
 	else
 		push(p2);
@@ -67,7 +67,7 @@ eval_taylor(void)
 	push(car(p1));
 	eval();
 	p2 = pop();
-	if (p2 == nil)
+	if (p2 == Nil)
 		push_integer(0); // default expansion point
 	else
 		push(p2);

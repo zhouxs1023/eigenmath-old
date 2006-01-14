@@ -541,7 +541,7 @@ print1(U *p)
 			print1(car(p));
 			p = cdr(p);
 		}
-		if (p != nil) {
+		if (p != Nil) {
 			print_str(" . ");
 			print1(p);
 		}

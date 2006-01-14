@@ -16,7 +16,7 @@ eval_invfourier(void)
 {
 	push(cadr(p1));
 	eval();
-	if (caddr(p1) == nil)
+	if (caddr(p1) == Nil)
 		guess();
 	else {
 		push(caddr(p1));

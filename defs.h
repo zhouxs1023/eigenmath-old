@@ -268,8 +268,8 @@ extern U **frame;
 #define issymbol(p) ((p)->k == SYM)
 #define iskeyword(p) (issymbol(p) && symbol_index(p) < NIL)
 
-#define car(p) (iscons(p) ? (p)->u.cons.car : nil)
-#define cdr(p) (iscons(p) ? (p)->u.cons.cdr : nil)
+#define car(p) (iscons(p) ? (p)->u.cons.car : Nil)
+#define cdr(p) (iscons(p) ? (p)->u.cons.cdr : Nil)
 #define caar(p) car(car(p))
 #define cadr(p) car(cdr(p))
 #define cdar(p) cdr(car(p))
@@ -319,12 +319,11 @@ extern int little_endian;
 extern int nsym;
 extern char logbuf[];
 extern char program_buf[];
-extern U *nil;
+extern U *Nil;
 extern U *stack[];
 extern U *p1, *p2, *p3, *p4, *p5, *p6, *p7, *p8;
 extern U *formal_arg[6];
 extern U *tmp;
-extern U *nil;
 extern U *zero, *one, *imaginaryunit;
 extern U *table_of_integrals;
 extern U *table_of_fourier;

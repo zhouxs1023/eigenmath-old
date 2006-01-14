@@ -160,7 +160,7 @@ void test_cofactor(void);
 
 // condense.cpp
 void eval_condense(void);
-void condense(void);
+void Condense(void);
 void yycondense(void);
 void test_condense(void);
 

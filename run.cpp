@@ -39,7 +39,7 @@ run(char *s)
 
 	symbol_level = 0;
 
-	varlist = nil;
+	varlist = Nil;
 
 	if (dash_dash_command(s))
 		return;
@@ -65,7 +65,7 @@ run(char *s)
 		check_stack();
 
 		symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
-		symbol(LAST)->u.sym.binding2 = nil;
+		symbol(LAST)->u.sym.binding2 = Nil;
 
 		// print string w/o quotes
 
@@ -77,7 +77,7 @@ run(char *s)
 
 		// don't print nil unless it was due to eval of a symbol
 
-		if (p2 == nil && (iskeyword(p1) || !issymbol(p1)))
+		if (p2 == Nil && (iskeyword(p1) || !issymbol(p1)))
 			continue;
 
 		if (equal(symbol(TTY)->u.sym.binding, one) || test_flag) // tty mode?
@@ -131,7 +131,7 @@ check_stack(void)
 void
 echo_input(char *s)
 {
-	if (nil && equal(symbol(TTY)->u.sym.binding, one)) // tty mode?
+	if (Nil && equal(symbol(TTY)->u.sym.binding, one)) // tty mode?
 		printstr("\n");
 	printstr(s);
 	printstr("\n");

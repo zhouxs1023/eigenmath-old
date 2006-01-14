@@ -4,7 +4,7 @@
 void
 init(void)
 {
-	if (nil)
+	if (Nil)
 		return;		// already initted
 
 	// endianess
@@ -14,21 +14,21 @@ init(void)
 
 	nsym = USR_SYMBOLS;
 
-	nil = symtab + NIL;
+	Nil = symtab + NIL;
 
-	p1 = nil;
-	p2 = nil;
-	p3 = nil;
-	p4 = nil;
-	p5 = nil;
-	p6 = nil;
-	p7 = nil;
-	p8 = nil;
+	p1 = Nil;
+	p2 = Nil;
+	p3 = Nil;
+	p4 = Nil;
+	p5 = Nil;
+	p6 = Nil;
+	p7 = Nil;
+	p8 = Nil;
 
-	varlist = nil;
+	varlist = Nil;
 
-	table_of_integrals = nil;
-	table_of_fourier = nil;
+	table_of_integrals = Nil;
+	table_of_fourier = Nil;
 
 	std_symbol("abs", ABS);
 	std_symbol("add", ADD);

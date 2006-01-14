@@ -405,8 +405,8 @@ test_factor_integer(void)
 
 	// check for memory leak
 
-	p1 = nil;
-	p2 = nil;
+	p1 = Nil;
+	p2 = Nil;
 
 	gc();
 

@@ -72,14 +72,14 @@ for_function(void)
 		push_integer(i);
 
 		A->u.sym.binding = pop();
-		A->u.sym.binding2 = nil;
+		A->u.sym.binding2 = Nil;
 
 		push(B);
 		eval();
 		pop();
 	}
 
-	push(nil);
+	push(Nil);
 
 	restore_symbols(mark);
 

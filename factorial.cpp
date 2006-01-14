@@ -1,6 +1,4 @@
 #include "stdafx.h"
-
-
 #include "defs.h"
 
 extern void bignum_factorial(int);
@@ -99,10 +97,10 @@ sfac_product(void)
 	}
 
 	for (i = 0; i < n - 1; i++) {
-		if (s[i] == nil)
+		if (s[i] == Nil)
 			continue;
 		for (j = i + 1; j < n; j++) {
-			if (s[j] == nil)
+			if (s[j] == Nil)
 				continue;
 			sfac_product_f(s, i, j);
 		}
@@ -111,7 +109,7 @@ sfac_product(void)
 	push(one);
 
 	for (i = 0; i < n; i++) {
-		if (s[i] == nil)
+		if (s[i] == Nil)
 			continue;
 		push(s[i]);
 		multiply();
@@ -189,6 +187,6 @@ sfac_product_f(U **s, int a, int b)
 			multiply();
 		}
 		s[a] = pop();
-		s[b] = nil;
+		s[b] = Nil;
 	}
 }

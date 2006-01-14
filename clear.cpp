@@ -7,7 +7,7 @@ eval_clear(void)
 	clear_term();
 	clear_symbols();
 	defn();
-	push(nil);
+	push(Nil);
 }
 
 // clear from application GUI code

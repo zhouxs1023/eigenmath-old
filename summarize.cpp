@@ -14,7 +14,7 @@ eval_summarize(void)
 void
 summarize(void)
 {
-	condense();
+	Condense();
 	k = 0;
 	yysummarize();
 }

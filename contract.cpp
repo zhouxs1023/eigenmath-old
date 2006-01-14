@@ -8,7 +8,7 @@ eval_contract(void)
 {
 	push(cadr(p1));
 	eval();
-	if (cddr(p1) == nil) {
+	if (cddr(p1) == Nil) {
 		push_integer(1);
 		push_integer(2);
 	} else {

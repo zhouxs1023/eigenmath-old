@@ -8,11 +8,11 @@ eval_condense(void)
 {
 	push(cadr(p1));
 	eval();
-	condense();
+	Condense();
 }
 
 void
-condense(void)
+Condense(void)
 {
 	int tmp;
 	tmp = expanding;

@@ -7,7 +7,7 @@ void
 list(int n)
 {
 	int i;
-	push(nil);
+	push(Nil);
 	for (i = 0; i < n; i++)
 		cons();
 }

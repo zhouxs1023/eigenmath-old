@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "defs.h"
 #define DEBUG 0
-extern void condense(void);
 static void __rationalize(void);
 static void __rationalize_tensor(void);
 static void multiply_denominators(U *);
@@ -79,7 +78,7 @@ __rationalize(void)
 
 	// collect common factors
 
-	condense();
+	Condense();
 
 #if DEBUG
 	printf("rationalize: after factoring:\n");

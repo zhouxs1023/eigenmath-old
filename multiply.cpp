@@ -36,8 +36,8 @@ yymultiply(void)
 
 	// is either operand nil?
 
-	if (p1 == nil || p2 == nil) {
-		push(nil);
+	if (p1 == Nil || p2 == Nil) {
+		push(Nil);
 		return;
 	}
 
@@ -312,7 +312,7 @@ combine_factors(int h)
 		stack[h] = pop();
 	} else if (car(p7) == symbol(MULTIPLY)) {
 		// power can return number * factor (i.e. -1 * i)
-		if (isnum(cadr(p7)) && cdddr(p7) == nil) {
+		if (isnum(cadr(p7)) && cdddr(p7) == Nil) {
 			push(stack[h]);
 			push(cadr(p7));
 			multiply_numbers();

@@ -18,8 +18,8 @@ static void get_size(int, int, int *, int *, int *);
 static void emit_function(U *);
 static void emit_symbol(U *);
 static void emit_string(U *);
-void fixup_fraction(int, int, int);
-void emit_number(U *, int);
+static void cm_fixup_fraction(int, int, int);
+static void cm_emit_number(U *, int);
 static void emit_str(int, char *);
 static void emit_char(int, int);
 static int count_denominators(U *);
@@ -141,7 +141,7 @@ eval_display(void)
 
 	// special form: display(symbol)
 
-	if (issymbol(cadr(p1)) && cadr(p1) != symbol(LAST) && cddr(p1) == nil) {
+	if (issymbol(cadr(p1)) && cadr(p1) != symbol(LAST) && cddr(p1) == Nil) {
 		push(cadr(p1));
 		eval();
 		p2 = pop();
@@ -167,7 +167,7 @@ eval_display(void)
 
 	cmdisplay_done();
 
-	push(nil);
+	push(Nil);
 }
 
 static void
@@ -464,7 +464,7 @@ emit_fraction(U *p, int d)
 	// emit numerical coefficient
 
 	if (!isplusone(A)) {
-		emit_number(A, 0);
+		cm_emit_number(A, 0);
 		count++;
 	}
 
@@ -503,7 +503,7 @@ emit_fraction(U *p, int d)
 	count = 0;
 
 	if (!isplusone(B)) {
-		emit_number(B, 0);
+		cm_emit_number(B, 0);
 		count++;
 		d++;
 	}
@@ -524,7 +524,7 @@ emit_fraction(U *p, int d)
 		p1 = cdr(p1);
 	}
 
-	fixup_fraction(x, k1, k2);
+	cm_fixup_fraction(x, k1, k2);
 
 	restore();
 }
@@ -558,7 +558,7 @@ emit_numerators(U *p)
 	n = 0;
 
 	if (!isplusone(p1)) {
-		emit_number(p1, 0);
+		cm_emit_number(p1, 0);
 		n++;
 	}
 
@@ -597,7 +597,7 @@ emit_denominators(U *p)
 		push(car(p));
 		mp_denominator();
 		p1 = pop();
-		emit_number(p1, 0);
+		cm_emit_number(p1, 0);
 		n++;
 		p = cdr(p);
 	}
@@ -627,7 +627,7 @@ emit_factor(U *p)
 	}
 
 	if (isdouble(p)) {
-		emit_number(p, 0);
+		cm_emit_number(p, 0);
 		return;
 	}
 
@@ -650,7 +650,7 @@ emit_factor(U *p)
 		if (level == 0)
 			emit_numerical_fraction(p);
 		else
-			emit_number(p, 0);
+			cm_emit_number(p, 0);
 		return;
 	}
 
@@ -679,7 +679,7 @@ emit_numerical_fraction(U *p)
 	B = pop();
 
 	if (isplusone(B)) {
-		emit_number(A, 0);
+		cm_emit_number(A, 0);
 		restore();
 		return;
 	}
@@ -688,12 +688,12 @@ emit_numerical_fraction(U *p)
 	emit_minus_sign_space();
 	x = xpos;
 	k1 = indx;
-	emit_number(A, 0);
+	cm_emit_number(A, 0);
 	k2 = indx;
-	emit_number(B, 0);
+	cm_emit_number(B, 0);
 	level--;
 
-	fixup_fraction(x, k1, k2);
+	cm_fixup_fraction(x, k1, k2);
 
 	restore();
 }
@@ -765,7 +765,7 @@ emit_power(U *p)
 		emit_char(TIMES_FONT, '1');
 		k2 = indx;
 		emit_denominator(p, 1);
-		fixup_fraction(x, k1, k2);
+		cm_fixup_fraction(x, k1, k2);
 		return;
 	}
 
@@ -990,8 +990,8 @@ emit_string(U *p)
 	//emit_str(TIMES_FONT, "\"");
 }
 
-void
-fixup_fraction(int x, int k1, int k2)
+static void
+cm_fixup_fraction(int x, int k1, int k2)
 {
 	int dx, dy, w;
 	int h1, w1, y1;
@@ -1176,8 +1176,8 @@ emit_str(int font, char *s)
 	indx++;
 }
 
-void
-emit_number(U *p, int emit_sign)
+static void
+cm_emit_number(U *p, int emit_sign)
 {
 	int i, k1, k2, len;
 	char *s;

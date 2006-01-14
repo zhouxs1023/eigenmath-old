@@ -101,10 +101,10 @@ cmp_expr(U *p1, U *p2)
 	if (p1 == p2)
 		return 0;
 
-	if (p1 == nil)
+	if (p1 == Nil)
 		return -1;
 
-	if (p2 == nil)
+	if (p2 == Nil)
 		return 1;
 
 	if (isnum(p1) && isnum(p2))
@@ -177,11 +177,11 @@ U *
 unique(U *p)
 {
 	save();
-	p1 = nil;
-	p2 = nil;
+	p1 = Nil;
+	p2 = Nil;
 	unique_f(p);
-	if (p2 != nil)
-		p1 = nil;
+	if (p2 != Nil)
+		p1 = Nil;
 	p = p1;
 	restore();
 	return p;
@@ -191,7 +191,7 @@ static void
 unique_f(U *p)
 {
 	if (isstr(p)) {
-		if (p1 == nil)
+		if (p1 == Nil)
 			p1 = p;
 		else if (p != p1)
 			p2 = p;
@@ -199,7 +199,7 @@ unique_f(U *p)
 	}
 	while (iscons(p)) {
 		unique_f(car(p));
-		if (p2 != nil)
+		if (p2 != Nil)
 			return;
 		p = cdr(p);
 	}

@@ -53,7 +53,7 @@ push_frame(int n)
 	if (frame < stack + tos)
 		stop("frame overflow");
 	for (i = 0; i < n; i++)
-		frame[i] = nil;
+		frame[i] = Nil;
 }
 
 void

@@ -42,8 +42,8 @@ __power(void)
 
 	// is either operand nil?
 
-	if (p1 == nil || p2 == nil) {
-		push(nil);
+	if (p1 == Nil || p2 == Nil) {
+		push(Nil);
 		return;
 	}
 

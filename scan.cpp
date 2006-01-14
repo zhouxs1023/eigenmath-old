@@ -58,7 +58,7 @@ scan(char *s)
 	scan_str = s;
 	get_next_token();
 	if (token == 0) {
-		push(nil);
+		push(Nil);
 		expanding = x;
 		return 0;
 	}

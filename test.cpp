@@ -8,7 +8,7 @@ eval_test(void)
 {
 	p1 = cdr(p1);
 	while (iscons(p1)) {
-		if (cdr(p1) == nil) {
+		if (cdr(p1) == Nil) {
 			push(car(p1)); // default case
 			eval();
 			return;

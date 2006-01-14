@@ -52,7 +52,7 @@ simfac(void)
 	if (car(p1) == symbol(ADD)) {
 		h = tos;
 		p1 = cdr(p1);
-		while (p1 != nil) {
+		while (p1 != Nil) {
 			push(car(p1));
 			simfac_term();
 			p1 = cdr(p1);
@@ -76,7 +76,7 @@ simfac(void)
 	if (car(p1) == symbol(ADD)) {
 		h = tos;
 		p1 = cdr(p1);
-		while (p1 != nil) {
+		while (p1 != Nil) {
 			push(car(p1));
 			simfac_term();
 			p1 = cdr(p1);
@@ -86,7 +86,7 @@ simfac(void)
 		if (find(p1, symbol(FACTORIAL))) {
 			push(p1);
 			if (car(p1) == symbol(ADD)) {
-				condense();
+				Condense();
 				simfac_term();
 			}
 		}
@@ -120,7 +120,7 @@ simfac_term(void)
 
 	h = tos;
 	p1 = cdr(p1);
-	while (p1 != nil) {
+	while (p1 != Nil) {
 		push(car(p1));
 		p1 = cdr(p1);
 	}

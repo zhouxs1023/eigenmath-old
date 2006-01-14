@@ -40,7 +40,7 @@ factorpoly(void)
 	save();
 	p2 = pop();
 	p1 = pop();
-	if (p2 == nil) {
+	if (p2 == Nil) {
 		push(p1);
 		variables();
 		p2 = pop();
@@ -75,7 +75,7 @@ factorpoly2(void)
 {
 	save();
 	p2 = pop();
-	condense();
+	Condense();
 	p1 = pop();
 	if (car(p1) == symbol(MULTIPLY)) {
 		p1 = cdr(p1);

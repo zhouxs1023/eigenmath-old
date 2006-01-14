@@ -41,7 +41,7 @@ eval_roots(void)
 			push(p2);
 	}
 
-	if (caddr(p1) == nil) {
+	if (caddr(p1) == Nil) {
 		p1 = pop();
 		iguess();
 		push(p1);
@@ -84,7 +84,7 @@ roots(void)
 	n = tos - h;
 	if (n == 0) {
 		printstr("roots: Sorry, the argument is not factorable over integers, no roots found.\n");
-		push(nil);
+		push(Nil);
 		return;
 	}
 	if (n == 1)
