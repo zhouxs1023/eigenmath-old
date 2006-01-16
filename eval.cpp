@@ -51,7 +51,7 @@ eval(void)
 		stop(errstr);
 		break;
 	}
-	if (stack[tos - 1] != Nil)
+	if (stack[tos - 1] != symbol(NIL))
 		symbol(YYLAST)->u.sym.binding = stack[tos - 1];
 	restore();
 }
@@ -243,7 +243,7 @@ eval_charpoly(void)
 {
 	push(cadr(p1));
 	eval();
-	if (caddr(p1) == Nil)
+	if (caddr(p1) == symbol(NIL))
 		push_symbol(SYMBOL_X);
 	else {
 		push(caddr(p1));
@@ -269,7 +269,7 @@ void
 eval_cls(void)
 {
 	clear_term();
-	push(Nil);
+	push(symbol(NIL));
 }
 
 void
@@ -641,7 +641,7 @@ eval_print(void)
 		p1 = cdr(p1);
 	}
 	printchar('\n');
-	push(Nil);
+	push(symbol(NIL));
 }
 
 void
@@ -710,8 +710,8 @@ setq_indexed(void)
 	set_component(tos - h);
 	p3 = pop();
 	p4->u.sym.binding = p3;
-	p4->u.sym.binding2 = Nil;
-	push(Nil);
+	p4->u.sym.binding2 = symbol(NIL);
+	push(symbol(NIL));
 }
 
 void
@@ -734,9 +734,9 @@ eval_setq(void)
 	eval();
 	p2 = pop();
 	cadr(p1)->u.sym.binding = p2;
-	cadr(p1)->u.sym.binding2 = Nil;
+	cadr(p1)->u.sym.binding2 = symbol(NIL);
 
-	push(Nil);
+	push(symbol(NIL));
 }
 
 void

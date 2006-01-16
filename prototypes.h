@@ -144,8 +144,6 @@ void clear(void);
 // cmdisplay.cpp
 void cmdisplay(U *p);
 void eval_display(void);
-void fixup_fraction(int x, int k1, int k2);
-void emit_number(U *p, int emit_sign);
 void test_cmdisplay(void);
 
 // coeff.cpp
@@ -718,9 +716,6 @@ int dash_dash_command(char *s);
 void check_stack(void);
 void echo_input(char *s);
 
-// sample.cpp
-void eval_sample(void);
-
 // scan.cpp
 int scan(char *s);
 void build_tensor(int n);
@@ -790,7 +785,6 @@ void std_symbol(char *s, int n);
 U * usr_symbol(char *s);
 char * get_printname(U *p);
 int symbol_index(U *p);
-U * symbol(int k);
 void push_symbol(int k);
 void clear_symbols(void);
 

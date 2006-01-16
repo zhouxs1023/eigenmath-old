@@ -37,9 +37,9 @@ eval_integral(void)
 	eval();
 
 	p2 = pop();
-	if (p2 == Nil) {
+	if (p2 == symbol(NIL)) {
 		guess();
-		push(Nil);
+		push(symbol(NIL));
 	} else if (isnum(p2)) {
 		guess();
 		push(p2);
@@ -85,7 +85,7 @@ eval_integral(void)
 
 		// if N is nil then arglist is exhausted
 
-		if (N == Nil)
+		if (N == symbol(NIL))
 			break;
 
 		// otherwise...
@@ -105,7 +105,7 @@ eval_integral(void)
 			push(car(p1));
 			eval();
 			N = pop();
-			if (N == Nil)
+			if (N == symbol(NIL))
 				break;		// arglist exhausted
 			if (isnum(N))
 				;		// N = arg1
@@ -134,7 +134,7 @@ eval_integral(void)
 {
 	push(cadr(p1));
 	eval();
-	if (caddr(p1) == Nil)
+	if (caddr(p1) == symbol(NIL))
 		guess();
 	else {
 		push(caddr(p1));
@@ -157,7 +157,7 @@ integral(void)
 static void
 yintegral(void)
 {
-	if (table_of_integrals == Nil)
+	if (table_of_integrals == symbol(NIL))
 		scan_integrals();
 
 	p2 = pop();

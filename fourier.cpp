@@ -46,7 +46,7 @@ eval_fourier(void)
 	expomode=0;
 	push(cadr(p1));
 	eval();
-	if (caddr(p1) == Nil)
+	if (caddr(p1) == symbol(NIL))
 		guess();
 	else
 		push(caddr(p1));
@@ -60,7 +60,7 @@ eval_fourier(void)
 	expomode=1;
 	push(cadr(p1));
 	eval();
-	if (caddr(p1) == Nil)
+	if (caddr(p1) == symbol(NIL))
 		guess();
 	else
 		push(caddr(p1));
@@ -94,7 +94,7 @@ static void
 yfourier(void)
 {
 
-	if (table_of_fourier == Nil)
+	if (table_of_fourier == symbol(NIL))
 		scan_fouriers();
 
 	p2 = pop();

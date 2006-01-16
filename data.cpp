@@ -11,7 +11,6 @@ U *p7;
 U *p8;
 
 U *tmp;
-U *Nil;
 U *formal_arg[6];
 U *zero, *one, *imaginaryunit;
 U *table_of_integrals;

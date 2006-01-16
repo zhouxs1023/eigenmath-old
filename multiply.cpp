@@ -2,10 +2,10 @@
 
 #include "stdafx.h"
 #include "defs.h"
+
 extern void append(void);
 static void parse_p1(void);
 static void parse_p2(void);
-//static void combine_gammas(int);
 static void __normalize_radical_factors(int);
 
 void
@@ -36,8 +36,8 @@ yymultiply(void)
 
 	// is either operand nil?
 
-	if (p1 == Nil || p2 == Nil) {
-		push(Nil);
+	if (p1 == symbol(NIL) || p2 == symbol(NIL)) {
+		push(symbol(NIL));
 		return;
 	}
 
@@ -312,7 +312,7 @@ combine_factors(int h)
 		stack[h] = pop();
 	} else if (car(p7) == symbol(MULTIPLY)) {
 		// power can return number * factor (i.e. -1 * i)
-		if (isnum(cadr(p7)) && cdddr(p7) == Nil) {
+		if (isnum(cadr(p7)) && cdddr(p7) == symbol(NIL)) {
 			push(stack[h]);
 			push(cadr(p7));
 			multiply_numbers();

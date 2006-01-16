@@ -97,10 +97,10 @@ sfac_product(void)
 	}
 
 	for (i = 0; i < n - 1; i++) {
-		if (s[i] == Nil)
+		if (s[i] == symbol(NIL))
 			continue;
 		for (j = i + 1; j < n; j++) {
-			if (s[j] == Nil)
+			if (s[j] == symbol(NIL))
 				continue;
 			sfac_product_f(s, i, j);
 		}
@@ -109,7 +109,7 @@ sfac_product(void)
 	push(one);
 
 	for (i = 0; i < n; i++) {
-		if (s[i] == Nil)
+		if (s[i] == symbol(NIL))
 			continue;
 		push(s[i]);
 		multiply();
@@ -187,6 +187,6 @@ sfac_product_f(U **s, int a, int b)
 			multiply();
 		}
 		s[a] = pop();
-		s[b] = Nil;
+		s[b] = symbol(NIL);
 	}
 }

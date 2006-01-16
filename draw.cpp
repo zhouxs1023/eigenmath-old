@@ -84,7 +84,7 @@ eval_draw(void)
 
 	p2 = pop();
 
-	if (p2 == Nil)
+	if (p2 == symbol(NIL))
 		guess();
 	else
 		push(p2);
@@ -93,8 +93,8 @@ eval_draw(void)
 
 	symbol(YYLAST)->u.sym.binding = pop();
 
-	push(Nil);	// so no result is printed
-			// also, "last" is not modified when result is "nil"
+	push(symbol(NIL));	// so no result is printed
+				// also, "last" is not modified when result is "nil"
 }
 
 static void
@@ -225,8 +225,8 @@ eval_point(double t)
 		tos = save_tos;
 		frame = save_frame;
 		restore();
-		XT = Nil;
-		YT = Nil;
+		XT = symbol(NIL);
+		YT = symbol(NIL);
 		return;
 	}
 
@@ -503,7 +503,7 @@ fudge(void)
 
 	p1 = pop();
 
-	if (p1 == Nil) {
+	if (p1 == symbol(NIL)) {
 		push(p1);
 		restore();
 		return;

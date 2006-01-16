@@ -40,7 +40,7 @@ factorpoly(void)
 	save();
 	p2 = pop();
 	p1 = pop();
-	if (p2 == Nil) {
+	if (p2 == symbol(NIL)) {
 		push(p1);
 		variables();
 		p2 = pop();

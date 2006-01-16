@@ -4,8 +4,12 @@
 void
 init(void)
 {
-	if (Nil)
+	static int flag;
+
+	if (flag)
 		return;		// already initted
+
+	flag = 1;
 
 	// endianess
 
@@ -14,21 +18,19 @@ init(void)
 
 	nsym = USR_SYMBOLS;
 
-	Nil = symtab + NIL;
+	p1 = symbol(NIL);
+	p2 = symbol(NIL);
+	p3 = symbol(NIL);
+	p4 = symbol(NIL);
+	p5 = symbol(NIL);
+	p6 = symbol(NIL);
+	p7 = symbol(NIL);
+	p8 = symbol(NIL);
 
-	p1 = Nil;
-	p2 = Nil;
-	p3 = Nil;
-	p4 = Nil;
-	p5 = Nil;
-	p6 = Nil;
-	p7 = Nil;
-	p8 = Nil;
+	varlist = symbol(NIL);
 
-	varlist = Nil;
-
-	table_of_integrals = Nil;
-	table_of_fourier = Nil;
+	table_of_integrals = symbol(NIL);
+	table_of_fourier = symbol(NIL);
 
 	std_symbol("abs", ABS);
 	std_symbol("add", ADD);

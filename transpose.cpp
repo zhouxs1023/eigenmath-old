@@ -9,7 +9,7 @@ eval_transpose(void)
 {
 	push(cadr(p1));
 	eval();
-	if (cddr(p1) == Nil) {
+	if (cddr(p1) == symbol(NIL)) {
 		push_integer(1);
 		push_integer(2);
 	} else {

@@ -52,7 +52,7 @@ simfac(void)
 	if (car(p1) == symbol(ADD)) {
 		h = tos;
 		p1 = cdr(p1);
-		while (p1 != Nil) {
+		while (p1 != symbol(NIL)) {
 			push(car(p1));
 			simfac_term();
 			p1 = cdr(p1);
@@ -76,7 +76,7 @@ simfac(void)
 	if (car(p1) == symbol(ADD)) {
 		h = tos;
 		p1 = cdr(p1);
-		while (p1 != Nil) {
+		while (p1 != symbol(NIL)) {
 			push(car(p1));
 			simfac_term();
 			p1 = cdr(p1);
@@ -120,7 +120,7 @@ simfac_term(void)
 
 	h = tos;
 	p1 = cdr(p1);
-	while (p1 != Nil) {
+	while (p1 != symbol(NIL)) {
 		push(car(p1));
 		p1 = cdr(p1);
 	}

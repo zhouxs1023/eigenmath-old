@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "defs.h"
+
 extern void sort_stack(int);
 void roots(void);
 static void roots2(void);
@@ -41,7 +42,7 @@ eval_roots(void)
 			push(p2);
 	}
 
-	if (caddr(p1) == Nil) {
+	if (caddr(p1) == symbol(NIL)) {
 		p1 = pop();
 		iguess();
 		push(p1);
@@ -84,7 +85,7 @@ roots(void)
 	n = tos - h;
 	if (n == 0) {
 		printstr("roots: Sorry, the argument is not factorable over integers, no roots found.\n");
-		push(Nil);
+		push(symbol(NIL));
 		return;
 	}
 	if (n == 1)

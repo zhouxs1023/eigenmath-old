@@ -2,6 +2,7 @@
 
 #include "stdafx.h"
 #include "defs.h"
+
 static void factor_a(unsigned int *);
 static void try_kth_prime(unsigned int **, int);
 static void push_factor(unsigned int *, int);
@@ -405,8 +406,8 @@ test_factor_integer(void)
 
 	// check for memory leak
 
-	p1 = Nil;
-	p2 = Nil;
+	p1 = symbol(NIL);
+	p2 = symbol(NIL);
 
 	gc();
 

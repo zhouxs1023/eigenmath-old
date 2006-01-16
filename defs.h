@@ -258,6 +258,9 @@ struct text_metric {
 };
 
 extern U **frame;
+extern U symtab[];
+
+#define symbol(x) (symtab + (x))
 
 #define iscons(p) ((p)->k == CONS)
 #define isrational(p) ((p)->k == NUM)
@@ -268,8 +271,8 @@ extern U **frame;
 #define issymbol(p) ((p)->k == SYM)
 #define iskeyword(p) (issymbol(p) && symbol_index(p) < NIL)
 
-#define car(p) (iscons(p) ? (p)->u.cons.car : Nil)
-#define cdr(p) (iscons(p) ? (p)->u.cons.cdr : Nil)
+#define car(p) (iscons(p) ? (p)->u.cons.car : symbol(NIL))
+#define cdr(p) (iscons(p) ? (p)->u.cons.cdr : symbol(NIL))
 #define caar(p) car(car(p))
 #define cadr(p) car(cdr(p))
 #define cdar(p) cdr(car(p))
@@ -319,7 +322,6 @@ extern int little_endian;
 extern int nsym;
 extern char logbuf[];
 extern char program_buf[];
-extern U *Nil;
 extern U *stack[];
 extern U *p1, *p2, *p3, *p4, *p5, *p6, *p7, *p8;
 extern U *formal_arg[6];

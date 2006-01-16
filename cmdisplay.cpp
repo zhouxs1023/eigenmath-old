@@ -141,7 +141,7 @@ eval_display(void)
 
 	// special form: display(symbol)
 
-	if (issymbol(cadr(p1)) && cadr(p1) != symbol(LAST) && cddr(p1) == Nil) {
+	if (issymbol(cadr(p1)) && cadr(p1) != symbol(LAST) && cddr(p1) == symbol(NIL)) {
 		push(cadr(p1));
 		eval();
 		p2 = pop();
@@ -167,7 +167,7 @@ eval_display(void)
 
 	cmdisplay_done();
 
-	push(Nil);
+	push(symbol(NIL));
 }
 
 static void

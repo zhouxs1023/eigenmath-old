@@ -60,9 +60,9 @@ eval_derivative(void)
 	eval();
 
 	p2 = pop();
-	if (p2 == Nil) {
+	if (p2 == symbol(NIL)) {
 		guess();
-		push(Nil);
+		push(symbol(NIL));
 	} else if (isnum(p2)) {
 		guess();
 		push(p2);
@@ -108,7 +108,7 @@ eval_derivative(void)
 
 		// if N is nil then arglist is exhausted
 
-		if (N == Nil)
+		if (N == symbol(NIL))
 			break;
 
 		// otherwise...
@@ -128,7 +128,7 @@ eval_derivative(void)
 			push(car(p1));
 			eval();
 			N = pop();
-			if (N == Nil)
+			if (N == symbol(NIL))
 				break;		// arglist exhausted
 			if (isnum(N))
 				;		// N = arg1
@@ -499,7 +499,7 @@ dfunction(void)
 {
 	p3 = cdr(p1);	// p3 is the argument list for the function
 
-	if (p3 == Nil || find(p3, p2)) {
+	if (p3 == symbol(NIL) || find(p3, p2)) {
 		push_symbol(DERIVATIVE);
 		push(p1);
 		push(p2);

@@ -101,7 +101,7 @@ define_user_function(void)
 		NAME->u.sym.binding2 = BODY2;
 	}
 
-	push(Nil);	// return value
+	push(symbol(NIL));	// return value
 }
 
 // Note: Tried doing func eval above using formal_arg and then back subst
@@ -151,7 +151,7 @@ eval_user_function(void)
 
 	// is it a function?
 
-	if (FUNC_NAME->u.sym.binding2 == Nil)
+	if (FUNC_NAME->u.sym.binding2 == symbol(NIL))
 		stop("Attempt to call non-function");
 
 	// eval actual args in current formal arg context, don't modify formal args yet
@@ -160,7 +160,7 @@ eval_user_function(void)
 		push(car(ACTUAL_ARGLIST));
 		eval();
 		ACTUAL_ARGLIST = cdr(ACTUAL_ARGLIST);
-		push(Nil); // make room for saving binding2
+		push(symbol(NIL)); // make room for saving binding2
 	}
 
 	// ok, now it's safe to modify formal args
@@ -239,7 +239,7 @@ evalat(void)
 	mark = save_symbols(1);
 
 	X->u.sym.binding = VAL;
-	X->u.sym.binding2 = Nil;
+	X->u.sym.binding2 = symbol(NIL);
 
 	eval();
 
