@@ -257,11 +257,7 @@ struct text_metric {
 	int ascent, descent, width;
 };
 
-extern U **frame;
-extern U symtab[];
-
 #define symbol(x) (symtab + (x))
-
 #define iscons(p) ((p)->k == CONS)
 #define isrational(p) ((p)->k == NUM)
 #define isdouble(p) ((p)->k == DOUBLE)
@@ -322,7 +318,9 @@ extern int little_endian;
 extern int nsym;
 extern char logbuf[];
 extern char program_buf[];
+extern U symtab[];
 extern U *stack[];
+extern U **frame;
 extern U *p1, *p2, *p3, *p4, *p5, *p6, *p7, *p8;
 extern U *formal_arg[6];
 extern U *tmp;
