@@ -67,10 +67,10 @@ yylaguerre(void)
 		yylaguerre2(n);
 	else {
 		Y = X;			// do this when X is an expr
-		X = tmp;
+		X = symbol(SECRETX);
 		yylaguerre2(n);
 		X = Y;
-		push(tmp);
+		push(symbol(SECRETX));
 		push(X);
 		subst();
 		eval();

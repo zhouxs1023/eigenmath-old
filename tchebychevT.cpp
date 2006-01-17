@@ -65,10 +65,10 @@ yytchebychevT(void)
 		yytchebychevT2(n-1);
 	else {
 		Y = X;			// do this when X is an expr
-		X = tmp;
+		X = symbol(SECRETX);
 		yytchebychevT2(n-1);
 		X = Y;
-		push(tmp);
+		push(symbol(SECRETX));
 		push(X);
 		subst();
 		eval();

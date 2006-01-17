@@ -169,6 +169,7 @@ init(void)
 	std_symbol("tty", TTY);
 	std_symbol("~", YYE); // tilde so sort puts it after other symbols
 	std_symbol("", YYLAST);
+	std_symbol("", SECRETX);
 
 	std_symbol("pi", PI);
 	std_symbol("a", SYMBOL_A);
@@ -194,8 +195,6 @@ init(void)
 	meta_c = usr_symbol("$c");
 	meta_n = usr_symbol("$n");
 	meta_x = usr_symbol("$x");
-
-	tmp = usr_symbol("$tmp");
 
 	formal_arg[0] = usr_symbol("$1");
 	formal_arg[1] = usr_symbol("$2");

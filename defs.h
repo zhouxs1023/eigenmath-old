@@ -191,6 +191,7 @@ enum {
 	TTY,
 	YYE,
 	YYLAST,
+	SECRETX,
 
 	// symbols appearing above are printed in roman type
 
@@ -323,7 +324,6 @@ extern U *stack[];
 extern U **frame;
 extern U *p1, *p2, *p3, *p4, *p5, *p6, *p7, *p8;
 extern U *formal_arg[6];
-extern U *tmp;
 extern U *zero, *one, *imaginaryunit;
 extern U *table_of_integrals;
 extern U *table_of_fourier;

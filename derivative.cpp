@@ -182,11 +182,11 @@ d_scalar_scalar(void)
 		// Replace cos(x) <- X, find derivative, then do X <- cos(x)
 		push(p1);		// sin(cos(x))
 		push(p2);		// cos(x)
-		push(tmp);		// X
+		push(symbol(SECRETX));	// X
 		subst();		// sin(cos(x)) -> sin(X)
-		push(tmp);		// X
+		push(symbol(SECRETX));	// X
 		derivative();
-		push(tmp);		// X
+		push(symbol(SECRETX));	// X
 		push(p2);		// cos(x)
 		subst();		// cos(X) -> cos(cos(x))
 	}

@@ -1,5 +1,3 @@
-#include "stdafx.h"
-
 //-----------------------------------------------------------------------------
 //
 //	Legendre polynomial
@@ -30,6 +28,7 @@
 //
 //-----------------------------------------------------------------------------
 
+#include "stdafx.h"
 #include "defs.h"
 
 #define X p1
@@ -77,10 +76,10 @@ __legendre(void)
 		__legendre2(n, m);
 	else {
 		Y = X;			// do this when X is an expr
-		X = tmp;
+		X = symbol(SECRETX);
 		__legendre2(n, m);
 		X = Y;
-		push(tmp);
+		push(symbol(SECRETX));
 		push(X);
 		subst();
 		eval();

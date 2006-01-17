@@ -51,13 +51,13 @@ yyhermite(void)
 	if (issymbol(X))
 		yyhermite2(n);
 	else {
-		Y = X;		// X is an expr, save in Y
-		X = tmp;	// use the symbol 'tmp' for the free variable
+		Y = X;			// do this when X is an expr
+		X = symbol(SECRETX);
 		yyhermite2(n);
-		X = Y;		// restore X
-		push(tmp);
+		X = Y;
+		push(symbol(SECRETX));
 		push(X);
-		subst();	// subst X for 'tmp'
+		subst();
 		eval();
 	}
 }
