@@ -1,0 +1,59 @@
+\parindent=0pt
+
+{\bf Problem A.} Consider the sets
+$$A=\{n\in{\rm N}:n=15m\;\;\hbox{for some}\;\;m\in{\rm N}\}
+\quad\hbox{and}\quad
+B=\{n\in{\rm N}:n=3m\;\;\hbox{for some}\;\;m\in{\rm N}\}
+$$
+Show that (1) $A\subset B$, but (2) $B\not\subset A$.
+\bigskip
+(1) We want to show that every member of set $A$ is also a member of set $B$.
+Let $x$ be a member of set $A$.
+Then by the membership condition for $A$ we have
+$x=15m$ where $m$ is a natural number.
+In addition, we can factor $15m$ to obtain $x=3\cdot5m$.
+Since $m$ is a natural number, $5m$ is also a natural number.
+Therefore $x$ is both 15 times a natural number and 3 times a
+natural number.
+The latter property of $x$ is the membership condition for set $B$.
+Hence $x$ is a member of $B$.
+Because $x$ is arbitrary, every member of $A$ has the properties of $x$,
+hence every member of $A$ is also a member of $B$.
+Therefore $A\subset B$.
+\bigskip
+(2) We have $3\in B$ and $3\not\in A$. Therefore $B\not\subset A$.
+
+\bigskip
+\bigskip
+{\bf Problem B.} Prove the following lemma.
+Let $A$, $B$ and $C$ be sets. If $B\subset C$,
+then $A\backslash C\subset A\backslash B$.
+\bigskip
+{\bf Proof.} Let $A$, $B$ and $C$ be sets. Assume that $B\subset C$.
+\medskip
+Let $x\in A\backslash C$. Then $x\in A$ and $x\not\in C$.
+Since $B\subset C$, $x\not\in C$ implies that $x\not\in B$.
+Because $x\in A$ and $x\not\in B$ we have $x\in A\backslash B$.
+Since $x$ is arbitrary, the properties of $x$ hold for every member
+of $A\backslash C$.
+Therefore every member of $A\backslash C$ is also a member of $A\backslash B$.
+Hence $A\backslash C\subset A\backslash B$.
+
+\bigskip
+\bigskip
+{\bf Problem C.} Let $A$, $B$, $C$ and $D$ be sets.
+If $A\subset C$ and $B\subset D$, then $A\times B\subset C\times D$.
+\bigskip
+{\bf Proof}. Let $A$, $B$, $C$ and $D$ be sets.
+Assume $A\subset C$ and $B\subset D$.
+\medskip
+Let $(a,b)\in A\times B$. Then $a\in A$ and $b\in B$.
+Since $A\subset C$, $a\in A$ implies that $a\in C$.
+Also, since $B\subset D$, $b\in B$ implies that $b\in D$.
+Therefore we have $(a,b)\in C\times D$.
+Since $(a,b)$ is arbitrary, the properties of $(a,b)$ hold for every
+member of $A\times B$.
+Therefore every member of $A\times B$ is also a member of $C\times D$.
+Hence $A\times B\subset C\times D$.
+
+\end
