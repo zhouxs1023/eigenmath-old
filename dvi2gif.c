@@ -59,7 +59,7 @@ M = (65,536 sp/pt) x (72.27 pt/in) / (150 dots/in) = 31,575.2448 sp/dot
 
 /* 4 inches x 300 dots/inch = 1200 */
 
-#define MAXY 1200
+#define MAXY 2700
 
 char buf[MAXY * MAXX];
 
@@ -17513,10 +17513,10 @@ dvi_cmd()
 			down4();
 			break;
 		case 161:
-			y0();
+			yy0();
 			break;
 		case 162:
-			y1();
+			yy1();
 			break;
 		case 163:
 			y2();
@@ -17819,14 +17819,14 @@ down4()
 
 /* 161 */
 
-y0()
+yy0()
 {
 	v += y;
 }
 
 /* 162 */
 
-y1()
+yy1()
 {
 	y = fget1();
 	v += y;
