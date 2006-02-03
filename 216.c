@@ -5,7 +5,7 @@
 // which is also aliased 16 times.
 // On power up, the flash data is copied into SRAM.
 // Then the Power PC 7447A starts at address 0xfff00100.
-// The actual range where the Power PC runs the code is 0xfff00000-0xffffffff.
+// The actual range where the Power PC runs the code is 0xfff00000-0xfff7ffff.
 // This utility expects the S record file to have addresses in that range.
 
 #include <stdio.h>
@@ -98,7 +98,7 @@ read_srec(char *filename)
 		len -=5;
 		if (addr < 0xfff00000 || addr > 0xfff7ffff || len > 0xfff80000 - addr) {
 			printf("address range error\n");
-			exit(1);
+			return -1;
 		}
 		addr -= 0xfff00000;
 		for (i = 0; i < len; i++) {
