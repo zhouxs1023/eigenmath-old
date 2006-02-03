@@ -1,4 +1,4 @@
-// This is a Linux utility that programs the Gigatek boot flash in-situ.
+// This is a Linux utility that programs the Gigateak boot flash in-situ.
 // The boot flash is 512 Kbytes at addresses 0xff000000-0xff07ffff.
 // The flash is aliased 16 times in the 8 meg region 0xff000000-0xff7fffff.
 // The address range 0xff800000-0xffffffff is occupied by 512 Kbytes of SRAM
