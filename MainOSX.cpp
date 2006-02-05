@@ -205,6 +205,8 @@ int main(int argc, char* argv[])
     err = TXNInitTextension(NULL, 0, 0);
     //require_noerr( err, CantGetNibRef );
 
+//	CreateStandardWindowMenu(0, NULL);
+
     // Create a Nib reference passing the name of the nib file (without the .nib extension)
     // CreateNibReference only searches into the application bundle.
     err = CreateNibReference(CFSTR("main"), &nibRef);
@@ -214,12 +216,6 @@ int main(int argc, char* argv[])
     // object. This name is set in InterfaceBuilder when the nib is created.
     err = SetMenuBarFromNib(nibRef, CFSTR("MenuBar"));
     require_noerr( err, CantSetMenuBar );
-    
-    // Then create a window. "MainWindow" is the name of the window object. This name is set in 
-    // InterfaceBuilder when the nib is created.
-//    err = CreateWindowFromNib(nibRef, CFSTR("MainWindow"), &window);
- //   require_noerr( err, CantCreateWindow );
-
 
     // We don't need the nib reference anymore.
     DisposeNibReference(nibRef);
@@ -635,6 +631,7 @@ create_main_window(void)
     r.bottom = r.top + client_height + grow_dim;
 
     CreateNewWindow(6, WINATTR, &r, &gwindow);
+	SetWindowTitleWithCFString(gwindow, CFSTR("eigenmath.sourceforge.net"));
 
     display_width = client_width - scroll_bar_dim;
     display_height = client_height - 2 * line_height - input_control_height - scroll_bar_dim;
