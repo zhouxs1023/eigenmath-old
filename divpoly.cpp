@@ -113,8 +113,8 @@ divpoly(void)
 
 static char *s[] = {
 
-	"divpoly(x^2+1,x)",
-	"x",
+	"divpoly(a*x^2+b*x+c,d*x+e)",
+	"-a*e/(d^2)+a*x/d+b/d",
 };
 
 void
