@@ -147,6 +147,7 @@ void eval_display(void);
 void test_cmdisplay(void);
 
 // coeff.cpp
+void eval_coeff(void);
 void coeff_cooked(void);
 int coeff(void);
 void test_coeff(void);
@@ -279,7 +280,6 @@ void eval_charpoly(void);
 void eval_check(void);
 void eval_cls(void);
 void eval_conj(void);
-void eval_coeff(void);
 void eval_degree(void);
 void eval_det(void);
 void eval_dim(void);

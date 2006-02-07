@@ -281,16 +281,6 @@ eval_conj(void)
 }
 
 void
-eval_coeff(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	coeff_cooked();
-}
-
-void
 eval_degree(void)
 {
 	push(cadr(p1));

@@ -1,5 +1,3 @@
-#include "stdafx.h"
-
 //-----------------------------------------------------------------------------
 //
 //	Put polynomial coefficients on the stack
@@ -16,8 +14,47 @@
 //
 //-----------------------------------------------------------------------------
 
+#include "stdafx.h"
 #include "defs.h"
 
+void
+eval_coeff(void)
+{
+	int h, i, n;
+
+	h = tos;
+
+	push(cadr(p1));			// 1st arg, p(x)
+	eval();
+
+	push(caddr(p1));		// 2nd arg, x
+	eval();
+
+	p1 = pop();			// guess?
+	if (p1 == symbol(NIL))
+		guess();
+	else
+		push(p1);
+
+	coeff();
+
+	n = tos - h;			// number of coefficients
+
+	if (n == 1)
+		return;
+
+	p1 = alloc_tensor(n);
+	p1->u.tensor->ndim = 1;
+	p1->u.tensor->dim[0] = n;
+	for (i = 0; i < n; i++)
+		p1->u.tensor->elem[i] = stack[i];
+
+	tos = h;
+
+	push(p1);
+}
+
+#if 0
 void
 coeff_cooked(void)
 {
@@ -56,6 +93,7 @@ coeff_cooked(void)
 	push(p1);
 	restore();
 }
+#endif
 
 int
 coeff(void)
@@ -104,11 +142,11 @@ static char *s[] = {
 	"coeff(3*x^2+2*x+1)",
 	"(1,2,3)",
 
-	"coeff((x+1)*(y+1))",
-	"(1+y,1+y)",
+//	"coeff((x+1)*(y+1))",
+//	"(1+y,1+y)",
 
-	"coeff((x+1)*(y+1),y)",
-	"(1+x,1+x)",
+//	"coeff((x+1)*(y+1),y)",
+//	"(1+x,1+x)",
 };
 
 void
