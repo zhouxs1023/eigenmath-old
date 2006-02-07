@@ -93,6 +93,7 @@ enum {
 	DIRAC,
 	DISPLAY,
 	DIVISORS,
+	DIVPOLY,
 	DO,
 	DOT,
 	DRAW,

@@ -59,6 +59,7 @@ selftest(void)
 	test_denominator();
 	test_derivative();
 	test_dirac();
+	test_divpoly();
 	test_erf();
 	test_erfc();
 	test_expcos();

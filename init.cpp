@@ -71,6 +71,7 @@ init(void)
 	std_symbol("dirac", DIRAC);
 	std_symbol("display", DISPLAY);
 	std_symbol("divisors", DIVISORS);
+	std_symbol("divpoly", DIVPOLY);
 	std_symbol("do", DO);
 	std_symbol("dot", DOT);
 	std_symbol("draw", DRAW);

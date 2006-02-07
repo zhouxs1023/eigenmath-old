@@ -244,7 +244,9 @@ void divisors_onstack(void);
 void test_divisors(void);
 
 // divpoly.cpp
+void eval_divpoly(void);
 void divpoly(void);
+void test_divpoly(void);
 
 // draw.cpp
 void eval_draw(void);

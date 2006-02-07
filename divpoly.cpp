@@ -1,4 +1,28 @@
+// Divide polynomials
+
 #include "stdafx.h"
+#include "defs.h"
+
+void
+eval_divpoly(void)
+{
+	push(cadr(p1));			// 1st arg, p(x)
+	eval();
+
+	push(caddr(p1));		// 2nd arg, q(x)
+	eval();
+
+	push(cadddr(p1));		// 3rd arg, x
+	eval();
+
+	p1 = pop();			// guess?
+	if (p1 == symbol(NIL))
+		guess();
+	else
+		push(p1);
+
+	divpoly();
+}
 
 //-----------------------------------------------------------------------------
 //
@@ -10,18 +34,15 @@
 //
 //			tos-1		x
 //
-//	Output:		tos-2		Quotient
-//
-//			tos-1		Remainder
+//	Output:		tos-1		Quotient
 //
 //-----------------------------------------------------------------------------
-
-#include "defs.h"
 
 #define DIVIDEND p1
 #define DIVISOR p2
 #define X p3
 #define Q p4
+#define QUOTIENT p5
 
 void
 divpoly(void)
@@ -51,7 +72,8 @@ divpoly(void)
 
 	x = m - n;
 
-	push(zero);
+	push_integer(0);
+	QUOTIENT = pop();
 
 	while (x >= 0) {
 
@@ -69,16 +91,34 @@ divpoly(void)
 			dividend[x + i] = pop();
 		}
 
+		push(QUOTIENT);
 		push(Q);
 		push(X);
 		push_integer(x);
 		power();
 		multiply();
 		add();
+		QUOTIENT = pop();
 
 		m--;
 		x--;
 	}
 
+	tos = h;
+
+	push(QUOTIENT);
+
 	restore();
+}
+
+static char *s[] = {
+
+	"divpoly(x^2+1,x)",
+	"x",
+};
+
+void
+test_divpoly(void)
+{
+	test(__FILE__, s, sizeof s / sizeof (char *));
 }
