@@ -1,18 +1,4 @@
-//-----------------------------------------------------------------------------
-//
-//	Put polynomial coefficients on the stack
-//
-//	Input:		tos-2		p(x)
-//
-//			tos-1		x
-//
-//	Output:		Returns number of coefficients on stack
-//
-//			tos-n		Coefficient of x^0
-//
-//			tos-1		Coefficient of x^(n-1)
-//
-//-----------------------------------------------------------------------------
+// Get coefficients of polynomial p(x)
 
 #include "stdafx.h"
 #include "defs.h"
@@ -95,6 +81,22 @@ coeff_cooked(void)
 }
 #endif
 
+//-----------------------------------------------------------------------------
+//
+//	Put polynomial coefficients on the stack
+//
+//	Input:		tos-2		p(x)
+//
+//			tos-1		x
+//
+//	Output:		Returns number of coefficients on stack
+//
+//			tos-n		Coefficient of x^0
+//
+//			tos-1		Coefficient of x^(n-1)
+//
+//-----------------------------------------------------------------------------
+
 int
 coeff(void)
 {
@@ -109,7 +111,7 @@ coeff(void)
 
 	for (;;) {
 
-		push(p1);	// FIXME faster to use evalat
+		push(p1);
 		push(p2);
 		push(zero);
 		subst();
