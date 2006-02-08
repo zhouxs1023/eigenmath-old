@@ -1,4 +1,5 @@
 <tt>
+<p>
 <table cellpadding="10" cellspacing="0" border="1">
 <tr>
 <td valign="top">
@@ -92,33 +93,6 @@
 <td valign="top">
 
 <tt>
-Getting-started Examples
-<ul>
-<li>
-Enter x^2 then click the Draw button.
-<li>
-Enter x^2 then click the Integral button, then click the Draw button.
-<li>
-Enter 900 then click the Factor button.
-<a href="pics/factor-number.html">pic</a>
-<li>
-Enter 125 x^3 - 1 then click the Factor button, then click the Simplify button.
-<a href="pics/factor-poly.html">pic</a>
-</ul>
-
-<p>
-Scripts
-<ul>
-<li>
-Click the Edit Script button, enter a script, then click the Run button.
-Each line of the script is evaluated like an interactive command.
-<a href="pics/script-howto.html">pic</a>
-<li>
-Click <a href="examples/quantum-harmonic-oscillator.txt">here</a>
-for a sample script that can be pasted into the Edit Script window.
-</ul>
-
-<p>
 Trivia
 <ul>
 <li>
@@ -147,22 +121,6 @@ Returns the absolute value (vector length, magnitude) of <i>x</i>.
 <pre>
 <i>Enter</i>
 
-     abs(a - b) + abs(b - a)
-
-<i>Result</i>
-
-     2 abs(a - b)
-
-<i>Enter</i>
-
-     abs(3 + 4 i)
-
-<i>Result</i>
-
-     5
-
-<i>Enter</i>
-
      abs((a,b,c))
 
 <i>Result</i>
@@ -170,26 +128,6 @@ Returns the absolute value (vector length, magnitude) of <i>x</i>.
                    1/2
        2    2    2
      (a  + b  + c )
-
-<i>Enter</i>
-
-     A = (1,i,-i)
-
-     sqrt(dot(A,conj(A))) - abs(A)
-
-<i>Result</i>
-
-     0
-
-<i>Enter</i>
-
-     A = ((1,2),(3,4))
-
-     abs(A)
-
-<i>Result</i>
-
-     stop: abs(tensor) with tensor rank &gt; 1
 </pre>
 <p>
 <h1><tt><a name="adj">adj(<i>m</i>)</a></tt></h1>
@@ -615,18 +553,12 @@ Example 1.
 <pre>
 <i>Enter</i>
 	draw(5(cos(t),sin(t)))
-
-<i>Result</i>
-	<a href="pics/circle.html">pic</a>
 </pre>
 <p>
 Example 2.
 <pre>
 <i>Enter</i>
 	draw(5(cos(3t),sin(5t)))
-
-<i>Result</i>
-	<a href="pics/lissajous.html">pic</a>
 </pre>
 <p>
 <h1><tt><a name="eigen">eigen(<i>m</i>)</a></tt></h1>
@@ -685,9 +617,6 @@ Error function of x.
 <pre>
 <i>Enter</i>
 	draw(erf(x))
-
-<i>Result</i>
-	<a href="pics/erf.html">pic</a>
 </pre>
 <p>
 <h1><tt><a name="erfc">erfc(<i>x</i>)</a></tt></h1>
@@ -695,9 +624,6 @@ Complementary error function of x.
 <pre>
 <i>Enter</i>
 	draw(erfc(x))
-
-<i>Result</i>
-	<a href="pics/erfc.html">pic</a>
 </pre>
 <p>
 <h1><tt><a name="eval">eval(<i>x</i>)</a></tt></h1>
@@ -1743,4 +1669,4 @@ The zero function is useful for creating a tensor and then setting the component
 </pre>
 
 <p>
-<hr>
+<a href="http://sourceforge.net"><img src="http://sourceforge.net/sflogo.php?group_id=103462&amp;type=1" width="88" height="31" border="0" alt="SourceForge.net Logo" /></a>
