@@ -1,84 +1,42 @@
-// Get coefficients of polynomial p(x)
+// get the coefficient of x^n in polynomial p(x)
 
 #include "stdafx.h"
 #include "defs.h"
 
+#define P p1
+#define X p2
+#define N p3
+
 void
 eval_coeff(void)
 {
-	int h, i, n;
-
-	h = tos;
-
-	push(cadr(p1));			// 1st arg, p(x)
+	push(cadr(p1));			// 1st arg, p
 	eval();
 
 	push(caddr(p1));		// 2nd arg, x
 	eval();
 
-	p1 = pop();			// default x
-	if (p1 == symbol(NIL))
-		p1 = symbol(SYMBOL_X);
-	push(p1);
+	push(cadddr(p1));		// 3rd arg, n
+	eval();
 
-	coeff();
+	N = pop();
+	X = pop();
+	P = pop();
 
-	n = tos - h;			// number of coefficients
-
-	if (n == 1)
-		return;
-
-	p1 = alloc_tensor(n);
-	p1->u.tensor->ndim = 1;
-	p1->u.tensor->dim[0] = n;
-	for (i = 0; i < n; i++)
-		p1->u.tensor->elem[i] = stack[i];
-
-	tos = h;
-
-	push(p1);
-}
-
-#if 0
-void
-coeff_cooked(void)
-{
-	int h, i, n;
-	save();
-	p2 = pop();
-	p1 = pop();
-	h = tos;
-	if (p2 == symbol(NIL)) {
-		push(p1);
-		variables();
-		p2 = pop();
-		if (p2->u.tensor->nelem == 0) {
-			p2 = alloc_tensor(1);
-			p2->u.tensor->ndim = 1;
-			p2->u.tensor->dim[0] = 1;
-			p2->u.tensor->elem[0] = p1;
-			push(p2);
-			restore();
-			return;
-		}
-		push(p1);
-		push(p2->u.tensor->elem[0]);
-	} else {
-		push(p1);
-		push(p2);
+	if (N == symbol(NIL)) {		// only 2 args?
+		N = X;
+		X = symbol(SYMBOL_X);
 	}
-	coeff();
-	n = tos - h;
-	p1 = alloc_tensor(n);
-	p1->u.tensor->ndim = 1;
-	p1->u.tensor->dim[0] = n;
-	for (i = 0; i < n; i++)
-		p1->u.tensor->elem[i] = stack[i];
-	tos = h;
-	push(p1);
-	restore();
+
+	push(P);			// divide p by x^n
+	push(X);
+	push(N);
+	power();
+	divide();
+
+	push(X);			// keep the constant part
+	filter();
 }
-#endif
 
 //-----------------------------------------------------------------------------
 //
@@ -140,14 +98,29 @@ coeff(void)
 
 static char *s[] = {
 
-	"coeff(3*x^2+2*x+1)",
-	"(1,2,3)",
+	"coeff(40*x^3+30*x^2+20*x+10,3)",
+	"40",
 
-//	"coeff((x+1)*(y+1))",
-//	"(1+y,1+y)",
+	"coeff(40*x^3+30*x^2+20*x+10,2)",
+	"30",
 
-//	"coeff((x+1)*(y+1),y)",
-//	"(1+x,1+x)",
+	"coeff(40*x^3+30*x^2+20*x+10,1)",
+	"20",
+
+	"coeff(40*x^3+30*x^2+20*x+10,0)",
+	"10",
+
+	"coeff(a*t^3+b*t^2+c*t+d,t,3)",
+	"a",
+
+	"coeff(a*t^3+b*t^2+c*t+d,t,2)",
+	"b",
+
+	"coeff(a*t^3+b*t^2+c*t+d,t,1)",
+	"c",
+
+	"coeff(a*t^3+b*t^2+c*t+d,t,0)",
+	"d",
 };
 
 void
