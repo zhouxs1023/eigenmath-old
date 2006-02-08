@@ -1,4 +1,4 @@
-// Fast CRC-32 using an enormous lookup table, by G. Weigt.
+// Fast CRC-32C using an enormous lookup table, by G. Weigt.
 
 unsigned char *buf = "The rain in Spain.";
 
@@ -12,12 +12,14 @@ unsigned char *buf = "The rain in Spain.";
 
 main()
 {
+	init_table(); // for method 2
+
 	method0();
 	method1();
 	method2();
 }
 
-// this method uses bit shifting
+// this method uses bit shifting, checked against ethernet FCS
 
 method0()
 {
@@ -55,7 +57,7 @@ method0()
 		else
 			r >>= 1;
 
-//	r = ~r; /* invert result */
+	r = ~r; /* invert result */
 
 //	printf("FCS = %02x %02x %02x %02x\n",
 //		r & 0xff, /* 1st byte sent */
@@ -80,6 +82,7 @@ method1()
 			else
 				crc >>= 1;
 	}
+	crc = ~crc;
 	printf("%#x\n", crc);
 }
 
@@ -91,15 +94,15 @@ method2()
 {
 	int i;
 	unsigned int crc = ~0;
-	make_table();
 	for (i = 0; i < 18; i += 2) {
 		crc ^= (buf[i + 1] << 8) | buf[i];
 		crc = shift16[crc & 0xffff] ^ (crc >> 16);
 	}
+	crc = ~crc;
 	printf("%#x\n", crc);
 }
 
-make_table()
+init_table()
 {
 	int i, k;
 	unsigned int crc;
