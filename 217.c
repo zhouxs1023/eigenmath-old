@@ -1,4 +1,4 @@
-// Fast CRC-32 using enormous lookup table, by G. Weigt.
+// Fast CRC-32 using an enormous lookup table, by G. Weigt.
 
 unsigned char *buf = "The rain in Spain.";
 
