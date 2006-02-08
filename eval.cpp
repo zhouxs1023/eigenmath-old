@@ -102,8 +102,8 @@ eval_cons(void)
 	case DIM:		eval_dim();		break;
 	case DIRAC:		eval_dirac();		break;
 	case DISPLAY:		eval_display();		break;
+	case DIVIDE:		eval_divide();		break;
 	case DIVISORS:		eval_divisors();	break;
-	case DIVPOLY:		eval_divpoly();		break;
 	case DO:		eval_do();		break;
 	case DOT:		eval_inner();		break;
 	case DRAW:		eval_draw();		break;

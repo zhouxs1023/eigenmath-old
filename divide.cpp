@@ -4,7 +4,7 @@
 #include "defs.h"
 
 void
-eval_divpoly(void)
+eval_divide(void)
 {
 	push(cadr(p1));			// 1st arg, p(x)
 	eval();
@@ -112,15 +112,15 @@ divpoly(void)
 
 static char *s[] = {
 
-	"divpoly(x^2+1,x+1)",
+	"divide(x^2+1,x+1)",
 	"-1+x",
 
-	"divpoly(a*x^2+b*x+c,d*x+e)",
+	"divide(a*x^2+b*x+c,d*x+e)",
 	"-a*e/(d^2)+a*x/d+b/d",
 };
 
 void
-test_divpoly(void)
+test_divide(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }

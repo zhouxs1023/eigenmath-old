@@ -148,7 +148,6 @@ void test_cmdisplay(void);
 
 // coeff.cpp
 void eval_coeff(void);
-void coeff_cooked(void);
 int coeff(void);
 void test_coeff(void);
 
@@ -238,15 +237,15 @@ void distill(void);
 void distill_sum(void);
 void distill_product(void);
 
+// divide.cpp
+void eval_divide(void);
+void divpoly(void);
+void test_divide(void);
+
 // divisors.cpp
 void divisors(void);
 void divisors_onstack(void);
 void test_divisors(void);
-
-// divpoly.cpp
-void eval_divpoly(void);
-void divpoly(void);
-void test_divpoly(void);
 
 // draw.cpp
 void eval_draw(void);

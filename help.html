@@ -17,7 +17,9 @@
 <a href="#binomial">binomial</a>
 <a href="#break">break</a>		break out of a loop
 <a href="#ceiling">ceiling</a>		ceiling function
-<a href="#check">check</a>		stop if not zero
+<a href="#check">check</a>           stop if not zero
+<a href="#coeff">coeff</a>           coefficient of polynomial
+<a href="#cofactor">cofactor</a>        cofactor of matrix
 <a href="#condense">condense</a>	find subexpressions
 <a href="#conj">conj</a>		complex conjugate
 <a href="#contract">contract</a>	contract across tensor indices
@@ -27,6 +29,7 @@
 <a href="#denominator">denominator</a>	denominator of expression
 <a href="#det">det</a>		determinant of a matrix
 <a href="#dim">dim</a>		dimension of tensor index
+<a href="#divide">divide</a>          divide polynomials
 <a href="#display">display</a>		display an expression
 <a href="#do">do</a>		evaluate multiple expressions
 <a href="#dot">dot</a>		inner product of tensors
@@ -223,6 +226,14 @@ Returns the smallest integer not less than <i>x</i>.
 If x is zero then continue, else stop.
 The check function also accepts a predicate expression such as A&lt;B,
 A=B, etc.
+
+<p><h1><tt><a name="coeff">coeff(<i>p,x,n</i>)</a></tt></h1>
+Returns the coefficient of x^n in polynomial p.
+The x argument can be omitted for polynomials in x.
+
+<p><h1><tt><a name="cofactor">cofactor(<i>m,i,j</i>)</a></tt></h1>
+Returns the cofactor of m for row i and column j.
+
 <p>
 <h1><tt><a name="condense">condense(<i>x</i>)</a></tt></h1>
 Attempts to simplify x by factoring common terms.
@@ -396,6 +407,12 @@ If <i>i</i> is omitted then the dimension of the first index is returned.
 
      3
 </pre>
+
+<p><h1><tt><a name="divide">divide(<i>p,q,x</i>)</a></tt></h1>
+Returns the quotient of polynomial p over q.
+The remainder can be calculated as p - q * divide(p,q).
+The last argument can be omitted when the polynomials are in x.
+
 <p>
 <h1><tt><a name="display">display(<i>x</i>)</a></tt></h1>
 Evaluates expression <i>x</i> and displays the result using Times and Symbol
