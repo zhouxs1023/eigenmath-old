@@ -16,11 +16,10 @@ eval_coeff(void)
 	push(caddr(p1));		// 2nd arg, x
 	eval();
 
-	p1 = pop();			// guess?
+	p1 = pop();			// default x
 	if (p1 == symbol(NIL))
-		guess();
-	else
-		push(p1);
+		p1 = symbol(SYMBOL_X);
+	push(p1);
 
 	coeff();
 

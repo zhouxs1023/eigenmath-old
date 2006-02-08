@@ -15,11 +15,10 @@ eval_divpoly(void)
 	push(cadddr(p1));		// 3rd arg, x
 	eval();
 
-	p1 = pop();			// guess?
+	p1 = pop();			// default x
 	if (p1 == symbol(NIL))
-		guess();
-	else
-		push(p1);
+		p1 = symbol(SYMBOL_X);
+	push(p1);
 
 	divpoly();
 }
@@ -112,6 +111,9 @@ divpoly(void)
 }
 
 static char *s[] = {
+
+	"divpoly(x^2+1,x+1)",
+	"-1+x",
 
 	"divpoly(a*x^2+b*x+c,d*x+e)",
 	"-a*e/(d^2)+a*x/d+b/d",
