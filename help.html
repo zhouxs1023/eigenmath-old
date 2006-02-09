@@ -26,6 +26,7 @@
 <a href="#cos">cos</a>
 <a href="#cosh">cosh</a>
 <a href="#d">d</a>		derivative and gradient
+<a href="#deg">deg</a>             degree of polynomial
 <a href="#denominator">denominator</a>	denominator of expression
 <a href="#det">det</a>		determinant of a matrix
 <a href="#dim">dim</a>		dimension of tensor index
@@ -348,8 +349,13 @@ multiderivatives.
 	d(f,x,2,y,2)	d(d(d(d(f,x),x),y),y)
 	d(f,x,x,y,y)	d(d(d(d(f,x),x),y),y)
 </pre>
+
+<p><h1><tt><a name="deg">deg(<i>p,x</i>)</a></tt></h1>
+Returns the degree of polynomial p(x).
+The last argument can be omitted when p is in x.
+
 <p>
-<h1><tt><a name="denominator">denominator(x)</a></tt></h1>
+<h1><tt><a name="denominator">denominator(<i>x</i>)</a></tt></h1>
 Returns the denominator of expression x.
 <pre>
 <i>Enter</i>
@@ -409,9 +415,9 @@ If <i>i</i> is omitted then the dimension of the first index is returned.
 </pre>
 
 <p><h1><tt><a name="divide">divide(<i>p,q,x</i>)</a></tt></h1>
-Returns the quotient of polynomial p over q.
-The remainder can be calculated as p - q * divide(p,q).
+Returns the quotient of polynomial p(x) over q(x).
 The last argument can be omitted when the polynomials are in x.
+The remainder can be calculated as p - q * divide(p,q).
 
 <p>
 <h1><tt><a name="display">display(<i>x</i>)</a></tt></h1>
