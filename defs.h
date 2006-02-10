@@ -186,6 +186,7 @@ enum {
 	NIL,	// nil goes here, after standard functions
 
 	AUTOEXPAND,
+	BAKE,
 	EXPOMODE,
 	LAST,
 	TTY,

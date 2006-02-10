@@ -22,6 +22,8 @@ selftest(void)
 	if (setjmp(jbuf))
 		return;
 
+	symbol(BAKE)->u.sym.binding = symbol(BAKE);
+
 	// test bignum arithmetic
 
 	test_madd();

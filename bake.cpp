@@ -1,4 +1,8 @@
-// Bake a raw expression.
+/* Bake a raw expression.
+
+Right now all it does is beautify polynomials.
+
+*/
 
 #include "stdafx.h"
 #include "defs.h"
@@ -6,7 +10,7 @@
 void
 bake(void)
 {
-	int t, x, y, z;
+	int h, t, x, y, z;
 
 	save();
 
@@ -29,6 +33,16 @@ bake(void)
 	} else if (t == 0 && x == 0 && y == 0 && z == 1) {
 		p2 = symbol(SYMBOL_Z);
 		bake_poly();
+	} else if (iscons(p1)) {
+		h = tos;
+		push(car(p1));
+		p1 = cdr(p1);
+		while (iscons(p1)) {
+			push(car(p1));
+			bake();
+			p1 = cdr(p1);
+		}
+		list(tos - h);
 	} else
 		push(p1);
 
@@ -123,6 +137,9 @@ static char *s[] = {
 
 	"(x+3)^3",
 	"x^3+9*x^2+27*x+27",
+
+	"factor",
+	"(x+3)^3",
 };
 
 void

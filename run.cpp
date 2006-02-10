@@ -80,9 +80,11 @@ run(char *s)
 		if (p2 == symbol(NIL) && (iskeyword(p1) || !issymbol(p1)))
 			continue;
 
-		push(p2);
-		bake();
-		p2 = pop();
+		if (!iszero(symbol(BAKE)->u.sym.binding)) {
+			push(p2);
+			bake();
+			p2 = pop();
+		}
 
 		if (equal(symbol(TTY)->u.sym.binding, one) || test_flag) // tty mode?
 			printline(p2);

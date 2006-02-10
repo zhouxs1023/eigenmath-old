@@ -1159,12 +1159,12 @@ static char *s[] = {
 	"0",
 
 	"#20",
-	"integral(1/sqrt(a+x^2),x)",
-	"log(x+(a+x^2)^(1/2))",
+	"integral(1/sqrt(a+x^2),x)-(log(x+(a+x^2)^(1/2)))",
+	"0",
 
 	"#27",
-	"integral(1/(a+b*x),x)",
-	"log(a+b*x)/b",
+	"integral(1/(a+b*x),x)-(log(a+b*x)/b)",
+	"0",
 
 	"#28",
 	"integral(1/(A+B*X)^2,X)+1/B*1/(A+B*X)",

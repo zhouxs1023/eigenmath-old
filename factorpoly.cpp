@@ -498,6 +498,9 @@ evalpoly(void)
 
 static char *s[] = {
 
+	"bake=0",
+	"",
+
 	"factor((x+1)*(x+2)*(x+3),x)",
 	"(1+x)*(2+x)*(3+x)",
 
@@ -842,6 +845,9 @@ static char *s[] = {
 
 	"factor(x^3,x)",
 	"x^3",
+
+	"bake=1",
+	"",
 };
 
 void
