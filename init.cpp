@@ -119,6 +119,7 @@ init(void)
 	std_symbol("operator", OPERATOR);
 	std_symbol("or", OR);
 	std_symbol("outer", OUTER);
+	std_symbol("polar", POLAR);
 	std_symbol("power", POWER);
 	std_symbol("prime", PRIME);
 	std_symbol("print", PRINT);

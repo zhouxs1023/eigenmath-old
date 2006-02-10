@@ -80,6 +80,7 @@ selftest(void)
 	test_mod();
 	test_numerator();
 	test_outer();
+	test_polar();
 	test_product();
 	test_prog();
 	test_quotient();

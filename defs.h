@@ -141,6 +141,7 @@ enum {
 	OPERATOR,
 	OR,
 	OUTER,
+	POLAR,
 	POWER,
 	PRIME,
 	PRINT,

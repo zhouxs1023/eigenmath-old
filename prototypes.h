@@ -619,6 +619,10 @@ void outer(void);
 void yyouter(void);
 void test_outer(void);
 
+// polar.cpp
+void eval_polar(void);
+void test_polar(void);
+
 // pollard.cpp
 void factor_number(void);
 void test_factor_timing(void);
