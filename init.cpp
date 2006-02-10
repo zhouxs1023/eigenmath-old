@@ -70,7 +70,6 @@ init(void)
 	std_symbol("dim", DIM);
 	std_symbol("dirac", DIRAC);
 	std_symbol("display", DISPLAY);
-	std_symbol("divide", DIVIDE);
 	std_symbol("divisors", DIVISORS);
 	std_symbol("do", DO);
 	std_symbol("dot", DOT);
@@ -127,6 +126,7 @@ init(void)
 	std_symbol("product", PRODUCT);
 	std_symbol("prog", PROG);
 	std_symbol("quote", QUOTE);
+	std_symbol("quotient", QUOTIENT);
 	std_symbol("rank", RANK);
 	std_symbol("rationalize", RATIONALIZE);
 	std_symbol("real", REAL);

@@ -102,7 +102,6 @@ eval_cons(void)
 	case DIM:		eval_dim();		break;
 	case DIRAC:		eval_dirac();		break;
 	case DISPLAY:		eval_display();		break;
-	case DIVIDE:		eval_divide();		break;
 	case DIVISORS:		eval_divisors();	break;
 	case DO:		eval_do();		break;
 	case DOT:		eval_inner();		break;
@@ -159,6 +158,7 @@ eval_cons(void)
 	case PRODUCT:		eval_product();		break;
 	case PROG:		eval_prog();		break;
 	case QUOTE:		eval_quote();		break;
+	case QUOTIENT:		eval_quotient();	break;
 	case RANK:		eval_rank();		break;
 	case RATIONALIZE:	eval_rationalize();	break;
 	case REAL:		eval_real();		break;

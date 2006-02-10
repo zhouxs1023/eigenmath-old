@@ -237,11 +237,6 @@ void distill(void);
 void distill_sum(void);
 void distill_product(void);
 
-// divide.cpp
-void eval_divide(void);
-void divpoly(void);
-void test_divide(void);
-
 // divisors.cpp
 void divisors(void);
 void divisors_onstack(void);
@@ -689,6 +684,11 @@ void qsub(void);
 // quickfactor.cpp
 void quickfactor(void);
 void test_quickfactor(void);
+
+// quotient.cpp
+void eval_quotient(void);
+void divpoly(void);
+void test_quotient(void);
 
 // rationalize.cpp
 void eval_rationalize(void);

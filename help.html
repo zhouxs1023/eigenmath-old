@@ -30,7 +30,6 @@
 <a href="#denominator">denominator</a>	denominator of expression
 <a href="#det">det</a>		determinant of a matrix
 <a href="#dim">dim</a>		dimension of tensor index
-<a href="#divide">divide</a>          divide polynomials
 <a href="#display">display</a>		display an expression
 <a href="#do">do</a>		evaluate multiple expressions
 <a href="#dot">dot</a>		inner product of tensors
@@ -69,6 +68,7 @@
 <a href="#product">product</a>		multiply over an index
 <a href="#prog">prog</a>		evaluate with scoped variables
 <a href="#quote">quote</a>		do not evaluate
+<a href="#quotient">quotient</a>        divide polynomials
 <a href="#rank">rank</a>		rank of tensor
 <a href="#rationalize">rationalize</a>	combine fractions
 <a href="#real">real</a>		real part of complex
@@ -413,11 +413,6 @@ If <i>i</i> is omitted then the dimension of the first index is returned.
 
      3
 </pre>
-
-<p><h1><tt><a name="divide">divide(<i>p,q,x</i>)</a></tt></h1>
-Returns the quotient of polynomial p(x) over q(x).
-The last argument can be omitted when the polynomials are in x.
-The remainder can be calculated as p - q * divide(p,q).
 
 <p>
 <h1><tt><a name="display">display(<i>x</i>)</a></tt></h1>
@@ -1184,6 +1179,12 @@ Can be used to clear symbolic values.
 
      n
 </pre>
+
+<p><h1><tt><a name="quotient">quotient(<i>p,q,x</i>)</a></tt></h1>
+Returns the quotient of polynomial p(x) over q(x).
+The last argument can be omitted when the polynomials are in x.
+The remainder can be calculated as p - q * quotient(p,q).
+
 <p>
 <h1><tt><a name="rank">rank(<i>a</i>)</a></tt></h1>
 Returns the rank (number of indices) of tensor <i>a</i>.

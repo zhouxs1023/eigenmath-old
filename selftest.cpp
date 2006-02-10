@@ -59,7 +59,6 @@ selftest(void)
 	test_denominator();
 	test_derivative();
 	test_dirac();
-	test_divide();
 	test_erf();
 	test_erfc();
 	test_expcos();
@@ -80,6 +79,7 @@ selftest(void)
 	test_outer();
 	test_product();
 	test_prog();
+	test_quotient();
 	test_rationalize();
 	test_real();
 	test_rect();
