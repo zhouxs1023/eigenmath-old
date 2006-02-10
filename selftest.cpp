@@ -44,6 +44,8 @@ selftest(void)
 	test_user_func();
 	test_tensor();
 
+	test_bake();
+
 	test_abs();
 	test_adj();
 	test_arg();

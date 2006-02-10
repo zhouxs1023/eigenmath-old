@@ -118,3 +118,15 @@ bake_poly_term(int k)
 		cons();
 	}
 }
+
+static char *s[] = {
+
+	"(x+3)^3",
+	"x^3+9*x^2+27*x+27",
+};
+
+void
+test_bake(void)
+{
+	test(__FILE__, s, sizeof s / sizeof (char *));
+}

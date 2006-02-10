@@ -69,7 +69,8 @@ void eval_atomize(void);
 // bake.cpp
 void bake(void);
 void bake_poly();
-void bake_poly_term(int n);
+void bake_poly_term(int k);
+void test_bake(void);
 
 // besselj.cpp
 void eval_besselj(void);
@@ -137,10 +138,6 @@ void eval_ceiling(void);
 void ceiling(void);
 void yyceiling(void);
 void test_ceiling(void);
-
-// charpoly.cpp
-void charpoly(void);
-void test_charpoly(void);
 
 // clear.cpp
 void eval_clear(void);
@@ -277,7 +274,6 @@ void eval_cons(void);
 void setup(void);
 void eval_add(void);
 void eval_break(void);
-void eval_charpoly(void);
 void eval_check(void);
 void eval_cls(void);
 void eval_conj(void);
