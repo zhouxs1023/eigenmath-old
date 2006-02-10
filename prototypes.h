@@ -193,7 +193,9 @@ void test_cosh(void);
 // data.cpp
 
 // degree.cpp
+void eval_degree(void);
 void degree(void);
+void yydegree(U *p);
 
 // denominator.cpp
 void eval_denominator(void);
@@ -277,7 +279,6 @@ void eval_break(void);
 void eval_check(void);
 void eval_cls(void);
 void eval_conj(void);
-void eval_degree(void);
 void eval_det(void);
 void eval_dim(void);
 void eval_divisors(void);

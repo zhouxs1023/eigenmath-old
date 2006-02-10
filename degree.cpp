@@ -1,4 +1,20 @@
 #include "stdafx.h"
+#include "defs.h"
+
+void
+eval_degree(void)
+{
+	push(cadr(p1));
+	eval();
+	push(caddr(p1));
+	eval();
+	p1 = pop();
+	if (p1 == symbol(NIL))
+		guess();
+	else
+		push(p1);
+	degree();
+}
 
 //-----------------------------------------------------------------------------
 //
@@ -15,10 +31,6 @@
 //
 //-----------------------------------------------------------------------------
 
-#include "defs.h"
-
-static void degree_f(U *);
-
 #define POLY p1
 #define X p2
 #define DEGREE p3
@@ -30,13 +42,13 @@ degree(void)
 	X = pop();
 	POLY = pop();
 	DEGREE = zero;
-	degree_f(POLY);
+	yydegree(POLY);
 	push(DEGREE);
 	restore();
 }
 
-static void
-degree_f(U *p)
+void
+yydegree(U *p)
 {
 	if (equal(p, X)) {
 		if (iszero(DEGREE))
@@ -47,7 +59,7 @@ degree_f(U *p)
 	 } else if (iscons(p)) {
 		p = cdr(p);
 		while (iscons(p)) {
-			degree_f(car(p));
+			yydegree(car(p));
 			p = cdr(p);
 		}
 	}

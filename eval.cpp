@@ -268,16 +268,6 @@ eval_conj(void)
 }
 
 void
-eval_degree(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	degree();
-}
-
-void
 eval_det(void)
 {
 	push(cadr(p1));
