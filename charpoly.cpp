@@ -161,8 +161,8 @@ static char *s[] = {
 	"f(x)=eval(charpoly(A))",
 	"",
 
-	"f",
-	"-5*x-2*x^0+x^2",
+	"f-(-5*x-2*x^0+x^2)",
+	"0",
 
 	"f(A)",
 	"((0,0),(0,0))",
@@ -173,8 +173,8 @@ static char *s[] = {
 	"f(lambda)=eval(charpoly(A,lambda))",
 	"",
 
-	"f",
-	"a*d*lambda^0-a*lambda-b*c*lambda^0-d*lambda+lambda^2",
+	"f-(a*d*lambda^0-a*lambda-b*c*lambda^0-d*lambda+lambda^2)",
+	"0",
 
 	"f(A)",
 	"((0,0),(0,0))",

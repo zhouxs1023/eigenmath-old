@@ -118,7 +118,7 @@ ispoly(U *p, U *x)
 int
 ispoly_expr(U *p, U *x)
 {
-	if (isadd(p)) {
+	if (car(p) == symbol(ADD)) {
 		p = cdr(p);
 		while (iscons(p)) {
 			if (!ispoly_term(car(p), x))

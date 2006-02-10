@@ -1115,16 +1115,16 @@ static char *s[] = {
 	"tty=1",
 	"",
 
-	"integral(x^2+x)",
-	"1/2*x^2+1/3*x^3",
+	"integral(x^2+x)-(1/2*x^2+1/3*x^3)",
+	"0",
 
 	"#1",
 	"integral(A,X)",
 	"A*X",
 
 	"#4",
-	"integral(A+B,X)",
-	"A*X+B*X",
+	"integral(A+B,X)-(A*X+B*X)",
+	"0",
 
 	"#9",
 	"integral(1/X,X)",

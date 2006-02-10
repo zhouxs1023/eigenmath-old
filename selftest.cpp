@@ -51,7 +51,6 @@ selftest(void)
 	test_bessely();
 	test_carac();
 	test_ceiling();
-	test_charpoly();
 	test_cofactor();
 	test_condense();
 	test_contract();
@@ -756,23 +755,23 @@ char *script[] = {
 //
 //-----------------------------------------------------------------------------
 
-	"integral(a,x)",
-	"a*x",
+	"integral(a,x)-a*x",
+	"0",
 
-	"integral(a*b,x)",
-	"a*b*x",
+	"integral(a*b,x)-a*b*x",
+	"0",
 
-	"integral(x,x)",
-	"1/2*x^2",
+	"integral(x,x)-1/2*x^2",
+	"0",
 
-	"integral(a*x,x)",
-	"1/2*a*x^2",
+	"integral(a*x,x)-1/2*a*x^2",
+	"0",
 
 	"integral(a*b*x,x)",
 	"1/2*a*b*x^2",
 
-	"integral(a+b,x)",
-	"a*x+b*x",
+	"integral(a+b,x)-a*x-b*x",
+	"0",
 
 	"integral(1/x,x)",
 	"log(x)",
@@ -786,17 +785,17 @@ char *script[] = {
 	"integral(exp(a*x),x)",
 	"exp(a*x)/a",
 
-	"integral(exp(a*x+b),x)",
-	"exp(b+a*x)/a",
+	"integral(exp(a*x+b),x)-exp(b+a*x)/a",
+	"0",
 
-	"integral(x*exp(A*x^2+B),x)",
-	"exp(B+A*x^2)/(2*A)",
+	"integral(x*exp(A*x^2+B),x)-exp(B+A*x^2)/(2*A)",
+	"0",
 
-	"integral(log(x),x)",
-	"-x+x*log(x)",
+	"integral(log(x),x)+x-x*log(x)",
+	"0",
 
-	"integral(log(a*x+b),x)",
-	"-x+x*log(b+a*x)+b*log(b+a*x)/a",
+	"integral(log(a*x+b),x)+x-x*log(b+a*x)-b*log(b+a*x)/a",
+	"0",
 
 	"integral(sin(x),x)",
 	"-cos(x)",
@@ -812,8 +811,8 @@ char *script[] = {
 
 	// integral w/o 2nd arg
 
-	"integral(1+x+x^2+x^3)",
-	"x+1/2*x^2+1/3*x^3+1/4*x^4",
+	"integral(1+x+x^2+x^3)-(x+1/2*x^2+1/3*x^3+1/4*x^4)",
+	"0",
 
 //-----------------------------------------------------------------------------
 //
@@ -1179,8 +1178,8 @@ char *script[] = {
 	"f(x)=eval(x)+1",
 	"",
 
-	"f(x+1)",
-	"2+x",
+	"f(x+1)-(2+x)",
+	"0",
 
 	// test indexed formal arg
 

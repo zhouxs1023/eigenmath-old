@@ -66,6 +66,11 @@ void test_arg(void);
 // atomize.cpp
 void eval_atomize(void);
 
+// bake.cpp
+void bake(void);
+void bake_poly();
+void bake_poly_term(int n);
+
 // besselj.cpp
 void eval_besselj(void);
 void besselj(void);

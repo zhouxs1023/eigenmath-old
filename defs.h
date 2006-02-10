@@ -73,7 +73,6 @@ enum {
 	BREAK,
 	CARAC,
 	CEILING,
-	CHARPOLY,
 	CHECK,
 	CLEAR,
 	CLS,

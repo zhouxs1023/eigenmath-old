@@ -83,7 +83,6 @@ eval_cons(void)
 	case BREAK:		eval_break();		break;
 	case CARAC:		eval_carac();		break;
 	case CEILING:		eval_ceiling();		break;
-	case CHARPOLY:		eval_charpoly();	break;
 	case CHECK:		eval_check();		break;
 	case CLEAR:		eval_clear();		break;
 	case CLS:		eval_cls();		break;
@@ -237,20 +236,6 @@ eval_break(void)
 	push(cadr(p1));
 	eval();
 	break_function();
-}
-
-void
-eval_charpoly(void)
-{
-	push(cadr(p1));
-	eval();
-	if (caddr(p1) == symbol(NIL))
-		push_symbol(SYMBOL_X);
-	else {
-		push(caddr(p1));
-		eval();
-	}
-	charpoly();
 }
 
 // checks a predicate, i.e. check(A = B)

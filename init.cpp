@@ -51,7 +51,6 @@ init(void)
 	std_symbol("break", BREAK);
 	std_symbol("carac", CARAC);
 	std_symbol("ceiling", CEILING);
-	std_symbol("charpoly", CHARPOLY);
 	std_symbol("check", CHECK);
 	std_symbol("clear", CLEAR);
 	std_symbol("cls", CLS);
