@@ -1,4 +1,4 @@
-// Eigenmath by George Weigt (gweigt@yahoo.com)
+// Eigenmath by George Weigt
 //
 // The starting point for a symbolic computation is in run.cpp
 //

@@ -1,4 +1,4 @@
-/* Eigenmath by George Weigt (gweigt@yahoo.com)
+/* Eigenmath by George Weigt
 
 This file does all the things required by the Windows API.
 
