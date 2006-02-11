@@ -35,6 +35,21 @@ yycosine(void)
 		return;
 	}
 
+	// cos(arctan(x)) = 1 / sqrt(1 + x^2)
+
+	// see p. 173 of the CRC Handbook of Mathematical Sciences
+
+	if (car(p1) == symbol(ARCTAN)) {
+		push_integer(1);
+		push(cadr(p1));
+		push_integer(2);
+		power();
+		add();
+		push_rational(-1, 2);
+		power();
+		return;
+	}
+
 	if (expomode == 1) {
 		push(p1);
 		expcos();
