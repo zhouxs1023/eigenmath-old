@@ -625,8 +625,8 @@ create_main_window(void)
 {
     Rect r;
 
-    r.left = 0;
-    r.top = 44;
+    r.left = 20;
+    r.top = 44 + 16;
     r.right = r.left + client_width + grow_dim;
     r.bottom = r.top + client_height + grow_dim;
 
