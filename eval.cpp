@@ -249,7 +249,7 @@ eval_check(void)
 	p1 = pop();
 	if (iszero(p1))
 		stop("check(arg): arg is zero");
-	push_integer(1);
+	push(symbol(NIL)); // no result is printed
 }
 
 void
