@@ -2,7 +2,7 @@
 #
 # 1. Unpack the tarball.
 #
-#	$ tar zxf eigenmath-linux.tar.gz
+#	$ tar zxf eigenmath.tar.gzip
 #
 # 2. Compile it.
 #

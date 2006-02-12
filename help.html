@@ -6,7 +6,7 @@
 <pre>
 <a href="#abs">abs</a>		absolute value
 <a href="#adj">adj</a>		adjunct of matrix
-<a href="#and">and</a>             logical connective
+<a href="#and">and</a>             logical and
 <a href="#arccos">arccos</a>
 <a href="#arccosh">arccosh</a>
 <a href="#arcsin">arcsin</a>
@@ -17,7 +17,7 @@
 <a href="#binomial">binomial</a>
 <a href="#break">break</a>		break out of a loop
 <a href="#ceiling">ceiling</a>		ceiling function
-<a href="#check">check</a>           stop if not zero
+<a href="#check">check</a>           stop if false
 <a href="#coeff">coeff</a>           coefficient of polynomial
 <a href="#cofactor">cofactor</a>        cofactor of matrix
 <a href="#condense">condense</a>	find subexpressions
@@ -61,7 +61,9 @@
 <a href="#log">log</a>		natural logarithm
 <a href="#mag">mag</a>		magnitude of complex
 <a href="#mod">mod</a>		modulo function
+<a href="#not">not</a>             logical negation
 <a href="#numerator">numerator</a>	numerator of expression
+<a href="#or">or</a>              logical or
 <a href="#outer">outer</a>		outer product of tensors
 <a href="#polar">polar</a>           convert to polar form
 <a href="#prime">prime</a>
@@ -114,7 +116,7 @@ On the other hand, the function definition A(X)=B does not evaluate B until A
 itself is evaluated.
 <li>
 Enter bake=0 to get results in raw format.
-Enter bake=1/2 for half-baked code.
+Enter bake=1/2 for half-baked code :)
 </ul>
 
 </td>
@@ -162,16 +164,15 @@ The inverse of a matrix is equal to the adjunct divided by the determinant.
 
      0
 </pre>
-<p>
-<h1><tt><a name="and">and(<i>a,b,...</i>)</a></tt></h1>
-Logical-and function.
-<pre>
-<i>Enter</i>
-	and(1&lt;2,2&lt;3)
 
-<i>Result</i>
-	true
+<p><h1><tt><a name="and">and(<i>a,b,...</i>)</a></tt></h1>
+Logical-and of predicate expressions.
+<pre>
+<i>Example</i>
+
+     and(A = B, B = C)
 </pre>
+
 <p>
 <h1><tt><a name="arccos">arccos(<i>x</i>)</a></tt></h1>
 Returns the inverse cosine of <i>x</i>.
@@ -225,11 +226,14 @@ For example, <tt>for()</tt> can evaluate <tt>f()</tt> which evaluates
 <p>
 <h1><tt><a name="ceiling">ceiling(<i>x</i>)</a></tt></h1>
 Returns the smallest integer not less than <i>x</i>.
-<p>
-<h1><tt><a name="check">check(<i>x</i>)</a></tt></h1>
-If x is zero then continue, else stop.
-The check function also accepts a predicate expression such as A&lt;B,
-A=B, etc.
+
+<p><h1><tt><a name="check">check(<i>x</i>)</a></tt></h1>
+If x is true then continue, else stop.
+<pre>
+<i>Example</i>
+
+    check(A = B)
+</pre> 
 
 <p><h1><tt><a name="coeff">coeff(<i>p,x,n</i>)</a></tt></h1>
 Returns the coefficient of x^n in polynomial p.
@@ -258,18 +262,19 @@ Attempts to simplify x by factoring common terms.
 
      2 a (x + 1)
 </pre>
-<p>
-<h1><tt><a name="conj">conj(<i>x</i>)</a></tt></h1>
-Returns the complex conjugate of <i>x</i>.
+
+<p><h1><tt><a name="conj">conj(<i>z</i>)</a></tt></h1>
+Returns the complex conjugate of z.
 <pre>
 <i>Enter</i>
 
-     conj(3+4i)
+     conj(3 + 4 i)
 
 <i>Result</i>
 
      3 - 4 i
 </pre>
+
 <p>
 <h1><tt><a name="contract">contract(<i>a,i,j</i>)</a></tt></h1>
 Returns the contraction of tensor <i>a</i> across indices <i>i</i>
@@ -1056,6 +1061,15 @@ Symbols in expression z are presumed to be positive and real.
 <i>Result</i>
 	3^(1/2)
 </pre>
+
+<p><h1><tt><a name="not">not(<i>x</i>)</a></tt></h1>
+Negates a predicate expression.
+<pre>
+<i>Example</i>
+
+     not(A = B)
+</pre>
+
 <p>
 <h1><tt><a name="mod">mod(<i>a,b</i>)</a></tt></h1>
 Returns the remainder of <i>a</i> divided by <i>b</i>.
@@ -1071,6 +1085,15 @@ Returns the numerator of expression x.
 
 	a
 </pre>
+
+<p><h1><tt><a name="or">or(<i>a,b,...</i>)</a></tt></h1>
+Logical-or of predicate expressions.
+<pre>
+<i>Example</i>
+
+     or(A = B, A = C)
+</pre>
+
 <p>
 <h1><tt><a name="outer">outer(<i>a,b,...</i>)</a></tt></h1>
 Returns the outer product of tensors (aka tensor product).
@@ -1563,29 +1586,17 @@ and <i>n</i> is the power of the expansion.
      1 + --- x  + ---- x  + ----- x
           2        24        720
 </pre>
-<p>
-<h1><tt><a name="test">test(<i>a,b,c,d,...</i>)</a></tt></h1>
-If "a" is true then b is returned
+
+<p><h1><tt><a name="test">test(<i>a,b,c,d,...</i>)</a></tt></h1>
+If argument a is true then b is returned
 else if c is true then d is returned, etc.
-If the number of arguments is odd then the last argument is returned when no
-conditions are true.
-If the number of arguments is even then the symbol void is returned when no
-conditions are true.
-The usual relational operators can be used.
+If the number of arguments is odd then the last argument is the default case.
 <pre>
-<i>Enter</i>
-	f(a,b) = test(a&lt;b, -1, a=b, 0, a&gt;b, 1)
-	f(1,2)
+<i>Example</i>
 
-<i>Result</i>
-	-1
-
-<i>Enter</i>
-	f(a,b)
-
-<i>Result</i>
-	void
+     f(x) = test(x &lt 0, g(x), h(x))
 </pre>
+
 <p>
 <h1><tt><a name="trace">trace(<i>m</i>)</a></tt></h1>
 Returns the trace of matrix <i>m</i>.
