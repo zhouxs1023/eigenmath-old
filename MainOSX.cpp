@@ -382,7 +382,7 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
         if (running)
 			break;
 		go_to_calc_mode();
-        printstr("version 111 eigenmath.sourceforge.net\n");
+        printstr("version 112 eigenmath.sourceforge.net\n");
         update_display();
         break;
 
