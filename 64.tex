@@ -1,0 +1,141 @@
+\parindent=0pt
+
+1. A new medication gives 20\% of the users an undesirable
+reaction. If a sample of 10 users receive the medication,
+find the probablity of:
+
+\bigskip
+a) exactly two undesirable reactions.
+\medskip
+Use the binomial distribution $p(x)={}_nC_x\times p^x\times(1-p)^{n-x}$
+
+$n=10$, $p=0.2$
+$$\eqalign{
+P\{X=2\}=p(2)&={}_{10}C_2\times(0.2)^2\times(1-0.2)^8\cr
+&={10!\over2!8!}\times0.04\times0.1678\cr
+&=0.302
+}$$
+
+\bigskip
+b) at least one undesirable reaction.
+\medskip
+$$\eqalign{
+P\{X<2\}=p(0)+p(1)&={10!\over0!10!}\times(0.2)^0\times(1-0.2)^{10}
++{10!\over1!9!}\times(0.2)^1\times(1-0.2)^9\cr
+&=0.1074+10\times0.2\times0.1342\cr
+&=0.3758
+}$$
+
+\bigskip
+\bigskip
+2. In a large population, 80\% of the members are right-handed.
+
+\bigskip
+a) In a random sample size 10, what is the probability that
+exactly eight members will be right-handed?
+\medskip
+$n=10$, $p=0.8$
+$$\eqalign{
+P\{X=8\}=p(8)&={10!\over8!2!}\times(0.8)^8\times(1-0.8)^{10-8}\cr
+&=0.302\cr
+}$$
+
+\bigskip
+b) In a random sample of size 15, what is the probability that at
+least two members will be left-handed?
+\medskip
+$n=15$, $p=0.2$
+$$\eqalign{
+P\{X>1\}&=1-p(0)-p(1)\cr
+&=1-{15!\over0!15!}\times(0.2)^0\times(1-0.2)^{15}
+-{15!\over1!14!}\times(0.2)^1\times(1-0.2)^{14}\cr
+&=1-0.0352-0.1319\cr
+&=0.8329
+}$$
+
+\bigskip
+c) In a random sample of size 30, what is the probability that
+at most twenty-eight members will be right-handed?
+\medskip
+$n=30$, $p=0.8$
+$$\eqalign{
+P\{X<29\}&=1-p(29)-p(30)\cr
+&=1-{30!\over29!1!}\times(0.8)^{29}\times(1-0.8)^1-
+{30!\over30!0!}\times(0.8)^{30}\times(1-0.8)^0\cr
+&=1-0.009-0.0012\cr
+&=0.9898
+}$$
+
+\vfill
+\eject
+
+3. Suppose that over a period of several years the average number
+of rats per quarter block is five. Assuming the number of rats
+follows a Poisson distribution,
+
+\bigskip
+a) what is the probability that there are exactly five rats in
+a randomly selected quarter block?
+\medskip
+$$P\{X=5\}={(5)^5\times e^{-5}\over5!}=0.1755$$
+
+\bigskip
+b) What is the probability that there are fewer than three rats
+in a randomly selected quarter block?
+\medskip
+$$\eqalign{
+P\{X<3\}=p(0)+p(1)+p(2)&= {(5)^0\times e^{-5}\over0!}
++{(5)^1\times e^{-5}\over1!}+{(5)^2\times e^{-5}\over2!}\cr
+&=e^{-5}(1/1+5/1+25/2)\cr
+&=0.1247
+}$$
+
+\bigskip
+c) What is the probability that there are between eight and twelve
+rats, inclusive, in two randomly selected quarter blocks?
+
+$\lambda=10$
+$$\eqalign{
+P\{8\le X\le12\}&=p(8)+p(9)+p(10)+p(11)+p(12)\cr
+&=e^{-10}
+\left({10^8\over8!}+{10^9\over9!}+{10^{10}\over10!}+{10^{11}\over{11}!}+{10^{12}\over12!}\right)\cr
+&=0.5713
+}$$
+
+\vfill
+\eject
+4. Let $Z$ be a normally distributed random variable with mean 0 and
+standard deviation 1.
+
+\bigskip
+a) $P\{Z>-2.13\}=P\{Z<2.13\}=0.9834$
+
+\bigskip
+b) $P\{1.49<Z<1.83\}=P\{Z<1.83\}-P\{Z<1.49\}=0.0345$
+
+\bigskip
+c) $P\{0<Z<1.84\}=P\{Z<1.84\}-0.5=0.4671$
+
+\bigskip
+d) $P\{-1.77<Z<-0.25\}=P\{Z<-0.25\}-P\{Z<-1.77\}=0.4013-0.0384=0.3629$
+
+\bigskip
+e) $P\{-1.14<Z<0\}=0.5-P\{Z<-1.14\}=0.3729$
+
+\bigskip
+f) $P\{-1.56<Z<0.11\}=P\{Z<0.11\}-P\{Z<-1.56\}=0.5438-0.0594=0.4844$
+
+\bigskip
+g) $P\{Z<c\}=0.7995$, $c=0.84$
+
+\bigskip
+h) $P\{Z>c\}=0.1251$, $P\{Z<c\}=1-0.1251=0.8749$, $c=1.15$
+
+\bigskip
+i) $P\{0<Z<c\}=0.3531$, $P\{Z<c\}=0.5+0.3531=0.8531$, $c=1.05$
+
+\bigskip
+j) $P\{-0.54<Z<c\}=0.646$, $P\{Z<c\}=P\{Z<-0.54\}+0.646=0.9406$, $c=1.56$
+
+
+\end
