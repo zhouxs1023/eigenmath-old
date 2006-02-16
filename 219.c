@@ -211,14 +211,14 @@ main(int argc, char *argv[])
 void
 help(void)
 {
-	printf("-a0x40000       set register offset to 0x40000\n");
+	printf("-a0x40000       set register address to 0x40000\n");
 	printf("-c	        clear connection memory\n");
 	printf("-d              disable local bus\n");
 	printf("-e              enable local bus\n");
 	printf("-r              read register\n");
 	printf("-w0x1000        write 0x1000 to register\n");
-	printf("-s0 -s1         connect stream 0 to 1 (streams 0-63)\n");
-	printf("-t0 -t1         connect timeslot 0 to 1 (timeslots 0-8191)\n");
+	printf("-s0 -s1         connect stream 0 to 1 (streams are numbered 0-63)\n");
+	printf("-t0 -t1         connect timeslot 0 to 1 (timeslots are numbered 0-8191)\n");
 	printf("-t0 -s1         broadcast timeslot 0 to stream 1\n");
 	printf("-x -s0          disconnect stream 0\n");
 	printf("-x -t0          disconnect timeslot 0\n");
