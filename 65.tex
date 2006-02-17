@@ -86,10 +86,7 @@ $$(x_1,x_2)\oplus(y_1,y_2)=(y_1,y_2)\oplus(x_1,x_2)\eqno{\rm (B2)}$$
 Step 1. Expand the left side of (B2).
 $$(x_1,x_2)\oplus(y_1,y_2)=(x_1+y_2,x_2+y_1)$$
 Step 2. Expand the right side of (B2).
-$$\eqalign{
-(y_1,y_2)\oplus(x_1,x_2)&=(y_1+x_2,y_2+x_1)\cr
-&=(x_1+y_1,x_2\cdot y_2)
-}$$
+$$(y_1,y_2)\oplus(x_1,x_2)=(y_1+x_2,y_2+x_1)$$
 The results are different, hence $\oplus$ is not commutative.
 
 \vfill
@@ -97,7 +94,7 @@ The results are different, hence $\oplus$ is not commutative.
 
 {\bf Problem C.}
 As in Problem A, except define $\oplus$ to be
-$(a,b)\oplus(c,d)=(a+c+7,b\cdot d)$.
+$(a,b)\oplus(c,d)=(a+c-7,b\cdot d)$.
 
 \bigskip
 \bigskip
@@ -109,10 +106,11 @@ $$\eqalign{
 x_1&=7\cr
 x_2&=1\cr
 }$$
-We have $(7,1)\oplus(y_1,y_2)=(y_1,y_2)$.
-Next, check that $(y_1,y_2)\oplus(7,1)=(y_1,y_2)$.
-$$(y_1,y_2)\oplus(7,1)=(y_1+7-7,y_2\cdot1)=(y_1,y_2)$$
-Hence $(7,1)$ is the identity.
+Verify that $(7,1)$ is indeed the identity.
+$$\eqalign{
+(7,1)\oplus(y_1,y_2)=(7+y_1-7,1\cdot y_2)&=(y_1,y_2)\cr
+(y_1,y_2)\oplus(7,1)=(y_1+7-7,y_2\cdot1)&=(y_1,y_2)
+}$$
 
 \bigskip
 \bigskip
