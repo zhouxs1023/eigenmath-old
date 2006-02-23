@@ -1,4 +1,4 @@
-// CRC using big table lookup, iscsi polynomial.
+// CRC using big table lookup.
 
 #include <stdio.h>
 
@@ -49,7 +49,9 @@ slow_crc(unsigned char *data, int len)
 	return ~crc;
 }
 
-#define G 0x82f63b78
+#define G 0x82f63b78		// iscsi polynomial
+
+//#define G 0xedb88320		// ethernet polynomial
 
 void
 init_tables()
