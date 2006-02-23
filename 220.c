@@ -8,10 +8,9 @@ unsigned int
 fast_crc(unsigned char *data, int len)
 {
 	int n;
-	unsigned int crc;
 	unsigned short *p;
 
-	crc = ~0;
+	unsigned int crc = ~0;
 
 	if ((unsigned long) data & 1) {
 		crc ^= *data++;
