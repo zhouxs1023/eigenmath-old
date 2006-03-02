@@ -15,19 +15,17 @@ the false statement $3<-2$.
 {\bf Problem B.}
 True or False: Let $x,y\in Z$.
 If $21x<21y$, then $x<y$.
+\medskip
+True.
 \bigskip
-True by the following.
-
 {\bf Proof.}
 Let $x,y\in Z$, $21x<21y$. Then
-
-$21y-21x\in N$ by the definition of less-than (Definition 2.3).
-
-$21(y-x)\in N$ by the distributive law.
-
-$y-x\in N$ by Proposition 2.2 and $21\in N$.
-
-$x<y$ by the definition of less-than.
+$$\eqalign{
+21y-21x\in N		&\qquad\hbox{definition of less-than}\cr
+21(y-x)\in N		&\qquad\hbox{distributive law}\cr
+y-x\in N		&\qquad\hbox{Proposition 2.2 and $21\in N$}\cr
+x<y			&\qquad\hbox{definition of less-than}\cr
+}$$
 
 \bigskip
 \bigskip
@@ -36,17 +34,13 @@ $x<y$ by the definition of less-than.
 {\bf Lemma.} Let $a,b\in Z$. If $-b\in N$, the $a+b<a$.
 \bigskip
 {\bf Proof.} Let $a,b\in Z$, $-b\in N$. Then
-
-$0+(-b)\in N$ by Axiom II, additive identity.
-
-$a+(-a)+(-b)\in N$ by Axiom III, additive inverse.
-
-$a+(-1)a+(-1)b\in N$ by Lemma 1.4, $(-1)a=-a$.
-
-$a+(-1)(a+b)\in N$ by the distributive law.
-
-$a-(a+b)\in N$ by Lemma 1.4.
-
-$a+b<a$ by the definition of less-than (Definition 2.3).
+$$\eqalign{
+0+(-b)\in N		&\qquad\hbox{additive identity}\cr
+a+(-a)+(-b)\in N	&\qquad\hbox{additive inverse}\cr
+a+(-1)a+(-1)b\in N	&\qquad\hbox{Lemma 1.4: $(-1)a=-a$}\cr
+a+(-1)(a+b)\in N	&\qquad\hbox{distributive law}\cr
+a-(a+b)\in N		&\qquad\hbox{Lemma 1.4}\cr
+a+b<a			&\qquad\hbox{definition of less-than}\cr
+}$$
 
 \end
