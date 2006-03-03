@@ -1,0 +1,78 @@
+\parindent=0pt
+\magnification=1200
+Statistical Methods
+
+\bigskip
+1. Confidence interval for $\mu$, variance ($\sigma^2$) is known
+$$\bar Y\pm Z_{\alpha/2}\,{\sigma\over\sqrt n}$$
+
+2. Confidence interval for $\mu$, variance is unknown, normal distribution
+$$\bar Y\pm t_{(n-1,\alpha/2)}\,{S\over\sqrt n}$$
+
+3. Confidence interval for $\mu$, variance is unknown, large sample size
+$$\bar Y\pm Z_{\alpha/2}\,{S\over\sqrt n}$$
+
+4. Confidence interval for proportion $p$, $\hat p=Y/n$
+$$\hat p\pm Z_{\alpha/2}\,\sqrt{\hat p(1-\hat p)\over n}$$
+
+5. Confidence interval for population variance $\sigma^2$, normal distribution
+$$\left({(n-1)S^2\over\chi^2_{(n-1,\alpha/2)}},\,
+{(n-1)S^2\over\chi^2_{(n-1,1-\alpha/2)}}\right)$$
+
+6. Sample size for estimating population mean $\mu$ (can use $S$ for $\sigma$)
+$$n=(Z_{\alpha/2}\,\sigma/\epsilon)^2$$
+
+7. Sample size for estimating proportion with estimate
+$$n=(Z_{\alpha/2}/\epsilon)^2\times p_E\times(1-p_E)$$
+
+8. Sample size for estimating proportion, no estimate available
+$$n=(Z_{\alpha/2}/(2\epsilon))^2$$
+
+\vfill
+\eject
+
+9. Confidence interval for difference of means $\mu_X-\mu_Y$,
+both variances are known.
+$$(X-Y)\pm\left(Z_{\alpha/2}\times\sqrt{{\sigma_X^2\over n}
++{\sigma_Y^2\over m}}\,\right)$$
+
+10. Confidence interval for difference of means $\mu_X-\mu_Y$,
+both variances are unknown and equal
+$$S_p=\sqrt{(n-1)S_X^2+(m-1)S_Y^2\over n+m-2}$$
+$$(X-Y)\pm\left(t_{(n-1,\alpha/2)}\times S_p\times
+\sqrt{{1\over n}+{1\over m}}\,\right)$$
+
+11. Confidence interval for difference of means $\mu_X-\mu_Y$,
+both variances are unknown and not equal
+$$\nu={(S_X^2/n+S_Y^2/m)^2\over
+(S_X^2/n)^2/(n-1)+(S_Y^2/m)^2/(m-1)}$$
+$$(X-Y)\pm\left(t_{(\nu,\alpha/2)}\times\sqrt{
+{S_X^2\over n}+{S_Y^2\over m}}\,\right)$$
+
+12. Confidence interval for difference of means $\mu_X-\mu_Y$,
+both variances are unknown, both sample sizes are large
+$$(X-Y)\pm\left(
+Z_{\alpha/2}\times\sqrt{
+{S_X^2\over n}+{S_Y^2\over m}
+}\,\right)$$
+
+13. Confidence interval for difference of means $\mu_X-\mu_Y$,
+samples are match paired, $D_j=X_j-Y_j$
+$$\bar D\pm\left(t_{(n-1,\alpha/2)}\times{S_D\over\sqrt n}\,\right)$$
+
+14. Confidence interval for difference of proportions $p_X-p_Y$
+$$\hat p_X=X/n,\qquad\hat p_Y=Y/m$$
+$$(\hat p_X-\hat p_Y)\pm\left(
+Z_{\alpha/2}\times\sqrt{
+{\hat p_X(1-\hat p_X)\over n}+
+{\hat p_Y(1-\hat p_Y)\over m}
+}\,\right)$$
+
+15. Confidence interval for ratio of population variances $\sigma_X^2/\sigma_Y^2$
+$$\left(
+{S_X^2\over S_Y^2\times F_{(n-1,m-1,\alpha/2)}}
+,\,
+{S_X^2\times F_{(m-1,n-1,\alpha/2)}\over S_Y^2}
+\right)$$
+
+\end
