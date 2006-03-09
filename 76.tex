@@ -1,0 +1,65 @@
+\parindent=0pt
+
+Abstract Algebra
+
+\bigskip
+{\bf Problem A.} Prove the following corollary, using the lemma:
+There is no integer between 0 and 1.
+\medskip
+{\bf Corollary.} Let $a\in Z$. Then there is no integer
+between $a$ and $a+1$.
+
+\bigskip
+{\bf Proof.} Let $a\in Z$.
+Suppose there is a $b\in Z$ such that $a<b<a+1$.
+Then by Lemma 2.11 (Unit 7) we can add $-a$ to obtain
+$0<b-a<1$.
+We conclude that $b-a$ is an integer by closure.
+However, by the lemma ``there is no integer between 0 and 1,''
+we also conclude that $b-a$ does not exist.
+This is a contradiction, therefore the premise must be false.
+Hence there is no integer between $a$ and $a+1$
+
+\bigskip
+This proof uses the corollary ``1 is the smallest element of $N$.''
+\medskip
+{\bf Proof.} Let $a\in Z$.
+Suppose there is a $b\in Z$ such that $a<b$ and $b<a+1$.
+By the first less-than we have $b-a\in N$.
+Adding $-a$ to the second less-than yields $b-a<1$.
+Then by Corollary 1.2, ``1 is the smallest element of $N$,''
+we have $b-a\not\in N$.
+This is a contradiction, therefore the premise must be false.
+Hence there is no integer between $a$ and $a+1$
+
+\bigskip
+\bigskip
+{\bf Problem B.} Prove that
+$$2+4+\cdots+2n=n(n+1)$$
+for any $n\in N$.
+
+\bigskip
+{\bf Proof.}
+(i) Substitute 1 for $n$ to obtain $2=1(1+1)$ hence the equality is
+true for $n=1$.
+(ii)
+Assume that the equality holds for a natural number $n$.
+Does it also hold for $n+1$?
+For $n+1$ we have
+$$\eqalign{
+2+4+\cdots+2n+2(n+1)&=(n+1)((n+1)+1)\cr
+&=(n+1)(n+2)\cr
+&=n^2+3n+2\cr
+}$$
+Subtract $2n+2$ from both sides of the equation.
+$$\eqalign{
+2+4+\cdots+2n&=n^2+3n+2-2n-2\cr
+&=n^2+n\cr
+&=n(n+1)\cr
+}$$
+This result is the original equality.
+Therefore when the equality is true for $n$ it is also true for $n+1$.
+Hence by induction the equality is true for all $n\in N$.
+
+
+\end
