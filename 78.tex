@@ -3,14 +3,14 @@
 Statistical Methods
 
 \bigskip
-1a.\par
-$H_0$: Unemployment is 9\%.\par
-$H_1$: Unemployment varies significantly from 9\%.
+1a.
+Null hypothesis: Unemployment is 9\%.
+Alternative hypothesis: Unemployment is not 9\%.
 
 \bigskip
-1b.\par
-$H_0$: $\mu_0=55.50$\par
-$H_1$: $\mu<\mu_0$
+1b.
+Null hypothesis: The mean price is \$55{.}50.
+Alternative hypothesis: The mean price is less than \$55{.}50.
 
 \bigskip
 1c. $H_0$: $\mu_0=45$, $H_1$: $\mu>\mu_0$.
@@ -67,7 +67,8 @@ Bank customers do not live 2 miles away on average.
 \vfill
 \eject
 
-2. Known population variance.
+2. Hypothesis about population mean, known population variance.
+See note05 page 9.
 $$H_0: \mu=\mu_0$$
 $$H_1: \mu>\mu_0$$
 $$\mu_0=15$$
@@ -82,7 +83,8 @@ Reject $H_0$ at $0.025$ level of significance.
 There is sufficient evidence that the workers are slower.
 
 \bigskip
-3. Known population variance.
+3. Hypothesis about population mean, known population variance.
+See note05 page 9.
 $$H_0: \mu=\mu_0$$
 $$H_1: \mu>\mu_0$$
 $$\mu_0=5.5$$
@@ -99,7 +101,8 @@ There is insufficient evidence against the claim of $5.5$ miles.
 \vfill
 \eject
 
-4. Known population variance.
+4. Hypothesis about population mean, known population variance.
+See note05 page 9.
 $$H_0: \mu=\mu_0$$
 $$H_1: \mu>\mu_0$$
 $$\mu_0=1510$$
@@ -114,7 +117,8 @@ Reject $H_0$ at $0.1$ level of significance.
 There is sufficient evidence that the economist is correct.
 
 \bigskip
-5. Known population variance.
+5. Hypothesis about population mean, known population variance.
+See note05 page 9.
 $$H_0: \mu=\mu_0$$
 $$H_1: \mu>\mu_0$$
 $$\mu_0=22500$$
@@ -132,7 +136,8 @@ majors start at a higher salary.
 \vfill
 \eject
 
-6. Unknown population variance, normal distribution.
+6. Hypothesis about population mean, small sample size.
+See note05 page 10.
 $$H_0:\mu=\mu_0$$
 $$H_1:\mu<\mu_0$$
 $$\mu_0=5$$
@@ -144,7 +149,8 @@ $$t^*=\sqrt n(\bar Y-\mu_0)/S=2.4473$$
 $$t_{(n-1,\alpha)}=T_{(8,0.05)}=$$
 
 \bigskip
-7. Unknown population variance, normal distribution.
+7. Hypothesis about population mean, small sample size.
+See note05 page 10.
 $$H_0:\mu=\mu_0$$
 $$H_1:\mu<\mu_0$$
 $$\mu_0=65$$
@@ -153,14 +159,15 @@ $$\bar Y=65.97$$
 $$S=4.106$$
 $$\alpha=0.01$$
 $$t^*=\sqrt n(\bar Y-\mu_0)/S=0.9483$$
-$$T_{(n-1,\alpha)}=t_{(15,0.01)}=2.603$$
+$$t_{(n-1,\alpha)}=t_{(15,0.01)}=2.603$$
 $$0.9483\not\in(-\infty,-2.603)$$
 Fail to reject $H_0$ at $0.01$ level of significance.
 The results support the supplier's claim.
 
 \vfill
 \eject
-8. Unknown population variance, normal distribution.
+8. Hypothesis about population mean, small sample size.
+See note05 page 10.
 $$H_0:\mu=\mu_0$$
 $$H_1:\mu<\mu_0$$
 $$\mu_0=68$$
@@ -168,26 +175,31 @@ $$n=16$$
 $$\bar Y=65.25$$
 $$S=2.5$$
 $$\alpha=0.03$$
-$$t^*=\sqrt n(\bar Y-\mu_0)/S=$$
+$$t^*=\sqrt n(\bar Y-\mu_0)/S=-4.4$$
+$$-t_{(n-1,\alpha)}=-t_{(15,0.03)}=-2.034$$
+$$-4.4\in(-\infty,-2.034)$$
+Reject $H_0$, there is sufficient evidence to support the claim.
 
-\vfill
-\eject
-
-9. Hypothesis of population proportion.
+\bigskip
+9. Hypothesis about population proportion.
+See note05 page 13.
 $$H_0:p=p_0$$
 $$H_1:p\ne p_0$$
 $$p_0=0.5$$
 $$n=225$$
 $$Y=130$$
 $$\alpha=0.05$$
-$$\hat p=Y/n=$$
-$$Z^*={\hat p - p_0\over\sqrt{p_0(1-p_0)/n}}=$$
-$$Z_{\alpha/2}=Z_{0.025}=$$
+$$\hat p=Y/n=0.5778$$
+$$Z^*={\hat p - p_0\over\sqrt{p_0(1-p_0)/n}}=2.333$$
+$$Z_{\alpha/2}=Z_{0.025}=1.96$$
+$$2.333\in(1.96,+\infty)$$
+Reject $H_0$.
 
 \vfill
 \eject
 
-10. Known population variance.
+10. Hypothesis about population mean, known population variance.
+See note05 page 9.
 $$H_0:\mu=\mu_0$$
 $$H_1:\mu<\mu_0$$
 $$\mu_0=32$$
@@ -195,13 +207,16 @@ $$\sigma=5$$
 $$n=100$$
 $$\bar Y=31.34$$
 $$\alpha=0.05$$
-$$Z^*=\sqrt n(\bar Y-\mu_0)/\sigma=$$
-$$Z_\alpha=Z_{0.05}=$$
+$$Z^*=\sqrt n(\bar Y-\mu_0)/\sigma=-1.32$$
+$$-Z_\alpha=-Z_{0.05}=-1.645$$
+$$-1.32\not\in(-\infty,-1.645)$$
+Fail to reject $H_0$, the evidence does not support the belief.
 
 \vfill
 \eject
 
-11a. Unknown population variance, normal distribution.
+11a. Hypothesis about population mean, small sample size.
+See note05 page 10.
 $$H_0:\mu=\mu_0$$
 $$H_1:\mu>\mu_0$$
 $$\mu_0=4$$
@@ -209,32 +224,50 @@ $$n=16$$
 $$\bar Y=4.2$$
 $$S=0.8$$
 $$\alpha=0.1$$
-$$t^*=\sqrt n(\bar Y-\mu_0)/S=$$
-$$t_{(n-1,\alpha)}=t_{(15,0.1)}=$$
+$$t^*=\sqrt n(\bar Y-\mu_0)/S=1$$
+$$t_{(n-1,\alpha)}=t_{(15,0.1)}=1.341$$
+$$1\not\in(1.341,+\infty)$$
+Fail to reject $H_0$, the average yield is not over 4 kg.
 
 \bigskip
-11b.
+11b. Hypothesis about variance.
+See note05 page 12.
 $$H_0:\sigma^2=\sigma_0^2$$
 $$H_1:\sigma^2<\sigma_0^2$$
-$$\sigma_0^2=0.64$$
-$${\chi^2}^*=(n-1)S^2/\sigma_0^2=$$
-
-\vfill
-\eject
-
-12. Variance unknown but equal, normal distribution.
-$$H_0:\mu_1-\mu_2=0$$
-$$H_1:\mu_1-\mu_2\ne0$$
-$$\bar X=$$
-$$S_X=$$
-$$\bar Y=$$
-$$S_Y=$$
+$$\sigma_0^2=1.5$$
+$$n=16$$
+$$S=0.8$$
 $$\alpha=0.05$$
+$${\chi^2}^*=(n-1)S^2/\sigma_0^2=6.4$$
+$$\chi^2_{(n-1,1-\alpha)}=\chi^2_{(15,0.95)}=7.261$$
+$$6.4\in(0,7.261)$$
+Reject $H_0$, the variance is less than $1.5$.
 
 \vfill
 \eject
 
-13.
+12. Hypothesis about difference of means, unknown
+but equal variances.
+See note05 page 17.
+$$H_0:\mu_1-\mu_2=\delta$$
+$$H_1:\mu_1-\mu_2\ne\delta$$
+$$\delta=0$$
+$$n=12$$
+$$\bar X=10.375$$
+$$S_X=1.4$$
+$$m=11$$
+$$\bar Y=12$$
+$$S_Y=1.612$$
+$$\alpha=0.05$$
+$$S_p=\sqrt{(n-1)S_X^2+(m-1)S_Y^2\over n+m-2}=1.505$$
+$$t^*={\bar X-\bar Y-\delta\over S_p\sqrt{1/n+1/m}}=-2.587$$
+$$t_{(n+m-2,\alpha/2)}=t_{(21,0.025)}=2.08$$
+$$-2.587\in(-\infty,-2.08)$$
+Reject $H_0$, the two populations differ.
+
+\bigskip
+13. Hypothesis about difference of means, paired data.
+See note05 page 23.
 $$H_0:\mu_1-\mu_2=\delta$$
 $$H_1:\mu_1-\mu_2>\delta$$
 $$\delta=0$$
@@ -250,7 +283,8 @@ Reject $H_0$. There is sufficient evidence.
 \vfill
 \eject
 
-14.
+14. Hypothesis about ratio of variances.
+See note05 page 25.
 $$H_0:\sigma_1^2=\sigma_2^2$$
 $$H_1:\sigma_1^2<\sigma_2^2$$
 $$n=10$$
@@ -263,10 +297,9 @@ $$1/F_{(m-1,n-1,\alpha)}=1/F_{(15,9,0.05)}=1/3.01=0.3322$$
 $$0.4706\not\in(0,0.3322)$$
 Fail to reject $H_0$. Not enough evidence.
 
-\vfill
-\eject
-
-15.
+\bigskip
+15. Hypothesis about the difference of population proportions.
+See note05 page 26.
 $$H_0: p_X-p_Y=p_0$$
 $$H_1: p_X-p_Y\ne p_0$$
 $$p_0=0$$
@@ -289,7 +322,7 @@ Reject $H_0$. There is sufficient evidence to support the claim.
 \vfill
 \eject
 
-16.
+16. Question about sample size. See note05 page 14.
 $$H_0:\mu=\mu_0$$
 $$H_1:\mu>\mu_0$$
 $$\mu_0=15$$
