@@ -231,4 +231,74 @@ $$\bar Y=$$
 $$S_Y=$$
 $$\alpha=0.05$$
 
+\vfill
+\eject
+
+13.
+$$H_0:\mu_1-\mu_2=\delta$$
+$$H_1:\mu_1-\mu_2>\delta$$
+$$\delta=0$$
+$$n=19$$
+$$\bar D=4$$
+$$S_D=6.4118$$
+$$\alpha=0.01$$
+$$t^*=\sqrt n(\bar D-\delta)/S_D=2.719$$
+$$t_{(n-1,\alpha)}=t_{(18,0.01)}=2.552$$
+$$2.719\in(2.552,+\infty)$$
+Reject $H_0$. There is sufficient evidence.
+
+\vfill
+\eject
+
+14.
+$$H_0:\sigma_1^2=\sigma_2^2$$
+$$H_1:\sigma_1^2<\sigma_2^2$$
+$$n=10$$
+$$S_X^2=40$$
+$$m=16$$
+$$S_Y^2=85$$
+$$\alpha=0.05$$
+$$F^*=S_X^2/S_Y^2=0.4706$$
+$$1/F_{(m-1,n-1,\alpha)}=1/F_{(15,9,0.05)}=1/3.01=0.3322$$
+$$0.4706\not\in(0,0.3322)$$
+Fail to reject $H_0$. Not enough evidence.
+
+\vfill
+\eject
+
+15.
+$$H_0: p_X-p_Y=p_0$$
+$$H_1: p_X-p_Y\ne p_0$$
+$$p_0=0$$
+$$n=400$$
+$$X=76$$
+$$m=900$$
+$$Y=90$$
+$$\alpha=0.05$$
+$$\hat p_X=X/n=0.19$$
+$$\hat p_Y=Y/m=0.1$$
+$$Z^*=(\hat p_X-\hat p_Y-p_0)/\sqrt{
+{\hat p_X(1-\hat p_X)\over n}+{\hat p_Y(1-\hat p_Y)\over m}
+}
+=4.0877
+$$
+$$Z_{\alpha/2}=Z_{0.025}=1.96$$
+$$Z^*\in(1.96,+\infty)$$
+Reject $H_0$. There is sufficient evidence to support the claim.
+
+\vfill
+\eject
+
+16.
+$$H_0:\mu=\mu_0$$
+$$H_1:\mu>\mu_0$$
+$$\mu_0=15$$
+$$\sigma=1.5$$
+$$\alpha=0.05$$
+$$\beta=0.2$$
+$$\epsilon=0.5$$
+$$Z_\alpha=Z_{0.05}=1.645$$
+$$Z_\beta=Z_{0.2}=0.842$$
+$$n=(Z_\alpha+Z_\beta)^2\sigma^2/\epsilon^2=56$$
+
 \end
