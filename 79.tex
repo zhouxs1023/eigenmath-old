@@ -1,0 +1,61 @@
+\nopagenumbers
+\parindent=0pt
+{\bf Problem A.}
+Let $a,b\in N$ and $c,x,r\in Z$.
+Show that if $a|b$, $a|c$ and $c=bx+r$ then $a|r$.
+\bigskip
+{\bf Proof.}
+Let $a,b\in N$ and $c,x,r\in Z$.
+Assume that $c=bx+r$.
+Then $c-bx=r$.
+Assume that $a|b$ and $a|c$.
+Then by $N\subset Z$ and the definition of divisibility
+there are $s,t\in Z$ such that $b=as$ and $c=at$.
+Thus $c-bx=at-(as)x=a(t-sx)$.
+Therefore $a(t-sx)=r$.
+Since $t-sx\in Z$ it follows that $a|r$.
+
+% On this one it turned out to be better to introduce $c=bx+r$ first.
+% I started out introducing $a|b$ and $a|c$ first but it did not flow right.
+
+\bigskip
+\bigskip
+
+{\bf Problem B.}
+Let $a,b\in Z$ such that $a\ne0$.
+Show that if $15|a$ and $a|b$ then $5|(3a-19b)$.
+\bigskip
+{\bf Proof.}
+Let $a,b\in Z$ such that $a\ne0$.
+Assume $15|a$ and $a|b$.
+Then there are $s,t\in Z$ such that $a=15s$ and $b=at=15st$.
+Thus $3a-19b=45s-285st=5(9s-57st)$.
+Since $9s-57st\in Z$ it follows that $5|(3a-19b)$.
+
+\bigskip
+\bigskip
+
+{\bf Problem C.}
+Let $a,b\in Z$ such that $a\ne0$.
+Determine the truth value of the statement:
+If $2a|8b$ then $a|b$.
+\bigskip
+False by $a=4$, $b=1$.
+
+\bigskip
+\bigskip
+
+{\bf Problem D.}
+Show that for any $n\in N$, $4|(5^n+7)$.
+\bigskip
+{\bf Proof.}
+For $n=1$ we have $4|12$ which is true.
+Assume that $4|(5^n+7)$ for a fixed $n\in N$.
+Then there is a $k\in Z$ such that $5^n+7=4k$.
+For $n+1$ we have
+$$5^{n+1}+7=5\cdot5^n+5\cdot7-5\cdot7+7
+=5(5^n+7)-28=5(4k)-4\cdot7=4(5k-7)$$
+Since $5k-7\in Z$ we have $4|(5^{n+1}+7)$.
+Hence by induction $4|(5^n+7)$ for any $n\in N$.
+
+\end
