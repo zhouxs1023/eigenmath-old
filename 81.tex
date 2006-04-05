@@ -1,0 +1,115 @@
+\nopagenumbers
+\parindent=0pt
+
+{\bf Problem A.}
+
+\bigskip
+{\bf 1.} $gcd(180,252)=36$
+$$\eqalign{
+252\div180&=1\cdots72\cr
+180\div72&=2\cdots36\cr
+72\div36&=2
+}$$
+
+\bigskip
+{\bf 2.} $gcd(513,187)=1$
+$$\eqalign{
+513\div187&=2\cdots139\cr
+187\div139&=1\cdots48\cr
+139\div48&=2\cdots43\cr
+48\div43&=1\cdots5\cr
+43\div5&=8\cdots3\cr
+5\div3&=1\cdots2\cr
+3\div2&=1\cdots1\cr
+2\div1&=2\cr
+}$$
+
+\bigskip
+{\bf 2.} $gcd(7655,1001)=1$
+$$\eqalign{
+7655\div1001&=7\cdots648\cr
+1001\div648&=1\cdots353\cr
+648\div353&=1\cdots295\cr
+353\div295&=1\cdots58\cr
+295\div58&=5\cdots5\cr
+58\div5&=11\cdots3\cr
+5\div3&=1\cdots2\cr
+3\div2&=1\cdots1\cr
+2\div1&=2\cr
+}$$
+
+\vfill
+\eject
+
+{\bf Problem B.}
+$$\pmatrix{
+1&0&\vdots&1030\cr
+0&1&\vdots&521\cr
+}$$
+%
+$R_1-R_2\rightarrow R_1$
+$$\pmatrix{
+1&-1&\vdots&509\cr
+0&1&\vdots&521\cr
+}$$
+%
+$R_2-R_1\rightarrow R_2$
+$$\pmatrix{
+1&-1&\vdots&509\cr
+-1&2&\vdots&12\cr
+}$$
+%
+$R_1-42R_2\rightarrow R_1$
+$$\pmatrix{
+43&-85&\vdots&5\cr
+-1&2&\vdots&12\cr
+}$$
+%
+$R_2-2R_1\rightarrow R_2$
+$$\pmatrix{
+43&-85&\vdots&5\cr
+-87&172&\vdots&2\cr
+}$$
+%
+$R_1-2R_2\rightarrow R_1$
+$$\pmatrix{
+217&-429&\vdots&1\cr
+-87&172&\vdots&2\cr
+}$$
+%
+We have $1|2$ therefore $gcd(1030,521)=1$.
+In addition, reading off the top row we have
+$x=217$ and $y=-429$.
+Check that $1030x+521y=1$.
+$$\eqalign
+1030\cdot217+521\cdot(-429)=223{,}510-223{,}509=1$$
+
+\vfill
+\eject
+
+{\bf Problem C.}
+Show that if $a\in N$ and $b,c\in Z$ such that $b,c\ne0$ then
+$gcd(ab,ac)=a\cdot gcd(b,c)$.
+\bigskip
+{\bf Proof.}
+Let $a\in N$ and $b,c\in Z$ such that $b,c\ne0$.
+Let $d=gcd(b,c)$ and $k\in Z$.
+\medskip
+(i) We want to show that $ad|ab$ and $ad|ac$.
+By definition of GCD we have $d|b$ and $d|c$.
+Then by Lemma 1.4 of Unit 9 and $N\subset Z$ we have
+$ad|ab$ and $ad|ac$.
+\medskip
+(ii) Assume $k|ab$ and $k|ac$. We want to show that $k|ad$.
+By the Euclidean Algorithm we have that there are $x,y\in Z$ such
+that $d=bx+cy$, hence $ad=abx+acy$.
+By Lemma 1.8 of Unit 9 we have $k|(abx+acy)$ for any $x,y\in Z$.
+Hence $k|ad$.
+\medskip
+To summarize, we have $ad|ab$, $ad|ac$, and if $k\in Z$ such that
+$k|ab$ and $k|ac$, then $k|ad$.
+In addition, by $a\in N$ and closure we have $ad\in N$.
+Therefore $ad=gcd(ab,ac)$.
+Hence $a\cdot gcd(b,c)=gcd(ab,ac)$.
+
+\end
