@@ -1,0 +1,82 @@
+\parindent=0pt
+\nopagenumbers
+
+{\bf Problem A.}
+
+\bigskip
+{\bf a.} Find $0\le r<3$ such that $5^{10}\equiv_3 r$.
+
+\medskip
+Briefly, if $s\equiv_nt$ then $s^m\equiv_nt^m$.
+We have $s=5$ so we want to pick a $t$ such that
+$t^{10}$ is easy to compute.
+Note that $5\equiv_3(-1)$ since $3|(5-(-1))$.
+So we have
+$$5^{10}\equiv_3(-1)^{10}\equiv_31$$
+therefore
+$r=1$.
+
+\bigskip
+{\bf b.} Find $0\le r<5$ such that $4^{16}\equiv_6r$.
+
+\medskip
+Note that $4^n=(12+4)\cdot4^{n-2}=12\cdot4^{n-2}+4^{n-1}\equiv_64^{n-1}$.
+Therefore we have
+$$4^{16}\equiv_64^{15}\equiv_6\cdots\equiv_64$$
+Hence $r=4$.
+
+\bigskip
+\bigskip
+
+{\bf Problem B.}
+Let $p(x)=12x^5-23x^3+111x-17$ and
+$q(x)=78x^4+3x^2-17x+1$.
+
+\bigskip
+{\bf a.} Find $0\le r<2$ such that $p(10)\equiv_2r$.
+\medskip
+Since $2|(10-0)$ and $2|(-17-1)$ we have
+$p(10)\equiv_2p(0)\equiv_2(-17)\equiv_21$.
+Therefore $r=1$.
+
+\bigskip
+{\bf b.} Find $0\le r<3$ such that $q(123)\equiv_3r$.
+\medskip
+Since $3|(123-0)$ we have
+$q(123)\equiv_2q(0)\equiv_21$.
+Therefore $r=1$.
+
+\bigskip
+\bigskip
+
+{\bf Problem C.} Solve the following congruence relations.
+
+\bigskip
+{\bf a.} $3x^5-2x^2-3\equiv_40$.
+\medskip
+$$\eqalign{
+3(0)^5-2(0)^2-3=-3\equiv_41\cr
+3(1)^5-2(1)^2-3=-2\equiv_42\cr
+3(2)^5-2(2)^2-3=85\equiv_41\cr
+3(3)^5-2(3)^2-3=708\equiv_40\cr
+}$$
+Therefore a solution is $x=3$.
+
+\bigskip
+{\bf b.} $x^4-5x^2+3\equiv_20$.
+$$\eqalign{
+(0)^4-5(0)^2+3=3\equiv_21\cr
+(1)^4-5(1)^2+3=-1\equiv_21\cr
+}$$
+Hence there is no solution.
+
+\bigskip
+{\bf c.} $x^7+14x+1\equiv_31$.
+$$\eqalign{
+(0)^7+14(0)+1=1\equiv_31\cr
+(1)^7+14(1)+1=16\equiv_31\cr
+(2)^7+14(2)+1=157\equiv_31\cr
+}$$
+Hence $x=0,1,2$ are all solutions.
+
+\end
