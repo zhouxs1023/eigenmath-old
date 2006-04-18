@@ -159,7 +159,6 @@ init(void)
 	std_symbol("trace", TRACE);
 	std_symbol("transpose", TRANSPOSE);
 	std_symbol("unit", UNIT);
-	std_symbol("wedge", WEDGE);
 	std_symbol("zero", ZERO);
 
 	std_symbol("nil", NIL);

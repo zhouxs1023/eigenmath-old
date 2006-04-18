@@ -27,6 +27,11 @@ yysine(void)
 
 	p1 = pop();
 
+	if (car(p1) == symbol(ARCSIN)) {
+		push(cadr(p1));
+		return;
+	}
+
 	if (isdouble(p1)) {
 		d = sin(p1->u.d);
 		if (fabs(d) < 1e-10)
@@ -260,6 +265,9 @@ static char *s[] = {
 
 	"f=quote(f)",
 	"",
+
+	"sin(arcsin(x))",
+	"x",
 };
 
 void

@@ -181,7 +181,6 @@ enum {
 	TRACE,
 	TRANSPOSE,
 	UNIT,
-	WEDGE,
 	ZERO,
 
 	NIL,	// nil goes here, after standard functions

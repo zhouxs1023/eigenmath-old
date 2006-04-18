@@ -15,6 +15,11 @@ arcsinh(void)
 	double d;
 	save();
 	p1 = pop();
+	if (car(p1) == symbol(SINH)) {
+		push(cadr(p1));
+		restore();
+		return;
+	}
 	if (isdouble(p1)) {
 		d = p1->u.d;
 		d = log(d + sqrt(d * d + 1.0));
@@ -40,6 +45,9 @@ static char *s[] = {
 
 	"arcsinh(0)",
 	"0",
+
+	"arcsinh(sinh(x))",
+	"x",
 };
 
 void

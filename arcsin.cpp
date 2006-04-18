@@ -19,6 +19,12 @@ arcsin(void)
 
 	p1 = pop();
 
+	if (car(p1) == symbol(SIN)) {
+		push(cadr(p1));
+		restore();
+		return;
+	}
+
 	if (isdouble(p1)) {
 		errno = 0;
 		d = asin(p1->u.d);
@@ -113,6 +119,9 @@ static char *s[] = {
 
 	"arcsin(sin(1/2*pi))",
 	"1/2*pi",
+
+	"arcsin(sin(x))",
+	"x",
 };
 
 void

@@ -12,6 +12,10 @@ eval_tanh(void)
 	push(cadr(p1));
 	eval();
 	p1 = pop();
+	if (car(p1) == symbol(ARCTANH)) {
+		push(cadr(p1));
+		return;
+	}
 	if (isdouble(p1)) {
 		d = tanh(p1->u.d);
 		if (fabs(d) < 1e-10)
@@ -59,6 +63,9 @@ static char *s[] = {
 
 	"expomode=0",
 	"",
+
+	"tanh(arctanh(x))",
+	"x",
 };
 
 void

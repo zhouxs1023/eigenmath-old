@@ -27,6 +27,11 @@ yytangent(void)
 
 	p1 = pop();
 
+	if (car(p1) == symbol(ARCTAN)) {
+		push(cadr(p1));
+		return;
+	}
+
 	if (isdouble(p1)) {
 		d = tan(p1->u.d);
 		if (fabs(d) < 1e-10)
@@ -241,6 +246,9 @@ static char *s[] = {
 
 	"f=quote(f)",
 	"",
+
+	"tan(arctan(x))",
+	"x",
 };
 
 void

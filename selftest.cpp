@@ -114,7 +114,6 @@ selftest(void)
 	test_arccosh();
 	test_arctan();
 	test_arctanh();
-	test_wedge();
 	test_index();
 	test_isprime();
 	test_integral();

@@ -26,6 +26,10 @@ yycosh(void)
 {
 	double d;
 	p1 = pop();
+	if (car(p1) == symbol(ARCCOSH)) {
+		push(cadr(p1));
+		return;
+	}
 	if (isdouble(p1)) {
 		d = cosh(p1->u.d);
 		if (fabs(d) < 1e-10)
@@ -69,6 +73,9 @@ static char *s[] = {
 
 	"expomode=0",
 	"",
+
+	"cosh(arccosh(x))",
+	"x",
 };
 
 void

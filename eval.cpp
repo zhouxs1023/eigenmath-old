@@ -191,7 +191,6 @@ eval_cons(void)
 	case TRACE:		eval_trace();		break;
 	case TRANSPOSE:		eval_transpose();	break;
 	case UNIT:		eval_unit();		break;
-	case WEDGE:		eval_wedge();		break;
 	case ZERO:		eval_zero();		break;
 	default:		eval_user_function();	break;
 	}	
@@ -760,21 +759,6 @@ eval_unit(void)
 	for (i = 0; i < n; i++)
 		p1->u.tensor->elem[n * i + i] = one;
 	push(p1);
-}
-
-void
-eval_wedge(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	if (iscons(cdddr(p1))) {
-		push(cadddr(p1));
-		eval();
-		wedge3();
-	} else
-		wedge2();
 }
 
 void

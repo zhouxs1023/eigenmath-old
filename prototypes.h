@@ -318,7 +318,6 @@ void eval_stop(void);
 void eval_subst(void);
 void eval_tab(void);
 void eval_unit(void);
-void eval_wedge(void);
 void eval_noexpand(void);
 void eval_filter(void);
 void filter(void);
@@ -871,11 +870,6 @@ void variables(void);
 
 // vectorize.cpp
 void vectorize(int n);
-
-// wedge.cpp
-void wedge2(void);
-void wedge3(void);
-void test_wedge(void);
 
 // window.cpp
 void printchar_nowrap(int c);

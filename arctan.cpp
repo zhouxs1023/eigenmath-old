@@ -18,6 +18,12 @@ arctan(void)
 
 	p1 = pop();
 
+	if (car(p1) == symbol(TAN)) {
+		push(cadr(p1));
+		restore();
+		return;
+	}
+
 	if (isdouble(p1)) {
 		errno = 0;
 		d = atan(p1->u.d);
@@ -30,12 +36,6 @@ arctan(void)
 
 	if (iszero(p1)) {
 		push(zero);
-		restore();
-		return;
-	}
-
-	if (car(p1) == symbol(TAN)) {
-		push(cadr(p1));
 		restore();
 		return;
 	}
@@ -130,6 +130,9 @@ static char *s[] = {
 
 	"arctan(b-a)",
 	"-arctan(a-b)",
+
+	"arctan(tan(x))",
+	"x",
 };
 
 void

@@ -27,6 +27,11 @@ yycosine(void)
 
 	p1 = pop();
 
+	if (car(p1) == symbol(ARCCOS)) {
+		push(cadr(p1));
+		return;
+	}
+
 	if (isdouble(p1)) {
 		d = cos(p1->u.d);
 		if (fabs(d) < 1e-10)
@@ -257,6 +262,9 @@ static char *s[] = {
 
 	"f=quote(f)",
 	"",
+
+	"cos(arccos(x))",
+	"x",
 };
 
 void

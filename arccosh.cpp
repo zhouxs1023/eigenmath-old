@@ -15,6 +15,11 @@ arccosh(void)
 	double d;
 	save();
 	p1 = pop();
+	if (car(p1) == symbol(COSH)) {
+		push(cadr(p1));
+		restore();
+		return;
+	}
 	if (isdouble(p1)) {
 		d = p1->u.d;
 		if (d < 1.0)
@@ -42,6 +47,9 @@ static char *s[] = {
 
 	"arccosh(1)",
 	"0",
+
+	"arccosh(cosh(x))",
+	"x",
 };
 
 void

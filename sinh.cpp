@@ -26,6 +26,10 @@ yysinh(void)
 {
 	double d;
 	p1 = pop();
+	if (car(p1) == symbol(ARCSINH)) {
+		push(cadr(p1));
+		return;
+	}
 	if (isdouble(p1)) {
 		d = sinh(p1->u.d);
 		if (fabs(d) < 1e-10)
@@ -69,6 +73,9 @@ static char *s[] = {
 
 	"expomode=0",
 	"",
+
+	"sinh(arcsinh(x))",
+	"x",
 };
 
 void

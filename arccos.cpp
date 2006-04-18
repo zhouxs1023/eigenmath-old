@@ -19,6 +19,12 @@ arccos(void)
 
 	p1 = pop();
 
+	if (car(p1) == symbol(COS)) {
+		push(cadr(p1));
+		restore();
+		return;
+	}
+
 	if (isdouble(p1)) {
 		errno = 0;
 		d = acos(p1->u.d);
@@ -111,6 +117,9 @@ static char *s[] = {
 
 	"arccos(cos(pi))",
 	"pi",
+
+	"arccos(cos(x))",
+	"x",
 };
 
 void
