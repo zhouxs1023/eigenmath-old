@@ -39,13 +39,19 @@ ysimplify(void)
 		return;
 	}
 
-#if 0
 	if (find(p1, symbol(FACTORIAL))) {
 		push(p1);
 		simfac();
-		return;
+		p2 = pop();
+		push(p1);
+		rationalize();
+		simfac();
+		p3 = pop();
+		if (count(p2) < count(p3))
+			p1 = p2;
+		else
+			p1 = p3;
 	}
-#endif
 
 	f1();
 	f2();
@@ -282,7 +288,7 @@ static char *s[] = {
 
 	"simplify(cos(x)^2-1)",
 	"-sin(x)^2",
-
+/*
 	"simfac(n!/n)-(n-1)!",
 	"0",
 
@@ -318,6 +324,45 @@ static char *s[] = {
 
 	"F=quote(F)",
 	"",
+*/
+	"simplify(n!/n)-(n-1)!",
+	"0",
+
+	"simplify(n/n!)-1/(n-1)!",
+	"0",
+
+	"simplify(rationalize((n+k+1)/(n+k+1)!))-1/(n+k)!",
+	"0",
+
+	"simplify(condense((n+1)*n!))-(n+1)!",
+	"0",
+
+	"simplify(1/((n+1)*n!))-1/(n+1)!",
+	"0",
+
+	"simplify((n+1)!/n!)-n-1",
+	"0",
+
+	"simplify(n!/(n+1)!)-1/(n+1)",
+	"0",
+
+	"simplify(binomial(n+1,k)/binomial(n,k))",
+	"(1+n)/(1-k+n)",
+
+	"simplify(binomial(n,k)/binomial(n+1,k))",
+	"(1-k+n)/(1+n)",
+
+	"F(n,k)=k*binomial(n,k)",
+	"",
+
+	"simplify((F(n,k)+F(n,k-1))/F(n+1,k))-n/(n+1)",
+	"0",
+
+	"F=quote(F)",
+	"",
+
+	"simplify((n+1)/(n+1)!)-1/n!",
+	"0",
 };
 
 void

@@ -77,7 +77,6 @@
 <a href="#rect">rect</a>		complex to rectangular
 <a href="#return">return</a>		early return from a function
 <a href="#roots">roots</a>		find roots of a polynomial
-<a href="#simfac">simfac</a>		simplify factorials
 <a href="#simplify">simplify</a>	simplify an expression
 <a href="#sin">sin</a>
 <a href="#sinh">sinh</a>
@@ -1366,8 +1365,29 @@ when <i>p</i> cannot be factored.
      - ----- + ------------------
         2 a           2 a
 </pre>
-<h1><tt><a name="simfac">simfac(<i>x</i>)</a></tt></h1>
-Simplifies factorials in expression x according to
+<p>
+<h1><tt><a name="simplify">simplify(<i>x</i>)</a></tt></h1>
+Evaluate x and simplify the result.
+<pre>
+<i>Enter</i>
+
+     (A-B)/(B-A)
+
+<i>Result</i>
+
+        A          B
+     -------- - --------
+      -A + B     -A + B
+ 
+<i>Enter</i>
+
+     simplify
+
+<i>Result</i>
+
+     -1
+</pre> 
+Factorials are simplified according to
 the following rules.
 <pre>
 	This			is converted to this
@@ -1379,9 +1399,7 @@ the following rules.
 	(n + 1)! / n!		n + 1
 
 	(n + 2)! / n!		(n + 1) (n + 2)
-</pre>
-Example 1.
-<pre>
+
 <i>Enter</i>
 
      F(n,k) = k binomial(n,k)
@@ -1396,16 +1414,6 @@ Example 1.
 
 <i>Enter</i>
 
-     simfac
-
-<i>Result</i>
-
-        1       1 - k + n       1
-     ------- + ----------- - -------
-      1 + n       1 + n       1 + n
-
-<i>Enter</i>
-
      simplify
 
 <i>Result</i>
@@ -1414,96 +1422,6 @@ Example 1.
      -------
       1 + n
 </pre>
-Example 2. It may be necessary to rationalize or condense an expression first.
-<pre>
-<i>Enter</i>
-
-     (n + 1) / (n + 1)!
-
-<i>Result</i>
-
-         n            1
-     ---------- + ----------
-      (1 + n)!     (1 + n)!
-
-<i>Enter</i>
-
-     simfac
-
-<i>Result</i>
-
-         n            1
-     ---------- + ----------
-      (1 + n)!     (1 + n)!
-
-<i>Enter</i>
-
-     rationalize
-
-<i>Result</i>
-
-       1 + n
-     ----------
-      (1 + n)!
-
-<i>Enter</i>
-
-     simfac
-
-<i>Result</i>
-
-      1
-     ----
-      n!
-</pre>
-<p>
-<h1><tt><a name="simplify">simplify(<i>x</i>)</a></tt></h1>
-Evaluates expression x and then attempts to simplify the result.
-<pre>
-<i>Enter</i>
-
-     (A-B)/(B-A)
-
-<i>Result</i>
-
-        A          B
-     -------- - --------
-      -A + B     -A + B
- 
-<i>Enter</i>
-
-     simplify(last)
-
-<i>Result</i>
-
-     -1
-
-<i>Enter</i>
-
-     A = ((A11,A12),(A21,A22))
-
-     det(A) inv(A) - adj(A)
-
-<i>Result</i>
-
-     ((-A22 + A11 A22^2 / (A11 A22 - A12 A21) - A12 A21 A22 / (A11 A22 - A12 A21),
-     A12 - A11 A12 A22 / (A11 A22 - A12 A21) + A12^2 A21 / (A11 A22 - A12 A21)),
-     (A21 - A11 A21 A22 / (A11 A22 - A12 A21) + A12 A21^2 / (A11 A22 - A12 A21),
-     -A11 - A11 A12 A21 / (A11 A22 - A12 A21) + A11^2 A22 / (A11 A22 - A12 A21)))
-
-<i>Enter</i>
-
-     simplify(last)
-
-<i>Result</i>
-
-     0
-</pre> 
-The <tt>simplify</tt> function can return factored
-(unexpanded)
-expressions.
-Factored expressions can fail in tests for equality.
-The <tt>eval</tt> function can be used to expand factored expressions.
 <p>
 <h1><tt><a name="sin">sin(<i>x</i>)</a></tt></h1>
 Returns the sine of <i>x</i>.
