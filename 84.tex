@@ -5,6 +5,16 @@
 Let $f(x),g(x)\in F[x]$ such that $f(x)\ne0$.
 If $f(x)\,|\,g(x)$ then $f(x)\,|\,[g(x)+(2x-1)f(x)]$.
 
+\medskip
+
+{\bf Proof.}
+Let $f(x),g(x)\in F[x]$ such that $f(x)\ne0$.
+Assume $f(x)\,|\,g(x)$.
+Then there is a $t(x)\in F[x]$ such that $t(x)f(x)=g(x)$.
+Hence
+$$g(x)+(2x-1)f(x)=t(x)f(x)+(2x-1)f(x)=(t(x)+2x-1)f(x)$$
+Therefore $f(x)\,|\,[g(x)+(2x-1)f(x)]$.
+
 \bigskip
 \bigskip
 
@@ -12,5 +22,40 @@ If $f(x)\,|\,g(x)$ then $f(x)\,|\,[g(x)+(2x-1)f(x)]$.
 Let $f(x),g(x),h(x)\in F[x]$ such that $f(x)\ne0$.
 If $f(x)\,|\,g(x)$ and $f(x)\,|\,h(x)$ then
 $$f(x)\,|\,[(2x+1)g(x)-(3x^6-x^3+1)h(x)]$$
+
+\medskip
+
+{\bf Proof.}
+Let $f(x),g(x),h(x)\in F[x]$ such that $f(x)\ne0$.
+Assume $f(x)\,|\,g(x)$ and $f(x)\,|\,h(x)$.
+Then there are $s(x),t(x)\in F[x]$ such that
+$s(x)f(x)=g(x)$ and $t(x)f(x)=h(x)$.
+Hence
+$$\eqalign{(2x+1)g(x)-(3x^6-x^3+1)h(x)
+&=(2x+1)s(x)f(x)-(3x^6-x^3+1)t(x)f(x)\cr
+&=[(2x+1)s(x)-(3x^6-x^3+1)t(x)]f(x)}$$
+Hence $f(x)\,|\,[(2x+1)g(x)-(3x^6-x^3+1)h(x)]$.
+
+\bigskip
+\bigskip
+
+{\bf Problem C.}
+Let $f(x)\in F[x]$ such that $f(x)\ne0$.
+If $f(x)\,|\,122$ then $\deg(f(x))=0$.
+
+\medskip
+
+{\bf Proof.}
+Let $f(x)\in F[x]$ such that $f(x)\ne0$.
+Assume $f(x)\,|\,122$.
+Then there is a $t(x)\in F[x]$ such that $t(x)f(x)=122$.
+Since $\deg(122)=\deg(122x^0)=0$, we have
+$\deg(t(x)f(x))=0$.
+Hence
+$$\deg(t(x))+\deg(f(x))=0$$
+Since the degree of a polynomial is in the set $\{-\infty,0,N\}$
+and $\deg(f(x))\ne-\infty$ by assumption,
+the only solution is $\deg(t(x))=\deg(f(x))=0$.
+Hence $\deg(f(x))=0$.
 
 \end
