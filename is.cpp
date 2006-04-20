@@ -261,6 +261,15 @@ isoneover(U *p)
 }
 
 int
+isfraction(U *p)
+{
+	if (p->k == NUM && !MEQUAL(p->u.q.b, 1))
+		return 1;
+	else
+		return 0;
+}
+
+int
 equaln(U *p, int n)
 {
 	switch (p->k) {

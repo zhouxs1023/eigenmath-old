@@ -52,11 +52,40 @@ yylog(void)
 		return;
 	}
 
+	// rational number and not an integer?
+
+	if (isfraction(p1)) {
+		push(p1);
+		numerator();
+		logarithm();
+		push(p1);
+		denominator();
+		logarithm();
+		subtract();
+		return;
+	}
+
+	// log(a ^ b) --> b log(a)
+
 	if (car(p1) == symbol(POWER)) {
 		push(caddr(p1));
 		push(cadr(p1));
 		logarithm();
 		multiply();
+		return;
+	}
+
+	// log(a * b) --> log(a) + log(b)
+
+	if (car(p1) == symbol(MULTIPLY)) {
+		push_integer(0);
+		p1 = cdr(p1);
+		while (iscons(p1)) {
+			push(car(p1));
+			logarithm();
+			add();
+			p1 = cdr(p1);
+		}
 		return;
 	}
 
@@ -96,6 +125,12 @@ static char *s[] = {
 
 	"float(log(2))",
 	"0.693147",
+
+	"log(a*b)",
+	"log(a)+log(b)",
+
+	"log(1/3)+log(3)",
+	"0",
 };
 
 void

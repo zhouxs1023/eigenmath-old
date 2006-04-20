@@ -982,8 +982,8 @@ char *integrals[] = {
 
 // 493 (with addition of a)
 
-	"1/(x*log(a*x))",
-	"log(log(a*x))",
+	"1/x*1/(a+log(x))",
+	"log(a+log(x))",
 	NULL,
 
 // 499
@@ -1723,6 +1723,9 @@ static char *s[] = {
 	"0",
 
 	"integral(exp(-3*x^2))-sqrt(pi/3)*erf(sqrt(3)*x)/2",
+	"0",
+
+	"integral(1/x*1/(a+log(x)),x)-log(a+log(x))",
 	"0",
 };
 

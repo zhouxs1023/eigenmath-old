@@ -540,15 +540,6 @@ pop_integer(void)
 	return n;
 }
 
-int
-isfraction(U *p)
-{
-	if (p->k == NUM && !MEQUAL(p->u.q.b, 1))
-		return 1;
-	else
-		return 0;
-}
-
 void
 print_double(U *p, int flag)
 {
