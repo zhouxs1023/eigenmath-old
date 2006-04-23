@@ -26,29 +26,30 @@ yylog(void)
 
 	p1 = pop();
 
-	if (isdouble(p1)) {
-		d = p1->u.d;
-		if (d < 0.0) {
-			d = log(-d);
-			push_double(d);
-			push(imaginaryunit);
-			push_symbol(PI);
-			multiply();
-			add();
-		} else {
-			d = log(d);
-			push_double(d);
-		}
+	if (p1 == symbol(E)) {
+		push_integer(1);
 		return;
 	}
 
-	if (equal(p1, one)) {
+	if (equaln(p1, 1)) {
 		push_integer(0);
 		return;
 	}
 
-	if (p1 == symbol(E)) {
-		push(one);
+	if (isnegativenumber(p1)) {
+		push(p1);
+		negate();
+		logarithm();
+		push(imaginaryunit);
+		push_symbol(PI);
+		multiply();
+		add();
+		return;
+	}
+
+	if (isdouble(p1)) {
+		d = log(p1->u.d);
+		push_double(d);
 		return;
 	}
 
@@ -131,6 +132,12 @@ static char *s[] = {
 
 	"log(1/3)+log(3)",
 	"0",
+
+	"log(-1)",
+	"i*pi",
+
+	"log(-1.0)",
+	"i*pi",
 };
 
 void
