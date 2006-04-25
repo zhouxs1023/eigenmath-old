@@ -34,7 +34,7 @@ factorpoly(void)
 		pop();
 	}
 	if (!ispoly(p1, p2))
-		stop("factor(p): p is not a polynomial");
+		stop("factor: the first arg is not a polynomial");
 	push(p1);
 	push(p2);
 	factorpoly4();
