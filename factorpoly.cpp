@@ -83,9 +83,7 @@ factorpoly4(void)
 			A = pop();
 			push_integer(0);
 			B = pop();
-		} else
-
-		if (get_factor() == 0) {
+		} else if (get_factor() == 0) {
 			if (verbosing)
 				printf("no factor found\n");
 			break;
