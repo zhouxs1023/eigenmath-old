@@ -5,7 +5,6 @@ extern void sort_stack(int);
 void roots(void);
 static void roots2(void);
 static void roots3(void);
-static void iguess(void);
 static void mini_solve(void);
 
 #define POLY p1
@@ -42,38 +41,26 @@ eval_roots(void)
 			push(p2);
 	}
 
-	if (caddr(p1) == symbol(NIL)) {
-		p1 = pop();
-		iguess();
-		push(p1);
+	// 2nd arg, x
+
+	push(caddr(p1));
+	eval();
+	p2 = pop();
+	if (p2 == symbol(NIL))
+		guess();
+	else
 		push(p2);
-	} else {
-		push(caddr(p1));
-		eval();
-	}
+
+	p2 = pop();
+	p1 = pop();
+
+	if (!ispoly(p1, p2))
+		stop("roots: 1st argument is not a polynomial");
+
+	push(p1);
+	push(p2);
 
 	roots();
-}
-
-static void
-iguess(void)
-{
-	p2 = symbol(SYMBOL_X);
-	if (find(p1,p2))
-		return;
-	p2 = symbol(SYMBOL_Y);
-	if (find(p1,p2))
-		return;
-	p2 = symbol(SYMBOL_Z);
-	if (find(p1,p2))
-		return;
-	p2 = symbol(SYMBOL_T);
-	if (find(p1,p2))
-		return;
-	p2 = symbol(SYMBOL_R);
-	if (find(p1,p2))
-		return;
-	p2 = symbol(SYMBOL_X);
 }
 
 void
@@ -268,8 +255,8 @@ static char *s[] = {
 	"roots(x^4+1)",
 	"roots: Sorry, the argument is not factorable over integers, no roots found.",
 
-	"roots(0)",
-	"roots: Sorry, the argument is not factorable over integers, no roots found.",
+//	"roots(0)",
+//	"roots: Sorry, the argument is not factorable over integers, no roots found.",
 
 	"roots(x^2==1)",
 	"(-1,1)",
@@ -279,6 +266,33 @@ static char *s[] = {
 
 	"roots(3/x + 12 = 24)",
 	"1/4",
+
+	"y=roots(x^2+b*x+c/k)[1]",
+	"",
+
+	"y^2+b*y+c/k",
+	"0",
+
+	"y=roots(x^2+b*x+c/k)[2]",
+	"",
+
+	"y^2+b*y+c/k",
+	"0",
+
+	"y=roots(a*x^2+b*x+c/4)[1]",
+	"",
+
+	"a*y^2+b*y+c/4",
+	"0",
+
+	"y=roots(a*x^2+b*x+c/4)[2]",
+	"",
+
+	"a*y^2+b*y+c/4",
+	"0",
+
+	"y=quote(y)",
+	"",
 };
 
 void

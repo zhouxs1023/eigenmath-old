@@ -1,26 +1,14 @@
-//-----------------------------------------------------------------------------
-//
-//	Factor polynomial
-//
-//	Input:		tos-2		p(x)
-//
-//			tos-1		x
-//
-//	Output:		Result on stack
-//
-//-----------------------------------------------------------------------------
+// Factor a polynomial
 
 #include "stdafx.h"
 #include "defs.h"
-static void factorpoly2(void);
-static void factorpoly3(void);
+
 static void factorpoly4(void);
 static void rationalize_coefficients(int);
 static int get_factor(void);
 static void evalpoly(void);
 static void yydivpoly(void);
-static void __lcm(void);
-int isnegativeterm(U *);
+
 static int expo;
 static U **polycoeff;
 
@@ -36,119 +24,20 @@ static U **polycoeff;
 void
 factorpoly(void)
 {
-	int i, n;
 	save();
 	p2 = pop();
 	p1 = pop();
 	if (p2 == symbol(NIL)) {
 		push(p1);
-		variables();
+		guess();
 		p2 = pop();
-		if (!istensor(p2)) {
-			push(p1);
-			restore();
-			return;
-		}
+		pop();
 	}
-	if (istensor(p2)) {
-		n = p2->u.tensor->nelem;
-		push(p1);
-		for (i = 0; i < n; i++) {
-			push(p2->u.tensor->elem[i]);
-			factorpoly2();
-		}
-		restore();
-		return;
-	}
+	if (!ispoly(p1, p2))
+		stop("factor(p): p is not a polynomial");
 	push(p1);
 	push(p2);
-	factorpoly2();
-	restore();
-}
-
-// condense first then rationalize
-
-// would it be better the other way around?
-
-static void
-factorpoly2(void)
-{
-	save();
-	p2 = pop();
-	Condense();
-	p1 = pop();
-	if (car(p1) == symbol(MULTIPLY)) {
-		p1 = cdr(p1);
-		push(one);
-		while (iscons(p1)) {
-			push(car(p1));
-			if (caar(p1) == symbol(ADD)) {
-				push(p2);
-				factorpoly3();
-			}
-			multiply_noexpand();
-			p1 = cdr(p1);
-		}
-	} else if (car(p1) == symbol(ADD)) {
-		push(p1);
-		push(p2);
-		factorpoly3();
-	} else
-		push(p1);
-	restore();
-}
-
-//-----------------------------------------------------------------------------
-//
-//	Input:		tos-2		sum expression (may be a polynomial)
-//
-//			tos-1		free variable
-//
-//	Output:		expression on stack (may be factored)
-//
-//-----------------------------------------------------------------------------
-
-static void
-factorpoly3(void)
-{
-	save();
-
-	p2 = pop();
-	p1 = pop();
-
-	if (ispoly(p1, p2)) {
-		push(p1);
-		push(p2);
-		factorpoly4();
-		restore();
-		return;
-	}
-
-	// try rationalizing
-
-	push(p1);
-	rationalize();
-	p1 = pop();
-
-	if (car(p1) == symbol(MULTIPLY)) {
-		p1 = cdr(p1);
-		push(one);
-		while (iscons(p1)) {
-			push(car(p1));
-			if (ispoly(car(p1), p2)) {
-				push(p2);
-				factorpoly4();
-			}
-			multiply_noexpand();
-			p1 = cdr(p1);
-		}
-	} else if (ispoly(p1, p2)) {
-		push(p1);
-		push(p2);
-		factorpoly4();
-	} else
-		push(p1);
-
+	factorpoly4();
 	restore();
 }
 
@@ -182,9 +71,19 @@ factorpoly4(void)
 
 	rationalize_coefficients(h);
 
+	// whole thing could be a multiple of x
+
+
 	// for univariate polynomials we could do expo > 1
 
 	while (expo > 0) {
+
+		if (iszero(polycoeff[0])) {
+			push_integer(1);
+			A = pop();
+			push_integer(0);
+			B = pop();
+		} else
 
 		if (get_factor() == 0) {
 			if (verbosing)
@@ -279,44 +178,32 @@ static void
 rationalize_coefficients(int h)
 {
 	int i;
-	if (verbosing)
-		printf("rationalizing coefficients\n");
+
+	// LCM of all polynomial coefficients
+
 	RESULT = one;
 	for (i = h; i < tos; i++) {
-		if (isnum(stack[i])) {
-			push(stack[i]);
-			mp_denominator();
-			push(RESULT);
-			__lcm();
-			RESULT = pop();
-		} else if (car(stack[i]) == symbol(MULTIPLY) && isnum(cadr(stack[i]))) {
-			push(cadr(stack[i]));
-			mp_denominator();
-			push(RESULT);
-			__lcm();
-			RESULT = pop();
-		}
+		push(stack[i]);
+		denominator();
+		push(RESULT);
+		lcm();
+		RESULT = pop();
 	}
+
+	// multiply each coefficient by RESULT
+
 	for (i = h; i < tos; i++) {
-		if (isnum(stack[i])) {
-			push(stack[i]);
-			push(RESULT);
-			multiply();
-			stack[i] = pop();
-		} else if (car(stack[i]) == symbol(MULTIPLY) && isnum(cadr(stack[i]))) {
-			push(stack[i]);
-			push(RESULT);
-			multiply();
-			stack[i] = pop();
-		}
+		push(RESULT);
+		push(stack[i]);
+		multiply();
+		stack[i] = pop();
 	}
+
+	// reciprocate RESULT
+
 	push(RESULT);
-	inverse();
+	reciprocate();
 	RESULT = pop();
-	if (verbosing) {
-		printf("RESULT=");
-		print(RESULT);
-	}
 }
 
 static int
@@ -510,14 +397,14 @@ static char *s[] = {
 	"factor(x*(x+1)*(x+2),x)",
 	"x*(1+x)*(2+x)",
 
-	"factor((x+1)*(x+2)*(y+3)*(y+4),x,y)",
-	"(1+x)*(2+x)*(3+y)*(4+y)",
+//	"factor((x+1)*(x+2)*(y+3)*(y+4),x,y)",
+//	"(1+x)*(2+x)*(3+y)*(4+y)",
 
-	"factor((x+1)*(x+2)*(y+3)*(y+4),(x,y))",
-	"(1+x)*(2+x)*(3+y)*(4+y)",
+//	"factor((x+1)*(x+2)*(y+3)*(y+4),(x,y))",
+//	"(1+x)*(2+x)*(3+y)*(4+y)",
 
-	"factor((x+1)*(x+2)*(y+3)*(y+4))",
-	"(1+x)*(2+x)*(3+y)*(4+y)",
+//	"factor((x+1)*(x+2)*(y+3)*(y+4))",
+//	"(1+x)*(2+x)*(3+y)*(4+y)",
 
 	"factor((-2*x+3)*(x+4),x)",
 	"-(-3+2*x)*(4+x)",
@@ -824,16 +711,16 @@ static char *s[] = {
 
 	// fixed by calling ispoly before calling coeff
 
-	"factor(1/x+1)",
-	"(1+x)/x",
+//	"factor(1/x+1)",
+//	"(1+x)/x",
 
 	// see if poly gets rationalized
 
-	"(x+1)(x+2)(x+3)/x^3",
-	"1+6/(x^3)+11/(x^2)+6/x",
+//	"(x+1)(x+2)(x+3)/x^3",
+//	"1+6/(x^3)+11/(x^2)+6/x",
 
-	"factor(last)",
-	"(1+x)*(2+x)*(3+x)/(x^3)",
+//	"factor(last)",
+//	"(1+x)*(2+x)*(3+x)/(x^3)",
 
 	// this used to fail
 
@@ -854,21 +741,4 @@ void
 test_factorpoly(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
-}
-
-static void
-__lcm(void)
-{
-	save();
-	p2 = pop();
-	p1 = pop();
-	push(p1);
-	push(p2);
-	multiply();
-	push(p1);
-	push(p2);
-	gcd();
-	divide();
-	absval();
-	restore();
 }
