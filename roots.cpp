@@ -70,11 +70,8 @@ roots(void)
 	h = tos - 2;
 	roots2();
 	n = tos - h;
-	if (n == 0) {
-		printstr("roots: Sorry, the argument is not factorable over integers, no roots found.\n");
-		push(symbol(NIL));
-		return;
-	}
+	if (n == 0)
+		stop("roots: the polynomial is not factorable, no roots found");
 	if (n == 1)
 		return;
 	sort_stack(n);
@@ -253,7 +250,7 @@ static char *s[] = {
 	"(-1,-i,i)",
 
 	"roots(x^4+1)",
-	"roots: Sorry, the argument is not factorable over integers, no roots found.",
+	"Stop: roots: the polynomial is not factorable, no roots found",
 
 //	"roots(0)",
 //	"roots: Sorry, the argument is not factorable over integers, no roots found.",
