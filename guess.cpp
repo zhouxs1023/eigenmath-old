@@ -8,6 +8,10 @@ guess(void)
 {
 	if (find(stack[tos - 1], symbol(SYMBOL_X)))
 		push_symbol(SYMBOL_X);
+	else if (find(stack[tos - 1], symbol(SYMBOL_Y)))
+		push_symbol(SYMBOL_Y);
+	else if (find(stack[tos - 1], symbol(SYMBOL_Z)))
+		push_symbol(SYMBOL_Z);
 	else if (find(stack[tos - 1], symbol(SYMBOL_T)))
 		push_symbol(SYMBOL_T);
 	else
