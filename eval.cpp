@@ -402,21 +402,6 @@ eval_for(void)
 }
 
 void
-eval_gcd(void)
-{
-	p1 = cdr(p1);
-	push(car(p1));
-	eval();
-	p1 = cdr(p1);
-	while (iscons(p1)) {
-		push(car(p1));
-		eval();
-		gcd();
-		p1 = cdr(p1);
-	}
-}
-
-void
 eval_hermite(void)
 {
 	push(cadr(p1));
@@ -504,16 +489,6 @@ eval_laguerre(void)
 	} else
 		push(zero);
 	laguerre();
-}
-
-void
-eval_lcm(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	lcm();
 }
 
 void

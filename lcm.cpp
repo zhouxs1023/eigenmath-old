@@ -4,6 +4,21 @@
 #include "defs.h"
 
 void
+eval_lcm(void)
+{
+	p1 = cdr(p1);
+	push(car(p1));
+	eval();
+	p1 = cdr(p1);
+	while (iscons(p1)) {
+		push(car(p1));
+		eval();
+		lcm();
+		p1 = cdr(p1);
+	}
+}
+
+void
 lcm(void)
 {
 	int x;
@@ -42,6 +57,11 @@ static char *s[] = {
 
 	"lcm(4*x,6*x*y)",
 	"12*x*y",
+
+	// multiple arguments
+
+	"lcm(2,3,4)",
+	"12",
 };
 
 void

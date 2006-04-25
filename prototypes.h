@@ -108,7 +108,6 @@ void push_integer(int n);
 void push_double(double d);
 void push_rational(int a, int b);
 int pop_integer(void);
-int isfraction(U *p);
 void print_double(U *p, int flag);
 void bignum_scan_integer(char *s);
 void bignum_scan_float(char *s);
@@ -291,7 +290,6 @@ void eval_factorial(void);
 void eval_factorpoly(void);
 void eval_float(void);
 void eval_for(void);
-void eval_gcd(void);
 void eval_hermite(void);
 void eval_hilbert(void);
 void eval_index(void);
@@ -299,7 +297,6 @@ void eval_inv(void);
 void eval_invg(void);
 void eval_isinteger(void);
 void eval_laguerre(void);
-void eval_lcm(void);
 void eval_legendre(void);
 void eval_multiply(void);
 void eval_number(void);
@@ -376,6 +373,7 @@ void gamma(void);
 void test_gamma(void);
 
 // gcd.cpp
+void eval_gcd(void);
 void gcd(void);
 void yygcd(void);
 void test_gcd(void);
@@ -461,6 +459,7 @@ int isnegative(U *p);
 int issymbolic(U *p);
 int isintegerfactor(U *p);
 int isoneover(U *p);
+int isfraction(U *p);
 int equaln(U *p, int n);
 int equalq(U *p, int a, int b);
 
@@ -475,6 +474,7 @@ void yylaguerre2(int n);
 void test_laguerre(void);
 
 // lcm.cpp
+void eval_lcm(void);
 void lcm(void);
 void yylcm(void);
 void test_lcm(void);

@@ -10,6 +10,21 @@ static void gcd_term_factor(void);
 static void gcd_factor_term(void);
 
 void
+eval_gcd(void)
+{
+	p1 = cdr(p1);
+	push(car(p1));
+	eval();
+	p1 = cdr(p1);
+	while (iscons(p1)) {
+		push(car(p1));
+		eval();
+		gcd();
+		p1 = cdr(p1);
+	}
+}
+
+void
 gcd(void)
 {
 	int x = expanding;
@@ -385,6 +400,11 @@ static char *s[] = {
 
 	"gcd(x,x^a)",
 	"1",
+
+	// multiple arguments
+
+	"gcd(12,18,9)",
+	"3",
 };
 
 void
