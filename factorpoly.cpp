@@ -71,9 +71,6 @@ factorpoly4(void)
 
 	rationalize_coefficients(h);
 
-	// whole thing could be a multiple of x
-
-
 	// for univariate polynomials we could do expo > 1
 
 	while (expo > 0) {
