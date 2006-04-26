@@ -77,6 +77,7 @@
 <a href="#rect">rect</a>		complex to rectangular
 <a href="#return">return</a>		early return from a function
 <a href="#roots">roots</a>		find roots of a polynomial
+<a href="#simfac">simfac</a>		simplify factorials
 <a href="#simplify">simplify</a>	simplify an expression
 <a href="#sin">sin</a>
 <a href="#sinh">sinh</a>
@@ -91,16 +92,27 @@
 <a href="#trace">trace</a>		trace of matrix
 <a href="#transpose">transpose</a>	transpose tensor indices
 <a href="#unit">unit</a>		unit matrix
+<a href="#wedge">wedge</a>		wedge product of tensors
 <a href="#zero">zero</a>		new zero tensor
 </pre>
 </td>
 <td valign="top">
-
 <tt>
-Trivia
+
+<a href="examples.html">How to use the scripting feature</a>
+
+<p>
+<a href="tensors.html">Tensor calculus examples</a>
+
+<p>Trivia
 <ul>
 <li>
 Press the up and down arrow keys to choose a previously entered command.
+<li>
+Enter X^Y to raise X to the power Y.
+<li>
+Enter A B or A*B to multiply A times B.
+AB is the symbol A sub B.
 <li>
 To use the symbol e for the natural number, first define it as e=exp(1).
 <li>
@@ -113,8 +125,9 @@ A=B evaluates B and binds the result to the symbol A.
 On the other hand, the function definition A(X)=B does not evaluate B until A
 itself is evaluated.
 <li>
-Enter bake=0 to get results in raw format.
-Enter bake=1/2 for half-baked code :)
+The sampling rate for audio compact discs is 44100&nbsp;Hz.
+This number has an interesting factorization.
+Enter factor(44100) to find out what it is.
 </ul>
 
 </td>
@@ -1365,29 +1378,8 @@ when <i>p</i> cannot be factored.
      - ----- + ------------------
         2 a           2 a
 </pre>
-<p>
-<h1><tt><a name="simplify">simplify(<i>x</i>)</a></tt></h1>
-Evaluate x and simplify the result.
-<pre>
-<i>Enter</i>
-
-     (A-B)/(B-A)
-
-<i>Result</i>
-
-        A          B
-     -------- - --------
-      -A + B     -A + B
- 
-<i>Enter</i>
-
-     simplify
-
-<i>Result</i>
-
-     -1
-</pre> 
-Factorials are simplified according to
+<h1><tt><a name="simfac">simfac(<i>x</i>)</a></tt></h1>
+Simplifies factorials in expression x according to
 the following rules.
 <pre>
 	This			is converted to this
@@ -1399,7 +1391,9 @@ the following rules.
 	(n + 1)! / n!		n + 1
 
 	(n + 2)! / n!		(n + 1) (n + 2)
-
+</pre>
+Example 1.
+<pre>
 <i>Enter</i>
 
      F(n,k) = k binomial(n,k)
@@ -1414,6 +1408,16 @@ the following rules.
 
 <i>Enter</i>
 
+     simfac
+
+<i>Result</i>
+
+        1       1 - k + n       1
+     ------- + ----------- - -------
+      1 + n       1 + n       1 + n
+
+<i>Enter</i>
+
      simplify
 
 <i>Result</i>
@@ -1422,6 +1426,96 @@ the following rules.
      -------
       1 + n
 </pre>
+Example 2. It may be necessary to rationalize or condense an expression first.
+<pre>
+<i>Enter</i>
+
+     (n + 1) / (n + 1)!
+
+<i>Result</i>
+
+         n            1
+     ---------- + ----------
+      (1 + n)!     (1 + n)!
+
+<i>Enter</i>
+
+     simfac
+
+<i>Result</i>
+
+         n            1
+     ---------- + ----------
+      (1 + n)!     (1 + n)!
+
+<i>Enter</i>
+
+     rationalize
+
+<i>Result</i>
+
+       1 + n
+     ----------
+      (1 + n)!
+
+<i>Enter</i>
+
+     simfac
+
+<i>Result</i>
+
+      1
+     ----
+      n!
+</pre>
+<p>
+<h1><tt><a name="simplify">simplify(<i>x</i>)</a></tt></h1>
+Evaluates expression x and then attempts to simplify the result.
+<pre>
+<i>Enter</i>
+
+     (A-B)/(B-A)
+
+<i>Result</i>
+
+        A          B
+     -------- - --------
+      -A + B     -A + B
+ 
+<i>Enter</i>
+
+     simplify(last)
+
+<i>Result</i>
+
+     -1
+
+<i>Enter</i>
+
+     A = ((A11,A12),(A21,A22))
+
+     det(A) inv(A) - adj(A)
+
+<i>Result</i>
+
+     ((-A22 + A11 A22^2 / (A11 A22 - A12 A21) - A12 A21 A22 / (A11 A22 - A12 A21),
+     A12 - A11 A12 A22 / (A11 A22 - A12 A21) + A12^2 A21 / (A11 A22 - A12 A21)),
+     (A21 - A11 A21 A22 / (A11 A22 - A12 A21) + A12 A21^2 / (A11 A22 - A12 A21),
+     -A11 - A11 A12 A21 / (A11 A22 - A12 A21) + A11^2 A22 / (A11 A22 - A12 A21)))
+
+<i>Enter</i>
+
+     simplify(last)
+
+<i>Result</i>
+
+     0
+</pre> 
+The <tt>simplify</tt> function can return factored
+(unexpanded)
+expressions.
+Factored expressions can fail in tests for equality.
+The <tt>eval</tt> function can be used to expand factored expressions.
 <p>
 <h1><tt><a name="sin">sin(<i>x</i>)</a></tt></h1>
 Returns the sine of <i>x</i>.
@@ -1560,6 +1654,37 @@ Returns a unit matrix with dimension <i>n</i>.
      0    0    1    0
 
      0    0    0    1
+</pre>
+<p>
+<h1><tt><a name="wedge">wedge(<i>u,v</i>)</a></tt></h1>
+<h1><tt>wedge(<i>u,v,w</i>)</tt></h1>
+Returns the wedge product of tensors.
+<pre>
+<i>Enter</i>
+
+     u = (u1,u2,u3,u4)
+
+     v = (v1,v2,v3,v4)
+
+     wedge(u,v)
+
+<i>Result</i>
+
+           0           u1 v2 - u2 v1     u1 v3 - u3 v1     u1 v4 - u4 v1
+
+     -u1 v2 + u2 v1          0           u2 v3 - u3 v2     u2 v4 - u4 v2
+
+     -u1 v3 + u3 v1    -u2 v3 + u3 v2          0           u3 v4 - u4 v3
+
+     -u1 v4 + u4 v1    -u2 v4 + u4 v2    -u3 v4 + u4 v3          0
+
+<i>Enter</i>
+
+     wedge(u,v) + wedge(v,u)
+
+<i>Result</i>
+
+     0
 </pre>
 <p>
 <h1><tt><a name="zero">zero(<i>i,j,...</i>)</a></tt></h1>
