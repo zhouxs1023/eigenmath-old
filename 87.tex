@@ -1,0 +1,189 @@
+\parindent=0pt
+
+\beginsection
+1a)
+
+$$\eqalign{
+S_{XX}&=50.9333\cr
+S_{YY}&=61.3333\cr
+S_{XY}&=46.3333\cr
+}$$
+
+$$r={S_{XY}\over\sqrt{S_{XX}S_{YY}}}=0.82898$$
+
+\beginsection
+1b)
+
+$$n=15$$
+$$r=0.82898$$
+$$Z'=1.18487$$
+$${\rm CI}=(0.55,0.94)$$
+
+\beginsection
+1c) Significance of Pearson correlation coefficient
+
+$$H_0:\rho=0$$
+$$H_1:\rho\ne0$$
+$$n=15$$
+$$r=0.82898$$
+$$\alpha=0.05$$
+$$t^*=r\sqrt{n-2\over1-r^2}=5.34427$$
+$$t_{(n-2,\alpha/2)}=t_{(13,0.025)}=2.160$$
+$${\rm C.R.}=(-\infty,-2.16)\quad{\rm or}\quad(2.16,+\infty)$$
+Reject $H_0$ at 0.05 l.o.s.
+
+\vfill
+\eject
+
+\beginsection
+2.
+
+$$\bar X=116.5$$
+$$\bar Y=4.2$$
+$$S_{XX}=7439.5$$
+$$S_{YY}=23.62$$
+$$S_{XY}=375.3$$
+
+$$b_1={S_{XY}\over S_{XX}}=0.05$$
+$$b_0=\bar Y-b_1\bar X=-1.677$$
+
+Coefficient of determination
+$$R^2={S_{XY}^2\over S_{XX}S_{YY}}=0.801555$$
+
+AOV Table
+$$\matrix{
+Source&df&SS&MS&F^*\cr
+Regression & 1 & 18.9 & 18.9 & 56.4\cr
+Error & 12 & 4.69 & 0.335\cr
+Total & 13 & 23.6\cr
+}$$
+
+\vfill
+\eject
+
+\beginsection
+3)
+
+$$\bar X=\sum X/n=4.45/13=0.3423$$
+$$\bar Y=\sum Y/n=569/13=43.77$$
+$$S_{XX}=\sum X^2-(\sum X)^2/n=1.6775-(4.45)^2/13=0.1542$$
+$$S_{YY}=\sum Y^2-(\sum Y)^2/n=28973-(569)^2/13=4068.31$$
+$$S_{XY}=\sum XY-\sum X\sum Y/n=219.4-(4.45)(569)/13=24.627$$
+
+\beginsection
+3a)
+
+$${\rm intercept}=b_0=\bar Y-\bar X(S_{XY}/S_{XX})=43.77-0.3423(24.627/0.1542)=-10.946$$
+$${\rm slope}=b_1=S_{XY}/S_{XX}=24.627/0.1542=159.7$$
+
+Variance of random error
+$${\rm SSE}=S_{YY}-S_{XY}^2/S_{XX}=4068.31-(24.627)^2/0.1542=135.18$$
+$$S^2={\rm SSE}/(n-2)=135.18/(13-2)=12.288$$
+$$\hbox{var. of random error}=2S^4/(n-2)=27.45$$
+
+\beginsection
+3b) Find the coefficient of determination.
+
+$$R^2={S_{XY}^2\over S_{XX}S_{YY}}=0.9668$$
+$$R^2=1-{{\rm SSE}\over S_{YY}}=0.9668$$
+
+\beginsection
+3c) Construct a 95\% confidence interval for the intercept.
+
+See lecture083, slide number 6.
+
+$$n=13$$
+$$b_0=-10.946$$
+$$\alpha=0.05$$
+$$S^2=12.288,\quad S=\sqrt{12.288}=3.505$$
+$$t_{(n-2,\alpha/2)}=t_{(11,0.025)}=2.201$$
+$$t_{(n-2,\alpha/2)}S\sqrt{1/n+{\bar X^2/S_{XX}}}=
+(2.201)(3.505)\sqrt{1/13+(0.3423)^2/0.1542}=7.057$$
+$${\rm CI}=b_0\pm7.057=(-18,-3.89)$$
+
+\beginsection
+3d) Construct a 90\% confidence interval for the slope.
+
+$$n=13$$
+$$b_1=159.7$$
+$$S=3.505$$
+$$\alpha=0.1$$
+$$t_{(n-2,\alpha/2)}=t_{(11,0.05)}=1.796$$
+$$t_{(n-2,\alpha/2)}S/\sqrt{S_{XX}}=(1.796)(3.505)/\sqrt{0.1542}=16.03$$
+$${\rm CI}=b_1\pm16.03=(143.67,175.73)$$
+
+\beginsection
+3e) Construct a 90\% confidence interval for the expected
+value of $Y$ given $X=0.25$.
+
+$$X_0=0.25$$
+$$S=3.505$$
+$$\alpha=0.1$$
+$$\bar X=0.3423$$
+$$S_{XX}=0.1542$$
+$$t_{(n-2,\alpha/2)}=1.796$$
+$$t_{(n-2,\alpha/2)}S\sqrt{1/n+(X_0-\bar X)^2/S_{XX}}=2.2886$$
+$$b_0=-10.946$$
+$$b_1=159.7$$
+$$b_0+b_1X_0=28.98$$
+$${\rm CI}=28.98\pm2.2886=(26.69,31.27)$$
+
+\beginsection
+3f) Construct a 95\% predicted interval for the value of $Y$ given $X=0.36$.
+
+$$t_{(n-2,\alpha/2)}S\sqrt{1+1/n+(X_0-\bar X)^2/S_{XX}}=(2.201)(3.505)(1.0387)=8.013$$
+$$b_0+b_1X_0=-10.946+(159.7)(0.36)=46.55$$
+$${\rm PI}=46.55\pm8.013$$
+
+\beginsection
+3g) Do you have sufficient evidence to conclude that the intercept is greater than 0?
+
+$$H_0:\beta_0=0$$
+$$H_1:\beta_0>0$$
+
+$$\alpha=0.05$$
+
+$$t^*={b_0\over S\sqrt{1/n+\bar X^2/S_{XX}}}=
+{-10.946\over3.505\sqrt{1/13+(0.3423)^2/0.1542}}=-3.414$$
+$${\rm CR}=(t_{(n-2,\alpha)},+\infty)=(1.796,+\infty)$$
+
+Fail to reject $H_0$.
+There is not enough evidence to conclude that $\beta_0>0$ at 0.05 LOS.
+
+\beginsection
+3h) Do you have sufficient evidence to conclude that the slope is less than 135?
+
+$$H_0:\beta_1=135$$
+$$H_1:\beta_1<135$$
+$$b_1=159.7$$
+$$\alpha=0.05$$
+
+$$t^*={159.7-135\over 3.505/\sqrt{0.1542}}=2.7673$$
+
+$$t_{(11,0.05)}=1.796$$
+$${\rm CR}=(-\infty,-1.796)$$
+
+Fail to reject $H_0$ at 0.05 LOS.
+
+\beginsection
+3i) Sufficient evidence that $Y=40$ given $X=0.3$?
+
+$$H_0:Y_{0.3}=40$$
+$$H_1:Y_{0.3}\ne40$$
+$$\alpha=0.05$$
+$$t_{(11,0.025)}=2.201$$
+$$t^*={
+(-10.946+(159.7)(0.3))-40
+\over
+3.505\sqrt{1/13+(0.3-0.3423)^2/0.1542}
+}=-2.911$$
+
+$${\rm CR}=(-\infty,-2.201)\quad{\rm or}\quad(+2.201,+\infty)$$
+
+Reject $H_0$.
+There is sufficient evidence to conclude that $Y\ne40$ at 0.05 LOS.
+
+
+
+
+\end
