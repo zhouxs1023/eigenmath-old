@@ -37,7 +37,7 @@ yysinh(void)
 		push_double(d);
 		return;
 	}
-	if (expomode == 1) {
+	if (exp_flag) {
 		push(p1);
 		exponential();
 		push(p1);
@@ -65,14 +65,8 @@ static char *s[] = {
 	"sinh(0)",
 	"0",
 
-	"expomode=1",
-	"",
-
-	"sinh(x)",
+	"circexp(sinh(x))",
 	"1/2*exp(x)-1/2*exp(-x)",
-
-	"expomode=0",
-	"",
 
 	"sinh(arcsinh(x))",
 	"x",

@@ -71,7 +71,7 @@ yycarac(void)
 				 return;}
 	}
 
-	if (expomode == 1) {
+	if (exp_flag) {
 		push(X);
 		push_integer(-1);
 		push(A);

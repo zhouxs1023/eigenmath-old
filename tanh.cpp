@@ -23,7 +23,7 @@ eval_tanh(void)
 		push_double(d);
 		return;
 	}
-	if (expomode == 1) {
+	if (exp_flag) {
 		push(p1);
 		push_integer(2);
 		multiply();
@@ -55,14 +55,8 @@ static char *s[] = {
 	"tanh(0)",
 	"0",
 
-	"expomode=1",
-	"",
-
-	"tanh(x)",
+	"circexp(tanh(x))",
 	"exp(2*x)/(1+exp(2*x))-1/(1+exp(2*x))",
-
-	"expomode=0",
-	"",
 
 	"tanh(arctanh(x))",
 	"x",

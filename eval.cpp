@@ -216,8 +216,8 @@ setup(void)
 	U *p;
 
 	exp_flag = 0;
-
 	trigmode = 0;
+	floating = 0;
 
 	p = symbol(AUTOEXPAND);
 	if (iszero(p->u.sym.binding))
@@ -404,13 +404,11 @@ eval_factorpoly(void)
 void
 eval_float(void)
 {
-	int f;
 	push(cadr(p1));
 	eval();
-	f = floating;
-	floating = 1;
+	floating++;
 	eval();
-	floating = f;
+	floating--;
 }
 
 void

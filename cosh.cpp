@@ -37,7 +37,7 @@ yycosh(void)
 		push_double(d);
 		return;
 	}
-	if (expomode == 1) {
+	if (exp_flag) {
 		push(p1);
 		exponential();
 		push(p1);
@@ -65,14 +65,8 @@ static char *s[] = {
 	"cosh(0)",
 	"1",
 
-	"expomode=1",
-	"",
-
-	"cosh(x)",
+	"circexp(cosh(x))",
 	"1/2*exp(x)+1/2*exp(-x)",
-
-	"expomode=0",
-	"",
 
 	"cosh(arccosh(x))",
 	"x",

@@ -271,11 +271,13 @@ void test_erfc(void);
 
 // eval.cpp
 void eval(void);
+void eval_sym(void);
 void eval_cons(void);
 void setup(void);
 void eval_add(void);
 void eval_break(void);
 void eval_check(void);
+void eval_circexp(void);
 void eval_cls(void);
 void eval_conj(void);
 void eval_det(void);

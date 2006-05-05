@@ -41,9 +41,9 @@ eval_fourier(void)
 {
 	int expotemp;
 
-	expotemp=expomode;
+	expotemp=exp_flag;
 
-	expomode=0;
+	exp_flag=0;
 	push(cadr(p1));
 	eval();
 	if (caddr(p1) == symbol(NIL))
@@ -57,7 +57,7 @@ eval_fourier(void)
 //	printf("\n");
 //	printf("%d\n",length(p5));
 
-	expomode=1;
+	exp_flag=1;
 	push(cadr(p1));
 	eval();
 	if (caddr(p1) == symbol(NIL))
@@ -79,7 +79,7 @@ eval_fourier(void)
 		else
 			push(p6);
 
-	expomode=expotemp;
+	exp_flag=expotemp;
 }
 
 void

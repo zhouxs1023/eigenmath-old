@@ -24,5 +24,6 @@ int expanding;
 int conjugating;
 int verbosing;
 int floating;
+int exp_flag;
 int esc_flag;
 int little_endian;

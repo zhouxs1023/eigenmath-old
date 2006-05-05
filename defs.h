@@ -74,6 +74,7 @@ enum {
 	CARAC,
 	CEILING,
 	CHECK,
+	CIRCEXP,
 	CLEAR,
 	CLS,
 	COEFF,
@@ -187,7 +188,6 @@ enum {
 
 	AUTOEXPAND,
 	BAKE,
-	EXPOMODE,
 	LAST,
 	TTY,
 	YYE,
@@ -306,7 +306,7 @@ struct text_metric {
 
 extern int tos;
 extern int expanding;
-extern int expomode;
+extern int exp_flag;
 extern int conjugating;
 extern int fmt_x;
 extern int fmt_index;

@@ -52,6 +52,7 @@ init(void)
 	std_symbol("carac", CARAC);
 	std_symbol("ceiling", CEILING);
 	std_symbol("check", CHECK);
+	std_symbol("circexp", CIRCEXP);
 	std_symbol("clear", CLEAR);
 	std_symbol("cls", CLS);
 	std_symbol("coeff", COEFF);
@@ -165,7 +166,6 @@ init(void)
 
 	std_symbol("autoexpand", AUTOEXPAND);
 	std_symbol("bake", BAKE);
-	std_symbol("expomode", EXPOMODE);
 	std_symbol("last", LAST);
 	std_symbol("tty", TTY);
 	std_symbol("~", YYE); // tilde so sort puts it after other symbols
@@ -227,7 +227,6 @@ init(void)
 static char *defn_str[] = {
 	"i=sqrt(-1)",
 	"autoexpand=1",
-	"expomode=0",
 	"trange=(-pi,pi)",
 	"xrange=(-10,10)",
 	"yrange=(-10,10)",

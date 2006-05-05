@@ -56,7 +56,7 @@ yysine(void)
 		multiply();
 		return;
 	}
-	if (expomode == 1) {
+	if (exp_flag) {
 		push(p1);
 		expsin();
 		return;

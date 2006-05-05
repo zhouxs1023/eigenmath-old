@@ -195,7 +195,7 @@ yconvolution(void)
 		return;
 	}
 
-// 	if (expomode ==1) {
+// 	if (exp_flag) {
 // 		push(X);
 // 		fourier();
 // 		push(Y);

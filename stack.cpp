@@ -51,7 +51,7 @@ push_frame(int n)
 	int i;
 	frame -= n;
 	if (frame < stack + tos)
-		stop("frame overflow");
+		stop("frame overflow, circular reference?");
 	for (i = 0; i < n; i++)
 		frame[i] = symbol(NIL);
 }
@@ -69,7 +69,7 @@ save(void)
 {
 	frame -= 8;
 	if (frame < stack + tos)
-		stop("frame overflow");
+		stop("frame overflow, circular reference?");
 	frame[0] = p1;
 	frame[1] = p2;
 	frame[2] = p3;

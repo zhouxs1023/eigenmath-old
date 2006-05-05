@@ -63,7 +63,7 @@ yyheaviside(void)
 				 return;}
 		
 	}
-	if (expomode == 1) {
+	if (exp_flag) {
 		push_rational(1, 2);
 		push(p1);
 		sgn();

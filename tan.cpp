@@ -40,7 +40,7 @@ yytangent(void)
 		return;
 	}
 
-	if (expomode == 1) {
+	if (exp_flag) {
 		push(imaginaryunit);
 		push(p1);
 		multiply();

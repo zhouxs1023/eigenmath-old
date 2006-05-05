@@ -55,7 +55,7 @@ yycosine(void)
 		return;
 	}
 
-	if (expomode == 1) {
+	if (exp_flag) {
 		push(p1);
 		expcos();
 		return;
