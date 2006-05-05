@@ -265,6 +265,9 @@ static char *s[] = {
 
 	"cos(arccos(x))",
 	"x",
+
+	"circexp(cos(x))",
+	"1/2*exp(-i*x)+1/2*exp(i*x)",
 };
 
 void

@@ -268,6 +268,9 @@ static char *s[] = {
 
 	"sin(arcsin(x))",
 	"x",
+
+	"circexp(sin(x))",
+	"1/2*i*exp(-i*x)-1/2*i*exp(i*x)",
 };
 
 void

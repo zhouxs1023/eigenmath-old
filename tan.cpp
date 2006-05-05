@@ -249,6 +249,9 @@ static char *s[] = {
 
 	"tan(arctan(x))",
 	"x",
+
+	"circexp(tan(x))",
+	"i*exp(-i*x)/(exp(-i*x)+exp(i*x))-i*exp(i*x)/(exp(-i*x)+exp(i*x))",
 };
 
 void
