@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "defs.h"
 
-int expomode;
 int trigmode;
 static char errstr[24];
 
@@ -29,22 +28,7 @@ eval(void)
 		eval_tensor();
 		break;
 	case SYM:
-		if (symbol_index(p1) < NIL) {
-			// bare keyword, eval using last result
-			push(p1);
-			push(symbol(LAST));
-			list(2);
-			eval();
-		} else if (floating) {
-			p1 = p1->u.sym.binding;
-			if (p1 == symbol(PI))
-				push_double(M_PI);
-			else if (p1 == symbol(E))
-				push_double(M_E);
-			else
-				push(p1);
-		} else
-			push(p1->u.sym.binding);
+		eval_sym();
 		break;
 	default:
 		sprintf(errstr, "atom %d?", p1->k);
@@ -54,6 +38,35 @@ eval(void)
 	if (stack[tos - 1] != symbol(NIL))
 		symbol(YYLAST)->u.sym.binding = stack[tos - 1];
 	restore();
+}
+
+void
+eval_sym(void)
+{
+	// bare keyword?
+
+	if (symbol_index(p1) < NIL) {
+		push(p1);
+		push(symbol(LAST));
+		list(2);
+		eval();
+		return;
+	}
+
+	push(p1->u.sym.binding);
+
+//	if (p1 != p1->u.sym.binding)
+//		eval();
+
+	if (floating) {
+		p1 = pop();
+		if (p1 == symbol(PI))
+			push_double(M_PI);
+		else if (p1 == symbol(E))
+			push_double(M_E);
+		else
+			push(p1);
+	}
 }
 
 void
@@ -84,6 +97,7 @@ eval_cons(void)
 	case CARAC:		eval_carac();		break;
 	case CEILING:		eval_ceiling();		break;
 	case CHECK:		eval_check();		break;
+	case CIRCEXP:		eval_circexp();		break;
 	case CLEAR:		eval_clear();		break;
 	case CLS:		eval_cls();		break;
 	case COEFF:		eval_coeff();		break;
@@ -201,6 +215,8 @@ setup(void)
 {
 	U *p;
 
+	exp_flag = 0;
+
 	trigmode = 0;
 
 	p = symbol(AUTOEXPAND);
@@ -208,12 +224,6 @@ setup(void)
 		expanding = 0;
 	else
 		expanding = 1;
-
-	p = symbol(EXPOMODE);
-	if (iszero(p->u.sym.binding))
-		expomode = 0;
-	else
-		expomode = 1;
 }
 
 void
@@ -249,6 +259,18 @@ eval_check(void)
 	if (iszero(p1))
 		stop("check(arg): arg is zero");
 	push(symbol(NIL)); // no result is printed
+}
+
+// change circular functions to exponentials
+
+void
+eval_circexp(void)
+{
+	push(cadr(p1));
+	eval();
+	exp_flag++;
+	eval();
+	exp_flag--;
 }
 
 void
