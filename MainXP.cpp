@@ -361,10 +361,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	main_window = CreateWindow(
 		"Eigenmath",
-		"Eigenmath",
+		"Eigenmath.sourceforge.net (version 113)",
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0,
-		CW_USEDEFAULT, 0,
+//		CW_USEDEFAULT, 0,
+		720, 540,
 		NULL,
 		NULL,
 		hInstance,
@@ -542,8 +543,8 @@ static struct {
 	{0,			0},
 
 	{"*",					0},
-	{"About",				ID_ABOUT},
-	{"Memory",				ID_MEMORY},
+//	{"About",				ID_ABOUT},
+//	{"Memory",				ID_MEMORY},
 	{"Copy display to clipboard",		ID_COPY_DISPLAY},
 	{"Create script from command history",	ID_CREATE_SCRIPT},
 	{0,					0},
