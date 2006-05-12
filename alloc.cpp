@@ -83,7 +83,6 @@ gc(void)
 	untag(imaginaryunit);
 
 	untag(varlist);
-	untag(table_of_integrals);
 	untag(table_of_fourier);
 
 	for (i = 0; i < tos; i++)

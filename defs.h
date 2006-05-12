@@ -85,6 +85,7 @@ enum {
 	CONVOLUTION,
 	COS,
 	COSH,
+	DECOMP,
 	DEGREE,
 	DENOMINATOR,
 	DERIVATIVE,
@@ -193,6 +194,9 @@ enum {
 	YYE,
 	YYLAST,
 	SECRETX,
+	METAA,
+	METAB,
+	METAX,
 
 	// symbols appearing above are printed in roman type
 
@@ -259,6 +263,9 @@ struct text_metric {
 	int ascent, descent, width;
 };
 
+#define bind(x,y) symbol(x)->u.sym.binding = y
+#define push_binding(p) push((p)->u.sym.binding)
+#define pop_binding(p) (p)->u.sym.binding = pop()
 #define symbol(x) (symtab + (x))
 #define iscons(p) ((p)->k == CONS)
 #define isrational(p) ((p)->k == NUM)
@@ -326,7 +333,6 @@ extern U **frame;
 extern U *p1, *p2, *p3, *p4, *p5, *p6, *p7, *p8;
 extern U *formal_arg[6];
 extern U *zero, *one, *imaginaryunit;
-extern U *table_of_integrals;
 extern U *table_of_fourier;
 extern U *meta_a;
 extern U *meta_b;

@@ -41,7 +41,7 @@ static void scan_relation(void);
 static void error(char *);
 static void update_token_buf(char *, char *);
 
-static int token, newline_flag;
+static int token, newline_flag, meta_mode;
 static char *input_str, *scan_str, *token_str, *token_buf;
 
 // Returns number of chars scanned and expr on stack.
@@ -51,19 +51,36 @@ static char *input_str, *scan_str, *token_str, *token_buf;
 int
 scan(char *s)
 {
-	int x;
-	x = expanding;
-	expanding = 1;
+	meta_mode = 0;
+	expanding++;
 	input_str = s;
 	scan_str = s;
 	get_next_token();
 	if (token == 0) {
 		push(symbol(NIL));
-		expanding = x;
+		expanding--;
 		return 0;
 	}
 	scan_stmt();
-	expanding = x;
+	expanding--;
+	return (int) (token_str - input_str);
+}
+
+int
+scan_meta(char *s)
+{
+	meta_mode = 1;
+	expanding++;
+	input_str = s;
+	scan_str = s;
+	get_next_token();
+	if (token == 0) {
+		push(symbol(NIL));
+		expanding--;
+		return 0;
+	}
+	scan_stmt();
+	expanding--;
 	return (int) (token_str - input_str);
 }
 
@@ -295,7 +312,23 @@ scan_symbol(void)
 {
 	if (token != T_SYMBOL)
 		error("symbol expected");
-	push(usr_symbol(token_buf));
+	if (meta_mode && strlen(token_buf) == 1)
+		switch (token_buf[0]) {
+		case 'a':
+			push(symbol(METAA));
+			break;
+		case 'b':
+			push(symbol(METAB));
+			break;
+		case 'x':
+			push(symbol(METAX));
+			break;
+		default:
+			push(usr_symbol(token_buf));
+			break;
+		}
+	else
+		push(usr_symbol(token_buf));
 	get_next_token();
 }
 

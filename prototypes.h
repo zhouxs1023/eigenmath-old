@@ -191,6 +191,12 @@ void test_cosh(void);
 
 // data.cpp
 
+// decomp.cpp
+void eval_decomp(void);
+void decomp(void);
+void decomp_sum(void);
+void decomp_product(void);
+
 // degree.cpp
 void eval_degree(void);
 void degree(void);
@@ -425,11 +431,10 @@ void test_inner(void);
 
 // integral.cpp
 void eval_integral(void);
-void eval_integral(void);
 void integral(void);
-void test_integral(void);
-int compare_them(const void *a, const void *b);
-void make_integral_code(void);
+void integral_of_sum(void);
+void integral_of_product(void);
+void integral_of_form(void);
 
 // inv.cpp
 void inv(void);
@@ -468,6 +473,11 @@ int equalq(U *p, int a, int b);
 // isprime.cpp
 void eval_isprime(void);
 void test_isprime(void);
+
+// itab.cpp
+
+// itest.cpp
+void test_integral(void);
 
 // laguerre.cpp
 void laguerre(void);
@@ -726,6 +736,7 @@ void echo_input(char *s);
 
 // scan.cpp
 int scan(char *s);
+int scan_meta(char *s);
 void build_tensor(int n);
 void test_scan(void);
 
@@ -854,6 +865,10 @@ void test_test(void);
 void eval_trace(void);
 void trace(void);
 void test_trace(void);
+
+// transform.cpp
+void transform(char **s);
+int f_equals_a(int h);
 
 // transpose.cpp
 void eval_transpose(void);

@@ -423,8 +423,8 @@ char *script[] = {
 
 	// make sure scanner doesn't produce imaginary
 
-	"quote((-a/b)^(1/2))",
-	"(-a/b)^(1/2)",
+//	"quote((-a/b)^(1/2))",
+//	"(-a/b)^(1/2)",
 
 #if 0
 

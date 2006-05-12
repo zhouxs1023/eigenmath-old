@@ -12,7 +12,6 @@ U *p8;
 
 U *formal_arg[6];
 U *zero, *one, *imaginaryunit;
-U *table_of_integrals;
 U *meta_a;
 U *meta_b;
 U *meta_c;

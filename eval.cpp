@@ -108,6 +108,7 @@ eval_cons(void)
 	case CONVOLUTION:	eval_convolution();	break;
 	case COS:		eval_cos();		break;
 	case COSH:		eval_cosh();		break;
+	case DECOMP:		eval_decomp();		break;
 	case DEGREE:		eval_degree();		break;
 	case DENOMINATOR:	eval_denominator();	break;
 	case DERIVATIVE:	eval_derivative();	break;

@@ -1113,23 +1113,22 @@ Returns the outer product of tensors (aka tensor product).
 
      A3 B1    A3 B2    A3 B3
 </pre>
-
 <p><h1><tt><a name="polar">polar(<i>z</i>)</a></tt></h1>
 Converts complex z to polar form.
-
-<p>
-<h1><tt><a name="prime">prime(<i>n</i>)</a></tt></h1>
-Returns the <i>n</i>th prime number.
-The value of <i>n</i> must be greater than zero and less than 10,001.
 <pre>
 <i>Enter</i>
 
-     prime(1)
+     polar(1 + exp(i pi/3))
 
 <i>Result</i>
 
-     2
-
+         1/6  1/2
+     (-1)    3
+</pre>
+<p>
+<h1><tt><a name="prime">prime(<i>n</i>)</a></tt></h1>
+Returns the nth prime number, n &le; 10000.
+<pre>
 <i>Enter</i>
 
      prime(10000)
@@ -1140,20 +1139,11 @@ The value of <i>n</i> must be greater than zero and less than 10,001.
 </pre>
 <p>
 <h1><tt><a name="print">print(<i>a,b,...</i>)</a></tt></h1>
-The <tt>print</tt> function evaluates and prints each expression.
-The printing is done in tty mode.
-The symbol <tt>nil</tt> is returned as the function value.
-Spaces and other text can be printed by using quoted strings for print
-arguments.
-This function can be selected as the default printing mode by setting the
-symbol tty = 1.
+Print args in tty mode.
 <p>
-<h1><tt><a name="product">product(<i>a,i,j,b</i>)</a></tt></h1>
-For <i>a</i> equals <i>i</i> through <i>j</i> evaluate <i>b</i>.
-Returns the product of all <i>b</i>.
-The variable <i>a</i> has local scope within the product function,
-<i>a</i> remains unchanged after the product function returns.
-The expressions <i>i</i> and <i>j</i> should evaluate to integers.
+<h1><tt><a name="product">product(<i>i,j,k,y</i>)</a></tt></h1>
+For i equals j through k evaluate y.
+Returns the product of all y.
 <pre>
 <i>Enter</i>
 

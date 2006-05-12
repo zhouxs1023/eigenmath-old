@@ -29,7 +29,6 @@ init(void)
 
 	varlist = symbol(NIL);
 
-	table_of_integrals = symbol(NIL);
 	table_of_fourier = symbol(NIL);
 
 	std_symbol("abs", ABS);
@@ -63,6 +62,7 @@ init(void)
 	std_symbol("convolution", CONVOLUTION);
 	std_symbol("cos", COS);
 	std_symbol("cosh", COSH);
+	std_symbol("decomp", DECOMP);
 	std_symbol("deg", DEGREE);
 	std_symbol("denominator", DENOMINATOR);
 	std_symbol("det", DET);
@@ -164,13 +164,18 @@ init(void)
 
 	std_symbol("nil", NIL);
 
+	// each symbol needs a unique name because equal() compares printnames
+
 	std_symbol("autoexpand", AUTOEXPAND);
 	std_symbol("bake", BAKE);
 	std_symbol("last", LAST);
 	std_symbol("tty", TTY);
 	std_symbol("~", YYE); // tilde so sort puts it after other symbols
-	std_symbol("", YYLAST);
-	std_symbol("", SECRETX);
+	std_symbol("YYLAST", YYLAST);
+	std_symbol("SECRETX", SECRETX);
+	std_symbol("METAA", METAA);
+	std_symbol("METAB", METAB);
+	std_symbol("METAX", METAX);
 
 	std_symbol("pi", PI);
 	std_symbol("a", SYMBOL_A);
