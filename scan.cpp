@@ -209,10 +209,9 @@ scan_term(void)
 
 	scan_power();
 
-	// for test case A
-	// added is_factor() for test case sin(1.0), have to keep double
+	// discard integer 1
 
-	if (is_factor() && tos > h && isplusone(stack[tos - 1]))
+	if (tos > h && isrational(stack[tos - 1]) && equaln(stack[tos - 1], 1))
 		pop();
 
 	while (is_factor()) {
@@ -231,12 +230,14 @@ scan_term(void)
 		if (tos > h + 1 && isnum(stack[tos - 2]) && isnum(stack[tos - 1]))
 			multiply();
 
-		if (tos > h && isplusone(stack[tos - 1]))
+		// discard integer 1
+
+		if (tos > h && isrational(stack[tos - 1]) && equaln(stack[tos - 1], 1))
 			pop();
 	}
 
 	if (h == tos)
-		push(one);
+		push_integer(1);
 	else if (tos - h > 1) {
 		list(tos - h);
 		push_symbol(MULTIPLY);
