@@ -34,29 +34,10 @@ yymultiply(void)
 
 	h = tos;
 
-	// is either operand nil?
-
-	if (p1 == symbol(NIL) || p2 == symbol(NIL)) {
-		push(symbol(NIL));
-		return;
-	}
-
 	// is either operand zero?
 
 	if (iszero(p1) || iszero(p2)) {
 		push(zero);
-		return;
-	}
-
-	// is either operand one?
-
-	if (isplusone(p1)) {
-		push(p2);
-		return;
-	}
-
-	if (isplusone(p2)) {
-		push(p1);
 		return;
 	}
 
@@ -239,7 +220,9 @@ yymultiply(void)
 	if (n == 1)
 		return;
 
-	if (isplusone(stack[h])) {
+	// discard integer 1
+
+	if (isrational(stack[h]) && equaln(stack[h], 1)) {
 		if (n == 2) {
 			p7 = pop();
 			pop();
@@ -721,6 +704,14 @@ static char *s[] = {
 
 	"1/(4 i)",
 	"-1/4*i",
+
+	// ensure 1.0 is not discarded
+
+	"1.0 pi 1/2",
+	"0.5*pi",
+
+	"1.0 1/2 pi",
+	"0.5*pi",
 };
 
 void
