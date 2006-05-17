@@ -19,7 +19,7 @@ index_function(int n)
 
 	// index of scalar zero OK
 
-	if (iszero(p1)) {
+	if (equaln(p1, 0)) {
 		tos -= n;
 		push(p1);
 		restore();
@@ -246,6 +246,12 @@ static char *s[] = {
 
 	"A",
 	"((B11,B12),(B21,B22))",
+
+	"A=((0,0),(0,0))",
+	"",
+
+	"A[1,1]",
+	"0",
 
 	"A=quote(A)",
 	"A",
