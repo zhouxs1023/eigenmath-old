@@ -853,11 +853,11 @@ char *script[] = {
 	"a*b*c",
 	"((a*b,a*b),(a*b,a*b))",
 
-	"c*d*e",
-	"((d*e,d*e),(d*e,d*e))",
+	"c*d*f",
+	"((d*f,d*f),(d*f,d*f))",
 
-	"a*b*c*d*e",
-	"((a*b*d*e,a*b*d*e),(a*b*d*e,a*b*d*e))",
+	"a*b*c*d*f",
+	"((a*b*d*f,a*b*d*f),(a*b*d*f,a*b*d*f))",
 
 	"c=quote(c)",
 	"c",

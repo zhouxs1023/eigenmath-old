@@ -21,7 +21,7 @@ index_function(int n)
 
 	if (equaln(p1, 0)) {
 		tos -= n;
-		push(p1);
+		push_integer(0);
 		restore();
 		return;
 	}
