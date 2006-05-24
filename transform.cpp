@@ -110,10 +110,12 @@ f_equals_a(int h)
 			}
 			if (iscons(p1))			// no, try next j
 				continue;
-			push(A);			// F = A?
+			push(F);			// F = A?
+			push(A);
 			eval();
+			subtract();
 			p1 = pop();
-			if (equal(F, p1))
+			if (iszero(p1))
 				return 1;		// yes
 		}
 	}
