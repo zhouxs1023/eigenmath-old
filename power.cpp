@@ -1,24 +1,14 @@
+/* Symbolic power function
+
+	Input:		tos-2		Base
+
+			tos-1		Exponent
+
+	Output:		Result on stack
+*/
+
 #include "stdafx.h"
-
-//-----------------------------------------------------------------------------
-//
-//	Symbolic power function
-//
-//	Input:		tos-2		Base
-//
-//			tos-1		Exponent
-//
-//	Output:		Result on stack
-//
-//-----------------------------------------------------------------------------
-
 #include "defs.h"
-
-extern int trigmode;
-
-extern int iscomplexnumber(U *);
-static void __power(void);
-static void power_sum(int);
 
 void
 power(void)
@@ -27,13 +17,13 @@ power(void)
 		power_numbers();
 	else {
 		save();
-		__power();
+		yypower();
 		restore();
 	}
 }
 
-static void
-__power(void)
+void
+yypower(void)
 {
 	int n;
 
@@ -194,13 +184,11 @@ __power(void)
 //
 //-----------------------------------------------------------------------------
 
-static void multinomial_sum(int, int, int *, int, int);
-
 // first index is the term number 0..k-1, second index is the exponent 0..n
 
 #define A(i, j) frame[(i) * (n + 1) + (j)]
 
-static void
+void
 power_sum(int n)
 {
 	int *a, i, j, k;
@@ -270,7 +258,7 @@ power_sum(int n)
 //
 //-----------------------------------------------------------------------------
 
-static void
+void
 multinomial_sum(int k, int n, int *a, int i, int m)
 {
 	int j;
