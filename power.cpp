@@ -78,7 +78,10 @@ yypower(void)
 	//	(a * b) ^ c	->	(a ^ c) * (b ^ c)
 
 	if (car(p1) == symbol(MULTIPLY)) {
-		push(one);
+		p1 = cdr(p1);
+		push(car(p1));
+		push(p2);
+		power();
 		p1 = cdr(p1);
 		while (iscons(p1)) {
 			push(car(p1));
