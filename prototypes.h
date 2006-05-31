@@ -113,7 +113,7 @@ void bignum_scan_integer(char *s);
 void bignum_scan_float(char *s);
 void print_number(U *p);
 void gcd_numbers(void);
-void power_numbers(void);
+void dpow(void);
 double pop_double(void);
 void bignum_float(void);
 void bignum_factorial(int n);

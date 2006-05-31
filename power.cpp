@@ -26,12 +26,16 @@ yypower(void)
 	p2 = pop();
 	p1 = pop();
 
+	// both base and exponent are rational numbers?
+
 	if (isrational(p1) && isrational(p2)) {
 		push(p1);
 		push(p2);
 		qpow();
 		return;
 	}
+
+	// both base and exponent are either rational or double?
 
 	if (isnum(p1) && isnum(p2)) {
 		push(p1);

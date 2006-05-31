@@ -644,14 +644,9 @@ gcd_numbers(void)
 }
 
 void
-power_numbers(void)
+dpow(void)
 {
 	double a, b, base, expo, result, theta;
-
-	if (stack[tos - 1]->k == NUM && stack[tos - 2]->k == NUM) {
-		qpow();
-		return;
-	}
 
 	expo = pop_double();
 	base = pop_double();

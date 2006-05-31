@@ -98,10 +98,10 @@ qpowf(void)
 		push(BASE);
 		negate();
 		push(EXPO);
-		power_numbers();
+		qpow();
 		push_integer(-1);
 		push(EXPO);
-		power_numbers();
+		qpow();
 		multiply();
 		return;
 	}
@@ -112,12 +112,12 @@ qpowf(void)
 		push(BASE);
 		mp_numerator();
 		push(EXPO);
-		power_numbers();
+		qpow();
 		push(BASE);
 		mp_denominator();
 		push(EXPO);
 		negate();
-		power_numbers();
+		qpow();
 		multiply();
 		return;
 	}
