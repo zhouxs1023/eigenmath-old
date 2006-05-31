@@ -30,13 +30,6 @@ yypower(void)
 	p2 = pop();
 	p1 = pop();
 
-	// is either operand nil?
-
-	if (p1 == symbol(NIL) || p2 == symbol(NIL)) {
-		push(symbol(NIL));
-		return;
-	}
-
 	if (istensor(p1)) {
 		power_tensor();
 		return;

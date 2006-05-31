@@ -325,6 +325,7 @@ extern int esc_flag;
 extern int mtotal;
 extern int little_endian;
 extern int nsym;
+extern int trigmode;
 extern char logbuf[];
 extern char program_buf[];
 extern U symtab[];

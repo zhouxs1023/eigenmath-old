@@ -643,6 +643,9 @@ void test_factor_integer(void);
 
 // power.cpp
 void power(void);
+void yypower(void);
+void power_sum(int n);
+void multinomial_sum(int k, int n, int *a, int i, int m);
 void test_power(void);
 
 // prime.cpp
