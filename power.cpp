@@ -13,15 +13,9 @@
 void
 power(void)
 {
-	if (tos < 2)
-		stop("stack underflow");
-	else if (isnum(stack[tos - 2]) && isnum(stack[tos - 1]))
-		power_numbers();
-	else {
-		save();
-		yypower();
-		restore();
-	}
+	save();
+	yypower();
+	restore();
 }
 
 void
@@ -31,6 +25,20 @@ yypower(void)
 
 	p2 = pop();
 	p1 = pop();
+
+	if (isrational(p1) && isrational(p2)) {
+		push(p1);
+		push(p2);
+		qpow();
+		return;
+	}
+
+	if (isnum(p1) && isnum(p2)) {
+		push(p1);
+		push(p2);
+		dpow();
+		return;
+	}
 
 	if (istensor(p1)) {
 		power_tensor();
