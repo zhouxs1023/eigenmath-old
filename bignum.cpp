@@ -656,36 +656,50 @@ power_numbers(void)
 	expo = pop_double();
 	base = pop_double();
 
+	// divide by zero?
+
 	if (base == 0.0 && expo < 0.0)
 		stop("divide by zero");
 
-	errno = 0;
+	// nonnegative base?
 
-	result = pow(base, expo);
-
-#ifdef MAC
-	if (errno || isnan(result)) {
-#else
-	if (errno) {
-#endif
-		errno = 0;
-		result = pow(fabs(base), expo);
-		theta = M_PI * expo;
-		a = cos(theta);
-		b = sin(theta);
-		if (fabs(a) < 1e-10)
-			a = 0.0;
-		if (fabs(b) < 1e-10)
-			b = 0.0;
-		push_double(result * a);
-		push_double(result * b);
-		push(imaginaryunit);
-		multiply();
-		add();
+	if (base >= 0.0) {
+		result = pow(base, expo);
+		push_double(result);
 		return;
 	}
 
-	push_double(result);
+	result = pow(fabs(base), fabs(expo));
+
+	// real number?
+
+	if (trunc(result) == result) {
+		if (expo < 0.0)
+			result = 1.0 / result;
+		push_double(-result);
+		return;
+	}
+
+	if (expo < 0.0)
+		result = 1.0 / result;
+
+	if (expo == 0.5) {
+		a = 0.0;
+		b = 1.0;
+	} else if (expo == -0.5) {
+		a = 0.0;
+		b = -1.0;
+	} else {
+		theta = M_PI * expo;
+		a = cos(theta);
+		b = sin(theta);
+	}
+
+	push_double(a * result);
+	push_double(b * result);
+	push(imaginaryunit);
+	multiply();
+	add();
 }
 
 double
