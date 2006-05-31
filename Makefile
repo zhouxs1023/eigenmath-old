@@ -32,7 +32,8 @@
 # divby1billion() in mstr.c doesn't work with -O2
 CXXFLAGS = -Wall -Wuninitialized -O -DLINUX
 
-objects = madd.o mmul.o mprime.o mgcd.o mpow.o mroot.o mcmp.o mstr.o mscan.o mmodpow.o \
+objects = madd.o mmul.o mprime.o mgcd.o mpow.o mroot.o mcmp.o mstr.o mscan.o \
+mmodpow.o dpow.o \
 qadd.o qsub.o qmul.o qdiv.o qpow.o \
 sin.o cos.o tan.o arcsin.o arccos.o arctan.o \
 sinh.o cosh.o tanh.o arcsinh.o arccosh.o arctanh.o \

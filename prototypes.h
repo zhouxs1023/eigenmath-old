@@ -251,6 +251,9 @@ void divisors(void);
 void divisors_onstack(void);
 void test_divisors(void);
 
+// dpow.cpp
+void dpow(void);
+
 // draw.cpp
 void eval_draw(void);
 

@@ -643,60 +643,6 @@ gcd_numbers(void)
 	restore();
 }
 
-void
-dpow(void)
-{
-	double a, b, base, expo, result, theta;
-
-	expo = pop_double();
-	base = pop_double();
-
-	// divide by zero?
-
-	if (base == 0.0 && expo < 0.0)
-		stop("divide by zero");
-
-	// nonnegative base?
-
-	if (base >= 0.0) {
-		result = pow(base, expo);
-		push_double(result);
-		return;
-	}
-
-	result = pow(fabs(base), fabs(expo));
-
-	// real number?
-
-	if (trunc(result) == result) {
-		if (expo < 0.0)
-			result = 1.0 / result;
-		push_double(-result);
-		return;
-	}
-
-	if (expo < 0.0)
-		result = 1.0 / result;
-
-	if (expo == 0.5) {
-		a = 0.0;
-		b = 1.0;
-	} else if (expo == -0.5) {
-		a = 0.0;
-		b = -1.0;
-	} else {
-		theta = M_PI * expo;
-		a = cos(theta);
-		b = sin(theta);
-	}
-
-	push_double(a * result);
-	push_double(b * result);
-	push(imaginaryunit);
-	multiply();
-	add();
-}
-
 double
 pop_double(void)
 {
