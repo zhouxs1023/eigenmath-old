@@ -13,7 +13,9 @@
 void
 power(void)
 {
-	if (isnum(stack[tos - 2]) && isnum(stack[tos - 1]))
+	if (tos < 2)
+		stop("stack underflow");
+	else if (isnum(stack[tos - 2]) && isnum(stack[tos - 1]))
 		power_numbers();
 	else {
 		save();
