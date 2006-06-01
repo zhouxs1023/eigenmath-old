@@ -21,31 +21,43 @@ partition(void)
 	p2 = pop();
 	p1 = pop();
 
-	push_integer(1);
-	p3 = pop();
-
-	push_integer(1);
-	p4 = pop();
+	p3 = symbol(NIL);
+	p4 = symbol(NIL);
 
 	p1 = cdr(p1);
 
 	while (iscons(p1)) {
 		if (find(car(p1), p2)) {
-			push(p4);
-			push(car(p1));
-			multiply();
-			p4 = pop();
+			if (p4 == symbol(NIL))
+				p4 = car(p1);
+			else {
+				push(p4);
+				push(car(p1));
+				multiply();
+				p4 = pop();
+			}
 		} else {
-			push(p3);
-			push(car(p1));
-			multiply();
-			p3 = pop();
+			if (p3 == symbol(NIL))
+				p3 = car(p1);
+			} else {
+				push(p3);
+				push(car(p1));
+				multiply();
+				p3 = pop();
+			}
 		}
 		p1 = cdr(p1);
 	}
 
-	push(p3);
-	push(p4);
+	if (p3 == symbol(NIL))
+		push_integer(1);
+	else
+		push(p3);
+
+	if (p4 == symbol(NIL))
+		push_integer(1);
+	else
+		push(p4);
 
 	restore();
 }
