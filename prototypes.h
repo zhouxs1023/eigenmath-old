@@ -113,7 +113,6 @@ void bignum_scan_integer(char *s);
 void bignum_scan_float(char *s);
 void print_number(U *p);
 void gcd_numbers(void);
-void dpow(void);
 double pop_double(void);
 void bignum_float(void);
 void bignum_factorial(int n);
@@ -633,6 +632,9 @@ void eval_outer(void);
 void outer(void);
 void yyouter(void);
 void test_outer(void);
+
+// partition.cpp
+void partition(void);
 
 // polar.cpp
 void eval_polar(void);

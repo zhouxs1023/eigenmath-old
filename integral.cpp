@@ -157,35 +157,12 @@ integral_of_sum(void)
 void
 integral_of_product(void)
 {
-	int h1, h2;
-
-	h1 = tos;
-
-	p3 = cdr(p1);
-	while (iscons(p3)) {
-		if (!find(car(p3), p2))
-			push(car(p3));
-		p3 = cdr(p3);
-	}
-
-	h2 = tos;
-
-	p3 = cdr(p1);
-	while (iscons(p3)) {
-		if (find(car(p3), p2))
-			push(car(p3));
-		p3 = cdr(p3);
-	}
-
-	if (tos - h2 == 0)
-		push(p2);
-	else {
-		multiply_all(tos - h2);
-		p1 = pop();
-		integral_of_form();
-	}
-
-	multiply_all(tos - h1);
+	push(p1);
+	push(p2);
+	partition();
+	p1 = pop();			// pop variable part
+	integral_of_form();
+	multiply();			// multiply constant part
 }
 
 extern char *itab[];

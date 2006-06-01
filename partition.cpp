@@ -13,6 +13,9 @@
 		variable expression
 */
 
+#include "stdafx.h"
+#include "defs.h"
+
 void
 partition(void)
 {
@@ -39,7 +42,7 @@ partition(void)
 		} else {
 			if (p3 == symbol(NIL))
 				p3 = car(p1);
-			} else {
+			else {
 				push(p3);
 				push(car(p1));
 				multiply();
