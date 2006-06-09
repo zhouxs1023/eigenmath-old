@@ -50,6 +50,35 @@ bake(void)
 }
 
 void
+polyform(void)
+{
+	int h;
+
+	save();
+
+	p2 = pop();
+	p1 = pop();
+
+	if (ispoly(p1, p2))
+		bake_poly();
+	else if (iscons(p1)) {
+		h = tos;
+		push(car(p1));
+		p1 = cdr(p1);
+		while (iscons(p1)) {
+			push(car(p1));
+			push(p2);
+			polyform();
+			p1 = cdr(p1);
+		}
+		list(tos - h);
+	} else
+		push(p1);
+
+	restore();
+}
+
+void
 bake_poly()
 {
 	int h, i, k, n;

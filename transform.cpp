@@ -54,6 +54,8 @@ transform(char **s)
 	push_integer(1);
 	push(F);
 	push(X);
+	polyform(); // collect coefficients of x, x^2, etc.
+	push(X);
 	decomp();
 
 	while (*s) {

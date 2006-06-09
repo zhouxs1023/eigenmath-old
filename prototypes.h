@@ -68,6 +68,7 @@ void eval_atomize(void);
 
 // bake.cpp
 void bake(void);
+void polyform(void);
 void bake_poly();
 void bake_poly_term(int k);
 void test_bake(void);

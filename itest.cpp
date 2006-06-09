@@ -623,6 +623,9 @@ static char *s[] = {
 
 	"integral(1/x*1/(a+log(x)),x)-log(a+log(x))",
 	"0",
+
+	"integral(exp(a*x+b*x))",
+	"exp((a+b)*x)/(a+b)",
 };
 
 void
