@@ -134,11 +134,11 @@ check_stack(void)
 		stop("frame error");
 }
 
+// cannot reference symbols yet
+
 void
 echo_input(char *s)
 {
-	if (equal(symbol(TTY)->u.sym.binding, one)) // tty mode?
-		printstr("\n");
 	printstr(s);
 	printstr("\n");
 }
