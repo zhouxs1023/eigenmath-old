@@ -1,0 +1,12 @@
+The value $m$ is the average number of Geiger counter counts per minute.
+From $m$, the Poisson distribution gives the probability of measuring $k$ counts
+in one minute.
+$$P(k)=e^{-m}m^k/k!$$
+For simplicity, let $m=1$.
+Then the probability of measuring 0 counts is $1/e$
+The probability of measuring 10 counts is $1/e\times1/10!$
+The probability of measuring 20 counts is $1/e\times1/20!$
+Hence the probability of measuring a $k$ such that $k \mathop{\rm mod} 10=0$ is
+$$e^{-1}\left({1\over0!}+{1\over10!}+{1\over20!}+\cdots\right)$$
+
+\end
