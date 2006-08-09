@@ -15,9 +15,16 @@
 
 	a + i b		sqrt(a^2 + b^2)
 
-Note
+Notes
 
-	Handles mixed polar and rectangular forms, e.g. 1 + exp(i pi/3)
+	1. Handles mixed polar and rectangular forms, e.g. 1 + exp(i pi/3)
+
+	2. jean-francois.debroux reports that when z=(a+i*b)/(c+i*d) then
+
+		mag(numerator(z)) / mag(denominator(z))
+
+	   must be used to get the correct answer. Now the operation is
+	   automatic.
 */
 
 #include "stdafx.h"
@@ -33,6 +40,21 @@ eval_mag(void)
 
 void
 mag(void)
+{
+	save();
+	p1 = pop();
+	push(p1);
+	numerator();
+	yymag();
+	push(p1);
+	denominator();
+	yymag();
+	divide();
+	restore();
+}
+
+void
+yymag(void)
 {
 	save();
 	p1 = pop();
@@ -96,6 +118,33 @@ static char *s[] = {
 
 	"mag(1+exp(i*pi/3))",
 	"3^(1/2)",
+
+	"mag((a+i*b)/(c+i*d))",
+	"(a^2+b^2)^(1/2)/((c^2+d^2)^(1/2))",
+
+	"mag(exp(i theta))",
+	"1",
+
+	"mag(exp(-i theta))",
+	"1",
+
+	"mag((-1)^theta)",
+	"1",
+
+	"mag((-1)^(-theta))",
+	"1",
+
+	"mag(3*(-1)^theta)",
+	"3",
+
+	"mag(3*(-1)^(-theta))",
+	"3",
+
+	"mag(-3*(-1)^theta)",
+	"3",
+
+	"mag(-3*(-1)^(-theta))",
+	"3",
 };
 
 void

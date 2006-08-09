@@ -61,6 +61,7 @@ void test_arctanh(void);
 // arg.cpp
 void eval_arg(void);
 void arg(void);
+void yyarg(void);
 void test_arg(void);
 
 // atomize.cpp
@@ -518,6 +519,7 @@ void test_msubf(int na, int nb, int nc);
 // mag.cpp
 void eval_mag(void);
 void mag(void);
+void yymag(void);
 void test_mag(void);
 
 // main.cpp

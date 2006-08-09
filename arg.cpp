@@ -37,6 +37,13 @@ Notes
 	3. Negative direction adds -pi to angle.
 
 	   Example: z = (-1)^(1/3), mag(z) = 1/3 pi, mag(-z) = -2/3 pi
+
+	4. jean-francois.debroux reports that when z=(a+i*b)/(c+i*d) then
+
+		arg(numerator(z)) - arg(denominator(z))
+
+	   must be used to get the correct answer. Now the operation is
+	   automatic.
 */
 
 #include "stdafx.h"
@@ -50,11 +57,26 @@ eval_arg(void)
 	arg();
 }
 
+void
+arg(void)
+{
+	save();
+	p1 = pop();
+	push(p1);
+	numerator();
+	yyarg();
+	push(p1);
+	denominator();
+	yyarg();
+	subtract();
+	restore();
+}
+
 #define RE p2
 #define IM p3
 
 void
-arg(void)
+yyarg(void)
 {
 	save();
 	p1 = pop();
@@ -160,6 +182,9 @@ static char *s[] = {
 
 	"arg(-i)",
 	"-1/2*pi",
+
+	"arg((a+b*i)/(c+d*i))",
+	"arctan(b/a)-arctan(d/c)",
 };
 
 void
