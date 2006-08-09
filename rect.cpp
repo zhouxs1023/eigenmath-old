@@ -53,6 +53,15 @@ static char *s[] = {
 
 	"rect(1+exp(i*pi/3))",
 	"3/2+1/2*i*3^(1/2)",
+
+	"z=(a+b*i)/(c+d*i)",
+	"",
+
+	"rect(z)-real(z)-i*imag(z)",
+	"0",
+
+	"z=quote(z)",
+	"",
 };
 
 void
