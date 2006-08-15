@@ -361,7 +361,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	main_window = CreateWindow(
 		"Eigenmath",
-		"Eigenmath 114",
+		"Eigenmath 115",
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0,
 //		CW_USEDEFAULT, 0,
@@ -547,6 +547,33 @@ static struct {
 //	{"Memory",				ID_MEMORY},
 	{"Copy display to clipboard",		ID_COPY_DISPLAY},
 	{"Create script from command history",	ID_CREATE_SCRIPT},
+	{0,					0},
+
+
+	{"Help",				0},
+	{"Type ^ for exponent",			ID_HELP_EXPONENT},
+	{"Type a space to multiply",		ID_HELP_MULTIPLY},
+	{"How to draw a graph",			ID_HELP_DRAW},
+	{"How to factor a polynomial",		ID_HELP_FACTOR_POLYNOMIAL},
+	{"How to factor a number",		ID_HELP_FACTOR_NUMBER},
+	{"How to define a symbol",		ID_HELP_SYMBOL},
+	{"How to define a function",		ID_HELP_FUNCTION},
+//	{"A special note about functions",	ID_HELP_SPECIAL_NOTE},
+	{"How to define a vector",		ID_HELP_TYPE_VECTOR},
+	{"How to define a matrix",		ID_HELP_TYPE_MATRIX},
+	{"How to multiply a matrix and vector",	ID_HELP_MATRIX_TIMES_VECTOR},
+	{"How to invert a matrix",		ID_HELP_INVERT_MATRIX},
+	{"How to draw a parametric graph",	ID_HELP_DRAW_CIRCLE},
+//	{"Sample Scripts",			0},
+//	{"Gamma Matrix Algebra",		ID_SAMPLE_GMA},
+//	{"Vector Calculus",			ID_SAMPLE_VC},
+//	{"Rotation Matrix",			ID_SAMPLE_RM},
+//	{"Quantum Harmonic Oscillator",		ID_SAMPLE_QHO},
+//	{"Hydrogenic Wavefunctions",		ID_SAMPLE_HW},
+//	{"Static Spherical Metric",		ID_SAMPLE_SSM},
+//	{"Free Particle Dirac Equation",	ID_SAMPLE_FPDE},
+//	{0,					0},
+//	{"About",				ID_HELP_ABOUT},
 	{0,					0},
 
 	{0,					0},
@@ -756,6 +783,48 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			if (running)
 				break;
 			do_create_script();
+			break;
+
+		// "help" pull-down menu
+
+		case ID_HELP_EXPONENT:
+			do_main_help(1);
+			break;
+		case ID_HELP_MULTIPLY:
+			do_main_help(2);
+			break;
+		case ID_HELP_DRAW:
+			do_main_help(3);
+			break;
+		case ID_HELP_FACTOR_POLYNOMIAL:
+			do_main_help(4);
+			break;
+		case ID_HELP_FACTOR_NUMBER:
+			do_main_help(5);
+			break;
+		case ID_HELP_SYMBOL:
+			do_main_help(6);
+			break;
+		case ID_HELP_FUNCTION:
+			do_main_help(7);
+			break;
+		case ID_HELP_SPECIAL_NOTE:
+			do_main_help(8);
+			break;
+		case ID_HELP_TYPE_VECTOR:
+			do_main_help(9);
+			break;
+		case ID_HELP_TYPE_MATRIX:
+			do_main_help(10);
+			break;
+		case ID_HELP_MATRIX_TIMES_VECTOR:
+			do_main_help(11);
+			break;
+		case ID_HELP_INVERT_MATRIX:
+			do_main_help(12);
+			break;
+		case ID_HELP_DRAW_CIRCLE:
+			do_main_help(13);
 			break;
 
 		// window buttons, clear, draw, etc.
@@ -1850,7 +1919,6 @@ do_print(void)
 	}
 }
 
-#if 0
 extern void do_help(int);
 static void
 do_main_help(int n)
@@ -1863,7 +1931,6 @@ do_main_help(int n)
 	ReleaseDC(main_window, run_hdc);
 	update_display();
 }
-#endif
 
 static char *inp;
 static HANDLE thread;
