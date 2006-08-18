@@ -22,6 +22,8 @@ The window display code is in window.c
 #include <math.h>
 #include <time.h>
 
+#include "help.h"
+
 extern void run(char *);
 extern void clear(void);
 extern void draw_display(void);
@@ -122,7 +124,6 @@ static void do_open(void);
 static void save_file(void);
 static void do_page_setup(void);
 static void do_print(void);
-static void do_main_help(int);
 static void do_button(char *);
 static void do_enter(void);
 static void send_user_event(void);
@@ -130,7 +131,6 @@ static void activate_controls(void);
 static void deactivate_controls(void);
 static void process_user_event(void);
 static void copy_all(void);
-static void do_special(char *);
 static void do_create_script(void);
 
 enum {
@@ -194,6 +194,15 @@ enum {
 	ID_HELP_MATRIX_TIMES_VECTOR,
 	ID_HELP_INVERT_MATRIX,
 	ID_HELP_DRAW_CIRCLE,
+
+	ID_HELP_RATIONAL_ARITHMETIC,
+
+	ID_HELP_ARCCOS,
+	ID_HELP_ARCSIN,
+	ID_HELP_ARCTAN,
+	ID_HELP_COS,
+	ID_HELP_SIN,
+	ID_HELP_TAN,
 
 	ID_ABOUT,
 	ID_MEMORY,
@@ -550,20 +559,20 @@ static struct {
 	{0,					0},
 
 
-	{"Help",				0},
-	{"Type ^ for exponent",			ID_HELP_EXPONENT},
-	{"Type a space to multiply",		ID_HELP_MULTIPLY},
-	{"How to draw a graph",			ID_HELP_DRAW},
-	{"How to factor a polynomial",		ID_HELP_FACTOR_POLYNOMIAL},
-	{"How to factor a number",		ID_HELP_FACTOR_NUMBER},
-	{"How to define a symbol",		ID_HELP_SYMBOL},
-	{"How to define a function",		ID_HELP_FUNCTION},
+	{"Examples",				0},
+//	{"Type ^ for exponent",			ID_HELP_EXPONENT},
+//	{"Type a space to multiply",		ID_HELP_MULTIPLY},
+//	{"How to draw a graph",			ID_HELP_DRAW},
+//	{"How to factor a polynomial",		ID_HELP_FACTOR_POLYNOMIAL},
+//	{"How to factor a number",		ID_HELP_FACTOR_NUMBER},
+//	{"How to define a symbol",		ID_HELP_SYMBOL},
+//	{"How to define a function",		ID_HELP_FUNCTION},
 //	{"A special note about functions",	ID_HELP_SPECIAL_NOTE},
-	{"How to define a vector",		ID_HELP_TYPE_VECTOR},
-	{"How to define a matrix",		ID_HELP_TYPE_MATRIX},
-	{"How to multiply a matrix and vector",	ID_HELP_MATRIX_TIMES_VECTOR},
-	{"How to invert a matrix",		ID_HELP_INVERT_MATRIX},
-	{"How to draw a parametric graph",	ID_HELP_DRAW_CIRCLE},
+//	{"How to define a vector",		ID_HELP_TYPE_VECTOR},
+//	{"How to define a matrix",		ID_HELP_TYPE_MATRIX},
+//	{"How to multiply a matrix and vector",	ID_HELP_MATRIX_TIMES_VECTOR},
+//	{"How to invert a matrix",		ID_HELP_INVERT_MATRIX},
+//	{"How to draw a parametric graph",	ID_HELP_DRAW_CIRCLE},
 //	{"Sample Scripts",			0},
 //	{"Gamma Matrix Algebra",		ID_SAMPLE_GMA},
 //	{"Vector Calculus",			ID_SAMPLE_VC},
@@ -574,9 +583,22 @@ static struct {
 //	{"Free Particle Dirac Equation",	ID_SAMPLE_FPDE},
 //	{0,					0},
 //	{"About",				ID_HELP_ABOUT},
+
+	{"Rational arithmetic",			ID_HELP_RATIONAL_ARITHMETIC},
+	{"Factor polynomial",			ID_HELP_FACTOR_POLYNOMIAL},
+
+	{"Circular functions",			0},
+	{"arccos",				ID_HELP_ARCCOS},
+	{"arcsin",				ID_HELP_ARCSIN},
+	{"arctan",				ID_HELP_ARCTAN},
+	{"cos",					ID_HELP_COS},
+	{"sin",					ID_HELP_SIN},
+	{"tan",					ID_HELP_TAN},
 	{0,					0},
 
-	{0,					0},
+	{0,					0},	// end of 'examples' menu
+
+	{0,					0},	// end
 };
  
 static void
@@ -786,7 +808,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 
 		// "help" pull-down menu
-
+#if 0
 		case ID_HELP_EXPONENT:
 			do_main_help(1);
 			break;
@@ -825,6 +847,34 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		case ID_HELP_DRAW_CIRCLE:
 			do_main_help(13);
+			break;
+		case ID_HELP_RATIONAL_ARITHMETIC:
+			do_main_help(14);
+			break;
+#endif
+		case ID_HELP_RATIONAL_ARITHMETIC:
+			HELP(help_rational_arithmetic);
+			break;
+		case ID_HELP_FACTOR_POLYNOMIAL:
+			HELP(help_factor_polynomial);
+			break;
+		case ID_HELP_ARCCOS:
+			HELP(help_arccos);
+			break;
+		case ID_HELP_ARCSIN:
+			HELP(help_arcsin);
+			break;
+		case ID_HELP_ARCTAN:
+			HELP(help_arctan);
+			break;
+		case ID_HELP_COS:
+			HELP(help_cos);
+			break;
+		case ID_HELP_SIN:
+			HELP(help_sin);
+			break;
+		case ID_HELP_TAN:
+			HELP(help_tan);
 			break;
 
 		// window buttons, clear, draw, etc.
@@ -1919,19 +1969,6 @@ do_print(void)
 	}
 }
 
-extern void do_help(int);
-static void
-do_main_help(int n)
-{
-	if (running)
-		return;
-	goto_calc_mode();
-	run_hdc = GetDC(main_window);
-	do_help(n);
-	ReleaseDC(main_window, run_hdc);
-	update_display();
-}
-
 static char *inp;
 static HANDLE thread;
 
@@ -2126,14 +2163,26 @@ copy_all(void)
 static void
 do_special(char *s)
 {
-	if (running)
-		return;
-	goto_calc_mode();
 	if (inp)
 		free(inp);
 	inp = strdup(s);
-	update_cmd_history(inp); // reset history pointer no matter what
+	update_cmd_history(inp);
 	echo_input(inp);
-	update_curr_cmd(""); // clear the command line
-	create_task(); // run whatever inp points to
+	update_curr_cmd("");
+	run(inp);
+}
+
+static void
+do_help(char **s, int n)
+{
+	int i;
+	if (running)
+		return;
+	goto_calc_mode();
+	run_hdc = GetDC(main_window);
+	do_special("clear");
+	for (i = 0; i < n; i++)
+		do_special(s[i]);
+	ReleaseDC(main_window, run_hdc);
+	update_display();
 }
