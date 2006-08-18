@@ -172,6 +172,7 @@ enum {
 	ID_EDIT_SCRIPT,
 	ID_RUN_SCRIPT,
 
+	ID_SAMPLE_SF,
 	ID_SAMPLE_GMA,
 	ID_SAMPLE_VC,
 	ID_SAMPLE_RM,
@@ -179,7 +180,7 @@ enum {
 	ID_SAMPLE_HW,
 	ID_SAMPLE_SSM,
 	ID_SAMPLE_FPDE,
-
+#if 0
 	ID_HELP_PAGES,
 	ID_HELP_EXPONENT,
 	ID_HELP_MULTIPLY,
@@ -194,8 +195,31 @@ enum {
 	ID_HELP_MATRIX_TIMES_VECTOR,
 	ID_HELP_INVERT_MATRIX,
 	ID_HELP_DRAW_CIRCLE,
+#endif
 
+	ID_COPY_DISPLAY,
+	ID_CREATE_SCRIPT,
+
+	ID_HELP_TYPE_CARET,
+	ID_HELP_MULTIPLY,
 	ID_HELP_RATIONAL_ARITHMETIC,
+	ID_HELP_FACTOR_POLYNOMIAL,
+	ID_HELP_FACTOR_NUMBER,
+	ID_HELP_PARABOLA,
+	ID_HELP_CIRCLE,
+	ID_HELP_LISSAJOUS,
+
+	ID_HELP_ADJ,
+	ID_HELP_CONTRACT,
+	ID_HELP_DET,
+	ID_HELP_DOT,
+	ID_HELP_INV,
+	ID_HELP_OUTER,
+	ID_HELP_TRANSPOSE,
+
+	ID_HELP_DERIVATIVE,
+	ID_HELP_GRADIENT,
+	ID_HELP_INTEGRAL,
 
 	ID_HELP_ARCCOS,
 	ID_HELP_ARCSIN,
@@ -204,10 +228,13 @@ enum {
 	ID_HELP_SIN,
 	ID_HELP_TAN,
 
-	ID_ABOUT,
-	ID_MEMORY,
-	ID_COPY_DISPLAY,
-	ID_CREATE_SCRIPT,
+	ID_HELP_ARCCOSH,
+	ID_HELP_ARCSINH,
+	ID_HELP_ARCTANH,
+	ID_HELP_COSH,
+	ID_HELP_SINH,
+	ID_HELP_TANH,
+
 };
 
 #define NACCEL 7
@@ -374,7 +401,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0,
 //		CW_USEDEFAULT, 0,
-		720, 540,
+		800, 540,
 		NULL,
 		NULL,
 		hInstance,
@@ -552,40 +579,36 @@ static struct {
 	{0,			0},
 
 	{"*",					0},
-//	{"About",				ID_ABOUT},
-//	{"Memory",				ID_MEMORY},
 	{"Copy display to clipboard",		ID_COPY_DISPLAY},
 	{"Create script from command history",	ID_CREATE_SCRIPT},
 	{0,					0},
 
-
 	{"Examples",				0},
-//	{"Type ^ for exponent",			ID_HELP_EXPONENT},
-//	{"Type a space to multiply",		ID_HELP_MULTIPLY},
-//	{"How to draw a graph",			ID_HELP_DRAW},
-//	{"How to factor a polynomial",		ID_HELP_FACTOR_POLYNOMIAL},
-//	{"How to factor a number",		ID_HELP_FACTOR_NUMBER},
-//	{"How to define a symbol",		ID_HELP_SYMBOL},
-//	{"How to define a function",		ID_HELP_FUNCTION},
-//	{"A special note about functions",	ID_HELP_SPECIAL_NOTE},
-//	{"How to define a vector",		ID_HELP_TYPE_VECTOR},
-//	{"How to define a matrix",		ID_HELP_TYPE_MATRIX},
-//	{"How to multiply a matrix and vector",	ID_HELP_MATRIX_TIMES_VECTOR},
-//	{"How to invert a matrix",		ID_HELP_INVERT_MATRIX},
-//	{"How to draw a parametric graph",	ID_HELP_DRAW_CIRCLE},
-//	{"Sample Scripts",			0},
-//	{"Gamma Matrix Algebra",		ID_SAMPLE_GMA},
-//	{"Vector Calculus",			ID_SAMPLE_VC},
-//	{"Rotation Matrix",			ID_SAMPLE_RM},
-//	{"Quantum Harmonic Oscillator",		ID_SAMPLE_QHO},
-//	{"Hydrogenic Wavefunctions",		ID_SAMPLE_HW},
-//	{"Static Spherical Metric",		ID_SAMPLE_SSM},
-//	{"Free Particle Dirac Equation",	ID_SAMPLE_FPDE},
-//	{0,					0},
-//	{"About",				ID_HELP_ABOUT},
 
+	{"Use ^ for exponent",			ID_HELP_TYPE_CARET},
+	{"Use a space or star to multiply",	ID_HELP_MULTIPLY},
 	{"Rational arithmetic",			ID_HELP_RATIONAL_ARITHMETIC},
-	{"Factor polynomial",			ID_HELP_FACTOR_POLYNOMIAL},
+	{"Factor a polynomial",			ID_HELP_FACTOR_POLYNOMIAL},
+	{"Factor a number",			ID_HELP_FACTOR_NUMBER},
+	{"Parabola",				ID_HELP_PARABOLA},
+	{"Circle",				ID_HELP_CIRCLE},
+	{"Lissajous",				ID_HELP_LISSAJOUS},
+
+	{"Linear algebra",			0},
+	{"adj",					ID_HELP_ADJ},
+	{"contract",				ID_HELP_CONTRACT},
+	{"det",					ID_HELP_DET},
+	{"dot",					ID_HELP_DOT},
+	{"inv",					ID_HELP_INV},
+	{"outer",				ID_HELP_OUTER},
+	{"transpose",				ID_HELP_TRANSPOSE},
+	{0,					0},
+
+	{"Calculus",				0},
+	{"derivative",				ID_HELP_DERIVATIVE},
+	{"gradient",				ID_HELP_GRADIENT},
+	{"integral",				ID_HELP_INTEGRAL},
+	{0,					0},
 
 	{"Circular functions",			0},
 	{"arccos",				ID_HELP_ARCCOS},
@@ -594,6 +617,26 @@ static struct {
 	{"cos",					ID_HELP_COS},
 	{"sin",					ID_HELP_SIN},
 	{"tan",					ID_HELP_TAN},
+	{0,					0},
+
+	{"Hyperbolic functions",		0},
+	{"arccosh",				ID_HELP_ARCCOSH},
+	{"arcsinh",				ID_HELP_ARCSINH},
+	{"arctanh",				ID_HELP_ARCTANH},
+	{"cosh",				ID_HELP_COSH},
+	{"sinh",				ID_HELP_SINH},
+	{"tanh",				ID_HELP_TANH},
+	{0,					0},
+
+	{"Scripts",				0},
+	{"Smiley face",				ID_SAMPLE_SF},
+	{"Gamma matrix algebra",		ID_SAMPLE_GMA},
+	{"Vector calculus",			ID_SAMPLE_VC},
+	{"Rotation matrix",			ID_SAMPLE_RM},
+	{"Quantum harmonic oscillator",		ID_SAMPLE_QHO},
+	{"Hydrogen wavefunctions",		ID_SAMPLE_HW},
+	{"Static spherical metric",		ID_SAMPLE_SSM},
+	{"Free particle Dirac equation",	ID_SAMPLE_FPDE},
 	{0,					0},
 
 	{0,					0},	// end of 'examples' menu
@@ -784,20 +827,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		// "asterisk" pull-down menu
 
-		case ID_ABOUT:
-			if (running)
-				break;
-			goto_calc_mode();
-			printstr("version 112 eigenmath.sourceforge.net\n");
-			update_display();
-			break;
-		case ID_MEMORY:
-			if (running)
-				break;
-			goto_calc_mode();
-			print_mem_info();
-			update_display();
-			break;
 		case ID_COPY_DISPLAY:
 			copy_all();
 			break;
@@ -807,57 +836,71 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			do_create_script();
 			break;
 
-		// "help" pull-down menu
-#if 0
-		case ID_HELP_EXPONENT:
-			do_main_help(1);
+		// "examples" pull-down menu
+
+		case ID_HELP_TYPE_CARET:
+			HELP(help_type_caret);
 			break;
 		case ID_HELP_MULTIPLY:
-			do_main_help(2);
+			HELP(help_multiply);
 			break;
-		case ID_HELP_DRAW:
-			do_main_help(3);
-			break;
-		case ID_HELP_FACTOR_POLYNOMIAL:
-			do_main_help(4);
-			break;
-		case ID_HELP_FACTOR_NUMBER:
-			do_main_help(5);
-			break;
-		case ID_HELP_SYMBOL:
-			do_main_help(6);
-			break;
-		case ID_HELP_FUNCTION:
-			do_main_help(7);
-			break;
-		case ID_HELP_SPECIAL_NOTE:
-			do_main_help(8);
-			break;
-		case ID_HELP_TYPE_VECTOR:
-			do_main_help(9);
-			break;
-		case ID_HELP_TYPE_MATRIX:
-			do_main_help(10);
-			break;
-		case ID_HELP_MATRIX_TIMES_VECTOR:
-			do_main_help(11);
-			break;
-		case ID_HELP_INVERT_MATRIX:
-			do_main_help(12);
-			break;
-		case ID_HELP_DRAW_CIRCLE:
-			do_main_help(13);
-			break;
-		case ID_HELP_RATIONAL_ARITHMETIC:
-			do_main_help(14);
-			break;
-#endif
 		case ID_HELP_RATIONAL_ARITHMETIC:
 			HELP(help_rational_arithmetic);
 			break;
 		case ID_HELP_FACTOR_POLYNOMIAL:
 			HELP(help_factor_polynomial);
 			break;
+		case ID_HELP_FACTOR_NUMBER:
+			HELP(help_factor_number);
+			break;
+		case ID_HELP_PARABOLA:
+			HELP(help_parabola);
+			break;
+		case ID_HELP_CIRCLE:
+			HELP(help_circle);
+			break;
+		case ID_HELP_LISSAJOUS:
+			HELP(help_lissajous);
+			break;
+
+		// linear algebra
+
+		case ID_HELP_ADJ:
+			HELP(help_adj);
+			break;
+		case ID_HELP_CONTRACT:
+			HELP(help_contract);
+			break;
+		case ID_HELP_DET:
+			HELP(help_det);
+			break;
+		case ID_HELP_DOT:
+			HELP(help_dot);
+			break;
+		case ID_HELP_INV:
+			HELP(help_inv);
+			break;
+		case ID_HELP_OUTER:
+			HELP(help_outer);
+			break;
+		case ID_HELP_TRANSPOSE:
+			HELP(help_transpose);
+			break;
+
+		// calculus
+
+		case ID_HELP_DERIVATIVE:
+			HELP(help_derivative);
+			break;
+		case ID_HELP_GRADIENT:
+			HELP(help_gradient);
+			break;
+		case ID_HELP_INTEGRAL:
+			HELP(help_integral);
+			break;
+
+		// circular functions
+
 		case ID_HELP_ARCCOS:
 			HELP(help_arccos);
 			break;
@@ -875,6 +918,54 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		case ID_HELP_TAN:
 			HELP(help_tan);
+			break;
+
+		// hyperbolic functions
+
+		case ID_HELP_ARCCOSH:
+			HELP(help_arccosh);
+			break;
+		case ID_HELP_ARCSINH:
+			HELP(help_arcsinh);
+			break;
+		case ID_HELP_ARCTANH:
+			HELP(help_arctanh);
+			break;
+		case ID_HELP_COSH:
+			HELP(help_cosh);
+			break;
+		case ID_HELP_SINH:
+			HELP(help_sinh);
+			break;
+		case ID_HELP_TANH:
+			HELP(help_tanh);
+			break;
+
+		// example scripts
+
+		case ID_SAMPLE_SF:
+			do_example(0);
+			break;
+		case ID_SAMPLE_GMA:
+			do_example(1);
+			break;
+		case ID_SAMPLE_VC:
+			do_example(2);
+			break;
+		case ID_SAMPLE_RM:
+			do_example(3);
+			break;
+		case ID_SAMPLE_QHO:
+			do_example(4);
+			break;
+		case ID_SAMPLE_HW:
+			do_example(5);
+			break;
+		case ID_SAMPLE_SSM:
+			do_example(6);
+			break;
+		case ID_SAMPLE_FPDE:
+			do_example(7);
 			break;
 
 		// window buttons, clear, draw, etc.
@@ -2185,4 +2276,16 @@ do_help(char **s, int n)
 		do_special(s[i]);
 	ReleaseDC(main_window, run_hdc);
 	update_display();
+}
+
+extern char *example_script[8];
+
+static void
+do_example(int k)
+{
+	if (running)
+		return;
+	*filename = 0;
+	SetWindowText(edit_window, example_script[k]);
+	goto_edit_mode();
 }
