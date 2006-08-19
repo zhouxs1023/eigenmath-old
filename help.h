@@ -78,6 +78,19 @@ static char *help_transpose[] = {
 	"transpose(A)",
 };
 
+static char *help_unit[] = {
+	"I = unit(2)",
+	"I",
+};
+
+static char *help_zero[] = {
+	"A = zero(2,2)",
+	"A",
+	"A[1,1] = A11",
+	"A[1,2] = A12",
+	"A",
+};
+
 // calculus
 
 static char *help_derivative[] = {
@@ -93,6 +106,38 @@ static char *help_integral[] = {
 	"integral(x^2)",
 };
 
+// complex number functions
+
+static char *help_arg[] = {
+	"z = exp(i theta)",
+	"arg(z)",
+};
+
+static char *help_conj[] = {
+	"conj(3 + 4 i)",
+};
+
+static char *help_imag[] = {
+	"imag(3 + 4 i)",
+};
+
+static char *help_mag[] = {
+	"mag(3 + 4 i)",
+};
+
+static char *help_polar[] = {
+	"z = 1 + sqrt(3) i",
+	"polar(z)",
+};
+
+static char *help_real[] = {
+	"real(3 + 4 i)",
+};
+
+static char *help_rect[] = {
+	"z = exp(i theta)",
+	"rect(z)",
+};
 
 // circular functions
 
@@ -149,6 +194,35 @@ static char *help_sinh[] = {
 
 static char *help_tanh[] = {
 	"draw(tanh(x))",
+};
+
+// special functions
+
+static char *help_besselj[] = {
+	"n = 5/2",
+	"y = besselj(x,n)",
+	"x^2 d(y,x,x) + x d(y,x) + (x^2 - n^2) y",
+	"simplify",
+};
+
+static char *help_hermite[] = {
+	"n = 7",
+	"y = hermite(x,n)",
+	"d(y,x,x) - 2 x d(y,x) + 2 n y",
+};
+
+static char *help_laguerre[] = {
+	"n = 7",
+	"y = laguerre(x,n)",
+	"x d(y,x,x) + (1 - x) d(y,x) + n y",
+	"y = laguerre(x,n,a)",
+	"x d(y,x,x) + (a + 1 - x) d(y,x) + n y",
+};
+
+static char *help_legendre[] = {
+	"n = 7",
+	"y = legendre(x,n)",
+	"(1 - x^2) d(y,x,x) - 2 x d(y,x) + n (n + 1) y",
 };
 
 #define HELP(x) do_help(x, sizeof x / sizeof (char *))

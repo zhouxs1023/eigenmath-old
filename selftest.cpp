@@ -150,6 +150,9 @@ extern void run(char *);
 
 char *script[] = {
 
+	"e=quote(e)",
+	"",
+
 	"2/3",
 	"2/3",
 

@@ -132,6 +132,7 @@ static void deactivate_controls(void);
 static void process_user_event(void);
 static void copy_all(void);
 static void do_create_script(void);
+void update_curr_cmd(char *);
 
 enum {
 
@@ -180,22 +181,6 @@ enum {
 	ID_SAMPLE_HW,
 	ID_SAMPLE_SSM,
 	ID_SAMPLE_FPDE,
-#if 0
-	ID_HELP_PAGES,
-	ID_HELP_EXPONENT,
-	ID_HELP_MULTIPLY,
-	ID_HELP_DRAW,
-	ID_HELP_FACTOR_POLYNOMIAL,
-	ID_HELP_FACTOR_NUMBER,
-	ID_HELP_SYMBOL,
-	ID_HELP_FUNCTION,
-	ID_HELP_SPECIAL_NOTE,
-	ID_HELP_TYPE_VECTOR,
-	ID_HELP_TYPE_MATRIX,
-	ID_HELP_MATRIX_TIMES_VECTOR,
-	ID_HELP_INVERT_MATRIX,
-	ID_HELP_DRAW_CIRCLE,
-#endif
 
 	ID_COPY_DISPLAY,
 	ID_CREATE_SCRIPT,
@@ -209,6 +194,8 @@ enum {
 	ID_HELP_CIRCLE,
 	ID_HELP_LISSAJOUS,
 
+	// linear algebra
+
 	ID_HELP_ADJ,
 	ID_HELP_CONTRACT,
 	ID_HELP_DET,
@@ -216,10 +203,26 @@ enum {
 	ID_HELP_INV,
 	ID_HELP_OUTER,
 	ID_HELP_TRANSPOSE,
+	ID_HELP_UNIT,
+	ID_HELP_ZERO,
+
+	// calculus
 
 	ID_HELP_DERIVATIVE,
 	ID_HELP_GRADIENT,
 	ID_HELP_INTEGRAL,
+
+	// complex number functions
+
+	ID_HELP_ARG,
+	ID_HELP_CONJ,
+	ID_HELP_IMAG,
+	ID_HELP_MAG,
+	ID_HELP_POLAR,
+	ID_HELP_REAL,
+	ID_HELP_RECT,
+
+	// circular functions
 
 	ID_HELP_ARCCOS,
 	ID_HELP_ARCSIN,
@@ -228,6 +231,8 @@ enum {
 	ID_HELP_SIN,
 	ID_HELP_TAN,
 
+	// hyperbolic functions
+
 	ID_HELP_ARCCOSH,
 	ID_HELP_ARCSINH,
 	ID_HELP_ARCTANH,
@@ -235,6 +240,12 @@ enum {
 	ID_HELP_SINH,
 	ID_HELP_TANH,
 
+	// special functions
+
+	ID_HELP_BESSELJ,
+	ID_HELP_HERMITE,
+	ID_HELP_LAGUERRE,
+	ID_HELP_LEGENDRE,
 };
 
 #define NACCEL 7
@@ -397,7 +408,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	main_window = CreateWindow(
 		"Eigenmath",
-		"Eigenmath 115",
+		"Eigenmath 116",
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0,
 //		CW_USEDEFAULT, 0,
@@ -602,12 +613,24 @@ static struct {
 	{"inv",					ID_HELP_INV},
 	{"outer",				ID_HELP_OUTER},
 	{"transpose",				ID_HELP_TRANSPOSE},
+	{"unit",				ID_HELP_UNIT},
+	{"zero",				ID_HELP_ZERO},
 	{0,					0},
 
 	{"Calculus",				0},
 	{"derivative",				ID_HELP_DERIVATIVE},
 	{"gradient",				ID_HELP_GRADIENT},
 	{"integral",				ID_HELP_INTEGRAL},
+	{0,					0},
+
+	{"Complex number functions",		0},
+	{"arg",					ID_HELP_ARG},
+	{"conj",				ID_HELP_CONJ},
+	{"imag",				ID_HELP_IMAG},
+	{"mag",					ID_HELP_MAG},
+	{"polar",				ID_HELP_POLAR},
+	{"real",				ID_HELP_REAL},
+	{"rect",				ID_HELP_RECT},
 	{0,					0},
 
 	{"Circular functions",			0},
@@ -626,6 +649,13 @@ static struct {
 	{"cosh",				ID_HELP_COSH},
 	{"sinh",				ID_HELP_SINH},
 	{"tanh",				ID_HELP_TANH},
+	{0,					0},
+
+	{"Special functions",			0},
+	{"besselj",				ID_HELP_BESSELJ},
+	{"hermite",				ID_HELP_HERMITE},
+	{"laguerre",				ID_HELP_LAGUERRE},
+	{"legendre",				ID_HELP_LEGENDRE},
 	{0,					0},
 
 	{"Scripts",				0},
@@ -886,6 +916,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case ID_HELP_TRANSPOSE:
 			HELP(help_transpose);
 			break;
+		case ID_HELP_UNIT:
+			HELP(help_unit);
+			break;
+		case ID_HELP_ZERO:
+			HELP(help_zero);
+			break;
 
 		// calculus
 
@@ -897,6 +933,30 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		case ID_HELP_INTEGRAL:
 			HELP(help_integral);
+			break;
+
+		// complex number functions
+
+		case ID_HELP_ARG:
+			HELP(help_arg);
+			break;
+		case ID_HELP_CONJ:
+			HELP(help_conj);
+			break;
+		case ID_HELP_IMAG:
+			HELP(help_imag);
+			break;
+		case ID_HELP_MAG:
+			HELP(help_mag);
+			break;
+		case ID_HELP_POLAR:
+			HELP(help_polar);
+			break;
+		case ID_HELP_REAL:
+			HELP(help_real);
+			break;
+		case ID_HELP_RECT:
+			HELP(help_rect);
 			break;
 
 		// circular functions
@@ -941,6 +1001,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			HELP(help_tanh);
 			break;
 
+		// special functions
+
+		case ID_HELP_BESSELJ:
+			HELP(help_besselj);
+			break;
+		case ID_HELP_HERMITE:
+			HELP(help_hermite);
+			break;
+		case ID_HELP_LAGUERRE:
+			HELP(help_laguerre);
+			break;
+		case ID_HELP_LEGENDRE:
+			HELP(help_legendre);
+			break;
+
 		// example scripts
 
 		case ID_SAMPLE_SF:
@@ -971,6 +1046,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		// window buttons, clear, draw, etc.
 
 		case ID_CLEAR:
+			update_curr_cmd("");
 			do_button("clear");
 			break;
 		case ID_DRAW:
