@@ -12,6 +12,13 @@ static char *help_rational_arithmetic[] = {
 	"float",
 };
 
+static char *help_solve[] = {
+	"A = ((1,1),(0.24,0.86))",
+	"B = (274,120.32)",
+	"X = dot(inv(A),B)",
+	"X",
+};
+
 static char *help_factor_polynomial[] = {
 	"factor(125 x^3 - 1)",
 };
@@ -223,6 +230,124 @@ static char *help_legendre[] = {
 	"n = 7",
 	"y = legendre(x,n)",
 	"(1 - x^2) d(y,x,x) - 2 x d(y,x) + n (n + 1) y",
+};
+
+// abs
+
+static char *help_abs[] = {
+	"abs(-1)",
+	"X = (X1,X2)",
+	"abs(X)",
+};
+
+// circexp
+
+static char *help_circexp[] = {
+	"f = cos(x) + sin(x)",
+	"circexp(f)",
+};
+
+// coeff
+
+static char *help_coeff[] = {
+	"p = a x^2 + b x + c",
+	"coeff(p,2)",
+};
+
+// deg
+
+static char *help_deg[] = {
+	"p = a x^2 + b x + c",
+	"deg(p)",
+};
+
+// denominator
+
+static char *help_denominator[] = {
+	"denominator(a/b)",
+};
+
+// erf
+
+static char *help_erf[] = {
+	"draw(erf(x))",
+};
+
+// erfc
+
+static char *help_erfc[] = {
+	"draw(erfc(x))",
+};
+
+// exp
+
+static char *help_exp[] = {
+	"exp(1.0)",
+};
+
+// expcos
+
+static char *help_expcos[] = {
+	"expcos(x)",
+};
+
+// expsin
+
+static char *help_expsin[] = {
+	"expsin(x)",
+};
+
+// factor
+
+static char *help_factor[] = {
+	"factor(125 x^3 - 1)",
+	"factor(10^20 - 1)",
+};
+
+// factorial
+
+static char *help_factorial[] = {
+	"100!",
+	"float",
+};
+
+// log
+
+static char *help_log[] = {
+	"log(e)",
+};
+
+// numerator
+
+static char *help_numerator[] = {
+	"numerator(a/b)",
+};
+
+// product
+
+static char *help_product[] = {
+	"product(k,1,4,prime(k)^2)",
+	"factor",
+};
+
+// quotient
+
+static char *help_quotient[] = {
+	"p = x^2 + x + 1",
+	"q = x + 2",
+	"quotient(p,q)",
+};
+
+// sum
+
+static char *help_sum[] = {
+	"sum(k,1,5,1/k^s)",
+};
+
+// taylor
+
+static char *help_taylor[] = {
+	"taylor(cos(x),x,8)",
 };
 
 #define HELP(x) do_help(x, sizeof x / sizeof (char *))

@@ -188,8 +188,8 @@ enum {
 	ID_HELP_TYPE_CARET,
 	ID_HELP_MULTIPLY,
 	ID_HELP_RATIONAL_ARITHMETIC,
-	ID_HELP_FACTOR_POLYNOMIAL,
-	ID_HELP_FACTOR_NUMBER,
+	ID_HELP_SOLVE,
+
 	ID_HELP_PARABOLA,
 	ID_HELP_CIRCLE,
 	ID_HELP_LISSAJOUS,
@@ -246,6 +246,27 @@ enum {
 	ID_HELP_HERMITE,
 	ID_HELP_LAGUERRE,
 	ID_HELP_LEGENDRE,
+
+	// other functions
+
+	ID_HELP_ABS,
+	ID_HELP_CIRCEXP,
+	ID_HELP_COEFF,
+	ID_HELP_DEG,
+	ID_HELP_DENOMINATOR,
+	ID_HELP_ERF,
+	ID_HELP_ERFC,
+	ID_HELP_EXP,
+	ID_HELP_EXPCOS,
+	ID_HELP_EXPSIN,
+	ID_HELP_FACTOR,
+	ID_HELP_FACTORIAL,
+	ID_HELP_LOG,
+	ID_HELP_NUMERATOR,
+	ID_HELP_PRODUCT,
+	ID_HELP_QUOTIENT,
+	ID_HELP_SUM,
+	ID_HELP_TAYLOR,
 };
 
 #define NACCEL 7
@@ -599,13 +620,45 @@ static struct {
 	{"Use ^ for exponent",			ID_HELP_TYPE_CARET},
 	{"Use a space or star to multiply",	ID_HELP_MULTIPLY},
 	{"Rational arithmetic",			ID_HELP_RATIONAL_ARITHMETIC},
-	{"Factor a polynomial",			ID_HELP_FACTOR_POLYNOMIAL},
-	{"Factor a number",			ID_HELP_FACTOR_NUMBER},
-	{"Parabola",				ID_HELP_PARABOLA},
-	{"Circle",				ID_HELP_CIRCLE},
-	{"Lissajous",				ID_HELP_LISSAJOUS},
+	{"How to solve AX=B",			ID_HELP_SOLVE},
 
-	{"Linear algebra",			0},
+	{"Draw",				0},
+	{"parabola",				ID_HELP_PARABOLA},
+	{"circle",				ID_HELP_CIRCLE},
+	{"lissajous",				ID_HELP_LISSAJOUS},
+	{0,					0},
+
+	{"-",					0},
+
+	{"Scripts",				0},
+	{"Smiley face",				ID_SAMPLE_SF},
+	{"Gamma matrix algebra",		ID_SAMPLE_GMA},
+	{"Vector calculus",			ID_SAMPLE_VC},
+	{"Rotation matrix",			ID_SAMPLE_RM},
+	{"Quantum harmonic oscillator",		ID_SAMPLE_QHO},
+	{"Hydrogen wavefunctions",		ID_SAMPLE_HW},
+	{"Static spherical metric",		ID_SAMPLE_SSM},
+	{"Free particle Dirac equation",	ID_SAMPLE_FPDE},
+	{0,					0},
+
+	{"-",					0},
+	{"Complex number functions",		0},
+	{"arg",					ID_HELP_ARG},
+	{"conj",				ID_HELP_CONJ},
+	{"imag",				ID_HELP_IMAG},
+	{"mag",					ID_HELP_MAG},
+	{"polar",				ID_HELP_POLAR},
+	{"real",				ID_HELP_REAL},
+	{"rect",				ID_HELP_RECT},
+	{0,					0},
+
+	{"Polynomial functions",		0},
+	{"coeff",				ID_HELP_COEFF},
+	{"deg",					ID_HELP_DEG},
+	{"quotient",				ID_HELP_QUOTIENT},
+	{0,					0},
+
+	{"Linear algebra functions",		0},
 	{"adj",					ID_HELP_ADJ},
 	{"contract",				ID_HELP_CONTRACT},
 	{"det",					ID_HELP_DET},
@@ -617,20 +670,19 @@ static struct {
 	{"zero",				ID_HELP_ZERO},
 	{0,					0},
 
-	{"Calculus",				0},
+	{"Calculus functions",			0},
 	{"derivative",				ID_HELP_DERIVATIVE},
 	{"gradient",				ID_HELP_GRADIENT},
 	{"integral",				ID_HELP_INTEGRAL},
+	{"taylor",				ID_HELP_TAYLOR},
 	{0,					0},
 
-	{"Complex number functions",		0},
-	{"arg",					ID_HELP_ARG},
-	{"conj",				ID_HELP_CONJ},
-	{"imag",				ID_HELP_IMAG},
-	{"mag",					ID_HELP_MAG},
-	{"polar",				ID_HELP_POLAR},
-	{"real",				ID_HELP_REAL},
-	{"rect",				ID_HELP_RECT},
+	{"Exponential functions",		0},
+	{"circexp",				ID_HELP_CIRCEXP},
+	{"exp",					ID_HELP_EXP},
+	{"expcos",				ID_HELP_EXPCOS},
+	{"expsin",				ID_HELP_EXPSIN},
+	{"log",					ID_HELP_LOG},
 	{0,					0},
 
 	{"Circular functions",			0},
@@ -658,15 +710,16 @@ static struct {
 	{"legendre",				ID_HELP_LEGENDRE},
 	{0,					0},
 
-	{"Scripts",				0},
-	{"Smiley face",				ID_SAMPLE_SF},
-	{"Gamma matrix algebra",		ID_SAMPLE_GMA},
-	{"Vector calculus",			ID_SAMPLE_VC},
-	{"Rotation matrix",			ID_SAMPLE_RM},
-	{"Quantum harmonic oscillator",		ID_SAMPLE_QHO},
-	{"Hydrogen wavefunctions",		ID_SAMPLE_HW},
-	{"Static spherical metric",		ID_SAMPLE_SSM},
-	{"Free particle Dirac equation",	ID_SAMPLE_FPDE},
+	{"Other functions",			0},
+	{"abs",					ID_HELP_ABS},
+	{"denominator",				ID_HELP_DENOMINATOR},
+	{"erf",					ID_HELP_ERF},
+	{"erfc",				ID_HELP_ERFC},
+	{"factor",				ID_HELP_FACTOR},
+	{"factorial",				ID_HELP_FACTORIAL},
+	{"numerator",				ID_HELP_NUMERATOR},
+	{"product",				ID_HELP_PRODUCT},
+	{"sum",					ID_HELP_SUM},
 	{0,					0},
 
 	{0,					0},	// end of 'examples' menu
@@ -877,12 +930,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case ID_HELP_RATIONAL_ARITHMETIC:
 			HELP(help_rational_arithmetic);
 			break;
-		case ID_HELP_FACTOR_POLYNOMIAL:
-			HELP(help_factor_polynomial);
+		case ID_HELP_SOLVE:
+			HELP(help_solve);
 			break;
-		case ID_HELP_FACTOR_NUMBER:
-			HELP(help_factor_number);
-			break;
+
 		case ID_HELP_PARABOLA:
 			HELP(help_parabola);
 			break;
@@ -1014,6 +1065,66 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		case ID_HELP_LEGENDRE:
 			HELP(help_legendre);
+			break;
+
+		// polynomial functions
+
+		case ID_HELP_COEFF:
+			HELP(help_coeff);
+			break;
+		case ID_HELP_DEG:
+			HELP(help_deg);
+			break;
+		case ID_HELP_QUOTIENT:
+			HELP(help_quotient);
+			break;
+
+		// other functions
+
+		case ID_HELP_ABS:
+			HELP(help_abs);
+			break;
+		case ID_HELP_CIRCEXP:
+			HELP(help_circexp);
+			break;
+		case ID_HELP_DENOMINATOR:
+			HELP(help_denominator);
+			break;
+		case ID_HELP_ERF:
+			HELP(help_erf);
+			break;
+		case ID_HELP_ERFC:
+			HELP(help_erfc);
+			break;
+		case ID_HELP_EXP:
+			HELP(help_exp);
+			break;
+		case ID_HELP_EXPCOS:
+			HELP(help_expcos);
+			break;
+		case ID_HELP_EXPSIN:
+			HELP(help_expsin);
+			break;
+		case ID_HELP_FACTOR:
+			HELP(help_factor);
+			break;
+		case ID_HELP_FACTORIAL:
+			HELP(help_factorial);
+			break;
+		case ID_HELP_LOG:
+			HELP(help_log);
+			break;
+		case ID_HELP_NUMERATOR:
+			HELP(help_numerator);
+			break;
+		case ID_HELP_PRODUCT:
+			HELP(help_product);
+			break;
+		case ID_HELP_SUM:
+			HELP(help_sum);
+			break;
+		case ID_HELP_TAYLOR:
+			HELP(help_taylor);
 			break;
 
 		// example scripts
