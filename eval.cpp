@@ -228,20 +228,6 @@ setup(void)
 }
 
 void
-eval_add(void)
-{
-	push(cadr(p1));
-	eval();
-	p1 = cddr(p1);
-	while (iscons(p1)) {
-		push(car(p1));
-		eval();
-		add();
-		p1 = cdr(p1);
-	}
-}
-
-void
 eval_break(void)
 {
 	push(cadr(p1));

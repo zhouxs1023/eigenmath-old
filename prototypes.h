@@ -7,6 +7,7 @@ void absval_tensor(void);
 void test_abs(void);
 
 // add.cpp
+void eval_add(void);
 void add();
 void yyadd(int n);
 int combine_terms(U **s, int n);
@@ -287,7 +288,6 @@ void eval(void);
 void eval_sym(void);
 void eval_cons(void);
 void setup(void);
-void eval_add(void);
 void eval_break(void);
 void eval_check(void);
 void eval_circexp(void);

@@ -4,6 +4,21 @@
 #include "defs.h"
 
 void
+eval_add(void)
+{
+	int h = tos;
+	p1 = cdr(p1);
+	while (iscons(p1)) {
+		push(car(p1));
+		eval();
+		p2 = pop();
+		push_terms(p2);
+		p1 = cdr(p1);
+	}
+	yyadd(tos - h);
+}
+
+void
 add()
 {
 	int h;
