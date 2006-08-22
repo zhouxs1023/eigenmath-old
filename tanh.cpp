@@ -56,7 +56,7 @@ static char *s[] = {
 	"0",
 
 	"circexp(tanh(x))",
-	"exp(2*x)/(1+exp(2*x))-1/(1+exp(2*x))",
+	"-1/(1+exp(2*x))+exp(2*x)/(1+exp(2*x))",
 
 	"tanh(arctanh(x))",
 	"x",

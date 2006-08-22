@@ -2,14 +2,11 @@
 
 #include "stdafx.h"
 #include "defs.h"
-static void add_f(void);
-static void combine_terms(void);
-static void parse_p1(void);
-static void parse_p2(void);
 
 void
 add()
 {
+	int h;
 	if (esc_flag)
 		stop("escape key stop");
 	if (tos < 2)
@@ -18,281 +15,291 @@ add()
 		add_numbers();
 	else {
 		save();
-		add_f();
+		p2 = pop();
+		p1 = pop();
+		h = tos;
+		push_terms(p1);
+		push_terms(p2);
+		yyadd(tos - h);
 		restore();
 	}
 }
 
-static void
-add_f(void)
+static int flag;
+
+/* Compare terms for order, clobbers p1 and p2. */
+
+static int
+yycmp(const void *q1, const void *q2)
 {
-	int h, n;
+	int i, t;
 
-	// pop operands
+	p1 = *((U **) q1);
+	p2 = *((U **) q2);
 
-	p2 = pop();
-	p1 = pop();
+	/* numbers can be combined */
 
-	h = tos;
-
-	// is either operand nil?
-
-	if (p1 == symbol(NIL) || p2 == symbol(NIL)) {
-		push(symbol(NIL));
-		return;
+	if (isnum(p1) && isnum(p2)) {
+		flag = 1;
+		return 0;
 	}
 
-	// is either operand zero?
+	/* congruent tensors can be combined */
 
-	if (iszero(p1)) {
-		push(p2);
-		return;
-	}
-
-	if (iszero(p2)) {
-		push(p1);
-		return;
-	}
-
-	// normalize operands
-
-	if (isadd(p1))
-		p1 = cdr(p1);
-	else {
-		push(p1);
-		list(1);
-		p1 = pop();
-	}
-
-	if (isadd(p2))
-		p2 = cdr(p2);
-	else {
-		push(p2);
-		list(1);
-		p2 = pop();
-	}
-
-	if (isnum(car(p1)) && isnum(car(p2))) {
-		push(car(p1));
-		push(car(p2));
-		add_numbers();
-		p7 = pop();
-		if (!iszero(p7))
-			push(p7);
-		p1 = cdr(p1);
-		p2 = cdr(p2);
-	}
-
-	parse_p1();
-	parse_p2();
-
-	while (iscons(p1) && iscons(p2)) {
-
-		if (istensor(car(p1)) && istensor(car(p2))) {
-			push(car(p1));
-			push(car(p2));
-			tensor_plus_tensor();
-			p7 = pop();
-			if (p7 != symbol(NIL)) {
-				push(p7);
-				p1 = cdr(p1);
-				p2 = cdr(p2);
-				parse_p1();
-				parse_p2();
-				continue;
-			}
+	if (istensor(p1) && istensor(p2)) {
+		if (p1->u.tensor->ndim < p2->u.tensor->ndim)
+			return -1;
+		if (p1->u.tensor->ndim > p2->u.tensor->ndim)
+			return 1;
+		for (i = 0; i < p1->u.tensor->ndim; i++) {
+			if (p1->u.tensor->dim[i] < p2->u.tensor->dim[i])
+				return -1;
+			if (p1->u.tensor->dim[i] > p2->u.tensor->dim[i])
+				return 1;
 		}
+		flag = 1;
+		return 0;
+	}
 
-		switch (cmp_expr(p3, p4)) {
-		case -1:
-			push(car(p1));
+	if (car(p1) == symbol(MULTIPLY)) {
+		p1 = cdr(p1);
+		if (isnum(car(p1))) {
 			p1 = cdr(p1);
-			parse_p1();
-			break;
-		case 1:
-			push(car(p2));
-			p2 = cdr(p2);
-			parse_p2();
-			break;
-		case 0:
-			combine_terms();
-			p1 = cdr(p1);
-			p2 = cdr(p2);
-			parse_p1();
-			parse_p2();
-			break;
-		default:
-			stop("internal error 1");
-			break;
+			if (cdr(p1) == symbol(NIL))
+				p1 = car(p1);
 		}
 	}
 
-	// push remaining terms, if any
-
-	while (iscons(p1)) {
-		push(car(p1));
-		p1 = cdr(p1);
-	}
-
-	while (iscons(p2)) {
-		push(car(p2));
+	if (car(p2) == symbol(MULTIPLY)) {
 		p2 = cdr(p2);
+		if (isnum(car(p2))) {
+			p2 = cdr(p2);
+			if (cdr(p2) == symbol(NIL))
+				p2 = car(p2);
+		}
 	}
 
-	// sum of n terms
+	t = cmp_expr(p1, p2);
 
-	n = tos - h;
+	if (t == 0)
+		flag = 1;
+
+	return t;
+}
+
+/* Add n terms, returns one expression on the stack. */
+
+void
+yyadd(int n)
+{
+	int h;
+	U **s;
+
+	h = tos - n;
+
+	s = stack + h;
+
+	while (n > 1) {
+
+		flag = 0;
+
+		qsort(s, n, sizeof (U *), yycmp);
+
+		if (flag == 0)
+			break;
+
+		n = combine_terms(s, n);
+	}
+
+	tos = h + n;
 
 	switch (n) {
 	case 0:
-		push(zero);
+		push_integer(0);
 		break;
 	case 1:
 		break;
 	default:
 		list(n);
-		p7 = pop();
+		p1 = pop();
 		push_symbol(ADD);
-		push(p7);
+		push(p1);
 		cons();
 		break;
 	}
 }
 
-// Decompose a term into numerical and non-numerical parts.
-//
-// input:	car(p1)		term
-//
-// output:	p3		term's non-numerical factor(s)
-//
-//		p5		term's numerical factor (possibly 1)
+/* Compare adjacent terms in s[] and combine if possible.
 
-static void
-parse_p1(void)
+	Returns the number of terms remaining in s[].
+
+	n	number of terms in s[] initially
+*/
+
+int
+combine_terms(U **s, int n)
 {
-	p3 = car(p1);
-	p5 = one;
-	if (car(p3) == symbol(MULTIPLY) && isnum(cadr(p3))) {
-		p5 = cadr(p3);
-		p3 = cddr(p3);
-		if (cdr(p3) == symbol(NIL))
-			p3 = car(p3);
-		else {
-			push_symbol(MULTIPLY);
+	int i, j, t;
+
+	for (i = 0; i < n - 1; i++) {
+
+		p3 = s[i];
+		p4 = s[i + 1];
+
+		if (istensor(p3) && istensor(p4)) {
+			push(p3);
+			push(p4);
+			tensor_plus_tensor();
+			p1 = pop();
+			if (p1 != symbol(NIL)) {
+				s[i] = p1;
+				for (j = i + 1; j < n - 1; j++)
+					s[j] = s[j + 1];
+				n--;
+				i--;
+			}
+			continue;
+		}
+
+		if (istensor(p3) || istensor(p4))
+			continue;
+
+		if (isnum(p3) && isnum(p4)) {
+			push(p3);
+			push(p4);
+			add_numbers();
+			p1 = pop();
+			if (iszero(p1)) {
+				for (j = i; j < n - 2; j++)
+					s[j] = s[j + 2];
+				n -= 2;
+			} else {
+				s[i] = p1;
+				for (j = i + 1; j < n - 1; j++)
+					s[j] = s[j + 1];
+				n--;
+			}
+			i--;
+			continue;
+		}
+
+		if (isnum(p3) || isnum(p4))
+			continue;
+
+		p1 = one;
+		p2 = one;
+
+		t = 0;	// t indicates a denormalized term
+
+		if (car(p3) == symbol(MULTIPLY)) {
+			p3 = cdr(p3);
+			t = 1;
+			if (isnum(car(p3))) {
+				p1 = car(p3);
+				p3 = cdr(p3);
+				if (cdr(p3) == symbol(NIL)) {
+					p3 = car(p3);
+					t = 0;
+				}
+			}
+		}
+
+		if (car(p4) == symbol(MULTIPLY)) {
+			p4 = cdr(p4);
+			if (isnum(car(p4))) {
+				p2 = car(p4);
+				p4 = cdr(p4);
+				if (cdr(p4) == symbol(NIL))
+					p4 = car(p4);
+			}
+		}
+
+		if (!equal(p3, p4))
+			continue;
+
+		push(p1);
+		push(p2);
+		add_numbers();
+
+		p1 = pop();
+
+		if (iszero(p1)) {
+			for (j = i; j < n - 2; j++)
+				s[j] = s[j + 2];
+			n -= 2;
+			i--;
+			continue;
+		}
+
+		push(p1);
+
+		if (t) {
+			push(symbol(MULTIPLY));
 			push(p3);
 			cons();
-			p3 = pop();
-		}
-	}
-}
+		} else
+			push(p3);
 
-// Decompose a term into numerical and non-numerical parts.
-//
-// input:	car(p2)		term
-//
-// output:	p4		term's non-numerical factor(s)
-//
-//		p6		term's numerical factor (possibly 1)
+		multiply();
 
-static void
-parse_p2(void)
-{
-	p4 = car(p2);
-	p6 = one;
-	if (car(p4) == symbol(MULTIPLY) && isnum(cadr(p4))) {
-		p6 = cadr(p4);
-		p4 = cddr(p4);
-		if (cdr(p4) == symbol(NIL))
-			p4 = car(p4);
-		else {
-			push_symbol(MULTIPLY);
-			push(p4);
-			cons();
-			p4 = pop();
-		}
-	}
-}
+		s[i] = pop();
 
-// Combine two terms by adding coefficients.
-//
-// input:	p4	Common factor or list of common factors.
-//
-//		p5	Numeric coefficient of first term.
-//
-//		p6	Numeric coefficient of second term.
-//
-// output:	((p5 + p6) * p4) on stack
-//
-//		If result is zero then nothing is pushed on stack.
-//
-//		p7 mangled
-//
-// test cases:	1	a-a		(result has zero coeff)
-//
-//		2	2*a-a		(result has unity coeff, one factor)
-//
-//		3	2*a*b-*a*b	(result has unity coeff, two factors)
-//
-//		4	a+a		(result has other coeff, one factor)
-//
-//		5	a*b+a*b		(result has other coeff, two factors)
+		for (j = i + 1; j < n - 1; j++)
+			s[j] = s[j + 1];
 
-static void
-combine_terms(void)
-{
-	push(p5);
-	push(p6);
-	add_numbers();
-	p7 = pop();
-	if (iszero(p7))
-		return;
-	if (isplusone(p7)) {
-		push(p4);
-		return;
+		n--;
+		i--;
 	}
-	if (car(p4) == symbol(MULTIPLY)) {
-		push(car(p4));
-		push(p7);
-		push(cdr(p4));
-		cons();
-		cons();
-		return;
-	}
-	push_symbol(MULTIPLY);
-	push(p7);
-	push(p4);
-	list(3);
+
+	return n;
 }
 
 void
 addk(int k)
 {
 	int h, i;
+	U **s;
+
 	if (k == 1)
 		return;
+
 	if (k == 0) {
 		push(zero);
 		return;
 	}
-	h = tos - k;
-	push(stack[h]);
-	for (i = 1; i < k; i++) {
-		push(stack[h + i]);
-		add();
-	}
-	stack[h] = pop();
-	tos = h + 1;
+
+	save();
+
+	s = stack + tos - k;
+
+	h = tos;
+
+	for (i = 0; i < k; i++)
+		push_terms(s[i]);
+
+	yyadd(tos - h);
+
+	p1 = pop();
+
+	tos -= k;
+
+	push(p1);
+
+	restore();
 }
 
-//-----------------------------------------------------------------------------
-//
-//	Symbolic subtraction
-//
-//	Input:		Minuend and subtrahend on stack
-//
-//	Output:		Result on stack
-//
-//-----------------------------------------------------------------------------
+void
+push_terms(U *p)
+{
+	if (car(p) == symbol(ADD)) {
+		p = cdr(p);
+		while (iscons(p)) {
+			push(car(p));
+			p = cdr(p);
+		}
+	} else if (!iszero(p))
+		push(p);
+}
 
 void
 subtract(void)

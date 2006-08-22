@@ -84,7 +84,7 @@ static char *s[] = {
 	"",
 
 	"psi(3)",
-	"-2*r*exp(-1/3*r)+2/9*r^2*exp(-1/3*r)+3*exp(-1/3*r)",
+	"3*exp(-1/3*r)-2*r*exp(-1/3*r)+2/9*r^2*exp(-1/3*r)",
 
 	"condense(last)",
 	"exp(-1/3*r)*(3-2*r+2/9*r^2)",

@@ -209,7 +209,6 @@ static char *help_besselj[] = {
 	"n = 5/2",
 	"y = besselj(x,n)",
 	"x^2 d(y,x,x) + x d(y,x) + (x^2 - n^2) y",
-	"simplify",
 };
 
 static char *help_hermite[] = {

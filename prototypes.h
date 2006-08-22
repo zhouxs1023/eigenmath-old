@@ -8,7 +8,10 @@ void test_abs(void);
 
 // add.cpp
 void add();
+void yyadd(int n);
+int combine_terms(U **s, int n);
 void addk(int k);
+void push_terms(U *p);
 void subtract(void);
 
 // adj.cpp
@@ -750,6 +753,8 @@ int scan(char *s);
 int scan_meta(char *s);
 void build_tensor(int n);
 void test_scan(void);
+
+// scripts.cpp
 
 // selftest.cpp
 void selftest(void);
