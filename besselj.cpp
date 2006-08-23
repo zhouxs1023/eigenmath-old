@@ -231,6 +231,17 @@ static char *s[] = {
 
 	"besselj(x,-3/2)+(1/x)*besselj(x,-1/2)+besselj(x,1/2)",
 	"0",
+
+	// this should simplify
+
+	"y=besselj(x,5/2)",
+	"",
+
+	"x^2*d(y,x,x)+x*d(y,x)+(x^2-(5/2)^2)*y",
+	"0",
+
+	"y=quote(y)",
+	"",
 };
 
 void

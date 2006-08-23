@@ -1230,6 +1230,8 @@ do_button(char *cmd)
 	char *s;
 	if (running)
 		return;
+	if (strcmp(cmd, "clear") == 0)
+		update_curr_cmd("");
 	s = get_curr_cmd();
 	if (*s) {
 		if (strcmp(cmd, "derivative") == 0)
