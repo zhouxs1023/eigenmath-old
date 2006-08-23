@@ -1,7 +1,9 @@
-// Symbolic addition
+/* Symbolic addition */
 
 #include "stdafx.h"
 #include "defs.h"
+
+static int flag;
 
 void
 eval_add(void)
@@ -18,34 +20,73 @@ eval_add(void)
 	yyadd(tos - h);
 }
 
+/* add two expressions */
+
 void
 add()
 {
 	int h;
-	if (esc_flag)
-		stop("escape key stop");
-	if (tos < 2)
-		stop("stack underflow");
-	if (isnum(stack[tos - 2]) && isnum(stack[tos - 1]))
-		add_numbers();
-	else {
-		save();
-		p2 = pop();
+	save();
+	p2 = pop();
+	p1 = pop();
+	h = tos;
+	push_terms(p1);
+	push_terms(p2);
+	yyadd(tos - h);
+	restore();
+}
+
+/* Add n terms, returns one expression on the stack. */
+
+void
+yyadd(int n)
+{
+	int i, h;
+	U **s;
+
+	h = tos - n;
+
+	s = stack + h;
+
+	/* ensure no infinite loop, use "for" */
+
+	for (i = 0; i < 10; i++) {
+
+		if (n < 2)
+			break;
+
+		flag = 0;
+
+		qsort(s, n, sizeof (U *), cmp_terms);
+
+		if (flag == 0)
+			break;
+
+		n = combine_terms(s, n);
+	}
+
+	tos = h + n;
+
+	switch (n) {
+	case 0:
+		push_integer(0);
+		break;
+	case 1:
+		break;
+	default:
+		list(n);
 		p1 = pop();
-		h = tos;
-		push_terms(p1);
-		push_terms(p2);
-		yyadd(tos - h);
-		restore();
+		push_symbol(ADD);
+		push(p1);
+		cons();
+		break;
 	}
 }
 
-static int flag;
-
 /* Compare terms for order, clobbers p1 and p2. */
 
-static int
-yycmp(const void *q1, const void *q2)
+int
+cmp_terms(const void *q1, const void *q2)
 {
 	int i, t;
 
@@ -100,53 +141,6 @@ yycmp(const void *q1, const void *q2)
 		flag = 1;
 
 	return t;
-}
-
-/* Add n terms, returns one expression on the stack. */
-
-void
-yyadd(int n)
-{
-	int i, h;
-	U **s;
-
-	h = tos - n;
-
-	s = stack + h;
-
-	/* "for" loop just in case, make sure it doesn't get stuck */
-
-	for (i = 0; i < 10; i++) {
-
-		if (n < 2)
-			break;
-
-		flag = 0;
-
-		qsort(s, n, sizeof (U *), yycmp);
-
-		if (flag == 0)
-			break;
-
-		n = combine_terms(s, n);
-	}
-
-	tos = h + n;
-
-	switch (n) {
-	case 0:
-		push_integer(0);
-		break;
-	case 1:
-		break;
-	default:
-		list(n);
-		p1 = pop();
-		push_symbol(ADD);
-		push(p1);
-		cons();
-		break;
-	}
 }
 
 /* Compare adjacent terms in s[] and combine if possible.
@@ -324,12 +318,6 @@ push_terms(U *p)
 void
 subtract(void)
 {
-	if (tos < 2)
-		stop("stack underflow");
-	if (isnum(stack[tos - 2]) && isnum(stack[tos - 1]))
-		subtract_numbers();
-	else {
-		negate();
-		add();
-	}
+	negate();
+	add();
 }

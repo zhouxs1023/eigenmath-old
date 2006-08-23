@@ -10,6 +10,7 @@ void test_abs(void);
 void eval_add(void);
 void add();
 void yyadd(int n);
+int cmp_terms(const void *q1, const void *q2);
 int combine_terms(U **s, int n);
 void addk(int k);
 void push_terms(U *p);
