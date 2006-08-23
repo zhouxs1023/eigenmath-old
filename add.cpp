@@ -107,14 +107,19 @@ yycmp(const void *q1, const void *q2)
 void
 yyadd(int n)
 {
-	int h;
+	int i, h;
 	U **s;
 
 	h = tos - n;
 
 	s = stack + h;
 
-	while (n > 1) {
+	/* "for" loop just in case, make sure it doesn't get stuck */
+
+	for (i = 0; i < 10; i++) {
+
+		if (n < 2)
+			break;
 
 		flag = 0;
 
