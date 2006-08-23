@@ -9,10 +9,10 @@ void test_abs(void);
 // add.cpp
 void eval_add(void);
 void add();
-void yyadd(int n);
+void add_terms(int n);
 int cmp_terms(const void *q1, const void *q2);
 int combine_terms(U **s, int n);
-void addk(int k);
+void add_all(int k);
 void push_terms(U *p);
 void subtract(void);
 

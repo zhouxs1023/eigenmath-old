@@ -89,7 +89,7 @@ distill_sum(void)
 	}
 
 	if (tos - h) {
-		addk(tos - h);
+		add_all(tos - h);
 		p3 = pop();
 		push(p3);
 		push(p3);

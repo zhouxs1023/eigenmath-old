@@ -363,7 +363,7 @@ dsum(void)
 		derivative();
 		p1 = cdr(p1);
 	}
-	addk(tos - h);
+	add_all(tos - h);
 }
 
 void
@@ -383,7 +383,7 @@ dproduct(void)
 		}
 		multiply_all(n);
 	}
-	addk(n);
+	add_all(n);
 }
 
 //-----------------------------------------------------------------------------

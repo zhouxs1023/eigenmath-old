@@ -49,7 +49,7 @@ ytrace(void)
 	for (i = 0; i < n; i++)
 		push(p1->u.tensor->elem[n * i + i]);
 
-	addk(n);
+	add_all(n);
 }
 
 static char *s[] = {

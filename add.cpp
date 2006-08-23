@@ -17,7 +17,7 @@ eval_add(void)
 		push_terms(p2);
 		p1 = cdr(p1);
 	}
-	yyadd(tos - h);
+	add_terms(tos - h);
 }
 
 /* add two expressions */
@@ -32,14 +32,14 @@ add()
 	h = tos;
 	push_terms(p1);
 	push_terms(p2);
-	yyadd(tos - h);
+	add_terms(tos - h);
 	restore();
 }
 
 /* Add n terms, returns one expression on the stack. */
 
 void
-yyadd(int n)
+add_terms(int n)
 {
 	int i, h;
 	U **s;
@@ -269,36 +269,19 @@ combine_terms(U **s, int n)
 }
 
 void
-addk(int k)
+add_all(int k)
 {
 	int h, i;
 	U **s;
-
-	if (k == 1)
-		return;
-
-	if (k == 0) {
-		push(zero);
-		return;
-	}
-
 	save();
-
 	s = stack + tos - k;
-
 	h = tos;
-
 	for (i = 0; i < k; i++)
 		push_terms(s[i]);
-
-	yyadd(tos - h);
-
+	add_terms(tos - h);
 	p1 = pop();
-
 	tos -= k;
-
 	push(p1);
-
 	restore();
 }
 

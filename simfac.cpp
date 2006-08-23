@@ -57,7 +57,7 @@ simfac(void)
 			simfac_term();
 			p1 = cdr(p1);
 		}
-		addk(tos - h);
+		add_all(tos - h);
 	} else {
 		push(p1);
 		simfac_term();
