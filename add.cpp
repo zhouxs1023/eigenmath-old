@@ -211,11 +211,11 @@ combine_terms(U **s, int n)
 		p1 = one;
 		p2 = one;
 
-		t = 0;	// t indicates a denormalized term
+		t = 0;
 
 		if (car(p3) == symbol(MULTIPLY)) {
 			p3 = cdr(p3);
-			t = 1;
+			t = 1; /* t indicates a denormalized term */
 			if (isnum(car(p3))) {
 				p1 = car(p3);
 				p3 = cdr(p3);
