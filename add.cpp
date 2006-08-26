@@ -215,7 +215,7 @@ combine_terms(U **s, int n)
 
 		if (car(p3) == symbol(MULTIPLY)) {
 			p3 = cdr(p3);
-			t = 1; /* t indicates a denormalized term */
+			t = 1; /* p3 is now denormal */
 			if (isnum(car(p3))) {
 				p1 = car(p3);
 				p3 = cdr(p3);
