@@ -1,4 +1,28 @@
-/* Symbolic addition */
+/* Symbolic addition
+
+	A symbolic sum is a sum of terms.
+
+	Two terms are combined if they are identical except for a numerical
+	coefficient.
+
+	The numerical coefficient must be a rational number.
+
+	For example, A + 2A becomes 3A.
+
+	However, the sum A + sqrt(2) A is not modified.
+
+	Combining terms can lead to second-order effects.
+
+	For example, consider the case of
+
+		1/sqrt(2) A + 3/sqrt(2) A + sqrt(2) A
+
+	The first two terms are combined to yield 2 sqrt(2) A.
+
+	This result can now be combined with the third term to yield
+
+		3 sqrt(2) A
+*/
 
 #include "stdafx.h"
 #include "defs.h"
@@ -18,22 +42,6 @@ eval_add(void)
 		p1 = cdr(p1);
 	}
 	add_terms(tos - h);
-}
-
-/* add two expressions */
-
-void
-add()
-{
-	int h;
-	save();
-	p2 = pop();
-	p1 = pop();
-	h = tos;
-	push_terms(p1);
-	push_terms(p2);
-	add_terms(tos - h);
-	restore();
 }
 
 /* Add n terms, returns one expression on the stack. */
@@ -269,6 +277,35 @@ combine_terms(U **s, int n)
 }
 
 void
+push_terms(U *p)
+{
+	if (car(p) == symbol(ADD)) {
+		p = cdr(p);
+		while (iscons(p)) {
+			push(car(p));
+			p = cdr(p);
+		}
+	} else if (!iszero(p))
+		push(p);
+}
+
+/* add two expressions */
+
+void
+add()
+{
+	int h;
+	save();
+	p2 = pop();
+	p1 = pop();
+	h = tos;
+	push_terms(p1);
+	push_terms(p2);
+	add_terms(tos - h);
+	restore();
+}
+
+void
 add_all(int k)
 {
 	int h, i;
@@ -283,19 +320,6 @@ add_all(int k)
 	tos -= k;
 	push(p1);
 	restore();
-}
-
-void
-push_terms(U *p)
-{
-	if (car(p) == symbol(ADD)) {
-		p = cdr(p);
-		while (iscons(p)) {
-			push(car(p));
-			p = cdr(p);
-		}
-	} else if (!iszero(p))
-		push(p);
 }
 
 void
