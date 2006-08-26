@@ -1,11 +1,7 @@
 /* Symbolic addition
 
-	A symbolic sum is a sum of terms.
-
-	Two terms are combined if they are identical except for a numerical
-	coefficient.
-
-	The numerical coefficient must be a rational number.
+	Terms in a sum are combined if they are identical beyond rational
+	coefficients.
 
 	For example, A + 2A becomes 3A.
 
