@@ -340,7 +340,7 @@ static char *help_quotient[] = {
 // sum
 
 static char *help_sum[] = {
-	"sum(k,1,5,1/k^s)",
+	"99^2 - sum(k,1,99,2k-1)",
 };
 
 // taylor
