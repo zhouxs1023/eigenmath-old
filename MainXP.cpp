@@ -265,6 +265,7 @@ enum {
 	ID_HELP_NUMERATOR,
 	ID_HELP_PRODUCT,
 	ID_HELP_QUOTIENT,
+	ID_HELP_SQRT,
 	ID_HELP_SUM,
 	ID_HELP_TAYLOR,
 };
@@ -719,6 +720,7 @@ static struct {
 	{"factorial",				ID_HELP_FACTORIAL},
 	{"numerator",				ID_HELP_NUMERATOR},
 	{"product",				ID_HELP_PRODUCT},
+	{"sqrt",				ID_HELP_SQRT},
 	{"sum",					ID_HELP_SUM},
 	{0,					0},
 
@@ -1119,6 +1121,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		case ID_HELP_PRODUCT:
 			HELP(help_product);
+			break;
+		case ID_HELP_SQRT:
+			HELP(help_sqrt);
 			break;
 		case ID_HELP_SUM:
 			HELP(help_sum);

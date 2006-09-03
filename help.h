@@ -337,6 +337,12 @@ static char *help_quotient[] = {
 	"quotient(p,q)",
 };
 
+// sqrt
+
+static char *help_sqrt[] = {
+	"sqrt(2)",
+};
+
 // sum
 
 static char *help_sum[] = {
