@@ -1,0 +1,138 @@
+\beginsection 1.
+
+\item{\S 1.}
+Archimedes' Life
+\itemitem{1.}
+Born circa 287 B.C. in the port city of Syracuse, Sicily.
+\itemitem{2.}
+Educated in Alexandria at the school of mathematics founded by Euclid.
+Continued to correspond with friends in Alexandria long after he returned
+to Syracuse.
+\itemitem{3.}
+Became famous for creating astonishing machines that helped
+defend Syracuse during the Second Punic War, 214-212 B.C.
+\itemitem{4.}
+Killed by a Roman soldier during the sack of Syracuse in 212 B.C.
+
+\bigskip
+\item{\S 2.} Archimedes' Work
+\itemitem{1.} Angle Trisection.
+What Archimedes figured out is that a spiral is like
+an analog computer.
+To see this, consider the spiral curve
+$$r=\theta$$
+This curve starts at the origin and spirals out counterclockwise.
+At every point on the curve, $r=\theta$ so the spiral can be
+uused to convert angles ($\theta$) to distance ($r$) and back again.
+To trisect an angle, Archimedes draws a spiral that intersects the
+slanted line subtending $\theta$.
+The point of intersection provides a distance $r$ equivalent to $\theta$.
+Divide this distance by 3.
+With a compass draw a circle about the origin passing through $r/3$.
+The circle intersects the original spiral at $\theta/3$.
+A ray through this point trisects $\theta$.
+\itemitem{2.}
+Calculation of $\pi$.
+The calculation boils down to finding the circumference of a circle.
+Archimedes realized that the circumference is bounded by
+the perimeters of circumscribed and inscribed polygons.
+He devised an algorithm that permits the bound to
+be made arbitrarily small by iteratively doubling of number
+of polygon sides.
+
+\itemitem{3.}
+Archimedes was the first mathematician to use infinitesimals, the
+forerunner of differential calculus.
+
+\itemitem{4.}
+Discovered the principles of density and buoyancy while taking a bath.
+
+\itemitem{5.}
+Calculated the area of a parabolic segment.
+
+\itemitem{6.}
+Devised a proof relating the volume of a sphere to its radius.
+
+\itemitem{7.}
+Devised a proof of the Law of the Lever based on static principles.
+
+\itemitem{8.}
+Used the method of exhaustion to devise many proofs.
+The method of exhaustion is the forerunner of integral calculus.
+
+\bigskip
+\item{\S 3.}
+References
+
+\itemitem{1.}
+``Archimedes,'' {\tt http://en.wikipedia.org/wiki/Archimedes}
+
+\itemitem{2.}
+``Archimedes,'' {\tt http://fermatslasttheorem.blogspot.com/2006/04/archimedes.html}
+
+\itemitem{3.}
+``Infinitesimal,'' {\tt http://en.wikipedia.org/wiki/Infinitesimals}
+
+\itemitem{4.}
+"Lecture 3: Archimedes and $\pi$,'' {\tt chan.hei-chi@uis.edu}
+
+\itemitem{5.}
+``A History of Mathematics'' by Carl B. Boyer
+
+\vfill
+\eject
+
+\beginsection 2.
+
+Prove the geometric series
+$$1+r+r^2+r^3+\cdots={1\over1-r}$$
+First, prove
+$$\sum_{k=0}^nr^k={1-r^{n+1}\over1-r}$$
+For $n=0$ we have $r^0=1=(1-r)/(1-r)$ so the equation is true for $n=0$.
+Now show that the equation is true for $n+1$ whenever it is true for $n$.
+We have
+$$\eqalign{
+\left(\sum_{k=0}^nr^k\right)+r^{n+1}&={1-r^{n+1}\over1-r}+r^{n+1}\cr
+&={1-r^{n+1}\over1-r}+{(1-r)r^{n+1}\over 1-r}\cr
+&={1-r^{n+2}\over1-r}
+}$$
+In addition we have
+$$\left(\sum_{k=0}^nr^k\right)+r^{n+1}=\sum_{k=0}^{n+1}r^k$$
+Hence
+$$\sum_{k=0}^{n+1}r^k={1-r^{n+2}\over1-r}$$
+and by induction the original identity is true, i.e.
+$$\sum_{k=0}^nr^k={1-r^{n+1}\over1-r}$$
+For $|r|<1$ we have
+$$\lim_{n\rightarrow\infty}r^{n+1}=0$$
+Consequently
+$$\sum_{k=0}^\infty r^k={1\over1-r}$$
+
+\vfill
+\eject
+
+\beginsection 3.
+
+{\tt\obeylines
+6.0000000000 < Circumference < 6.9282032303
+6.2116570825 < Circumference < 6.4307806183
+6.2652572266 < Circumference < 6.3193198842
+6.2787004061 < Circumference < 6.2921724303
+6.2820639018 < Circumference < 6.2854291993
+6.2829049446 < Circumference < 6.2837461000
+6.2831152158 < Circumference < 6.2833254941
+6.2831677843 < Circumference < 6.2832203532
+6.2831809265 < Circumference < 6.2831940686
+6.2831842120 < Circumference < 6.2831874975
+\bigskip
+3.0000000000 < $\pi$ < 3.4641016151
+3.1058285412 < $\pi$ < 3.2153903092
+3.1326286133 < $\pi$ < 3.1596599421
+3.1393502030 < $\pi$ < 3.1460862151
+3.1410319509 < $\pi$ < 3.1427145996
+3.1414524723 < $\pi$ < 3.1418730500
+3.1415576079 < $\pi$ < 3.1416627471
+3.1415838921 < $\pi$ < 3.1416101766
+3.1415904632 < $\pi$ < 3.1415970343
+3.1415921060 < $\pi$ < 3.1415937488
+}
+\end
