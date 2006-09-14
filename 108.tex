@@ -1,0 +1,32 @@
+{\it MAT 431}
+
+\bigskip
+
+2b.
+$$p(x)=x/C,\qquad x=1,2,3,4,5$$
+
+\bigskip
+Find $C$ so that $p(x)$ is a probability mass function.
+$$\sum_{x\in R}x/C=15/C=1$$
+$$C=15$$
+
+\bigskip
+Determine the distribution function.
+$$F(t)=\sum_{x\le t}p(x)$$
+$$F(t)=\cases{
+0,&$t<1$\cr
+1/15,&$1\le t<2$\cr
+3/15,&$2\le t<3$\cr
+6/15,&$3\le t<4$\cr
+10/15,&$4\le t<5$\cr
+15/15,&$5\le t$\cr
+}$$
+
+\bigskip
+Determine the moment generating function.
+$$\eqalign{
+M(t)&=E[e^{tx}]=\sum_{x\in R}e^{tx}p(x)
+=(e^t+2e^{2t}+3e^{3t}+4e^{4t}+5e^{5t})/15\cr
+}$$
+
+\end
