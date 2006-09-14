@@ -1,0 +1,114 @@
+\beginsection 3.
+
+Use (3) to prove (2).
+$$F_n={1\over\sqrt5}\left(\phi^n-\left(-{1\over\phi}\right)^n\right)\eqno(3)$$
+$$\lim_{n\rightarrow\infty}{F_{n+1}\over F_n}=\phi\eqno(2)$$
+\bigskip
+We have
+$$\eqalign{
+{F_{n+1}\over F_n}&=
+{
+{1\over\sqrt5}\left(\phi^{n+1}-\left(-{1\over\phi}\right)^{n+1}\right)
+\over
+{1\over\sqrt5}\left(\phi^{n}-\left(-{1\over\phi}\right)^{n}\right)
+}\cr
+&=
+{
+\phi^{n+1}-\left(-{1\over\phi}\right)^{n+1}
+\over
+\phi^{n}-\left(-{1\over\phi}\right)^{n}
+}\cr
+&=
+{\left(-{1\over\phi}\right)^{n}\over\left(-{1\over\phi}\right)^{n}}\times
+{
+\phi^{n+1}-\left(-{1\over\phi}\right)^{n+1}
+\over
+\phi^{n}-\left(-{1\over\phi}\right)^{n}
+}\cr
+&=
+{
+(-1)^n\phi-\left(-{1\over\phi}\right)^{2n+1}
+\over
+(-1)^n-\left(-{1\over\phi}\right)^{2n}
+}\cr
+}$$
+Now evaluate the limit for $\phi>1$.
+$$\eqalign{
+\lim_{n\rightarrow\infty}{F_{n+1}\over F_n}&=
+{
+\phi\lim_{n\rightarrow\infty}(-1)^n-\lim_{n\rightarrow\infty}\left(-{1\over\phi}\right)^{2n+1}
+\over
+\lim_{n\rightarrow\infty}(-1)^n-\lim_{n\rightarrow\infty}\left(-{1\over\phi}\right)^{2n}
+}\cr
+&=
+{
+\phi\lim_{n\rightarrow\infty}(-1)^n-0
+\over
+\lim_{n\rightarrow\infty}(-1)^n-0
+}\cr
+&=\phi
+}$$
+
+\vfill
+\eject
+
+\beginsection 4.
+
+Prove (3).
+$$F_n={1\over\sqrt5}\left(\phi^n-\left(-{1\over\phi}\right)^n\right)\eqno(3)$$
+
+\bigskip
+Proof by induction.
+For $n=0$ we have $F_0=0$ which is correct.
+For $n=1$ we have
+$$\eqalign{
+F_1&={1\over\sqrt5}\left(\phi+{1\over\phi}\right)\cr
+&={1\over\sqrt5}\left({\phi^2+1\over\phi}\right)\cr
+&={1\over\sqrt5}\left({(10+2\sqrt5)/4\over(1+\sqrt5)/2}\right)\cr
+&={(2\sqrt5+2)/4\over(1+\sqrt5)/2}\cr
+&=1
+}$$
+which is also correct.
+Now show that $F_{n}+F_{n+1}=F_{n+2}$.
+$$\eqalign{
+\sqrt5\,(F_n+F_{n+1})&=\phi^n-\left(-{1\over\phi}\right)^n
++\phi^{n+1}-\left(-{1\over\phi}\right)^{n+1}\cr
+&=\phi^{n+2}\left(\phi^{-2}+\phi^{-1}\right)
+-\left(-{1\over\phi}\right)^{n+2}
+\left[
+\left(-{1\over\phi}\right)^{-2}
++
+\left(-{1\over\phi}\right)^{-1}
+\right]\cr
+&=
+\phi^{n+2}\left(\phi^{-2}+\phi^{-1}\right)
+-\left(-{1\over\phi}\right)^{n+2}
+(\phi^2-\phi)\cr
+&=\phi^{n+2}-\left(-{1\over\phi}\right)^{n+2}\cr
+&=\sqrt5\,F_{n+2}
+}$$
+Hence by induction (3) is correct.
+
+\vfill
+\eject
+
+\beginsection 5.
+
+Use (1) to prove (4).
+$$F_n=F_{n-1}+F_{n-2}\eqno(1)$$
+$$\sum_{n=1}^\infty F_nt^n={t\over1-t-t^2}\eqno(4)$$
+We have
+$$\eqalign{
+\sum_{n=1}^\infty F_nt^n&=F_0+F_1t+\sum_{n=2}^\infty(F_{n-1}+F_{n-2})t^n\cr
+&=t+t\sum_{n=2}^\infty F_{n-1}t^{n-1}+t^2\sum_{n=2}^\infty F_{n-2}t^{n-2}\cr
+&=t+t\sum_{n=1}^\infty F_nt^n+t^2\sum_{n=0}^\infty F_nt^n\cr
+&=t+t\sum_{n=1}^\infty F_nt^n+t^2\sum_{n=1}^\infty F_nt^n+t^2F_0\cr
+}$$
+Now letting $X=\sum_{n=1}^\infty F_nt^n$ we have
+$$X=t+tX+t^2X$$
+Hence
+$$X(1-t-t^2)=t$$
+and finally
+$$X={t\over1-t-t^2}$$
+
+\end
