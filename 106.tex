@@ -1,0 +1,50 @@
+{\it MAT 431}
+
+\bigskip
+
+1. Consider a discrete random variable $X$ with the following
+probability mass function
+$$\matrix{
+x&-5&-2&1&4&5\cr
+p(x)&0.10&0.25&0.30&0.25&0.10
+}$$
+
+a) Find the value of $P(-2.5<X<2.5)$.
+$$\eqalign{
+P(-2.5<X<2.5)&=P(X=-2)+P(X=1)\cr
+&=p(-2)+p(1)\cr
+&=0.55
+}$$
+
+b) Find the value of $P(X>0)$.
+$$\eqalign{
+P(X>0)&=P(X=1)+P(X=4)+P(X=5)\cr
+&=p(1)+p(4)+p(5)\cr
+&=0.65
+}$$
+
+c) Find the expected value of $X$.
+Note: $R=\{-5,-2,1,4,5\}$, the range of $X$.
+$$\eqalign{
+\mu&=E[X]=\sum_{x\in R}x\cdot p(x)\cr
+&=(-5)(0.10)+(-2)(0.25)+(1)(0.30)+(4)(0.25)+(5)(0.10)\cr
+&=0.80
+}$$
+
+d) Find the variance of $X$.
+$$\eqalign{
+\sigma^2&=Var(X)=E[(X-\mu)^2]=\sum_{x\in R}(x-\mu)^2\cdot p(x)\cr
+&=(-5-0.80)^2(0.10)+(-2-0.80)^2(0.25)+(1-0.80)^2(0.30)
++(4-0.80)^2(0.25)+(5-0.80)^2(0.10)\cr
+&=9.66
+}$$
+
+e) Find the third moment about the mean of $X$.
+$$\eqalign{
+&E[(X-\mu)^3]=\sum_{x\in R}(x-\mu)^3\cdot p(x)\cr
+&=(-5-0.80)^3(0.10)+(-2-0.80)^3(0.25)+(1-0.80)^3(0.30)
++(4-0.80)^3(0.25)+(5-0.80)^3(0.10)\cr
+&=-9.396
+}$$
+
+\end
