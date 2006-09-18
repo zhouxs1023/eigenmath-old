@@ -10,6 +10,7 @@ For example polar(exp(i pi/3)) gives the result (-1)^(1/3)
 void
 eval_polar(void)
 {
+#if 1
 	push(cadr(p1));
 	eval();
 	p1 = pop();
@@ -22,6 +23,20 @@ eval_polar(void)
 	divide();
 	power();
 	multiply();
+#else
+	push(cadr(p1));
+	eval();
+	p1 = pop();
+	push(p1);
+	mag();
+	push(symbol(E));
+	push(p1);
+	arg();
+	push(imaginaryunit);
+	multiply();
+	power();
+	multiply();
+#endif
 }
 
 static char *s[] = {

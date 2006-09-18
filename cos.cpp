@@ -138,7 +138,7 @@ yycosine(void)
 		push_integer(-1);
 		break;
 	default:
-		push(symbol(SIN));
+		push(symbol(COS));
 		push(p1);
 		list(2);
 		break;
@@ -268,6 +268,11 @@ static char *s[] = {
 
 	"circexp(cos(x))",
 	"1/2*exp(-i*x)+1/2*exp(i*x)",
+
+	// bug fix for version 119
+
+	"cos(1/12*pi)",
+	"cos(1/12*pi)",
 };
 
 void

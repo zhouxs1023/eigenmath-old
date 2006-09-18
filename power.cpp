@@ -147,6 +147,42 @@ yypower(void)
 		return;
 	}
 
+	// i.e., (1+i)^(1/3)
+
+	if (car(p1) == symbol(ADD) && iscomplexnumber(p1) && isfraction(p2)) {
+#if 1
+		push(p1);
+		mag();
+		push(p2);
+		power();
+		push_integer(-1);
+		push(p1);
+		arg();
+		push(p2);
+		multiply();
+		push(symbol(PI));
+		divide();
+		power();
+		multiply();
+		return;
+#else
+		push(p1);
+		mag();
+		push(p2);
+		power();
+		push(symbol(E));
+		push(p1);
+		arg();
+		push(p2);
+		multiply();
+		push(imaginaryunit);
+		multiply();
+		power();
+		multiply();
+		return;
+#endif
+	}
+
 	// complex to a negative power?
 
 	if (iscomplexnumber(p1) && isnegativenumber(p2)) {
