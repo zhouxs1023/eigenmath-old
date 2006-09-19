@@ -100,20 +100,13 @@ eval_eigenvec(void)
 static int
 check_arg(void)
 {
-	int i, j, x;
+	int i, j;
 
 	push(cadr(p1));
 	eval();
-	p1 = pop();
-
-	// convert to floating point
-
-	x = floating;
-	floating = 1;
-	push(p1);
+	yyfloat();
 	eval();
 	p1 = pop();
-	floating = x;
 
 	if (!istensor(p1))
 		return 0;

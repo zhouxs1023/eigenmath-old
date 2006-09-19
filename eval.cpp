@@ -15,8 +15,6 @@ eval(void)
 		break;
 	case NUM:
 		push(p1);
-		if (floating)
-			bignum_float();
 		break;
 	case DOUBLE:
 		push(p1);
@@ -57,16 +55,6 @@ eval_sym(void)
 
 //	if (p1 != p1->u.sym.binding)
 //		eval();
-
-	if (floating) {
-		p1 = pop();
-		if (p1 == symbol(PI))
-			push_double(M_PI);
-		else if (p1 == symbol(E))
-			push_double(M_E);
-		else
-			push(p1);
-	}
 }
 
 void
@@ -182,7 +170,7 @@ eval_cons(void)
 	case ROOTS:		eval_roots();		break;
 	case SETQ:		eval_setq();		break;
 	case SGN:		eval_sgn();		break;
-	case SIMFAC:		eval_simfac();		break;
+//	case SIMFAC:		eval_simfac();		break;
 	case SIMPLIFY:		eval_simplify();	break;
 	case SIN:		eval_sin();		break;
 	case SINH:		eval_sinh();		break;
@@ -218,7 +206,6 @@ setup(void)
 
 	exp_flag = 0;
 	trigmode = 0;
-	floating = 0;
 
 	p = symbol(AUTOEXPAND);
 	if (iszero(p->u.sym.binding))
@@ -384,18 +371,6 @@ eval_factorpoly(void)
 		factorpoly();
 		p1 = cdr(p1);
 	}
-}
-
-// Must do eval then second eval to handle functions that want integer args
-
-void
-eval_float(void)
-{
-	push(cadr(p1));
-	eval();
-	floating++;
-	eval();
-	floating--;
 }
 
 void
@@ -712,6 +687,7 @@ eval_subst(void)
 	push(cadr(p1));
 	eval();
 	subst();
+	eval(); // normalize
 }
 
 void

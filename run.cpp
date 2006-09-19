@@ -58,14 +58,42 @@ run(char *s)
 		p1 = pop();
 		check_stack();
 
-		push(p1);
-		eval();
+		if (p1 == symbol(SIMPLIFY)) {
+			push(symbol(LAST)->u.sym.binding);
+			simplify();
+		} else if (p1 == symbol(CONDENSE)) {
+			push(symbol(LAST)->u.sym.binding);
+			Condense();
+		} else if (p1 == symbol(RATIONALIZE)) {
+			push(symbol(LAST)->u.sym.binding);
+			rationalize();
+		} else if (car(p1) == symbol(SIMPLIFY)) {
+			push(cadr(p1));
+			eval();
+			symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
+			symbol(LAST)->u.sym.binding2 = symbol(NIL);
+			simplify();
+		} else if (car(p1) == symbol(CONDENSE)) {
+			push(cadr(p1));
+			eval();
+			symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
+			symbol(LAST)->u.sym.binding2 = symbol(NIL);
+			Condense();
+		} else if (car(p1) == symbol(RATIONALIZE)) {
+			push(cadr(p1));
+			eval();
+			symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
+			symbol(LAST)->u.sym.binding2 = symbol(NIL);
+			rationalize();
+		} else {
+			push(p1);
+			eval();
+			symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
+			symbol(LAST)->u.sym.binding2 = symbol(NIL);
+		}
 
 		p2 = pop();
 		check_stack();
-
-		symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
-		symbol(LAST)->u.sym.binding2 = symbol(NIL);
 
 		// print string w/o quotes
 

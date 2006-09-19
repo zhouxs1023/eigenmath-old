@@ -66,12 +66,12 @@ selftest(void)
 	test_erfc();
 	test_expcos();
 	test_expsin();
-	test_gcd();
 	test_factorpoly();
+	test_float();
 	test_floor();
 	test_for();
-//	test_fourier();
 	test_gamma();
+	test_gcd();
 	test_imag();
 	test_inner();
 	test_lcm();

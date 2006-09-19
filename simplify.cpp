@@ -19,6 +19,7 @@ eval_simplify(void)
 	push(cadr(p1));
 	eval();
 	simplify();
+	eval(); // normalize
 }
 
 void
@@ -363,6 +364,20 @@ static char *s[] = {
 
 	"simplify((n+1)/(n+1)!)-1/n!",
 	"0",
+
+	// verify that denormal expressions are not propagated
+
+	"simplify(a*b+a*c)",
+	"a*(b+c)",
+
+	"x=simplify(a*b+a*c)",
+	"",
+
+	"x",
+	"a*b+a*c",
+
+	"x=quote(x)",
+	"",
 };
 
 void

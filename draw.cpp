@@ -100,16 +100,9 @@ eval_draw(void)
 static void
 draw(void)
 {
-	int x;
-
-	x = floating;
-	floating = 1;
-
 	save();
 	draw2();
 	restore();
-
-	floating = x;
 }
 
 static void
@@ -333,12 +326,14 @@ setup_trange_f(void)
 
 	push(p1->u.tensor->elem[0]);
 	eval();
+	yyfloat();
 	fudge();
 	eval();
 	p2 = pop();
 
 	push(p1->u.tensor->elem[1]);
 	eval();
+	yyfloat();
 	fudge();
 	eval();
 	p3 = pop();
@@ -387,12 +382,14 @@ setup_xrange_f(void)
 
 	push(p1->u.tensor->elem[0]);
 	eval();
+	yyfloat();
 	fudge();
 	eval();
 	p2 = pop();
 
 	push(p1->u.tensor->elem[1]);
 	eval();
+	yyfloat();
 	fudge();
 	eval();
 	p3 = pop();
@@ -469,12 +466,14 @@ setup_yrange_f(void)
 
 	push(p1->u.tensor->elem[0]);
 	eval();
+	yyfloat();
 	fudge();
 	eval();
 	p2 = pop();
 
 	push(p1->u.tensor->elem[1]);
 	eval();
+	yyfloat();
 	fudge();
 	eval();
 	p3 = pop();

@@ -304,7 +304,6 @@ void eval_exp(void);
 void eval_expand(void);
 void eval_factorial(void);
 void eval_factorpoly(void);
-void eval_float(void);
 void eval_for(void);
 void eval_hermite(void);
 void eval_hilbert(void);
@@ -366,6 +365,11 @@ void test_factorpoly(void);
 
 // find.cpp
 int find(U *p, U *q);
+
+// float.cpp
+void eval_float(void);
+void yyfloat(void);
+void test_float(void);
 
 // floor.cpp
 void eval_floor(void);
@@ -725,6 +729,7 @@ void test_quotient(void);
 // rationalize.cpp
 void eval_rationalize(void);
 void rationalize(void);
+void yyrationalize(void);
 void test_rationalize(void);
 
 // real.cpp

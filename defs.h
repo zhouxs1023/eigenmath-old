@@ -159,7 +159,7 @@ enum {
 	ROOTS,
 	SETQ,
 	SGN,
-	SIMFAC,
+//	SIMFAC,
 	SIMPLIFY,
 	SIN,
 	SINH,
@@ -319,7 +319,6 @@ extern int fmt_x;
 extern int fmt_index;
 extern int fmt_level;
 extern int verbosing;
-extern int floating;
 extern int primetab[MAXPRIMETAB];
 extern int esc_flag;
 extern int mtotal;

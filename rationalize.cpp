@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "defs.h"
 #define DEBUG 0
-static void __rationalize(void);
 static void __rationalize_tensor(void);
 static void multiply_denominators(U *);
 static void multiply_denominators_term(U *);
@@ -14,6 +13,7 @@ eval_rationalize(void)
 	push(cadr(p1));
 	eval();
 	rationalize();
+	eval(); // normalize
 }
 
 void
@@ -21,13 +21,13 @@ rationalize(void)
 {
 	int x = expanding;
 	save();
-	__rationalize();
+	yyrationalize();
 	restore();
 	expanding = x;
 }
 
-static void
-__rationalize(void)
+void
+yyrationalize(void)
 {
 	p1 = pop();
 

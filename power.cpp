@@ -147,59 +147,65 @@ yypower(void)
 		return;
 	}
 
-	// i.e., (1+i)^(1/3)
+	// complex number? (just number, not expression)
 
-	if (car(p1) == symbol(ADD) && iscomplexnumber(p1) && isfraction(p2)) {
-#if 1
-		push(p1);
-		mag();
-		push(p2);
-		power();
-		push_integer(-1);
-		push(p1);
-		arg();
-		push(p2);
-		multiply();
-		push(symbol(PI));
-		divide();
-		power();
-		multiply();
-		return;
-#else
-		push(p1);
-		mag();
-		push(p2);
-		power();
-		push(symbol(E));
-		push(p1);
-		arg();
-		push(p2);
-		multiply();
-		push(imaginaryunit);
-		multiply();
-		power();
-		multiply();
-		return;
+	if (iscomplexnumber(p1)) {
+
+		// integer power?
+
+		if (isinteger(p2)) {
+			push(p1);
+			push(p2);
+			negate();
+			power();
+			p1 = pop();
+			push(p1);
+			conjugate();
+			p2 = pop();
+			push(p2);
+			push(p2);
+			push(p1);
+			multiply();
+			divide();
+			return;
+		}
+
+		// noninteger or floating power?
+
+		if (isnum(p2)) {
+
+#if 1			// use polar form
+			push(p1);
+			mag();
+			push(p2);
+			power();
+			push_integer(-1);
+			push(p1);
+			arg();
+			push(p2);
+			multiply();
+			push(symbol(PI));
+			divide();
+			power();
+			multiply();
+
+#else			// use exponential form
+			push(p1);
+			mag();
+			push(p2);
+			power();
+			push(symbol(E));
+			push(p1);
+			arg();
+			push(p2);
+			multiply();
+			push(imaginaryunit);
+			multiply();
+			power();
+			multiply();
 #endif
-	}
-
-	// complex to a negative power?
-
-	if (iscomplexnumber(p1) && isnegativenumber(p2)) {
-		push(p1);
-		push(p2);
-		negate();
-		power();
-		p1 = pop();
-		push(p1);
-		conjugate();
-		p2 = pop();
-		push(p2);
-		push(p2);
-		push(p1);
-		multiply();
-		divide();
-		return;
+			return;
+		}
 	}
 
 	push_symbol(POWER);
