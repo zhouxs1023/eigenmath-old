@@ -58,39 +58,7 @@ run(char *s)
 		p1 = pop();
 		check_stack();
 
-		if (p1 == symbol(SIMPLIFY)) {
-			push(symbol(LAST)->u.sym.binding);
-			simplify();
-		} else if (p1 == symbol(CONDENSE)) {
-			push(symbol(LAST)->u.sym.binding);
-			Condense();
-		} else if (p1 == symbol(RATIONALIZE)) {
-			push(symbol(LAST)->u.sym.binding);
-			rationalize();
-		} else if (car(p1) == symbol(SIMPLIFY)) {
-			push(cadr(p1));
-			eval();
-			symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
-			symbol(LAST)->u.sym.binding2 = symbol(NIL);
-			simplify();
-		} else if (car(p1) == symbol(CONDENSE)) {
-			push(cadr(p1));
-			eval();
-			symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
-			symbol(LAST)->u.sym.binding2 = symbol(NIL);
-			Condense();
-		} else if (car(p1) == symbol(RATIONALIZE)) {
-			push(cadr(p1));
-			eval();
-			symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
-			symbol(LAST)->u.sym.binding2 = symbol(NIL);
-			rationalize();
-		} else {
-			push(p1);
-			eval();
-			symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
-			symbol(LAST)->u.sym.binding2 = symbol(NIL);
-		}
+		top_level_eval();
 
 		p2 = pop();
 		check_stack();
@@ -169,4 +137,84 @@ echo_input(char *s)
 {
 	printstr(s);
 	printstr("\n");
+}
+
+// the main idea is to not propagate denormal expressions
+
+void
+top_level_eval(void)
+{
+	// handle bare keywords that yield denormals
+
+	if (p1 == symbol(FACTOR)) {
+		push(symbol(LAST)->u.sym.binding);
+		guess();
+		factor();
+		return;
+	}
+
+	if (p1 == symbol(SIMPLIFY)) {
+		push(symbol(LAST)->u.sym.binding);
+		simplify();
+		return;
+	}
+
+	if (p1 == symbol(CONDENSE)) {
+		push(symbol(LAST)->u.sym.binding);
+		Condense();
+		return;
+	}
+
+	if (p1 == symbol(RATIONALIZE)) {
+		push(symbol(LAST)->u.sym.binding);
+		rationalize();
+		return;
+	}
+
+	// handle functions that yield denormals
+
+	if (car(p1) == symbol(FACTOR)) {
+		push(cadr(p1));
+		eval();
+		symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
+		symbol(LAST)->u.sym.binding2 = symbol(NIL);
+		push(caddr(p1));
+		eval();
+		factor();
+		return;
+	}
+
+	if (car(p1) == symbol(SIMPLIFY)) {
+		push(cadr(p1));
+		eval();
+		symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
+		symbol(LAST)->u.sym.binding2 = symbol(NIL);
+		simplify();
+		return;
+	}
+
+	if (car(p1) == symbol(CONDENSE)) {
+		push(cadr(p1));
+		eval();
+		symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
+		symbol(LAST)->u.sym.binding2 = symbol(NIL);
+		Condense();
+		return;
+	}
+
+	if (car(p1) == symbol(RATIONALIZE)) {
+		push(cadr(p1));
+		eval();
+		symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
+		symbol(LAST)->u.sym.binding2 = symbol(NIL);
+		rationalize();
+		return;
+	}
+
+	// default case
+
+	push(p1);
+	eval();
+	symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
+	symbol(LAST)->u.sym.binding2 = symbol(NIL);
 }

@@ -354,6 +354,7 @@ void test_expsin(void);
 
 // factor.cpp
 void eval_factor(void);
+void factor(void);;
 void factor_small_number(void);
 void test_factor_number(void);
 
@@ -757,6 +758,7 @@ void run(char *s);
 int dash_dash_command(char *s);
 void check_stack(void);
 void echo_input(char *s);
+void top_level_eval(void);
 
 // scan.cpp
 int scan(char *s);

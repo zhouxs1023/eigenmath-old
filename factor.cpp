@@ -4,23 +4,25 @@
 void
 eval_factor(void)
 {
-	push(cadr(p1));
+	push(cadr(p1)); // only factor at top level
 	eval();
-	if (isinteger(stack[tos - 1])) {
+}
+
+void
+factor(void)
+{
+	save();
+	p2 = pop();
+	p1 = pop();
+	if (isinteger(p1)) {
+		push(p1);
 		factor_number(); // see pollard.cpp
-		return;
-	}
-	p1 = cddr(p1);
-	push(car(p1));
-	eval();
-	factorpoly(); // factorpoly handles omitted 2nd arg (2nd arg = nil)
-	p1 = cdr(p1);
-	while (iscons(p1)) {
-		push(car(p1));
-		eval();
+	} else {
+		push(p1);
+		push(p2);
 		factorpoly();
-		p1 = cdr(p1);
 	}
+	restore();
 }
 
 // for factoring small integers (2^32 or less)
