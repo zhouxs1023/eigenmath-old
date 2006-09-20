@@ -54,11 +54,11 @@ static char *s[] = {
 	"float(1/2)",
 	"0.5",
 
-	"floor(10*float(pi))",
-	"31",
+	"float(pi)",
+	"3.14159",
 
-	"floor(10*float(exp(1)))",
-	"27",
+	"float(exp(1))",
+	"2.71828",
 
 	"x=(1/2,1/4)",
 	"",
