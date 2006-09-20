@@ -37,17 +37,6 @@ yysinh(void)
 		push_double(d);
 		return;
 	}
-	if (exp_flag) {
-		push(p1);
-		exponential();
-		push(p1);
-		negate();
-		exponential();
-		subtract();
-		push_rational(1, 2);
-		multiply();
-		return;
-	}
 	if (iszero(p1)) {
 		push(zero);
 		return;
@@ -64,9 +53,6 @@ static char *s[] = {
 
 	"sinh(0)",
 	"0",
-
-	"circexp(sinh(x))",
-	"1/2*exp(x)-1/2*exp(-x)",
 
 	"sinh(arcsinh(x))",
 	"x",

@@ -35,6 +35,7 @@ static void fourier_of_inverse_trig(void);
 static int match(U *, U *, U *, int, int);
 static void scan_fouriers(void);
 
+static int exp_flag;
 
 void
 eval_fourier(void)

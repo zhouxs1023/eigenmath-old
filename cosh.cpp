@@ -37,17 +37,6 @@ yycosh(void)
 		push_double(d);
 		return;
 	}
-	if (exp_flag) {
-		push(p1);
-		exponential();
-		push(p1);
-		negate();
-		exponential();
-		add();
-		push_rational(1, 2);
-		multiply();
-		return;
-	}
 	if (iszero(p1)) {
 		push(one);
 		return;
@@ -64,9 +53,6 @@ static char *s[] = {
 
 	"cosh(0)",
 	"1",
-
-	"circexp(cosh(x))",
-	"1/2*exp(x)+1/2*exp(-x)",
 
 	"cosh(arccosh(x))",
 	"x",

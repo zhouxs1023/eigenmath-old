@@ -56,11 +56,6 @@ yysine(void)
 		multiply();
 		return;
 	}
-	if (exp_flag) {
-		push(p1);
-		expsin();
-		return;
-	}
 
 	// sine function is antisymmetric, sin(-x) = -sin(x)
 
@@ -269,8 +264,10 @@ static char *s[] = {
 	"sin(arcsin(x))",
 	"x",
 
-	"circexp(sin(x))",
-	"1/2*i*exp(-i*x)-1/2*i*exp(i*x)",
+	// check the default case
+
+	"sin(1/12*pi)",
+	"sin(1/12*pi)",
 };
 
 void

@@ -40,30 +40,6 @@ yytangent(void)
 		return;
 	}
 
-	if (exp_flag) {
-		push(imaginaryunit);
-		push(p1);
-		multiply();
-		exponential();
-		p2 = pop();
-		push(imaginaryunit);
-		push(p1);
-		multiply();
-		negate();
-		exponential();
-		p3 = pop();
-		push(p3);
-		push(p2);
-		subtract();
-		push(imaginaryunit);
-		multiply();
-		push(p2);
-		push(p3);
-		add();
-		divide();
-		return;
-	}
-
 	// tan function is antisymmetric, tan(-x) = -tan(x)
 
 	if (isnegative(p1)) {
@@ -250,8 +226,10 @@ static char *s[] = {
 	"tan(arctan(x))",
 	"x",
 
-	"circexp(tan(x))",
-	"i*exp(-i*x)/(exp(-i*x)+exp(i*x))-i*exp(i*x)/(exp(-i*x)+exp(i*x))",
+	// check the default case
+
+	"tan(1/12*pi)",
+	"tan(1/12*pi)",
 };
 
 void

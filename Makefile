@@ -50,7 +50,8 @@ vectorize.o variables.o test.o selftest.o numerator.o denominator.o simfac.o \
 besselj.o bessely.o carac.o convolution.o dirac.o erf.o erfc.o summarize.o \
 fourier.o gamma.o heaviside.o invfourier.o sgn.o cofactor.o adj.o \
 tchebychevT.o tchebychevU.o arg.o imag.o mag.o real.o rect.o quotient.o \
-bake.o polar.o decomp.o transform.o itab.o itest.o partition.o float.o
+bake.o polar.o decomp.o transform.o itab.o itest.o partition.o float.o \
+circexp.o
 
 math : $(objects)
 	$(CXX) -o math $(objects) -lm

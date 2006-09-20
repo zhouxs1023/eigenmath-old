@@ -204,7 +204,6 @@ setup(void)
 {
 	U *p;
 
-	exp_flag = 0;
 	trigmode = 0;
 
 	p = symbol(AUTOEXPAND);
@@ -233,18 +232,6 @@ eval_check(void)
 	if (iszero(p1))
 		stop("check(arg): arg is zero");
 	push(symbol(NIL)); // no result is printed
-}
-
-// change circular functions to exponentials
-
-void
-eval_circexp(void)
-{
-	push(cadr(p1));
-	eval();
-	exp_flag++;
-	eval();
-	exp_flag--;
 }
 
 void

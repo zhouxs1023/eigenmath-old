@@ -313,7 +313,6 @@ struct text_metric {
 
 extern int tos;
 extern int expanding;
-extern int exp_flag;
 extern int conjugating;
 extern int fmt_x;
 extern int fmt_index;

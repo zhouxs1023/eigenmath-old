@@ -144,6 +144,11 @@ void ceiling(void);
 void yyceiling(void);
 void test_ceiling(void);
 
+// circexp.cpp
+void eval_circexp(void);
+void yycircexp(void);
+void test_circexp(void);
+
 // clear.cpp
 void eval_clear(void);
 void clear(void);
@@ -291,7 +296,6 @@ void eval_cons(void);
 void setup(void);
 void eval_break(void);
 void eval_check(void);
-void eval_circexp(void);
 void eval_cls(void);
 void eval_conj(void);
 void eval_det(void);

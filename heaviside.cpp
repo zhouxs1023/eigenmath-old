@@ -12,6 +12,8 @@
 #include "stdafx.h"
 #include "defs.h"
 
+static int exp_flag;
+
 void
 eval_heaviside(void)
 {

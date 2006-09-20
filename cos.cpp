@@ -55,12 +55,6 @@ yycosine(void)
 		return;
 	}
 
-	if (exp_flag) {
-		push(p1);
-		expcos();
-		return;
-	}
-
 	// cosine function is symmetric, cos(-x) = cos(x)
 
 	if (isnegative(p1)) {
@@ -265,9 +259,6 @@ static char *s[] = {
 
 	"cos(arccos(x))",
 	"x",
-
-	"circexp(cos(x))",
-	"1/2*exp(-i*x)+1/2*exp(i*x)",
 
 	// bug fix for version 119
 

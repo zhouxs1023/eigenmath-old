@@ -23,21 +23,6 @@ eval_tanh(void)
 		push_double(d);
 		return;
 	}
-	if (exp_flag) {
-		push(p1);
-		push_integer(2);
-		multiply();
-		exponential();
-		p1 = pop();
-		push(p1);
-		push_integer(1);
-		subtract();
-		push(p1);
-		push_integer(1);
-		add();
-		divide();
-		return;
-	}
 	if (iszero(p1)) {
 		push(zero);
 		return;
@@ -54,9 +39,6 @@ static char *s[] = {
 
 	"tanh(0)",
 	"0",
-
-	"circexp(tanh(x))",
-	"-1/(1+exp(2*x))+exp(2*x)/(1+exp(2*x))",
 
 	"tanh(arctanh(x))",
 	"x",
