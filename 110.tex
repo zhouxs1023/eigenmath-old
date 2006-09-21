@@ -1,0 +1,160 @@
+1. Consider a discrete random variable $X$ with the following
+partial probability mass function
+$$\matrix{
+x & 2 & 4 & 6 & 8 & 10 & 16\cr
+p(x) & 0.10 & 0.20 & 0.35 & ??? & 0.10 & 0.05
+}$$
+Since the sum over $p(x)$ is 1 we can complete the table.
+$$\matrix{
+x & 2 & 4 & 6 & 8 & 10 & 16\cr
+p(x) & 0.10 & 0.20 & 0.35 & 0.20 & 0.10 & 0.05
+}$$
+
+\bigskip
+a) Find the value of $P(5<X<12)$.
+$$\eqalign{
+P(5<X<12)&=P(X=6)+P(X=8)+P(X=10)\cr
+&=p(6)+p(8)+p(10)\cr
+&=0.65
+}$$
+
+\bigskip
+b) Find the value of $P(X<2)$.
+$$P(X<2)=0$$
+
+\bigskip
+c) Find the value of $P(X<16)$.
+$$P(X<16)=1-p(16)=0.95$$
+
+\bigskip
+d) Find the first moment about the mean of $X$.
+$$\eqalign{
+E[X-\mu]&=\sum_x(x-\mu)\cdot p(x)\cr
+&=\sum_xx\cdot p(x)-\sum_x\mu\cdot p(x)\cr
+&=\mu-\mu\sum_xp(x)\cr
+&=\mu-\mu\cr
+&=0
+}$$
+
+\bigskip
+e) Find the second moment about the mean of $X$.
+$$\mu=E[X]=\sum_xx\cdot p(x)=4.9$$
+$$E[(X-\mu)^2]=\sum_x(x-\mu)^2\cdot p(x)=12.11$$
+
+\bigskip
+f) Find the moment generating function of $X$.
+$$M(t)=E[e^{tX}]=\sum_xe^{tx}p(x)=0.1e^{2t}+0.2e^{4t}+0.35e^{6t}
++0.2e^{8t}+0.1e^{10t}+0.05e^{16t}$$
+
+\vfill
+\eject
+
+2a)
+$$p(x)=C(0.25)^x,\qquad x=0,1,2,\ldots$$
+
+\bigskip
+Determine $C$ so that $p(x)$ is a probability mass function.
+We must have
+$$C\sum_x(0.25)^x=1$$
+The trick is to recognize that the sum is a geometric series.
+Hence, we can use the identity $\sum_{n=0}^\infty r^n=1/(1-r)$
+when $|r|<1$.
+$$C\sum_x(0.25)^x={C\over1-0.25}=1$$
+Hence
+$$C=0.75$$
+$$p(x)=0.75(0.25)^x$$
+
+\bigskip
+Determine the distribution function.
+The trick is to use the identity $\sum_{k=0}^n r^k=(1-r^{n+1})/(1-r)$.
+For $t\ge0$ we have
+$$F(t)=\sum_{x=0}^{\lfloor t\rfloor}p(x)
+=0.75\sum_{x=0}^{\lfloor t\rfloor}(0.25)^x
+=0.75\times{1-(0.25)^{\lfloor t\rfloor+1}\over1-0.25}
+=1-(0.25)^{\lfloor t\rfloor+1}$$
+Hence
+$$F(t)=\cases{0,&$t<0$\cr
+1-(0.25)^{\lfloor t\rfloor+1},&$t\ge0$}$$
+
+\bigskip
+Determine the moment generating function.
+We have
+$$\eqalign{
+M(t)=E[e^{tX}]&=\sum_xe^{tx}p(x)\cr
+&=\sum_xe^{tx}(0.75)(0.25)^x\cr
+&=0.75\sum_x(0.25e^t)^x\cr
+&=0.75/(1-0.25e^t)
+}$$
+In order to converge we have
+$$|0.25e^t|<1$$
+$$-4<e^t<4$$
+$$t<\ln4=1.38629$$
+
+\vfill
+\eject
+
+2b)
+$$p(x)=x/C,\qquad x=2,4,6,8,12$$
+
+\bigskip
+Determine $C$ so that $p(x)$ is a probability mass function.
+We must have
+$$\sum_xx/C=32/C=1$$
+Hence
+$$C=32$$
+$$p(x)=x/32,\qquad x=2,4,6,8,12$$
+
+\bigskip
+Determine the distribution function.
+We have
+$$F(t)=\sum_{x\le\lfloor t\rfloor}p(x)$$
+Hence
+$$F(t)=\cases{0,&$t<2$\cr
+2/32,&$2\le t<4$\cr
+6/32,&$4\le t<6$\cr
+12/32,&$6\le t<8$\cr
+20/32,&$8\le t<12$\cr
+32/32,&$12\le t$
+}$$
+
+\bigskip
+Determine the moment generating function.
+We have
+$$M(t)=E[e^{tX}]=\sum_xe^{tx}p(x)=(2e^{2t}+4e^{4t}+6e^{6t}+8e^{8t}+12e^{12t})/32$$
+
+\vfill
+\eject
+
+2c)
+$$p(x)=(x-4)^2/C,\qquad x=-3,-2,-1,0,1$$
+
+\bigskip
+Determine $C$ so that $p(x)$ is a probability mass function.
+$$\matrix{
+x & -3 & -2 & -1 & 0 & 1\cr
+(x-4)^2 & 49 & 36 & 25 & 16 & 9\cr
+}$$
+We have
+$$\sum_xp(x)=135/C=1$$
+Hence
+$$C=135$$
+
+\bigskip
+Determine the distribution function.
+We have
+$$F(t)=\sum_{x\le\lfloor t\rfloor}p(x)$$
+Hence
+$$F(t)=\cases{0,&$t<-3$\cr
+49/135,&$-3\le t<-2$\cr
+85/135,&$-2\le t<-1$\cr
+110/135,&$-1\le t<0$\cr
+126/135,&$0\le t<1$\cr
+135/135,&$1\le t$
+}$$
+
+\bigskip
+Determine the moment generating function.
+We have
+$$M(t)=E[e^{tX}]=\sum_xe^{tx}p(x)=(49e^{-3t}+36e^{-2t}+25e^{-t}+16+9e^t)/135$$
+
+\end

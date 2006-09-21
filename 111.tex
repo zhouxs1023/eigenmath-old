@@ -1,0 +1,81 @@
+{\it 111.tex}
+
+\beginsection Notes on section 3
+
+\bigskip
+1. A ``random variable'' is actually a function,
+usually called $X$.
+The function $X$ maps an event to a real number.
+For example, let $s$ be an event in the outcome space $S$.
+Then $X(s)=x$ is the mapping of event $s$ to a real
+number $x$.
+
+\bigskip
+2. Nomenclature.
+The symbol $P$ means ``probability'' and
+$P(X=x)$ indicates the probability that
+the random variable $X$ will yield the specific value $x$.
+This probability is also indicated by $p(x)$ and
+so we have $p(x)=P(X=x)$.
+The function $p(x)$ is given the special name
+``probability mass function,'' or just p.m.f.
+It is not clear to me why there are two ways
+of saying the same thing.
+In general it seems that expressions involving
+$X$ are just formal notation.
+For example, $E[X]$ for the mean.
+When it comes to actually calculating something,
+just $x$ and $p(x)$ are used.
+
+\bigskip
+3. Distribution function.
+There are lots of distribution functions but apparently this
+one is just called {\it the} distribution function.
+It doesn't have any other name.
+Interestingly, I can't seem to find any reference to it in
+the book.
+Anyway, the distribution function $F(t)$ is the probability
+that the random variable $X$ will yield a value less that $t$,
+i.e. $F(t)=P(X\le t)$.
+It is no surprise that this function is calculated by summing
+over probabilities. We have
+$$F(t)=\sum_{x\le t}p(x)$$
+
+\bigskip
+4. Mathematical expectation.
+Here some new notation is introduced.
+Suppose we have a function $f$.
+Then $E[f(X)]=\sum_xf(x)\cdot p(x)$.
+Now a couple of things are going on here.
+First, the symbol $E$ with square brackets has been introduced.
+It stands for ``expectation.''
+Second, we have $f$ used in two different ways, i.e. $f(X)$ and $f(x)$.
+What's the difference?
+I don't know but when you want to actually calculate something
+all you need is $f(x)$.
+Now the function $f$ is a bit mysterious so let us try a specific example
+in order to make things clear.
+Let us try $f(x)=x$.
+For this simple $f$ the calculation is just the mean, i.e.
+$$\mu=E[X]=\sum_xx\cdot p(x)$$
+
+
+\bigskip
+5. Moment generating function, or m.g.f.
+The moment generating function $M(t)$ is a special case
+of the expectation calculation.
+What we do is calculate $E[e^{tX}]$.
+In other words,
+$$M(t)=E[e^{tX}]=\sum_xe^{tx}p(x)$$
+In practice we get two kinds of results.
+When the number of $x$ is finite then we get
+something like this:
+$$M(t)=p(1)e^t+p(2)e^{2t}+p(3)e^{3t}$$
+Otherwise, when the number of $x$ is infinite,
+we get something like this:
+$$M(t)={0.75\over1-0.25e^t}$$
+
+
+
+
+\end
