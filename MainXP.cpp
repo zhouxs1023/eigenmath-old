@@ -261,6 +261,7 @@ enum {
 	ID_HELP_EXPSIN,
 	ID_HELP_FACTOR,
 	ID_HELP_FACTORIAL,
+	ID_HELP_FOR,
 	ID_HELP_LOG,
 	ID_HELP_NUMERATOR,
 	ID_HELP_PRODUCT,
@@ -430,7 +431,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	main_window = CreateWindow(
 		"Eigenmath",
-		"Eigenmath 120",
+		"Eigenmath 121",
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0,
 //		CW_USEDEFAULT, 0,
@@ -718,6 +719,7 @@ static struct {
 	{"erfc",				ID_HELP_ERFC},
 	{"factor",				ID_HELP_FACTOR},
 	{"factorial",				ID_HELP_FACTORIAL},
+	{"for",					ID_HELP_FOR},
 	{"numerator",				ID_HELP_NUMERATOR},
 	{"product",				ID_HELP_PRODUCT},
 	{"sqrt",				ID_HELP_SQRT},
@@ -1112,6 +1114,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		case ID_HELP_FACTORIAL:
 			HELP(help_factorial);
+			break;
+		case ID_HELP_FOR:
+			HELP(help_for);
 			break;
 		case ID_HELP_LOG:
 			HELP(help_log);

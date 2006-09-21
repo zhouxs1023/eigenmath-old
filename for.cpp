@@ -1,19 +1,34 @@
+// Evaluate the 'for' function
+
+#include "stdafx.h"
+#include "defs.h"
+
+void
+eval_for(void)
+{
+	push(cadr(p1));
+	push(caddr(p1));
+	push(cadddr(p1));
+	push(cddddr(p1));
+	for_function();
+}
+
 //	Input:		tos-4		Index variable
 //
 //			tos-3		Initial value
 //
 //			tos-2		Final value
 //
-//			tos-1		Statement
+//			tos-1		Statement list
 //
 //	Output:		Result on stack
 
-#include "stdafx.h"
-#include "defs.h"
 #define A p1
 #define J p2
 #define K p3
 #define B p4
+#define T p5
+
 static int level;
 static jmp_buf break_jmp_buf;
 
@@ -74,9 +89,15 @@ for_function(void)
 		A->u.sym.binding = pop();
 		A->u.sym.binding2 = symbol(NIL);
 
-		push(B);
-		eval();
-		pop();
+		// evaluate the list
+
+		T = B;
+		while (iscons(T)) {
+			push(car(T));
+			eval();
+			pop();
+			T = cdr(T);
+		}
 	}
 
 	push(symbol(NIL));
@@ -129,6 +150,24 @@ static char *s[] = {
 	"",
 
 	"c=quote(c)",
+	"",
+
+	"x=0",
+	"",
+
+	"y=2",
+	"",
+
+	"for(k,1,9,x=sqrt(2+x),y=2y/x)",
+	"",
+
+	"float(y)",
+	"3.14159",
+
+	"x=quote(x)",
+	"",
+
+	"y=quote(y)",
 	"",
 };
 

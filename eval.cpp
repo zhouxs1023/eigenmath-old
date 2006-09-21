@@ -361,16 +361,6 @@ eval_factorpoly(void)
 }
 
 void
-eval_for(void)
-{
-	push(cadr(p1));
-	push(caddr(p1));
-	push(cadddr(p1));
-	push(caddddr(p1));
-	for_function();
-}
-
-void
 eval_hermite(void)
 {
 	push(cadr(p1));

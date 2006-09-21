@@ -310,6 +310,15 @@ static char *help_factorial[] = {
 	"float",
 };
 
+// for
+
+static char *help_for[] = {
+	"x=0",
+	"y=2",
+	"for(k,1,9,x=sqrt(2+x),y=2y/x)",
+	"float(y)",
+};
+
 // log
 
 static char *help_log[] = {

@@ -308,7 +308,6 @@ void eval_exp(void);
 void eval_expand(void);
 void eval_factorial(void);
 void eval_factorpoly(void);
-void eval_for(void);
 void eval_hermite(void);
 void eval_hilbert(void);
 void eval_index(void);
@@ -354,7 +353,7 @@ void test_expsin(void);
 
 // factor.cpp
 void eval_factor(void);
-void factor(void);;
+void factor(void);
 void factor_small_number(void);
 void test_factor_number(void);
 
@@ -383,6 +382,7 @@ void yyfloor(void);
 void test_floor(void);
 
 // for.cpp
+void eval_for(void);
 void for_function(void);
 void break_function(void);
 void test_for(void);
