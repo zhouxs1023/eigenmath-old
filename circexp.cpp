@@ -8,15 +8,24 @@ eval_circexp(void)
 {
 	push(cadr(p1));
 	eval();
-	p1 = pop();
-	yycircexp();
+	circexp();
 	eval(); // normalize
+}
+
+void
+circexp(void)
+{
+	save();
+	yycircexp();
+	restore();
 }
 
 void
 yycircexp(void)
 {
 	int i, h;
+
+	p1 = pop();
 
 	if (car(p1) == symbol(COS)) {
 		push(cadr(p1));
@@ -102,7 +111,7 @@ yycircexp(void)
 		h = tos;
 		while (iscons(p1)) {
 			push(car(p1));
-			yycircexp();
+			circexp();
 			p1 = cdr(p1);
 		}
 		list(tos - h);
@@ -115,7 +124,7 @@ yycircexp(void)
 		p1 = pop();
 		for (i = 0; i < p1->u.tensor->nelem; i++) {
 			push(p1->u.tensor->elem[i]);
-			yycircexp();
+			circexp();
 			p1->u.tensor->elem[i] = pop();
 		}
 		push(p1);
@@ -144,6 +153,12 @@ static char *s[] = {
 
 	"circexp(tanh(x))",
 	"-1/(1+exp(2*x))+exp(2*x)/(1+exp(2*x))",
+
+	"circexp((cos(x),sin(x)))",
+	"(1/2*exp(-i*x)+1/2*exp(i*x),1/2*i*exp(-i*x)-1/2*i*exp(i*x))",
+
+	"circexp(cos(x)*sin(x))-expcos(x)*expsin(x)",
+	"0",
 };
 
 void

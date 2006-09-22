@@ -146,6 +146,7 @@ void test_ceiling(void);
 
 // circexp.cpp
 void eval_circexp(void);
+void circexp(void);
 void yycircexp(void);
 void test_circexp(void);
 
