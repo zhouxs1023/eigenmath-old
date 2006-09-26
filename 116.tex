@@ -1,0 +1,100 @@
+\beginsection 1.
+
+Consider the continuous random variable $X$ with probability density function as
+$$f(x)={xe^{-x^2}\over C},\qquad\forall x\in R=(0,\infty)$$
+
+\bigskip
+1a) Find the value of $C$. Solution: Integrate $f$ over $R$ then choose
+$C$ so that the result is 1.
+$${1\over C}\int_0^\infty xe^{-x^2}\,dx=-{1\over2C}e^{-x^2}\bigg|_0^\infty
+=-0+{1\over2C}=1$$
+Hence
+$$C={1\over2}$$
+
+\bigskip
+1b) Find the distribution function of $X$.
+Solution: Integrate $f$ from 0 to $t$.
+$$F(t)=2\int_0^txe^{-x^2}\,dx=-e^{-x^2}\bigg|_0^t
+=-e^{-t^2}+1,\qquad0\le t<\infty$$
+$$F(t)=\cases{
+0, & $t<0$\cr
+1-e^{-t^2}, & $0\le t$\cr
+}$$
+
+\bigskip
+1c) The expected value of $X$.
+Solution: Integrate $xf$ over $R$.
+$$E[X]=2\int_0^\infty x^2e^{-x^2}\,dx
+={\sqrt\pi\over2}$$
+The definite integral is number 665 in {\it CRC Handbook of Mathematical Sciences,} 6th edition.
+
+\vfill
+\eject
+
+\beginsection 2.
+
+Consider the continuous random variable $X$ with
+probability density function as
+$$f(x)={C\over1+x^2},\qquad\forall x\in R=(-\infty,+\infty)$$
+
+\bigskip
+2a) Find the value of $C$.
+Solution: Integrate $f$ over $R$ then choose $C$ so that the result is 1.
+$$C\int_{-\infty}^{+\infty}{1\over1+x^2}=C\tan^{-1}x\bigg|_{-\infty}^{+\infty}
+=C\pi=1$$
+Hence
+$$C={1\over\pi}$$
+
+\bigskip
+2b) Find the distribution function of $X$.
+Solution: Integrate $f$ and evaluate from 0 to $t$.
+$$F(t)={1\over\pi}\int_{-\infty}^t{1\over1+x^2}\,dx={1\over\pi}\tan^{-1}x\bigg|_{-\infty}^t
+={1\over\pi}\tan^{-1}x+{1\over2}$$
+Check: $F(-\infty)=(1/\pi)(-\pi/2)+1/2=0$,
+$F(+\infty)=(1/\pi)(\pi/2)+1/2=1$.
+
+\bigskip
+2c) Find the second moment about the origin of $X$.
+$$E[X^2]={1\over\pi}\int_{-\infty}^{+\infty}{x^2\over1+x^2}\,dx
+={1\over\pi}(x-\tan^{-1}x)\bigg|_{-\infty}^{+\infty}
+={1\over\pi}\lim_{x\rightarrow\infty}\left(x-\tan^{-1}x-x+\tan^{-1}x\right)=0
+$$
+
+\vfill
+\eject
+
+\beginsection 3.
+
+Consider the continuous random variable $X$ with
+probability density function as
+$$f(x)=2(1-x),\qquad\forall x\in R=(0,C)$$
+
+\bigskip
+3a) Find the value of $C$.
+Solution: Find the integral of $f$ then choose $C$.
+$$\int_0^C(2-2x)\,dx=(2x-x^2)\bigg|_0^C=2C-C^2=1$$
+Hence
+$$C=1$$
+
+\bigskip
+3b) Find the moment generating function of $X$.
+Solution: Evaluate $\int e^{tx}f(x)$.
+$$\eqalign{
+M(t)&=\int_0^1e^{tx}(2-2x)\,dx\cr
+&=\left(
+{2e^{tx}\over t}-{2e^{tx}(tx-1)\over t^2}
+\right)\bigg|_0^1\cr
+&={2e^t\over t}-{2e^t(t-1)\over t^2}-{2\over t}-{2\over t^2}\cr
+&={2te^t\over t^2}-{2e^t(t-1)\over t^2}-{2t\over t^2}-{2\over t^2}\cr
+&={2e^t-2t-2\over t^2}
+}$$
+
+\bigskip
+3c) Find the second moment about the origin of $X$.
+Solution: Evaluate $\int x^2f(x)$.
+$$\eqalign{
+E[X^2]&=\int_0^1x^2(2-2x)\,dx=\left({2\over3}x^3-{1\over2}x^4\right)\bigg|_0^1={1\over6}\cr
+}$$
+
+
+\end
