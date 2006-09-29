@@ -1,0 +1,34 @@
+\beginsection 3.
+
+Consider the continuous random variable $X$ with
+distribution function as
+$$F(t)=\cases{
+0, & $t<0$\cr
+0.75t+0.25t^3, & $0\le t<1$\cr
+1, & $1\le t$
+}$$
+
+\bigskip
+3a) Find the probability density function of $X$.
+$$f(x)={\partial F(x)\over\partial x}=0.75+0.75x^2,\qquad0\le x<1$$
+
+\bigskip
+3b) Find the moment generating function of $X$.
+$$\eqalign{
+E[e^{tX}]&=\int_0^1e^{tx}(0.75+0.75x^2)\,dx\cr
+&=0.75\int_0^1e^{tx}\,dx+0.75\int_0^1x^2e^{tx}\,dx\cr
+&=0.75\left({e^{tx}\over t}+{e^{tx}(t^2x^2-2tx+2)\over t^3}\right)\bigg|_0^1\cr
+&={1.5e^t-1.5\over t^3}-{1.5e^t\over t^2}+{1.5e^t-0.75\over t}
+}$$
+Since $E[e^{tX}]$ is not defined for $t=0$, the moment
+generating function $M(t)$ does not exist.
+
+\bigskip
+3c) Find the variance of $X$.
+$$E[X]=\int_0^1x(0.75+0.75x^2)\,dx=0.75\left({1\over2}x^2+{1\over4}x^4\right)\bigg|_0^1
+=0.75^2=0.5625$$
+$$E[X^2]=\int_0^1x^2(0.75+0.75x^2)\,dx=0.75\left({1\over3}x^3+{1\over5}x^5\right)\bigg|_0^1
+=0.4$$
+$$\sigma^2=E[X^2]-(E[X])^2=0.0836$$
+
+\end

@@ -1,0 +1,108 @@
+\beginsection 2.
+
+Consider the continuous random variable $X$ with probability
+density function as
+$$f(x)=\cases{
+0.5(1+x^2), & $-1<x<0$\cr
+0.5(1-x^2), & $0<x<1$\cr
+0, & otherwise\cr
+}$$
+
+\bigskip
+2a) Find the distribution of $X$.
+Solution: The trick is, for $0<t<1$ we need to add $F(0)$ to the integral.
+For a quick check, verify that $F(1)=1$.
+$$F(t)={1\over2}\int_{-1}^t(1+x^2)\,dx
+=\left({x\over2}+{x^3\over6}\right)\bigg|_{-1}^t
+={t\over2}+{t^3\over6}+{2\over3},\qquad-1<t<0$$
+$$F(t)=F(0)+{1\over2}\int_0^t(1-x^2)\,dx
+={2\over3}+\left({x\over2}-{x^3\over6}\right)\bigg|_0^t
+={t\over2}-{t^3\over6}+{2\over3},\qquad0<t<1$$
+Hence
+$$F(t)=\cases{
+0, & $t<-1$\cr
+\cr
+\displaystyle{{t\over2}+{t^3\over6}+{2\over3}}, & $-1\le t < 0$\cr
+\cr
+\displaystyle{{t\over2}-{t^3\over6}+{2\over3}}, & $0\le t < 1$\cr
+\cr
+1, & $1\le t$\cr
+}$$
+
+\bigskip
+2b) Find the variance of $X$.
+Solution: First find $\mu=\int xf(x)$ then find $\sigma^2=\int(x-\mu)^2f(x)$.
+The trick is we have to integrate $f(x)$ piecewise over $R.$
+$$\eqalign{
+\mu&={1\over2}\int_{-1}^0x(1+x^2)\,dx+{1\over2}\int_0^1x(1-x^2)\,dx\cr
+&={1\over2}\left({x^2\over2}+{x^4\over4}\right)\bigg|_{-1}^0
++{1\over2}\left({x^2\over2}-{x^4\over4}\right)\bigg|_0^1\cr
+&={1\over2}\left(-{1\over2}-{1\over4}+{1\over2}-{1\over4}\right)\cr
+&=-{1\over4}
+}$$
+$$\eqalign{
+\sigma^2&={1\over2}\int_{-1}^0(x+1/4)^2(1+x^2)\,dx+{1\over2}\int_0^1(x+1/4)^2(1-x^2)\,dx\cr
+&={1\over2}\int_{-1}^0\left(x^4+{1\over2}x^3+{17\over16}x^2+{1\over2}x+{1\over16}\right)\,dx
++{1\over2}\int_0^1\left(-x^4-{1\over2}x^3+{15\over16}x^2+{1\over2}x+{1\over16}\right)\,dx\cr
+&={1\over2}\left({1\over5}x^5+{1\over8}x^4+{17\over48}x^3+{1\over4}x^2+{1\over16}x\right)
+\bigg|_{-1}^0
++{1\over2}\left(-{1\over5}x^5-{1\over8}x^4+{15\over48}x^3+{1\over4}x^2+{1\over16}x\right)
+\bigg|_0^1\cr
+&={1\over2}\left({1\over5}-{1\over8}+{17\over48}-{1\over4}+{1\over16}
+-{1\over5}-{1\over8}+{15\over48}+{1\over4}+{1\over16}\right)\cr
+&={13\over48}\cr
+&=0.2708
+}$$
+Oops, it would have been a lot easier to calculate $E[X^2]$
+then $\sigma^2=E[X^2]-(E[X])^2$.
+
+\vfill
+\eject
+
+\bigskip
+2c) Find the third moment about the mean of $X$.
+Solution: Decompose $\int(x-\mu)^3f(x)\,dx$ into a manageable form.
+$$\eqalign{
+E[(X-\mu)^3]&=\int(x-\mu)^3f(x)\,dx\cr
+&=\int(x^3-3\mu x^2+3\mu^2x-\mu^3)f(x)\,dx\cr
+&=\int x^3f-3\mu\int x^2f+3\mu^2\int xf-\mu^3\int f\cr
+&=E[X^3]-3E[X]E[X^2]+3(E[X])^2E[X]-(E[X])^3\cr
+&=E[X^3]-3E[X]E[X^2]+2(E[X])^3
+}$$
+Find $E[X^3]$ by integrating piecewise over $R$.
+$$\eqalign{
+E[X^3]&={1\over2}\int_{-1}^0x^3(1+x^2)\,dx+{1\over2}\int_0^1x^3(1-x^2)\,dx\cr
+&={1\over2}\left({1\over4}x^4+{1\over6}x^6\right)\bigg|_{-1}^0
++{1\over2}\left({1\over4}x^4-{1\over6}x^6\right)\bigg|_0^1\cr
+&={1\over2}\left(-{1\over4}-{1\over6}+{1\over4}-{1\over6}\right)\cr
+&=-{1\over6}
+}$$
+From the previous problem we have $E[X]=-1/4$, $E[X^2]=13/48+(-1/4)^2=1/3$.
+Hence
+$$\eqalign{
+E[(X-\mu)^3]&=E[X^3]-3E[X]E[X^2]+2(E[X])^3\cr
+&=-1/6-3(-1/4)(1/3)+2(-1/4)^3\cr
+&=5/96\cr
+&=0.0521\cr
+}$$
+
+\vfill
+\eject
+
+2d) Find the median of $X$. Solution: Find $t$ such that $F(t)=0.5$.
+$$F(t)=\cases{
+0, & $t<-1$\cr
+\cr
+\displaystyle{{t\over2}+{t^3\over6}+{2\over3}}, & $-1\le t < 0$\cr
+\cr
+\displaystyle{{t\over2}-{t^3\over6}+{2\over3}}, & $0\le t < 1$\cr
+\cr
+1, & $1\le t$\cr
+}$$
+First try $-1\le t < 0$.
+$${t\over2}+{t^3\over6}+{2\over3}={1\over2}$$
+Use the cubic root calculator at {\tt http://home.att.net/$\sim$srschmitt/script\_cubic.html}
+to find
+$$t=-0.32219$$
+
+\end

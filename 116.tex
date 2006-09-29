@@ -1,3 +1,5 @@
+{\it Homework \#4 from George Weigt}
+
 \beginsection 1.
 
 Consider the continuous random variable $X$ with probability density function as
@@ -80,7 +82,7 @@ $$C=1$$
 3b) Find the moment generating function of $X$.
 Solution: Evaluate $\int e^{tx}f(x)$.
 $$\eqalign{
-M(t)&=\int_0^1e^{tx}(2-2x)\,dx\cr
+E[e^{tX}]&=\int_0^1e^{tx}(2-2x)\,dx\cr
 &=\left(
 {2e^{tx}\over t}-{2e^{tx}(tx-1)\over t^2}
 \right)\bigg|_0^1\cr
@@ -88,6 +90,8 @@ M(t)&=\int_0^1e^{tx}(2-2x)\,dx\cr
 &={2te^t\over t^2}-{2e^t(t-1)\over t^2}-{2t\over t^2}-{2\over t^2}\cr
 &={2e^t-2t-2\over t^2}
 }$$
+Since $E[e^{tX}]$ is not defined for $t=0$,
+the moment generating function $M(t)$ does not exist.
 
 \bigskip
 3c) Find the second moment about the origin of $X$.
@@ -95,6 +99,96 @@ Solution: Evaluate $\int x^2f(x)$.
 $$\eqalign{
 E[X^2]&=\int_0^1x^2(2-2x)\,dx=\left({2\over3}x^3-{1\over2}x^4\right)\bigg|_0^1={1\over6}\cr
 }$$
+
+\vfill
+\eject
+
+\beginsection 4.
+
+Consider the continuous random variable $X$ with probability density function as
+$$f(x)=\cases{
+1+x, & $-1<x<0$\cr
+1-x, & $0<x<1$\cr
+0, & otherwise\cr
+}$$
+
+4a) Find the distribution function of $X$.
+Solution: Integrate $f(x)$ piecewise.
+$$F(t)=\int_{-1}^t(1+x)\,dx=\left(x+{1\over2}x^2\right)\bigg|_{-1}^t
+={1\over2}t^2+t+{1\over2},\qquad-1<t<0$$
+$$F(t)=F(0)+\int_0^t(1-x)\,dx={1\over2}+\left(x-{1\over2}x^2\right)\bigg|_0^t
+=-{1\over2}t^2+t+{1\over2},\qquad0<t<1$$
+Hence
+$$F(t)=\cases{
+0, & $t<-1$\cr
+\cr
+\displaystyle{{1\over2}t^2+t+{1\over2}}, & $-1\le t<0$\cr
+\cr
+\displaystyle{-{1\over2}t^2+t+{1\over2}}, & $0\le t<1$\cr
+\cr
+1, & $1\le t$
+}$$
+A cursory check reveals that $F(-1)=0$ and $F(1)=1$ which
+is what we expect.
+
+4b) Find the variance value of $X$.
+Solution: Compute using $E[X]$ and $E[X^2]$.
+The integrals must be done piecewise.
+$$\eqalign{
+E[X]&=\int_{-1}^0x(1+x)\,dx+\int_0^1x(1-x)\,dx\cr
+&=\left({1\over2}x^2+{1\over3}x^3\right)\bigg|_{-1}^0
++\left({1\over2}x^2-{1\over3}x^3\right)\bigg|_0^1\cr
+&=0-{1\over2}+{1\over3}+{1\over2}-{1\over3}-0\cr
+&=0
+}$$
+$$\eqalign{
+E[X^2]&=\int_{-1}^0x^2(1+x)\,dx+\int_0^1x^2(1-x)\,dx\cr
+&=\left({1\over3}x^3+{1\over4}x^4\right)\bigg|_{-1}^0
++\left({1\over3}x^3-{1\over4}x^4\right)\bigg|_0^1\cr
+&=0+{1\over3}-{1\over4}+{1\over3}-{1\over4}-0\cr
+&=1/6
+}$$
+$$\sigma^2=E[X^2]-(E[X])^2=1/6=0.1667$$
+
+4c) Find the third moment about the mean of $X$.
+Solution: Calculate $E[X^3]$ by integrating piecewise.
+Then calculate $E[(X-\mu)^3]=E[X^3]-3E[X]E[X^2]+2(E[X])^3$.
+$$\eqalign{
+E[X^3]&=\int_{-1}^0x^3(1+x)\,dx+\int_0^1x^3(1-x)\,dx\cr
+&=\left({1\over4}x^4+{1\over5}x^5\right)\bigg|_{-1}^0
++\left({1\over4}x^4-{1\over5}x^5\right)\bigg|_0^1\cr
+&=0-{1\over4}+{1\over5}+{1\over4}-{1\over5}-0\cr
+&=0
+}$$
+$$E[(X-\mu)^3]=E[X^3]-3E[X]E[X^2]+2(E[X])^3=0$$
+
+\vfill
+\eject
+
+\beginsection 5.
+
+Consider the continuous random variable $X$ with distribution
+function as
+$$F(t)=\cases{
+0, & $t<1$\cr
+(t^3+1)/2, & $-1\le t<1$\cr
+1, & $1\le t$\cr
+}$$
+
+5a) Find the probability density function of $X$.
+$$f(x)={\partial(x^3+1)/2\over\partial x}={3\over2}x^2,
+\qquad-1<x<1$$
+
+5b) Find the moment generating function of $X$.
+$$E[e^{tX}]={3\over2}\int_{-1}^1e^{tx}x^2\,dx
+={3e^{tx}(t^2x^2-2tx+2)\over2t^3}\bigg|_{-1}^1$$
+Since $E[e^{tX}]$ is not defined for $t=0$,
+the moment generating function $M(t)$ does not exist.
+
+5c) Find the variance of $X$.
+$$E[X]={3\over2}\int_{-1}^1x^3\,dx={3\over8}x^4\bigg|_{-1}^1=0$$
+$$E[X^2]={3\over2}\int_{-1}^1x^4\,dx={3\over10}x^5\bigg|_{-1}^1=0.6$$
+$$\sigma^2=E[X^2]-(E[X])^2=0.6$$
 
 
 \end
