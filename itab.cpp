@@ -300,5 +300,15 @@ char *itab[] = {
 	"f(exp(a*x^2),-i*sqrt(pi)*erf(i*sqrt(a)*x)/sqrt(a)/2)",
 // ?
 	"f(erf(a*x),x*erf(a*x)+exp(-a^2*x^2)/a/sqrt(pi))",
+
+	"f(x*exp(a*x),exp(a*x)*(a*x-1)/(a^2))",
+	"f(x*exp(a*x+b),exp(a*x+b)*(a*x-1)/(a^2))",
+
+	"f(x^2*exp(a*x),exp(a*x)*(a^2*x^2-2*a*x+2)/(a^3))",
+	"f(x^2*exp(a*x+b),exp(a*x+b)*(a^2*x^2-2*a*x+2)/(a^3))",
+
+	"f(x^3*exp(a*x),exp(a*x)*x^3/a-3/a*integral(x^2*exp(a*x),x))",
+	"f(x^3*exp(a*x+b),exp(a*x+b)*x^3/a-3/a*integral(x^2*exp(a*x+b),x))",
+
 	NULL,
 };

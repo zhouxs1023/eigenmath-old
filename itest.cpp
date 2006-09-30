@@ -626,6 +626,42 @@ static char *s[] = {
 
 	"integral(exp(a*x+b*x))",
 	"exp((a+b)*x)/(a+b)",
+
+	"integral(x*exp(a*x))",
+	"-exp(a*x)/(a^2)+x*exp(a*x)/a",
+	"derivative",
+	"x*exp(a*x)",
+
+	"integral(x*exp(a*x+b))",
+	"-exp(a*x+b)/(a^2)+x*exp(a*x+b)/a",
+	"derivative",
+	"x*exp(a*x+b)",
+
+	"integral(x*exp(-a*x+b))",
+	"-exp(-a*x+b)/(a^2)-x*exp(-a*x+b)/a",
+	"derivative",
+	"x*exp(-a*x+b)",
+
+	"integral(x^2*exp(a*x))",
+	"2*exp(a*x)/(a^3)-2*x*exp(a*x)/(a^2)+x^2*exp(a*x)/a",
+	"derivative",
+	"x^2*exp(a*x)",
+
+	"integral(x^2*exp(a*x+b))",
+	"2*exp(a*x+b)/(a^3)-2*x*exp(a*x+b)/(a^2)+x^2*exp(a*x+b)/a",
+	"derivative",
+	"x^2*exp(a*x+b)",
+
+	"integral(x^3*exp(a*x))",
+	"-6*exp(a*x)/(a^4)+6*x*exp(a*x)/(a^3)-3*x^2*exp(a*x)/(a^2)+x^3*exp(a*x)/a",
+	"derivative",
+	"x^3*exp(a*x)",
+
+	"integral(x^3*exp(a*x+b))",
+	"-6*exp(a*x+b)/(a^4)+6*x*exp(a*x+b)/(a^3)-3*x^2*exp(a*x+b)/(a^2)+x^3*exp(a*x+b)/a",
+	"derivative",
+	"x^3*exp(a*x+b)",
+
 };
 
 void
