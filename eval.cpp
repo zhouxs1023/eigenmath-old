@@ -309,12 +309,47 @@ eval_dsolve(void)
 	dsolve();
 }
 
+/* for example...
+
+	eval(f,x,2)
+*/
+
 void
 eval_eval(void)
 {
+	int h = tos;
+
 	push(cadr(p1));
 	eval();
+	p5 = pop();
+
+	p2 = cddr(p1);
+	while (iscons(p2)) {
+		push(car(p2));
+		eval();
+		push(cadr(p2));
+		eval();
+		p4 = pop();
+		p3 = pop();
+		if (p3->k == SYM) {
+			push(p3);
+			push(p3->u.sym.binding);
+			p3->u.sym.binding = p4;
+		}
+		p2 = cddr(p2);
+	}
+
+	push(p5);
 	eval();
+	p5 = pop();
+
+	while (tos > h) {
+		p4 = pop();
+		p3 = pop();
+		p3->u.sym.binding = p4;
+	}
+
+	push(p5);
 }
 
 void

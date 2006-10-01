@@ -278,6 +278,17 @@ static char *help_erfc[] = {
 	"draw(erfc(x))",
 };
 
+// eval
+
+static char *help_eval[] = {
+	"f=taylor(cos(t),t,6)",
+	"f",
+	"eval(f,t,pi/3)",
+	"float",
+	"r=sqrt(x^2+y^2)",
+	"eval(r,x,2,y,3)",
+};
+
 // exp
 
 static char *help_exp[] = {
