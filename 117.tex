@@ -1,0 +1,96 @@
+\beginsection 2.
+
+Use (3) repeatedly to evaluate $I_{16}$.
+$$I_n={n-1\over n}I_{n-2}\eqno(3)$$
+In addition,
+$$\eqalign{
+I_0&={\pi\over2}\cr
+I_1&=1\cr
+}$$
+
+Solution:
+$$\eqalign{
+I_{16}&={15\over16}\cdot I_{14}\cr
+&={15\over16}\cdot{13\over14}\cdot I_{12}\cr
+&={15\over16}\cdot{13\over14}\cdot{11\over12}\cdot I_{10}\cr
+&={15\over16}\cdot{13\over14}\cdot{11\over12}\cdot{9\over10}\cdot I_{8}\cr
+&={15\over16}\cdot{13\over14}\cdot{11\over12}\cdot{9\over10}\cdot{7\over8}\cdot I_{6}\cr
+&={15\over16}\cdot{13\over14}\cdot{11\over12}\cdot{9\over10}\cdot{7\over8}
+\cdot{5\over6}\cdot I_{4}\cr
+&={15\over16}\cdot{13\over14}\cdot{11\over12}\cdot{9\over10}\cdot{7\over8}
+\cdot{5\over6}\cdot{3\over4}\cdot I_{2}\cr
+&={15\over16}\cdot{13\over14}\cdot{11\over12}\cdot{9\over10}\cdot{7\over8}
+\cdot{5\over6}\cdot{3\over4}\cdot{1\over2}\cdot I_{0}\cr
+&={15\over16}\cdot{13\over14}\cdot{11\over12}\cdot{9\over10}\cdot{7\over8}
+\cdot{5\over6}\cdot{3\over4}\cdot{1\over2}\cdot{\pi\over2}\cr
+}$$
+
+\beginsection 3.
+
+$$\eqalign{
+{I_2\over I_3}&=1.1781\cr
+{I_4\over I_5}&=1.1045\cr
+{I_6\over I_7}&=1.0738\cr
+{I_8\over I_9}&=1.0570\cr
+{I_{10}\over I_{11}}&=1.0464\cr
+}$$
+
+%CAS code for the above calculation...
+%\medskip
+%{\obeylines\tt
+%f(x) = product(k,1,x/2,(2k-1)/(2k))
+%g(x) = product(k,1,x/2,(2k)/(2k+1))
+%h(x) = pi/2*f(x)/g(x)
+%float(h(2))
+%float(h(4))
+%float(h(6))
+%float(h(8))
+%float(h(10))
+%}
+
+\beginsection 4. (c)
+
+Use (9) and (3) to show that
+$$1\le{I_{2n}\over I_{2n+1}}\le{2n+2\over2n+1}\eqno(10)$$
+
+Solution: By (9) we have
+$$I_{2n+1}\le I_{2n}$$
+Hence
+$$1\le{I_{2n}\over I_{2n+1}}$$
+Again by (9) we have
+$$I_{2n+2}\le I_{2n+1}$$
+Hence
+$$\left({2n+1\over2n+2}\right)I_{2n}\le I_{2n+1}$$
+Rearrange...
+$${I_{2n}\over I_{2n+1}}\le{2n+2\over2n+1}$$
+
+\beginsection 4. (d)
+
+Finally, use (10) to show that
+$$\lim_{n\rightarrow\infty}{I_{2n}\over I_{2n+1}}=1$$
+
+Solution: We have
+$$\lim_{n\rightarrow\infty}{I_{2n}\over I_{2n+1}}=
+\lim_{n\rightarrow\infty}{2n+2\over2n+1}
+=\lim_{n\rightarrow\infty}\left({1\over1+1/(2n)}+{2\over2n+1}\right)=1$$
+
+\beginsection 5.
+
+$$2
+\cdot{2\over1}
+\cdot{2\over3}
+\cdot{4\over3}
+\cdot{4\over5}
+\cdot{6\over5}
+\cdot{6\over7}
+\cdot{8\over7}
+\cdot{8\over9}
+\cdot{10\over9}
+\cdot{10\over11}
+\cdot{12\over11}
+\cdot{12\over13}
+={2097152\over693693}=3.02317
+$$
+
+
+\end
