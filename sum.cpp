@@ -1,35 +1,26 @@
-//-----------------------------------------------------------------------------
-//
-//	Name:		sum
-//
-//	Syntax:		sum(var, minval, maxval, expr)
-//
-//	Input:		cadr(p1)	var
-//
-//			caddr(p1)	minval
-//
-//			cadddr(p1)	maxval
-//
-//			caddddr(p1)	expr
-//
-//	Output:		Sum on stack
-//
-//	Notes:		The original value of var is restored before the sum
-//			function returns.
-//
-//			Expr is quoted. It is not evaluated until var is
-//			assigned minval.
-//
-//-----------------------------------------------------------------------------
+/*	Name:		sum
+
+	Syntax:		sum(var, minval, maxval, expr)
+
+	Input:		cadr(p1)	var
+
+			caddr(p1)	minval
+
+			cadddr(p1)	maxval
+
+			caddddr(p1)	expr
+
+	Output:		Sum on stack
+
+	Notes:		The original value of var is restored before the sum
+			function returns.
+
+			Expr is quoted. It is not evaluated until var is
+			assigned minval.
+*/
 
 #include "stdafx.h"
 #include "defs.h"
-static void sum(void);
-
-#define F p1
-#define X p2
-
-// here from eval.c
 
 void
 eval_sum(void)
@@ -43,18 +34,18 @@ eval_sum(void)
 	sum();
 }
 
-static void
+#define F p1
+#define X p2
+
+void
 sum(void)
 {
-	int i, j, k;
+	int h, i, j, k;
 
 	F = pop();
 	k = pop_integer();
 	j = pop_integer();
 	X = pop();
-
-	if (!issymbol(X))
-		stop("1st arg in sum function: symbol expected");
 
 	if (j == (int) 0x80000000)
 		stop("2nd arg in sum function: integer expected");
@@ -62,15 +53,17 @@ sum(void)
 	if (k == (int) 0x80000000)
 		stop("3rd arg in sum function: integer expected");
 
-	push_integer(0);
+	h = tos;
 
 	for (i = j; i <= k; i++) {
 		push(F);
 		push(X);
 		push_integer(i);
-		evalat();
-		add();
+		subst();
+		eval();
 	}
+
+	add_all(tos - h);
 }
 
 static char *s[] = {

@@ -1,55 +1,4 @@
 <tt>
-
-<p>
-<a href="http://sourceforge.net"><img src="http://sourceforge.net/sflogo.php?group_id=103462&amp;type=1" width="88" height="31" border="0" alt="SourceForge.net Logo" /></a>
-
-<p>
-Tips
-<ul>
-<li>
-Press the up and down arrow keys for command history.
-<li>
-Enter X^Y to raise X to the power Y.
-<li>
-Enter A B or A*B to multiply A times B.
-AB is the symbol A sub B.
-<li>
-To use the symbol e for the natural number, first define it as e=exp(1).
-<li>
-Most functions can be used without arguments.
-The previous result is used as a default argument.
-<li>
-The simplify function converts tensor zero to scalar zero.
-<li>
-A=B evaluates B and binds the result to the symbol A.
-On the other hand, the function definition A(X)=B does not evaluate B until A
-itself is evaluated.
-<li>
-<a href="examples.html">How to use the scripting feature</a>
-<li>
-<a href="tensors.html">Tensor calculus</a>
-</ul>
-
-<p>
-The following examples can be pasted into the Edit Script window.
-<ul>
-<li><a href="smiley-face.txt">smiley face</a>
-<li><a href="quantum-harmonic-oscillator.txt">quantum harmonic oscillator</a>
-<li><a href="hydrogen-wavefunctions.txt">hydrogen wavefunctions</a>
-<li><a href="gamma-matrix-algebra.txt">gamma matrix algebra</a>
-<li><a href="free-particle-dirac-equation.txt">free particle dirac equation</a>
-<li><a href="static-spherical-metric.txt">static spherical metric</a>
-<li><a href="bondi-metric.txt">bondi metric</a>
-<li><a href="rotation-matrix.txt">rotation matrix</a>
-<li><a href="vector-calculus.txt">vector calculus</a>
-<li><a href="circular-polarization.txt">circular polarization</a>
-<li><a href="elliptical-polarization.txt">elliptical polarization</a>
-<li><a href="maxwell-in-tensor-form.txt">maxwell in tensor form</a>
-<li><a href="complex-in-vector-form.txt">complex product in vector form</a>
-<li><a href="besselj-demo.txt">besselj demo</a>
-</ul>
-
-<p>
 Index
 <ul>
 <li><a href="#abs">abs</a>
@@ -63,7 +12,6 @@ Index
 <li><a href="#arctanh">arctanh</a>
 <li><a href="#arg">arg</a>
 <li><a href="#binomial">binomial</a>
-<li><a href="#break">break</a>
 <li><a href="#ceiling">ceiling</a>
 <li><a href="#check">check</a>
 <li><a href="#coeff">coeff</a>
@@ -116,14 +64,12 @@ Index
 <li><a href="#polar">polar</a>
 <li><a href="#prime">prime</a>
 <li><a href="#product">product</a>
-<li><a href="#prog">prog</a>
 <li><a href="#quote">quote</a>
 <li><a href="#quotient">quotient</a>
 <li><a href="#rank">rank</a>
 <li><a href="#rationalize">rationalize</a>
 <li><a href="#real">real</a>
 <li><a href="#rect">rect</a>
-<li><a href="#return">return</a>
 <li><a href="#roots">roots</a>
 <li><a href="#simplify">simplify</a>
 <li><a href="#sin">sin</a>
@@ -231,15 +177,6 @@ Returns the binomial coefficient.
 
      252
 </pre>
-<p>
-<h1><tt><a name="break">break(<i>x</i>)</a></tt></h1>
-Causes an immediate return from a <tt>for</tt> function.
-Expression <i>x</i> is evaluated and returned as the <tt>for</tt> function
-value.
-A <tt>break</tt> with no argument returns the symbol <tt>nil</tt>.
-A <tt>break</tt> can be evaluated at any function level.
-For example, <tt>for()</tt> can evaluate <tt>f()</tt> which evaluates
-<tt>g()</tt> which evaluates <tt>break()</tt>.
 <p>
 <h1><tt><a name="ceiling">ceiling(<i>x</i>)</a></tt></h1>
 Returns the smallest integer not less than <i>x</i>.
@@ -814,36 +751,23 @@ point values. The symbol <i>pi</i> is also converted.
 <p>
 <h1><tt><a name="floor">floor(<i>x</i>)</a></tt></h1>
 Returns the largest integer not greater than <i>x</i>.
+
 <p>
-<h1><tt><a name="for">for(<i>a,i,j,b</i>)</a></tt></h1>
-For <i>a</i> equals <i>i</i> through <i>j</i> evaluate <i>b</i>.
-Normally <tt>for()</tt> returns the symbol <tt>nil</tt>.
-A <tt>break()</tt> function can be used to return a different value.
-The variable <i>a</i> has local scope within the <tt>for</tt> function.
-The variable <i>a</i> remains unmodified after <tt>for</tt> returns.
-The expressions <i>i</i> and <i>j</i> must evaluate to integers.
-Usually <i>b</i> is a <tt>do()</tt> function.
+<h1><tt><a name="for">for(<i>i,j,k,a,b,...</i>)</a></tt></h1>
+For i equals j through k evaluate a, b, etc.
 <pre>
 <i>Enter</i>
 
-     for(k,1,4,print(1/k,tab(10),1/k^2))
+     x=0
+     y=2
+     for(k,1,9,x=sqrt(2+x),y=2*y/x)
+     float(y)
 
 <i>Result</i>
- 
-     1         1
- 
-      1         1
-     ---       ---
-      2         4
- 
-      1         1
-     ---       ---
-      3         9
- 
-      1         1
-     ---       ----
-      4         16
+
+     3.14159 
 </pre>
+
 <p>
 <h1><tt><a name="gcd">gcd(<i>a,b,...</i>)</a></tt></h1>
 Returns the greatest common divisor.
@@ -1158,14 +1082,7 @@ Returns the product of all y.
              s          s          s
             2          3          5
 </pre>
-<p>
-<h1><tt><a name="prog">prog(<i>a,b,...,f</i>)</a></tt></h1>
-The <tt>prog</tt> function evaluates <i>f</i>.
-The result of the evaluation of <i>f</i> is returned as the <tt>prog</tt>
-value.
-The variables <i>a,b,...</i> have local scope within <tt>prog</tt>.
-The variables <i>a,b,...</i> remain unmodified after <tt>prog</tt> returns.
-Usually <i>f</i> is a <tt>do</tt> function.
+
 <p>
 <h1><tt><a name="quote">quote(<i>x</i>)</a></tt></h1>
 Returns expression <i>x</i> without evaluating symbols or functions.
@@ -1277,14 +1194,7 @@ Symbols in expression z are presumed to be positive and real.
 <i>Result</i>
 	3/2 + 1/2 i 3^(1/2)
 </pre>
-<p>
-<h1><tt><a name="return">return(<i>x</i>)</a></tt></h1>
-Evaluation of <tt>return</tt> causes an immediate exit from <tt>prog</tt>.
-Expression <i>x</i> is evaluated and returned as the <tt>prog</tt> value.
-A <tt>return</tt> with no argument returns the symbol <tt>nil</tt>.
-A <tt>return</tt> can be evaluated at any function level.
-For example, <tt>prog()</tt> can evaluate <tt>f()</tt> which evaluates
-<tt>g()</tt> which evaluates <tt>return()</tt>.
+
 <p>
 <h1><tt><a name="roots">roots(<i>p,x</i>)</a></tt></h1>
 Finds the values of x for which the polynomial p(x) = 0.

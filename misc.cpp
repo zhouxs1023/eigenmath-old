@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "defs.h"
-U *varlist;
-int symbol_level;
 
 void
 new_string(char *s)
@@ -263,73 +261,6 @@ square(void)
 {
 	push_integer(2);
 	power();
-}
-
-// save and restore symbols for formal arg lists, prog vars, etc.
-
-int
-save_symbols(int n)
-{
-	int h, i;
-
-	save();
-
-	h = tos - n;
-
-	for (i = 0; i < n; i++) {
-		p1 = stack[h + i];
-		if (!issymbol(p1))
-			continue;
-		push(p1);
-		push(p1->u.sym.binding);
-		push(p1->u.sym.binding2);
-	}
-
-	list(tos - h - n);
-
-	push(varlist);
-
-	cons();
-
-	varlist = pop();
-
-	tos = h;
-
-	restore();
-
-	symbol_level++;
-
-	return symbol_level - 1;
-}
-
-void
-restore_symbols_f(void)
-{
-	save();
-
-	p1 = varlist;
-
-	varlist = cdr(p1);
-
-	p1 = car(p1);
-
-	while (iscons(p1)) {
-		p2 = car(p1);
-		p2->u.sym.binding = cadr(p1);
-		p2->u.sym.binding2 = caddr(p1);
-		p1 = cdddr(p1);
-	}
-
-	restore();
-
-	symbol_level--;
-}
-
-void
-restore_symbols(int mark)
-{
-	while (symbol_level > mark)
-		restore_symbols_f();
 }
 
 static int

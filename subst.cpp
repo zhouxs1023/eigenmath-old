@@ -23,6 +23,10 @@ subst(void)
 	save();
 	p3 = pop(); // new expr
 	p2 = pop(); // old expr
+	if (p2 == symbol(NIL) || p3 == symbol(NIL)) {
+		restore();
+		return;
+	}
 	p1 = pop(); // expr
 	if (istensor(p1)) {
 		p4 = alloc_tensor(p1->u.tensor->nelem);

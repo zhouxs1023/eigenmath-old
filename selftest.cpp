@@ -83,7 +83,6 @@ selftest(void)
 	test_outer();
 	test_polar();
 	test_product();
-	test_prog();
 	test_quotient();
 	test_rationalize();
 	test_real();
@@ -150,9 +149,6 @@ extern int out_count;
 extern void run(char *);
 
 char *script[] = {
-
-	"e=quote(e)",
-	"",
 
 	"2/3",
 	"2/3",
@@ -1014,10 +1010,10 @@ char *script[] = {
 	"G=(GX(),GY(),GZ())",
 	"G",
 
-	"f=f()",
+	"f=ff()",
 	"f",
 
-	"g=g()",
+	"g=gg()",
 	"g",
 
 	"div(curl(F))",
@@ -1189,6 +1185,9 @@ char *script[] = {
 	"f(x+1)-(2+x)",
 	"0",
 
+// how did this ever work?
+
+#if 0
 	// test indexed formal arg
 
 	"f(x)=do(x[1]=3,x)",
@@ -1208,7 +1207,7 @@ char *script[] = {
 
 	"x=quote(x)",
 	"",
-
+#endif
 	// last
 
 	"a=2+3",
@@ -1263,6 +1262,12 @@ test(char *file, char **s, int n)
 	char *t;
 
 	test_flag = 1;
+
+	clear_symbols();
+
+	defn();
+
+	run("e=quote(e))");
 
 	for (i = 0; i < n; i++) {
 

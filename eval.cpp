@@ -79,9 +79,7 @@ eval_cons(void)
 	case ATOMIZE:		eval_atomize();		break;
 	case BESSELJ:		eval_besselj();		break;
 	case BESSELY:		eval_bessely();		break;
-	case BINDING2:		eval_binding2();	break;
 	case BINOMIAL:		eval_binomial();	break;
-	case BREAK:		eval_break();		break;
 	case CARAC:		eval_carac();		break;
 	case CEILING:		eval_ceiling();		break;
 	case CHECK:		eval_check();		break;
@@ -159,14 +157,12 @@ eval_cons(void)
 	case PRIME:		eval_prime();		break;
 	case PRINT:		eval_print();		break;
 	case PRODUCT:		eval_product();		break;
-	case PROG:		eval_prog();		break;
 	case QUOTE:		eval_quote();		break;
 	case QUOTIENT:		eval_quotient();	break;
 	case RANK:		eval_rank();		break;
 	case RATIONALIZE:	eval_rationalize();	break;
 	case REAL:		eval_real();		break;
 	case YYRECT:		eval_rect();		break;
-	case RETURN:		eval_return();		break;
 	case ROOTS:		eval_roots();		break;
 	case SETQ:		eval_setq();		break;
 	case SGN:		eval_sgn();		break;
@@ -211,14 +207,6 @@ setup(void)
 		expanding = 0;
 	else
 		expanding = 1;
-}
-
-void
-eval_break(void)
-{
-	push(cadr(p1));
-	eval();
-	break_function();
 }
 
 // checks a predicate, i.e. check(A = B)
@@ -325,14 +313,8 @@ eval_eval(void)
 		eval();
 		push(cadr(p1));
 		eval();
-		p1 = cddr(p1);
-		p3 = pop();
-		p2 = pop();
-		if (p2 == symbol(NIL) || p3 == symbol(NIL))
-			continue;
-		push(p2);
-		push(p3);
 		subst();
+		p1 = cddr(p1);
 	}
 	eval();
 }
@@ -565,13 +547,6 @@ eval_print(void)
 }
 
 void
-eval_prog(void)
-{
-	push(cdr(p1));
-	prog();
-}
-
-void
 eval_quote(void)
 {
 	push(cadr(p1));
@@ -587,14 +562,6 @@ eval_rank(void)
 		push_integer(p1->u.tensor->ndim);
 	else
 		push(zero);
-}
-
-void
-eval_return(void)
-{
-	push(cadr(p1));
-	eval();
-	prog_return();
 }
 
 //-----------------------------------------------------------------------------
@@ -630,7 +597,7 @@ setq_indexed(void)
 	set_component(tos - h);
 	p3 = pop();
 	p4->u.sym.binding = p3;
-	p4->u.sym.binding2 = symbol(NIL);
+	p4->u.sym.arglist = symbol(NIL);
 	push(symbol(NIL));
 }
 
@@ -654,7 +621,7 @@ eval_setq(void)
 	eval();
 	p2 = pop();
 	cadr(p1)->u.sym.binding = p2;
-	cadr(p1)->u.sym.binding2 = symbol(NIL);
+	cadr(p1)->u.sym.arglist = symbol(NIL);
 
 	push(symbol(NIL));
 }

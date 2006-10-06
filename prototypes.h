@@ -295,7 +295,6 @@ void eval(void);
 void eval_sym(void);
 void eval_cons(void);
 void setup(void);
-void eval_break(void);
 void eval_check(void);
 void eval_cls(void);
 void eval_conj(void);
@@ -323,10 +322,8 @@ void eval_operator(void);
 void eval_power(void);
 void eval_prime(void);
 void eval_print(void);
-void eval_prog(void);
 void eval_quote(void);
 void eval_rank(void);
-void eval_return(void);
 void setq_indexed(void);
 void eval_setq(void);
 void eval_sqrt(void);
@@ -385,7 +382,6 @@ void test_floor(void);
 // for.cpp
 void eval_for(void);
 void for_function(void);
-void break_function(void);
 void test_for(void);
 
 // fourier.cpp
@@ -579,9 +575,6 @@ void conjugate(void);
 void expand(void);
 void exponential(void);
 void square(void);
-int save_symbols(int n);
-void restore_symbols_f(void);
-void restore_symbols(int mark);
 void sort_stack(int n);
 
 // mmodpow.cpp
@@ -701,12 +694,8 @@ int any_denominators(U *p);
 
 // product.cpp
 void eval_product(void);
+void product(void);
 void test_product(void);
-
-// prog.cpp
-void prog(void);
-void prog_return(void);
-void test_prog(void);
 
 // qadd.cpp
 void qadd(void);
@@ -820,6 +809,7 @@ void subst(void);
 
 // sum.cpp
 void eval_sum(void);
+void sum(void);
 void test_sum(void);
 
 // summarize.cpp
@@ -849,6 +839,7 @@ void test_tanh(void);
 // taylor.cpp
 void eval_taylor(void);
 void taylor(void);
+void ytaylor(void);
 void test_taylor(void);
 
 // tchebychevT.cpp
@@ -907,8 +898,6 @@ void test_transpose(void);
 // userfunc.cpp
 void define_user_function(void);
 void eval_user_function(void);
-void eval_binding2(void);
-void evalat(void);
 void test_user_func(void);
 
 // variables.cpp

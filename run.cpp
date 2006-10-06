@@ -1,9 +1,7 @@
 #include "stdafx.h"
 #include "defs.h"
 
-extern int symbol_level;
 extern int test_flag;
-extern U *varlist;
 jmp_buf stop_return;
 static char *errstr;
 
@@ -22,7 +20,6 @@ run(char *s)
 	esc_flag = 0;
 
 	if (setjmp(stop_return)) {
-		restore_symbols(0);
 		if (errstr) {
 			printstr("Stop: ");
 			printstr(errstr);
@@ -36,10 +33,6 @@ run(char *s)
 	tos = 0;
 
 	frame = stack + TOS;
-
-	symbol_level = 0;
-
-	varlist = symbol(NIL);
 
 	if (dash_dash_command(s))
 		return;
@@ -177,7 +170,7 @@ top_level_eval(void)
 		push(cadr(p1));
 		eval();
 		symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
-		symbol(LAST)->u.sym.binding2 = symbol(NIL);
+		symbol(LAST)->u.sym.arglist = symbol(NIL);
 		push(caddr(p1));
 		eval();
 		factor();
@@ -188,7 +181,7 @@ top_level_eval(void)
 		push(cadr(p1));
 		eval();
 		symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
-		symbol(LAST)->u.sym.binding2 = symbol(NIL);
+		symbol(LAST)->u.sym.arglist = symbol(NIL);
 		simplify();
 		return;
 	}
@@ -197,7 +190,7 @@ top_level_eval(void)
 		push(cadr(p1));
 		eval();
 		symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
-		symbol(LAST)->u.sym.binding2 = symbol(NIL);
+		symbol(LAST)->u.sym.arglist = symbol(NIL);
 		Condense();
 		return;
 	}
@@ -206,7 +199,7 @@ top_level_eval(void)
 		push(cadr(p1));
 		eval();
 		symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
-		symbol(LAST)->u.sym.binding2 = symbol(NIL);
+		symbol(LAST)->u.sym.arglist = symbol(NIL);
 		rationalize();
 		return;
 	}
@@ -216,5 +209,5 @@ top_level_eval(void)
 	push(p1);
 	eval();
 	symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
-	symbol(LAST)->u.sym.binding2 = symbol(NIL);
+	symbol(LAST)->u.sym.arglist = symbol(NIL);
 }

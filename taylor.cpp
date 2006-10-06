@@ -1,34 +1,30 @@
-//-----------------------------------------------------------------------------
-//
-//	Generate a Taylor expansion for expr.
-//
-//	Input:	tos-4	f(x)
-//
-//		tos-3	x
-//
-//		tos-2	number of terms
-//
-//		tos-1	expansion point
-//
-//	Output:	Result on stack
-//
-//	Example:
-//
-//		taylor(cos(x),x,8,a)
-//
-//		tos-4	cos(x)
-//
-//		tos-3	x
-//
-//		tos-2	8
-//
-//		tos-1	a
-//
-//-----------------------------------------------------------------------------
+/*	Generate a Taylor expansion for expr.
+
+	Input:	tos-4	f(x)
+
+		tos-3	x
+
+		tos-2	number of terms
+
+		tos-1	expansion point
+
+	Output:	Result on stack
+
+	Example:
+
+		taylor(cos(x),x,8,a)
+
+		tos-4	cos(x)
+
+		tos-3	x
+
+		tos-2	8
+
+		tos-1	a
+*/
 
 #include "stdafx.h"
 #include "defs.h"
-static void ytaylor(void);
 
 void
 eval_taylor(void)
@@ -89,7 +85,7 @@ taylor(void)
 #define A p4
 #define C p5
 
-static void
+void
 ytaylor(void)
 {
 	int i, k;
@@ -98,9 +94,6 @@ ytaylor(void)
 	N = pop();
 	X = pop();
 	F = pop();
-
-	if (!issymbol(X))
-		stop("taylor: symbol expected, 2nd arg is not a symbol");
 
 	push(N);
 	k = pop_integer();
@@ -117,7 +110,8 @@ ytaylor(void)
 	push(F);	// f(a)
 	push(X);
 	push(A);
-	evalat();
+	subst();
+	eval();
 
 	C = one;
 
@@ -141,7 +135,8 @@ ytaylor(void)
 		push(F);	// f(a)
 		push(X);
 		push(A);
-		evalat();
+		subst();
+		eval();
 
 		push(C);
 		multiply();

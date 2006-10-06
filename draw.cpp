@@ -151,7 +151,6 @@ draw3(void)
 }
 
 extern jmp_buf stop_return;
-extern int symbol_level;
 static void eval_point(double);
 
 static void
@@ -200,7 +199,7 @@ static void
 eval_point(double t)
 {
 	jmp_buf save_stop_return;
-	volatile int save_symbol_level, save_tos;
+	volatile int save_tos;
 	U ** volatile save_frame;
 
 	save();
@@ -208,13 +207,11 @@ eval_point(double t)
 	// steal the stop vector
 
 	memcpy(save_stop_return, stop_return, sizeof (jmp_buf));
-	save_symbol_level = symbol_level;
 	save_tos = tos;
 	save_frame = frame;
 
 	if (setjmp(stop_return)) {
 		memcpy(stop_return, save_stop_return, sizeof (jmp_buf));
-		restore_symbols(save_symbol_level);
 		tos = save_tos;
 		frame = save_frame;
 		restore();
@@ -226,7 +223,8 @@ eval_point(double t)
 	push(F);
 	push(T);
 	push_double(t);
-	evalat();
+	subst();
+	eval();
 
 	p1 = pop();
 

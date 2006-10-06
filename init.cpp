@@ -27,8 +27,6 @@ init(void)
 	p7 = symbol(NIL);
 	p8 = symbol(NIL);
 
-	varlist = symbol(NIL);
-
 	table_of_fourier = symbol(NIL);
 
 	std_symbol("abs", ABS);
@@ -45,9 +43,7 @@ init(void)
 	std_symbol("atomize", ATOMIZE);
 	std_symbol("besselj", BESSELJ);
 	std_symbol("bessely", BESSELY);
-	std_symbol("binding2", BINDING2);
 	std_symbol("binomial", BINOMIAL);
-	std_symbol("break", BREAK);
 	std_symbol("carac", CARAC);
 	std_symbol("ceiling", CEILING);
 	std_symbol("check", CHECK);
@@ -125,14 +121,12 @@ init(void)
 	std_symbol("prime", PRIME);
 	std_symbol("print", PRINT);
 	std_symbol("product", PRODUCT);
-	std_symbol("prog", PROG);
 	std_symbol("quote", QUOTE);
 	std_symbol("quotient", QUOTIENT);
 	std_symbol("rank", RANK);
 	std_symbol("rationalize", RATIONALIZE);
 	std_symbol("real", REAL);
 	std_symbol("rect", YYRECT);
-	std_symbol("return", RETURN);
 	std_symbol("roots", ROOTS);
 	std_symbol("equals", SETQ);
 	std_symbol("sgn", SGN);
@@ -201,13 +195,6 @@ init(void)
 	meta_c = usr_symbol("$c");
 	meta_n = usr_symbol("$n");
 	meta_x = usr_symbol("$x");
-
-	formal_arg[0] = usr_symbol("$1");
-	formal_arg[1] = usr_symbol("$2");
-	formal_arg[2] = usr_symbol("$3");
-	formal_arg[3] = usr_symbol("$4");
-	formal_arg[4] = usr_symbol("$5");
-	formal_arg[5] = usr_symbol("$6");
 
 	// set up for evaluation
 

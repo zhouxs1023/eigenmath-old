@@ -25,7 +25,7 @@ typedef struct U {
 		} cons;
 		struct {
 			struct U *binding;	// symbol's value binding
-			struct U *binding2;	// symbol's function binding
+			struct U *arglist;	// formal argument list
 		} sym;
 		char *str;
 		struct tensor *tensor;
@@ -68,9 +68,7 @@ enum {
 	ATOMIZE,
 	BESSELJ,
 	BESSELY,
-	BINDING2,
 	BINOMIAL,
-	BREAK,
 	CARAC,
 	CEILING,
 	CHECK,
@@ -148,14 +146,12 @@ enum {
 	PRIME,
 	PRINT,
 	PRODUCT,
-	PROG,
 	QUOTE,
 	QUOTIENT,
 	RANK,
 	RATIONALIZE,
 	REAL,
 	YYRECT,
-	RETURN,
 	ROOTS,
 	SETQ,
 	SGN,
@@ -330,7 +326,6 @@ extern U symtab[];
 extern U *stack[];
 extern U **frame;
 extern U *p1, *p2, *p3, *p4, *p5, *p6, *p7, *p8;
-extern U *formal_arg[6];
 extern U *zero, *one, *imaginaryunit;
 extern U *table_of_fourier;
 extern U *meta_a;
@@ -338,7 +333,6 @@ extern U *meta_b;
 extern U *meta_c;
 extern U *meta_n;
 extern U *meta_x;
-extern U *varlist;
 extern U symtab[];
 
 #include "prototypes.h"

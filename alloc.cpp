@@ -82,7 +82,6 @@ gc(void)
 	untag(zero);
 	untag(imaginaryunit);
 
-	untag(varlist);
 	untag(table_of_fourier);
 
 	for (i = 0; i < tos; i++)
@@ -127,7 +126,7 @@ untag_symbols(void)
 	int i;
 	for (i = 0; i < nsym; i++) {
 		untag(symtab[i].u.sym.binding);
-		untag(symtab[i].u.sym.binding2);
+		untag(symtab[i].u.sym.arglist);
 	}
 }
 
