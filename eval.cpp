@@ -7,6 +7,7 @@ static char errstr[24];
 void
 eval(void)
 {
+	check_esc_flag();
 	save();
 	p1 = pop();
 	switch (p1->k) {

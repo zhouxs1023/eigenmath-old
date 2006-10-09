@@ -211,3 +211,10 @@ top_level_eval(void)
 	symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
 	symbol(LAST)->u.sym.arglist = symbol(NIL);
 }
+
+void
+check_esc_flag(void)
+{
+	if (esc_flag)
+		stop("esc key");
+}

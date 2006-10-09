@@ -160,6 +160,7 @@ combine_terms(U **s, int n)
 	int i, j, t;
 
 	for (i = 0; i < n - 1; i++) {
+		check_esc_flag();
 
 		p3 = s[i];
 		p4 = s[i + 1];

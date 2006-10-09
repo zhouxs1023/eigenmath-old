@@ -749,6 +749,7 @@ int dash_dash_command(char *s);
 void check_stack(void);
 void echo_input(char *s);
 void top_level_eval(void);
+void check_esc_flag(void);
 
 // scan.cpp
 int scan(char *s);
