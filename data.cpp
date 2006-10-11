@@ -23,3 +23,4 @@ int conjugating;
 int verbosing;
 int esc_flag;
 int little_endian;
+int draw_flag;

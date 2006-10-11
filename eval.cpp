@@ -15,7 +15,10 @@ eval(void)
 		eval_cons();
 		break;
 	case NUM:
-		push(p1);
+		if (draw_flag)
+			push_double(convert_rational_to_double(p1));
+		else
+			push(p1);
 		break;
 	case DOUBLE:
 		push(p1);
@@ -52,7 +55,12 @@ eval_sym(void)
 		return;
 	}
 
-	push(p1->u.sym.binding);
+	if (draw_flag && p1->u.sym.binding == symbol(PI))
+		push_double(M_PI);
+	else if (draw_flag && p1->u.sym.binding == symbol(E))
+		push_double(M_E);
+	else
+		push(p1->u.sym.binding);
 
 //	if (p1 != p1->u.sym.binding)
 //		eval();

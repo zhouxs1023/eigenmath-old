@@ -18,6 +18,7 @@ run(char *s)
 	int n;
 
 	esc_flag = 0;
+	draw_flag = 0;
 
 	if (setjmp(stop_return)) {
 		if (errstr) {

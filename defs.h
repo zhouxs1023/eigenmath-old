@@ -316,6 +316,7 @@ extern int fmt_level;
 extern int verbosing;
 extern int primetab[MAXPRIMETAB];
 extern int esc_flag;
+extern int draw_flag;
 extern int mtotal;
 extern int little_endian;
 extern int nsym;
