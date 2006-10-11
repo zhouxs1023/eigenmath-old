@@ -38,7 +38,6 @@ static void setup_xrange(void);
 static void setup_xrange_f(void);
 static void setup_yrange(void);
 static void setup_yrange_f(void);
-static void fudge(void);
 static void draw(void);
 static void draw2(void);
 static void draw3(void);
@@ -326,13 +325,9 @@ setup_trange_f(void)
 
 	push(p1->u.tensor->elem[0]);
 	eval();
-	fudge();
-	eval();
 	p2 = pop();
 
 	push(p1->u.tensor->elem[1]);
-	eval();
-	fudge();
 	eval();
 	p3 = pop();
 
@@ -380,13 +375,9 @@ setup_xrange_f(void)
 
 	push(p1->u.tensor->elem[0]);
 	eval();
-	fudge();
-	eval();
 	p2 = pop();
 
 	push(p1->u.tensor->elem[1]);
-	eval();
-	fudge();
 	eval();
 	p3 = pop();
 
@@ -462,13 +453,9 @@ setup_yrange_f(void)
 
 	push(p1->u.tensor->elem[0]);
 	eval();
-	fudge();
-	eval();
 	p2 = pop();
 
 	push(p1->u.tensor->elem[1]);
-	eval();
-	fudge();
 	eval();
 	p3 = pop();
 
@@ -483,48 +470,6 @@ setup_yrange_f(void)
 
 	if (ymin == ymax)
 		stop("draw: yrange is zero");
-}
-
-// replace all symbols with 1
-
-static void
-fudge(void)
-{
-	int h;
-
-	save();
-
-	p1 = pop();
-
-	if (p1 == symbol(NIL)) {
-		push(p1);
-		restore();
-		return;
-	}
-
-	if (issymbol(p1)) {
-		push(one);
-		restore();
-		return;
-	}
-
-	if (iscons(p1)) {
-		h = tos;
-		push(car(p1));
-		p1 = cdr(p1);
-		while (iscons(p1)) {
-			push(car(p1));
-			fudge();
-			p1 = cdr(p1);
-		}
-		list(tos - h);
-		restore();
-		return;
-	}
-
-	push(p1);
-
-	restore();
 }
 
 #define XOFF 0
@@ -827,118 +772,3 @@ emit_yzero(void)
 	buf[k++] = 1;
 	buf[k++] = '0';
 }
-
-#define YMAG 200
-#define YSHIM 0
-#define YDIM (YMAG + YSHIM + YSHIM)
-#define XSHIM 0
-
-#if 0
-
-static void
-draw_discrete_signal(void)
-{
-	int h, i, len, n, w, x, y;
-	double yt;
-
-	n = F->u.tensor->dim[0];
-
-	len = 1000 + 5 * n;
-
-	buf = (unsigned char *) malloc(len);
-
-	k = 0;
-
-	// overall height
-
-	h = YDIM;
-
-	// overall width
-
-	w = 4 * n + XSHIM - 1;
-
-	// emit bounding rectangle
-
-	buf[k++] = DRAW_BOX;
-
-	x = XOFF;
-	y = YOFF;
-	buf[k++] = (unsigned char) (x >> 8);
-	buf[k++] = (unsigned char) x;
-	buf[k++] = (unsigned char) (y >> 8);
-	buf[k++] = (unsigned char) y;
-
-	x = XOFF + w;
-	y = YOFF + h;
-	buf[k++] = (unsigned char) (x >> 8);
-	buf[k++] = (unsigned char) x;
-	buf[k++] = (unsigned char) (y >> 8);
-	buf[k++] = (unsigned char) y;
-
-	// emit x axis
-
-	yt = -((double) YMAG) * ymin / (ymax - ymin) + 0.5;
-	if (yt < -10000.0)
-		yt = -10000.0;
-	if (yt > 10000.0)
-		yt = 10000.0;
-	y = YMAG - (int) yt + YSHIM; // flip the y coordinate
-
-	if (y > 0 && y < YDIM) {
-
-		y += YOFF;
-
-		buf[k++] = DRAW_LINE;
-
-		x = XOFF;
-
-		buf[k++] = (unsigned char) (x >> 8);
-		buf[k++] = (unsigned char) x;
-		buf[k++] = (unsigned char) (y >> 8);
-		buf[k++] = (unsigned char) y;
-
-		x = XOFF + w;
-
-		buf[k++] = (unsigned char) (x >> 8);
-		buf[k++] = (unsigned char) x;
-		buf[k++] = (unsigned char) (y >> 8);
-		buf[k++] = (unsigned char) y;
-	}
-
-	// emit points
-
-	for (i = 0; i < n; i++) {
-		x = 4 * i + XSHIM;
-		YT = F->u.tensor->elem[i];
-		if (YT->j != NUM && YT->j != DOUBLE)
-			continue;
-		push(YT);
-		yt = pop_double();
-		yt = (yt - ymin) / (ymax - ymin);
-		yt = (double) YMAG * yt + 0.5;
-		if (yt < -10000.0)
-			yt = -10000.0;
-		if (yt > 10000.0)
-			yt = 10000.0;
-		y = (int) yt;
-		y = YMAG - y + YSHIM; // flip the y coordinate
-		if (y < 0 || y > YDIM)
-			continue;
-		x += XOFF;
-		y += YOFF;
-		buf[k++] = DRAW_POINT; // FIXME support large x and y
-		buf[k++] = (unsigned char) (x >> 8);
-		buf[k++] = (unsigned char) x;
-		buf[k++] = (unsigned char) (y >> 8);
-		buf[k++] = (unsigned char) y;
-	}
-
-	// end of graph
-
-	buf[k++] = 0;
-
-	shipout(buf, w, h);
-}
-
-#endif
-

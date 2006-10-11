@@ -15,10 +15,9 @@ eval(void)
 		eval_cons();
 		break;
 	case NUM:
+		push(p1);
 		if (draw_flag)
-			push_double(convert_rational_to_double(p1));
-		else
-			push(p1);
+			bignum_float();
 		break;
 	case DOUBLE:
 		push(p1);
@@ -55,15 +54,43 @@ eval_sym(void)
 		return;
 	}
 
-	if (draw_flag && p1->u.sym.binding == symbol(PI))
-		push_double(M_PI);
-	else if (draw_flag && p1->u.sym.binding == symbol(E))
-		push_double(M_E);
-	else
-		push(p1->u.sym.binding);
+	p1 = p1->u.sym.binding;
 
-//	if (p1 != p1->u.sym.binding)
-//		eval();
+	if (draw_flag == 0) {
+		push(p1);
+		return;
+	}
+
+	if (p1->k == NUM) {
+		push(p1);
+		bignum_float();
+		return;
+	}
+
+	if (p1 == symbol(PI)) {
+		push_double(M_PI);
+		return;
+	}
+
+	if (p1 == symbol(E)) {
+		push_double(M_E);
+		return;
+	}
+
+	if (p1->k == SYM) {
+		push_double(1.0);
+		return;
+	}
+
+	if (p1->k == DOUBLE) {
+		push(p1);
+		return;
+	}
+
+	// otherwise evaluate it hoping for a floating point result
+
+	push(p1);
+	eval();
 }
 
 void
