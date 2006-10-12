@@ -1,0 +1,53 @@
+\item{1.} A new medication gives 10\% of the users an undesirable reaction.
+If a sample of 15 users receives the medication, find the probability of:
+\itemitem{(a)} exactly two undesirable reactions
+\itemitem{(b)} at least four undesirable reactions
+\itemitem{(c)} at most one undesirable reaction
+\itemitem{(d)} more than one and less than five undesirable reactions
+
+\bigskip
+Solution:
+We see that the outcome is binary, like heads or tails, and there
+are $n=15$ trials. Hence we should use the binomial distribution
+with ${\rm p}=0.10$.
+$$
+p(x)={}_nC_x\cdot{\rm p}^x\cdot(1-{\rm p})^{n-x}
+={}_{15}C_x\cdot(0.1)^x\cdot(0.9)^{15-x}
+$$
+
+\beginsection (a) Find the probability of exactly two undesirable reactions.
+
+Solution: We want to find $P(X=2)$.
+$$p(2)={}_{15}C_2\cdot(0.1)^2\cdot(0.9)^{15-2}=0.2669$$
+
+\beginsection (b) Find the probability of at least four undesirable reactions.
+
+Solution: The trick here is to carefully parse the expression ``at least four.''
+We want to find
+$$P(X\ge 4)=1-P(X\le3)$$
+We have
+$$\eqalign{
+p(0)&={}_{15}C_0\cdot(0.1)^0\cdot(0.9)^{15-0}=0.2059\cr
+p(1)&={}_{15}C_1\cdot(0.1)^1\cdot(0.9)^{15-1}=0.3432\cr
+p(2)&={}_{15}C_2\cdot(0.1)^2\cdot(0.9)^{15-2}=0.2669\cr
+p(3)&={}_{15}C_3\cdot(0.1)^3\cdot(0.9)^{15-3}=0.1285\cr
+}$$
+Hence
+$$P(X\ge 4)=1-p(0)-p(1)-p(2)-p(3)=0.0556$$
+This can also be computed with Excel as follows.
+$${\rm\tt=1-BINOMDIST(3,15,0.1,TRUE)}$$
+where {\tt TRUE} means to sum from 0 to 3.
+
+\beginsection (c) Find the probability of at most one undesirable reaction.
+
+Solution:
+$$P(X\le1)=p(0)+p(1)=0.5490$$
+
+\beginsection (d) Find the probability of more than one and less than five undesirable reactions.
+
+Solution:
+$$P(1<X<5)=p(2)+p(3)+p(4)=0.4382$$
+With Excel:
+$${\rm\tt=BINOMDIST(4,15,0.1,TRUE)-BINOMDIST(1,15,0.1,TRUE)}$$
+
+\end
