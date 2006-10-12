@@ -1618,17 +1618,23 @@ draw_box(int x1, int y1, int x2, int y2)
 #endif
 }
 
-// I'm guessing that FillRect is faster than Rectangle.
-
 void
-draw_point(int x, int y)
+draw_point(int x, int dx, int y, int dy)
 {
 	//Rectangle(draw_hdc, x - 1, y - 1, x + 2, y + 2);
 	RECT r;
-	r.left = x - 1;
-	r.top = y - 1;
-	r.right = x + 2;
-	r.bottom = y + 2;
+	r.left = x + dx - 1;
+	r.top = y + dy - 1;
+	r.right = x + dx + 2;
+	r.bottom = y + dy + 2;
+	if (dx == 0)
+		r.left++;
+	if (dy == 0)
+		r.top++;
+	if (dx == 300)
+		r.right--;
+	if (dy == 300)
+		r.bottom--;
 	FillRect(draw_hdc, &r, (HBRUSH) GetStockObject(BLACK_BRUSH));
 }
 

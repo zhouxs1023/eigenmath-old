@@ -528,9 +528,9 @@ emit_graph(void)
 	for (i = 0; i < draw_count; i++) {
 		x = draw_buf[i].x;
 		y = DIM - draw_buf[i].y; // flip the y coordinate
-		if (x < 1 || x > DIM - 1)
+		if (x < 0 || x > DIM)
 			continue;
-		if (y < 1 || y > DIM - 1)
+		if (y < 0 || y > DIM)
 			continue;
 		x += XOFF;
 		y += YOFF;

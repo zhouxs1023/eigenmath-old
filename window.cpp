@@ -252,7 +252,7 @@ find_start_index(void)
 
 extern void draw_text(int, int, int, char *, int);
 extern void draw_hrule(int, int, int);
-extern void draw_point(int, int);
+extern void draw_point(int, int, int, int);
 extern void draw_box(int, int, int, int);
 extern void use_graph_pen(void);
 extern void use_normal_pen(void);
@@ -364,7 +364,7 @@ draw(int i)
 				use_graph_pen();
 				x = 256 * d[k + 1] + d[k + 2];
 				y = 256 * d[k + 3] + d[k + 4];
-				draw_point(xx + x, yy + y);
+				draw_point(xx, x, yy, y);
 				k += 5;
 				break;
 			case DRAW_BOX:
