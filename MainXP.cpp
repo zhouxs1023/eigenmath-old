@@ -252,6 +252,7 @@ enum {
 	ID_HELP_ABS,
 	ID_HELP_CIRCEXP,
 	ID_HELP_COEFF,
+	ID_HELP_COFACTOR,
 	ID_HELP_DEG,
 	ID_HELP_DENOMINATOR,
 	ID_HELP_ERF,
@@ -663,6 +664,7 @@ static struct {
 
 	{"Linear algebra functions",		0},
 	{"adj",					ID_HELP_ADJ},
+	{"cofactor",				ID_HELP_COFACTOR},
 	{"contract",				ID_HELP_CONTRACT},
 	{"det",					ID_HELP_DET},
 	{"dot",					ID_HELP_DOT},
@@ -954,6 +956,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		case ID_HELP_ADJ:
 			HELP(help_adj);
+			break;
+		case ID_HELP_COFACTOR:
+			HELP(help_cofactor);
 			break;
 		case ID_HELP_CONTRACT:
 			HELP(help_contract);

@@ -253,6 +253,15 @@ static char *help_coeff[] = {
 	"coeff(p,2)",
 };
 
+// cofactor
+
+static char *help_cofactor[] = {
+	"A=((1,2),(3,4))",
+	"B=((0,0),(0,0))",
+	"for(i,1,2,for(j,1,2,B[i,j]=cofactor(A,i,j)))",
+	"adj(A)-transpose(B)",
+};
+
 // deg
 
 static char *help_deg[] = {
