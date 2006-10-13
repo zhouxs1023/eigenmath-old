@@ -14,8 +14,8 @@ char *example_script[8] = {
 EOL
 "f = quote(test("EOL
 "  t < 0, 5 (cos(2 t), sin(2 t)),"EOL
-"  t < 3.14159 / 4, (-2, 2),"EOL
-"  t < 3.14159 / 2, (2, 2),"EOL
+"  t < pi / 4, (-2, 2),"EOL
+"  t < pi / 2, (2, 2),"EOL
 "  3 (cos(2 t), sin(2 t))"EOL
 "))"EOL
 EOL
