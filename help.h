@@ -242,8 +242,8 @@ static char *help_abs[] = {
 // choose
 
 static char *help_choose[] = {
-	"p1pair=choose(13,1)*choose(4,2)*choose(12,3)*choose(4,1)^3/choose(52,5)",
-	"p1pair",
+	"choose(13,1)*choose(4,2)*choose(12,3)*choose(4,1)^3/choose(52,5)",
+	"float",
 };
 
 // circexp
