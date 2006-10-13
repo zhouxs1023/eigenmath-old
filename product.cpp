@@ -28,7 +28,7 @@
 void
 eval_product(void)
 {
-	push(cadr(p1));
+	push(cadr(p1)); /* index expr is quoted */
 	push(caddr(p1));
 	eval();
 	push(cadddr(p1));
@@ -76,6 +76,11 @@ static char *s[] = {
 
 	"n",
 	"n",
+
+	/* ensure index expr is quoted */
+
+	"product(i,1,3,i)",
+	"6",
 };
 
 void

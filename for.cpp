@@ -6,8 +6,7 @@
 void
 eval_for(void)
 {
-	push(cadr(p1));
-	eval();
+	push(cadr(p1)); /* index expr is quoted */
 	push(caddr(p1));
 	eval();
 	push(cadddr(p1));
@@ -80,6 +79,14 @@ static char *s[] = {
 
 	"float(y)",
 	"3.14159",
+
+	/* ensure index expr is quoted */
+
+	"for(i,1,3,j=i)",
+	"",
+
+	"j",
+	"3",
 };
 
 void

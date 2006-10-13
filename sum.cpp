@@ -25,7 +25,7 @@
 void
 eval_sum(void)
 {
-	push(cadr(p1));
+	push(cadr(p1)); /* index expr is quoted */
 	push(caddr(p1));
 	eval();
 	push(cadddr(p1));
@@ -70,6 +70,11 @@ static char *s[] = {
 
 	"sum(n,0,10,(-1/3)^n)",
 	"44287/59049",
+
+	/* ensure index expr is quoted */
+
+	"sum(i,1,3,i)",
+	"6",
 };
 
 void
