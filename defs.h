@@ -72,6 +72,7 @@ enum {
 	CARAC,
 	CEILING,
 	CHECK,
+	CHOOSE,
 	CIRCEXP,
 	CLEAR,
 	CLS,

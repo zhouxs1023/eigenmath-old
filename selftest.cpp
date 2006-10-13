@@ -55,6 +55,7 @@ selftest(void)
 	test_bessely();
 	test_carac();
 	test_ceiling();
+	test_choose();
 	test_circexp();
 	test_cofactor();
 	test_condense();

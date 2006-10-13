@@ -119,6 +119,7 @@ eval_cons(void)
 	case CARAC:		eval_carac();		break;
 	case CEILING:		eval_ceiling();		break;
 	case CHECK:		eval_check();		break;
+	case CHOOSE:		eval_choose();		break;
 	case CIRCEXP:		eval_circexp();		break;
 	case CLEAR:		eval_clear();		break;
 	case CLS:		eval_cls();		break;

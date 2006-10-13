@@ -47,6 +47,7 @@ init(void)
 	std_symbol("carac", CARAC);
 	std_symbol("ceiling", CEILING);
 	std_symbol("check", CHECK);
+	std_symbol("choose", CHOOSE);
 	std_symbol("circexp", CIRCEXP);
 	std_symbol("clear", CLEAR);
 	std_symbol("cls", CLS);
