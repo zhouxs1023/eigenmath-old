@@ -239,6 +239,13 @@ static char *help_abs[] = {
 	"abs(X)",
 };
 
+// choose
+
+static char *help_choose[] = {
+	"p1pair=choose(13,1)*choose(4,2)*choose(12,3)*choose(4,1)^3/choose(52,5)",
+	"p1pair",
+};
+
 // circexp
 
 static char *help_circexp[] = {

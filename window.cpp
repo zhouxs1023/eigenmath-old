@@ -94,8 +94,7 @@ printchar(int c)
 	if (test_flag && out_count < OUTBUFLEN)
 		out_buf[out_count++] = c;
 	printcharf(c);
-	// try not to break tokens but must break at 80 in case it's a huge number
-	if (len >= 60 && breaking_char(c) || len >= 80)
+	if (len >= 80)
 		printcharf('\n');
 }
 

@@ -250,6 +250,7 @@ enum {
 	// other functions
 
 	ID_HELP_ABS,
+	ID_HELP_CHOOSE,
 	ID_HELP_CIRCEXP,
 	ID_HELP_COEFF,
 	ID_HELP_COFACTOR,
@@ -717,6 +718,7 @@ static struct {
 
 	{"Other functions",			0},
 	{"abs",					ID_HELP_ABS},
+	{"choose",				ID_HELP_CHOOSE},
 	{"denominator",				ID_HELP_DENOMINATOR},
 	{"erf",					ID_HELP_ERF},
 	{"erfc",				ID_HELP_ERFC},
@@ -1094,6 +1096,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		case ID_HELP_ABS:
 			HELP(help_abs);
+			break;
+		case ID_HELP_CHOOSE:
+			HELP(help_choose);
 			break;
 		case ID_HELP_CIRCEXP:
 			HELP(help_circexp);
