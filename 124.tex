@@ -1,0 +1,40 @@
+\item{3.} A certain experiment is to be performed until a successful result
+is obtained.
+The trials are independent and the probability of success on a single trial
+is 0.25.
+The cost of performing the experiment is \$25{,}000; however, if a failure
+results, it costs \$5{,}000 to ``set-up'' for the next trial.
+
+\bigskip
+{\bf (a) What is the expected cost of the project?}
+
+\bigskip
+Solution: Here we are interested in the number of trials before a success
+so it must be a geometric distribution.
+The key word above is ``expected'' which means ``average'' or mean.
+From lecture 35 slide 10 we have
+$$\mu={1-p\over p}$$
+In this case we have
+$$\mu={1-0.25\over0.25}=3$$
+So on average the experiment will fail 3 times.
+That means the experiment must be done 4 times
+so the expected cost is $4\times25{,}000+3\times5{,}000=115{,}000$
+dollars.
+
+\bigskip
+{\bf (b) Suppose the experimenter has a maximum of \$500{,}000, what is the
+probability that the experimental work would cost more than this amount?}
+
+\bigskip
+Solution: First we need to find $x$ such that
+$$25{,}000(x+1)+5{,}000x=500{,}000$$
+We have
+$$x={475{,}000\over30{,}000}=15.83$$
+Since $x$ is discrete, 16 failures or
+more will break the budget.
+Now we need to compute $P(X\ge16)$.
+Fortunately, lecture 35 slide 16 gives us a distribution function
+that makes it easy.
+$$P(X>15)=(1-0.25)^{16}=0.0100$$
+
+\end

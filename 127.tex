@@ -1,0 +1,26 @@
+\bigskip
+\item{6.} An urn contains 10 black balls and 5 white balls.
+A ball is drawn at random from the urn and replaced by a
+black ball.
+What is the expected number of draws needed so that
+all of the balls in the urn are black?
+
+\bigskip
+Solution: The problem here is that the trials are
+not independent.
+So let us just think for a moment about replacing the first
+white ball.
+We see that it is going take a number of trials
+until a white ball is drawn, so it is like a
+geometric distribution with $p=5/15=1/3$.
+We have
+$$\mu={1-p\over p}=2$$
+So on average 2 draws are required {\it before} drawing the first
+white ball.
+Then we need to add 1 draw for the white ball itself.
+After that, the probability of drawing a white ball
+changes to $p=4/15$ and now we see the pattern.
+$$\mu=\sum_{n=5,4,3,2,1}\left({1-n/15\over n/15}+1\right)
+=\sum{15\over n}=3+3.75+5+7.5+15=34.25$$
+
+\end

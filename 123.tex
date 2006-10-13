@@ -1,0 +1,40 @@
+\item{2.} In a batch of 30 resistors, 10 are defective.
+\itemitem{(a)} If 10 resistors are randomly selected from the batch,
+what is the probability that exactly 3 are defective?
+\itemitem{(b)} If 8 resistors are randomly selected from the batch,
+what is the probability that at most 2 are defective?
+\itemitem{(c)} If 5 resistors are randomly selected from the batch,
+what is the probability that at least two are defective?
+
+\bigskip
+Solution: Here the random variable is the number of
+successes in a sample.
+Hence, use the hypergeometric distribution with $N=30$ and $D=10$.
+We have
+$$p(x)={{}_DC_x\cdot{}_{N-D}C_{n-x}\over {}_NC_n}=
+{{}_{10}C_x\cdot{}_{20}C_{n-x}\over {}_{30}C_n}$$
+
+\bigskip
+{\bf (a) If 10 resistors are randomly selected from the batch,
+what is the probability that exactly 3 are defective?}
+
+\bigskip
+Solution: $n=10$, $x=3$. Check with Excel {\tt =HYPGEOMDIST(3,10,10,30).}
+$$p(3)={{}_{10}C_3\cdot{}_{20}C_{7}\over {}_{30}C_{10}}=0.3096$$
+
+\bigskip
+{\bf (b) If 8 resistors are randomly selected from the batch,
+what is the probability that at most 2 are defective?}
+
+\bigskip
+Solution: $n=8$, $P(X\le2)=p(0)+p(1)+p(2)=0.4520$.
+
+\bigskip
+{\bf (c) If 5 resistors are randomly selected from the batch,
+what is the probability that at least two are defective?}
+
+\bigskip
+Solution: $n=5$, $P(X\ge2)=1-p(0)-p(1)=0.5512$.
+
+
+\end
