@@ -1,0 +1,84 @@
+1. A brewery-filling machine is adjusted to fill quart bottles
+with a mean of 32.00 oz. of ale and a variance of 0.0016.
+Assume the amount of fill is normally distributed.
+$$\mu=32$$
+$$\sigma^2=0.0016$$
+
+\bigskip
+{\bf (a) How many percent of the bottles contains more than 32.02 oz.?}
+
+\bigskip
+We need to find the probability that a bottle of beer has more than 32.02 ounces.
+$$P(X>32.02)=1-P(X\le32.02)$$
+To do the calculation, we have to switch to the $Z$ domain.
+$$z={x-\mu\over\sigma}={x-32\over0.04}$$
+Hence
+$$1-P(X\le32.02)=1-P(Z\le0.5)=0.3085$$
+Check using Excel.
+$$1-\hbox{NORMDIST(32.02,32,0.04,TRUE)}=0.3085$$
+Multiply by 100 to get the percentage 31\%.
+
+\bigskip
+{\bf (b) If 10 quart bottles are randomly selected, what is the
+probability that more than two quart bottles contain more
+than 32.04 oz. of ale?}
+
+\bigskip
+First, find the probability that 1 bottle contains
+more than 32.04 oz. of ale.
+$$1-\hbox{NORMDIST(32.04,32,0.04,TRUE)}=0.158655$$
+Next we have to work out a discrete distribution.
+What kind of distribution is it?
+A binomial distribution?
+We can check by typing BINOMDIST into Excel and looking
+at the arguments.
+We see that the arguments are ``number\_s, trials, probability\_s, cumulative''
+where $s$ means success.
+Ok, let's give BINOMDIST a try.
+$$P(X>2)=1-P(X\le2)=1-\hbox{BINOMDIST(2,10,0.158655,TRUE)}=0.202753$$
+
+\vfill
+\eject
+
+{\bf (c) If quart bottles are randomly selected, what is the
+probability that at most five quart bottles are needed to have
+the first quart bottle contain less than 31.98 oz. of ale?}
+
+\bigskip
+Again, start by working out the probability for 1 bottle.
+$$P(X\le31.98)=\hbox{NORMDIST(31.98,32,0.04,TRUE)}=0.308538$$
+Here is a summary of the Excel functions...
+$$\matrix{
+\hbox{BINOMDIST} & \hbox{number\_s} & \hbox{trials} & \hbox{probability\_s} & \hbox{cumulative}\cr\cr
+\hbox{HYPGEOMDIST} & \hbox{sample\_s} & \hbox{number\_sample} & \hbox{population\_s}
+& \hbox{number\_pop}\cr\cr
+\hbox{NEGBINOMDIST}&
+\hbox{number\_f}&
+\hbox{number\_s}&
+\hbox{probability\_s}\cr\cr
+\hbox{POISSON}&
+\hbox{x}&
+\hbox{mean}&
+\hbox{cumulative}
+}$$
+We see that we can work out the answer by summing over number\_f 
+(number of failures) in NEGBINOMDIST.
+$$P(X\le5)
+=\hbox{NEGBINOMDIST(0,1,0.3085)}+\cdots
++\hbox{NEGBINOMDIST(4,1,0.3085)}=0.8419
+$$
+
+\bigskip
+{\bf (d) If quart bottles are randomly selected, what is the probability
+that at most five quart bottles are needed to have the second quart bottle
+contain more than 31.98 oz. and less than 32.04 oz. of ale?}
+
+$$P(31.98<X<32.04)=\hbox{NORMDIST(32.04,32,0.04,TRUE)}
+-\hbox{NORMDIST(31.98,32,0.04,TRUE)}=0.5328$$
+Again, sum over number\_f but this time with number\_s set to 2.
+$$P(X\le5)=
+\hbox{NEGBINOMDIST(0,2,0.5328)}+\cdots
++\hbox{NEGBINOMDIST(3,2,0.5328)}=0.8508
+$$
+
+\end
