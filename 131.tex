@@ -1,0 +1,50 @@
+3. Let random variable $X$ be the time to leakage failure in
+a certain type of dry-cell battery with probability
+density function
+$$f(x)=\cases{
+\displaystyle{
+{\beta\over\sigma^\beta}(x-\tau)^{\beta-1}e^{-\left({x-\tau\over\sigma}\right)^\beta}
+},
+&for $x\in(\tau,\infty)$\cr
+\cr
+0,&otherwise
+}$$
+
+\bigskip
+{\bf (a) Find the mean and variance of $X$.}
+
+$$\mu=\int_\tau^\infty x{\beta\over\sigma^\beta}(x-\tau)^{\beta-1}e^{-(x-\tau)^\beta/\sigma^\beta}\,dx$$
+Use integration by parts.
+$$
+u=x,\qquad du=dx,\qquad
+v=-e^{-(x-\tau)^\beta/\sigma^\beta},\qquad
+dv={\beta\over\sigma^\beta}(x-\tau)^{\beta-1}e^{-(x-\tau)^\beta/\sigma^\beta}\,dx
+$$
+$$
+\int u\,dv=uv-\int v\,du
+=-xe^{-(x-\tau)^\beta/\sigma^\beta}
++\int e^{-(x-\tau)^\beta/\sigma^\beta}\,dx
+$$
+Can't figure out the rest. Is the mean $\tau$?
+
+\bigskip
+{\bf (b) Find the distribution function of $X$.}
+
+\bigskip
+$$\int_\tau^t{\beta\over\sigma^\beta}(x-\tau)^{\beta-1}e^{-(x-\tau)^\beta/\sigma^\beta}
+=-e^{-(x-\tau)^\beta/\sigma^\beta}\bigg|_\tau^t
+=1-e^{-(t-\tau)^\beta/\sigma^\beta}
+$$
+$$F(t)=\cases{
+0,&$t<\tau$\cr
+1-e^{-(t-\tau)^\beta/\sigma^\beta},&$\tau\le t$\cr
+}$$
+
+\bigskip
+{\bf (c) What is the distribution of $X$ when $\tau=0$, $\beta=1$?}
+$$F(t)\bigg|_{\tau=0,\,\beta=1}=\cases{
+0,&$t<1$\cr
+1-e^{-t/\sigma},&$1\le t$\cr
+}$$
+
+\end
