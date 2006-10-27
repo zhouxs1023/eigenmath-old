@@ -1,0 +1,39 @@
+4. Suppose that an average of 30 customers per hour arrive at a shop in accordance
+with a Poisson process.
+
+\bigskip
+{\bf (a) What is the probability the shopkeeper will wait more than 5
+minutes before the next customer arrives?}
+
+\bigskip
+Method 1. $X$ is the number of customers per five minutes.
+$$\lambda=5\,\hbox{minutes}\times{30\,\hbox{customers}\over60\,\hbox{minutes}}
+=2.5\,\hbox{customers}$$
+%$$\lambda=30\times5/60=2.5\,\hbox{customers per 5 minutes}$$
+$$P(X=0)=\hbox{POISSON(0,2.5,FALSE)}=0.0821$$
+
+\bigskip
+Method 2. $X$ is number of minutes per customer.
+%$$\lambda=30\,\hbox{cust/hr},\qquad P(X>5/60\,\hbox{hr})=1-\hbox{EXPONDIST(5/60,30,TRUE)}=0.0821$$
+%$$\lambda=0.5\,\hbox{cust/min}$$
+$$\theta=1\,\hbox{customer}\times{60\,\hbox{minutes}\over30\,\hbox{customers}}
+=2\,\hbox{minutes}$$
+$$\lambda=1/\theta$$
+$$P(X>5)=1-P(X\le5)=1-\hbox{EXPONDIST(5,1/2,TRUE)}=0.0821$$
+
+\bigskip
+{\bf (b) What is the probability the shopkeeper will wait less than ten minutes
+before the third new customer arrives?}
+
+\bigskip
+Method 1. $X$ is the number of customers per ten minutes.
+$$\lambda=10\,\hbox{minutes}\times{30\,\hbox{customers}\over60\,\hbox{minutes}}=5\,\hbox{customers}$$
+$$P(X\ge3)=1-P(X\le2)=1-\hbox{POISSON(2,5,TRUE)}=0.8753$$
+
+\bigskip
+Method 2. $X$ is the number of minutes for the third customer.
+$$\theta=1\,\hbox{customer}\times{60\,\hbox{minutes}\over30\,\hbox{customers}}=2\,\hbox{minutes}$$
+$$\alpha=3$$
+$$P(X\le10)=\hbox{GAMMADIST(10,3,2,TRUE)}=0.8753$$
+
+\end
