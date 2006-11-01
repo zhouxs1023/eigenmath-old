@@ -12,12 +12,12 @@ char *example_script[8] = {
 
 "# Next, click the Run Script button"EOL
 EOL
-"f = quote(test("EOL
+"f(t) = test("EOL
 "  t < 0, 5 (cos(2 t), sin(2 t)),"EOL
 "  t < pi / 4, (-2, 2),"EOL
 "  t < pi / 2, (2, 2),"EOL
 "  3 (cos(2 t), sin(2 t))"EOL
-"))"EOL
+")"EOL
 EOL
 "draw(f)"EOL,
 
