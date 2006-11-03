@@ -1,0 +1,233 @@
+\beginsection 1.
+
+The Webster National Bank is reviewing its service charge and interest
+payment policies on checking accounts.
+The bank has found the mean and standard deviation of the daily balance
+on personal checking accounts is \$550.00 and \$150.00, respectively.
+In addition, the daily balances are normally distributed.
+$$\mu=550$$
+$$\sigma=150$$
+$$z={x-550\over150}$$
+
+\beginsection 1a.
+
+Percent of customers with daily balance
+below \$790.00?
+
+\bigskip
+Solution:
+$$P(Z<790)=100\times\hbox{\tt NORMDIST(790,550,150,TRUE)}=94.52\%$$
+
+\beginsection 1b.
+
+Percent of customers with balances between \$220 and \$784?
+
+\bigskip
+Solution:
+$$P(220<Z<784)=100\times(\hbox{\tt NORMDIST(784,550,150,TRUE)}
+-\hbox{\tt NORMDIST(220,550,150,TRUE})=92.67\%$$
+
+\beginsection 1c.
+
+Percent of customer's with balances in excess of \$211?
+
+\bigskip
+Solution:
+$$P(Z>211)=1-P(Z<211)=1-\hbox{\tt NORMDIST(211,550,150,TRUE)}=98.81\%$$
+
+\beginsection 1d.
+
+What balance is exceeded by 10.75\% of the customers?
+
+\bigskip
+Solution:
+$$P(Z>a)=0.1075,\qquad P(Z<a)=1-0.1075=0.8925,\qquad a=\hbox{\tt NORMINV(0.8925,550,150)}
+=\$735.99$$
+
+\beginsection 1e.
+
+What balance is not exceeded by 20.05\% of the customers?
+
+\bigskip
+Solution:
+$$P(Z<a)=0.2005\,\qquad a=\hbox{\tt NORMINV(0.2005,550,150)}=\$424.02$$
+
+\vfill
+\eject
+
+\beginsection 2.
+
+Assume that the width of the steel beams produced by a machine is normally
+distributed with mean 10 inches and standard deviation 1.5 inches.
+$$\mu=10$$
+$$\sigma=1.5$$
+$$z={x-10\over1.5}$$
+
+\beginsection 2a.
+
+What is the probability that at least 10 of 12 randomly selected steel
+beams have width between 8.71 and 13.855 inches?
+
+\bigskip
+Solution:
+$$P(8.71<Z<13.855)=\hbox{\tt NORMDIST(13.855,10,1.5,TRUE)}-
+\hbox{\tt NORMDIST(8.71,10,1.5,TRUE)}=0.8000$$
+Next, use the binomial distribution.
+$$P(X\le10)=\hbox{\tt BINOMDIST(10,12,0.8,TRUE)}=0.7251$$
+
+\beginsection 2b.
+
+What is the probability that the total width of four randomly selected steel
+beams is more than 44.5 inches?
+
+\bigskip
+Solution:
+$$\mu=(4)(10)=40\,\qquad \sigma=(\sqrt4)(1.5)=3$$
+$$P(Y>44.5)=1-P(Y<44.5)=1-\hbox{\tt NORMDIST(44.5,40,3,TRUE)}=0.0668$$
+
+\beginsection 2c.
+
+How many steel beams do we expect to select until we find one that has a width
+of more than 13 inches?
+
+\bigskip
+Solution:
+$$P(Z>13)=1-P(Z<13)=1-\hbox{\tt NORMDIST(13,10,1.5,TRUE)}=0.0228$$
+Next, use the mean of a geometric distribution.
+$$E(X)={1-0.0228\over0.0228}=42.86$$
+
+\vfill
+\eject
+
+\beginsection 3.
+
+The time to failure of a personal computer display tube is exponentially
+distributed with mean 3 years.
+$$\theta=3$$
+
+\beginsection 3a.
+
+A company offers insurance on these tubes for the first year of usage.
+On what percentage of policies will they have to pay a claim?
+
+\bigskip
+Solution:
+$$100\%\times P(X<1)=100\%\times(1-e^{-t/\theta})=100\%\times(1-e^{-1/3})=28.35\%$$
+
+\beginsection 3b.
+
+If a user orders three tubes (two as spares) what is the probability
+that all will fail within six years?
+
+\bigskip
+Solution: The average unit of measurement for 3 consecutive failures is 9 years.
+$$\theta=9$$
+$$P(X<6)=1-e^{-6/9}=0.4866$$
+Check with Excel.
+$$\hbox{\tt EXPONDIST(6,1/9,TRUE)}=0.4866$$
+
+\beginsection 4.
+
+Let $U$ be a uniformly distributed random variable with mean 2 and variance 4/3,
+what is the probability that the roots of $Y^2+4UY+(U+1)=0$ are real?
+
+\bigskip
+Solution: Since $U$ is uniformly distributed we have to find $a$ and $b$.
+$$\mu={b+a\over2}=2,\qquad a=4-b$$
+$$\sigma^2={(b-a)^2\over12}={4\over3},\qquad b^2-2ab+a^2-16=0$$
+Hence
+$$a=0,\qquad b=4$$
+The distribution function is
+$$F(t)=\cases{
+0, & $t<0$\cr
+\cr
+t/4, & $0\le t<4$\cr
+\cr
+1, & $4\le t$\cr
+}$$
+The roots of the equation are
+$$-2U\pm{1\over2}\sqrt{16U^2-4U-4}$$
+The roots of the equation are real for
+$$U<-0.3904,\qquad U>0.6404$$
+$$P(X>0.6404)=1-P(X<0.6404)=1-{0.6404\over4}=0.8399$$
+
+\vfill
+\eject
+
+\beginsection 5.
+
+The replenishment time for a certain product is known to be gamma
+distributed with mean 40 and variance 400.
+Find the probability that an order is received within the first
+20 days after it is ordered.
+
+\bigskip
+Solution: We are given $\mu$ and $\sigma^2$.
+$$\mu=\alpha\theta=40,\qquad\sigma^2=\alpha\theta^2=400$$
+Hence
+$$\alpha=4,\qquad\theta=10$$
+
+$$P(X<20)=\hbox{\tt GAMMADIST(20,1,10,TRUE)}=0.8647$$
+$$P(X<20)=\hbox{\tt EXPONDIST(20,1/10,TRUE)}=0.8647$$
+
+\beginsection 6.
+
+Let random variable $X$ be uniformly distributed on the interval $(0,1)$.
+Find the probability density function of $Y$, if $Y=X^{1/\alpha}$,
+where $\alpha>0$.
+
+\bigskip
+Solution: We have
+$$Y=F^{-1}(X)=X^{1/\alpha}$$
+Solve for $F$.
+$$y=x^{1/\alpha},\qquad y^\alpha=x$$
+Hence
+$$X=F(Y)=Y^\alpha$$
+Now we can take the derivative of $F$ to get the probability density function for $Y$.
+$$f(y)={dF\over dy}=\alpha y^{\alpha-1}$$
+
+\vfill
+\eject
+
+\beginsection 7.
+
+Consider the random variable $X$ with probability density function
+$$f(x)=\cases{
+\displaystyle{
+{\Gamma(\alpha+\beta)\over\Gamma(\alpha)\Gamma(\beta)}x^{\alpha-1}(1-x)^{\beta-1}},
+& for $x\in(0,1)$\cr
+\cr
+0,& otherwise\cr
+}$$
+where $\alpha>0$ and $\beta>0$.
+
+\beginsection 7a.
+
+Find the mean and variance of $X$.
+
+\bigskip
+Solution: This is a beta distribution hence
+$$\mu={\alpha\over\alpha+\beta},\qquad
+\sigma^2={\alpha\beta\over(\alpha+\beta+1)(\alpha+\beta)^2}$$
+
+\beginsection 7b.
+
+What is the distribution of $X$ whan $\alpha=\beta=1$?
+
+\bigskip
+Solution:
+$$f(x)={\Gamma(2)\over\Gamma(1)\Gamma(1)}=1$$
+$$F(t)=\cases{
+0,&$t<0$\cr
+\cr
+\displaystyle{\int_0^tdt=t},&$0\le t<1$\cr
+\cr
+1,&$1\le t$\cr
+}$$
+
+\beginsection 7c and 7d -- Please see separate file in Digital Dropbox.
+
+
+
+
+\end
