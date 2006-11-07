@@ -1,0 +1,23 @@
+\beginsection Distributions of functions of a random variable
+
+Example:
+$$f(x)=2xe^{-x^2}$$
+$$Y=X^2$$
+Solution:
+$$G(y)=P(Y\le y)=P(X^2\le y)=P(X\le\sqrt y)$$
+Hence
+$$G(y)=\int_0^{\sqrt y}2xe^{-x^2}\,dx=-e^{-x^2}\bigg|_0^{\sqrt y}=-e^{-y}+1$$
+$$f(y)={dG\over dy}=e^{-y}$$
+
+\beginsection Special case when $f(x)\sim U(0,1)$
+
+In this case $f(x)=1/(b-a)=1$ so no integral is required. We have
+$$G(y)=\sqrt y$$
+Proof:
+$$G(y)=\int_0^{\sqrt y}1\,dx=x\bigg|_0^{\sqrt y}=\sqrt y$$
+
+\bigskip
+\noindent{\it 139.tex}
+
+\end
+

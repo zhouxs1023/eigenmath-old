@@ -1,0 +1,27 @@
+\beginsection Geometric distribution
+
+Gives the probability of $n$ failures followed by a success.
+$$P(X{=}n)=p(n)=(1-p)^np$$
+$$\mu={1-p\over p}$$
+$$\sigma^2={1-p\over p^2}$$
+$$F(t)=1-(1-p)^{\lfloor t\rfloor+1}$$
+$$P(X>k)=1-F(k)=(1-p)^{k+1}$$
+$$M(t)={p\over1-e^t(1-p)}$$
+
+\beginsection Example
+
+An urn contains five red balls and and 15 white balls.
+Find the probability that at least six draws are needed
+to observe the first red ball.
+
+\bigskip
+\noindent Solution: The trick is to be careful with the
+relational operator.
+Observing a red ball on the sixth draw means $n=5$ failures.
+Hence
+$$P(X\ge5)=P(X>4)=(1-p)^{4+1}$$
+
+\bigskip
+\noindent{\it 138.tex}
+
+\end
