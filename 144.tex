@@ -1,0 +1,85 @@
+\beginsection 1.
+
+$$p(x,y)=\bordermatrix{
+& y=1 & y=2 & y=3\cr
+x=3 & 0.0625 & 0.1875 & 0.0625\cr
+x=4 & 0.1875 & 0.0000 & 0.1875\cr
+x=5 & 0.0625 & 0.1875 & 0.0625\cr
+}$$
+
+\beginsection 1. (a)
+
+Are $X$ and $Y$ independent?
+
+\bigskip
+Solution: $X$ and $Y$ are independent if and only if
+$$P(X=x,Y=y)=P(X=x)P(Y=y)$$
+The marginal probabilities are
+$$\eqalign{
+P(X=3)&=0.0625+0.1875+0.0625=0.3125\cr
+P(X=4)&=0.1875+0.0000+0.1875=0.3750\cr
+P(X=5)&=0.0625+0.1875+0.0625=0.3125\cr
+}$$
+$$\eqalign{
+P(Y=1)&=0.0625+0.1875+0.0625=0.3125\cr
+P(Y=2)&=0.1875+0.0000+0.1875=0.3750\cr
+P(Y=3)&=0.0625+0.1875+0.0625=0.3125\cr
+}$$
+Taking, for example, $X=3$ and $Y=1$ we have
+$$P(X=3,Y=1)=0.0625\quad\ne\quad P(X=3)P(Y=1)=(0.3125)(0.3125)=0.0977$$
+hence $X$ and $Y$ are dependent, they are not independent.
+
+\beginsection 1. (b)
+
+Find the value of $P(X=2Y-1)$.
+
+\bigskip
+Solution: From Definition iii in Note 5 we have
+$$P(X,Y\in A)=\sum_{X,Y\in A}p(x,y)$$
+hence we have to sum over all the cases for which $X=2Y-1$. We have
+$$\eqalign{
+P(X=3,Y=2)=0.1875\cr
+P(X=5,Y=3)=0.0625\cr
+}$$
+Hence
+$$P(X=2Y-1)=0.1875+0.0625=0.25$$
+
+\beginsection 1. (c)
+
+Find the probability mass function of $X|(Y=2)$.
+
+\bigskip
+Solution:
+$$P(A|B)={P(A\cap B)\over P(B)}$$
+Hence
+$$P(X|Y{=}2)={P(X{=}x,Y{=}2)\over P(Y{=}2)}=\cases{
+0.0625/0.3750,&$x=3$\cr
+0.1875/0.3750,&$x=4$\cr
+0.0625/0.3750,&$x=5$\cr
+}$$
+
+\beginsection 1. (d)
+
+Find the value of $P(X{\le}4|Y{=}2)$.
+
+\bigskip
+Solution:
+$$P(X{\le}4|Y{=}2)={P(X\le4,Y{=}2)\over P(Y{=}2)}=
+{0.0625+0.1875\over0.3750}=0.6667$$
+
+\beginsection 1. (e)
+
+Find the value of $Var(Y|X{=}3)$.
+
+\bigskip
+Solution:
+$$P(Y|X{=}3)={P(X{=}3,Y{=}y)\over P(X{=}3)}
+=\cases{
+0.0625/0.3125,&$y=1$\cr
+0.1875/0.3125,&$y=2$\cr
+0.0625/0.3125,&$y=3$\cr
+}$$
+From Excel,
+$$Var(Y|X{=}3)=\hbox{\tt VAR(0.2,0.6,0.2)}=0.0533$$
+
+\end
