@@ -1,0 +1,96 @@
+\beginsection 4.
+
+A box contains 20 red, 10 white and 30 blue balls.
+Eight balls are randomly selected without replacement.
+
+\beginsection 4. (a)
+
+Find the probability that 4 red, 1 white and 3
+blue balls are selected.
+\medskip\noindent
+Solution: See Note 5, page 7.
+$$P={C(20,4)\times C(10,1)\times C(30,3)\over C(60,8)}=
+{23800\over 309573}=0.0769$$
+
+\beginsection 4. (b)
+
+Find the expected number of red balls.
+\medskip\noindent
+Solution: This is a hypergeometric distribution $n=8$, $D=20$ and $N=60$.
+From Note 3 page 8 we have
+$$E[red]=n\times{D\over N}={8\over3}=2.6667$$
+%Method 2: First write down the joint probability mass function.
+%$$p(r,w,b)={C(20,r)\times C(10,w)\times C(30,b)\over C(60,8)}$$
+%with
+%$$r,w,b\in Z,\quad
+%0\le r\le20,\quad
+%0\le w\le10,\quad
+%0\le b\le30,\quad
+%r+w+b=8
+%$$
+%Next, with a computer, sum over all random variables to get the expectation value.
+%$$E[r]=\sum_{r=0}^8\sum_{w=0}^{8-r}rp(r,w,8-r-w)={8\over3}=2.6667$$
+
+\beginsection 4. (c)
+
+Find the correlation coefficient between the number of red balls and the
+number of blue balls.
+\medskip\noindent
+Solution:
+From Note 5 we have
+$$\rho=-\sqrt{
+D_{red}\times D_{blue}
+\over (N-D_{red})\times(N-D_{blue})
+}=-\sqrt{
+20\times30\over(60-20)\times(60-30)
+}=-\sqrt{600\over1200}=-0.7071
+$$
+
+\beginsection 4. (d)
+
+Find the expected number of red balls given 2 white balls in the sample.
+\medskip\noindent
+Solution: For exactly 2 white balls
+$$P(w{=}2)={C(10,2)\times C(50,6)/C(60,8)}$$
+$$
+P(r|w{=}2)
+={P(r\cap w{=}2)\over P(w{=}2)}
+={
+{C(20,r)\times C(10,2)\times C(30,6-r)/C(60,8)}
+\over
+{C(10,2)\times C(50,6)/C(60,8)}
+}={C(20,r)\times C(30,6-r)\over C(50,6)}$$
+Actually, this result can be obtained by simple inspection.
+If the sample contains exactly 2 white, then the remaining 6
+must have been drawn from the population of 20 red and 30 blue.
+We have
+$$n=6,\quad D=20,\quad N=50$$
+hence
+$$E[red]=6\times{20\over50}={12\over5}=2.4$$
+
+
+\beginsection 4. (e)
+
+Find the expected number of red balls given 2 blue balls in the sample.
+\medskip\noindent
+Solution: As above...
+$$P(b{=}2)={C(30,2)\times C(30,6)/C(60,8)}$$
+$$
+P(r|b{=}2)
+={P(r\cap b{=}2)\over P(b{=}2)}
+={
+{C(20,r)\times C(10,6-r)\times C(30,2)/C(60,8)}
+\over
+{C(30,2)\times C(30,6)/C(60,8)}
+}
+={C(20,r)\times C(10,6-r)\over C(30,6)}$$
+Again, this result can be obtained by simple inspection.
+If the sample contains exactly 2 blue, then the remaining 6
+must have been drawn from the population of 20 red and 10 yellow.
+We have
+$$n=6,\quad D=20,\quad N=30$$
+hence
+$$E[red]=6\times{20\over30}=4$$
+
+
+\end

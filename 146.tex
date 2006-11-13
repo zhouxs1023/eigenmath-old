@@ -1,0 +1,37 @@
+\beginsection 3.
+
+Consider the random variables $X$ and $Y$ with j.p.m.f. as
+$$p(x,y)={}_{10}C_x{}_{10-x}C_y0.4^x0.3^{10-x},\qquad
+x=0,1,\ldots,10,\quad y=0,1,\ldots,10,\quad x+y\le10$$
+
+\beginsection 3. (a)
+
+Find the marginal p.m.f. of $Y$.
+\medskip\noindent
+Solution: Sum over $X$ for each $Y$.
+$$p_Y(y)=\sum_{x=0}^{10-y}p(x,y)$$
+
+\beginsection 3. (b)
+
+Find the value of the second moment $X$.
+\medskip\noindent
+Solution: Use a computer.
+$$M(t)=E[e^{tX}]=\sum_{x,y}e^{tx}p(x,y)$$
+$${\partial^2M\over\partial t^2}\bigg|_{t=0}={92\over5}=18.4$$
+
+\beginsection 3. (c)
+
+Find the value of $P(X+Y=3)$.
+\medskip\noindent
+Solution: Sum over all $p(x,y)$ for which $x+y=3$.
+$$P(X+Y=3)=p(0,3)+p(1,2)+p(2,1)+p(3,0)={2{,}250{,}423\over250{,}000{,}000}=0.0090$$
+
+\beginsection 3. (d)
+
+Find the m.g.f. of $Y$ given $X=2$.
+\medskip\noindent
+Solution:
+$$p_X(x)=\sum_{y=0}^{10-x}p(x,y),\qquad p_X(2)={236196\over1953125}=0.1209$$
+$$P(Y|X)=p_{Y|X}(x,y)={p(x,y)\over p_X(x)}$$
+$$M(t)=E[e^{tY}]=\sum_{y=0}^{10}e^{ty}\left[{p(2,y)\over p_X(2)}\right]$$
+\end

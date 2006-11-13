@@ -1,0 +1,153 @@
+\beginsection 5.
+
+Consider the random variables $X$ and $Y$ with joint probability
+density function as
+$$f(x,y)=\cases{
+cy,&$-y<x<y,\quad 0<y<1$\cr
+0,&otherwise
+}$$
+
+\beginsection 5. (a)
+
+Find the value of constant $c$.
+\medskip\noindent
+Solution: Sum over $x$ from $-y$ to $y$. Then sum over $y$ from 0 to 1.
+$$\int_0^1\int_{-y}^y cy\,dx\,dy=\int_0^1\left(cxy\bigg|_{-y}^{y}\right)\,dy
+=\int_0^12cy^2\,dy
+={2\over3}cy^3\bigg|_0^1={2\over3}c$$
+Hence
+$$c={3\over2}$$
+We can also sum over $y$ first.
+Sum over $y$ from $|x|$ to 1.
+Then sum over $x$ from $-1$ to 1.
+$$\eqalign{
+\int_{-1}^1\int_{|x|}^1cy\,dy\,dx
+&=\int_{-1}^1\left({1\over2}cy^2\bigg|_{|x|}^1\right)\,dx\cr
+&=\int_{-1}^1\left({1\over2}c-{1\over2}cx^2\right)\,dx\cr
+&=\left({1\over2}cx-{1\over6}cx^3\right)\bigg|_{-1}^1\cr
+&={1\over2}c-{1\over6}c+{1\over2}c-{1\over6}c\cr
+&={2\over3}c
+}$$
+Hence
+$$c={3\over2}$$
+
+\vfill\eject
+
+\beginsection 5. (b)
+
+Find the value of $P(X+Y\le1)$.
+\medskip\noindent
+Solution: See the picture.
+We need to exclude the
+sum over triangle $ABC$ where
+$$A=(0,1),\quad B=(1/2,1/2),\quad C=(1,1)$$
+The trick is parameterizing $ABC$ so that we can sum over it.
+Let $y$ range from $1/2$ to 1.
+Then $x$ ranges from $1-y$ to $y$.
+The whole thing is subtracted from 1 to exclude $ABC$ so we have
+$$\eqalign{1-\int_{1/2}^1\int_{1-y}^y{3\over2}y\,dx\,dy
+&=1-\int_{1/2}^1\left({3\over2}xy\bigg|_{1-y}^y\right)\,dy\cr
+&=1-\int_{1/2}^1\left(3y^2-{3\over2}y\right)\,dy\cr
+&=1-\left(y^3-{3\over4}y^2\right)\bigg|_{1/2}^1\cr
+&=1-\left(1-{3\over4}-{1\over8}+{3\over16}\right)\cr
+&={11\over16}
+}$$
+
+\beginsection 5. (c)
+
+Find the value of $P(X^2+Y^2\le1)$.
+\medskip\noindent
+See lecture 55, slide 8.
+Let $y$ range from $|x|$ to $\sqrt{1-x^2}$.
+The variable $x$ ranges over $\pm1/\sqrt2$.
+$$\eqalign{
+\int_{-1/\sqrt2}^{1/\sqrt2}\int_{|x|}^{\sqrt{1-x^2}}{3\over2}y\,dy\,dx
+&=\int_{-1/\sqrt2}^{1/\sqrt2}\left({3\over4}y^2\bigg|_{|x|}^{\sqrt{1-x^2}}\right)\,dx\cr
+&=\int_{-1/\sqrt2}^{1/\sqrt2}\left({3\over4}-{3\over2}x^2\right)\,dx\cr
+&=\left({3\over4}x-{1\over2}x^3\right)\bigg|_{-1/\sqrt2}^{1/\sqrt2}\cr
+&={1\over\sqrt2}\left({3\over4}-{1\over4}+{3\over4}-{1\over4}\right)\cr
+&={1\over\sqrt2}\cr
+}$$
+
+\vfill\eject
+
+\beginsection 5. (d)
+
+Find the marginal p.d.f. of $X$.
+\medskip\noindent
+Solution: For each $x$, sum over the $y$ values.
+The $y$ values range from $|x|$ to 1.
+$$f_X(x)=\int_{|x|}^1{3\over2}y\,dy={3\over4}y^2\bigg|_{|x|}^1={3\over4}-{3\over4}x^2$$
+%We'll need the marginal p.d.f. of $Y$ in the next problem.
+%$$\int_{-y}^y{3\over2}y\,dx={3\over2}xy\bigg|_{-y}^y=3y^2$$
+
+\beginsection 5. (e)
+
+Find the value of $Cov(X,Y)$.
+\medskip\noindent
+Solution: See lecture 55, slide 31.
+$$\eqalign{
+E[X]&=\int_0^1\int_{-y}^y{3\over2}xy\,dx\,dy\cr
+&=\int_0^1\left({3\over4}x^2y\bigg|_{x=-y}^{x=y}\right)\,dy\cr
+&=0
+}$$
+%$$\eqalign{
+%E[Y]&=\int_0^1\int_{-y}^y{3\over2}y^2\,dx\,dy\cr
+%&=\int_0^1\left({3\over2}xy^2\bigg|_{-y}^y\right)\,dy\cr
+%&=\int_0^13y^3\,dy\cr
+%&={3\over4}y^4\bigg|_0^1\cr
+%&={3\over4}
+%}$$
+$$\eqalign{
+E[XY]&=\int_0^1\int_{-y}^y{3\over2}xy^2\,dx\,dy\cr
+&=\int_0^1\left({3\over4}x^2y^2\bigg|_{x=-y}^{x=y}\right)\,dy\cr
+&=0
+}$$
+$$Cov(X,Y)=E[XY]-E[X]E[Y]=0$$
+
+\beginsection 5. (f)
+
+Are $X$ and $Y$ independent?
+\medskip\noindent
+Solution:
+$$f(x,y)={3\over2}y$$
+$$f_X(x)=\int_{|x|}^1{3\over2}y\,dy={3\over4}y^2\bigg|_{y=|x|}^{y=1}={3\over4}-{3\over4}x^2$$
+$$f_Y(y)=\int_{-y}^y{3\over2}y\,dx={3\over2}xy\bigg|_{x=-y}^{x=y}=3y^2$$
+The random variables $X$ and $Y$ are not independent because $f(x,y)\ne f_X(x)f_Y(y)$.
+
+\beginsection 5. (g)
+
+Find the conditional p.d.f. of $Y$ given $X=0$.
+\medskip\noindent
+Solution:
+$$f_{Y|X{=}0}(y)={f(x,y)\over f_X(x)}\bigg|_{x=0}={3y/2\over3(1-x^2)/4}\bigg|_{x=0}=2y$$
+
+\beginsection 5. (h)
+
+Find the value of $E[Y|X{=}0.5]$.
+\medskip\noindent
+Solution:
+$$f_{Y|X{=}0.5}(y)={f(x,y)\over f_X(x)}\bigg|_{x=0.5}={3y/2\over3(1-x^2)/4}\bigg|_{x=0.5}
+={8\over3}y$$
+$$E[Y|X{=}0.5]=\int_{|0.5|}^1{8\over3}y^2\,dy
+={8\over9}y^3\bigg|_{0.5}^1={8\over9}-{1\over9}={2\over3}$$
+
+\beginsection 5. (i)
+
+Find the conditional p.d.f. of $X$ given $Y=0.5$.
+\medskip\noindent
+Solution:
+$$f_{X|Y{=}0.5}(x)={f(x,y)\over f_Y(y)}\bigg|_{y=0.5}
+={3y/2\over3y^2}\bigg|_{y=0.5}={1\over2y}\bigg|_{y=0.5}=1$$
+
+\beginsection 5. (j)
+
+Find the value of $Var(X|Y{=}0.5)$.
+\medskip\noindent
+Solution:
+$$f_{X|Y{=}0.5}(x)=1$$
+$$E[X|Y{=}0.5]=\int_{-0.5}^{0.5}xf_{X|Y{=}0.5}\,dx={1\over2}x^2\bigg|_{-0.5}^{0.5}=0$$
+$$E[X^2|Y{=}0.5]=\int_{-0.5}^{0.5}x^2f_{X|Y{=}0.5}\,dx={1\over3}x^3\bigg|_{-0.5}^{0.5}={1\over12}$$
+$$Var(X|Y{=}0.5)=E[X^2|Y{=}0.5]-(E[X|Y{=}0.5])^2={1\over12}$$
+
+\end
