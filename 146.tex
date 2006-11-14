@@ -9,7 +9,19 @@ x=0,1,\ldots,10,\quad y=0,1,\ldots,10,\quad x+y\le10$$
 Find the marginal p.m.f. of $Y$.
 \medskip\noindent
 Solution: Sum over $X$ for each $Y$.
-$$p_Y(y)=\sum_{x=0}^{10-y}p(x,y)$$
+$$p_Y(y)=\sum_{x=0}^{10-y}p(x,y)=\cases{
+282475249/10000000000,&$y=0$\cr
+121060821/1000000000,&$y=1$\cr
+466948881/2000000000,&$y=2$\cr
+66706983/250000000,&$y=3$\cr
+200120949/1000000000,&$y=4$\cr
+257298363/2500000000,&$y=5$\cr
+36756909/1000000000,&$y=6$\cr
+2250423/250000000,&$y=7$\cr
+2893401/2000000000,&$y=8$\cr
+137781/1000000000,&$y=9$\cr
+59049/10000000000,&$y=10$\cr
+}$$
 
 \beginsection 3. (b)
 
@@ -31,7 +43,13 @@ $$P(X+Y=3)=p(0,3)+p(1,2)+p(2,1)+p(3,0)={2{,}250{,}423\over250{,}000{,}000}=0.009
 Find the m.g.f. of $Y$ given $X=2$.
 \medskip\noindent
 Solution:
-$$p_X(x)=\sum_{y=0}^{10-x}p(x,y),\qquad p_X(2)={236196\over1953125}=0.1209$$
-$$P(Y|X)=p_{Y|X}(x,y)={p(x,y)\over p_X(x)}$$
 $$M(t)=E[e^{tY}]=\sum_{y=0}^{10}e^{ty}\left[{p(2,y)\over p_X(2)}\right]$$
+
+\beginsection 3. (e)
+
+Find the value of $P(Y{\le}3|X{=}2)$.
+\medskip\noindent
+Solution: Use a computer.
+$$P(Y{\le}3|X{=}2)={p(2,0)+p(2,1)+p(2,2)+p(2,3)\over p_X(2)}=0.3633$$
+
 \end
