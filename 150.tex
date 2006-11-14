@@ -16,15 +16,15 @@ tube will last more than 1950 hours?
 $$y=0.098$$
 \medskip\noindent
 Solution: See the book, page 306, except flip $X\leftrightarrow Y$.
+$$\rho={Cov(X,Y)\over\sigma_X\sigma_Y}={4.35\over50\times0.1}=0.87$$
 $$\eqalign{
 E(X|y)
 &=\mu_X+\rho(\sigma_X/\sigma_Y)(y-\mu_Y)\cr
-&=2000+(4.35)(2500/0.01)^{1/2}(0.098-0.1)\cr
-&=1995.65
+&=2000+(0.87)(2500/0.01)^{1/2}(0.098-0.1)\cr
+&=1999.13
 }$$
-$$\rho={Cov(X,Y)\over\sigma_X\sigma_Y}={4.35\over500\times0.1}=0.0870$$
-$$\sigma_{X|y}^2=\sigma_X^2(1-\rho^2)=2500(1-0.0870^2)=2481.08$$
-$$P(X>1950|y)=\hbox{\tt1-NORMDIST(1950,1995.65,SQRT(2481.08),TRUE)}=0.8203$$
+$$\sigma_{X|y}^2=\sigma_X^2(1-\rho^2)=2500(1-0.87^2)=607.75$$
+$$P(X>1950|y)=\hbox{\tt1-NORMDIST(1950,1999.13,SQRT(607.75),TRUE)}=0.9769$$
 
 \beginsection 7. (b)
 
@@ -35,11 +35,11 @@ Solution:
 $$\eqalign{
 E(X|y)
 &=\mu_X+\rho(\sigma_X/\sigma_Y)(y-\mu_Y)\cr
-&=2000+(4.35)(2500/0.01)^{1/2}(0.104-0.1)\cr
-&=2008.7
+&=2000+(0.87)(2500/0.01)^{1/2}(0.104-0.1)\cr
+&=2001.74
 }$$
 Note that the variance $\sigma_{X|y}^2$ is the same as above.
-$$P(X>2000|y)=\hbox{\tt1-NORMDIST(2000,2008.7,SQRT(2481.08),TRUE)}=0.5693$$
+$$P(X>2000|y)=\hbox{\tt1-NORMDIST(2000,2001.74,SQRT(607.75),TRUE)}=0.5281$$
 
 \end
 
