@@ -8,28 +8,17 @@ x=0,1,\ldots,10,\quad y=0,1,\ldots,10,\quad x+y\le10$$
 
 Find the marginal p.m.f. of $Y$.
 \medskip\noindent
-Solution: Sum over $X$ for each $Y$.
-$$p_Y(y)=\sum_{x=0}^{10-y}p(x,y)=\cases{
-282475249/10000000000,&$y=0$\cr
-121060821/1000000000,&$y=1$\cr
-466948881/2000000000,&$y=2$\cr
-66706983/250000000,&$y=3$\cr
-200120949/1000000000,&$y=4$\cr
-257298363/2500000000,&$y=5$\cr
-36756909/1000000000,&$y=6$\cr
-2250423/250000000,&$y=7$\cr
-2893401/2000000000,&$y=8$\cr
-137781/1000000000,&$y=9$\cr
-59049/10000000000,&$y=10$\cr
-}$$
+Solution: The marginal p.m.f. of $Y$ is the binomial distribution $b(10,0.3)$.
+$$p_Y(y)=C(10,y)0.3^y0.7^{10-y}$$
 
 \beginsection 3. (b)
 
 Find the value of the second moment $X$.
 \medskip\noindent
-Solution: Use a computer.
-$$M(t)=E[e^{tX}]=\sum_{x,y}e^{tx}p(x,y)$$
-$${\partial^2M\over\partial t^2}\bigg|_{t=0}={92\over5}=18.4$$
+Solution: The marginal p.m.f. of $X$ is the binomial distribution $b(10,0.4)$.
+From the inside front cover of the book,
+$$M(t)=(1-p+pe^t)^n=(0.6+0.4e^t)^{10}$$
+$${\partial^2M\over\partial t^2}\bigg|_{t=0}=18.4$$
 
 \beginsection 3. (c)
 
@@ -43,7 +32,12 @@ $$P(X+Y=3)=p(0,3)+p(1,2)+p(2,1)+p(3,0)={2{,}250{,}423\over250{,}000{,}000}=0.009
 Find the m.g.f. of $Y$ given $X=2$.
 \medskip\noindent
 Solution:
-$$M(t)=E[e^{tY}]=\sum_{y=0}^{10}e^{ty}\left[{p(2,y)\over p_X(2)}\right]$$
+$$p_{Y|X{=}2}={p(2,y)\over p_X(2)}={C(10,2)C(8,y)0.4^20.3^8\over C(10,2)0.4^20.6^8}
+={C(8,y)\over256},\qquad 0\le y\le8$$
+Trick alert! This is a binomial distribution with $p=0.5$.
+$${C(8,y)\over256}=C(8,y)0.5^y(1-0.5)^{8-y}$$
+From the inside back cover of the book,
+$$M(t)=(0.5+0.5e^t)^8$$
 
 \beginsection 3. (e)
 
