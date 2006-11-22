@@ -9,7 +9,6 @@ eval_condense(void)
 	push(cadr(p1));
 	eval();
 	Condense();
-	eval(); // normalize
 }
 
 void

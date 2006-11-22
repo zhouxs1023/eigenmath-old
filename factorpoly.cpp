@@ -3,7 +3,6 @@
 #include "stdafx.h"
 #include "defs.h"
 
-static void factorpoly4(void);
 static void rationalize_coefficients(int);
 static int get_factor(void);
 static void evalpoly(void);
@@ -27,17 +26,13 @@ factorpoly(void)
 	save();
 	p2 = pop();
 	p1 = pop();
-	if (p2 == symbol(NIL)) {
-		push(p1);
-		guess();
-		p2 = pop();
-		pop();
-	}
-	if (!ispoly(p1, p2))
-		stop("factor: arg1 is not a polynomial in arg2");
+	if (p2->k != SYM)
+		stop("factor: 2nd arg?");
+	if (find(p1, p2) && !ispoly(p1, p2))
+		stop("factor: 1st arg?");
 	push(p1);
 	push(p2);
-	factorpoly4();
+	yyfactorpoly();
 	restore();
 }
 
@@ -51,8 +46,8 @@ factorpoly(void)
 //
 //-----------------------------------------------------------------------------
 
-static void
-factorpoly4(void)
+void
+yyfactorpoly(void)
 {
 	int h, i;
 
@@ -730,6 +725,21 @@ static char *s[] = {
 
 	"bake=1",
 	"",
+
+	"y=(x+1)(x+2)",
+	"",
+
+	"factor(y,z)",
+	"x^2+3*x+2",
+
+	"factor(y,y)",
+	"Stop: factor: 2nd arg?",
+
+	"y=x^2+exp(x)",
+	"",
+
+	"factor(y)",
+	"Stop: factor: 1st arg?",
 };
 
 void

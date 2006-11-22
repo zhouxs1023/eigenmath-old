@@ -370,6 +370,7 @@ void sfac_product_f(U **s, int a, int b);
 
 // factorpoly.cpp
 void factorpoly(void);
+void yyfactorpoly(void);
 void test_factorpoly(void);
 
 // find.cpp

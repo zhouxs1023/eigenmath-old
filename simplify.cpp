@@ -19,7 +19,6 @@ eval_simplify(void)
 	push(cadr(p1));
 	eval();
 	simplify();
-	eval(); // normalize
 }
 
 void
@@ -374,10 +373,7 @@ static char *s[] = {
 	"",
 
 	"x",
-	"a*b+a*c",
-
-	"x=quote(x)",
-	"",
+	"a*(b+c)",
 };
 
 void

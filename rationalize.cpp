@@ -13,7 +13,6 @@ eval_rationalize(void)
 	push(cadr(p1));
 	eval();
 	rationalize();
-	eval(); // normalize
 }
 
 void

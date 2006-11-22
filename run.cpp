@@ -138,6 +138,7 @@ echo_input(char *s)
 void
 top_level_eval(void)
 {
+#if 0
 	// handle bare keywords that yield denormals
 
 	if (p1 == symbol(FACTOR)) {
@@ -204,7 +205,7 @@ top_level_eval(void)
 		rationalize();
 		return;
 	}
-
+#endif
 	// default case
 
 	push(p1);

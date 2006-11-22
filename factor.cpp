@@ -4,8 +4,17 @@
 void
 eval_factor(void)
 {
-	push(cadr(p1)); // only factor at top level
+	push(cadr(p1));
 	eval();
+	eval(); // in case it is denormal
+	push(caddr(p1));
+	eval();
+	p1 = pop();
+	if (p1 == symbol(NIL))
+		guess();
+	else
+		push(p1);
+	factor();
 }
 
 void
