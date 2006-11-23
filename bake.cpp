@@ -12,6 +12,8 @@ bake(void)
 {
 	int h, t, x, y, z;
 
+	expanding++;
+
 	save();
 
 	p1 = pop();
@@ -47,6 +49,8 @@ bake(void)
 		push(p1);
 
 	restore();
+
+	expanding--;
 }
 
 void

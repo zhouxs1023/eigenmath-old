@@ -6,7 +6,6 @@ eval_factor(void)
 {
 	push(cadr(p1));
 	eval();
-	eval(); // in case it is denormal
 	push(caddr(p1));
 	eval();
 	p1 = pop();
