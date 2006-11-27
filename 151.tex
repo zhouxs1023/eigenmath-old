@@ -1,0 +1,346 @@
+\beginsection 1.
+
+The joint probability mass function of random variables $X$
+and $Y$ is defined as
+
+$$p(x,y)=\bordermatrix{
+& y=1 & y=2 & y=3\cr
+x=3 & 0.0625 & 0.1875 & 0.0625\cr
+x=4 & 0.1875 & 0.0000 & 0.1875\cr
+x=5 & 0.0625 & 0.1875 & 0.0625\cr
+}$$
+
+\beginsection 1. (a)
+
+Find the value of $Cov(X,Y)$.
+\medskip\noindent
+Solution: See lecture 52, slide 15.
+$$E(X)=\sum_{x,y}xp(x,y)=3(0.3125)+4(0.3750)+5(0.3125)=4$$
+$$E(Y)=\sum_{x,y}yp(x,y)=1(0.3125)+2(0.3750)+3(0.3125)=2$$
+$$E(XY)=\sum_{x,y}xyp(x,y)=0.0625(3+5+9+15)+0.1875(4+6+10+12)=8$$
+$$Cov(X,Y)=E(XY)-E(X)E(Y)=0$$
+
+\beginsection 1. (b)
+
+Find the value of $P(X\le2Y)$.
+\medskip\noindent
+Solution:
+$$P(X\le2Y)=p(3,2)+p(3,3)+p(4,2)+p(4,3)+p(5,3)=0.5$$
+
+\beginsection 1. (c)
+
+Find the marginal probability mass function of $Y$.
+$$p_Y(y)=\sum_xp(x,y)=\cases{
+0.3125,&$y=1$\cr
+0.3750,&$y=2$\cr
+0.3125,&$y=3$\cr
+}$$
+
+\beginsection 1. (d)
+
+Find the value of $P(Y{\ge}2|X{=}4)$.
+\medskip\noindent
+Solution:
+$$P(Y{\ge}2|X{=}4)={P(Y{\ge}2\cap X{=}4)\over P(X{=}4)}
+={p(4,2)+p(4,3)\over p(4,1)+p(4,2)+p(4,3)}
+={0.0000+0.1875\over0.1875+0.0000+0.1875}=0.5$$
+
+\beginsection 1. (e)
+
+Find the value of $E(2X-3|Y{=}1)$.
+\medskip\noindent
+Solution:
+$$p_{X|Y{=}1}(x)={p(x,y)\over p_Y(y)}\bigg|_{y=1}={p(x,1)\over0.3125}$$
+$$E(2X-3|Y{=}1)=\sum_x{(2x-3)p(x,1)\over0.3125}
+={(3)(0.0625)+(5)(0.1875)+(7)(0.0625)\over0.3125}=5$$
+
+\vfill\eject
+
+\beginsection 2.
+
+Let the j.p.m.f. of random variables $X$ and $Y$ be defined as
+$$p(x,y)={xy\over60},\qquad x=1,2,3,\quad y=1,2,3,4$$
+
+\beginsection 2. (a)
+
+Find the marginal p.m.f. of $X$.
+\medskip\noindent
+Solution: For each $x$, sum over $y$.
+$$p_X(x)=\sum_yp(x,y)=\cases{
+1/60+2/60+3/60+4/60=1/6,&$x=1$\cr
+2/60+4/60+6/60+8/60=1/3,&$x=2$\cr
+3/60+6/60+9/60+12/60=1/2,&$x=3$\cr
+}$$
+
+\beginsection 2. (b)
+
+Find the correlation coefficient of $X$ and $Y$.
+\medskip\noindent
+Solution: Follow along with the example on page 23 of Note 5.
+$$E(X)=\sum_{x,y}{x^2y\over60}={7\over3}$$
+$$E(X^2)=\sum_{x,y}{x^3y\over60}=6$$
+$$Var(X)=E(X^2)-E(X)^2={5\over9}$$
+$$E(Y)=\sum_{x,y}{xy^2\over60}=3$$
+$$E(Y^2)=\sum_{x,y}{xy^3\over60}=10$$
+$$Var(Y)=E(Y^2)-E(Y)^2=1$$
+$$E(XY)=\sum_{x,y}{x^2y^2\over60}=7$$
+$$Cov(X,Y)=E(XY)-E(X)E(Y)=0$$
+$$\rho={Cov(X,Y)\over\sqrt{Var(X)Var(Y)}}=0$$
+
+\beginsection 2. (c)
+
+Find the conditional p.m.f. of $Y$ given $X=3$.
+\medskip\noindent
+Solution: We need to use the marginal p.m.f. of $X$ from 2a.
+$$p_{Y|X{=}3}(y)={p(x,y)\over p_X(x)}\bigg|_{x=3}={y/20\over1/2}={y\over10}$$
+
+\beginsection 2. (d)
+
+Find the m.g.f. of $Y$ given $X=1$.
+\medskip\noindent
+Solution: First compute the conditional probability mass function.
+$$p_{Y|X{=}1}(y)={p(x,y)\over p_X(x)}\bigg|_{x=1}={y/60\over1/6}={y\over10}$$
+Next, sum over the exponential.
+$$M(t)=E(e^{tY})=\sum_y{ye^{ty}\over10}={e^t+2e^{2t}+3e^{3t}+4e^{4t}\over10}$$
+
+\beginsection 2. (e)
+
+Find the value of $Var(Y|X{=}3)$.
+\medskip\noindent
+Solution: From 2c we have
+$$p_{Y|X{=}3}(y)={y\over10}$$
+Next we need $E(Y)$ and $E(Y^2)$ to compute $Var$.
+$$E(Y)=\sum_yy^2/10=(1+4+9+16)/10=3$$
+$$E(Y^2)=\sum_yy^3/10=(1+8+27+64)/10=10$$
+$$Var=E(Y^2)-E(Y)^2=1$$
+
+\vfill\eject
+
+\beginsection 3.
+
+Consider the random variables $X$ and $Y$ with j.p.m.f. as
+$$p(x,y)=C(10,x)C(10-x,y)(0.4)^x(0.3)^{10-x},\qquad
+x,y\in Z,\quad x\ge0,\quad y\ge0,\quad x+y\le10$$
+
+\beginsection 3. (a)
+
+Find the m.g.f. of $X$.
+\medskip\noindent
+Solution: We have
+$$p_X=0.4$$
+$$M(t)=(1-p_X-p_Xe^t)^n=(0.6-0.4e^t)^{10}$$
+
+\beginsection 3. (b)
+
+Find the value of $Cov(X,Y)$.
+\medskip\noindent
+Solution
+$$Con(X,Y)=-np_Xp_Y=-(10)(0.4)(0.3)=-1.2$$
+
+\beginsection 3. (c)
+
+Find the conditional p.m.f. of $X$ given $Y=4$.
+\medskip\noindent
+Solution:
+$$p_Y(4)={10!\over4!6!}(0.3)^4(0.7)^6=0.2001$$
+$$p_{X|Y{=}4}={p(x,y)\over p_Y(y)}\bigg|_{y=4}={
+C(10,x)C(10-x,4)(0.4)^x(0.3)^{10-x}
+\over
+0.2001
+},\qquad0\le x\le 6$$
+
+\beginsection 3. (d)
+
+Find the m.g.f. of $Y$ given $X=1$.
+\medskip\noindent
+$$p_X(1)=C(10,1)(0.4)^1(0.6)^9$$
+$$p_{Y|X{=}1}={C(10,1)C(9,y)(0.4)^1(0.3)^y(0.3)^{9-y}\over C(10,1)(0.4)^1(0.6)^9}
+={1\over(0.6)^9}C(9,y)(0.3)^y(0.3)^{9-y},
+\qquad0\le y\le9$$
+$$M(t)=(0.7+0.3e^t)^9$$
+
+\beginsection 3. (e)
+
+Find the value of $P(X{=}4|Y{=}4)$
+\medskip\noindent
+$$P(X{=}4|Y{=}4)={p(4,4)\over p_Y(4)}
+={C(10,4)C(6,4)(0.4)^4(0.3)^6\over C(10,4)(0.3)^4(0.7)^6}=0.2938$$
+
+\vfill
+\eject
+
+\beginsection 4.
+
+A box contains 20 red, 10 white and 30 blue balls.
+Eight balls are drawn without replacement.
+
+\beginsection 4. (a)
+
+Find the probability that the total number of red balls and white
+balls is less than 6.
+\medskip\noindent
+Solution: Find the probability that the number of blue balls is 0, 1 or 2
+and subtract from 1.
+$$p(x)=C(30,x)C(30,8-x)/C(60,8)$$
+$$1-p(0)-p(1)-p(2)=0.8729$$
+
+\beginsection 4. (b)
+
+Find the correlation coefficient between the number of red balls and
+the number of white balls.
+\medskip\noindent
+Solution:
+$$\rho=-\sqrt{20\times10\over(60-20)\times(60-10)}=-0.3162$$
+
+\beginsection 4. (c)
+
+Find the probability of two red balls in the sample when there
+are four white balls in the sample.
+\medskip\noindent
+Solution: When there are 4 white, then the remaining 4 must have
+been drawn from the population of 20 red and 30 blue.
+$$P(2r|4w)=C(20,2)C(30,2)/C(50,4)=0.3589$$
+
+\beginsection 4. (d)
+
+Find the probability of two red balls in the sample when there
+are four blue balls in the sample.
+\medskip\noindent
+Solution: When there are 4 blue, the remaining 4 must have been
+drawn from the population of 20 red and 10 white.
+$$P(2r|4b)=C(20,2)C(10,2)/C(30,4)=0.3120$$
+
+\vfill
+\eject
+
+\beginsection 5.
+
+Consider the random variables $X$ and $Y$ with joint probability
+density function as
+$$f(x,y)=\cases{
+c,&for $-1<x<1$, $0<y<\sqrt{1-x^2}$\cr
+0,&otherwise
+}$$
+
+\beginsection 5. (a)
+
+Find the value of $c$.
+\medskip\noindent
+Solution: Since the domain is a half circle, we have
+$$\int\int f(x,y)=c\pi/2$$
+Therefore $c=2/\pi$.
+
+\beginsection 5. (b)
+
+Find the value of $P(X+Y\le1)$.
+\medskip\noindent
+Solution: We have the area of a quarter circle plus a triangle.
+$$P(X+Y\le1)={2\over\pi}\left({\pi\over4}+{1\over2}\right)={1\over2}+{1\over\pi}=0.8183$$
+
+\beginsection 5. (c)
+
+Find the marginal p.d.f. of $X$.
+\medskip\noindent
+Solution: Sum $f(x,y)$ over $y$.
+$$f_X(x)=\int_0^{\sqrt{1-x^2}}{2\over\pi}\,dy={2y\over\pi}\bigg|_0^{\sqrt{1-x^2}}
+={2\sqrt{1-x^2}\over\pi}
+$$
+
+\beginsection 5. (d)
+
+Find the conditional p.d.f. of $Y$ given $X=0$.
+\medskip\noindent
+Solution:
+$$f_{Y|X{=}0}(y)={f(x,y)\over f_X(x)}\bigg|_{x=0}
+={2/\pi\over2\sqrt{1-x^2}/\pi}\bigg|_{x=0}=1$$
+
+\vfill
+\eject
+
+\beginsection 6.
+
+Consider the random variables $X$ and $Y$ with j.p.d.f. as
+$$f(x,y)=\cases{
+24xy,&for $0<x<1$, $0<y<1$, $0<x+y<1$\cr
+0,&therwise\cr
+}$$
+
+\beginsection 6. (a)
+
+Find the value of $P(Y>0.5)$.
+\medskip\noindent
+Solution: The trick here is how to parameterize the domain.
+The domain is the right triangle consisting of all the points below the line $x=1-y$
+and greater than $x=0$ and $y=0.5$.
+$$\eqalign{
+P(Y>0.5)&=\int_{0.5}^1\int_0^{1-y}24xy\,dx\,dy\cr
+&=\int_{0.5}^1\left(12x^2y\bigg|_{x=0}^{x=1-y}\right)\,dy\cr
+&=\int_{0.5}^1(12y^3-24y^2+12y)\,dy\cr
+&=(3y^4+8y^3+6y^2)\bigg|_{0.5}^1\cr
+&={5\over16}
+}$$
+
+\beginsection 6. (b)
+
+Find the value of $P(X<Y)$.
+\medskip\noindent
+Solution: Let $x$ range from 0 to $1/2$.
+Then $y$ ranges from $x$ to $1-x$.
+$$P(X<Y)=\int_0^{1/2}\int_x^{1-x}24xy\,dy\,dx={1\over2}$$
+
+\beginsection 6. (c)
+
+Find the marginal p.d.f. of $X$.
+\medskip\noindent
+Solution: Given $x$ we have to integrate over all possible values of $y$.
+For each $x$, $y$ ranges from 0 to $1-x$.
+$$f_X(x)=\int_0^{1-x}24xy\,dy=12x^3-24x^2+12x$$
+
+\beginsection 6. (d)
+
+Find the conditional p.d.f. of $X$ given $Y=0.5$.
+\medskip\noindent
+Solution: For each $y$, $x$ ranges from 0 to $1-y$.
+$$f_Y(y)=\int_0^{1-y}24xy\,dx=12y^3-24y^2+12y$$
+$$f_{X|Y{=}0.5}(x)={f(x,y)\over f_Y(y)}\bigg|_{y=0.5}
+={24xy\over 12y^3-24y^2+12y}\bigg|_{y=0.5}=8x,\qquad0<x<0.5$$
+
+\beginsection 6. (e)
+
+Find the value of $E(Y|X{=}0.5)$.
+\medskip\noindent
+Solution: By the symmetry of $f(x,y)$ we obtain from 6d
+$$f_{Y|X{=}0.5}(y)=8y,\qquad0<y<0.5$$
+$$E(Y|X{=}0.5)=\int_0^{0.5}8y^2\,dy={1\over3}$$
+
+\vfill
+\eject
+
+\beginsection 7.
+
+A professor has noticed that grades on each of two quizzes have a bivariate
+normal distribution with the following parameters:
+$$\mu_X=75\qquad \sigma_X^2=25\qquad \mu_Y=83
+\qquad \sigma_Y^2=16\qquad Cov(X,Y)=16$$
+
+\beginsection 7. (a)
+
+If a student receives a grade of 80 on the first quiz ($X$),
+what is the probability that she will do better on the
+second one ($Y$)?
+\medskip\noindent
+Solution:
+$$\rho={Cov(X,Y)\over\sigma_X\sigma_Y}=0.8$$
+$$E(Y|X{=}80)=\mu_Y+\rho(\sigma_Y/\sigma_X)(x-\mu_X)=83+(0.8)(4/5)(80-75)=86.2$$
+$$\sigma^2_{Y|X}=\sigma_Y^2(1-\rho^2)=5.76$$
+$$P(Y{>}80|X{=}80)=\hbox{\tt 1-NORMDIST(80,86.2,SQRT(5.76),TRUE)}=0.9951$$
+
+\beginsection 7. (b)
+
+If a student receives a grade of 70 on the first quiz ($X$), what is the
+probability that she will do worse on the second one ($Y$)?
+\medskip\noindent
+$$E(Y|X{=}70)=\mu_Y+\rho(\sigma_Y/\sigma_X)(x-\mu_X)=83+(0.8)(4/5)(70-75)=79.8$$
+$$P(Y{<}70|X{=}70)=\hbox{\tt NORMDIST(70,79.8,SQRT(5.76),TRUE)}=0.000022$$
+
+\end
