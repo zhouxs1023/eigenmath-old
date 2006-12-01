@@ -1,0 +1,234 @@
+\magnification=1200
+\centerline{The Life and Work of Srinivasa Ramanujan}
+\centerline{George Weigt}
+
+\beginsection Introduction
+
+A brief introduction.
+
+\beginsection Outline
+
+\item{1.}
+Biography
+\item{2.}
+Work
+\item{3.}
+References
+
+\beginsection 1. Biography
+
+In the winter of 1913, a distinguished mathematician in England
+received a letter from a clerk in India.
+The letter was ten pages long and was filled with handwritten
+mathematics.
+The English mathematician, Godfrey Hardy, showed the letter to his friends in the
+mathematics department at Cambridge.
+It caused quite a sensation.
+Many of the theorems in the letter, although unproved,
+were astonishing in their originality.
+It was generally agreed that the letter writer, S. Ramanujan,
+must be a mathematical genius.
+A month later, Hardy wrote back to Ramanujan.
+He praised Ramanujan's work and asked Ramanujan to send him
+proofs of the theorems.
+What Hardy did not put in the letter was the fact that he
+had already decided to bring Ramanujan to Cambridge.
+
+Back in India, the letter from the famous Mr. Hardy immediately
+boosted Ramanujan's career.
+Ramanujan was able to secure a two year scholarship at the University of
+Madras and was able to quit his job as a shipping clerk.
+One thing that is important to know about Ramanujan is that he
+had no formal training.
+He had taught himself mathematics by studying a book by Carr
+that he had aquired when he was fifteen years old.
+Ramanujan was twenty-five years old when he wrote to Hardy.
+He had attended college twice but did not finish because
+the only thing he wanted to study was mathematics.
+Despite all this, Ramanujan was actually well-known to mathematicians
+in Madras where he lived.
+In 1911 he published ``Some Properties of Bernoulli Numbers'' in the
+{\it Journal of the Indian Mathematical Society.}
+The paper was seventeen pages long.
+
+In the spring of 1914, Ramanujan arrived in England.
+It had taken Hardy a year to make all the arrangements.
+The plan was for Hardy and Ramanujan to work together,
+and for Ramanujan to study for a degree.
+The book by Carr that Ramanujan had used to teach himself
+mathematics was about fifty years out of date.
+Ramanujan had to learn all of the new mathematics that had
+been discovered since then.
+In 1914, the year of his arrival, Ramanujan published one
+paper, ``Modular Equations and Approximations to Pi.''
+It was twenty-three pages long.
+In the following year (1915) he published nine papers.
+His most important paper that year was a fifty-two page treatise on highly composite numbers.
+This paper led to his award in 1916 of a Bachelor of Science by Research degree.
+Despite its title, this was actually an advanced degree.
+Also in 1916, Hardy and Ramanujan collaborated on a study of the partition function.
+The full account of their results was published in 1918.
+This was the most famous paper on which they collaborated because it
+established a new technology for attacking problems.
+Between the years 1915 and 1919, Hardy and Ramanujan collaborated
+on a total of four papers officially.
+
+In the spring of 1917, Ramanujan became sick with tuberculosis.
+He could not fully recover and he was in and out of hospitals over the next two years.
+In 1918 Ramanujan received three distinguished honors.
+He was elected Fellow of the Royal Society, Fellow of Trinity College, and Fellow of the
+Cambridge Philosophical Society.
+These honors boosted his spirts and he improved somewhat.
+However, he became sick again and decided, in 1919, to return to his
+home in India to recuperate.
+Unfortunately he did not recover and died in India in 1920 at the age of thirty-two.
+
+\beginsection 2.1 Divergent series
+
+In his first letter to Hardy, Ramanujan included the following identity.
+$$1+2+3+\cdots=-{1\over12}$$
+Of course, this result cannot be obtained by summation.
+Rather, this result comes from two premises.
+First, if the sum of a divergent series is to have any meaning at all then the series
+itself must admit linear operations.
+Second, it is not admissible to reorder the terms of the series.
+This second premise guarantees the uniqueness of the result.
+At this point we need to establish an intermediate result. Let
+$$s=1-1+1-1+\cdots$$
+Then
+$$1-s=1-(1-1+1-1+\cdots)=1-1+1-1+\cdots=s$$
+Solving for $s$ we have $1=2s$ or $s=1/2$.
+Now let
+$$s=1+2+3+4+\cdots$$
+We are allowed to use linear operators so we can put
+$$-3s=s-4s$$
+Now $4s$ has an interesting property. We have $4s=2\cdot2s$ and so when subtracted
+from $s$ the result is that the signs of the even terms are flipped. Hence
+$$-3s=1-2+3-4+5-6+\cdots$$
+The right hand side can be written as the sum of two series as follows
+$$-3s=1-(1-2+3-4+\cdots)-(1-1+1-1+\cdots)=1+3s-1/2$$
+Solving for $s$ we have $-6s=1/2$ hence
+$$s=-{1\over12}$$
+from which it follows
+$$1+2+3+4+\cdots=-{1\over12}$$
+
+
+\beginsection 2.1 A puzzle
+
+In 1911, Ramanujan published the following puzzle in
+the {\it Journal of the Indian Mathematical Society.}
+The reader was asked to evaluate
+$$\sqrt{1+2\sqrt{1+3\sqrt{1+\cdots}}}$$
+After six months, no reader could solve the problem so Ramanujan
+provided the answer.
+$$\sqrt{1+2\sqrt{1+3\sqrt{1+\cdots}}}=3$$
+Ramanujan had crafted the puzzle from his theorem
+$$x+n+a=\sqrt{ax+(n+a)^2+x\sqrt{a(x+n)+(n+a)^2+(x+n)\sqrt{\ldots}}}$$
+In the puzzle, $x=2$, $n=1$, and $a=0$.
+
+\beginsection 2.1 The partition function
+
+Ramanujan spent a lot of time investigating the partition function.
+The partition function $p(n)$ is the number of ways the number
+$n$ can be expressed as the sum of addends.
+For example, $p(4)=5$ because there are five ways to partition 4.
+$$\eqalign{
+&4\cr
+&3+1\cr
+&2+2\cr
+&2+1+1\cr
+&1+1+1+1\cr
+}$$
+Note that the order of the addends is not significant.
+The addends are
+normally written from largest to smallest.
+Ramanujan discovered that the partition function has a $5k+4$
+congruence.
+In other words, if $n$ can be expressed as $5k+4$ (numbers that end in 4 or 9)
+then $p(n)$
+is divisible by 5.
+Ramanujan also discovered congruences for numbers that can be expressed
+as $7k+5$ and $11k+6$.
+Ramanujan and Hardy collaborated on a forty-page paper, published in 1918,
+that included a formula for computing the value of $p(n)$ from $n$.
+The formula was accurate up to $p(200)$.
+The exact formula for $p(n)$ was discovered twenty-one years later
+in 1937 by Hans Rademacher.
+
+\beginsection 2.2 Highly composite numbers
+
+In 1915 Ramanujan published a paper on highly composite numbers.
+Ramanujan himself invented the term ``highly composite.''
+A highly composite number is a number that has more factors than any
+number less than it. For example, the first six highly composite numbers are
+$$1,\quad2,\quad4,\quad6,\quad12,\quad24.$$
+The number 24 has eight factors.
+This is more factors than any number less than 24 has.
+While any composite number can be thought of as the ``opposite'' of a prime,
+a highly composite number is in a sense the most extreme opposite
+of a prime.
+(Except for 2 which is both prime {\it and} highly composite!)
+Ramanujan discovered that if you take a highly composite number
+and write down its prime factors from smallest to largest, then the
+powers of the primes {\it never} increase as you read from
+left to right. For example,
+$$24=2^3\times3^1$$
+In this case we have $3\ge1$.
+Ramanujan also discovered that, with the exception of 4 and 36,
+the final power is {\it always} 1, as it is in the above example.
+Ramanujan's published proof on this subject was fifty-two pages long.
+
+\beginsection 2.3 Continued fractions
+
+This formula involves the Golden Ratio $\phi$.
+$$\sum_{k=1}^\infty{1\over2^{\lfloor k\phi\rfloor}}={1\over2^0+\displaystyle{1\over2^1+\cdots}}$$
+
+\beginsection 2.? Rogers-Ramanujan Identity
+
+$$1+\sum_{k=1}^\infty{q^{k^2+k}\over(1-q)(1-q^2)\cdots(1-q^k)}
+=\prod_{j=0}^\infty{1\over(1-q^{5j+2})(1-q^{5j+3})},\qquad|q|<1$$
+
+\beginsection 2.4 Selected Formulas for $\pi$
+
+The following Ramanujan formula for $\pi$ is accurate to eight decimal places.
+$$\pi\approx\left(97+{1\over2}-{1\over11}\right)^{1/4}$$
+The following Ramanujan formula was used to calculate $\pi$ to one billion digits in 1989.
+$${1\over\pi}={\sqrt8\over9801}\sum_{n=0}^\infty
+{(4n)!(1103+26{,}309n)\over(n!)^4(396)^{4n}}$$
+
+\beginsection 2.?
+
+In 1916 Ramanujan published ``On certain arithmetical functions'' that contained
+many identities involving the functions
+$$L(q)=1-24\sum_{n=1}^\infty{nq^n\over1-q^n},\quad
+M(q)=1+240\sum_{n=1}^\infty{n^3q^n\over1-q^n},\quad
+N(q)=1-504\sum_{n=1}^\infty{n^5q^n\over1-q^n}$$
+which are defined for $|q|<1$.
+A few of the identities are
+$$
+q{dL\over dq}={L^2-M\over12},\qquad
+q{dM\over dq}={LM-N\over3},\qquad
+q{dN\over dq}={LN-M^2\over2}.
+$$
+These identities are applicable to the series
+$$\sum_{m,n=-\infty}^\infty q^{m^2+mn+2n^2}$$
+
+\beginsection 2.4 Other formulas
+
+This formula changes an infinite sum into a finite sum.
+$$\sum_{k=1}^\infty{1\over n+k}={n\over2n+1}+\sum_{k=1}^n{1\over(2k)^3-2k}$$
+
+\beginsection 3. References
+
+\item{1.}
+Kanigel, Robert. {\it The Man Who Knew Infinity.} New York: Washington Square Press,
+1991.
+\item{2.}
+Chan and Ong. {\it On Eisenstein Series.}
+{\tt http://www.ams.org/proc/\hfill\break
+1999-127-06/S0002-9939-99-04832-7/S0002-9939-99-04832-7.pdf}
+\item{3.}
+Cais, Bryden. {\it Divergent Series.}\hfill\break
+{\tt http://www.math.uiuc.edu/$\sim$berndt/articles/rrcf.pdf}
+
+\end
