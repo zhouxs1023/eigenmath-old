@@ -1,0 +1,183 @@
+\parindent=0pt
+
+\beginsection 1a.
+
+$$P(t_{12}<C)=0.01,\qquad C={?}$$
+
+\bigskip
+Solution: Use table look up or MS Excel.
+Note: We do ``one minus'' because the table and MS Excel
+gives the result for $P(t_{12}>C)$.
+Also, MS Excel is a two tail result so we have to use two times the probability
+to compensate.
+$$C=\hbox{\tt 1-TINV(2*0.01,12)}=-2.681$$
+
+\beginsection 1b.
+
+$$P(t_{14}>C)=0.95,\qquad C={?}$$
+\bigskip
+Solution: Using the table, we have to do the look up for $a=0.05$ then negate the result.
+Same with Excel.
+$$C=\hbox{\tt -TINV(2*0.05,14)}=-1.761$$
+
+\beginsection 1c.
+
+$$P(|t_8|>C)=0.05,\qquad C={?}$$
+\bigskip
+Solution: Using table look up, we have to use just one tail, or $a=0.025$.
+Here the two tail feature of Excel comes in handy.
+$$C=\hbox{\tt TINV(0.05,8)}=2.306$$
+
+\beginsection 2a.
+
+$$P(\chi_{10}^2>C)=0.01,\qquad C=\hbox{\tt CHIINV(0.01,10)}=23.21$$
+
+\beginsection 2b.
+
+$$P(\chi_{15}^2<C)=0.99,\qquad C=\hbox{\tt CHIINV(1-0.99,15)}=30.58$$
+
+\beginsection 2c.
+
+$$P(\chi_{21}^2>C)=0.95,\qquad C=\hbox{\tt CHIINV(0.95,21)}=11.59$$
+
+\beginsection 3a.
+
+$$P(F_{10,12}<C)=0.95,\qquad C=\hbox{\tt FINV(1-0.95,10,12)}=2.75$$
+
+\beginsection 3b.
+
+$$P(F_{4,6}>C)=0.025,\qquad C=\hbox{\tt FINV(0.025,4,6)}=6.23$$
+
+\beginsection 3c.
+
+$$P(F_{9,6}<C)=0.01,\qquad C=\hbox{\tt FINV(1-0.01,9,6)}=0.172$$
+
+\beginsection 3d.
+
+$$P(F_{3,7}>C)=0.99,\qquad C=\hbox{\tt FINV(0.99,3,7)}=0.0361$$
+
+\vfill
+\eject
+
+\beginsection 4a.
+
+$$\overline X\sim N(20,16/16),\qquad
+P(\overline X>18.75)=\hbox{\tt 1-NORMDIST(18.75,20,1,TRUE)}=0.8944$$
+
+\beginsection 4b.
+
+The trick here is that $\mu=10$ so we can put
+$$P\bigg(\sqrt9(\overline Y-\mu)/S_Y<\sqrt9(-0.62)\bigg)$$
+and since
+$$\sqrt9(\overline Y-\mu)/S_Y\sim t_8$$
+From the table in the book
+$$P(t_8<-1.86)=0.05$$
+With Excel
+$$\hbox{\tt TDIST(1.86,8,1)}=0.05$$
+
+\beginsection 4c.
+
+$${15\over 16}S_X^2\sim \chi_{15}^2,\qquad
+P(S_X^2>9.1168)=P\left({15\over 16}S_X^2>{15\over 16}9.1168\right)=
+\hbox{\tt CHIDIST(15*9.1168/16,15)}=0.9$$
+
+\beginsection 4d.
+
+Let
+$$Y={8\over25}S_Y^2,\qquad X={15\over16}S_X^2$$
+Then
+$$Y\sim\chi_8^2,\qquad
+X\sim\chi_{15}^2,\qquad
+{Y/8\over X/15}={16 S_Y^2\over25 S_X^2}\sim F_{8,15}$$
+Hence
+$$P(S_Y^2<125S_X^2)=P\left({16 S_Y^2\over25 S_X^2}<{16\over25}125\right)
+=\hbox{\tt1-FDIST(80,8,15)}=1$$
+Let's try it again with $1.25$ instead of 125.
+$$P(S_Y^2<1.25S_X^2)=P\left({16 S_Y^2\over25 S_X^2}<{16\over25}1.25\right)
+=\hbox{\tt1-FDIST(0.8,8,15)}=0.3880$$
+
+\beginsection 4e.
+
+$$\eqalign{
+P(|4\overline X-80|<1.341S_X)&=P(-1.341S_X<4\overline X-80<1.341S_X)\cr
+%&=P(4\overline X-80<1.341S_X)-P(4\overline X-80<-1.341S_X)
+}$$
+Note that $(4\overline X-80)/S_X$ has a $t$ distribution with 15 degrees of freedom.
+$$Z={\sqrt{16}(\overline X-\mu)\over S_X}\sim t_{15}$$
+We can use the Excel function with two tails directly.
+$$P(|4\overline X-80|<1.341S_X)=\hbox{\tt 1-TDIST(1.341,15,2)}=0.8$$
+
+\beginsection 4f.
+
+$${(X_1-20)+(X_2-20)\over|X-Y|}\sim t_1$$
+$$P(t_1>6.314)=0.05$$
+
+%$$P(X_1+X_2>6.314|X_1-X_2|+40)=P(X_1+X_2-6.314|X_1-X_2|>40)$$
+
+\beginsection 4g.
+
+Divide through by 16.
+$$P\left({1\over16}\sum_{i=1}^4(X_i-20)^2+{1\over25}\sum_{j=1}^3(Y_j-10)^2<12.02\right)$$
+We have
+$$\left({X_i-20\over4}\right)^2\sim\chi_1^2,\qquad
+\left({Y_i-10\over5}\right)^2\sim\chi_1^2
+$$
+Hence the sum over all is $\sim \chi_7^2$ and
+$$P=\hbox{\tt 1-CHIDIST(12.02,7)}=0.9$$
+
+\beginsection 4h.
+
+We have
+$$X_2\sim N(20,16),\qquad Y_2,Y_3\sim N(10,25)$$
+Hence
+$$\mu=20-10-10=0,\qquad\sigma^2=16+25+25=66$$
+Therefore
+$$P(X_2-Y_2-Y_4>\sqrt{66})=\hbox{\tt 1-NORMDIST(SQRT(66),0,SQRT(66),TRUE)}=0.1586$$
+
+\beginsection 4i.
+
+Let
+$$X=\sum_{i=1}^5(X_i-20)^2,\qquad Y=\sum_{j=1}^5(Y_j-10)^2$$
+Then
+$$P(X>7.488Y)=P\left({X/16\over Y/25}>{25\over16}7.488\right)$$
+We have
+$$X/16\sim\chi_5^2,\qquad Y/25\sim\chi_5^2,\qquad{X/16/5\over Y/25/5}\sim F_{5,5}$$
+hence
+$$P=\hbox{\tt FDIST(11.7,5,5)}=0.008666$$
+
+\beginsection 4j.
+
+We have
+$$\overline X\sim N(20,1),\qquad\overline Y\sim N(10,25/9)$$
+Hence for $\overline X-\overline Y$ we have
+$$\mu=20-10=10,\qquad\sigma^2=1+25/9,\qquad
+\overline X-\overline Y\sim N(10,34/9)$$
+Therefore
+$$P(\overline X-\overline Y>10+\sqrt{1.36})=
+\hbox{\tt 1-NORMDIST(10+SQRT(1.36),10,SQRT(34/9),TRUE)}=0.2742$$
+
+\vfill
+\eject
+
+\beginsection 5.
+
+$$f(x,y)={1\over\theta^2}e^{-(x+y)/\theta}\,\qquad0\le x<\infty,\qquad0\le y<\infty$$
+Let
+$$W={X\over X+Y},\qquad Z=X+Y$$
+Then
+$$x=wz,\qquad y=z-wz,\qquad x+y=z$$
+and
+$$J=\left|\matrix{
+\partial x/\partial w & \partial x/\partial z\cr
+\partial y/\partial w & \partial y/\partial z\cr
+}\right|=z(1-w)+wz=z$$
+Hence the joint probability distribution function for $w$ and $z$ is
+$$f(w,z)={|z|\over\theta^2}e^{-z/\theta},\qquad0<w<1,\qquad0\le z<\infty$$
+The marginal p.d.f. is
+$$f(w)={1\over\theta^2}\int_0^\infty ze^{-z/\theta}\,dz=
+-{1\over\theta}(z+\theta)e^{-z/\theta}\bigg|_0^\infty=1$$
+hence
+$${X\over X+Y}\sim U(0,1)$$
+
+
+\end

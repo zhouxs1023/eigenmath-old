@@ -1,0 +1,30 @@
+\parindent=0pt
+\beginsection 2.
+
+First we need to find
+$$F(t)=P(X-Y<t),\qquad a-b<t<b-a$$
+The joint probability density function of $x$ and $y$ is
+$$f(x,y)=f(x)f(y)={1\over(b-a)^2}$$
+For each $t$ we need to sum $f(x,y)$ over the region $x-y<t$.
+\bigskip
+Note that if we go to where $x-y=t$ and then increase $y$, we will be in the region.
+\bigskip
+Case 1: For $a-b<t<0$ we have
+$$a<x<y+t$$
+$$a-t<y<b$$
+$$F(t)=\int_{a-t}^b\int_a^{y+t}{1\over(b-a)^2}\,dx\,dy=
+{t^2\over2(b-a)^2}+{t\over b-a}+{1\over2}$$
+$$f(t)={dF\over dt}={t\over(b-a)^2}+{1\over b-a},\qquad a-b<t<0$$
+
+\bigskip
+Case 2: For $0<t<b-a$ we have
+$$y+t<x<b$$
+$$a<y<b-t$$
+$$F(t)=1-\int_{a}^{b-t}\int_{y+t}^{b}{1\over(b-a)^2}\,dx\,dy=
+-{t^2\over2(b-a)^2}+{t\over b-a}+{1\over2}$$
+$$f(t)={dF\over dt}=-{t\over(b-a)^2}+{1\over b-a},\qquad 0<t<b-a$$
+
+\bigskip
+Case 3: We have $f(t)=0$ for $t<a-b$ and $t>b-a$.
+
+\end
