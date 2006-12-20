@@ -1,0 +1,34 @@
+\magnification=1200
+\parindent=0pt
+
+{\bf F Distribution}
+
+\bigskip
+It is the ratio of two chi-square distributions.
+$${\chi_j^2/j\over\chi_k^2/k}={k\over j}\times{\chi_j^2\over\chi_k^2}\sim F_{j,k}$$
+$${1\over F_{j,k}}\sim F_{k,j}$$
+$$\mu={k\over k-2}$$
+$$\sigma^2={2k^2(j+k-2)\over j(k-2)^2(k-4)}$$
+
+\bigskip
+Example 1
+$${(X_1-\mu)^2\over\sigma^2}\sim\chi_1^2,\qquad
+{(X_{64}-\mu)^2\over\sigma^2}\sim\chi_1^2,\qquad
+{(X_1-\mu)^2\over(X_{64}-\mu)^2}\sim F_{1,1}$$
+
+\bigskip
+Example 2
+$$
+{\sum_{i=1}^{64}(X_i-\mu_X)^2\over\sigma_X^2}\sim\chi_{64}^2,\quad
+{\sum_{j=1}^{100}(Y_j-\mu_Y)^2\over\sigma_Y^2}\sim\chi_{100}^2,\quad
+{
+100\sigma_Y^2\sum_{i=1}^{64}(X_i-\mu_X)^2
+\over
+64\sigma_X^2\sum_{j=1}^{100}(Y_j-\mu_Y)^2
+}\sim F_{64,100}
+$$
+
+\bigskip
+{\it 166.tex}
+
+\end

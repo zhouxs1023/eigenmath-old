@@ -1,0 +1,25 @@
+\magnification=1200
+\parindent=0pt
+
+{\bf Bivariate normal distribution}
+
+\bigskip
+The general method is compute new $\mu$ and $\sigma^2$ then proceed as usual.
+
+\bigskip
+Compute the correlation coefficient $\rho$.
+$$\rho={Cov(X,Y)\over\sigma_X\sigma_Y}$$
+
+\bigskip
+For $Y|X{=}x_0$ we want to tweak $\mu_Y$
+$$\mu=\mu_Y+\rho\left({\sigma_Y\over\sigma_X}\right)(x_0-\mu_X)$$
+$$\sigma^2=\sigma_Y^2(1-\rho^2)$$
+
+
+
+\bigskip
+For $X|Y{=}y_0$ we want to tweak $\mu_X$
+$$\mu=\mu_X+\rho\left({\sigma_X\over\sigma_Y}\right)(y_0-\mu_Y)$$
+$$\sigma^2=\sigma_X^2(1-\rho^2)$$
+
+\end

@@ -1,0 +1,30 @@
+\magnification=1200
+\parindent=0pt
+
+{\bf Binomial Distribution}
+
+\bigskip
+A new medication has a 10\% chance of undesirable reaction.
+The following questions are for a sample size of 15 people.
+
+\bigskip
+1. What is the probability of exactly two undesirable reactions?
+$$\hbox{\tt BINOMDIST(2,15,0.1,FALSE)}=0.2669$$
+
+\bigskip
+2. What is the probability of at least four undesirable reactions?
+$$\hbox{\tt 1-BINOMDIST(3,15,0.1,TRUE)}=0.0556$$
+
+\bigskip
+3. What is the probability of at most one undesirable reaction?
+$$\hbox{\tt BINOMDIST(1,15,0.1,TRUE)}=0.5490$$
+
+\bigskip
+4. What is the probability of more than one and less than five
+undesirable reactions?
+$$\hbox{\tt BINOMDIST(4,15,0.1,TRUE)-BINOMDIST(1,15,0.1,TRUE)}=0.4382$$
+
+\bigskip
+{\it 168.tex}
+
+\end
