@@ -126,25 +126,13 @@ Returns the absolute value (vector length, magnitude) of x.
 
 <p>
 <h1><tt><a name="adj">adj(<i>m</i>)</a></tt></h1>
-Returns the adjunct of matrix <i>m</i>.
-<pre>
-<i>Enter</i>
-
-     A = ((a,b),(c,d))
-
-     adj(A)
-
-<i>Result</i>
-
-     d     -b
- 
-     -c    a
-</pre>
+Returns the adjunct of matrix m.
 The inverse of a matrix is equal to the adjunct divided by the determinant.
 <pre>
 <i>Enter</i>
 
-     inv(A) - adj(A) / det(A)
+     A=((A11,A12),(A21,A22))
+     inv(A)-adj(A)/det(A)
 
 <i>Result</i>
 
