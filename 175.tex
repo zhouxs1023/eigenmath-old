@@ -1,0 +1,214 @@
+{\it George Weigt -- Geometry Homework \#3}
+
+\beginsection Problem 6.
+
+Find the coordinates in $\cal H$ of $(2,3)$ (i) with respect to the
+line $(x-1)^2+y^2=10$; (ii) with respect to the line $x=2$.
+
+\medskip\noindent
+(i) By inspection we have $c=1$ and $r=\sqrt{10}$ hence the line
+is the type II line ${}_1L_{\sqrt{10}}$.
+Using the standard ruler for this line we have
+$$f(2,3)=\ln\left({2-1+\sqrt{10}\over 3}\right)
+\approx0.32745$$
+(ii) The line $x=2$ corresponds to the type I line ${}_2L$.
+Note that $(2,3)$ is indeed on this line.
+We have
+$$f(2,3)=\ln3\approx1.09861$$
+
+\beginsection Problem 11.
+
+Find a point $P$ on the line ${}_{-3}L_{\sqrt7}$ in the Poincare Plane
+whose coordinate is $\ln2$.
+\medskip
+Solution: We have $c=-3$, $r=\sqrt7$ and $t=\ln2$. Hence
+$$x_0=r\tanh(t)+c=\sqrt7\left({2-1/2\over2+1/2}\right)-3={3\sqrt7\over5}-3$$
+$$y_0=r\mathop{\rm sech}(t)=\sqrt7\left({2\over2+1/2}\right)={4\sqrt7\over5}$$
+Therefore $P=(3\sqrt7/5-3,4\sqrt7/5)$.
+
+\beginsection Problem 1.
+
+In the Euclidean Plane find a ruler $f$ with $f(P)=0$ and $f(Q)>0$ for
+the given pair
+\item{i.} $P=(2,3)$, $Q=(2,-5)$
+\item{ii.} $P=(2,3)$, $Q=(4,0)$.
+
+\medskip\noindent
+(i) We have $x_1=x_2$ so this is a vertical line and the standard ruler is
+$$f(a,y)=y$$
+We have $f(P)=3$, $f(Q)=-5$.
+Since $f(Q)<f(P)$ we have $\varepsilon=-1$.
+Therefore the ruler we seek is
+$$f(a,y)=-y+3$$
+(ii) We have
+$$m={y_2-y_1\over x_2-x_1}={0-3\over4-2}=-{3\over2}$$
+$$b=y_2-mx_2=0+{3\over2}\cdot4=6$$
+The standard ruler is
+$$f(x,y)=x\sqrt{1+m^2}=x\sqrt{13}/2$$
+Hence
+$$f(P)=f(2,3)=2\sqrt{13}/2=\sqrt{13}$$
+$$f(Q)=f(4,0)=4\sqrt{13}/2=2\sqrt{13}$$
+The ruler we seek is
+$$f(x,y)=x\sqrt{13}/2-\sqrt{13}$$
+
+\beginsection Problem 2.
+
+In the Poincare Plane find a ruler $f$ with $f(P)=0$ and $f(Q)>0$ for
+the given pair
+\item{i.} $P=(2,3)$, $Q=(2,1)$
+\item{ii.} $P=(2,3)$, $Q=(-1,6)$.
+
+\medskip\noindent
+(i)
+$$f(a,y)=\ln y,\qquad f(P)=\ln3,\qquad f(Q)=\ln1=0$$
+The ruler we seek is
+$$f(a,y)=\ln3-\ln y=\ln{3\over y}$$
+(ii) For $x_1=2$, $y_1=3$, $x_2=-1$, and $y_2=6$ we have
+$$c={y_2^2-y_1^2+x_2^2-x_1^2\over2(x_2-x_1)}
+={36-9+1-4\over2(-1-2)}=-4$$
+$$r=\sqrt{(x_1-c)^2+y_1^2}=\sqrt{36+9}=3\sqrt{5}$$
+Using the standard ruler
+$$f(P)=\ln\left({x_1-c+r\over y_1}\right)
+=\ln\left({2+4+3\sqrt5\over3}\right)
+=\ln(2+\sqrt5)\approx1.4436$$
+$$f(Q)=\ln\left({x_1-c+r\over y_1}\right)
+=\ln\left({-1+4+3\sqrt5\over6}\right)
+=\ln\left({1+\sqrt5\over2}\right)\approx0.4812$$
+The ruler we seek is
+$$f(x,y)=\ln(2+\sqrt5)-\ln\left({x+4+3\sqrt5\over y}\right)
+%=\ln\left[{y(2+\sqrt5)\over x+4+3\sqrt5}\right]
+$$
+
+\beginsection Problem 4.
+
+Let $P$ and $Q$ be points in a metric geometry.
+Show that there is a point $M$ such that $M\in\overleftarrow P\overrightarrow Q$
+and $d(P,M)=d(M,Q)$.
+\medskip
+Solution: In a metric geometry there exists a ruler $f$.
+Let $t\in R$ such that
+$$f(P)-f(Q)=t\eqno(1)$$
+Because $f$ is surjective and $t/2\in R$, there must be a point $M$ on
+the line $\overleftarrow P\overrightarrow Q$
+such that
+$$f(P)-f(M)=t/2\eqno(2)$$
+Subtract equation (2) from equation (1) and obtain
+$$f(M)-f(Q)=t/2$$
+Hence
+$$f(P)-f(M)=f(M)-f(Q)$$
+Take the absolute value of both sides to obtain
+$$|f(P)-f(M)|=|f(M)-f(Q)|$$
+Therefore by the ruler equation we have
+$$d(P,M)=d(M,Q)$$
+
+\beginsection Problem 5.
+
+Prove that a line in a metric geometry has infinitely many points.
+\medskip
+Solution: In a metric geometry there exists a ruler $f$
+for every line.
+By the bijective property of $f$ there is a one-to-one
+correspondence between the set of points on a line
+and the set of real numbers.
+Since there are an infinite number of reals, there
+must be an infinite number of points on every line.
+
+\beginsection Problem 5.
+
+Show that the ruler in Proposition 3.1.4 is a coordinate system with $A$
+as origin and $B$ positive.
+\medskip
+Solution: The parametric equation for the line is
+$$X=A+t(B-A)$$
+For $X=A$ we have $t=0$.
+Then from the ruler in Proposition 3.1.4 we have
+$$t\,\|A-B\|=0\,\|A-B\|=0$$
+For $X=B$ we have $t=1$ hence
+$$t\,\|A-B\|=1\,\|A-B\|>0$$
+
+\beginsection Problem 7.
+
+Prove that the Taxicab distance $d_T$ satisfies the triangle inequality.
+\medskip
+Solution: The Taxicab distance is
+$$d_T(P,Q)=|x_1-x_2|+|y_1-y_2|$$
+Let $A=(x_1,y_1)$, $B=(x_2,y_2)$, and $C=(x_3,y_3)$.
+A basic property of absolute value is that $|a+b|\le|a|+|b|$.
+Hence we have
+$$\eqalign{
+|x_1-x_3|\le|x_1-x_2|+|x_2-x_3|\cr
+|y_1-y_3|\le|y_1-y_2|+|y_2-y_3|\cr
+}$$
+Adding the above equations we have
+$$|x_1-x_3|+|y_1-y_3|\le|x_1-x_2|+|y_1-y_2|+|x_2-x_3|+|y_2-y_3|$$
+Therefore
+$$d_T(A,C)\le d_T(A,B)+d_T(B,C)$$
+
+\beginsection Problem 9.
+
+Define a function $d_F$ for points $P$ and $Q$ in $R^2$ by
+$$d_F(P,Q)=\cases{
+0 & if $P=Q$\cr
+d_E(P,Q) & if $L_{PQ}$ is not vertical\cr
+3d_E(P,Q) & if $L_{PQ}$ is vertical\cr
+}$$
+{\bf a.} Prove that $d_F$ is a distance function on $R^2$
+and that $\{R^2,{\cal L}_E,d_F\}$ is a metric geometry.
+
+\medskip
+Solution: It is already known that $d_E$ is a distance function
+and has a ruler.
+Therefore we shall only check $d_F$ for the case of vertical lines.
+
+\medskip
+First, verify that $3d_E$
+satisfies the conditions for a distance function.
+\item{(i)} $3d_E(P,Q)\ge0$.
+We have $d_E(P,Q)\ge0$. Multiply both sides by three to obtain
+$3d_E(P,Q)\ge0$.
+
+\item{(ii)} $3d_E(P,Q)=0$ if and only if $P=Q$.
+If $P=Q$ then $P$ and $Q$ are not on any line.
+That is why there is the explicit $P=Q$ case in the definition of $d_F$.
+Hence by definition of $d_F$, $P=Q$ implies $d_F(P,Q)=0$.
+Now let us consider the converse.
+If $P$ and $Q$ are on a vertical line then $P\ne Q$ therefore we must have
+$3d_E(P,Q)\ne0$.
+This condition is ensured because it is already true that $d_E(P,Q)\ge0$ when $P\ne Q$.
+Multiply both sides by three to obtain $3d_E(P,Q)\ge0$.
+
+\item{(iii)} $3d_E(P,Q)=3d_E(Q,P)$.
+It is already true that $d_E(P,Q)=d_E(Q,P)$. Multiply both sides
+by three to obtain $3d_E(P,Q)=3d_E(Q,P)$
+
+\medskip
+To show that this is a metric geometry, we need to show that every vertical
+line has a ruler.
+Let $f(a,y)=3y$.
+Let $t\in R$ be an arbitrary real number.
+We need to find a point $P=(x_1,y_1)$ such that $f(P)=t$.
+The solution is $P(x_1,t/3)$
+hence $f$ is surjective.
+Next, for vertical lines we have
+$$3d_E(P,Q)=3\sqrt{(y_1-y_2)^2}=3|y_1-y_2|$$
+$$|f(P)-f(Q)|=|3y_1-3y_2|=3|y_1-y_2|=3d_E(P,Q)$$
+Hence $f(a,y)=3y$ preserves the distance between points.
+Since $f$ is surjective and preserves the distance between points, it is a ruler.
+
+\medskip
+Therefore, since $d_F$ is a distance function and a ruler exists,
+we have $\{R^2,{\cal L}_E,d_F\}$ is a metric geometry.
+
+\bigskip\noindent
+{\bf b.} Prove that the triangle inequality is not satisfied for this distance, $d_F$.
+\medskip
+Solution: Let $A=(0,0)$, $B=(1,0)$, and $C=(0,1)$.
+Then
+$$\eqalign{
+d(A,B)&=1\cr
+d(B,C)&=\sqrt2\cr
+d(A,C)&=3\cr
+}$$
+We have $3>1+\sqrt2$ hence
+$$d(A,C)\not\le d(A,B)+d(B,C)$$
+\end

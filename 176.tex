@@ -1,0 +1,93 @@
+\noindent{\it 176.tex}
+
+\beginsection Try out 4.1
+
+Write the meanings of $a*b*c$ and $a*b*d$ from Definition 4.1
+and show that neither $c<b<d$, nor $d<b<c$ can occur at the same
+time with $a*b*c$ and $a*b*d$.
+
+\medskip
+$$a*b*c=a<b<c\hbox{\ \ or\ \ }c<b<a$$
+$$a*b*d=a<b<d\hbox{\ \ or\ \ }d<b<a$$
+There are two cases to consider.
+\item{i.}
+The condition $a<b<c$ implies $a<b<d$.
+In this case, $b$ is less than both $c$ and $d$.
+Hence $b$ is not between $c$ and $d$.
+Therefore $c<b<d$ is not true and $d<b<c$ is not true.
+\item{ii.}
+The condition $a>b>c$ implies $a>b>d$.
+In this case, $b$ is greater than both $c$ and $d$.
+Hence $b$ is not between $c$ and $d$.
+Therefore $c<b<d$ is not true and $d<b<c$ is not true.
+
+\medskip\noindent
+{\it Alternate proof.}
+From $a*b*c$ we have
+$$|a-b|+|b-c|=|a-c|\eqno(1)$$
+From $a*b*d$ we have
+$$|a-b|+|b-d|=|a-d|\eqno(2)$$
+Subtract equation (2) from equation (1) to obtain
+$$|b-c|-|b-d|=|a-c|-|a-d|$$
+Not completed yet.
+
+\beginsection Try out 4.2
+
+Show that $\overline{AB}\subset\overleftarrow A\overrightarrow B$.
+
+\medskip\noindent
+We need to show that $C\in\overline{AB}$ implies $C\in\overleftarrow A\overrightarrow B$.
+Let $C\in\overline{AB}$. Then there are three cases.
+\item{i.} If $C=A$ then $C\in\overleftarrow A\overrightarrow B$.
+\item{ii.} If $C=B$ then $C\in\overleftarrow A\overrightarrow B$.
+\item{iii.} If $A{-}C{-}B$ then $A$, $B$, and $C$ are collinear hence
+$C\in\overleftarrow A\overrightarrow B$.
+
+\noindent
+Therefore $\overline{AB}\subset\overleftarrow A\overrightarrow B$.
+
+\beginsection Try out 4.3
+
+Show that the function
+$c+r\tanh t$
+is a strictly increasing function by showing that its derivative is strictly positive.
+\medskip\noindent
+$$\eqalign{
+{d\over dt}(c+r\tanh t)&={d\over dt}\left({\sinh t\over\cosh t}\right)\cr
+&={\cosh t\over\cosh t}-{\sinh t\sinh t\over(\cosh t)^2}\cr
+&={1\over(\cosh t)^2}\cr
+}$$
+
+\beginsection Try out 4.4
+
+Write down the proof of part (i) of the previous theorem in the case $A{-}B{-}C$,
+that is
+\item{i.} if $C\in\overrightarrow{AB}$ and $C\ne A$, then
+$\overrightarrow{AC}=\overrightarrow{AB}$.
+\medskip\noindent
+Let $A{-}B{-}C$. We want to show that $\overrightarrow{AC}=\overrightarrow{AB}$.
+Hence, we will show that (1) $\overrightarrow{AC}\subset\overrightarrow{AB}$
+and (2) $\overrightarrow{AC}\supset\overrightarrow{AB}$.
+
+\medskip\noindent
+\item{1.} {\it Proof by contradiction.}
+Suppose there is a point $X$ such that $X\in\overrightarrow{AC}$
+and $X\not\in\overrightarrow{AB}$.
+Then we must have $X{-}A{-}B$ because otherwise we would have
+$X\in\overrightarrow{AB}$.
+%
+Suppose $x<a<b$. Then by $A{-}B{-}C$ we must have $a<b<c$, hence $x<a<c$.
+This implies $X{-}A{-}C$ which in turn implies
+$X\not\in\overrightarrow{AC}$ which contradicts the assumption.
+%
+Suppose $x>a>b$. Then by $A{-}B{-}C$ we must have $a>b>c$, hence $x>a>c$.
+This implies $X{-}A{-}C$ which in turn implies
+$X\not\in\overline{AC}$ which contradicts the assumption.
+%
+Hence for any $X\in\overrightarrow{AC}$ we must also have $X\in\overrightarrow{AB}$.
+Therefore $\overrightarrow{AC}\subset\overrightarrow{AB}$.
+
+\medskip\noindent
+\item{2.} As above.
+
+\end

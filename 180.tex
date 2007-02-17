@@ -1,0 +1,289 @@
+\noindent
+{\it 180.tex Notes for exam \#1}
+
+\beginsection 1.1 Abstract Geometry
+
+An abstract geometry is a set of points $\cal S$ and a set of lines $\cal L$.
+Each line is a subset of $\cal S$.
+For every two points $A,B\in\cal S$ there must be a line
+$\ell\in\cal L$ such that $A,B\in\ell$. Every line has at
+least two points.
+
+\beginsection 1.2 Cartesian Plane
+
+${\cal L}_E$ is the set of all vertical and non-vertical lines.
+$$\eqalign{
+L_a&=\{(x,y)\in R^2\mid x=a\}\cr
+L_{m,b}&=\{(x,y)\in R^2\mid y=mx+b\},
+\qquad m={y_2-y_1\over x_2-x_1},\qquad b=y_2-mx_2\cr
+}$$
+
+\beginsection 1.3 Poincare Plane
+
+${\cal L}_H$ is the set of all type I and type II lines.
+$$\eqalign{
+{}_aL&=\{(x,y)\in H\mid x=a\}\cr
+{}_cL_r&=\{(x,y)\in H\mid(x-c)^2+y^2=r^2\},
+\qquad c={y_2^2-y_1^2+x_2^2-x_1^2\over 2(x_2-x_1)},
+\qquad r=\sqrt{(x_1-c)^2+y_1^2}\cr
+}$$
+
+\beginsection 1.4 Incidence Geometry
+
+An abstract geometry is an incidence geometry if
+\item{i.} Every two points in $\cal S$ lie on a unique line.
+\item{ii.} There are at least three points that are not collinear.
+
+\beginsection 1.5 Parallel Lines
+
+In an abstract geometry, $\ell_1$ and $\ell_2$ are parallel if
+either $\ell_1=\ell_2$ or $\ell_1\cap\ell_2=\emptyset$.
+
+\beginsection 1.6 Theorem
+
+In an incidence geometry, if $\ell_1\cap\ell_2$ has two or more
+points, then $\ell_1=\ell_2$.
+
+\medskip
+\noindent{\it Proof.}
+Let $P,Q\in\ell_1\cap\ell_2$ and $P\ne Q$.
+In an incidence geometry, two points determine a unique line.
+Therefore $\ell_1=\ell_2$.
+
+\beginsection 1.7 Corollary
+
+In an incidence geometry, two lines are either parallel, or they intersect
+in exactly one point.
+
+\beginsection 2.1 Surjective
+
+A function $f$ is surjective if for every $t\in T$ there is an $s\in S$ such that $f(s)=t$.
+In other words, $Image(f)=Range(f)$.
+
+\medskip\noindent
+To prove, let $t$ be an arbitrary $t\in R$. Then find $g$ such that $f(g(t))=t$.
+
+\beginsection 2.2 Injective
+
+A function is injective (one-to-one) if the condition $f(s_1)=f(s_2)$ implies that $s_1=s_2$.
+
+\medskip\noindent
+To prove, let $f(s_1)=f(s_2)$ then show that $s_1=s_2$.
+
+\beginsection 2.3 Distance Function
+
+A function $d$ is a distance function if for every $P,Q\in\cal S$ we have
+\item{i.} $d(P,Q)\ge 0$
+\item{ii.} $d(P,Q)=0$ if and only if $P=Q$
+\item{iii.} $d(P,Q)=d(Q,P)$
+
+\beginsection 2.4 Ruler
+
+A function $f:\ell\rightarrow R$ is a ruler (coordinate system) if
+\item{i.} $f$ is a bijection
+\item{ii.} for each $P,Q\in\ell$ the following Ruler Equation is true
+$$|f(P)-f(Q)|=d(P,Q)$$
+
+\beginsection 2.5 Lemma
+
+In an incidence geometry, all we have to prove is that $f$ is surjective and
+satisfies the Ruler Equation.
+
+\beginsection 2.6 Metric Geometry
+
+A metric geometry is an incidence geometry in which every line has a ruler.
+
+\beginsection 3.1 Hyperbolic Functions
+
+$$\sinh t={e^t-e^{-t}\over2},\qquad \cosh t={e^t+e^{-t}\over2}$$
+To remember which is which, recall that
+$$\sinh0=0,\qquad\cosh0=1$$
+
+\beginsection 3.2 Poincare Plane
+
+This is how to convert the result of a standard ruler back to a point. Given
+$$t=\ln\left({x_0-c+r\over y_0}\right)$$
+we have
+$$x_0=r\tanh t+c,\qquad y_0=r\mathop{\hbox{sech}}t$$
+
+\beginsection 3.3 Standard Ruler, Euclidean Plane
+
+$$\eqalign{
+f(a,y)&=y\cr
+f(x,y)&=x\sqrt{1+m^2}\cr
+}$$
+
+\beginsection 3.4 Standard Ruler, Taxicab Plane
+
+$$\eqalign{
+f(a,y)&=y\cr
+f(x,y)&=x(1+|m|)\cr
+}$$
+
+\beginsection 3.5 Standard Ruler, Poincare Plane
+
+$$\eqalign{
+f(a,y)&=\ln y\cr
+f(x,y)&=\ln\left({x-c+r\over y}\right)\cr
+}$$
+
+\beginsection 3.6 Special Coordinate Systems
+
+{\it Theorem.}
+A ruler can be translated and/or reflected and the result is still a ruler.
+$$g(P)=\pm(f(P)-a)$$
+\medskip\noindent
+{\it Theorem (Ruler Placement Theorem).}
+Let $P,Q\in\ell$. Then there is a ruler $g$ with $g(P)=0$ and $g(Q)>0$.
+$$g(X)=\cases{
+f(X)-f(P),& for $f(Q)>f(P)$\cr
+f(P)-f(X),& for $f(Q)<f(P)$\cr
+}$$
+
+\beginsection 3.7 Cartesian Plane Redux
+
+\item{i.} $A+B=(x_1+x_2,y_1+y_2)$
+\item{ii.} $rA=(rx_1,rx_2)$
+\item{iii.} $A-B=(x_1-x_2,y_1-y_2)$
+\item{iv.} $\langle A,B\rangle=x_1x_2+y_1y_2$
+\item{v.} $\|A\|=\sqrt{\langle A,A\rangle}$
+
+\medskip\noindent
+Hence
+$$d_E(P,Q)=\|P-Q\|$$
+
+\medskip\noindent
+The line through $A$ and $B$ can be described parametrically as
+$$L_{A,B}=\{X\in R^2\mid X=A+t(B-A)\hbox{\ for some $t\in R$}\}$$
+
+\medskip\noindent
+Alternate ruler, not necessarily the standard ruler.
+$$f(C)=f(A+t(B-A))=t\|A-B\|$$
+
+\beginsection 3.8 Triangle Inequality
+
+$$d(A,C)\le d(A,B)+d(B,C)$$
+
+\beginsection 3.9 Betweeness
+
+$A{-}B{-}C$ if and only if $A$, $B$, $C$ are collinear and $d(A,C)=d(A,B)+d(B,C)$.
+
+\beginsection 4.1 Definition
+
+For $x,y,z\in R$, $y$ is between $x$ and $z$, written $x*y*z$,
+if either $x<y<z$ or $z<y<x$.
+
+\beginsection 4.2 Theorem
+
+$A{-}B{-}C$ if and only if $f(A)*f(B)*f(C)$.
+
+\beginsection 4.3 Corollary
+
+Given three distinct points on a line, only one is between the other two.
+
+\beginsection 4.4 Proposition
+
+In the Euclidean Plane, we have $A{-}B{-}C$ if and only if there is
+a $t\in R$ such that $0<t<1$ and $B=A+t(C-A)$.
+
+\beginsection 4.5 Definition
+
+$A{-}B{-}C{-}D$ implies the following.
+\item{i.} $A{-}B{-}C$
+\item{ii.} $A{-}B{-}D$
+\item{iii.} $A{-}C{-}D$
+\item{iv.} $B{-}C{-}D$
+
+\beginsection 4.6 Proposition
+
+If $A{-}B{-}C{-}D$ then the points are collinear.
+
+\beginsection 4.7 Proposition
+
+$A{-}B{-}C$ and $B{-}C{-}D$ imply $A{-}B{-}C{-}D$.
+
+\beginsection 4.8 Proposition
+
+Suppose we have $A{-}B{-}C$ and $A{-}B{-}D$.
+Then either $A{-}B{-}C{-}D$ or $A{-}B{-}D{-}C$.
+
+\beginsection 4.9 Line Segment
+
+$$\overline{AB}=\{C\in{\cal S}\mid A{-}C{-}B\hbox{, or $C=A$ or $C=B$}\}$$
+
+\beginsection 4.10 Try Out
+
+A function is strictly increasing if its derivative is strictly positive.
+
+\beginsection 4.11 Definition
+
+Let $X$ be a subset of a metric geometry.
+A point $P\in X$ is called a passing point of $X$ if there are $A,B\in X$
+such that $A{-}P{-}B$.
+Otherwise, $P$ is called an extreme point of $X$.
+
+\beginsection 4.12 Theorem
+
+For the line segment $\overline{AB}$, the extreme points are $A$ and $B$.
+All other points on $\overline{AB}$ are passing points.
+
+\beginsection 4.13 Corollary
+
+If $\overline{AB}=\overline{CD}$, then either $A=C$, $B=D$, or $A=D$, $B=C$.
+
+\beginsection 4.14 Definition
+
+$A$ and $B$ are the endpoints (pr vertices) of the line segment $\overline{AB}$.
+The length of $\overline{AB}$ is $AB=d(A,B)$.
+
+\beginsection 4.15 Lemma
+
+If $A$ and $B$ are distinct points in a metric geometry, then there is a point
+$C$ such that $A{-}B{-}C$.
+
+\beginsection 4.16 Definition
+
+$$\overrightarrow{AB}=\overline{AB}\cup\{C\in S\mid A{-}B{-}C\}$$
+
+\beginsection 4.17 Theorem
+
+In a metric geometry
+\item{* i.} if $C\in\overrightarrow{AB}$ and $C\ne A$, then $\overrightarrow{AC}=\overrightarrow{AB}$.
+\item{ii.} If $\overrightarrow{AB}=\overrightarrow{CD}$, then $A=C$.
+
+\beginsection 4.18 Definition
+
+The point $A$ is called the vertex, or initial point of the ray $\overrightarrow{AB}$.
+
+\vfill
+\eject
+
+\noindent
+{\bf Hints for solving problems}
+
+\medskip\noindent
+1. To show that something is a subset of something else, use the arbitrary member trick.
+
+\medskip\noindent
+2. To show the equivalence of sets, use the arbitrary member trick in both directions.
+
+\medskip\noindent
+3. Consider using proof by contradiction in cases involving rays.
+
+\medskip\noindent
+4. In the Poincare Plane,
+$$f^{-1}(t)=(c+r\tanh t, r\mathop{\hbox{sech}}t)$$
+
+\medskip\noindent
+5. In the Euclidean Plane,
+$$\eqalign{
+\overline{AB}&=\{C\in R^2\mid C=A+t(B-A)\hbox{\ \ for some $t$ with $0\le t\le1$}\}\cr
+\overrightarrow{AB}&=\{C\in R^2\mid C=A+t(B-A)\hbox{\ \ for some $t\ge 0$}\}\cr
+}$$
+
+\medskip\noindent
+6. In the Euclidean Plane,
+$$d_E=\sqrt{(x_1-x_2)^2+(y_1-y_2)^2}$$
+
+
+\end

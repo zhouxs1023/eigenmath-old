@@ -1,0 +1,170 @@
+{\it George Weigt -- Homework \#2}
+
+\beginsection Question A1.
+
+$$\int_0^\pi\cos^2x\,dx=\int_0^\pi{1+\cos2x\over2}\,dx
+=\left({x\over2}+{\sin 2x\over4}\right)\bigg|_0^\pi
+={\pi\over2}$$
+
+\beginsection Question A2.
+
+$$g(x)=\lfloor x\rfloor-2\lfloor x/2\rfloor$$
+Sketch the graph of $g(x)$ for $0\le x\le5$.
+
+$g(0)=0-0=0$
+
+$g(1)=1-0=1$
+
+$g(2)=2-2=0$
+
+$g(3)=3-2=1$
+
+$g(4)=4-4=0$
+
+$g(5)=5-4=1$
+
+{\obeylines\obeyspaces\tt
+\    ****    ****    *
+
+
+****    ****    ****
+0   1   2   3   4   5
+}
+
+\beginsection Question A3.
+
+$$\int_0^2g(x)\,dx=1$$
+
+\beginsection Question A4.
+
+Integration by parts. Evaluate
+$$\int_0^1\ln x\,dx$$
+\medskip
+Solution: Let $u=\ln x$ and $dv=dx$. Then $du=dx/x$ and $v=x$ hence
+$$\int\ln x\,dx=uv-\int v\,du=x\ln x-\int x\cdot{dx\over x}=x\ln x-x+C$$
+Then
+$$(x\ln x-x+C)\bigg|_0^1=-1$$
+
+\beginsection Question A5.
+
+Integration by parts. Evaluate
+$$\int_0^1x\ln x\,dx$$
+\medskip
+Solution: Let $u=\ln x$ and $dv=x\,dx$.
+Then $du=dx/x$ and $v=x^2/2$ hence
+$$\int x\ln x\,dx=uv-\int v\,du={x^2\ln x\over2}-{x^2\over4}+C$$
+Then
+$$\left({x^2\ln x\over2}-{x^2\over4}+C\right)\bigg|_0^1=-{1\over4}$$
+
+\beginsection Question A6.
+
+Integration by parts. Evaluate
+$$\int_0^1\tan^{-1}x\,dx$$
+\medskip
+Solution: Let $u=\tan^{-1}x$ and $dv=dx$.
+Then
+$$du={1\over x^2+1}\,dx,\qquad v=x$$
+Hence
+$$\int\tan^{-1}x\,dx=uv-\int v\,du=x\tan^{-1}x-\int{x\over x^2+1}\,dx$$
+Use the substitution $y=x^2+1$. Then $dy=2x\,dx$ hence $dx=dy/2x$.
+We have
+$$\int{x\over x^2+1}\,dx=\int{x\over y}\cdot{dy\over2x}
+={1\over2}\int {dy\over y}={1\over2}\ln y={1\over2}\ln(x^2+1)=\ln\sqrt{x^2+1}$$
+Therefore
+$$\int\tan^{-1}x\,dx=x\tan^{-1}x-\ln\sqrt{x^2+1}+C$$
+We have
+$$\int_0^1\tan^{-1}x\,dx=\left(x\tan^{-1}x-\ln\sqrt{x^2+1}+C\right)\bigg|_0^1
+={\pi\over4}-\ln \sqrt2$$
+
+\beginsection Question A7.
+
+Evaluate the double integral
+$$\int\!\!\int_D(x^2+y^2)\,dx\,dy$$
+where $D$ is the region in the $xy$-plane given by
+$$D=\{(x,y)\mid0\le x\le1,\,2\le y\le3\}$$
+\medskip
+Solution: When the region $D$ is a rectangle, as it is here, we do not
+have to parameterize the limits of integration.
+First, integrate over $x$.
+$$\int_0^1(x^2+y^2)\,dx=\left({x^3\over3}+xy^2\right)\bigg|_0^1={1\over3}+y^2$$
+Now integrate the result over $y$.
+$$\int_2^3\left({1\over3}+y^2\right)\,dy=\left({y\over3}+{y^3\over3}\right)\bigg|_2^3
+={3\over3}+{27\over3}-{2\over3}-{8\over3}={20\over3}$$
+Therefore
+$$\int\!\!\int_D(x^2+y^2)\,dx\,dy={20\over3}$$
+
+\beginsection Question A8.
+
+Evaluate the double integral
+$$\int\!\!\int_D(x^2+y^2)\,dx\,dy$$
+where $D$ is the region in the $xy$-plane
+bounded by the line $y=x$ and $y=x^2$.
+\medskip
+Solution: For each $x$, integrate $y$ from $x^2$ to $x$.
+$$\int_{x^2}^x(x^2+y^2)\,dy=\left(yx^2+{y^3\over3}\right)\bigg|_{y=x^2}^{y=x}=
+x^3+{x^3\over3}-x^4-{x^6\over3}$$
+$$\int_0^1\left({4x^3\over3}-x^4-{x^6\over3}\right)\,dx
+=\left({x^4\over3}-{x^5\over5}-{x^7\over21}\right)\bigg|_0^1
+={1\over3}-{1\over5}-{1\over21}={3\over35}$$
+Therefore
+$$\int\!\!\int_D(x^2+y^2)\,dx\,dy={3\over35}$$
+
+\beginsection Question B1.
+
+Evaluate exactly
+$$\int_{-\infty}^{\infty}e^{-x^2}\,dx$$
+\medskip
+Solution: The trick is to use to polar coordinates.
+$$\eqalign{
+\left(\int_{-\infty}^{\infty}e^{-x^2}\,dx\right)^2
+&=\left(\int_{-\infty}^{\infty}e^{-x^2}\,dx\right)
+\left(\int_{-\infty}^{\infty}e^{-y^2}\,dy\right)\cr
+%
+&=\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}
+e^{-(x^2+y^2)}\,dx\,dy\cr
+%
+&=\int_0^{2\pi}\int_0^\infty re^{-r^2}\,dr\,d\theta\cr
+&=\int_0^{2\pi}\left(-{e^{-r^2}\over2}\bigg|_0^\infty\right)\,d\theta\cr
+&=\int_0^{2\pi}{1\over2}\,d\theta\cr
+&={\theta\over2}\bigg|_0^{2\pi}\cr
+&=\pi
+}$$
+Therefore
+$$\int_{-\infty}^{\infty}e^{-x^2}\,dx=\sqrt\pi$$
+
+\beginsection Question B2.
+
+Let $f(x)$ be a continuous function. Define
+$$J(a)={1\over2}\int_0^a(a-x)^2f(x)\,dx$$
+Find $dJ(a)/da$ and $d^2J(a)/da^2$.
+\medskip
+Solution: Expanding the quadratic term we have
+$$J(a)={a^2\over2}\int_0^af(x)\,dx-a\int_0^axf(x)\,dx+{1\over2}\int_0^ax^2f(x)\,dx$$
+Then
+$$\eqalign{
+{dJ(a)\over da}&=
+{d\over da}\left({a^2\over2}\int_0^af(x)\,dx\right)
+-{d\over da}\left(a\int_0^axf(x)\,dx\right)
++{d\over da}\left({1\over2}\int_0^ax^2f(x)\,dx\right)\cr
+%
+}$$
+Now work out the derivatives one at a time.
+$${d\over da}\left({a^2\over2}\int_0^af(x)\,dx\right)
+=a\int_0^af(x)\,dx+{a^2\over2}f(a)$$
+$$-{d\over da}\left(a\int_0^axf(x)\,dx\right)
+=-\int_0^axf(x)\,dx-a^2f(a)$$
+$${d\over da}\left({1\over2}\int_0^ax^2f(x)\,dx\right)
+={a^2\over2}f(a)$$
+Note that the $a^2$ terms cancel. Putting it all together we have
+$${dJ(a)\over da}=a\int_0^af(x)\,dx-\int_0^axf(x)\,dx
+=\int_0^a(a-x)f(x)\,dx$$
+Next, for the second derivative we have
+$$\eqalign{
+{d^2J(a)\over da^2}&={d\over da}\left(a\int_0^af(x)\,dx\right)
+-{d\over da}\left(\int_0^axf(x)\,dx\right)\cr
+&=\int_0^af(x)\,dx+af(a)-af(a)\cr
+&=\int_0^af(x)\,dx
+}$$
+
+
+\end

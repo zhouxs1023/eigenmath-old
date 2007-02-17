@@ -1,0 +1,111 @@
+\noindent{\it George Weigt -- Advanced Algebra Homework \#3}
+
+\beginsection Problem 1.
+
+Let
+$$I_n=\int_0^1\,e^tt^n\,dt$$
+Show that, for all $n\ge1$,
+$${1\over n+1}\le I_n$$
+
+\medskip\noindent
+Solution: From the hint we have
+$$\int_0^1t^n\,dt\le\int_0^1t^ne^t\,dt$$
+Hence
+$${t^{n+1}\over n+1}\bigg|_0^1={1\over n+1}\le I_n$$
+
+\beginsection Problem 2.
+
+Show that, for all $n\ge1$,
+$$I_n\le\int_0^1et^n\,dt$$
+and conclude that
+$$I_n\le{3\over n}$$
+\medskip\noindent
+Solution: From the hint we have for $0\le t\le 1$
+$$e^t\le e$$
+Multiply both sides by $t^n$ and integrate.
+$$\int_0^1e^tt^n\,dt\le\int_0^1et^n\,dt$$
+We have
+$$I_n\le{e\over n+1}$$
+From
+$${1\over n+1}<{1\over n}$$
+we can multiply by $e$ and obtain
+$${e\over n+1}<{e\over n}$$
+Then from $e<3$ we obtain
+$${e\over n}<{3\over n}$$
+Therefore
+$$I_n<{3\over n}$$
+
+\beginsection Problem 4.
+
+Show that
+$$I_n=e-nI_{n-1}$$
+\medskip\noindent
+Solution: From the hint, let
+$$u=t^n,\qquad dv=e^t\,dt$$
+Then
+$$du=nt^{n-1}\,dt,\qquad v=e^t$$
+Hence
+$$\eqalign{
+I_n=\int_0^1 t^ne^t\,dt&=\int_0^1 u\,dv\cr
+&=uv\bigg|_0^1-\int_0^1 v\,du\cr
+&=t^ne^t\bigg|_0^1-n\int_0^1e^tt^{n-1}\,dt\cr
+&=e-nI_{n-1}\cr
+}$$
+
+\beginsection Problem 5.
+
+Evaluate $I_n$ for $n=0,1,2,3,4$.
+\medskip\noindent
+Solution: From the hint, $I_0=e-1$. Then
+$$\eqalign{
+I_1&=e-1I_0=e-1(e-1)=1\cr
+I_2&=e-2I_1=e-2(1)=e-2\cr
+I_3&=e-3I_2=e-3(e-2)=-2e+6\cr
+I_4&=e-4I_3=e-4(-2e+6)=9e-24\cr
+}$$
+
+\beginsection Problem 6.
+
+Show that
+$$I_n=A_n+eB_n$$
+where
+$$A_n=(-1)^{n+1},\qquad B_n=\sum_{k=0}^n(-1)^k{n!\over(n-k)!}$$
+
+\medskip\noindent
+Solution: For an inductive proof we need the following which will be proved later.
+$$A_{n+1}=-(n+1)A_n,\qquad B_{n+1}=1-(n+1)B_n$$
+Inductive Step 0:
+$$A_0+eB_0=(-1)^{0+1}0!+e(-1)^0{0!\over0!}=e-1=I_0$$
+Inductive Step 1: Assume $I_n=A_n+eB_n$ for some $n$. Then
+$$\eqalign{
+A_{n+1}+eB_{n+1}&=-(n+1)A_n+e(1-(n+1)B_n)\cr
+&=e-(n+1)(A_n+eB_n)\cr
+&=e-(n+1)I_n\cr
+&=I_{n+1}\cr
+}$$
+Therefore by induction we have
+$$I_n=A_n+eB_n$$
+for all $n$.
+
+\vfill\eject\noindent
+Intermediate proofs for Problem 6.
+$$A_{n+1}=(-1)^{n+2}(n+1)!=(-1)(-1)^{n+1}(n+1)n!=-(n+1)A_n$$
+Here is a proof that $B_{n+1}=1-(n+1)B_n$ in six easy steps.
+\medskip\noindent
+Step 1. Write down the expression for $B_{n+1}$.
+$$B_{n+1}=\sum_{k=0}^{n+1}(-1)^k{(n+1)!\over(n+1-k)!}$$
+Step 2. Pull out the $k=0$ term and start the summation at $k=1$.
+$$B_{n+1}=1+\sum_{k=1}^{n+1}(-1)^k{(n+1)!\over(n+1-k)!}$$
+Step 3. Factor out $(n+1)$.
+$$B_{n+1}=1+(n+1)\sum_{k=1}^{n+1}(-1)^k{n!\over(n+1-k)!}$$
+Step 4.
+Subtract 1 from the index and balance it
+by adding 1 to $k$ in the summand.
+Note that $n+1-k$ becomes $n+1-(k+1)=n-k$.
+$$B_{n+1}=1+(n+1)\sum_{k=0}^n(-1)^{k+1}{n!\over(n-k)!}$$
+Step 5. Factor out a $(-1)$.
+$$B_{n+1}=1-(n+1)\sum_{k=0}^n(-1)^k{n!\over(n-k)!}$$
+Step 6. Substitute with $B_n$.
+$$B_{n+1}=1-(n+1)B_n$$
+
+\end
