@@ -17,6 +17,8 @@
 void
 define_user_function(void)
 {
+	int i, n;
+
 	NAME = caadr(p1);
 	ARGS = cdadr(p1);
 	BODY = caddr(p1);
@@ -26,6 +28,32 @@ define_user_function(void)
 
 	NAME->u.sym.binding = BODY;
 	NAME->u.sym.arglist = ARGS;
+
+	// do eval, maybe
+
+	if (car(BODY) == symbol(EVAL)) {
+
+		// remove eval
+
+		NAME->u.sym.binding = cadr(BODY);
+
+		// evaluate the function definition using quoted symbols
+
+		push(NAME);
+		n = length(ARGS);
+		for (i = 0; i < n; i++) {
+			push_symbol(QUOTE);
+			push(car(ARGS));
+			list(2);
+			ARGS = cdr(ARGS);
+		}
+		list(n + 1);
+		eval();
+
+		// new binding
+
+		NAME->u.sym.binding = pop();
+	}
 
 	push(symbol(NIL));	// return value
 }
@@ -70,7 +98,6 @@ eval_user_function(void)
 	while (iscons(FORMAL_ARGS) && iscons(ACTUAL_ARGS)) {
 		push(car(FORMAL_ARGS));
 		push(car(ACTUAL_ARGS));
-		eval();
 		subst();
 		FORMAL_ARGS = cdr(FORMAL_ARGS);
 		ACTUAL_ARGS = cdr(ACTUAL_ARGS);
@@ -133,6 +160,32 @@ static char *s[] = {
 
 	"y",
 	"cos(b)",
+
+	// eval func body
+
+	"x=quote(x)",
+	"",
+
+	"p(x)=7+4x",
+	"",
+
+	"w(x)=eval(integral(p(x)))",
+	"",
+
+	"w-2*x^2-7*x",
+	"0",
+
+	"w(5)-w(2)",
+	"63",
+
+	"x=7",
+	"",
+
+	"p(x,y)=eval(x+y)",
+	"",
+
+	"p",
+	"x+y",
 };
 
 void
