@@ -16,7 +16,10 @@ $$f(x)=\cases{
 $$\mu=\int_\tau^\infty x{\beta\over\sigma^\beta}(x-\tau)^{\beta-1}e^{-(x-\tau)^\beta/\sigma^\beta}\,dx$$
 Use integration by parts.
 $$
-u=x,\qquad du=dx,\qquad
+u=x
+,\qquad
+du=dx
+,\qquad
 v=-e^{-(x-\tau)^\beta/\sigma^\beta},\qquad
 dv={\beta\over\sigma^\beta}(x-\tau)^{\beta-1}e^{-(x-\tau)^\beta/\sigma^\beta}\,dx
 $$
@@ -25,7 +28,21 @@ $$
 =-xe^{-(x-\tau)^\beta/\sigma^\beta}
 +\int e^{-(x-\tau)^\beta/\sigma^\beta}\,dx
 $$
-Can't figure out the rest. Is the mean $\tau$?
+Change of variable...
+$$y=(x-\tau)^\beta,\qquad
+dy=\beta(x-\tau)^{\beta-1}\,dx=\beta y^{-1}\,dx,\qquad
+dx=\beta^{-1} y\,dy$$
+Hence
+$$\int e^{-(x-\tau)^\beta/\sigma^\beta}\,dx
+=\beta^{-1}\int ye^{-y/\sigma^\beta}\,dy
+=-\beta^{-1}(\sigma^\beta y+\sigma^{2\beta})e^{-y/\sigma^\beta}
+=-\beta[\sigma^\beta(x-\tau)^\beta+\sigma^{2\beta}]e^{-(x-\tau)^\beta/\sigma^\beta}$$
+
+$$M(t)=
+-e^{tx-(x-\tau)^\beta/\sigma^\beta}\bigg|_\tau^\infty
++\int_\tau^\infty e^{tx-(x-\tau)^\beta/\sigma^\beta}\,dx
+$$
+
 
 \bigskip
 {\bf (b) Find the distribution function of $X$.}
