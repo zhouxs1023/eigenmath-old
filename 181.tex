@@ -1,0 +1,85 @@
+
+indent
+{\it George Weigt -- Advanced Calculus Homework \#4}
+
+$$\eqalign{
+I&=\int_0^{\pi/2}\ln(\cos x)\,dx\cr
+J&=\int_0^{\pi/2}\ln(\sin x)\,dx
+}$$
+
+\beginsection 1.
+
+First, rewrite the integral $I$ by using the substitution
+$x={\pi\over2}-y$. Show that
+$$I=J$$
+Solution: We have
+$$x={\pi\over2}-y,\qquad dx=-dy$$
+In addition, the limits of the integral must change from $x$ to $y$ according to
+$y(x)={\pi/2}-x$.
+$$\int_{y(0)}^{y(\pi/2)}=\int_{\pi/2}^0$$
+Therefore
+$$\eqalign{
+I&=\int_0^{\pi/2}\ln(\cos x)\,dx\cr
+&=-\int_{\pi/2}^0\ln(\cos({\pi\over2}-y))\,dy\cr
+&=\int_0^{\pi/2}\ln(\cos({\pi\over2}-y))\,dy
+}$$
+The last step removes the minus sign by flipping the limits of integration.
+Then from the hint, applying the substitution $\cos({\pi\over2}-y)=\sin y$ yields
+$$I=\int_0^{\pi/2}\ln(\cos({\pi\over2}-y))\,dy=
+\int_0^{\pi/2}\ln(\sin y)\,dy=J
+$$
+
+\beginsection 2.
+
+Next, add the two integrals together and show that
+$$I+J=-{\pi\over2}\ln2+{1\over2}\int_0^\pi\ln(\sin x)\,dx\eqno(4)$$
+Solution: We have
+$$\eqalign{
+I+J&=\int_0^{\pi/2}\ln(\cos x)\,dx+\int_0^{\pi/2}\ln(\sin x)\,dx\cr
+&=\int_0^{\pi/2}\big[\ln(\cos x)+\ln(\sin x)\big]\,dx\cr
+&=\int_0^{\pi/2}\ln(\cos x\sin x)\,dx\cr
+&=\int_0^{\pi/2}\ln(\hbox{$1\over2$}\sin 2x)\,dx\cr
+&=\int_0^{\pi/2}\big[\ln\hbox{$1\over2$}+\ln(\sin 2x)\big]\,dx\cr
+&=\int_0^{\pi/2}\ln\hbox{$1\over2$}\,dx+\int_0^{\pi/2}\ln(\sin2x)\,dx\cr
+}$$
+On the last line above, the left hand integral becomes
+$$\int_0^{\pi/2}\ln\hbox{$1\over2$}\,dx=(-\ln2)x\bigg|_0^{\pi/2}=-{\pi\over2}\ln2$$
+Using the substitution $y=2x$ and $dy=2dx$, the right hand integral becomes
+$$\int_0^{\pi/2}\ln(\sin2x)\,dx={1\over2}\int_0^\pi\ln(\sin y)\,dy$$
+Hence
+$$I+J=-{\pi\over2}\ln2+{1\over2}\int_0^\pi\ln(\sin x)\,dx$$
+
+\beginsection 3.
+
+Show that
+$$\int_0^\pi\ln(\sin x)\,dx=2J\eqno(5)$$
+Solution: Consider the following integral.
+$$\int_{\pi/2}^\pi\ln(\sin x)\,dx$$
+If we use the substitution
+$$y=x-{\pi/2},\qquad dy=dx,\qquad y(\pi/2)=0,\qquad y(\pi)=\pi/2$$
+we obtain
+$$\int_{\pi/2}^\pi\ln(\sin x)\,dx=\int_0^{\pi/2}\ln(\sin(y+\pi/2))\,dy
+=\int_0^{\pi/2}\ln(\cos y)\,dy=I$$
+Then by $I=J$ we have
+$$\int_{\pi/2}^\pi\ln(\sin x)\,dx=J$$
+Hence
+$$\int_0^\pi\ln(\sin x)\,dx
+=\int_0^{\pi/2}\ln(\sin x)\,dx+\int_{\pi/2}^\pi\ln(\sin x)\,dx
+=2J$$
+
+\beginsection 4.
+
+Finally, by combining your answers in (4) and (5), evaluate $I$ and $J$.
+\medskip\noindent
+Solution: From $I=J$ we have $I+J=2J$. Hence from (4) and (5) we have
+$$-{\pi\over2}\ln2+{1\over2}\int_0^\pi\ln(\sin x)\,dx
+=\int_0^\pi\ln(\sin x)\,dx$$
+Therefore
+$$\int_0^\pi\ln(\sin x)\,dx=-\pi\ln2$$
+Combining the above result with (5) we have
+$$\int_0^\pi\ln(\sin x)\,dx=-\pi\ln2=2J$$
+Therefore
+$$I=J=-{\pi\over2}\ln2$$
+
+
+\end
