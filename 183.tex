@@ -1,0 +1,252 @@
+\magnification=1200
+
+\noindent
+{\it George Weigt -- Advanced Calculus Homework \#5}
+
+\beginsection Q1
+
+Obtain the Jacobian determinant $\displaystyle{\partial(u,v)\over\partial(x,y)}$ for
+$$\eqalign{
+u&=x^3-3xy^2\cr
+v&=3x^2y-y^3\cr
+}$$
+We have
+$$\eqalign{
+{\partial(u,v)\over\partial(x,y)}
+&=\left|\matrix{
+{\partial u\over\partial x} & {\partial u\over\partial y}\cr
+\cr
+{\partial v\over\partial x} & {\partial v\over\partial y}\cr
+}\right|
+=\left|\matrix{
+3x^2-3y^2 & -6xy\cr
+\cr
+6xy & 3x^2-3y^2\cr
+}\right|
+=(3x^2-3y^2)^2+36x^2y^2\cr
+\cr
+&=9x^4+18x^2y^2+9y^4
+}$$
+
+\beginsection Q2A
+
+Given the surface
+$$x^2+y^2+z^2=9$$
+find the normal vector at the point $P=(2,2,1)$.
+\medskip\noindent
+We have
+$$F(x,y,z)=x^2+y^2+z^2-9=0,\qquad
+\nabla F=\left(
+{\partial F\over\partial x},
+{\partial F\over\partial y},
+{\partial F\over\partial z}
+\right)
+=(2x,2y,2z)$$
+The normal vector at $P=(2,2,1)$ is
+$${\bf n}=\nabla F\bigg|_P=(4,4,2)$$
+
+\beginsection Q2B
+
+Given the surface
+$$e^{x^2+y^2}-z^2=0$$
+find the normal vector at $P=(0,0,1)$.
+\medskip\noindent
+We have
+$$F(x,y,z)=e^{x^2+y^2}-z^2=0,\qquad
+\nabla F=\left(
+{\partial F\over\partial x},
+{\partial F\over\partial y},
+{\partial F\over\partial z}
+\right)
+=(2xe^{x^2+y^2},2ye^{x^2+y^2},-2z)$$
+The normal vector at $P=(0,0,1)$ is
+$${\bf n}=\nabla F\bigg|_P=(0,0,-2)$$
+
+\beginsection Q3A
+
+Show that the gravitational field
+$${\bf F}=-k{Mm\over r^2}{{\bf r}\over r}$$
+is the gradient of the scalar
+$$f={kMm\over r}$$
+The first step is to work out the partial derivatives for $1/r=(x^2+y^2+z^2)^{-1/2}$.
+We have
+$${\partial(x^2+y^2+z^2)^{-1/2}\over\partial x}=(-1/2)(2x)(x^2+y^2+z^2)^{-3/2}=-{x\over r^3}$$
+For the remaining variables $y$ and $z$ we have something similar. Therefore
+$$
+{\partial\over\partial x}\left({1\over r}\right)=-{x\over r^3},\qquad
+{\partial\over\partial y}\left({1\over r}\right)=-{y\over r^3},\qquad
+{\partial\over\partial z}\left({1\over r}\right)=-{z\over r^3}
+$$
+Consequently for $\nabla f$ we have
+$$\nabla f=\left(
+{\partial f\over\partial x},{\partial f\over\partial y},{\partial f\over\partial z}
+\right)=-{kMm\over r^3}(x,y,z)
+$$
+We have ${\bf r}=(x,y,z)$ therefore
+$${\bf F}=-k{Mm\over r^2}{{\bf r}\over r}=-{kMm\over r^3}(x,y,z)=\nabla f$$
+
+\beginsection Q3B
+
+Show that the force field
+$${\bf F}={
+2(x^2-y^2-1){\bf i}+4xy{\bf j}
+\over
+[(x+1)^2+y^2][(x-1)^2+y^2]
+}$$
+is the gradient of the scalar
+$$f=\log{
+\sqrt{(x-1)^2+y^2}
+\over
+\sqrt{(x+1)^2+y^2}
+}$$
+Let
+$$\eqalign{
+u&=(x-1)^2+y^2\cr
+v&=(x+1)^2+y^2\cr
+}$$
+Then
+$$\eqalign{
+{\partial\over\partial x}(\hbox{$1\over2$}\log u-\hbox{$1\over 2$}\log v)
+&={1\over2u}{\partial u\over\partial x}-{1\over2v}{\partial v\over\partial x}\cr
+&={x-1\over u}-{x+1\over v}\cr
+&={(x-1)v-(x+1)u\over uv}\cr
+&={2x^2-2y^2-2\over uv}\cr
+%&={(x-1)(x+1)(x+1)+(x-1)y^2-(x+1)(x-1)(x-1)-(x+1)y^2\over uv}\cr
+%
+{\partial\over\partial y}(\hbox{$1\over2$}\log u-\hbox{$1\over 2$}\log v)
+&={1\over2u}{\partial u\over\partial y}-{1\over2v}{\partial v\over\partial y}\cr
+&={y\over u}-{y\over v}\cr
+&={y(v-u)\over uv}\cr
+%&={y((x+1)^2-(x-1)^2))\over uv}\cr
+&={4xy\over uv}
+}$$
+Therefore
+$$\nabla f=\left(
+{2x^2-2y^2-2\over uv},
+{4xy\over uv}
+\right)
+=
+{
+2(x^2-y^2-1){\bf i}+4xy{\bf j}
+\over
+[(x-1)^2+y^2][(x+1)^2+y^2]
+}={\bf F}
+$$
+
+\beginsection Q4A
+
+Find the divergence of the following vector field
+$${\bf v}=xy{\bf i}+yz{\bf j}+zx{\bf k}$$
+We have
+$${\bf v}=(xy,yz,zx)$$
+$$\nabla\cdot{\bf v}
+={\partial xy\over\partial x}+{\partial yz\over\partial y}+{\partial zx\over\partial z}
+=y+z+x
+$$
+
+\beginsection Q4B
+
+Find the divergence of the following vector field
+$${\bf v}=\nabla\times{\bf u}$$
+where ${\bf u}=(P,Q,R)$ with $P$, $Q$ and $R$ having continuous second-order
+partial derivatives.
+\medskip\noindent
+For a rectangular coordinate system we have
+$${\bf v}=\nabla\times{\bf u}=
+\left({\partial R\over\partial y}-{\partial Q\over\partial z}\right){\bf i}+
+\left({\partial P\over\partial z}-{\partial R\over\partial x}\right){\bf j}+
+\left({\partial Q\over\partial x}-{\partial P\over\partial y}\right){\bf k}
+$$
+Then
+$$\eqalign{
+\nabla\cdot{\bf v}&=
+{\partial\over\partial x}
+\left({\partial R\over\partial y}-{\partial Q\over\partial z}\right)+
+{\partial\over\partial y}
+\left({\partial P\over\partial z}-{\partial R\over\partial x}\right)+
+{\partial\over\partial z}
+\left({\partial Q\over\partial x}-{\partial P\over\partial y}\right)\cr
+&=
+{\partial^2 R\over\partial x\partial y}-{\partial^2 Q\over\partial x\partial z}+
+{\partial^2 P\over\partial y\partial z}-{\partial^2 R\over\partial y\partial x}+
+{\partial^2 Q\over\partial z\partial x}-{\partial^2 P\over\partial z\partial y}\cr
+&=0\cr
+}$$
+
+\beginsection Q5A
+
+Find the curl of the following vector field.
+$${\bf v}=xy{\bf i}+yz{\bf j}+zx{\bf k}$$
+Solution:
+$$\nabla\times{\bf v}=
+\left({\partial zx\over\partial y}-{\partial yz\over\partial z}\right){\bf i}+
+\left({\partial xy\over\partial z}-{\partial zx\over\partial x}\right){\bf j}+
+\left({\partial yz\over\partial x}-{\partial xy\over\partial y}\right){\bf k}=
+-y{\bf i}-z{\bf j}-x{\bf k}
+$$
+
+\beginsection Q5B
+
+Find the curl of the following vector field.
+$${\bf v}=\nabla f$$
+where $f$ is $f(x,y,z)$ with continuous second-order partial derivatives.
+\medskip\noindent
+We have
+$$\nabla f=
+\left({\partial f\over\partial x},{\partial f\over\partial y},{\partial f\over\partial z}\right)$$
+hence
+$$\nabla\times(\nabla f)=
+\left({\partial^2 f\over\partial y\partial z}-{\partial^2 f\over\partial z\partial y}\right){\bf i}+
+\left({\partial^2 f\over\partial z\partial x}-{\partial^2 f\over\partial x\partial z}\right){\bf j}+
+\left({\partial^2 f\over\partial x\partial y}-{\partial^2 f\over\partial y\partial x}\right){\bf k}
+=(0,0,0)
+$$
+
+\beginsection Q6
+
+Why can't we find the normal vector for the surface
+$$x^2+y^2-z^2=0$$
+at the point $(0,0,0)$?
+\medskip\noindent
+The surface is a cone and the point $(0,0,0)$ is a singular point.
+This can be seen if we ignore the $y$-coordinate for a moment.
+We have $x^2-z^2=0$, or in other words, $z=\sqrt{x^2}=|x|$.
+The plot of absolute value is a V.
+
+\beginsection Q7
+
+Show that
+$$\eqalignno{
+\nabla\times(\nabla\times\bf H)&=-{\partial^2 {\bf H}\over\partial t^2}&(5)\cr
+\cr
+\nabla^2{\bf H}&={\partial^2{\bf H}\over\partial t^2}&(6)\cr
+}$$
+\medskip\noindent
+For (5) we are given
+$$\nabla\times{\bf H}={\partial {\bf E}\over\partial t},\qquad
+\nabla\times{\bf E}=-{\partial{\bf H}\over\partial t}
+$$
+hence
+$$\eqalign{
+\nabla\times(\nabla\times{\bf H})&=
+\left({\partial^2E_z\over\partial y\partial t}-{\partial^2E_y\over\partial z\partial t}\right){\bf i}+
+\left({\partial^2E_x\over\partial z\partial t}-{\partial^2E_z\over\partial x\partial t}\right){\bf j}+
+\left({\partial^2E_y\over\partial x\partial t}-{\partial^2E_x\over\partial y\partial t}\right){\bf k}\cr
+&={\partial\over\partial t}\left[
+\left({\partial E_z\over\partial y}-{\partial E_y\over\partial z}\right){\bf i}+
+\left({\partial E_x\over\partial z}-{\partial E_z\over\partial x}\right){\bf j}+
+\left({\partial E_y\over\partial x}-{\partial E_x\over\partial y}\right){\bf k}
+\right]\cr
+&={\partial\over\partial t}\bigg[\nabla\times{\bf E}\bigg]\cr
+&={\partial\over\partial t}\left[-{\partial{\bf H}\over\partial t}\right]\cr
+&=-{\partial^2{\bf H}\over\partial t^2}\cr
+}$$
+For (6) we are given
+$$\nabla\times(\nabla\times{\bf v})=\nabla(\nabla\cdot{\bf v})-\nabla^2{\bf v},\qquad
+\nabla\cdot{\bf H}=0$$
+Consequently, we have
+$$\nabla^2{\bf H}=\nabla(\nabla\cdot{\bf H})-\nabla\times(\nabla\times{\bf H})=
+{\partial^2{\bf H}\over\partial t^2}$$
+where the last step follows from $\nabla(0)=(0,0,0)$ and from equation (5) above.
+
+\end
