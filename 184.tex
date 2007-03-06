@@ -1,0 +1,553 @@
+\magnification=1200
+
+\noindent
+{\it George Weigt -- Geometry Homework \#6}
+
+\beginsection Page 75, problem 3.
+
+Let $\ell$ be a line in the Euclidean Plane and suppose that
+$A\in H^+$ and $B\in H^-$.
+Show that $\overline{AB}\cap\ell\ne\emptyset$ in the following way.
+Let
+$$g(t)=\langle A+t(B-A)-P,(Q-P)^\perp\rangle\qquad\hbox{if $t\in R$}$$
+Evaluate $g(0)$ and $g(1)$, show that $g$ is continuous,
+and then prove that $\overline{AB}\cap\ell\ne\emptyset$.
+
+\medskip\hrule
+
+\bigskip\noindent
+We have
+$$\eqalign{
+g(0)&=\langle A-P,(Q-P)^\perp\rangle\cr
+g(1)&=\langle B-P,(Q-P)^\perp\rangle\cr
+}$$
+By hypothesis $A\in H^+$ and $B\in H^-$ hence
+$$\eqalign{
+g(0)&>0\cr
+g(1)&<0\cr
+}$$
+To show that $g$ is continuous, let us work out $g(t)$ in component notation.
+$$\eqalign{
+g(t)&=\langle A+t(B-A)-P,(Q-P)^\perp\rangle\cr
+&=[A_x+t(B_x-A_x)-P_x](P_y-Q_y)+[A_y+t(B_y-A_y)-P_y](Q_x-P_x)\cr
+}$$
+We see that $g(t)$ is a linear function of $t$, therefore $g(t$) is continuous.
+By the Intermediate Value Theorem,
+there is a $c$ such that $0<c<1$ and $g(c)=0$.
+Hence there is a point $C$ such that $C=A+c(B-A)$.
+Since $0<c<1$ we have $A{-}C{-}B$, which implies $C\in\overline{AB}$.
+In addition, $C\in\ell$ because $g(c)=0$.
+Therefore $\overline{AB}\cap\ell\ne\emptyset$.
+
+
+
+
+
+
+
+
+
+
+
+\vfill
+\eject
+
+\beginsection Page 75, problem 4.
+
+If $\ell={}_aL$ is a type I line in the Poincare Plane then prove that
+\item{a.} $H_+$ and $H_-$ as defined in Equation (2-10) are convex.
+\item{b.} If $A\in H_+$ and $B\in H_-$ then $\overline{AB}\cap\ell\ne\emptyset$.
+$$\eqalign{
+H_+=\{(x,y)\in H\mid x>a\}\cr
+H_-=\{(x,y)\in H\mid x<a\}\cr
+}\eqno\hbox{(2-10)}
+$$
+\hrule
+
+\bigskip\noindent
+{\bf Part a.} Let $A=(x_1,y_1)$, $B=(x_2,y_2)$ and $X=(x_0,y_0)$ and let $A{-}X{-}B$.
+The points $A$ and $B$ can lie on either a type I or a type II line
+so we have to consider each case.
+
+\medskip
+\item{1.} If $A$, $B$ and $X$ lie on a type I line then
+$$x_1=x_2=x_0$$
+By the hypothesis that $A,B\in H_+$, we have
+$$x_1=x_2=x_0>a$$
+Hence $X\in H_+$ from which it follows that $\overline{AB}\subset H_+$.
+
+\medskip
+\item{2.} Let $A$, $B$ and $X$ lie on the type II line ${}_cL_r$.
+Let $f(A)=t_1$, $f(B)=t_2$ and $F(X)=t_0$. Then we have
+$$x_1=c+r\tanh t_1,\qquad x_0=c+r\tanh t_0,\qquad x_2=c+r\tanh t_2$$
+Since $\tanh(t)$ is a strictly increasing function, $A{-}X{-}B$ implies $t_1*t_0*t_2$
+which implies
+$$x_1*x_0*x_2$$
+By the hypothesis that $A,B\in H_+$, we have $x_1>a$ and $x_2>a$, hence $x_0>a$
+Therefore we have $X\in H_+$ from whence it follows that $\overline{AB}\in H_+$.
+
+\medskip\noindent
+Therefore, by (1) and (2) above we have $H_+$ is convex.
+The proof is similar for $H_-$, except use $x<a$.
+
+\medskip\noindent
+{\bf Part b.} Let $A=(x_1,y_1)$ and $B=(x_2,y_2)$.
+We have by hypothesis that $x_1>a$ and $x_2<a$, hence $x_1\ne x_2$, hence
+$\overleftarrow A\overrightarrow B$ is a type II line.
+Let $A$ and $B$ lie on the type II line ${}_cL_r$.
+Let $f(A)=t_1$ and $f(B)=t_2$.
+Then we have
+$$x_1=c+r\tanh t_1,\qquad x_2=c+r\tanh t_2$$
+Since $\tanh(t)$ is a continuous function, by $x_1>a$ and $x_2<a$ and the
+Intermediate Value Theorem we have a $t_0$ such that
+$$x_2=c+r\tanh(t_0)=a$$
+By the Ruler Postulate there is a point $X$ such that $f(X)=t_0$.
+Note that since $x_1>x_0>x_2$ and the fact that $\tanh(t)$ is a strictly increasing function,
+we have $t_1>t_0>t_2$ hence $f(A)>f(X)>f(B)$.
+Therefore we have $A{-}X{-}B$ hence $X\in\overline{AB}$.
+From $x_2=a$ we have $X\in{}_aL$.
+Therefore $\overline{AB}\cap\ell\ne\emptyset$.
+
+
+
+
+
+
+
+
+
+
+
+\vfill
+\eject
+
+\beginsection Page 75, problem 5.
+
+For the Taxicab Plane $\{{\cal R}^2,{\cal L}_E,d_T\}$ prove that
+\item{a.} If $A=(x_1,y_1)$, $B=(x_2,y_2)$ and $C=(x_3,y_3)$ are collinear but do not
+lie on a vertical line then $A{-}B{-}C$ if and only if $x_1*x_2*x_3$.
+\item{b.} The Taxicab Plane satisfies PSA.
+\medskip
+\hrule
+
+\bigskip\noindent
+{\bf Part a.} For a non-vertical ine in the Taxicab Plane we have $f(x,y)=x(1+|m|)$.
+If $A{-}B{-}C$ then
+$$f(A)*f(B)*f(C)$$
+Divide through by $1+|m|$ to obtain
+$$x_1*x_2*x_3$$
+Now for the converse. Assume $x_1*x_2*x_3$.
+Multiply all by $1+|m|$ to obtain
+$$f(A)*f(B)*f(C)$$
+Hence $x_1*x_2*x_3$ implies $A{-}B{-}C$.
+
+\medskip\noindent
+{\bf Part b.}
+All we have to do is show is that $A{-}B{-}C$ in the Euclidean Plane if and only if
+$A{-}B{-}C$ in the Taxicab Plane.
+
+\medskip\noindent
+%Let $A=(x_1,y_1)$, $B=(x_2,y_2)$, $C=(x_3,y_3)$.
+For $A{-}B{-}C$ in the Euclidean Plane we have
+$$(x_1\sqrt{1+m^2})*(x_2\sqrt{1+m^2})*(x_3\sqrt{1+m^2})$$
+Divide through by $\sqrt{1+m^2}$ and multiply by $(1+|m|)$ to obtain
+$$x_1(1+|m|)*x_2(1+|m|)*x_3(1+|m|)$$
+which is $A{-}B{-}C$ in the Taxicab Plane.
+For the converse, divide by $(1+|m|)$ and multiply by $\sqrt{1+m^2}$.
+
+
+
+
+
+
+
+
+
+\vfill
+\eject
+
+\beginsection Page 80, problem 1.
+
+(Peano's Axiom) Given a triangle $\triangle ABC$ in a metric geometry which satisfies PSA
+and points $D$, $E$ with $B{-}C{-}D$ and $A{-}E{-}C$, prove there is a point
+$F\in\overleftarrow D\overrightarrow E$ with $A{-}F{-}B$, and $D{-}E{-}F$.
+
+\medskip\hrule
+
+\bigskip\noindent
+Let $\ell=\overleftarrow D\overrightarrow E$. Prove $A{-}F{-}B$ as follows.
+
+\medskip
+\item{1.} By Pasch's Postulate either $\ell\cap\overline{AB}\ne\emptyset$ or
+$\ell\cap\overline{BC}\ne\emptyset$.
+However, we must have $\ell\cap\overline{BC}=\emptyset$ because $\ell$ and
+$\overleftarrow B\overrightarrow C$ are unique lines that already
+intersect at $D$.
+Therefore, there is no choice except to have $\ell\cap\overline{AB}\ne\emptyset$.
+
+\medskip
+\item{2.}
+Let $F\in(\ell\cap\overline{AB})$.
+%
+We have $F\ne A$ because $\ell$ and
+$\overleftarrow A\overrightarrow B$
+are unique lines that already intersect at $E$.
+%
+We have $F\ne B$ because $\ell$ and
+$\overleftarrow B\overrightarrow C$
+are unique lines that already intersect at $D$.
+%
+Therefore we have $A{-}F{-}B$.
+
+\medskip\noindent
+Now prove $D{-}E{-}F$ as follows.
+%
+\medskip
+\item{1.} By $B{-}C{-}D$ we have $B\in H_1$ and $D\in H_2$ for the line
+$\overleftarrow A\overrightarrow C$.
+%
+By $A{-}F{-}B$ we have $F$ in the same half plane as $B$, hence $F\in H_1$.
+%
+Since $D\in H_2$ and $F\in H_1$, by theorem we have
+$\overline{DF}\cap\overleftarrow A\overrightarrow C\ne\emptyset$.
+%We also have $E\in\overline{AC}$ and $E\in\overleftarrow D\overrightarrow F$.
+%
+
+\medskip
+\item{2.} Note that $\ell$ and $\overleftarrow A\overrightarrow C$ intersect at $E$.
+Since distinct lines can intersect in at most one point, we must have
+$\overline{DF}\cap\overleftarrow A\overrightarrow C=\{E\}$.
+
+\medskip
+\item{3.} Therefore we have $E\in\overline{DF}$, hence $D{-}E{-}F$.
+
+
+
+
+
+
+
+\vfill
+\eject
+
+\beginsection Page 81, problem 2.
+
+Given $\triangle ABC$ in a metric geometry which satisfies PSA and points
+$D$, $F$ with $B{-}C{-}D$, $A{-}F{-}B$, prove there exists
+$E\in\overleftarrow D\overrightarrow F$ with $A{-}E{-}C$ and $D{-}E{-}F$.
+
+\medskip\hrule
+
+\bigskip\noindent
+Let $\ell=\overleftarrow D\overrightarrow F$. Prove $A{-}E{-}C$ as follows.
+
+\medskip
+\item{1.} By Pasch's Postulate either $\ell\cap\overline{AC}\ne\emptyset$ or
+$\ell\cap\overline{BC}\ne\emptyset$.
+However, we must have $\ell\cap\overline{BC}=\emptyset$ because $\ell$ and
+$\overleftarrow B\overrightarrow C$ are unique lines that already
+intersect at $D$.
+Therefore, there is no choice except to have $\ell\cap\overline{AC}\ne\emptyset$.
+
+\medskip
+\item{2.}
+Let $E\in(\ell\cap\overline{AC})$.
+%
+We have $E\ne A$ because $\ell$ and
+$\overleftarrow A\overrightarrow B$
+are unique lines that already intersect at $F$.
+%
+We have $E\ne C$ because $\ell$ and
+$\overleftarrow B\overrightarrow C$
+are unique lines that already intersect at $D$.
+%
+Therefore we have $A{-}E{-}C$.
+
+\medskip\noindent
+Now prove $D{-}E{-}F$ as follows.
+%
+\medskip
+\item{1.} By $B{-}C{-}D$ we have $B\in H_1$ and $D\in H_2$ for the line
+$\overleftarrow A\overrightarrow C$.
+%
+By $A{-}F{-}B$ we have $F$ in the same half plane as $B$, hence $F\in H_1$.
+%
+Since $D\in H_2$ and $F\in H_1$, by theorem we have
+$\overline{DF}\cap\overleftarrow A\overrightarrow C\ne\emptyset$.
+%We also have $E\in\overline{AC}$ and $E\in\overleftarrow D\overrightarrow F$.
+%
+
+\medskip
+\item{2.} Note that $\ell$ and $\overleftarrow A\overrightarrow C$ intersect at $E$.
+Since distinct lines can intersect in at most one point, we must have
+$\overline{DF}\cap\overleftarrow A\overrightarrow C=\{E\}$.
+
+\medskip
+\item{3.} Therefore we have $E\in\overline{DF}$, hence $D{-}E{-}F$.
+
+
+
+
+
+
+\vfill
+\eject
+
+\beginsection Page 91, problem 3.
+
+Given $\triangle ABC$ and a point $P$ in a metric geometry which satisfies PSA
+prove there is a line through $P$ that contains exactly two points of
+$\triangle ABC$.
+
+\medskip\hrule
+
+\bigskip\noindent
+Assume $P\not\in\overleftarrow A\overrightarrow B$.
+Define $X$ such that $A{-}X{-}B$
+and let $\ell=\overleftarrow P\overrightarrow X$.
+
+\medskip\noindent
+Since $\ell$ and $\overleftarrow A\overrightarrow B$ are unique lines
+they can intersect in at most one point,
+$\ell\cap\overline{AB}=\{X\}$.
+
+\medskip\noindent
+By Pasch's Postulate $\ell\cap\overline{AC}\ne\emptyset$ or $\ell\cap\overline{BC}\ne\emptyset$.
+
+\medskip\noindent
+Since $X\ne A$ we have $\ell\ne\overleftarrow A\overrightarrow C$.
+Hence the cardinality of $\ell\cap\overline{AC}$ is at most one.
+
+\medskip\noindent
+Since $X\ne B$ we have $\ell\ne\overleftarrow B\overrightarrow C$.
+Hence the cardinality of $\ell\cap\overline{BC}$ is at most one.
+
+\medskip\noindent
+If $\ell\cap\overline{AC}=\{C\}$ and $\ell\cap\overline{BC}=\{C\}$ then we are done,
+$\ell\cap\triangle ABC=\{C,X\}$.
+
+\medskip\noindent
+Otherwise we have $X\ne A,B,C$.
+By Pasch's Postulate and the theorem that $\ell$ cannot intersect all three sides,
+we have either $\ell\cap\overline{AC}\ne\emptyset$ or $\ell\cap\overline{BC}\ne\emptyset$
+but not both.
+
+\medskip\noindent
+Therefore by the cardinality conditions, $\ell$ contains exactly two points of $\triangle ABC$.
+
+\medskip\noindent
+A similar argument can be made for
+$P\not\in\overleftarrow A\overrightarrow C$
+and
+$P\not\in\overleftarrow B\overrightarrow C$.
+Since $A$, $B$ and $C$ are not collinear, at least one of these must be true.
+
+
+
+
+
+
+
+
+
+
+
+
+\vfill
+\eject
+\beginsection Page 81, problem 4.
+
+Prove that the Missing Strip Plane is an incidence geometry.
+
+\medskip\hrule
+
+\bigskip\noindent
+It is known that the Cartesian Plane is an incidence geometry.
+In the Missing Strip Plane we have ${\cal S}\subset R^2$.
+Therefore every two points in $\cal S$ lie on a unique line.
+Let $A=(-1,0)$, $B=(1,0)$ and $C=(1,1)$.
+Then we have at least three points in $\cal S$ that are not collinear.
+
+
+
+
+
+
+
+
+
+
+\vfill
+\eject
+
+\beginsection Page 81, problem 5.
+
+Prove the following (Proposition 4.3.4).
+If $\{{\cal S},{\cal L}\}$ is the Missing Strip Plane and $\ell=L_{m,b}$ then
+$g_\ell:\ell\cap{\cal S}\rightarrow R$ is a bijection.
+$$g_\ell(x,y)=\cases{
+x\sqrt{1+m^2} & if $x<0$\cr
+(x-1)\sqrt{1+m^2} & if $x\ge1$\cr
+}$$
+
+\hrule
+
+\bigskip\noindent
+First show that $g_\ell$ is injective, then show that $g_\ell$ is surjective.
+
+\medskip\noindent
+To show that $g_\ell$ is injective, suppose $g_\ell(A)=g_\ell(B)$, then show $A=B$.
+Let $A=(x_1,y_1)$ and $B=(x_2,y_2)$.
+Then $g_\ell(A)=g_\ell(B)$ implies the following:
+
+\medskip
+\item{i.} For $x_1,x_2<0$ we have $x_1\sqrt{1+m^2}=x_2\sqrt{1+m^2}$, hence $x_1=x_2$.
+
+\medskip
+\item{ii.} For $x_1,x_2\ge1$ we have $(x_1-1)\sqrt{1+m^2}=(x_2-1)\sqrt{1+m^2}$, hence $x_1=x_2$.
+
+\medskip
+\item{iii.} The case $x_1\ge1$ and $x_2<0$ does not apply
+because
+$(x_1-1)\sqrt{1+m^2}$ is zero or positive and
+$x_2\sqrt{1+m^2}$ is negative.
+
+\medskip
+\item{iv.} The case $x_1<0$ and $x_2\ge1$ does not apply for reasons similar to (iii).
+
+\medskip\noindent
+Hence the only possible result of $g_\ell(A)=g_\ell(B)$ is that $x_1=x_2$.
+By $y=mx+b$ we have $y_1=y_2$, hence $A=B$.
+Therefore $g_\ell$ is injective.
+
+\medskip\noindent
+To show that $g_\ell$ is surjective, let $t\in R$ and show that there is an $A\in{\cal S}$
+such that $g_\ell(A)=t$. We have $A=(x_1,y_1)$ where
+$$x_1=\cases{
+t/\sqrt{1+m^2} & $t<0$\cr
+t/\sqrt{1+m^2}+1 & $t\ge0$\cr
+}$$
+and $y_1=mx_1+b$.
+Hence for $t\in R$ we have $g_\ell(A)=t$. Therefore $g_\ell$ is surjective.
+
+\medskip\noindent
+Therefore $g_\ell$ is bijective.
+
+
+
+
+
+
+
+
+
+
+
+\vfill
+\eject
+
+\beginsection Page 81, problem 7.
+
+Given $\triangle ABC$ in a metric geometry and points $D$, $E$ with $A{-}D{-}B$ and
+$C{-}E{-}B$, prove $\overleftarrow A\overrightarrow E\cap
+\overleftarrow C\overrightarrow D\ne\emptyset$.
+
+\medskip\hrule
+
+\bigskip\noindent
+Let $\ell=\overleftarrow A\overrightarrow E$.
+Define half planes $H_1$ and $H_2$ for $\ell$.
+
+\medskip\noindent
+Assert $B\in H_1$ and $C\in H_2$ because $B{-}E{-}C$.
+
+\medskip\noindent
+Assert $D\in H_1$ because $A{-}D{-}B$ implies $D$ is in the same half plane as $B$.
+
+\medskip\noindent
+Assert $\overline{CD}\cap\ell\ne\emptyset$ because
+$C\in H_2$, $D\in H_1$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\vfill
+\eject
+
+\beginsection Page 81, problem 8.
+
+Let $R^3=\{(x,y,z)\mid x,y,z\in R\}$.
+If $A,B\in R^3$ define $L_{A,B}=\{A+t(B-A)\mid t\in R\}$.
+Let ${\cal L}=\{L_{A,B}\mid A,B\in R^3,A\ne B\}$.
+If $A,B\in R^3$ let $d(A,B)=\|A-B\|$.
+Prove that $\{R^3,{\cal L},d\}$ is a metric geometry but that
+it does not satisfy PSA.
+
+\medskip\hrule
+
+\bigskip\noindent
+Let ${\cal M}=\{R^3,{\cal L},d\}$.
+First show that $\cal M$ is an abstract geometry.
+By $L_{A,B}$ we have every two distinct points $A$ and $B$ belong to a line.
+By $t\in R$ we have no line with only one point.
+
+\medskip\noindent
+Next show that $\cal M$ is an incidence geometry.
+%Let $P=(x_1,y_1,z_1)$ and $Q=(x_2,y_2,z_2)$.
+(i) Assume that $P$ and $Q$ lie on two distinct lines $\ell_1$ and $\ell_2$.
+Then
+$$\eqalign{
+\ell_1&=\{P+t(Q-P)\mid t\in R\}\cr
+\ell_2&=\{P+t(Q-P)\mid t\in R\}\cr
+}$$
+However, $\ell_1=\ell_2$ hence the assumption is false.
+Therefore, every two distinct points lie on a unique line.
+(ii) Let $A=(0,0,1)$, $B=(0,1,0)$ and $C=(1,0,0)$.
+There is no linear combination of $A$ and $B$ that equals $C$.
+Hence $A$, $B$ and $C$ are not collinear.
+Therefore, by (i) and (ii), $\cal M$ is an incidence geometry.
+
+\medskip\noindent
+Next show that $d$ is a distance function. We have
+$$d=\sqrt{(x_1-x_2)^2+(y_1-y_2)^2+(z_1-z_2)^2}$$
+(i) $d(P,Q)\ge0$ by the square root function.
+(ii) If $d(P,Q)=0$ then $x_1=x_2$, $y_1=y_2$ and $z_1=z_2$ hence $P=Q$.
+If $P=Q$ then $x_1=x_2$, $y_1=y_2$ and $z_1=z_2$ hence $d(P,Q)=0$.
+Therefore $d(P,Q)=0$ if and only if $P=Q$.
+(iii) $x_1-x_2=x_2-x_1$ and so on. Therefore $d(P,Q)=d(Q,P)$.
+Hence by (i), (ii) and (iii), $d$ is a distance function.
+
+\medskip\noindent
+When $z_1\ne z_2$ let the ruler function be
+$$f(x,y,z)=z\sqrt{m_1^2+m_2^2+1}$$
+Then we have
+$$|f(A)-f(B)|=d(A,B)\eqno(1)$$
+To show that $f$ is surjective, define an arbitrary $t\in R$.
+Then for $A=(x,y,z)$ with
+$$z={t\over\sqrt{m_1^2+m_2^2+1}}$$
+we have $f(A)=t$.
+Hence $t$ is surjective and by (1) it is also bijective.
+For $z_1=z_2$ use the Euclidean ruler which is known to be bijective.
+Therefore, $\cal M$ is a metric geometry.
+
+\medskip\noindent
+$\cal M$ does not satisfy PSA because it fails Pasch's Postulate.
+For example, let $A=(-1,0,0)$, $B=(1,0,0)$ and $C=(0,1,0)$.
+Let $\ell=(0,0,t)$.
+Then $\ell$ intersects $\triangle ABC$ at just one point, $X=(0,0,0)$,
+and $X\ne A,B,C$.
+
+\end
