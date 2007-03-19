@@ -1,4 +1,25 @@
+<html>
+<head>
+</head>
+<body>
+
+<!--
+Hints
+<ol>
+<li>Press the up and down arrow keys for command history.
+<li>Enter X^Y to raise X to the power Y.
+<li>Enter A B or A*B to multiply A times B. AB is the symbol A sub B.
+<li>The simplify function converts tensor zero to scalar zero.
+<li>A=B evaluates B and binds the result to the symbol A.
+On the other hand, the function definition A(X)=B does not evaluate B until A
+itself is evaluated.
+<li>This page can be saved and used as an off-line reference.
+</ol>
+-->
+
 <tt>
+
+<p>
 <table>
 <tr>
 
@@ -15,12 +36,11 @@
 <li><a href="#arctan">arctan</a>
 <li><a href="#arctanh">arctanh</a>
 <li><a href="#arg">arg</a>
-<li><a href="#binomial">binomial</a>
 <li><a href="#ceiling">ceiling</a>
 <li><a href="#check">check</a>
+<li><a href="#choose">choose</a>
 <li><a href="#coeff">coeff</a>
 <li><a href="#cofactor">cofactor</a>
-<li><a href="#condense">condense</a>
 <li><a href="#conj">conj</a>
 <li><a href="#contract">contract</a>
 <li><a href="#cos">cos</a>
@@ -40,7 +60,6 @@
 <li><a href="#do">do</a>
 <li><a href="#dot">dot</a>
 <li><a href="#draw">draw</a>
-<li><a href="#eigen">eigen</a>
 <li><a href="#erf">erf</a>
 <li><a href="#erfc">erfc</a>
 <li><a href="#eval">eval</a>
@@ -122,129 +141,91 @@
 
 <p>
 <h1><tt><a name="abs">abs(<i>x</i>)</a></tt></h1>
-Returns the absolute value (vector length, magnitude) of x.
+Returns the absolute value or vector length of x.
 
 <p>
 <h1><tt><a name="adj">adj(<i>m</i>)</a></tt></h1>
 Returns the adjunct of matrix m.
-The inverse of a matrix is equal to the adjunct divided by the determinant.
-<pre>
-<i>Enter</i>
-
-     A=((A11,A12),(A21,A22))
-     inv(A)-adj(A)/det(A)
-
-<i>Result</i>
-
-     0
-</pre>
+The inverse of m is equal to adj(m) divided by det(m).
 
 <p><h1><tt><a name="and">and(<i>a,b,...</i>)</a></tt></h1>
 Logical-and of predicate expressions.
 <pre>
 <i>Example</i>
 
-     and(A = B, B = C)
+     and(A=B,B=C)
 </pre>
 
 <p>
 <h1><tt><a name="arccos">arccos(<i>x</i>)</a></tt></h1>
-Returns the inverse cosine of <i>x</i>.
+Returns the inverse cosine of x.
+
 <p>
 <h1><tt><a name="arccosh">arccosh(<i>x</i>)</a></tt></h1>
-Returns the inverse hyperbolic cosine of <i>x</i>.
+Returns the inverse hyperbolic cosine of x.
+
 <p>
 <h1><tt><a name="arcsin">arcsin(<i>x</i>)</a></tt></h1>
-Returns the inverse sine of <i>x</i>.
+Returns the inverse sine of x.
+
 <p>
 <h1><tt><a name="arcsinh">arcsinh(<i>x</i>)</a></tt></h1>
-Returns the inverse hyperbolic sine of <i>x</i>.
+Returns the inverse hyperbolic sine of x.
+
 <p>
 <h1><tt><a name="arctan">arctan(<i>x</i>)</a></tt></h1>
-Returns the inverse tangent of <i>x</i>.
+Returns the inverse tangent of x.
+
 <p>
 <h1><tt><a name="arctanh">arctanh(<i>x</i>)</a></tt></h1>
-Returns the inverse hyperbolic tangent of <i>x</i>.
+Returns the inverse hyperbolic tangent of x.
+
 <p>
 <h1><tt><a name="arg">arg(<i>z</i>)</a></tt></h1>
-Returns the argument (angle) of complex z.
-Symbols in expression z are presumed to be positive and real.
-<pre>
-<i>Enter</i>
-	arg(1 + exp(i pi/3))
+Returns the angle of complex z.
 
-<i>Result</i>
-	1/6 pi
-</pre>
-<p>
-<h1><tt><a name="binomial">binomial(<i>n,k</i>)</a></tt></h1>
-Returns the binomial coefficient.
-<pre>
-<i>Enter</i>
-
-     binomial(10,5)
-
-<i>Result</i>
-
-     252
-</pre>
 <p>
 <h1><tt><a name="ceiling">ceiling(<i>x</i>)</a></tt></h1>
-Returns the smallest integer not less than <i>x</i>.
+Returns the smallest integer not less than x.
 
-<p><h1><tt><a name="check">check(<i>x</i>)</a></tt></h1>
+<p>
+<h1><tt><a name="check">check(<i>x</i>)</a></tt></h1>
 If x is true then continue, else stop.
 <pre>
 <i>Example</i>
 
-    check(A = B)
-</pre> 
+    check(A=B)
+</pre>
 
-<p><h1><tt><a name="coeff">coeff(<i>p,x,n</i>)</a></tt></h1>
-Returns the coefficient of x^n in polynomial p.
+<p>
+<h1><tt><a name="choose">choose(<i>n,k</i>)</a></tt></h1>
+Returns the number of combinations of n items taken k at a time,
+choose(n,k)=n!/(k!*(n-k)!)
+
+<p>
+<h1><tt><a name="coeff">coeff(<i>p,x,n</i>)</a></tt></h1>
+Returns the coefficient of x to the n in polynomial p.
 The x argument can be omitted for polynomials in x.
 
-<p><h1><tt><a name="cofactor">cofactor(<i>m,i,j</i>)</a></tt></h1>
+<p>
+<h1><tt><a name="cofactor">cofactor(<i>m,i,j</i>)</a></tt></h1>
 Returns the cofactor of m for row i and column j.
 
 <p>
-<h1><tt><a name="condense">condense(<i>x</i>)</a></tt></h1>
-Attempts to simplify x by factoring common terms.
-<pre>
-<i>Enter</i>
-
-     2 a (x + 1)
-
-<i>Result</i>
-
-     2 a + 2 a x
-
-<i>Enter</i>
-
-     condense(last)
-
-<i>Result</i>
-
-     2 a (x + 1)
-</pre>
-
-<p><h1><tt><a name="conj">conj(<i>z</i>)</a></tt></h1>
+<h1><tt><a name="conj">conj(<i>z</i>)</a></tt></h1>
 Returns the complex conjugate of z.
 <pre>
-<i>Enter</i>
+<i>Example</i>
 
-     conj(3 + 4 i)
-
-<i>Result</i>
-
-     3 - 4 i
+     conj(3+4*i)
 </pre>
 
 <p>
 <h1><tt><a name="contract">contract(<i>a,i,j</i>)</a></tt></h1>
-Returns the contraction of tensor <i>a</i> across indices <i>i</i>
-and <i>j</i>.
-If <i>i</i> and <i>j</i> are omitted then indices 1 and 2 are used.
+Returns "a" summed over indices i and j.
+If i and j are omitted then 1 and 2 are used.
+
+<!--
 The following example shows how contract adds diagonal elements.
 <pre>
 <i>Enter</i>
@@ -257,301 +238,56 @@ The following example shows how contract adds diagonal elements.
 
      a + d
 </pre>
+-->
+
 <p>
 <h1><tt><a name="cos">cos(<i>x</i>)</a></tt></h1>
-Returns the cosine of <i>x</i>.
+Returns the cosine of x.
+
 <p>
 <h1><tt><a name="cosh">cosh(<i>x</i>)</a></tt></h1>
-Returns the hyperbolic cosine of <i>x</i>.
+Returns the hyperbolic cosine of x.
+
 <p>
 <h1><a name="d">d(<i>f,x</i>)</a></h1>
 Returns the partial derivative of f with respect to x.
-The second argument can be omitted in which case the computer will guess which
-symbol to use.
-Returns the gradient of f when x is a vector.
-Note that gradient raises the rank of f by 1.
-<pre>
-<i>Enter</i>
-	d(x^2,x)
 
-<i>Result</i>
-	2 x
-</pre>
-For tensor f the derivative of each element is computed.
-<pre>
-<i>Enter</i>
-
-     d((x,x^2),x)
-
-<i>Result</i>
-
-      1
- 
-     2 x
-</pre>
-Functions with no arguments are treated as dependent on any variable.
-<pre>
-<i>Enter</i>
-
-     d(f(),(x,y))
-
-<i>Result</i>
-
-     d(f(),x)
- 
-     d(f(),y)
-</pre>
-Since partial derivatives commute, multi-derivatives are ordered to produce a
-canonical form.
-<pre>
-<i>Enter</i>
-
-     d(d(f(),y),x)
-
-<i>Result</i>
-
-     d(d(f(),x),y)
-</pre>
-The following table shows the various forms that can be used to compute
-multiderivatives.
-<pre>
-	Form		Equivalent form
-	d(f,2)		d(d(f,x),x)
-	d(f,x,2)	d(d(f,x),x)
-	d(f,x,x)	d(d(f,x),x)
-	d(f,x,2,y,2)	d(d(d(d(f,x),x),y),y)
-	d(f,x,x,y,y)	d(d(d(d(f,x),x),y),y)
-</pre>
-
-<p><h1><tt><a name="deg">deg(<i>p,x</i>)</a></tt></h1>
-Returns the degree of polynomial p in x.
-The x argument can be omitted.
-If omitted, the computer will guess x from the contents of p.
+<p>
+<h1><tt><a name="deg">deg(<i>p,x</i>)</a></tt></h1>
+Returns the degree of polynomial p(x).
 
 <p>
 <h1><tt><a name="denominator">denominator(<i>x</i>)</a></tt></h1>
 Returns the denominator of expression x.
-<pre>
-<i>Enter</i>
 
-     denominator(a/b)
-
-<i>Result</i>
-
-	b
-</pre>
 <p>
 <h1><tt><a name="det">det(<i>m</i>)</a></tt></h1>
-Returns the determinant of matrix <i>m</i>.
-<pre>
-<i>Enter</i>
+Returns the determinant of matrix m.
 
-     A = ((a,b),(c,d))
-
-     det(A)
-
-<i>Result</i>
-
-     a d - b c
-</pre>
 <p>
-<h1><tt><a name="dim">dim(<i>a,i</i>)</a></tt></h1>
-Returns the dimension of the <i>i</i>th index of tensor <i>a</i>.
-If <i>i</i> is omitted then the dimension of the first index is returned.
-<pre>
-<i>Enter</i>
-
-     A = (1,2,3,4)
-
-     dim(A)
-
-<i>Result</i>
-
-     4
-
-<i>Enter</i>
-
-     A = ((1,2,3),(4,5,6))
-
-     dim(A,1)
-
-<i>Result</i>
-
-     2
-
-<i>Enter</i>
-
-     dim(A,2)
-
-<i>Result</i>
-
-     3
-</pre>
+<h1><tt><a name="dim">dim(<i>a,n</i>)</a></tt></h1>
+Returns the cardinality of the nth index of tensor "a".
 
 <p>
 <h1><tt><a name="display">display(<i>x</i>)</a></tt></h1>
-Evaluates expression <i>x</i> and displays the result using Times and Symbol
-fonts.
-User symbols are scanned for the keywords shown below.
-Each keyword is replaced with its associated Greek letter glyph.
-Multiglyph symbols are displayed using subscripts.
-This function can be selected as the default display mode by setting tty = 0.
-<p>
-<table>
+Evaluates expression x and displays the result.
+Useful for printing from inside a "for" loop.
 
-<tr>
-<td>Gamma</td><td>&#915</td>
-<td width="10"></td>
-<td>alpha</td><td>&#945</td>
-<td width="10"></td>
-<td>mu</td><td>&#956</td>
-</tr>
-
-<tr>
-<td>Delta</td><td>&#916</td>
-<td></td>
-<td>beta</td><td>&#946</td>
-<td></td>
-<td>nu</td><td>&#957</td>
-</tr>
-
-<tr>
-<td>Theta</td><td>&#920</td>
-<td></td>
-<td>gamma</td><td>&#947</td>
-<td></td>
-<td>xi</td><td>&#958</td>
-</tr>
-
-<tr>
-<td>Lambda</td><td>&#923</td>
-<td></td>
-<td>delta</td><td>&#948</td>
-<td></td>
-<td>pi</td><td>&#960</td>
-</tr>
-
-<tr>
-<td>Xi</td><td>&#926</td>
-<td></td>
-<td>epsilon</td><td>&#949</td>
-<td></td>
-<td>rho</td><td>&#961</td>
-</tr>
-
-<tr>
-<td>Pi</td><td>&#928</td>
-<td></td>
-<td>zeta</td><td>&#950</td>
-<td></td>
-<td>sigma</td><td>&#963</td>
-</tr>
-
-<tr>
-<td>Sigma</td><td>&#931</td>
-<td></td>
-<td>eta</td><td>&#951</td>
-<td></td>
-<td>tau</td><td>&#964</td>
-</tr>
-
-<tr>
-<td>Upsilon</td><td>&#933</td>
-<td></td>
-<td>theta</td><td>&#952</td>
-<td></td>
-<td>upsilon</td><td>&#965</td>
-</tr>
-
-<tr>
-<td>Phi</td><td>&#934</td>
-<td></td>
-<td>iota</td><td>&#953</td>
-<td></td>
-<td>phi</td><td>&#966</td>
-</tr>
-
-<tr>
-<td>Psi</td><td>&#936</td>
-<td></td>
-<td>kappa</td><td>&#954</td>
-<td></td>
-<td>chi</td><td>&#967</td>
-</tr>
-
-<tr>
-<td>Omega</td><td>&#937</td>
-<td></td>
-<td>lambda</td><td>&#955</td>
-<td></td>
-<td>psi</td><td>&#968</td>
-</tr>
-
-<tr>
-<td></td><td></td>
-<td></td>
-<td></td><td></td>
-<td></td>
-<td>omega</td><td>&#969</td>
-</tr>
-
-</table>
 <p>
 <h1><tt><a name="do">do(<i>a,b,...</i>)</a></tt></h1>
 Evaluates each argument from left to right.
-Returns the value of the last argument.
+Returns the result of the last argument.
+
 <p>
 <h1><tt><a name="dot">dot(<i>a,b,...</i>)</a></tt></h1>
-Returns the dot product of tensors (aka inner product).
-<pre>
-<i>Enter</i>
+Returns the dot or inner product of tensors.
 
-     A = (A1,A2,A3)
-
-     B = (B1,B2,B3)
-
-     dot(A,B)
-
-<i>Result</i>
-
-     A1 B1 + A2 B2 + A3 B3
-</pre>
-The dot product is equivalent to an outer product followed by a contraction
-across the inner indices.
-<pre>
-<i>Enter</i>
-
-     A = hilbert(10)
-
-     dot(A,A) - contract(outer(A,A),2,3)
-
-<i>Result</i>
-
-     0
-</pre>
 <p>
 <h1><tt><a name="draw">draw(<i>f,x</i>)</a></tt></h1>
-Draws a graph of <i>f</i>.
-The second argument can be omitted in which case the computer will
-guess what variable to use.
-Parametric drawing occurs when <i>f</i> returns a vector.
-Ranges are set with <tt>xrange</tt> and <tt>yrange</tt>.
-The defaults are <tt>xrange = (-10,10)</tt> and
-<tt>yrange = (-10,10)</tt>.
-The parametric variable range is set with <tt>trange</tt>.
-The default is <tt>trange = (-pi,pi)</tt>.
-<p>
-Example 1.
-<pre>
-<i>Enter</i>
-	draw(5(cos(t),sin(t)))
-</pre>
-<p>
-Example 2.
-<pre>
-<i>Enter</i>
-	draw(5(cos(3t),sin(5t)))
-</pre>
+Draws a graph of f(x).
+Drawing ranges can be set with xrange and yrange.
+
+<!--
 <p>
 <h1><tt><a name="eigen">eigen(<i>m</i>)</a></tt></h1>
 <h1><tt>eigenval(<i>m</i>)</tt></h1>
@@ -603,125 +339,45 @@ Example 2: Check the relation A = Q<sup>T</sup>DQ.
  
 	1.81902e-11    2.56514e-12    1.32627e-11
 </pre>
+-->
+
 <p>
 <h1><tt><a name="erf">erf(<i>x</i>)</a></tt></h1>
 Error function of x.
-<pre>
-<i>Enter</i>
-	draw(erf(x))
-</pre>
+
 <p>
 <h1><tt><a name="erfc">erfc(<i>x</i>)</a></tt></h1>
 Complementary error function of x.
-<pre>
-<i>Enter</i>
-	draw(erfc(x))
-</pre>
+
 <p>
-<h1><tt><a name="eval">eval(<i>x</i>)</a></tt></h1>
-Returns the evaluation of expression <i>x</i>.
-<pre>
-<i>Enter</i>
+<h1><tt><a name="eval">eval(<i>f,x,a</i>)</a></tt></h1>
+Returns f evaluated at x=a.
 
-     A = quote(sin(pi/6))
-
-     A
-
-<i>Result</i>
-
-          1
-     sin(--- pi)
-          6
-
-<i>Enter</i>
-
-     eval(A)
-
-<i>Result</i>
-
-      1
-     ---
-      2
-</pre>
 <p>
 <h1><tt><a name="exp">exp(<i>x</i>)</a></tt></h1>
-Returns the exponential of <i>x</i>.
-The expression exp(1) should be used to represent the natural number <i>e</i>.
-<pre>
-<i>Enter</i>
+Returns the exponential of x.
 
-     exp(1.0)
-
-<i>Result</i>
-
-     2.71828
-
-<i>Enter</i>
-
-     exp(a) exp(b)
-
-<i>Result</i>
-
-     exp(a + b)
-</pre>
 <p>
 <h1><tt><a name="expcos">expcos(<i>x</i>)</a></tt></h1>
-Returns the exponential cosine of <i>x</i>.
-<pre>
-<i>Enter</i>
+Returns the exponential cosine of x.
 
-     expcos(x)
-
-<i>Result</i>
-
-      1               1
-     --- exp(-i x) + --- exp(i x)
-      2               2
-</pre>
 <p>
 <h1><tt><a name="expsin">expsin(<i>x</i>)</a></tt></h1>
-Returns the exponential sine of <i>x</i>.
-<pre>
-<i>Enter</i>
+Returns the exponential sine of x.
 
-     expsin(x)
-
-<i>Result</i>
-
-      1                 1
-     --- i exp(-i x) - --- i exp(i x)
-      2                 2
-</pre>
 <p>
 <h1><tt><a name="factor">factor(<i>n</i>)</a></tt></h1>
+Factors integer n.
+
+<p>
 <h1><tt>factor(<i>p,x</i>)</tt></h1>
-The first form returns the prime factors for integer <i>n</i>.
-<pre>
-<i>Enter</i>
+Factors polynomial p(x).
+The x can be omitted for polynomials in x.
+Polynomial p should be factorable over integers.
 
-     factor(12345)
-
-<i>Result</i>
-
-     3 5 823
-</pre>
-The second form factors polynomial <i>p</i> in <i>x</i>.
-The argument <i>x</i> can be omitted in which case the computer will
-guess which symbol to use.
-<pre>
-<i>Enter</i>
-
-     factor(x^3 + x^2 + x + 1)
-
-<i>Result</i>
-
-                   2
-     (1 + x) (1 + x )
-</pre>
 <p>
 <h1><tt><a name="factorial">factorial(<i>x</i>)</a></tt></h1>
-Returns the factorial of x.
-The syntax x! can also be used.
+For example,
 <pre>
 <i>Enter</i>
 
@@ -732,24 +388,15 @@ The syntax x! can also be used.
      93326215443944152681699238856266700490715968264381621468592963895217599993229915
      608941463976156518286253697920827223758251185210916864000000000000000000000000
 </pre>
+
+<p>
 <h1><tt><a name="filter">filter(<i>f,a,b,...</i>)</a></tt></h1>
-Returns <i>f</i> with terms containing <i>a</i> (or <i>b</i> or...) removed.
-Useful for implementing a "poor man's" Fourier transform.
-<pre>
-<i>Enter</i>
+Returns f excluding any terms containing a, b, etc.
 
-     Y = A exp(-i k x) + B exp(i k x)
-
-     filter(Y exp(-i k x), x)
-
-<i>Result</i>
-
-     B
-</pre>
 <p>
 <h1><tt><a name="float">float(<i>x</i>)</a></tt></h1>
-Converts rational numbers and integers in <i>x</i> to floating
-point values. The symbol <i>pi</i> is also converted.
+Converts rational numbers and integers to floating
+point values. The symbol pi is also converted.
 <pre>
 <i>Enter</i>
 
@@ -759,9 +406,10 @@ point values. The symbol <i>pi</i> is also converted.
 
      9.33262e+157
 </pre>
+
 <p>
 <h1><tt><a name="floor">floor(<i>x</i>)</a></tt></h1>
-Returns the largest integer not greater than <i>x</i>.
+Returns the largest integer not greater than x.
 
 <p>
 <h1><tt><a name="for">for(<i>i,j,k,a,b,...</i>)</a></tt></h1>
@@ -782,199 +430,54 @@ For i equals j through k evaluate a, b, etc.
 <p>
 <h1><tt><a name="gcd">gcd(<i>a,b,...</i>)</a></tt></h1>
 Returns the greatest common divisor.
+
 <p>
 <h1><tt><a name="hermite">hermite(<i>x,n</i>)</a></tt></h1>
-Returns the <i>n</i>th Hermite polynomial in <i>x</i>.
-<pre>
-<i>Enter</i>
+Returns the nth Hermite polynomial in x.
 
-     hermite(x,3)
-
-<i>Result</i>
-
-                3
-     -12 x + 8 x
-</pre>
 <p>
 <h1><tt><a name="hilbert">hilbert(<i>n</i>)</a></tt></h1>
-Returns a Hilbert matrix of order <i>n</i>.
-<pre>
-<i>Enter</i>
+Returns an n by n Hilbert matrix.
 
-     hilbert(3)
-
-<i>Result</i>
-
-             1      1
-      1     ---    ---
-             2      3
- 
-      1      1      1
-     ---    ---    ---
-      2      3      4
- 
-      1      1      1
-     ---    ---    ---
-      3      4      5
-</pre>
 <p>
 <h1><tt><a name="imag">imag(<i>z</i>)</a></tt></h1>
 Returns the imaginary part of complex z.
-Symbols in expression z are presumed to be positive and real.
-<pre>
-<i>Enter</i>
-	imag(1 + exp(i pi/3))
 
-<i>Result</i>
-	1/2 3^(1/2)
-</pre>
 <p>
 <h1><tt><a name="inner">inner(<i>a,b,...</i>)</a></tt></h1>
 Returns the inner product of tensors.
-This is the same function as the dot product.
-<pre>
-<i>Enter</i>
+Same as the dot product.
 
-     A = (A1,A2,A3)
-
-     B = (B1,B2,B3)
-
-     inner(A,B)
-
-<i>Result</i> 
-
-     A1 B1 + A2 B2 + A3 B3
-</pre>
 <p>
 <h1><tt><a name="integral">integral(<i>f,x</i>)</a></tt></h1>
-Returns the integral of <i>f</i> with respect to <i>x</i>.
-The second argument can be omitted in which case the computer will guess which
-symbol to use.
-<pre>
-<i>Enter</i>
+Returns the integral of f with respect to x.
 
-     integral(log(x),x)
-
-<i>Result</i>
-
-     -x + x log(x)
-</pre>
 <p>
 <h1><tt><a name="inv">inv(<i>m</i>)</a></tt></h1>
-Returns the inverse of matrix <i>m</i>.
-<pre>
-<i>Enter</i>
+Returns the inverse of matrix m.
 
-     A = ((a,b),(c,d))
-
-     inv(A)
-
-<i>Result</i>
-
-           d                 b
-      -----------     - -----------
-       a d - b c         a d - b c
- 
-            c               a
-     - -----------     -----------
-        a d - b c       a d - b c
-</pre>
 <p>
 <h1><tt><a name="isprime">isprime(<i>n</i>)</a></tt></h1>
-Returns 1 if integer <i>n</i> is a prime number. Returns 0 if <i>n</i> is not
-a prime number.
-<pre>
-<i>Enter</i>
+Returns 1 if n is a prime number, returns zero otherwise.
 
-     isprime(9007199254740991)
-
-<i>Result</i>
-
-     0
-
-<i>Enter</i>
-
-     isprime(2^53 - 111)
-
-<i>Result</i>
-
-     1
-</pre>
 <p>
 <h1><tt><a name="laguerre">laguerre(<i>x,n,a</i>)</a></tt></h1>
-Returns the <i>n</i>th Laguerre polynomial in <i>x</i>.
-If the argument <i>a</i> is omitted or <i>a</i> equals zero
-then the function returns the non-associated Laguerre polynomial.
-<pre>
-<i>Enter</i>
+Returns the nth Laguerre polynomial in x.
+If "a" is omitted then a=0 is used.
 
-     laguerre(x,2)
-
-<i>Result</i>
-
-                1   2
-     1 - 2 x + --- x
-                2
-
-<i>Enter</i>
-
-     laguerre(x,2,a)
-
-<i>Result</i>
-
-          3                   1   2    1   2
-     1 + --- a - 2 x - a x + --- a  + --- x
-          2                   2        2
-</pre>
 <p>
 <h1><tt><a name="lcm">lcm(<i>a,b,...</i>)</a></tt></h1>
 Returns the least common multiple.
-<pre>
-<i>Enter</i>
 
-     lcm(2,3,4,x)
-
-<i>Result</i>
-
-     12 x
-</pre>
 <p>
 <h1><tt><a name="legendre">legendre(<i>x,n,m</i>)</a></tt></h1>
-Returns the <i>n</i>th Legendre polynomial in <i>x</i>.
-<pre>
-<i>Enter</i>
+Returns the nth Legendre polynomial in x.
+If m is omitted then m=0 is used.
 
-     legendre(x,2)
-
-<i>Result</i>
-
-        1     3   2
-     - --- + --- x
-        2     2
-
-<i>Enter</i>
-
-     legendre(x,2,0)
-
-<i>Result</i>
-
-        1     3   2
-     - --- + --- x
-        2     2
-
-<i>Enter</i>
-
-     legendre(x,2,1)
-
-<i>Result</i>
-
-                  1/2
-                2
-     -3 x (1 - x )
-</pre>
 <p>
 <h1><tt><a name="log">log(<i>x</i>)</a></tt></h1>
-Returns the natural logarithm of <i>x</i>.
+Returns the natural logarithm of x.
+<!--
 <pre>
 <i>Enter</i>
 
@@ -984,72 +487,47 @@ Returns the natural logarithm of <i>x</i>.
 
      2.30259 + i &#960
 </pre>
+-->
+
 <p>
 <h1><tt><a name="mag">mag(<i>z</i>)</a></tt></h1>
 Returns the magnitude of complex z.
-Symbols in expression z are presumed to be positive and real.
-<pre>
-<i>Enter</i>
-	mag(1 + exp(i pi/3))
-
-<i>Result</i>
-	3^(1/2)
-</pre>
-
-<p><h1><tt><a name="not">not(<i>x</i>)</a></tt></h1>
-Negates a predicate expression.
-<pre>
-<i>Example</i>
-
-     not(A = B)
-</pre>
 
 <p>
 <h1><tt><a name="mod">mod(<i>a,b</i>)</a></tt></h1>
-Returns the remainder of <i>a</i> divided by <i>b</i>.
+Returns the remainder of the result of "a" divided by b.
+
+<p>
+<h1><tt><a name="not">not(<i>x</i>)</a></tt></h1>
+Returns the logical inverse of x.
+<pre>
+<i>Example</i>
+
+     not(A=B)
+</pre>
+
 <p>
 <h1><tt><a name="numerator">numerator(<i>x</i>)</a></tt></h1>
 Returns the numerator of expression x.
-<pre>
-<i>Enter</i>
 
-     numerator(a/b)
-
-<i>Result</i>
-
-	a
-</pre>
-
-<p><h1><tt><a name="or">or(<i>a,b,...</i>)</a></tt></h1>
+<p>
+<h1><tt><a name="or">or(<i>a,b,...</i>)</a></tt></h1>
 Logical-or of predicate expressions.
 <pre>
 <i>Example</i>
 
-     or(A = B, A = C)
+     or(A=B,A=C)
 </pre>
 
 <p>
 <h1><tt><a name="outer">outer(<i>a,b,...</i>)</a></tt></h1>
-Returns the outer product of tensors (aka tensor product).
-<pre>
-<i>Enter</i>
+Returns the outer product of tensors.
+Also known as the tensor product.
 
-     A = (A1,A2,A3)
-
-     B = (B1,B2,B3)
-
-     outer(A,B)
-
-<i>Result</i>
-
-     A1 B1    A1 B2    A1 B3
-
-     A2 B1    A2 B2    A2 B3
-
-     A3 B1    A3 B2    A3 B3
-</pre>
-<p><h1><tt><a name="polar">polar(<i>z</i>)</a></tt></h1>
-Converts complex z to polar form.
+<p>
+<h1><tt><a name="polar">polar(<i>z</i>)</a></tt></h1>
+Returns complex z in polar form.
+<!--
 <pre>
 <i>Enter</i>
 
@@ -1060,294 +538,94 @@ Converts complex z to polar form.
          1/6  1/2
      (-1)    3
 </pre>
+-->
+
 <p>
 <h1><tt><a name="prime">prime(<i>n</i>)</a></tt></h1>
-Returns the nth prime number, n &le; 10000.
-<pre>
-<i>Enter</i>
+Returns the nth prime number, 1&le;n&le;10000.
 
-     prime(10000)
-
-<i>Result</i>
-
-     104729
-</pre>
 <p>
-<h1><tt><a name="print">print(<i>a,b,...</i>)</a></tt></h1>
-Print args in tty mode.
+<h1><tt><a name="print">print(<i>x</i>)</a></tt></h1>
+Print x in tty mode.
+
 <p>
-<h1><tt><a name="product">product(<i>i,j,k,y</i>)</a></tt></h1>
-For i equals j through k evaluate y.
-Returns the product of all y.
-<pre>
-<i>Enter</i>
-
-     product(k,1,3,1/(1-(1/prime(k)^s)))
-
-<i>Result</i>
-
-                     1
-     ----------------------------------
-            1          1          1
-      (1 - ----) (1 - ----) (1 - ----)
-             s          s          s
-            2          3          5
-</pre>
+<h1><tt><a name="product">product(<i>i,j,k,f</i>)</a></tt></h1>
+For i equals j through k evaluate f.
+Returns the product of all f.
 
 <p>
 <h1><tt><a name="quote">quote(<i>x</i>)</a></tt></h1>
-Returns expression <i>x</i> without evaluating symbols or functions.
-Can be used to clear symbolic values.
-<pre>
-<i>Enter</i>
-
-     n = 3
-
-     n
-
-<i>Result</i>
-
-     3
-
-<i>Enter</i>
-
-     n = quote(n)
-
-     n
-
-<i>Result</i>
-
-     n
-</pre>
+Returns expression x without evaluating it first.
 
 <p><h1><tt><a name="quotient">quotient(<i>p,q,x</i>)</a></tt></h1>
 Returns the quotient of polynomial p(x) over q(x).
-The last argument can be omitted when the polynomials are in x.
-The remainder can be calculated as p - q * quotient(p,q).
+The last argument can be omitted for polynomials in x.
+The remainder can be calculated by p-q*quotient(p,q).
 
 <p>
 <h1><tt><a name="rank">rank(<i>a</i>)</a></tt></h1>
-Returns the rank (number of indices) of tensor <i>a</i>.
-<pre>
-<i>Enter</i>
+Returns the number of indices that tensor "a" has.
 
-     U = (u1,u2,u3,u4)
-
-     rank(U)
-
-<i>Result</i>
-
-     1
-</pre>
 <p>
 <h1><tt><a name="rationalize">rationalize(<i>x</i>)</a></tt></h1>
-Puts terms in <i>x</i> over a common denominator.
-<pre>
-<i>Enter</i>
+Returns x with everything over a common denominator.
 
-     rationalize(1/x + 1/y)
-
-<i>Result</i>
-
-      x + y
-     -------
-       x y
-</pre>
-Rationalize can often simplify expressions.
-<pre>
-<i>Enter</i>
-
-     A = ((a,b),(c,d))
-
-     B = inv(A)
-
-     dot(A,B)
-
-<i>Result</i>
-
-         a d           b c
-     ----------- - -----------                0
-      a d - b c     a d - b c
- 
-                                      a d           b c
-                 0                ----------- - -----------
-                                   a d - b c     a d - b c
-
-<i>Enter</i>
-
-     rationalize(last)
-
-<i>Result</i>
-
-     1    0
- 
-     0    1
-</pre>
 <p>
 <h1><tt><a name="real">real(<i>z</i>)</a></tt></h1>
 Returns the real part of complex z.
-Symbols in expression z are presumed to be positive and real.
-<pre>
-<i>Enter</i>
-	real(1 + exp(i pi/3))
 
-<i>Result</i>
-	3/2
-</pre>
 <p>
 <h1><tt><a name="rect">rect(<i>z</i>)</a></tt></h1>
 Returns complex z in rectangular form.
-Symbols in expression z are presumed to be positive and real.
-<pre>
-<i>Enter</i>
-	rect(1 + exp(i pi/3))
-
-<i>Result</i>
-	3/2 + 1/2 i 3^(1/2)
-</pre>
 
 <p>
 <h1><tt><a name="roots">roots(<i>p,x</i>)</a></tt></h1>
-Finds the values of x for which the polynomial p(x) = 0.
+Returns the values of x such that p(x)=0.
+The polynomial p should be factorable over integers.
 Returns a vector for multiple roots.
-<pre>
-<i>Enter</i>
 
-     (x + 1)(x + 2)
-
-<i>Result</i>
-
-      2
-     x  + 3 x + 2
-
-<i>Enter</i>
-
-     roots
-
-<i>Result</i>
-
-     -2
-
-     -1
-</pre>
 <p>
 <h1><tt><a name="simplify">simplify(<i>x</i>)</a></tt></h1>
-Evaluates expression x and then attempts to simplify the result.
-<pre>
-<i>Enter</i>
+Returns x in a simpler form.
 
-     (A-B)/(B-A)
-
-<i>Result</i>
-
-        A          B
-     -------- - --------
-      -A + B     -A + B
- 
-<i>Enter</i>
-
-     simplify(last)
-
-<i>Result</i>
-
-     -1
-
-<i>Enter</i>
-
-     A = ((A11,A12),(A21,A22))
-
-     det(A) inv(A) - adj(A)
-
-<i>Result</i>
-
-     ((-A22 + A11 A22^2 / (A11 A22 - A12 A21) - A12 A21 A22 / (A11 A22 - A12 A21),
-     A12 - A11 A12 A22 / (A11 A22 - A12 A21) + A12^2 A21 / (A11 A22 - A12 A21)),
-     (A21 - A11 A21 A22 / (A11 A22 - A12 A21) + A12 A21^2 / (A11 A22 - A12 A21),
-     -A11 - A11 A12 A21 / (A11 A22 - A12 A21) + A11^2 A22 / (A11 A22 - A12 A21)))
-
-<i>Enter</i>
-
-     simplify(last)
-
-<i>Result</i>
-
-     0
-</pre> 
-The <tt>simplify</tt> function can return factored
-(unexpanded)
-expressions.
-Factored expressions can fail in tests for equality.
-The <tt>eval</tt> function can be used to expand factored expressions.
 <p>
 <h1><tt><a name="sin">sin(<i>x</i>)</a></tt></h1>
-Returns the sine of <i>x</i>.
+Returns the sine of x.
+
 <p>
 <h1><tt><a name="sinh">sinh(<i>x</i>)</a></tt></h1>
-Returns the hyperbolic sine of <i>x</i>.
+Returns the hyperbolic sine of x.
+
 <p>
 <h1><tt><a name="sqrt">sqrt(<i>x</i>)</a></tt></h1>
-Returns the square root of <i>x</i>.
+Returns the square root of x.
+
 <p>
 <h1><tt><a name="stop">stop()</a></tt></h1>
-When evaluated in a script, the stop function exits run mode and
-returns to interactive mode.
+In a script, it does what it says.
+
 <p>
 <h1><tt><a name="subst">subst(<i>a,b,c</i>)</a></tt></h1>
-Substitutes <i>a</i> for <i>b</i> in <i>c</i> and returns the result.
-Note that this operation can return a denormalized expression.
-Use <tt>eval</tt> to normalize the result of <tt>subst</tt>.
-<pre>
-<i>Enter</i>
+Substitutes "a" for b in c and returns the result.
 
-     f = x^2
-
-     subst(sqrt(x),x,f)
-
-<i>Result</i>
-
-           2
-       1/2
-     (x   )
-
-<i>Enter</i>
-
-     eval(last)
-
-<i>Result</i>
-
-     x
-</pre>
 <p>
-<h1><tt><a name="sum">sum(<i>a,i,j,b</i>)</a></tt></h1>
-For <i>a</i> equals <i>i</i> through <i>j</i> evaluate <i>b</i>.
-Returns the sum of all <i>b</i>.
-The variable <i>a</i> has local scope within the sum function,
-<i>a</i> remains unchanged after the sum function returns.
-The expressions <i>i</i> and <i>j</i> should evaluate to integers.
-<pre>
-<i>Enter</i>
+<h1><tt><a name="sum">sum(<i>i,j,k,f</i>)</a></tt></h1>
+For i equals j through k evaluate f.
+Returns the sum of all f.
 
-     sum(k,1,3,1/k^s)
-
-<i>Result</i>
-
-          1      1
-     1 + ---- + ----
-           s      s
-          2      3
-</pre>
 <p>
 <h1><tt><a name="tan">tan(<i>x</i>)</a></tt></h1>
 Returns the tangent of <i>x</i>.
+
 <p>
 <h1><tt><a name="tanh">tanh(<i>x</i>)</a></tt></h1>
 Returns the hyperbolic tangent of <i>x</i>.
+
 <p>
 <h1><tt><a name="taylor">taylor(<i>f,x,n,a</i>)</a></tt></h1>
-Returns the Taylor expansion of <i>f</i> at <i>a</i>.
-If <i>a</i> is omitted then zero is used.
-The argument <i>x</i> is the free variable in <i>f</i>
-and <i>n</i> is the power of the expansion.
+Returns the Taylor expansion of f(x) around x=a.
+If "a" is omitted then a=0 is used.
+The argument n is the degree of the expansion.
 <pre>
 <i>Enter</i>
 
@@ -1361,73 +639,35 @@ and <i>n</i> is the power of the expansion.
 </pre>
 
 <p><h1><tt><a name="test">test(<i>a,b,c,d,...</i>)</a></tt></h1>
-If argument a is true then b is returned
+If "a" is true then b is returned
 else if c is true then d is returned, etc.
-If the number of arguments is odd then the last argument is the default case.
-<pre>
-<i>Example</i>
-
-     f(x) = test(x &lt 0, g(x), h(x))
-</pre>
+If the number of arguments is odd then the last argument is returned
+when all else fails.
 
 <p>
 <h1><tt><a name="trace">trace(<i>m</i>)</a></tt></h1>
-Returns the trace of matrix <i>m</i>.
-<pre>
-<i>Enter</i>
+Returns the trace of matrix m.
+The function trace(m) is equivalent to contract(m).
 
-     A = ((a,b),(c,d))
-
-     trace(A)
-
-<i>Result</i>
-
-     a + d
-</pre>
-Note that trace is equivalent to contract.
-<pre>
-<i>Enter</i>
-
-     trace(A) - contract(A,1,2)
-
-<i>Result</i>
-
-     0
-</pre>
 <p>
 <h1><tt><a name="transpose">transpose(<i>a,i,j</i>)</a></tt></h1>
-Returns the transpose of tensor <i>a</i> across indices <i>i</i> and
-<i>j</i>.
-If <i>i</i> and <i>j</i> are omitted then indices 1 and 2 are used.
+Returns the transpose of "a" with respect to indices i and j.
+If i and j are omitted then 1 and 2 are used.
+Hence a matrix can be transposed with a single argument.
+
 <p>
 <h1><tt><a name="unit">unit(<i>n</i>)</a></tt></h1>
-Returns a unit matrix with dimension <i>n</i>.
-<pre>
-<i>Enter</i>
+Returns an n by n identity matrix.
 
-     unit(4)
-
-<i>Result</i>
-
-     1    0    0    0
-
-     0    1    0    0
-
-     0    0    1    0
-
-     0    0    0    1
-</pre>
 <p>
 <h1><tt><a name="zero">zero(<i>i,j,...</i>)</a></tt></h1>
-Returns a zero tensor with dimensions <i>i,j,...</i>
-The zero function is useful for creating a tensor and then setting the component values.
+Returns a zero tensor with dimensions i, j, etc.
+Useful for creating a tensor and then setting the component values.
 <pre>
 <i>Enter</i>
 
-     A = zero(2,2)
-
-     A[1,2] = a
-
+     A=zero(2,2)
+     A[1,2]=a
      A
 
 <i>Result</i>
@@ -1436,3 +676,5 @@ The zero function is useful for creating a tensor and then setting the component
 
      0    0
 </pre>
+</body>
+</html>

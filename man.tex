@@ -1,0 +1,663 @@
+\documentclass[12pt,openany]{report}
+\title{Eigenmath Manual}
+\author{George Weigt}
+\date{March 18, 2007}
+\pagestyle{plain}
+\usepackage{graphicx}
+
+\begin{document}
+\maketitle
+
+\newpage
+
+\section*{The Big Picture}
+In simplest terms, when you type something into Eigenmath,
+it gets evaluated and the result is printed.
+For a first example, let us try entering $5+7$.
+
+\medskip
+\noindent
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt 5+7}
+\item[$\scriptstyle2$]\hspace{50pt} $12$
+\end{itemize}
+
+\medskip
+\noindent
+No surprise here of course, but Eigenmath has other features
+that should make things a little more interesting as we go along.
+
+\medskip
+\noindent
+Now is a good time to say a few words about the examples in this manual.
+Courier font (line 1) is used to show what should be entered.
+Results are shown with some space in front (line 2).
+The line numbers themselves are just for reference.
+They are not entered or displayed.
+
+\newpage
+
+\noindent
+Here is a simple example that draws the graph of $y=mx+b$.
+
+\medskip
+\noindent
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt y=m*x+b}
+\item[$\scriptstyle2$]{\tt m=1/2}
+\item[$\scriptstyle3$]{\tt b=-3}
+\item[$\scriptstyle4$]{\tt draw(y)}
+\item[$\scriptstyle5$]
+\item[]\includegraphics[scale=0.5]{1.png}
+\end{itemize}
+
+\newpage
+
+\noindent
+Now suppose that we want to draw a graph
+using different values for $m$ and $b$.
+We could type in lines 2--4 all over again, but it would be easier
+in the long run to pause for a moment and write a script.
+Then we can go back and quickly change $m$ and $b$ as many times as we want.
+
+\medskip
+\noindent
+To prepare a script, click on the Edit Script button.
+Then enter the script commands, one per line.
+
+\medskip
+\noindent
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt y=m*x+b}
+\item[$\scriptstyle2$]{\tt m=1/2}
+\item[$\scriptstyle3$]{\tt b=-3}
+\item[$\scriptstyle4$]{\tt draw(y)}
+\end{itemize}
+
+\medskip
+\noindent
+Next, click on the Run Script button to see the graph.
+
+\medskip
+\noindent
+\begin{itemize}
+\item[]\includegraphics[scale=0.5]{1.png}
+\end{itemize}
+
+\medskip
+\noindent
+Eigenmath runs a script by stepping through it line by line.
+Each line is evaluated just like a regular command.
+This continues until the end of the script is reached.
+Then you can click on the Edit Script button to go back and change something.
+
+\newpage
+
+\noindent
+You may have noticed that when we define a symbol
+like $y=mx+b$, no result is printed.
+Eigenmath works this way so the screen does not get cluttered
+up with intermediate results.
+When you do in fact want to see the value of a symbol, just enter it.
+
+\medskip
+\noindent
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt y}
+\item[$\scriptstyle2$]\hspace{50pt} $y=mx+b$
+\end{itemize}
+
+\medskip
+\noindent
+Symbols can also be defined as functions of one or more variables.
+In the following example, we define $y$ as a function of $x$.
+Just like before, we can enter $y$ to see its value and
+also draw $y$.
+The main difference is that now we can easily evaluate $y$ for
+a specific value of $x$.
+
+\medskip
+\noindent
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt y(x)=m*x+b}
+\item[$\scriptstyle2$]{\tt y}
+\item[$\scriptstyle3$]\hspace{50pt} $y=mx+b$
+\item[$\scriptstyle4$]{\tt y(0)}
+\item[$\scriptstyle5$]\hspace{50pt} $-3$
+\end{itemize}
+\noindent
+
+\medskip
+\noindent
+Here is an example of a function of two variables.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt r(x,y)=(x{\char94}2+y{\char94}2){\char94}(1/2)}
+\item[$\scriptstyle2$]{\tt r}
+\item[$\scriptstyle3$]\hspace{50pt} $r=(x^2+y^2)^{1/2}$
+\item[$\scriptstyle4$]{\tt r(1,2)}
+\item[$\scriptstyle5$]\hspace{50pt} $5^{1/2}$
+\end{itemize}
+
+\medskip
+\noindent
+We are now ready to move on so
+it is time to clear out the old definitions
+with the following command.
+
+\medskip
+\noindent
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt clear}
+\end{itemize}
+
+\medskip
+\noindent
+Clicking on the Clear button does the same thing.
+It should also be pointed out that Eigenmath automatically does a clear before
+running a script.
+
+\newpage
+
+\section*{Vectors and matrices}
+Vectors and matrices are entered like this.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt X=(x1,x2,x3,x4)}
+\item[$\scriptstyle2$]{\tt A=((1,2,3),(4,5,6),(7,8,9))}
+\item[$\scriptstyle3$]{\tt A}
+\item[$\scriptstyle4$]\hspace{50pt} $\left(\matrix{1&2&3\cr4&5&6\cr7&8&9\cr}\right)$
+\end{itemize}
+
+\medskip
+\noindent
+Eigenmath's dot function is used to multiply vectors and matrices.
+The following example shows how to use dot and inv to solve for $\bf X$ in $\bf AX=B$.
+%\footnote{
+%Numerical values from {\it HP-15C Owner's Handbook,} p. 138.}
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt A=((3.8,7.2),(1.3,-0.9))}
+\item[$\scriptstyle2$]{\tt B=(16.5,-22.1)}
+\item[$\scriptstyle3$]{\tt X=dot(inv(A),B)}
+\item[$\scriptstyle4$]{\tt X}
+\item[$\scriptstyle5$]\hspace{50pt} $\left(\matrix{-11.2887\cr8.24961}\right)$
+\end{itemize}
+
+\newpage
+
+\label{d}
+
+\section*{Derivatives}
+The function d($f,x$) returns the derivative of $f$ with respect to $x$.
+The $x$ can be omitted for expressions in $x$.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt d(x{\char94}2)}
+\item[$\scriptstyle2$]\hspace{50pt} $2x$
+\end{itemize}
+
+\noindent
+Multi-derivatives can be obtained by extending the argument list.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt r=sqrt(x{\char94}2+y{\char94}2)}
+\item[$\scriptstyle1$]{\tt d(r,x,y)}
+\item[$\scriptstyle2$]\hspace{50pt} $\displaystyle{-{xy\over(x^2+y^2)^{3/2}}}$
+\end{itemize}
+
+\noindent
+A gradient can be obtained by using a vector for the second argument.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt r=sqrt(x{\char94}2+y{\char94}2)}
+\item[$\scriptstyle2$]{\tt d(r,(x,y))}
+\item[$\scriptstyle3$]\hspace{50pt}
+$\left(\matrix{
+\displaystyle{{x\over(x^2+y^2)^{1/2}}}\cr
+\cr
+\displaystyle{{y\over(x^2+y^2)^{1/2}}}\cr
+}\right)$
+\end{itemize}
+
+\newpage
+
+\section*{Derivatives (cont'd)}
+Here is a trick.
+The function $f$ in d($f$) does not have to be defined.
+Eigenmath will check the argument list
+of $f$ to figure out what to do.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt d(f(x),(x,y))}
+\item[$\scriptstyle2$]\hspace{50pt}
+$\left(\matrix{
+\partial(f(x),x)\cr
+\cr
+0\cr
+}\right)$
+\item[$\scriptstyle3$]{\tt d(f(),(x,y))}
+\item[$\scriptstyle4$]\hspace{50pt}
+$\left(\matrix{
+\partial(f(),x)\cr
+\cr
+\partial(f(),y)\cr
+}\right)$
+\end{itemize}
+As the second example shows,
+if the argument list is empty then $f$ is assumed to depend
+on any variable that d encounters.
+
+\medskip
+\noindent
+This ``generic'' function property is useful for experimenting with
+div, grad, curl, etc.
+%\footnote{
+%Schey, H. M. {\it Div, grad, curl, and all that:
+%an informal text on vector calculus.} New York: W. W. Norton and Company, Inc., 1992.}
+There is just one more detail to add, and that has to do with vector functions.
+In the previous examples, $f$ was a scalar function.
+In the following example, line 1 shows how to create a vector function.
+The rest of the example computes the gradient of $\bf F$.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt F=(F1(),F2())}
+\item[$\scriptstyle2$]{\tt X=(x1,x2)}
+\item[$\scriptstyle3$]{\tt d(F,X)}
+\item[$\scriptstyle4$]\hspace{50pt}
+$\left(\matrix{
+\partial(F_1(),x_1) & \partial(F_1(),x_2)\cr
+\cr
+\partial(F_2(),x_1) & \partial(F_2(),x_2)\cr
+}\right)$
+\end{itemize}
+
+\newpage
+
+\label{integral}
+
+\section*{Integrals}
+The function integral($f,x$) returns the integral of $f$ with respect to $x$.
+The $x$ can be omitted for expressions in $x$.
+A multi-integral can be obtained by extending the argument list.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt integral(x{\char94}2)}
+\item[$\scriptstyle2$]\hspace{50pt} ${1\over3}x^3$
+\item[$\scriptstyle3$]{\tt integral(x{\char94}2,x,x)}
+\item[$\scriptstyle4$]\hspace{50pt} ${1\over12}x^4$
+\end{itemize}
+The eval function can be used to compute definite integrals.
+The following example computes the integral of $x^2$
+over a half circle.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt I=integral(x{\char94}2,y)}
+\item[$\scriptstyle2$]{\tt I=eval(I,y,sqrt(1-x{\char94}2))-eval(I,y,0)}
+\item[$\scriptstyle3$]{\tt I=integral(I,x)}
+\item[$\scriptstyle4$]{\tt eval(I,x,1)-eval(I,x,-1)}
+\item[$\scriptstyle5$]\hspace{50pt} ${1\over8}\pi$
+\end{itemize}
+
+\newpage
+
+\section*{That's all for now}
+Please check the following web site for more examples.
+
+\medskip
+{\tt eigenmath.blogspot.com}
+
+\newpage
+
+\section*{abs}
+abs($x$) returns the absolute value or vector length of $x$.
+The mag function should be used for complex $x$.
+\begin{itemize}
+%\item[$\scriptstyle1$]{\tt abs(b-a)}
+%\item[$\scriptstyle2$]\hspace{50pt} $\mathop{\hbox{abs}}(a-b)$
+\item[$\scriptstyle1$]{\tt P=(x,y)}
+\item[$\scriptstyle2$]{\tt abs(P)}
+\item[$\scriptstyle3$]\hspace{50pt} $(x^2+y^2)^{1/2}$
+\end{itemize}
+
+\section*{adj}
+adj($m$) returns the adjunct of matrix $m$.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt A=((a,b),(c,d))}
+\item[$\scriptstyle2$]{\tt adj(A)}
+\item[$\scriptstyle3$]\hspace{50pt} $\left[\matrix{d & -b\cr -c & a\cr}\right]$
+\end{itemize}
+
+\section*{and}
+and($a,b,\ldots$) returns the logical ``and'' of predicate expressions.
+
+\section*{arccos}
+arccos($x$) returns the inverse cosine of $x$.
+
+\section*{arccosh}
+arccosh($x$) returns the inverse hyperbolic cosine of $x$.
+
+\section*{arcsin}
+arcsin($x$) returns the inverse sine of $x$.
+
+\section*{arcsinh}
+arcsinh($x$) returns the inverse hyperbolic sine of $x$.
+
+\section*{arctan}
+arcttan($x$) returns the inverse tangent of $x$.
+
+\section*{arctanh}
+arctanh($x$) returns the inverse hyperbolic tangent of $x$.
+
+\section*{arg}
+arg($z$) returns the angle of complex $z$.
+%\begin{itemize}
+%\item[$\scriptstyle1$]{\tt arg(1+exp(i*pi/3))}
+%\item[$\scriptstyle2$]\hspace{50pt} ${1\over6}\pi$
+%\end{itemize}
+
+\section*{ceiling}
+ceiling($x$) returns the smallest integer not less than $x$.
+
+\section*{check}
+check($x$) In a script, if the predicate $x$ is true then continue, else stop.
+
+\section*{choose}
+choose($n,k$) returns $\displaystyle\left({n \atop k}\right)$
+%\begin{itemize}
+%\item[$\scriptstyle1$]{\tt choose(n,k)}
+%\item[$\scriptstyle2$]\hspace{50pt} $\displaystyle{n!\over k!(-k+n)!}$
+%\end{itemize}
+
+\section*{coeff}
+coeff($p,x,n$) returns the coefficient of $x^n$ in polynomial $p$.
+
+\section*{cofactor}
+cofactor($m,i,j$) returns of the cofactor of matrix $m$ with respect to row $i$ and column $j$.
+
+\section*{conj}
+conj($z$) returns the complex conjugate of $z$.
+%\begin{itemize}
+%\item[$\scriptstyle1$]{\tt conj(3+4*i)}
+%\item[$\scriptstyle2$]\hspace{50pt} $3-4i$
+%\end{itemize}
+
+\section*{contract}
+contract($a,i,j$) returns tensor $a$ summed over indices $i$ and $j$.
+
+\section*{cos}
+cos($x$) returns the cosine of $x$.
+%If $x$ is a floating point number then $\cos(x)$ is evaluated numerically.
+
+\section*{cosh}
+cosh($x$) returns the hyperbolic cosine of $x$.
+%If $x$ is a floating point number then $\cosh(x)$ is evaluated numerically.
+
+\section*{d}
+d($f,x$) returns the derivative of $f$ with respect to $x$.
+Please see page \pageref{d} for additional details.
+
+\section*{deg}
+deg($p,x$) returns the degree of polynomial $p$ in $x$.
+%\begin{itemize}
+%\item[$\scriptstyle1$]{\tt p=(x-a){\char94}5}
+%\item[$\scriptstyle2$]{\tt deg(p,x)}
+%\item[$\scriptstyle3$]\hspace{50pt} $5$
+%\end{itemize}
+
+\section*{denominator}
+denominator($x$) returns the denominator of expression $x$.
+%\begin{itemize}
+%\item[$\scriptstyle1$]{\tt denominator(a/b+b/a)}
+%\item[$\scriptstyle2$]\hspace{50pt} $ab$
+%\end{itemize}
+
+\section*{det}
+det($m$) returns the determinant of matrix $m$.
+
+\section*{display}
+display($x$) prints expression $x$.
+
+\section*{do}
+do($a,b,\ldots$) evaluates the argument list from left to right.
+Returns the result of the last argument.
+
+\section*{dot}
+dot($a,b,\ldots$) returns the dot product of tensors.
+%\begin{itemize}
+%\item[$\scriptstyle1$]{\tt A=(a,b)}
+%\item[$\scriptstyle2$]{\tt B=(c,d)}
+%\item[$\scriptstyle3$]{\tt dot(A,B)}
+%\item[$\scriptstyle4$]\hspace{50pt} $ac+bd$
+%\end{itemize}
+
+\section*{draw}
+draw($f,x$) draws the function $f$ with respect to $x$.
+
+\section*{erf}
+erf($x$) returns the error function of $x$.
+
+\section*{erfc}
+erf($x$) returns the complementary error function of $x$.
+
+\section*{eval}
+eval($f,x,n$) returns $f$ evaluated at $x=n$.
+Please see page \pageref{integral} for an example.
+
+\section*{exp}
+exp($x$) returns $e^x$.
+
+\section*{expcos}
+expcos($x$) returns the cosine of $x$ in exponential form.
+%\begin{itemize}
+%\item[$\scriptstyle1$]{\tt expcos(x)}
+%\item[$\scriptstyle2$]\hspace{50pt} ${1\over2}\exp(-ix)+{1\over2}\exp(ix)$
+%\end{itemize}
+
+\section*{expsin}
+expsin($x$) returns the sine of $x$ in exponential form.
+%\begin{itemize}
+%\item[$\scriptstyle1$]{\tt expsin(x)}
+%\item[$\scriptstyle2$]\hspace{50pt} ${1\over2}i\exp(-ix)-{1\over2}i\exp(ix)$
+%\end{itemize}
+
+\section*{factor}
+factor($n$) factors the integer $n$.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt factor(12345)}
+\item[$\scriptstyle2$]\hspace{50pt} $3\times 5\times 823$
+\end{itemize}
+%
+factor($p,x$) factors polynomial $p$ in $x$.
+The last argument can be omitted for polynomials in $x$.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt factor(125*x{\char94}3-1)}
+\item[$\scriptstyle2$]\hspace{50pt} $(5x-1)(25x^2+5x+1)$
+\end{itemize}
+
+\section*{factorial}
+For example,
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt 10!}
+\item[$\scriptstyle2$]\hspace{50pt} $3628800$
+\end{itemize}
+
+\section*{filter}
+filter($f,a,b,\ldots$) returns $f$ with terms involving $a$, $b$, etc. removed.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt 1/a+1/b+1/c}
+\item[$\scriptstyle2$]\hspace{50pt} $\displaystyle{{1\over a}+{1\over b}+{1\over c}}$
+\item[$\scriptstyle3$]{\tt filter(last,a)}
+\item[$\scriptstyle4$]\hspace{50pt} $\displaystyle{{1\over b}+{1\over c}}$
+\end{itemize}
+
+\section*{float}
+float($x$) converts $x$ to a floating point value.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt sum(n,0,20,(-1/2){\char94}n)}
+\item[$\scriptstyle2$]\hspace{50pt} $699051\over1048576$
+\item[$\scriptstyle3$]{\tt float(last)}
+\item[$\scriptstyle4$]\hspace{50pt} 0.666667
+\end{itemize}
+
+\section*{floor}
+floor($x$) returns the largest integer not greater than $x$.
+
+\section*{for}
+for($i,j,k,a,b,\ldots$) For $i$ equals $j$ through $k$ evaluate $a$, $b$, etc.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt x=0}
+\item[$\scriptstyle2$]{\tt y=2}
+\item[$\scriptstyle3$]{\tt for(k,1,9,x=sqrt(2+x),y=2*y/x)}
+\item[$\scriptstyle4$]{\tt float(y)}
+\item[$\scriptstyle5$]\hspace{50pt} 3.14159
+\end{itemize}
+
+\section*{gcd}
+gcd($a,b,\ldots$) returns the greatest common divisor.
+
+\section*{hermite}
+hermite($x,n$) returns the $n$th Hermite polynomial in $x$.
+
+\section*{hilbert}
+hilbert($n$) returns a Hilbert matrix of order $n$.
+
+\section*{imag}
+imag($z$) returns the imaginary part of complex $z$.
+
+\section*{inner}
+inner($a,b,\ldots$) returns the inner product of tensors.
+Same as the dot product.
+
+\section*{integral}
+integral($f,x$) returns the integral of $f$ with respect to $x$.
+Please see page \pageref{integral} for additional details.
+
+\section*{inv}
+inv($m$) returns the inverse of matrix $m$.
+
+\section*{isprime}
+isprime($n$) returns 1 if $n$ is prime, zero otherwise.
+%\begin{itemize}
+%\item[$\scriptstyle1$]{\tt isprime(2{\char94}53-111)}
+%\item[$\scriptstyle2$]\hspace{50pt} 1
+%\end{itemize}
+
+\section*{laguerre}
+laguerre($x,n,a$) returns the $n$th Laguerre polynomial in $x$.
+If $a$ is omitted then $a=0$ is used.
+
+\section*{lcm}
+lcm($a,b,\ldots$) returns the least common multiple.
+
+\section*{legendre}
+legendre($x,n,m$) returns the $n$th Legendre polynomial in $x$.
+If $m$ is omitted then $m=0$ is used.
+
+\section*{log}
+log($x$) returns the natural logarithm of $x$.
+
+\section*{mag}
+mag($z$) returns the magnitude of complex $z$.
+
+\section*{mod}
+mod($a,b$) returns the remainder of $a$ divided by $b$.
+
+\section*{not}
+not($x$) negates the result of predicate expression $x$.
+
+\section*{numerator}
+numerator($x$) returns the numerator of expression $x$.
+%\begin{itemize}
+%\item[$\scriptstyle1$]{\tt numerator(a/b+b/a)}
+%\item[$\scriptstyle2$]\hspace{50pt} $a^2+b^2$
+%\end{itemize}
+
+\section*{or}
+or($a,b,\ldots$) returns the logical ``or'' of predicate expressions.
+
+\section*{outer}
+outer($a,b,\ldots$) returns the outer product of tensors.
+
+\section*{polar}
+polar($z$) converts complex $z$ to polar form.
+
+\section*{prime}
+prime($n$) returns the $n$th prime number, $1\le n\le10{,}000$.
+
+\section*{product}
+product($i,j,k,f$) returns $\displaystyle\prod_{i=j}^k f$
+
+\section*{quote}
+quote($x$) returns expression $x$ unevaluated.
+
+\section*{quotient}
+quotient($p,q,x$) returns the quotient of polynomials in $x$.
+
+\section*{rank}
+rank($a$) returns the number of indices that tensor $a$ has.
+
+\section*{rationalize}
+rationalize($x$) puts everything over a common denominator.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt rationalize(a/b+b/a)}
+\item[$\scriptstyle2$]\hspace{50pt} $\displaystyle{a^2+b^2\over ab}$
+\end{itemize}
+
+\section*{real}
+real($z$) returns the real part of complex $z$.
+
+\section*{rect}
+rect($z$) returns complex $z$ in rectangular form.
+
+\section*{roots}
+roots($p,x$) returns the values of $x$ such that the polynomial $p(x)=0$.
+The polynomial should be factorable over integers.
+
+\section*{simplify}
+simplify($x$) returns $x$ in a simpler form.
+
+\section*{sin}
+sin($x$) returns the sine of $x$.
+
+\section*{sinh}
+sinh($x$) returns the hyperbolic sine of $x$.
+
+\section*{sqrt}
+sqrt($x$) returns the square root of $x$.
+
+\section*{stop}
+In a script, it does what it says.
+
+\section*{subst}
+subst($a,b,c$) substitutes $a$ for $b$ in $c$ and returns the result.
+
+\section*{sum}
+sum($i,j,k,f$) returns $\displaystyle\sum_{i=j}^k f$
+
+\section*{tan}
+tan($x$) returns the tangent of $x$.
+
+\section*{tanh}
+tanh($x$) returns the hyperbolic tangent of $x$.
+
+\section*{taylor}
+taylor($f,x,n,a$) returns the Taylor expansion of $f$ of $x$ at $a$.
+The argument $n$ is the degree of the expansion.
+If $a$ is omitted then $a=0$ is used.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt taylor(1/cos(x),x,4)}
+\item[$\scriptstyle2$]\hspace{50pt} ${5\over24}x^4+{1\over2}x^2+1$
+\end{itemize}
+
+\section*{test}
+test($a,b,c,d,\ldots$)
+If $a$ is true then $b$ is returned else if $c$ is true then $d$ is returned, etc.
+If the number of arguments is odd then the last argument is returned when all else fails.
+
+\section*{trace}
+trace($m$) returns the trace of matrix $m$.
+
+\section*{transpose}
+transpose($a,i,j$) returns the transpose of tensor $a$ with respect to indices $i$ and $j$.
+If $i$ and $j$ are omitted then 1 and 2 are used.
+Hence a matrix can be transposed with a single argument.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt A=((a,b),(c,d))}
+\item[$\scriptstyle2$]{\tt transpose(A)}
+\item[$\scriptstyle3$]\hspace{50pt} $\left[\matrix{a & c\cr b & d\cr}\right]$
+\end{itemize}
+
+
+
+\end{document}
