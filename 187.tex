@@ -1,0 +1,182 @@
+\magnification=1200
+
+\noindent
+{\it George Weigt -- Advanced Calculus Homework \#7}
+
+\beginsection Question 1.
+
+Show that
+$$\sum_{n=0}^\infty {(-1)^n\over(n+1)^2}=\int\!\!\!\int_D{1\over1+xy}\,dx\,dy$$
+where
+$$D=\left\{\matrix{
+0\le x\le 1\cr
+0\le y\le 1\cr
+}\right\}
+$$
+
+\medskip
+\hrule
+
+\bigskip
+\noindent
+The substitution $-u=x$, $-du=dx$ will be useful
+for converting the integrand to a geometric series.
+Hence
+$$\eqalign{
+\int\!\!\!\int_D{1\over1+xy}\,dx\,dy
+&=-\int_0^{-1} du\int_0^1 dy \, {1\over1-uy}\cr
+&=-\int_0^{-1} du\int_0^1 dy \sum_{n=0}^\infty(uy)^n\cr
+%
+&=-\sum_{n=0}^\infty \left[ \int_0^{-1} du\int_0^1 dy\,(uy)^n \right]\cr
+%
+&=-\sum_{n=0}^\infty \left[ \int_0^{-1} du
+\left({u^n y^{n+1}\over n+1}\;\bigg|_{y=0}^{y=1}\right)\right]\cr
+%
+&=-\sum_{n=0}^\infty \left[ \int_0^{-1} du \, {u^n\over n+1}\right]\cr
+%
+&=-\sum_{n=0}^\infty \left[{u^{n+1}\over(n+1)^2}\;\bigg|_{u=0}^{u=-1}\right]\cr
+%
+&=-\sum_{n=0}^\infty{(-1)^{n+1}\over(n+1)^2}\cr
+}$$
+We can remove the leading minus sign by noting that
+$$-(-1)^{n+1}=(-1)^{n+2}=(-1)^n$$
+Hence
+$$\int\!\!\!\int_D{1\over1+xy}\,dx\,dy=\sum_{n=0}^\infty{(-1)^n\over(n+1)^2}$$
+
+\vfill
+\eject
+
+\beginsection Question 2.
+
+Compute the Jacobian for
+$$\eqalign{
+x&=u-v\cr
+y&=u+v\cr
+}$$
+
+\bigskip
+\noindent
+Solution:
+$${\partial(x,y)\over\partial(u,v)}=\left|
+\matrix{
+{\partial x\over\partial u} & {\partial x\over\partial v}\cr
+\cr
+{\partial y\over\partial u} & {\partial y\over\partial v}\cr
+}\right|
+=
+\left|\matrix{
+1 & -1\cr
+1 & 1\cr
+}\right|
+=2
+$$
+
+\beginsection Question 3.
+
+Rewrite the integrand
+$${1\over1+xy}$$
+in terms of $u$ and $v$.
+
+\bigskip
+\noindent
+Solution:
+$${1\over 1+xy}={1\over 1+(u-v)(u+v)}={1\over1+u^2-v^2}$$
+
+\beginsection Question 4.
+
+The four lines are
+$$\eqalign{
+(0,0)&\longrightarrow(1/2,1/2)\cr
+(0,0)&\longrightarrow(1/2,-1/2)\cr
+(1/2,-1/2)&\longrightarrow(1,0)\cr
+(1/2,1/2)&\longrightarrow(1,0)\cr
+}$$
+The equations for the four lines are
+$$\eqalign{
+v&=u\cr
+v&=-u\cr
+v&=u-1\cr
+v&=-u+1\cr
+}$$
+
+\beginsection Question 5.
+
+$$
+D_1^*=\left\{
+\matrix{
+0\le v\le 1/2\cr
+v\le u\le 1-v\cr
+}\right\}
+\qquad
+D_2^*=\left\{
+\matrix{
+-1/2\le v\le 0\cr
+-v\le u\le 1+v\cr
+}\right\}
+$$
+
+\vfill
+\eject
+
+\beginsection Question 6.
+
+%$$I_+=\int\!\!\!\int_{D^*}{2\over1+u^2-v^2}\,du\,dv$$
+
+$$I_1=2\int_0^{1/2}dv\int_v^{1-v} du\,{1\over1+u^2-v^2}$$
+Integrating over $u$ we have
+$$\eqalign{
+\int_v^{1-v}du\,{1\over1+u^2-v^2}
+&={1\over\sqrt{1-v^2}}\tan^{-1}{u\over\sqrt{1-v^2}}\bigg|_{u=v}^{u=1-v}\cr
+&={1\over\sqrt{1-v^2}}\left(\tan^{-1}{1-v\over\sqrt{1-v^2}}-\tan^{-1}{v\over\sqrt{1-v^2}}\right)
+}$$
+In order to integrate the above result over $v$, let $v=\sin\theta$, $dv=\cos\theta\,d\theta$,
+$0=\sin0$, $1/2=\sin(\pi/6)$.
+Then we have
+$$\eqalign{
+I_1=
+2\int_0^{\pi/6}\cos\theta\, d\theta \, {1\over\sqrt{1-\sin^2\theta}}
+\left(\tan^{-1}{1-\sin\theta\over\sqrt{1-\sin^2\theta}}
+-\tan^{-1}{\sin\theta\over\sqrt{1-\sin^2\theta}}
+\right)\cr
+}$$
+$$\eqalign{
+&=2\int_0^{\pi/6}\cos\theta\, d\theta \,
+{1\over\cos\theta}
+\left(\tan^{-1}{1-\sin\theta\over\cos\theta}
+-\tan^{-1}{\sin\theta\over\cos\theta}
+\right)\cr
+&=2\int_0^{\pi/6}d\theta\,\left(\tan^{-1}\tan({\pi\over4}-{\theta\over2})-\theta \right)\cr
+&=2\int_0^{\pi/6}d\theta\,\left({\pi\over4}-{3\over2}\theta\right)\cr
+&=2\left({\pi\over4}\theta-{3\over4}\theta^2\right)\bigg|_0^{\pi/6}\cr
+&={\pi^2\over24}\cr
+}$$
+Now for $I_2$.
+$$I_2=2\int_{-1/2}^0dv\int_{-v}^{1+v} du\,{1\over1+u^2-v^2}$$
+Integrating over $u$ we have
+$$\eqalign{
+\int_{-v}^{1+v}du\,{1\over1+u^2-v^2}
+&={1\over\sqrt{1-v^2}}\tan^{-1}{u\over\sqrt{1-v^2}}\bigg|_{u=-v}^{u=1+v}\cr
+&={1\over\sqrt{1-v^2}}\left(\tan^{-1}{1+v\over\sqrt{1-v^2}}+\tan^{-1}{v\over\sqrt{1-v^2}}\right)
+}$$
+In order to integrate the above result over $v$, let $v=-\sin\theta$, $dv=-\cos\theta\,d\theta$,
+$0=-\sin0$, $-1/2=-\sin(\pi/6)$.
+Then we have
+$$\eqalign{
+I_2=
+-2\int_{\pi/6}^0\cos\theta\, d\theta \, {1\over\sqrt{1-\sin^2\theta}}
+\left(\tan^{-1}{1-\sin\theta\over\sqrt{1-\sin^2\theta}}
+-\tan^{-1}{\sin\theta\over\sqrt{1-\sin^2\theta}}
+\right)\cr
+}$$
+Note that we can remove the leading minus sign by reversing the limits of integration.
+Then we have an expression that is identical to $I_1$, hence
+$$I_1=I_2={\pi^2\over24}$$
+
+\beginsection Question 7.
+
+$$I_+=I_1+I_2={\pi^2\over12}$$
+Hence
+$$\sum_{n=0}^\infty{(-1)^n\over(n+1)^2}={\pi^2\over12}$$
+
+
+\end

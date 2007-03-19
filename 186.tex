@@ -1,0 +1,530 @@
+\magnification=1200
+
+\def\INT{\mathop{\rm int}\nolimits}
+
+{\it George Weigt -- Geometry Homework \#7}
+
+\beginsection Page 85, problem 1.
+
+Prove that in a metric geometry, $\INT(\overrightarrow{AB})$ and
+$\INT(\overline{AB})$ are convex sets
+
+\medskip
+\hrule
+\bigskip
+
+\noindent
+First, prove that $\INT(\overrightarrow{AB})$ is convex.
+
+\medskip
+\item{$\scriptstyle1$}
+Let $P,Q\in \overrightarrow{AB}-\{A\}$.
+
+\medskip
+\item{$\scriptstyle2$}
+Then we have $A{-}P{-}Q$ or $A{-}Q{-}P$.
+
+\medskip
+\item{$\scriptstyle3$}
+In either case $A\not\in\overline{PQ}$.
+
+\medskip
+\item{$\scriptstyle4$}
+Therefore for every $P{-}X{-}Q$ we have
+$X\in\overrightarrow{AB}-\{A\}$.
+
+\medskip
+\item{$\scriptstyle5$}
+Hence $\overline{PQ}\subset\overrightarrow{AB}-\{A\}$.
+
+\medskip
+\item{$\scriptstyle6$}
+Therefore $\INT(\overrightarrow{AB})$ is convex.
+
+\medskip
+\noindent
+Next, prove that $\INT(\overline{AB})$ is convex.
+
+\medskip
+\item{$\scriptstyle1$}
+Let $P,Q\in \overline{AB}-\{A,B\}$.
+
+\medskip
+\item{$\scriptstyle2$}
+Then we have $A{-}P{-}Q{-}B$ or $A{-}Q{-}P{-}B$.
+
+\medskip
+\item{$\scriptstyle3$}
+In either case $A,B\not\in\overline{PQ}$.
+
+\medskip
+\item{$\scriptstyle4$}
+Therefore for every $P{-}X{-}Q$ we have
+$X\in\overline{AB}-\{A,B\}$.
+
+\medskip
+\item{$\scriptstyle5$}
+Hence $\overline{PQ}\subset\overline{AB}-\{A,B\}$.
+
+\medskip
+\item{$\scriptstyle6$}
+Therefore $\INT(\overline{AB})$ is convex.
+
+\vfill
+\eject
+
+\beginsection Page 85, problem 5.
+
+In a Pasch geometry, if $P\in \INT(\angle ABC)$ prove
+$\INT(\overrightarrow{BP})\subset \INT(\angle ABC)$.
+
+\medskip
+\hrule
+
+\bigskip
+\item{$\scriptstyle1$}
+We have $\INT(\overrightarrow{BP})\cap\overleftarrow A\overrightarrow B=\emptyset$.
+
+\medskip
+\item{$\scriptstyle2$}
+Then by Theorem 8.4, all of $\INT(\overrightarrow{BP})$ lies on the same side of
+$\overleftarrow A\overrightarrow B$.
+
+\medskip
+\item{$\scriptstyle3$}
+We have $\INT(\overrightarrow{BP})\cap\overleftarrow B\overrightarrow C=\emptyset$.
+
+\medskip
+\item{$\scriptstyle4$}
+Then by Theorem 8.4, all of $\INT(\overrightarrow{BP})$ lies on the same side of
+$\overleftarrow B\overrightarrow C$.
+
+\medskip
+\item{$\scriptstyle5$}
+Let $\INT(\angle ABC)=H_1\cap H_2$ such that $A\in H_1$ and $C\in H_2$.
+
+\medskip
+\item{$\scriptstyle6$}
+By $P\in \INT(\angle ABC)$ we have $P\in H_1$ and $P\in H_2$.
+
+\medskip
+\item{$\scriptstyle7$}
+By (2) and (6) we have
+$\INT(\overrightarrow{BP})\subset H_2$.
+
+\medskip
+\item{$\scriptstyle8$}
+By (4) and (6) we have
+$\INT(\overrightarrow{BP})\subset H_1$.
+
+\medskip
+\item{$\scriptstyle9$}
+Hence by (7) and (8) we have $\INT(\overrightarrow{BP})\subset H_1\cap H_2$.
+
+\medskip
+\item{$\scriptstyle10$}
+Therefore
+$\INT(\overrightarrow{BP})\subset \INT(\angle ABC)$.
+
+\vfill
+\eject
+
+\beginsection Page 85, problem 6.
+
+In a Pasch geometry, given $\triangle ABC$ and points $D$, $E$, $F$
+such that $B{-}C{-}D$, $A{-}E{-}C$, and $B{-}E{-}F$,
+prove that $F\in \INT(\angle ACD)$.
+
+\medskip
+\hrule
+
+\bigskip
+\item{$\scriptstyle1$}
+By $B{-}C{-}D$ we have $B$ and $D$ on opposite sides of $\overleftarrow A\overrightarrow C$.
+
+\medskip
+\item{$\scriptstyle2$}
+By $B{-}E{-}F$ we have $B$ and $F$ on opposite sides of $\overleftarrow A\overrightarrow C$.
+
+\medskip
+\item{$\scriptstyle3$}
+Hence by (1) and (2) we have $D$ and $F$ on the same
+side of $\overleftarrow A\overrightarrow C$.
+
+\medskip
+\item{$\scriptstyle4$}
+By $A{-}E{-}C$ we have $A$ and $E$ on the same side of $\overleftarrow C\overrightarrow D$.
+
+\medskip
+\item{$\scriptstyle5$}
+By $B{-}E{-}F$ we have $E$ and $F$ on the same side of $\overleftarrow C\overrightarrow D$.
+
+\medskip
+\item{$\scriptstyle6$}
+Hence by (4) and (5) we have $A$ and $F$ on the same side of
+$\overleftarrow C\overrightarrow D$.
+
+\medskip
+\item{$\scriptstyle7$}
+Let $\INT(\angle ACD)=H_1\cap H_2$ such that $A\in H_1$ and $D\in H_2$.
+
+\medskip
+\item{$\scriptstyle8$}
+By (3) we have $F\in H_2$.
+
+\medskip
+\item{$\scriptstyle9$}
+By (6) we have $F\in H_1$.
+
+\medskip
+\item{$\scriptstyle10$}
+Hence by (8) and (9) we have $F\in H_1\cap H_2$.
+
+\medskip
+\item{$\scriptstyle11$}
+Therefore $F\in \INT(\angle ACD)$.
+
+\vfill
+\eject
+
+\beginsection Page 85, problem 8.
+
+In a Pasch geometry, if $P\in \INT(\angle ABC)$ and if
+$D\in\overrightarrow{AP}\cap\overrightarrow{BC}$,
+then prove that $A{-}P{-}D$.
+
+\medskip
+\hrule
+
+\bigskip
+\item{$\scriptstyle1$}
+By $D\in\overrightarrow{BC}$ we have $\angle ABC=\angle ABD$.
+
+\medskip
+\item{$\scriptstyle2$}
+Then by Theorem 8.8 we have $\INT(\angle ABC)=\INT(\angle ABD)$.
+
+\medskip
+\item{$\scriptstyle3$}
+Hence $P\in \INT(\angle ABD)$.
+
+\medskip
+\item{$\scriptstyle4$}
+By the Crossbar Theorem, $\overrightarrow{BP}$ intersects
+$\overline{AD}$ at a unique point $F$ with $A{-}F{-}D$.
+
+%\medskip
+%\noindent
+%Note that $P\in\overleftarrow B\overrightarrow P$
+%and $P\in\overleftarrow A\overrightarrow D$.
+
+\medskip
+\item{$\scriptstyle5$}
+Note that
+$\overleftarrow B\overrightarrow P\cap\overleftarrow A\overrightarrow P=\{P\}$.
+
+\medskip
+\item{$\scriptstyle6$}
+Since unique lines intersect in at most one point, we must have $F=P$.
+
+\medskip
+\item{$\scriptstyle7$}
+By (4) and (6) we have $A{-}P{-}D$.
+
+\vfill
+\eject
+
+\beginsection Page 85, problem 10.
+
+Prove the following (Theorem 4.4.9).
+
+\medskip
+\noindent
+In a Pasch geometry, if $A{-}B{-}D$ then $P\in \INT(\angle ABC)$
+if and only if $C\in \INT(\angle DBP)$.
+
+\medskip
+\hrule
+\bigskip
+
+\noindent
+First, prove the implication.
+%Assume $P\in \INT(\angle ABC)$ then show that $C\in \INT(\angle DBP)$.
+
+\medskip
+\item{$\scriptstyle1$} Let $P\in \INT(\angle ABC)$.
+
+\medskip
+\item{$\scriptstyle2$}
+By the Crossbar Theorem, there is an $F\in\overrightarrow{BP}$ such that $A{-}F{-}C$.
+
+\medskip
+\item{$\scriptstyle3$}
+By $A{-}F{-}C$ we have $A$ and $C$ on opposite sides of $\overleftarrow B\overrightarrow P$.
+
+\medskip
+\item{$\scriptstyle4$}
+By the assumption $A{-}B{-}D$ we have
+$A$ and $D$ on opposite sides of $\overleftarrow B\overrightarrow P$.
+
+\medskip
+\item{$\scriptstyle5$}
+By (3) and (4) we have $C$ and $D$ on the same side of $\overleftarrow B\overrightarrow P$.
+
+\medskip
+\item{$\scriptstyle6$}
+By $P\in \INT(\angle ABC)$ we have $C$ and $P$ on the same side of
+$\overleftarrow A\overrightarrow B$.
+
+\medskip
+\item{$\scriptstyle7$}
+Let $\INT(\angle DBP)=H_1\cap H_2$ such that $D\in H_1$ and $P\in H_2$.
+
+\medskip
+\item{$\scriptstyle8$}
+By (5) and (7) we have $C\in H_1$.
+
+\medskip
+\item{$\scriptstyle9$}
+By (6) and (7) we have $C\in H_2$.
+
+\medskip
+\item{$\scriptstyle10$}
+Hence $C\in H_1\cap H_2$.
+
+\medskip
+\item{$\scriptstyle11$}
+Therefore $P\in \INT(\angle ABC)$ implies $C\in \INT(\angle DBP)$.
+
+\medskip
+\noindent
+Next, prove the converse.
+%Assume $P\in \INT(\angle ABC)$ then show that $C\in \INT(\angle DBP)$.
+
+\medskip
+\item{$\scriptstyle1$} Let $C\in \INT(\angle DBP)$.
+
+\medskip
+\item{$\scriptstyle2$}
+By the Crossbar Theorem, there is an $F\in\overrightarrow{BC}$ such that $D{-}F{-}P$.
+
+\medskip
+\item{$\scriptstyle3$}
+By $D{-}F{-}P$ we have $D$ and $P$ on opposite sides of $\overleftarrow B\overrightarrow C$.
+
+\medskip
+\item{$\scriptstyle4$}
+By the assumption $A{-}B{-}D$ we have
+$A$ and $D$ on opposite sides of $\overleftarrow B\overrightarrow C$.
+
+\medskip
+\item{$\scriptstyle5$}
+By (3) and (4) we have $A$ and $P$ on the same side of $\overleftarrow B\overrightarrow P$.
+
+\medskip
+\item{$\scriptstyle6$}
+By $C\in \INT(\angle DBP)$ we have $C$ and $P$ on the same side of
+$\overleftarrow B\overrightarrow D$.
+
+\medskip
+\item{$\scriptstyle7$}
+Let $\INT(\angle ABC)=H_1\cap H_2$ such that $A\in H_1$ and $C\in H_2$.
+
+\medskip
+\item{$\scriptstyle8$}
+By (5) and (7) we have $P\in H_1$.
+
+\medskip
+\item{$\scriptstyle9$}
+By (6) and (7) we have $P\in H_2$.
+
+\medskip
+\item{$\scriptstyle10$}
+Hence $P\in H_1\cap H_2$.
+
+\medskip
+\item{$\scriptstyle11$}
+Therefore $C\in \INT(\angle DBP)$ implies $P\in \INT(\angle ABC)$.
+
+\vfill
+\eject
+
+\beginsection Page 85, problem 14.
+
+In a Pasch geometry, if $\INT(\angle ABC)=\INT(\angle DEF)$,
+prove $\angle ABC=\angle DEF$.
+
+\medskip
+\hrule
+
+\bigskip
+\noindent
+Proof by contraposition, i.e. $(Q'\rightarrow P')\rightarrow(P\rightarrow Q$).
+%We will show that
+%$\angle ABC\ne\angle DEF$
+%implies
+%$\INT(\angle ABC)\ne\INT(\angle DEF)$.
+
+\medskip
+\item{$\scriptstyle1$}
+Assume $\angle ABC\ne\angle DEF$.
+
+%\medskip
+%\item{$\scriptstyle2$}
+%Then
+%$
+%\{
+%\overleftarrow A\overrightarrow B,
+%\overleftarrow B\overrightarrow C
+%\}\ne
+%\{
+%\overleftarrow D\overrightarrow E,
+%\overleftarrow E\overrightarrow F
+%\}$.
+
+\medskip
+\item{$\scriptstyle2$}
+By the contrapositive of Theorem 5.26, distinct lines imply distinct half planes, hence
+$\INT(\angle ABC)\ne\INT(\angle DEF)$.
+
+\medskip
+\item{$\scriptstyle3$}
+Therefore by contraposition we have
+$\INT(\angle ABC)=\INT(\angle DEF)$
+implies
+$\angle ABC=\angle DEF$.
+
+\vfill
+\eject
+
+\beginsection Page 86, problem 23
+
+Prove that in a Pasch geometry if $\ell\cap\INT(\angle ABC)\ne\emptyset$,
+then $\ell\cap\angle ABC\ne\emptyset$.
+
+\medskip
+\hrule
+
+\bigskip
+\noindent
+Proof by contraposition.
+
+\medskip
+\item{$\scriptstyle1$}
+Assume that $\ell\cap\angle ABC=\emptyset$.
+
+\medskip
+\item{$\scriptstyle2$}
+Then all of $\overrightarrow{BA}$ lies on one side of $\ell$ and
+all of $\overrightarrow{BC}$ lies on one side of $\ell$.
+
+\medskip
+\item{$\scriptstyle3$}
+Since both $A$ and $C$ lie on the same side of $\ell$ as $B$, all of
+$\overrightarrow{BA}$
+and all of
+$\overrightarrow{BC}$
+lie on the same side of $\ell$, call it $H_1$.
+
+\medskip
+\item{$\scriptstyle4$}
+Let $P\in\INT(\angle ABC)$.
+
+\medskip
+\item{$\scriptstyle5$}
+Define $Q{-}P{-}R$ such that $Q\in\overrightarrow{BA}$
+and $R\in\overrightarrow{BC}$.
+
+\medskip
+\item{$\scriptstyle6$}
+By (3), both $Q$ and $R$ lie on $H_1$.
+
+\medskip
+\item{$\scriptstyle7$}
+By Theorem 8.4 (i) all of $\overline{QR}$, including $P$, lie on $H_1$.
+
+\medskip
+\item{$\scriptstyle8$}
+Since $P$ is arbitrary, all of $\INT(\angle ABC)$ lies on $H_1$.
+
+\medskip
+\item{$\scriptstyle9$}
+Therefore, $\ell\cap\INT(\angle ABC)=\emptyset$.
+
+\medskip
+\item{$\scriptstyle10$}
+Hence we have $\ell\cap\angle ABC=\emptyset$ implies $\ell\cap\INT(\angle ABC)=\emptyset$.
+
+\medskip
+\item{$\scriptstyle11$}
+Therefore by contraposition we have $\ell\cap\INT(\angle ABC)\ne\emptyset$
+implies $\ell\cap\angle ABC\ne\emptyset$.
+
+\vfill
+\eject
+
+\beginsection Page 86, problem 24.
+
+In a Pasch geometry, given $\triangle ABC$ and two points $P$, $Q$ with $A{-}P{-}B$
+and $B{-}Q{-}C$, prove that if $R\in\overrightarrow{PQ}\cap\INT(\triangle ABC)$
+then $P{-}R{-}Q$.
+
+\medskip
+\hrule
+
+\bigskip
+\item{$\scriptstyle1$}
+Since $R\in\INT(\triangle ABC)$ and $P,Q\not\in\INT(\triangle ABC)$
+we have $R\ne P$ and $R\ne Q$.
+
+\medskip
+\item{$\scriptstyle2$}
+By (1) and by $R\in\overrightarrow{PQ}$ we have either $P{-}R{-}Q$ or $P{-}Q{-}R$.
+
+\medskip
+\item{$\scriptstyle3$}
+By $R\in\INT(\triangle ABC)$ we have $A$ and $R$ on the same side of
+$\overleftarrow B\overrightarrow C$.
+
+\medskip
+\item{$\scriptstyle4$}
+By $A{-}P{-}B$ we have $A$ and $P$ on the same side of $\overleftarrow B\overrightarrow C$.
+
+\medskip
+\item{$\scriptstyle5$}
+Hence $P$ and $R$ are on the same side of
+$\overleftarrow B\overrightarrow C=\overleftarrow B\overrightarrow Q$.
+
+\medskip
+\item{$\scriptstyle6$}
+Therefore $P{-}R{-}Q$.
+
+\vfill
+\eject
+
+\beginsection Page 86, problem 26.
+
+In a Pasch geometry if $P\in\INT(\angle ABC)$ prove that there is a line through $P$
+which intersects both $\overrightarrow{BA}$ and $\overrightarrow{BC}$ but which does
+not pass through $B$.
+
+\medskip
+\hrule
+
+\bigskip
+\item{$\scriptstyle1$}
+Let there be points $Q$ and $R$ such that $Q\in\overrightarrow{BA}$ and
+$R\in\overrightarrow{BC}$ and $P\in\INT(\triangle QBR)$.
+
+\medskip
+\item{$\scriptstyle2$}
+Then by the Crossbar Theorem $\overrightarrow{QP}$ intersects $\overline{BR}$
+at a unique point $F$ such that $B{-}F{-}R$.
+
+\medskip
+\item{$\scriptstyle3$}
+Therefore the line $\ell=\overleftarrow Q\overrightarrow F$ passes through $P$
+and intersects $\overrightarrow{BA}$ at $Q$ and intersects
+$\overrightarrow{BC}$ at $F$ with $Q,F\ne B$.
+
+\end
