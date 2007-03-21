@@ -94,7 +94,7 @@ eval_user_function(void)
 
 	push(FNAME->u.sym.binding);
 
-	// replace actual args with placeholders to avoid glare
+	// replace formal args with placeholders to avoid glare
 	// f.e. formal args are A,B and actual args are B,A
 	// A gets replaced with B, then all B are replaced with A
 
