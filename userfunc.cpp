@@ -90,13 +90,34 @@ eval_user_function(void)
 		return;
 	}
 
-	FORMAL_ARGS = FNAME->u.sym.arglist;
-
 	// argument substitution
 
 	push(FNAME->u.sym.binding);
+
+	// replace actual args with placeholders to avoid glare
+	// f.e. formal args are A,B and actual args are B,A
+	// A gets replaced with B, then all B are replaced with A
+
+	FORMAL_ARGS = FNAME->u.sym.arglist;
+	ACTUAL_ARGS = cdr(p1);
 	while (iscons(FORMAL_ARGS) && iscons(ACTUAL_ARGS)) {
 		push(car(FORMAL_ARGS));
+		push(symbol(SECRETX));
+		push(car(FORMAL_ARGS));
+		list(2);
+		subst();
+		FORMAL_ARGS = cdr(FORMAL_ARGS);
+		ACTUAL_ARGS = cdr(ACTUAL_ARGS);
+	}
+
+	// replace placeholders with actual args
+
+	FORMAL_ARGS = FNAME->u.sym.arglist;
+	ACTUAL_ARGS = cdr(p1);
+	while (iscons(FORMAL_ARGS) && iscons(ACTUAL_ARGS)) {
+		push(symbol(SECRETX));
+		push(car(FORMAL_ARGS));
+		list(2);
 		push(car(ACTUAL_ARGS));
 		subst();
 		FORMAL_ARGS = cdr(FORMAL_ARGS);
