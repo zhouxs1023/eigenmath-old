@@ -1,16 +1,17 @@
 \documentclass[12pt,openany]{report}
 \title{Eigenmath Manual}
 \author{George Weigt}
-\date{March 18, 2007}
+\date{March 21, 2007}
 \pagestyle{plain}
 \usepackage{graphicx}
 
 \begin{document}
 \maketitle
+\tableofcontents
 
 \newpage
 
-\section*{The Big Picture}
+\chapter{The Big Picture}
 In simplest terms, when you type something into Eigenmath,
 it gets evaluated and the result is printed.
 For a first example, let us try entering $5+7$.
@@ -29,7 +30,7 @@ that should make things a little more interesting as we go along.
 
 \medskip
 \noindent
-Now is a good time to say a few words about the examples in this manual.
+Now is a good time to say a few words about the examples like the one above.
 Courier font (line 1) is used to show what should be entered.
 Results are shown with some space in front (line 2).
 The line numbers themselves are just for reference.
@@ -158,7 +159,7 @@ running a script.
 
 \newpage
 
-\section*{Vectors and matrices}
+\chapter{Vectors and matrices}
 Vectors and matrices are entered like this.
 \begin{itemize}
 \item[$\scriptstyle1$]{\tt X=(x1,x2,x3,x4)}
@@ -181,11 +182,27 @@ The following example shows how to use dot and inv to solve for $\bf X$ in $\bf 
 \item[$\scriptstyle5$]\hspace{50pt} $\left(\matrix{-11.2887\cr8.24961}\right)$
 \end{itemize}
 
+\medskip
+\noindent
+Individual tensor components can be accessed using square brackets.
+Index numbering begins with 1.
+
+\medskip
+\noindent
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt A=zero(2,2)}
+\item[$\scriptstyle2$]{\tt A[1,2]=a}
+\item[$\scriptstyle3$]{\tt A}
+\item[$\scriptstyle4$]\hspace{50pt} $\left(\matrix{0&a\cr0&0\cr}\right)$
+\end{itemize}
+
 \newpage
 
 \label{d}
 
-\section*{Derivatives}
+\chapter{Calculus}
+
+%\section*{Derivatives}
 The function d($f,x$) returns the derivative of $f$ with respect to $x$.
 The $x$ can be omitted for expressions in $x$.
 \begin{itemize}
@@ -216,7 +233,7 @@ $\left(\matrix{
 
 \newpage
 
-\section*{Derivatives (cont'd)}
+\noindent
 Here is a trick.
 The function $f$ in d($f$) does not have to be defined.
 Eigenmath will check the argument list
@@ -268,7 +285,11 @@ $\left(\matrix{
 
 \label{integral}
 
-\section*{Integrals}
+\noindent
+Let us move on now to integrals.
+
+\medskip
+\noindent
 The function integral($f,x$) returns the integral of $f$ with respect to $x$.
 The $x$ can be omitted for expressions in $x$.
 A multi-integral can be obtained by extending the argument list.
@@ -291,13 +312,28 @@ over a half circle.
 
 \newpage
 
-\section*{That's all for now}
-Please check the following web site for more examples.
+\chapter{Complex Numbers}
+
+\noindent
+When Eigenmath starts up, it pre-defines the symbol $i$ as $i=\sqrt{-1}$.
+Other than that, there is nothing special about $i$.
+It is just a regular symbol that can be redefined and used for some other purpose if need be.
 
 \medskip
-{\tt eigenmath.blogspot.com}
+\noindent
+Complex quantities can be entered in rectangular or polar form, or a combination of both.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt conj(a+b*i)}
+\item[$\scriptstyle2$]\hspace{50pt} $a-ib$
+\item[$\scriptstyle3$]{\tt A0*exp(i*pi/3)}
+\item[$\scriptstyle4$]\hspace{50pt} $A_0\exp({1\over3}i\pi)$
+\item[$\scriptstyle5$]{\tt rect}
+\item[$\scriptstyle6$]\hspace{50pt} ${1\over2}A_0+{1\over2}i3^{1/2}A_0$
+\end{itemize}
 
 \newpage
+
+\chapter{List of Eigenmath Functions}
 
 \section*{abs}
 abs($x$) returns the absolute value or vector length of $x$.
@@ -406,7 +442,8 @@ denominator($x$) returns the denominator of expression $x$.
 det($m$) returns the determinant of matrix $m$.
 
 \section*{display}
-display($x$) prints expression $x$.
+display($x$) evaluates expression $x$ and displays the result.
+Useful for printing from inside a ``for'' loop.
 
 \section*{do}
 do($a,b,\ldots$) evaluates the argument list from left to right.
@@ -575,6 +612,10 @@ polar($z$) converts complex $z$ to polar form.
 \section*{prime}
 prime($n$) returns the $n$th prime number, $1\le n\le10{,}000$.
 
+\section*{print}
+print($x$) evaluates expression $x$ and displays the result in typewriter style.
+Useful for printing from inside a ``for'' loop.
+
 \section*{product}
 product($i,j,k,f$) returns $\displaystyle\prod_{i=j}^k f$
 
@@ -658,6 +699,21 @@ Hence a matrix can be transposed with a single argument.
 \item[$\scriptstyle3$]\hspace{50pt} $\left[\matrix{a & c\cr b & d\cr}\right]$
 \end{itemize}
 
+\section*{unit}
+unit($n$) returns an $n\times n$ identity matrix.
+%\begin{itemize}
+%\item[$\scriptstyle1$]{\tt unit(2)}
+%\item[$\scriptstyle2$]\hspace{50pt} $\left(\matrix{1&0\cr0&1\cr}\right)$
+%\end{itemize}
 
+\section*{zero}
+zero($i,j,\ldots$) returns a null tensor with dimensions $i$, $j$, etc.
+Useful for creating a tensor and then setting the component values.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt A=zero(2,2)}
+\item[$\scriptstyle2$]{\tt A[1,2]=a}
+\item[$\scriptstyle3$]{\tt A}
+\item[$\scriptstyle4$]\hspace{50pt} $\left(\matrix{0&a\cr0&0\cr}\right)$
+\end{itemize}
 
 \end{document}
