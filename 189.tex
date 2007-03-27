@@ -1,0 +1,102 @@
+\magnification=1200
+
+\noindent
+{\it George Weigt -- Advanced Calculus Homework \#8}
+
+\beginsection Question 1. Kaplan, No. 2(b), p. 278
+
+Evaluate the integral
+$$\int_C y\,dx+x\,dy$$
+where $C$ is the path $y=x^2$ and the path
+goes from $(0,0)$ to $(2,4)$.
+
+\bigskip
+\noindent
+Solution: Let us parameterize the path as follows.
+$$x(t)=2t,\qquad y(t)=4t^2,\qquad0\le t\le1$$
+Then $x(0)=0$, $y(0)=0$, $x(1)=2$, $y(1)=4$, and for every $t$
+along the path we have $y(t)=x(t)^2$.
+In addition, we have
+$$dx=2\,dt,\qquad dy=8t\,dt$$
+Hence
+$$y\,dx=(4t^2)(2\,dt)=8t^2\,dt,\qquad x\,dy=(2t)(8t\,dt)=16t^2\,dt$$
+Therefore
+$$\int_C y\,dx+x\,dy=\int_0^1 8t^2\,dt + \int_0^1 16t^2\,dt
+=\left({8\over3}+{16\over3}\right)t^3\bigg|_0^1=8
+$$
+
+\beginsection Question 2.
+
+As above except reverse the path.
+
+\medskip
+\noindent
+The integral is same but the endpoints are reversed.
+Hence
+$$\int_C y\,dx+x\,dy=\left({8\over3}+{16\over3}\right)t^3\bigg|_1^0=-8$$
+
+\vfill
+\eject
+
+\beginsection Question 3.
+
+Evaluate
+$$I_1=\int_{C_1}x^2y^2\,dx-xy^3\,dy$$
+where $C_1$ is the straight line from $(0,0)$ to $(1,0)$.
+
+\bigskip
+\noindent
+Solution: We have $y=0$ all along the path hence $x^2y^2=0$ and $xy^3=0$.
+Therefore
+$$I_1=0$$
+
+\beginsection Question 4.
+
+Evaluate
+$$I_2=\int_{C_2}x^2y^2\,dx-xy^3\,dy$$
+where $C_2$ is the straight line from $(1,0)$ to $(1,1)$.
+
+\bigskip
+\noindent
+Solution: Let
+$$x(t)=1,\qquad y(t)=t,\qquad 0\le t\le1$$
+We have
+$$dx=0,\qquad dy=dt$$
+Hence
+$$x^2y^2\,dx=0,\qquad xy^3\,dy=t^3\,dt$$
+Therefore
+$$I_2=\int_{C_2}x^2y^2\,dx-xy^3\,dy=-\int_0^1 t^3\,dt=-{1\over4}t^4\bigg|_0^1=-{1\over4}$$
+
+\beginsection Question 5.
+
+Evaluate
+$$I_3=\int_{C_3}x^2y^2\,dx-xy^3\,dy$$
+where $C_3$ is the straight line from $(1,1)$ to $(0,0)$.
+
+\bigskip
+\noindent
+Solution: Let
+$$x(t)=t,\qquad y(t)=t,\qquad 0\le t\le1$$
+We have
+$$dx=dt,\qquad dy=dt$$
+Hence
+$$x^2y^2\,dx=t^4\,dt,\qquad xy^3\,dy=t^4\,dt$$
+Therefore
+$$I_3=\int_{C_3}x^2y^2\,dx-xy^3\,dy=\int_1^0t^4\,dt-\int_1^0t^4\,dt=0$$
+
+\vfill
+\eject
+
+\beginsection Question 6. Kaplan, No. 3(c), p. 279
+
+Evaluate
+$$\oint_C x^2y^2\,dx-xy^3\,dy$$
+where $C$ is the triangle with vertices $(0,0)$, $(1,0)$, $(1,1)$.
+
+\bigskip
+\noindent
+Solution: We have
+$$\oint_C x^2y^2\,dx-xy^3\,dy=I_1+I_2+I_3=-{1\over4}$$
+
+
+\end

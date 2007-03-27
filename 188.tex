@@ -1,0 +1,365 @@
+\magnification=1200
+
+\noindent
+{\it George Weigt -- Geometry Homework \#8}
+
+\beginsection Page 96, problem 1.
+
+Let $A=(0,1)$, $B=(0,5)$, and $C=(3,4)$ be points in the Poincare Plane.
+Find the sum of the measures of the angles $\triangle ABC$.
+
+\bigskip
+\noindent
+Solution: For $\overleftarrow A\overrightarrow B$ we have $x_A=x_B$ therefore
+$\overleftarrow A\overrightarrow B$ is a type I line.
+
+\medskip
+\noindent
+For $\overleftarrow A\overrightarrow C$ we have $x_A\ne x_C$ therefore
+$\overleftarrow A\overrightarrow C$ is a type II line with
+$$c_{AC}={y_C^2-y_A^2+x_C^2-x_A^2\over2(x_C-x_A)}=4$$
+
+\medskip
+\noindent
+For $\overleftarrow B\overrightarrow C$ we have $x_B\ne x_C$ therefore
+$\overleftarrow B\overrightarrow C$ is a type II line with
+$$c_{BC}={y_C^2-y_B^2+x_C^2-x_B^2\over2(x_C-x_B)}=0$$
+
+\medskip
+\noindent
+For the tangent lines we have
+$$\eqalign{
+T_{AB}&=(0,y_B-y_A)=(0,4)\cr
+T_{BA}&= -T_{AB}=(0,-4)\cr
+T_{AC}&=(y_A,c_{AC}-x_A)=(1,4)\qquad\qquad\hbox{(note: $x_A<x_C$)}\cr
+T_{CA}&=-(y_C,c_{AC}-x_C)=(-4,-1)\cr
+T_{BC}&=(y_B,c_{BC}-x_B)=(5,0)\qquad\qquad\hbox{(note: $x_B<x_C$)}\cr
+T_{CB}&=-(y_C,c_{BC}-x_C)=(-4,3)\cr
+}$$
+
+\medskip
+\noindent
+For the angles we have
+$$\eqalign{
+\theta_A&=\cos^{-1}\left(
+{\langle T_{AB},T_{AC}\rangle\over\|T_{AB}\|\cdot\|T_{AC}\|}
+\right)=\cos^{-1}{16\over4\sqrt{17}}\approx 14.04\cr
+%
+\theta_B&=\cos^{-1}\left(
+{\langle T_{BA},T_{BC}\rangle\over\|T_{BA}\|\cdot\|T_{BC}\|}
+\right)=\cos^{-1}{0\over20}=90\cr
+%
+\theta_C&=\cos^{-1}\left(
+{\langle T_{CA},T_{CB}\rangle\over\|T_{CA}\|\cdot\|T_{CB}\|}
+\right)=\cos^{-1}{13\over\sqrt{17}\cdot5}\approx50.91\cr
+}$$
+
+\medskip
+\noindent
+Finally,
+$$\theta_A+\theta_B+\theta_C\approx154.95$$
+
+\vfill
+\eject
+
+\beginsection Page 96, problem 3.
+
+Let $A=(5,1)$, $B=(8,4)$, and $C=(1,3)$ be points in the Poincare Plane.
+Find the sum of the measures of the angles $\triangle ABC$.
+
+\bigskip
+\noindent
+$$\eqalign{
+c_{AB}&={y_B^2-y_A^2+x_B^2-x_A^2\over2(x_B-x_A)}=9\cr
+c_{AC}&={y_C^2-y_A^2+x_C^2-x_A^2\over2(x_C-x_A)}=2\cr
+c_{BC}&={y_C^2-y_B^2+x_C^2-x_B^2\over2(x_C-x_B)}=5\cr
+}$$
+
+\bigskip
+\noindent
+$$\eqalign{
+T(A,B)&=(1,4)\cr
+T(B,A)&=(-4,-1)\cr
+T(A,C)&=(-1,3)\cr
+T(C,A)&=(3,1)\cr
+T(B,C)&=(-4,3)\cr
+T(C,B)&=(3,4)\cr
+}$$
+
+\bigskip
+$$\eqalign{
+\theta_A&\approx32.47\cr
+\theta_B&\approx50.91\cr
+\theta_C&\approx34.70\cr
+}$$
+
+\bigskip
+$$\theta_A+\theta_B+\theta_C\approx118.1$$
+
+\vfill
+\eject
+
+\beginsection Page 96, problem 4.
+
+Let $m$ be an angle measure for $\{S,L,d\}$ based on $\alpha$.
+Let $t>0$ and define $m_t$ by
+$$m_t(\angle ABC)=t\cdot m(\angle ABC)$$
+Prove that $m_t$ is an angle measure for $\{S,L,d\}$.
+What value is $m_t$ based on?
+
+\bigskip
+\noindent
+Solution: We need to show that $m_t$ satisfies the three conditions of Definition 9.1.
+
+\medskip
+\item{i.} 
+By hypothesis we have $m$ is an angle measure based on $\alpha$ hence $0<m(\angle ABC)<\alpha$.
+Then by the hypothesis that $m_t(\angle ABC)=t\cdot m(\angle ABC)$ we have
+$$0<{m_t(\angle ABC)\over t}<\alpha$$
+Since $t>0$ we can multiply through by $t$ and not affect the less-than relationship.
+Hence
+$$0<m_t(\angle ABC)<t\alpha$$
+Therefore $m_t$ satisfies the condition that $0<m_t(\angle ABC)<r_0$ for $r_0=t\alpha$.
+
+\medskip
+\item{ii.}
+By the hypothesis that $m$ is an angle measure we have the existence of
+a unique ray such that $m(\angle ABC)=\theta$
+for any $\theta$ in the range $0<\theta<\alpha$.
+Since $t>0$ we can multiply everything by $t$ and not affect the less-than relationship.
+Hence there is a unique ray
+such that $t\cdot m(\angle ABC)=t\theta$ for any $t\theta$ in the range $0<t\theta<t\alpha$.
+If we let $\phi=t\theta$ then by $m_t=t\cdot m$ and $r_0=t\alpha$
+we can say that there is a unique ray
+such that $m_t(\angle ABC)=\phi$ for any $\phi$ in the range $0<\phi<r_0$.
+Hence condition (ii) is satisfied.
+
+\medskip
+\item{iii.}
+By the hypothesis that $m$ is an angle measure we have for $D\in int(\angle ABC)$ the
+following.
+$$m(\angle ABD)+m(\angle DBC)=m(\angle ABC)$$
+We can multiply this equation through by $t$ and have the same for $m_t$.
+Hence condition (iii) is satisfied.
+
+\medskip
+\noindent
+Conditions (i), (ii) and (iii) are satisfied hence $m_t$ is an angle measure based on
+$r_0=t\alpha$.
+
+\vfill
+\eject
+
+\beginsection Page 96, problem 5.
+
+Assume that $m_E$ is an angle measure for Euclidean metric geometry $\{R^2,L_E,d_E\}$.
+Prove that $m_E$ is an angle measure for the Taxicab Plane $\{R^2,L_E,d_T\}$.
+
+\bigskip
+\noindent
+Solution: Let us check each condition of Definition 9.1 is true in the Taxicab Plane for $m_E$.
+
+\medskip
+\item{i.} We have
+$$m_E(\angle ABC)=\cos^{-1}\left({\langle A-B,C-B\rangle\over\!A-B\|\cdot\|C-B\|}\right)$$
+The function $d_T$ does affect the set $\{A,B,C\}$, i.e., the $x$ and $y$ values are not affected.
+Hence $m_E(\angle ABC)$ is the same for both the Euclidean Plane and the Taxicab Plane.
+Therefore the condition $0<m_E<r_0$ is true for the Taxicab Plane.
+
+\medskip
+\item{ii}
+We have already shown that $m(\angle ABC)$ is the same for both planes.
+By Problem 5 of HW 6 we have $P{-}Q{-}R$ in the Euclidean Plane if and only if $P{-}Q{-}R$
+in the Taxicab Plane.
+Hence the set $H_1$ of $\overrightarrow{BC}$ is the same in both planes.
+We have already shown that $d_t$ does not change the $x$ and $y$ values in the set $\{A,B,C\}$.
+Hence the ray $\overrightarrow{BA}$ such that
+$m(\angle ABC)=\theta$ is identical in both planes.
+
+\medskip
+\item{iii.}
+By Problem 5 of HW 6 we have $P{-}Q{-}R$ in the Euclidean Plane if and only if $P{-}Q{-}R$
+in the Taxicab Plane.
+Hence the set $int(\angle ABC)$ is the same for both planes.
+Let $D\in int(\angle ABC)$.
+We have already shown that $m(\angle ABC)$ is the same for both planes.
+Hence we have
+$$m(\angle ABD)+m(\angle DBC)=m(\angle ABC)$$
+in the Taxicab Plane since it is true in the Euclidean Plane.
+Therefore condition (iii) is true for the Taxicab Plane.
+
+\medskip
+\noindent
+Conditions (i), (ii) and (iii) are satisfied hence $m_E$ is an angle measure for the
+Taxicab Plane.
+
+\vfill
+\eject
+
+\beginsection Page 96, problem 7.
+
+Let $\theta$ be a real number with $0<\theta<180$ and let $\overrightarrow{BC}$
+lie in the edge of a half plane $H_1$ in a protractor geometry.
+Prove that there is a unique point $A\in H_1$ with $m(\angle ABC)=\theta$.
+
+\bigskip
+\noindent
+Counterexample:
+By condition (ii) of Definition 9.1, there is a unique ray $\overrightarrow{BA}$ that
+satisfies this condition.
+However, $\overrightarrow{BA}=\overrightarrow{BP}$
+for any $P\in int(\overrightarrow{BA})$.
+Hence $m(\angle ABC)=m(\angle PBC)$.
+Therefore $A$ is not unique.
+
+\vfill
+\eject
+
+\beginsection Page 108, problem 3.
+
+Prove the following theorem (Theorem 5.3.5).
+
+\medskip
+\noindent
+Given a line $\ell$ and a point $B\in\ell$ in a protractor geometry, there
+exists a unique line $\ell'$ that contains $B$ such that $\ell\perp\ell'$.
+
+\bigskip
+\noindent
+Solution:
+
+\medskip
+\item{$\scriptstyle1$}
+Let $C\in\ell$.
+
+\medskip
+\item{$\scriptstyle2$}
+Define $A\in H_1$ of $\ell$ such that $m(\angle ABC)=90$.
+The point $A$ is guaranteed to exist by condition (i) of Definition 9.1.
+
+\medskip
+\item{$\scriptstyle3$}
+Define $D\in H_2$ of $\ell$ such that $m(\angle CBD)=90$.
+The point $D$ is guaranteed to exist by condition (i) of Definition 9.1.
+
+\medskip
+\item{$\scriptstyle4$}
+Let $\ell'=\overleftarrow A\overrightarrow D$.
+
+\medskip
+\item{$\scriptstyle5$}
+By theorem 5.3.4 in the book, we have $A{-}B{-}D$ hence $B\in\ell'$.
+
+\medskip
+\item{$\scriptstyle6$}
+By (2) and $A,B\in\ell'$ we have $\ell\perp\ell'$.
+
+\medskip
+\item{$\scriptstyle7$}
+By condition (ii) of Definition 9.1, $\overrightarrow{BA}$ is unique hence $\ell'$ is unique.
+
+\vfill
+\eject
+
+\beginsection Page 108, problem 4.
+
+Prove the following corollary (Corollary 5.3.7).
+
+\medskip
+\noindent
+In a protractor geometry, every line segment $\overline{AB}$ has a unique
+perpendicular bisector; that is, a  line $\ell\perp\overline{AB}$
+with $\ell\cap\overline{AB}=\{M\}$ where $M$ is the midpoint of $\overline{AB}$.
+
+\bigskip
+\noindent
+Solution: The midpoint $M$ was proved to be unique in problem 12 (b) of HW4.
+By Theorem 9.17 there is a unique line, call it $\ell$, such that
+$\ell\perp\overleftarrow A\overrightarrow B$ such that $M\in\ell$.
+Since unique lines can intersect in at most one point we have
+$\ell\cap\overline{AB}=\{M\}$.
+
+\vfill
+\eject
+
+\beginsection Page 108, problem 7.
+
+Let $\angle ABC$ and $\angle A'BC'$ form a vertical pair in a protractor
+geometry. Prove that if $\angle ABC$ is a right angle so are
+$\angle A'BC$, $\angle A'BC'$ and $\angle ABC'$.
+
+\bigskip
+\noindent
+Solution:
+
+\medskip
+\item{$\scriptstyle1$}
+By vertical pair we have $A{-}B{-}A'$ and $C{-}B{-}C'$.
+
+\medskip
+\item{$\scriptstyle2$}
+By $A{-}B{-}A'$ we have $\angle ABC$ and $A'BC$ are a linear pair then by
+Theorem 9.14 we have $m(\angle A'BC)=90$.
+
+\medskip
+\item{$\scriptstyle3$}
+By $C{-}B{-}C'$ we have $\angle A'BC$ and $\angle A'BC'$ are linear pair then by
+Theorem 9.14 we have $m(\angle A'BC')=90$.
+
+\medskip
+\item{$\scriptstyle4$}
+By $A{-}B{-}A'$ again we have $\angle A'BC'$ and $ABC'$ are a linear pair then by
+Theorem 9.14 we have $m(\angle ABC')=90$.
+
+\vfill
+\eject
+
+\beginsection Page 108, problem 9.
+
+Show that if $\triangle ABC$ is as given in Example 5.1.3, then
+$(AC)^2\ne(AB)^2+(BC)^2$.
+Thus the Pythagorean Theorem need not be true in a protractor geometry.
+
+\bigskip
+\noindent
+Solution: We have $A=(0,1)$, $B=(0,5)$, and $C=(3,4)$ in the Poincare Plane.
+
+\medskip
+\noindent
+$\overline{AB}$ is a type I line with
+$$d(A,B)=|\ln5-\ln1|=\ln5$$
+
+\medskip
+\noindent
+$\overline{AC}$ is a type II line with
+$$c={y_C^2-y_A^2+x_C^2-x_A^2\over2(x_C-x_A)}=4,\qquad
+r=\sqrt{(x_A-c)^2+y_A^2}=\sqrt{17}$$
+$$d(A,C)=\left|\ln\left(
+{
+{x_A-c+r\over y_A}
+\over
+{x_C-c+r\over y_C}
+}
+\right)\right|
+=\left|\ln\left({4(-4+\sqrt{17})\over-1+\sqrt{17}}\right)\right|
+$$
+
+\medskip
+\noindent
+$\overline{BC}$ is a type II line with
+$$c={y_C^2-y_B^2+x_C^2-x_B^2\over2(x_C-x_B)}=0,\qquad
+r=\sqrt{(x_B-c)^2+y_B^2}=5$$
+$$d(B,C)=\left|\ln\left(
+{
+{x_B-c+r\over y_B}
+\over
+{x_C-c+r\over y_C}
+}
+\right)\right|
+=\ln2
+$$
+
+We have
+$$(AC)^2\approx3.4123,\qquad(AB)^2+(BC)^2\approx3.0707$$
+
+\end
