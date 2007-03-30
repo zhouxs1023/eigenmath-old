@@ -1,7 +1,7 @@
 \documentclass[12pt,openany]{report}
 \title{Eigenmath Manual}
 \author{George Weigt}
-\date{March 21, 2007}
+\date{March 29, 2007}
 \pagestyle{plain}
 \usepackage{graphicx}
 
@@ -395,6 +395,11 @@ choose($n,k$) returns $\displaystyle\left({n \atop k}\right)$
 %\item[$\scriptstyle2$]\hspace{50pt} $\displaystyle{n!\over k!(-k+n)!}$
 %\end{itemize}
 
+\section*{circexp}
+circexp($x$) returns expression $x$ with circular functions converted
+to exponential forms.
+Sometimes this will simplify an expression.
+
 \section*{coeff}
 coeff($p,x,n$) returns the coefficient of $x^n$ in polynomial $p$.
 
@@ -715,5 +720,58 @@ Useful for creating a tensor and then setting the component values.
 \item[$\scriptstyle3$]{\tt A}
 \item[$\scriptstyle4$]\hspace{50pt} $\left(\matrix{0&a\cr0&0\cr}\right)$
 \end{itemize}
+
+\newpage
+
+\chapter{Examples}
+
+\newpage
+
+\section*{Fran\c cois Vi\`ete}
+Fran\c cois Vi\`ete was the very first person to come up with an exact formula for $\pi$.
+Here is his formula.
+\begin{displaymath}
+{2\over\pi}={\sqrt2\over2}\times{\sqrt{2+\sqrt2}\over2}\times
+{\sqrt{2+\sqrt{2+\sqrt2}}\over2}\times\cdots
+\end{displaymath}
+%We can flip it around and write the formula like this.
+%\begin{displaymath}
+%\pi=2\times{2\over\sqrt2}\times{2\over\sqrt{2+\sqrt2}}\times
+%{2\over\sqrt{2+\sqrt{2+\sqrt2}}}\times\cdots
+%\end{displaymath}
+Let $a_0=0$ and $a_{n}=\sqrt{2+a_{n-1}}$.
+Then we can write
+\begin{displaymath}
+{2\over\pi}={a_1\over2}\times{a_2\over2}\times
+{a_3\over2}\times\cdots
+\end{displaymath}
+%
+Solving for $\pi$ we have
+\begin{displaymath}
+\pi=2\times{2\over a_1}\times{2\over a_2}\times{2\over a_3}\times\cdots=2\prod_{k=1}^\infty
+{2\over a_k}
+\end{displaymath}
+%
+Let us now use Eigenmath to compute $\pi$ according to Vi\`ete's formula.
+Of course, we cannot calculate all the way out to infinity, we have to stop somewhere
+along the way.
+It turns out that nine factors are just enough to get six digits of accuracy.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt a(n)=test(n=0,0,sqrt(2+a(n-1)))}
+\item[$\scriptstyle2$]{\tt float(2*product(k,1,9,2/a(k)))}
+\item[$\scriptstyle3$]\hspace{50pt} $3.14159$
+\end{itemize}
+The function $a(n)$ calls itself $n$ times so overall there are
+54 calls to $a(n)$.
+By using a different algorithm with temporary variables, we can get the answer in just 9 steps.
+\begin{itemize}
+\item[$\scriptstyle1$]{\tt a=0}
+\item[$\scriptstyle2$]{\tt b=1}
+\item[$\scriptstyle3$]{\tt for(k,1,9,a=sqrt(2+a),b=b*2/a)}
+\item[$\scriptstyle4$]{\tt float(2*b)}
+\item[$\scriptstyle5$]\hspace{50pt} $3.14159$
+\end{itemize}
+
+
 
 \end{document}

@@ -39,6 +39,7 @@ itself is evaluated.
 <li><a href="#ceiling">ceiling</a>
 <li><a href="#check">check</a>
 <li><a href="#choose">choose</a>
+<li><a href="#circexp">circexp</a>
 <li><a href="#coeff">coeff</a>
 <li><a href="#cofactor">cofactor</a>
 <li><a href="#conj">conj</a>
@@ -201,6 +202,11 @@ If x is true then continue, else stop.
 <h1><tt><a name="choose">choose(<i>n,k</i>)</a></tt></h1>
 Returns the number of combinations of n items taken k at a time,
 choose(n,k)=n!/(k!*(n-k)!)
+
+<p>
+<h1><tt><a name="circexp">circexp(<i>x</i>)</a></tt></h1>
+Returns expression x with circular functions converted to exponential forms.
+Sometimes this will simplify an expression.
 
 <p>
 <h1><tt><a name="coeff">coeff(<i>p,x,n</i>)</a></tt></h1>
@@ -373,7 +379,7 @@ Factors integer n.
 <h1><tt>factor(<i>p,x</i>)</tt></h1>
 Factors polynomial p(x).
 The x can be omitted for polynomials in x.
-Polynomial p should be factorable over integers.
+The polynomial should be factorable over integers.
 
 <p>
 <h1><tt><a name="factorial">factorial(<i>x</i>)</a></tt></h1>
@@ -385,8 +391,7 @@ For example,
 
 <i>Result</i>
 
-     93326215443944152681699238856266700490715968264381621468592963895217599993229915
-     608941463976156518286253697920827223758251185210916864000000000000000000000000
+     93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000
 </pre>
 
 <p>
@@ -499,7 +504,7 @@ Returns the remainder of the result of "a" divided by b.
 
 <p>
 <h1><tt><a name="not">not(<i>x</i>)</a></tt></h1>
-Returns the logical inverse of x.
+Returns the logical negation of x.
 <pre>
 <i>Example</i>
 
@@ -678,3 +683,4 @@ Useful for creating a tensor and then setting the component values.
 </pre>
 </body>
 </html>
+
