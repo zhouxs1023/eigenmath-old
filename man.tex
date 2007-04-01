@@ -1,8 +1,8 @@
 \documentclass[12pt,openany]{report}
 \title{Eigenmath Manual}
 \author{George Weigt}
-\date{March 29, 2007}
-\pagestyle{plain}
+\date{March 30, 2007}
+\pagestyle{headings}
 \usepackage{graphicx}
 
 \begin{document}
@@ -14,27 +14,32 @@
 \chapter{The Big Picture}
 In simplest terms, when you type something into Eigenmath,
 it gets evaluated and the result is printed.
-For a first example, let us try entering $5+7$.
+For a first example, let us try entering $1/2+1/3$.
+
+\medskip
+{\tt 1/2+1/3}
+
+$$5\over6$$
 
 \medskip
 \noindent
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt 5+7}
-\item[$\scriptstyle2$]\hspace{50pt} $12$
-\end{itemize}
+This example demonstrates that Eigenmath uses rational arithmetic.
+You can enter ``float'' to convert the result to a floating point number.
+
+\medskip
+{\tt float}
+
+$$0.833333$$
 
 \medskip
 \noindent
-No surprise here of course, but Eigenmath has other features
-that should make things a little more interesting as we go along.
+There are a number of features for doing symbolic calculations.
+Here is a preview.
 
 \medskip
-\noindent
-Now is a good time to say a few words about the examples like the one above.
-Courier font (line 1) is used to show what should be entered.
-Results are shown with some space in front (line 2).
-The line numbers themselves are just for reference.
-They are not entered or displayed.
+{\tt integral(log(x))}
+
+$$-x+x\log(x)$$
 
 \newpage
 
@@ -42,23 +47,25 @@ They are not entered or displayed.
 Here is a simple example that draws the graph of $y=mx+b$.
 
 \medskip
-\noindent
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt y=m*x+b}
-\item[$\scriptstyle2$]{\tt m=1/2}
-\item[$\scriptstyle3$]{\tt b=-3}
-\item[$\scriptstyle4$]{\tt draw(y)}
-\item[$\scriptstyle5$]
+{\tt y=m*x+b}
+
+{\tt m=1/2}
+
+{\tt b=-3}
+
+{\tt draw(y)}
+
+\begin{center}
 \item[]\includegraphics[scale=0.5]{1.png}
-\end{itemize}
+\end{center}
 
 \newpage
 
 \noindent
 Now suppose that we want to draw a graph
 using different values for $m$ and $b$.
-We could type in lines 2--4 all over again, but it would be easier
-in the long run to pause for a moment and write a script.
+We could type in everything all over again, but it would be easier
+in the long run to write a script.
 Then we can go back and quickly change $m$ and $b$ as many times as we want.
 
 \medskip
@@ -67,30 +74,29 @@ To prepare a script, click on the Edit Script button.
 Then enter the script commands, one per line.
 
 \medskip
-\noindent
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt y=m*x+b}
-\item[$\scriptstyle2$]{\tt m=1/2}
-\item[$\scriptstyle3$]{\tt b=-3}
-\item[$\scriptstyle4$]{\tt draw(y)}
-\end{itemize}
+{\tt y=m*x+b}
+
+{\tt m=1/2}
+
+{\tt b=-3}
+
+{\tt draw(y)}
 
 \medskip
 \noindent
 Next, click on the Run Script button to see the graph.
 
 \medskip
-\noindent
-\begin{itemize}
-\item[]\includegraphics[scale=0.5]{1.png}
-\end{itemize}
+\begin{center}
+\includegraphics[scale=0.5]{1.png}
+\end{center}
 
 \medskip
 \noindent
 Eigenmath runs a script by stepping through it line by line.
 Each line is evaluated just like a regular command.
 This continues until the end of the script is reached.
-Then you can click on the Edit Script button to go back and change something.
+After the script runs, you can click Edit Script and go back and change something.
 
 \newpage
 
@@ -99,14 +105,11 @@ You may have noticed that when we define a symbol
 like $y=mx+b$, no result is printed.
 Eigenmath works this way so the screen does not get cluttered
 up with intermediate results.
-When you do in fact want to see the value of a symbol, just enter it.
+When you want to see the value of a symbol, just enter it.
 
 \medskip
-\noindent
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt y}
-\item[$\scriptstyle2$]\hspace{50pt} $y=mx+b$
-\end{itemize}
+{\tt y}
+$$y=mx+b$$
 
 \medskip
 \noindent
@@ -118,26 +121,23 @@ The main difference is that now we can easily evaluate $y$ for
 a specific value of $x$.
 
 \medskip
-\noindent
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt y(x)=m*x+b}
-\item[$\scriptstyle2$]{\tt y}
-\item[$\scriptstyle3$]\hspace{50pt} $y=mx+b$
-\item[$\scriptstyle4$]{\tt y(0)}
-\item[$\scriptstyle5$]\hspace{50pt} $-3$
-\end{itemize}
-\noindent
+{\tt y(x)=m*x+b}\par
+{\tt y}
+$$y=mx+b$$\par
+{\tt y(0)}
+$$-3$$
 
 \medskip
 \noindent
 Here is an example of a function of two variables.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt r(x,y)=(x{\char94}2+y{\char94}2){\char94}(1/2)}
-\item[$\scriptstyle2$]{\tt r}
-\item[$\scriptstyle3$]\hspace{50pt} $r=(x^2+y^2)^{1/2}$
-\item[$\scriptstyle4$]{\tt r(1,2)}
-\item[$\scriptstyle5$]\hspace{50pt} $5^{1/2}$
-\end{itemize}
+
+\medskip
+{\tt r(x,y)=(x{\char94}2+y{\char94}2){\char94}(1/2)}\par
+{\tt r}
+$$r=(x^2+y^2)^{1/2}$$
+\indent
+{\tt r(1,2)}
+$$5^{1/2}$$
 
 \medskip
 \noindent
@@ -146,10 +146,7 @@ it is time to clear out the old definitions
 with the following command.
 
 \medskip
-\noindent
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt clear}
-\end{itemize}
+{\tt clear}
 
 \medskip
 \noindent
@@ -159,7 +156,11 @@ running a script.
 
 \newpage
 
-\chapter{Vectors and matrices}
+\chapter{Beyond scalars}
+
+\newpage
+
+\noindent
 Vectors and matrices are entered like this.
 \begin{itemize}
 \item[$\scriptstyle1$]{\tt X=(x1,x2,x3,x4)}
@@ -198,11 +199,58 @@ Index numbering begins with 1.
 
 \newpage
 
-\label{d}
+\chapter{Draw}
+
+\newpage
+
+\noindent
+draw($f,x$) draws a graph of the function $f$ of $x$.
+The second argument can be omitted when the dependent variable
+is literally $x$ or $t$.
+The vectors $xrange$ and $yrange$ control the scale of the graph.
+The clear command restores $xrange$ and $yrange$ to default settings.
+
+\medskip
+{\tt draw(x{\char94}2)}
+
+\includegraphics[scale=0.5]{parabola.png}
+
+{\tt xrange=(-1,1)}
+
+{\tt yrange=(0,2)}
+
+{\tt draw(x{\char94}2)}
+
+\includegraphics[scale=0.5]{parabola2.png}
+
+{\tt clear}
+
+\newpage
+
+\noindent
+Parametric drawing occurs when a function returns a vector.
+The vector $trange$ controls the parameter range.
+The default range is $(-\pi,\pi)$.
+
+\medskip
+{\tt f=(cos(t),sin(t))}
+
+{\tt draw(5*f)}
+
+\includegraphics[scale=0.5]{circle.png}
+
+{\tt trange=(0,pi/2)}
+
+{\tt draw(5*f)}
+
+\includegraphics[scale=0.5]{circle2.png}
+
+{\tt clear}
 
 \chapter{Calculus}
 
-%\section*{Derivatives}
+\label{d}
+
 The function d($f,x$) returns the derivative of $f$ with respect to $x$.
 The $x$ can be omitted for expressions in $x$.
 \begin{itemize}
@@ -753,8 +801,7 @@ Solving for $\pi$ we have
 \end{displaymath}
 %
 Let us now use Eigenmath to compute $\pi$ according to Vi\`ete's formula.
-Of course, we cannot calculate all the way out to infinity, we have to stop somewhere
-along the way.
+Of course, we cannot calculate all the way out to infinity, we have to stop somewhere.
 It turns out that nine factors are just enough to get six digits of accuracy.
 \begin{itemize}
 \item[$\scriptstyle1$]{\tt a(n)=test(n=0,0,sqrt(2+a(n-1)))}
