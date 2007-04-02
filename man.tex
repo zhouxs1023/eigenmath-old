@@ -1,9 +1,11 @@
 \documentclass[12pt,openany]{report}
 \title{Eigenmath Manual}
 \author{George Weigt}
-\date{March 30, 2007}
+\date{April 2, 2007}
 \pagestyle{headings}
 \usepackage{graphicx}
+
+%\parindent=0.3in
 
 \begin{document}
 \maketitle
@@ -14,7 +16,7 @@
 \chapter{The Big Picture}
 In simplest terms, when you type something into Eigenmath,
 it gets evaluated and the result is printed.
-For a first example, let us try entering $1/2+1/3$.
+For a first example, try entering $1/2+1/3$.
 
 \medskip
 {\tt 1/2+1/3}
@@ -23,7 +25,7 @@ $$5\over6$$
 
 \medskip
 \noindent
-This example demonstrates that Eigenmath uses rational arithmetic.
+As you can see, Eigenmath uses rational arithmetic for numerical calculations.
 You can enter ``float'' to convert the result to a floating point number.
 
 \medskip
@@ -55,9 +57,9 @@ Here is a simple example that draws the graph of $y=mx+b$.
 
 {\tt draw(y)}
 
-\begin{center}
-\item[]\includegraphics[scale=0.5]{1.png}
-\end{center}
+\medskip
+\noindent
+\includegraphics[scale=0.5]{1.png}
 
 \newpage
 
@@ -87,9 +89,8 @@ Then enter the script commands, one per line.
 Next, click on the Run Script button to see the graph.
 
 \medskip
-\begin{center}
+\noindent
 \includegraphics[scale=0.5]{1.png}
-\end{center}
 
 \medskip
 \noindent
@@ -156,32 +157,37 @@ running a script.
 
 \newpage
 
-\chapter{Beyond scalars}
+\chapter{Linear algebra}
 
 \newpage
 
 \noindent
 Vectors and matrices are entered like this.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt X=(x1,x2,x3,x4)}
-\item[$\scriptstyle2$]{\tt A=((1,2,3),(4,5,6),(7,8,9))}
-\item[$\scriptstyle3$]{\tt A}
-\item[$\scriptstyle4$]\hspace{50pt} $\left(\matrix{1&2&3\cr4&5&6\cr7&8&9\cr}\right)$
-\end{itemize}
+
+\medskip
+{\tt X=(x1,x2,x3,x4)}
+
+{\tt A=((1,2,3),(4,5,6),(7,8,9))}
+
+{\tt A}
+
+$$\left(\matrix{1&2&3\cr4&5&6\cr7&8&9\cr}\right)$$
 
 \medskip
 \noindent
 Eigenmath's dot function is used to multiply vectors and matrices.
 The following example shows how to use dot and inv to solve for $\bf X$ in $\bf AX=B$.
-%\footnote{
-%Numerical values from {\it HP-15C Owner's Handbook,} p. 138.}
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt A=((3.8,7.2),(1.3,-0.9))}
-\item[$\scriptstyle2$]{\tt B=(16.5,-22.1)}
-\item[$\scriptstyle3$]{\tt X=dot(inv(A),B)}
-\item[$\scriptstyle4$]{\tt X}
-\item[$\scriptstyle5$]\hspace{50pt} $\left(\matrix{-11.2887\cr8.24961}\right)$
-\end{itemize}
+
+\medskip
+{\tt A=((3.8,7.2),(1.3,-0.9))}
+
+{\tt B=(16.5,-22.1)}
+
+{\tt X=dot(inv(A),B)}
+
+{\tt X}
+
+$$\left(\matrix{-11.2887\cr8.24961}\right)$$
 
 \medskip
 \noindent
@@ -189,13 +195,13 @@ Individual tensor components can be accessed using square brackets.
 Index numbering begins with 1.
 
 \medskip
-\noindent
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt A=zero(2,2)}
-\item[$\scriptstyle2$]{\tt A[1,2]=a}
-\item[$\scriptstyle3$]{\tt A}
-\item[$\scriptstyle4$]\hspace{50pt} $\left(\matrix{0&a\cr0&0\cr}\right)$
-\end{itemize}
+{\tt A=zero(2,2)}
+
+{\tt A[1,2]=a}
+
+{\tt A}
+
+$$\left(\matrix{0&a\cr0&0\cr}\right)$$
 
 \newpage
 
@@ -208,11 +214,12 @@ draw($f,x$) draws a graph of the function $f$ of $x$.
 The second argument can be omitted when the dependent variable
 is literally $x$ or $t$.
 The vectors $xrange$ and $yrange$ control the scale of the graph.
-The clear command restores $xrange$ and $yrange$ to default settings.
 
 \medskip
 {\tt draw(x{\char94}2)}
 
+\medskip
+\noindent
 \includegraphics[scale=0.5]{parabola.png}
 
 {\tt xrange=(-1,1)}
@@ -221,9 +228,16 @@ The clear command restores $xrange$ and $yrange$ to default settings.
 
 {\tt draw(x{\char94}2)}
 
+\medskip
+\noindent
 \includegraphics[scale=0.5]{parabola2.png}
 
 {\tt clear}
+
+\medskip
+\noindent
+The clear command (or a click of the Clear button)
+resets $xrange$ and $yrange$.
 
 \newpage
 
@@ -237,12 +251,16 @@ The default range is $(-\pi,\pi)$.
 
 {\tt draw(5*f)}
 
+\medskip
+\noindent
 \includegraphics[scale=0.5]{circle.png}
 
 {\tt trange=(0,pi/2)}
 
 {\tt draw(5*f)}
 
+\medskip
+\noindent
 \includegraphics[scale=0.5]{circle2.png}
 
 {\tt clear}
@@ -253,31 +271,37 @@ The default range is $(-\pi,\pi)$.
 
 The function d($f,x$) returns the derivative of $f$ with respect to $x$.
 The $x$ can be omitted for expressions in $x$.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt d(x{\char94}2)}
-\item[$\scriptstyle2$]\hspace{50pt} $2x$
-\end{itemize}
 
+\medskip
+{\tt d(x{\char94}2)}
+
+$$2x$$
+
+\medskip
 \noindent
 Multi-derivatives can be obtained by extending the argument list.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt r=sqrt(x{\char94}2+y{\char94}2)}
-\item[$\scriptstyle1$]{\tt d(r,x,y)}
-\item[$\scriptstyle2$]\hspace{50pt} $\displaystyle{-{xy\over(x^2+y^2)^{3/2}}}$
-\end{itemize}
 
+\medskip
+{\tt r=sqrt(x{\char94}2+y{\char94}2)}
+
+{\tt d(r,x,y)}
+
+$${-{xy\over(x^2+y^2)^{3/2}}}$$
+
+\medskip
 \noindent
 A gradient can be obtained by using a vector for the second argument.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt r=sqrt(x{\char94}2+y{\char94}2)}
-\item[$\scriptstyle2$]{\tt d(r,(x,y))}
-\item[$\scriptstyle3$]\hspace{50pt}
-$\left(\matrix{
+
+\medskip
+{\tt r=sqrt(x{\char94}2+y{\char94}2)}
+
+{\tt d(r,(x,y))}
+
+$$\left(\matrix{
 \displaystyle{{x\over(x^2+y^2)^{1/2}}}\cr
 \cr
 \displaystyle{{y\over(x^2+y^2)^{1/2}}}\cr
-}\right)$
-\end{itemize}
+}\right)$$
 
 \newpage
 
@@ -286,22 +310,26 @@ Here is a trick.
 The function $f$ in d($f$) does not have to be defined.
 Eigenmath will check the argument list
 of $f$ to figure out what to do.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt d(f(x),(x,y))}
-\item[$\scriptstyle2$]\hspace{50pt}
-$\left(\matrix{
+
+\medskip
+{\tt d(f(x),(x,y))}
+
+$$\left(\matrix{
 \partial(f(x),x)\cr
 \cr
 0\cr
-}\right)$
-\item[$\scriptstyle3$]{\tt d(f(),(x,y))}
-\item[$\scriptstyle4$]\hspace{50pt}
-$\left(\matrix{
+}\right)$$
+
+{\tt d(f(),(x,y))}
+
+$$\left(\matrix{
 \partial(f(),x)\cr
 \cr
 \partial(f(),y)\cr
-}\right)$
-\end{itemize}
+}\right)$$
+
+\medskip
+\noindent
 As the second example shows,
 if the argument list is empty then $f$ is assumed to depend
 on any variable that d encounters.
@@ -317,17 +345,19 @@ There is just one more detail to add, and that has to do with vector functions.
 In the previous examples, $f$ was a scalar function.
 In the following example, line 1 shows how to create a vector function.
 The rest of the example computes the gradient of $\bf F$.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt F=(F1(),F2())}
-\item[$\scriptstyle2$]{\tt X=(x1,x2)}
-\item[$\scriptstyle3$]{\tt d(F,X)}
-\item[$\scriptstyle4$]\hspace{50pt}
-$\left(\matrix{
+
+\medskip
+{\tt F=(F1(),F2())}
+
+{\tt X=(x1,x2)}
+
+{\tt d(F,X)}
+
+$$\left(\matrix{
 \partial(F_1(),x_1) & \partial(F_1(),x_2)\cr
 \cr
 \partial(F_2(),x_1) & \partial(F_2(),x_2)\cr
-}\right)$
-\end{itemize}
+}\right)$$
 
 \newpage
 
@@ -341,22 +371,32 @@ Let us move on now to integrals.
 The function integral($f,x$) returns the integral of $f$ with respect to $x$.
 The $x$ can be omitted for expressions in $x$.
 A multi-integral can be obtained by extending the argument list.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt integral(x{\char94}2)}
-\item[$\scriptstyle2$]\hspace{50pt} ${1\over3}x^3$
-\item[$\scriptstyle3$]{\tt integral(x{\char94}2,x,x)}
-\item[$\scriptstyle4$]\hspace{50pt} ${1\over12}x^4$
-\end{itemize}
+
+\medskip
+{\tt integral(x{\char94}2)}
+
+$${1\over3}x^3$$
+
+{\tt integral(x{\char94}2,x,x)}
+
+$${1\over12}x^4$$
+
+\medskip
+\noindent
 The eval function can be used to compute definite integrals.
 The following example computes the integral of $x^2$
 over a half circle.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt I=integral(x{\char94}2,y)}
-\item[$\scriptstyle2$]{\tt I=eval(I,y,sqrt(1-x{\char94}2))-eval(I,y,0)}
-\item[$\scriptstyle3$]{\tt I=integral(I,x)}
-\item[$\scriptstyle4$]{\tt eval(I,x,1)-eval(I,x,-1)}
-\item[$\scriptstyle5$]\hspace{50pt} ${1\over8}\pi$
-\end{itemize}
+
+\medskip
+{\tt I=integral(x{\char94}2,y)}
+
+{\tt I=eval(I,y,sqrt(1-x{\char94}2))-eval(I,y,0)}
+
+{\tt I=integral(I,x)}
+
+{\tt eval(I,x,1)-eval(I,x,-1)}
+
+$${1\over8}\pi$$
 
 \newpage
 
@@ -370,14 +410,19 @@ It is just a regular symbol that can be redefined and used for some other purpos
 \medskip
 \noindent
 Complex quantities can be entered in rectangular or polar form, or a combination of both.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt conj(a+b*i)}
-\item[$\scriptstyle2$]\hspace{50pt} $a-ib$
-\item[$\scriptstyle3$]{\tt A0*exp(i*pi/3)}
-\item[$\scriptstyle4$]\hspace{50pt} $A_0\exp({1\over3}i\pi)$
-\item[$\scriptstyle5$]{\tt rect}
-\item[$\scriptstyle6$]\hspace{50pt} ${1\over2}A_0+{1\over2}i3^{1/2}A_0$
-\end{itemize}
+
+\medskip
+{\tt conj(a+b*i)}
+
+$$a-ib$$
+
+{\tt A0*exp(i*pi/3)}
+
+$$A_0\exp({1\over3}i\pi)$$
+
+{\tt rect}
+
+$${1\over2}A_0+{1\over2}i3^{1/2}A_0$$
 
 \newpage
 
@@ -386,21 +431,23 @@ Complex quantities can be entered in rectangular or polar form, or a combination
 \section*{abs}
 abs($x$) returns the absolute value or vector length of $x$.
 The mag function should be used for complex $x$.
-\begin{itemize}
-%\item[$\scriptstyle1$]{\tt abs(b-a)}
-%\item[$\scriptstyle2$]\hspace{50pt} $\mathop{\hbox{abs}}(a-b)$
-\item[$\scriptstyle1$]{\tt P=(x,y)}
-\item[$\scriptstyle2$]{\tt abs(P)}
-\item[$\scriptstyle3$]\hspace{50pt} $(x^2+y^2)^{1/2}$
-\end{itemize}
+
+\medskip
+{\tt P=(x,y)}
+
+{\tt abs(P)}
+
+$$(x^2+y^2)^{1/2}$$
 
 \section*{adj}
 adj($m$) returns the adjunct of matrix $m$.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt A=((a,b),(c,d))}
-\item[$\scriptstyle2$]{\tt adj(A)}
-\item[$\scriptstyle3$]\hspace{50pt} $\left[\matrix{d & -b\cr -c & a\cr}\right]$
-\end{itemize}
+
+\medskip
+{\tt A=((a,b),(c,d))}
+
+{\tt adj(A)}
+
+$$\left[\matrix{d & -b\cr -c & a\cr}\right]$$
 
 \section*{and}
 and($a,b,\ldots$) returns the logical ``and'' of predicate expressions.
@@ -425,10 +472,6 @@ arctanh($x$) returns the inverse hyperbolic tangent of $x$.
 
 \section*{arg}
 arg($z$) returns the angle of complex $z$.
-%\begin{itemize}
-%\item[$\scriptstyle1$]{\tt arg(1+exp(i*pi/3))}
-%\item[$\scriptstyle2$]\hspace{50pt} ${1\over6}\pi$
-%\end{itemize}
 
 \section*{ceiling}
 ceiling($x$) returns the smallest integer not less than $x$.
@@ -438,10 +481,6 @@ check($x$) In a script, if the predicate $x$ is true then continue, else stop.
 
 \section*{choose}
 choose($n,k$) returns $\displaystyle\left({n \atop k}\right)$
-%\begin{itemize}
-%\item[$\scriptstyle1$]{\tt choose(n,k)}
-%\item[$\scriptstyle2$]\hspace{50pt} $\displaystyle{n!\over k!(-k+n)!}$
-%\end{itemize}
 
 \section*{circexp}
 circexp($x$) returns expression $x$ with circular functions converted
@@ -456,10 +495,6 @@ cofactor($m,i,j$) returns of the cofactor of matrix $m$ with respect to row $i$ 
 
 \section*{conj}
 conj($z$) returns the complex conjugate of $z$.
-%\begin{itemize}
-%\item[$\scriptstyle1$]{\tt conj(3+4*i)}
-%\item[$\scriptstyle2$]\hspace{50pt} $3-4i$
-%\end{itemize}
 
 \section*{contract}
 contract($a,i,j$) returns tensor $a$ summed over indices $i$ and $j$.
@@ -470,7 +505,6 @@ cos($x$) returns the cosine of $x$.
 
 \section*{cosh}
 cosh($x$) returns the hyperbolic cosine of $x$.
-%If $x$ is a floating point number then $\cosh(x)$ is evaluated numerically.
 
 \section*{d}
 d($f,x$) returns the derivative of $f$ with respect to $x$.
@@ -478,18 +512,9 @@ Please see page \pageref{d} for additional details.
 
 \section*{deg}
 deg($p,x$) returns the degree of polynomial $p$ in $x$.
-%\begin{itemize}
-%\item[$\scriptstyle1$]{\tt p=(x-a){\char94}5}
-%\item[$\scriptstyle2$]{\tt deg(p,x)}
-%\item[$\scriptstyle3$]\hspace{50pt} $5$
-%\end{itemize}
 
 \section*{denominator}
 denominator($x$) returns the denominator of expression $x$.
-%\begin{itemize}
-%\item[$\scriptstyle1$]{\tt denominator(a/b+b/a)}
-%\item[$\scriptstyle2$]\hspace{50pt} $ab$
-%\end{itemize}
 
 \section*{det}
 det($m$) returns the determinant of matrix $m$.
@@ -504,12 +529,6 @@ Returns the result of the last argument.
 
 \section*{dot}
 dot($a,b,\ldots$) returns the dot product of tensors.
-%\begin{itemize}
-%\item[$\scriptstyle1$]{\tt A=(a,b)}
-%\item[$\scriptstyle2$]{\tt B=(c,d)}
-%\item[$\scriptstyle3$]{\tt dot(A,B)}
-%\item[$\scriptstyle4$]\hspace{50pt} $ac+bd$
-%\end{itemize}
 
 \section*{draw}
 draw($f,x$) draws the function $f$ with respect to $x$.
@@ -529,69 +548,86 @@ exp($x$) returns $e^x$.
 
 \section*{expcos}
 expcos($x$) returns the cosine of $x$ in exponential form.
-%\begin{itemize}
-%\item[$\scriptstyle1$]{\tt expcos(x)}
-%\item[$\scriptstyle2$]\hspace{50pt} ${1\over2}\exp(-ix)+{1\over2}\exp(ix)$
-%\end{itemize}
+
+\medskip
+{\tt expcos(x)}
+
+$${1\over2}\exp(-ix)+{1\over2}\exp(ix)$$
 
 \section*{expsin}
 expsin($x$) returns the sine of $x$ in exponential form.
-%\begin{itemize}
-%\item[$\scriptstyle1$]{\tt expsin(x)}
-%\item[$\scriptstyle2$]\hspace{50pt} ${1\over2}i\exp(-ix)-{1\over2}i\exp(ix)$
-%\end{itemize}
+
+\medskip
+{\tt expsin(x)}
+
+$${1\over2}i\exp(-ix)-{1\over2}i\exp(ix)$$
 
 \section*{factor}
 factor($n$) factors the integer $n$.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt factor(12345)}
-\item[$\scriptstyle2$]\hspace{50pt} $3\times 5\times 823$
-\end{itemize}
-%
+
+\medskip
+{\tt factor(12345)}
+
+$$3\times 5\times 823$$
+
+\medskip
+\noindent
 factor($p,x$) factors polynomial $p$ in $x$.
 The last argument can be omitted for polynomials in $x$.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt factor(125*x{\char94}3-1)}
-\item[$\scriptstyle2$]\hspace{50pt} $(5x-1)(25x^2+5x+1)$
-\end{itemize}
+
+\medskip
+{\tt factor(125*x{\char94}3-1)}
+
+$$(5x-1)(25x^2+5x+1)$$
 
 \section*{factorial}
-For example,
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt 10!}
-\item[$\scriptstyle2$]\hspace{50pt} $3628800$
-\end{itemize}
+Example:
+
+\medskip
+{\tt 10!}
+
+$$3628800$$
 
 \section*{filter}
 filter($f,a,b,\ldots$) returns $f$ with terms involving $a$, $b$, etc. removed.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt 1/a+1/b+1/c}
-\item[$\scriptstyle2$]\hspace{50pt} $\displaystyle{{1\over a}+{1\over b}+{1\over c}}$
-\item[$\scriptstyle3$]{\tt filter(last,a)}
-\item[$\scriptstyle4$]\hspace{50pt} $\displaystyle{{1\over b}+{1\over c}}$
-\end{itemize}
+
+\medskip
+{\tt 1/a+1/b+1/c}
+
+$${1\over a}+{1\over b}+{1\over c}$$
+
+{\tt filter(last,a)}
+
+$${1\over b}+{1\over c}$$
 
 \section*{float}
 float($x$) converts $x$ to a floating point value.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt sum(n,0,20,(-1/2){\char94}n)}
-\item[$\scriptstyle2$]\hspace{50pt} $699051\over1048576$
-\item[$\scriptstyle3$]{\tt float(last)}
-\item[$\scriptstyle4$]\hspace{50pt} 0.666667
-\end{itemize}
+
+\medskip
+{\tt sum(n,0,20,(-1/2){\char94}n)}
+
+$$699051\over1048576$$
+
+{\tt float(last)}
+
+$$0.666667$$
 
 \section*{floor}
 floor($x$) returns the largest integer not greater than $x$.
 
 \section*{for}
 for($i,j,k,a,b,\ldots$) For $i$ equals $j$ through $k$ evaluate $a$, $b$, etc.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt x=0}
-\item[$\scriptstyle2$]{\tt y=2}
-\item[$\scriptstyle3$]{\tt for(k,1,9,x=sqrt(2+x),y=2*y/x)}
-\item[$\scriptstyle4$]{\tt float(y)}
-\item[$\scriptstyle5$]\hspace{50pt} 3.14159
-\end{itemize}
+
+\medskip
+{\tt x=0}
+
+{\tt y=2}
+
+{\tt for(k,1,9,x=sqrt(2+x),y=2*y/x)}
+
+{\tt float(y)}
+
+$$3.14159$$
 
 \section*{gcd}
 gcd($a,b,\ldots$) returns the greatest common divisor.
@@ -618,10 +654,11 @@ inv($m$) returns the inverse of matrix $m$.
 
 \section*{isprime}
 isprime($n$) returns 1 if $n$ is prime, zero otherwise.
-%\begin{itemize}
-%\item[$\scriptstyle1$]{\tt isprime(2{\char94}53-111)}
-%\item[$\scriptstyle2$]\hspace{50pt} 1
-%\end{itemize}
+
+\medskip
+{\tt isprime(2{\char94}53-111)}
+
+$$1$$
 
 \section*{laguerre}
 laguerre($x,n,a$) returns the $n$th Laguerre polynomial in $x$.
@@ -683,10 +720,11 @@ rank($a$) returns the number of indices that tensor $a$ has.
 
 \section*{rationalize}
 rationalize($x$) puts everything over a common denominator.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt rationalize(a/b+b/a)}
-\item[$\scriptstyle2$]\hspace{50pt} $\displaystyle{a^2+b^2\over ab}$
-\end{itemize}
+
+\medskip
+{\tt rationalize(a/b+b/a)}
+
+$$a^2+b^2\over ab$$
 
 \section*{real}
 real($z$) returns the real part of complex $z$.
@@ -729,10 +767,11 @@ tanh($x$) returns the hyperbolic tangent of $x$.
 taylor($f,x,n,a$) returns the Taylor expansion of $f$ of $x$ at $a$.
 The argument $n$ is the degree of the expansion.
 If $a$ is omitted then $a=0$ is used.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt taylor(1/cos(x),x,4)}
-\item[$\scriptstyle2$]\hspace{50pt} ${5\over24}x^4+{1\over2}x^2+1$
-\end{itemize}
+
+\medskip
+{\tt taylor(1/cos(x),x,4)}
+
+$${5\over24}x^4+{1\over2}x^2+1$$
 
 \section*{test}
 test($a,b,c,d,\ldots$)
@@ -746,28 +785,34 @@ trace($m$) returns the trace of matrix $m$.
 transpose($a,i,j$) returns the transpose of tensor $a$ with respect to indices $i$ and $j$.
 If $i$ and $j$ are omitted then 1 and 2 are used.
 Hence a matrix can be transposed with a single argument.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt A=((a,b),(c,d))}
-\item[$\scriptstyle2$]{\tt transpose(A)}
-\item[$\scriptstyle3$]\hspace{50pt} $\left[\matrix{a & c\cr b & d\cr}\right]$
-\end{itemize}
+
+\medskip
+{\tt A=((a,b),(c,d))}
+
+{\tt transpose(A)}
+
+$$\left[\matrix{a & c\cr b & d\cr}\right]$$
 
 \section*{unit}
 unit($n$) returns an $n\times n$ identity matrix.
-%\begin{itemize}
-%\item[$\scriptstyle1$]{\tt unit(2)}
-%\item[$\scriptstyle2$]\hspace{50pt} $\left(\matrix{1&0\cr0&1\cr}\right)$
-%\end{itemize}
+
+\medskip
+{\tt unit(2)}
+
+$$\left(\matrix{1&0\cr0&1\cr}\right)$$
 
 \section*{zero}
 zero($i,j,\ldots$) returns a null tensor with dimensions $i$, $j$, etc.
 Useful for creating a tensor and then setting the component values.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt A=zero(2,2)}
-\item[$\scriptstyle2$]{\tt A[1,2]=a}
-\item[$\scriptstyle3$]{\tt A}
-\item[$\scriptstyle4$]\hspace{50pt} $\left(\matrix{0&a\cr0&0\cr}\right)$
-\end{itemize}
+
+\medskip
+{\tt A=zero(2,2)}
+
+{\tt A[1,2]=a}
+
+{\tt A}
+
+$$\left(\matrix{0&a\cr0&0\cr}\right)$$
 
 \newpage
 
@@ -803,22 +848,29 @@ Solving for $\pi$ we have
 Let us now use Eigenmath to compute $\pi$ according to Vi\`ete's formula.
 Of course, we cannot calculate all the way out to infinity, we have to stop somewhere.
 It turns out that nine factors are just enough to get six digits of accuracy.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt a(n)=test(n=0,0,sqrt(2+a(n-1)))}
-\item[$\scriptstyle2$]{\tt float(2*product(k,1,9,2/a(k)))}
-\item[$\scriptstyle3$]\hspace{50pt} $3.14159$
-\end{itemize}
+
+\medskip
+{\tt a(n)=test(n=0,0,sqrt(2+a(n-1)))}
+
+{\tt float(2*product(k,1,9,2/a(k)))}
+
+$$3.14159$$
+
+\medskip
+\noindent
 The function $a(n)$ calls itself $n$ times so overall there are
 54 calls to $a(n)$.
 By using a different algorithm with temporary variables, we can get the answer in just 9 steps.
-\begin{itemize}
-\item[$\scriptstyle1$]{\tt a=0}
-\item[$\scriptstyle2$]{\tt b=1}
-\item[$\scriptstyle3$]{\tt for(k,1,9,a=sqrt(2+a),b=b*2/a)}
-\item[$\scriptstyle4$]{\tt float(2*b)}
-\item[$\scriptstyle5$]\hspace{50pt} $3.14159$
-\end{itemize}
 
+\medskip
+{\tt a=0}
 
+{\tt b=1}
+
+{\tt for(k,1,9,a=sqrt(2+a),b=b*2/a)}
+
+{\tt float(2*b)}
+
+$$3.14159$$
 
 \end{document}
