@@ -1,7 +1,7 @@
 \documentclass[12pt,openany]{report}
 \title{Eigenmath Manual}
 \author{George Weigt}
-\date{April 2, 2007}
+\date{April 4, 2007}
 \pagestyle{headings}
 \usepackage{graphicx}
 
@@ -157,7 +157,7 @@ running a script.
 
 \newpage
 
-\chapter{Linear algebra}
+\chapter{Linear Algebra}
 
 \newpage
 
@@ -337,27 +337,24 @@ on any variable that d encounters.
 \medskip
 \noindent
 This ``generic'' function property is useful for experimenting with
-div, grad, curl, etc.
-%\footnote{
-%Schey, H. M. {\it Div, grad, curl, and all that:
-%an informal text on vector calculus.} New York: W. W. Norton and Company, Inc., 1992.}
-There is just one more detail to add, and that has to do with vector functions.
-In the previous examples, $f$ was a scalar function.
-In the following example, line 1 shows how to create a vector function.
-The rest of the example computes the gradient of $\bf F$.
+differential forms.
+For example, let us check the following identity.
+$$\mathop{\rm div}(\mathop{\rm curl}{\bf F})=0$$
 
 \medskip
-{\tt F=(F1(),F2())}
+{\tt curl(F)=(d(F[3],y)-d(F[2],z),d(F[1],z)-d(F[3],x),d(F[2],x)-d(F[1],y))}
 
-{\tt X=(x1,x2)}
+{\tt div(F)=d(F[1],x)+d(F[2],y)+d(F[3],z)}
 
-{\tt d(F,X)}
+{\tt F=(FX(),FY(),FZ())}
 
-$$\left(\matrix{
-\partial(F_1(),x_1) & \partial(F_1(),x_2)\cr
-\cr
-\partial(F_2(),x_1) & \partial(F_2(),x_2)\cr
-}\right)$$
+{\tt div(curl(F))}
+
+$$0$$
+
+\medskip
+\noindent
+Pleas see page \pageref{curl-example} for another example.
 
 \newpage
 
@@ -872,5 +869,71 @@ By using a different algorithm with temporary variables, we can get the answer i
 {\tt float(2*b)}
 
 $$3.14159$$
+
+\newpage
+
+\label{curl-example}
+
+\section*{curl}
+Here is another way to define the curl of a vector function.
+$$\mathop{\rm curl}{\bf F}=\epsilon_{ijk}{\partial F_k\over\partial x_j}$$
+where $\epsilon_{ijk}$ is the Levi-Civita tensor.
+The following script demonstrates that this formula is equivalent
+to computing curl the old fashioned way.
+First, define $\epsilon_{ijk}$.
+
+\medskip
+{\tt
+epsilon=zero(3,3,3)
+
+epsilon[1,2,3]=1
+
+epsilon[2,3,1]=1
+
+epsilon[3,1,2]=1
+
+epsilon[3,2,1]=-1
+
+epsilon[1,3,2]=-1
+
+epsilon[2,1,3]=-1
+}
+
+\medskip
+\noindent
+Next, define a generic vector function $\bf F$ and
+then compute $\epsilon_{ijk}\partial F_k/\partial x_j$.
+The first summation is over $k$ which corresponds to indices 3 and 4.
+The second summation is over $j$ which, with $k$ out of the way,
+corresponds to indices 2 and 3.
+
+\medskip
+{\tt
+F=(FX(),FY(),FZ())
+
+T=outer(epsilon,d(F,(x,y,z)))
+
+T=contract(T,3,4)
+
+T=contract(T,2,3)
+}
+
+\medskip
+\noindent
+Now compute curl the old fashioned way and see if they are equal.
+
+\medskip
+{\tt
+curl(F)=(d(F[3],y)-d(F[2],z),d(F[1],z)-d(F[3],x),d(F[2],x)-d(F[1],y))
+
+T-curl(F)
+}
+
+$$\left(\matrix{0\cr0\cr0}\right)$$
+
+\medskip
+\noindent
+Please see {\tt en.wikipedia.org/wiki/Levi-Civita\_symbol}
+for a very cool picture of $\epsilon_{ijk}$.
 
 \end{document}
