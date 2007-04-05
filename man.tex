@@ -342,9 +342,9 @@ For example, let us check the following identity.
 $$\mathop{\rm div}(\mathop{\rm curl}{\bf F})=0$$
 
 \medskip
-{\tt curl(F)=(d(F[3],y)-d(F[2],z),d(F[1],z)-d(F[3],x),d(F[2],x)-d(F[1],y))}
+{\tt curl(U)=(d(U[3],y)-d(U[2],z),d(U[1],z)-d(U[3],x),d(U[2],x)-d(U[1],y))}
 
-{\tt div(F)=d(F[1],x)+d(F[2],y)+d(F[3],z)}
+{\tt div(U)=d(U[1],x)+d(U[2],y)+d(U[3],z)}
 
 {\tt F=(FX(),FY(),FZ())}
 
@@ -354,7 +354,7 @@ $$0$$
 
 \medskip
 \noindent
-Pleas see page \pageref{curl-example} for another example.
+Please see page \pageref{example2} for another example.
 
 \newpage
 
@@ -817,7 +817,7 @@ $$\left(\matrix{0&a\cr0&0\cr}\right)$$
 
 \newpage
 
-\section*{Fran\c cois Vi\`ete}
+\section*{Example 1}
 Fran\c cois Vi\`ete was the very first person to come up with an exact formula for $\pi$.
 Here is his formula.
 \begin{displaymath}
@@ -872,9 +872,9 @@ $$3.14159$$
 
 \newpage
 
-\label{curl-example}
+\label{example2}
 
-\section*{curl}
+\section*{Example 2}
 Here is another way to define the curl of a vector function.
 $$\mathop{\rm curl}{\bf F}=\epsilon_{ijk}{\partial F_k\over\partial x_j}$$
 where $\epsilon_{ijk}$ is the Levi-Civita tensor.
@@ -904,7 +904,7 @@ epsilon[2,1,3]=-1
 Next, define a generic vector function $\bf F$ and
 then compute $\epsilon_{ijk}\partial F_k/\partial x_j$.
 The first summation is over $k$ which corresponds to indices 3 and 4.
-The second summation is over $j$ which, with $k$ out of the way,
+The second summation is over $j$ which (with $k$ out of the way)
 corresponds to indices 2 and 3.
 
 \medskip
@@ -920,12 +920,21 @@ T=contract(T,2,3)
 
 \medskip
 \noindent
-Now compute curl the old fashioned way and see if they are equal.
+Now compute curl the old fashioned way and check for equality.
 
 \medskip
 {\tt
-curl(F)=(d(F[3],y)-d(F[2],z),d(F[1],z)-d(F[3],x),d(F[2],x)-d(F[1],y))
+curl(U)=(
 
+\ d(U[3],y)-d(U[2],z),
+
+\ d(U[1],z)-d(U[3],x),
+
+\ d(U[2],x)-d(U[1],y)
+
+)
+
+\medskip
 T-curl(F)
 }
 
@@ -933,7 +942,10 @@ $$\left(\matrix{0\cr0\cr0}\right)$$
 
 \medskip
 \noindent
-Please see {\tt en.wikipedia.org/wiki/Levi-Civita\_symbol}
-for a very cool picture of $\epsilon_{ijk}$.
+Please see the following web page for a very cool picture of $\epsilon_{ijk}$.
+
+\medskip
+\noindent
+{\tt en.wikipedia.org/wiki/Levi-Civita\_symbol}
 
 \end{document}
