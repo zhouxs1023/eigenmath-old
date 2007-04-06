@@ -1,7 +1,7 @@
 \documentclass[12pt,openany]{report}
 \title{Eigenmath Manual}
 \author{George Weigt}
-\date{April 4, 2007}
+\date{April 5, 2007}
 \pagestyle{headings}
 \usepackage{graphicx}
 
@@ -876,7 +876,7 @@ $$3.14159$$
 
 \section*{Example 2}
 Here is another way to define the curl of a vector function.
-$$\mathop{\rm curl}{\bf F}=\epsilon_{ijk}{\partial F_k\over\partial x_j}$$
+$$\mathop{\rm curl}{\bf F}=\epsilon_{ijk}\,{\partial F_k\over\partial x_j}$$
 where $\epsilon_{ijk}$ is the Levi-Civita tensor.
 The following script demonstrates that this formula is equivalent
 to computing curl the old fashioned way.
@@ -902,7 +902,7 @@ epsilon[2,1,3]=-1
 \medskip
 \noindent
 Next, define a generic vector function $\bf F$ and
-then compute $\epsilon_{ijk}\partial F_k/\partial x_j$.
+then compute $A=\epsilon_{ijk}\,\partial F_k/\partial x_j$.
 The first summation is over $k$ which corresponds to indices 3 and 4.
 The second summation is over $j$ which (with $k$ out of the way)
 corresponds to indices 2 and 3.
@@ -911,11 +911,11 @@ corresponds to indices 2 and 3.
 {\tt
 F=(FX(),FY(),FZ())
 
-T=outer(epsilon,d(F,(x,y,z)))
+A=outer(epsilon,d(F,(x,y,z)))
 
-T=contract(T,3,4)
+A=contract(A,3,4)
 
-T=contract(T,2,3)
+A=contract(A,2,3)
 }
 
 \medskip
@@ -924,28 +924,75 @@ Now compute curl the old fashioned way and check for equality.
 
 \medskip
 {\tt
-curl(U)=(
+B=(
 
-\ d(U[3],y)-d(U[2],z),
+\ d(F[3],y)-d(F[2],z),
 
-\ d(U[1],z)-d(U[3],x),
+\ d(F[1],z)-d(F[3],x),
 
-\ d(U[2],x)-d(U[1],y)
+\ d(F[2],x)-d(F[1],y)
 
 )
 
 \medskip
-T-curl(F)
+A-B
 }
 
 $$\left(\matrix{0\cr0\cr0}\right)$$
 
-\medskip
+\newpage
+
 \noindent
-Please see the following web page for a very cool picture of $\epsilon_{ijk}$.
+The following is a variation on the previous script.
+The formula $\epsilon_{ijk}\,\partial F_k/\partial x_j$
+is computed in just one line of code.
+In addition, there is an optimization.
+The outer product and the first contraction have been replaced with a
+dot product.
+
+\medskip{\tt
+F=(FX(),FY(),FZ())
 
 \medskip
+epsilon=zero(3,3,3)
+
+epsilon[1,2,3]=1
+
+epsilon[2,3,1]=1
+
+epsilon[3,1,2]=1
+
+epsilon[3,2,1]=-1
+
+epsilon[1,3,2]=-1
+
+epsilon[2,1,3]=-1
+
+\medskip
+A=contract(dot(epsilon,d(F,(x,y,z))),2,3)
+
+\medskip
+B=(
+
+\ d(F[3],y)-d(F[2],z),
+
+\ d(F[1],z)-d(F[3],x),
+
+\ d(F[2],x)-d(F[1],y)
+
+)
+
+\medskip
+A-B
+}
+
+$$\left(\matrix{0\cr0\cr0}\right)$$
+
+\bigskip
 \noindent
-{\tt en.wikipedia.org/wiki/Levi-Civita\_symbol}
+The following web page has a very cool picture of $\epsilon_{ijk}$.
+
+\medskip
+{\tt http://en.wikipedia.org/wiki/Levi-Civita\_symbol}
 
 \end{document}
