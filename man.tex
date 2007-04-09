@@ -1,7 +1,7 @@
 \documentclass[12pt,openany]{report}
 \title{Eigenmath Manual}
 \author{George Weigt}
-\date{April 8, 2007}
+\date{April 9, 2007}
 \pagestyle{headings}
 \usepackage{graphicx}
 
@@ -56,10 +56,7 @@ by computing this formula in different ways.
 To begin, here is an interactive style.
 
 \medskip
-\verb$sum(k,0,9,a^k)$
-$$1+a+a^2+a^3+a^4+a^5+a^6+a^7+a^8+a^9$$
-
-\verb$eval(last,a,-1/2)$
+\verb$sum(k,0,9,(-1/2)^k)$
 $$341\over512$$
 
 \verb$float$
@@ -67,99 +64,87 @@ $$0.666016$$
 
 \medskip
 \noindent
-There are a number of things to observe.
-A circumflex symbol (\verb$^$) is used to raise something to a power.
-The symbol {\it last} contains the result of the previous calculation.
-Finally, $float$ is actually short for $float(last)$.
-This shortcut can be used with other single arity functions as well.
-
-\newpage
-
-\noindent
 The following example demonstrates how a symbol is defined.
 
 \medskip
-\verb$S=sum(k,0,9,a^k)$
+\verb$f=sum(k,0,9,a^k)$
 
-\verb$S$
-$$S=1+a+a^2+a^3+a^4+a^5+a^6+a^7+a^8+a^9$$
+\verb$f$
+$$f=1+a+a^2+a^3+a^4+a^5+a^6+a^7+a^8+a^9$$
 
-\verb$eval(S,a,-1/2)$
+\verb$eval(f,a,-1/2)$
 $$341\over512$$
 
 \medskip
 \noindent
 As seen on the first line, no result is printed when a symbol is defined.
-%This prevents intermediate results from filling up the screen.
-This quiet style of calculation is a real necessity when expressions contain
-thousands of terms.
 When you do in fact want to see the value of a symbol,
-simply enter it as shown on the second line.
-
-\medskip
-\noindent
-The following example shows how to define a function.
-
-\medskip
-\verb$S(a)=sum(k,0,9,a^k)$
-
-\verb$S$
-$$S=\mathop{\rm sum}(k,0,9,a^k)$$
-
-\verb$S(-1/2)$
-$$341\over512$$
-
-\verb$S(-0.5)$
-$$0.666016$$
-
-\medskip
-\noindent
-Note the use of floating point syntax as an alternative to using ``float.''
+just enter it as shown on the second line.
 
 \newpage
 
 \noindent
-There is a notable detail about the way Eigenmath handles symbolic definitions.
-In essence, symbol definitions are evaluated and function definitions are not.
+The following example shows how to define a function.
+
+\medskip
+\verb$f(a)=sum(k,0,9,a^k)$
+
+\verb$f$
+$$f=\mathop{\rm sum}(k,0,9,a^k)$$
+
+\verb$f(-1/2)$
+$$341\over512$$
+
+\verb$f(-0.5)$
+$$0.666016$$
+
+\medskip
+\noindent
+Note the use of floating point syntax in the last command.
+
+\medskip
+\noindent
+Eigenmath handles function definitions in a special way.
+Unlike a normal symbol, a function definition is not evaluated immediately.
 The following example demonstrates the difference.
 
 \medskip
-\verb$S=sum(k,0,9,a^k)$
+\verb$f=sum(k,0,9,a^k)$
 
-\verb$S$
-$$S=1+a+a^2+a^3+a^4+a^5+a^6+a^7+a^8+a^9$$
+\verb$f$
+$$f=1+a+a^2+a^3+a^4+a^5+a^6+a^7+a^8+a^9$$
 
-\verb$S(a)=sum(k,0,9,a^k)$
+\verb$f(a)=sum(k,0,9,a^k)$
 
-\verb$S$
-$$S=\mathop{\rm sum}(k,0,9,a^k)$$
-
-\medskip
-\noindent
-Why does Eigenmath work this way?
-Well, suppose you want to define $S$ as a function of two variables, $a$ and $n$, like this.
-
-\medskip
-\verb$S(a,n)=sum(k,0,n,a^k)$
+\verb$f$
+$$f=\mathop{\rm sum}(k,0,9,a^k)$$
 
 \medskip
 \noindent
-In this case it is not possible to evaluate the sum right away since the value of
-$n$ is not known.
-Hence, Eigenmath does not attempt to evaluate functions when they are defined.
+Why are they handled differently?
+Well, suppose you want to define $f$ as a function of two variables, $a$ and $n$, like this.
+
+\medskip
+\verb$f(a,n)=sum(k,0,n,a^k)$
+
+\medskip
+\noindent
+In this case it is not possible to evaluate the sum right away.
+The value of $n$ will not be known until $f$ is actually used somewhere.
+Consequently, Eigenmath does not normally evaluate a function when it is defined.
 Now, having said that, there are two work arounds that provide exceptions to the rule.
 They are {\it eval} and {\it quote}.
  
 \medskip
-\verb$S=quote(sum(k,0,9,a^k))$
+\verb$f=quote(sum(k,0,9,a^k))$
 
-\verb$S$
-$$S=\mathop{\rm sum}(k,0,9,a^k)$$
+\verb$f$
+$$f=\mathop{\rm sum}(k,0,9,a^k)$$
 
-\verb$S(a)=eval(sum(k,0,9,a^k))$
+\verb$f(a)=eval(sum(k,0,9,a^k))$
 
-\verb$S$
-$$S=1+a+a^2+a^3+a^4+a^5+a^6+a^7+a^8+a^9$$
+\verb$f$
+$$f=1+a+a^2+a^3+a^4+a^5+a^6+a^7+a^8+a^9$$
 
 \newpage
 
