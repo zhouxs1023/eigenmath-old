@@ -1,7 +1,7 @@
 \documentclass[12pt,openany]{report}
 \title{Eigenmath Manual}
 \author{George Weigt}
-\date{April 5, 2007}
+\date{April 8, 2007}
 \pagestyle{headings}
 \usepackage{graphicx}
 
@@ -15,12 +15,11 @@
 
 \chapter{The Big Picture}
 In simplest terms, when you type something into Eigenmath,
-it gets evaluated and the result is printed.
+it gets evaluated and typically a result is printed.
 For a first example, try entering $1/2+1/3$.
 
 \medskip
-{\tt 1/2+1/3}
-
+\verb$1/2+1/3$
 $$5\over6$$
 
 \medskip
@@ -29,8 +28,7 @@ As you can see, Eigenmath uses rational arithmetic for numerical calculations.
 You can enter ``float'' to convert the result to a floating point number.
 
 \medskip
-{\tt float}
-
+\verb$float$
 $$0.833333$$
 
 \medskip
@@ -39,11 +37,133 @@ There are a number of features for doing symbolic calculations.
 Here is a preview.
 
 \medskip
-{\tt integral(log(x))}
-
+\verb$integral(log(x))$
 $$-x+x\log(x)$$
 
 \newpage
+
+\noindent
+A geometric series converges according to the formula
+$$\sum_{k=0}^\infty a^k={1\over1-a},\qquad|a|<1$$
+If we use $a=-1/2$ and for practical purposes only count up to 9 instead of infinity,
+we should have
+$$\sum_{k=0}^9\left(-{1\over2}\right)^k\approx{2\over3}$$
+In the following examples, various Eigenmath features will be demonstrated
+by computing this formula in different ways.
+
+\medskip
+\noindent
+To begin, here is an interactive style.
+
+\medskip
+\verb$sum(k,0,9,a^k)$
+$$1+a+a^2+a^3+a^4+a^5+a^6+a^7+a^8+a^9$$
+
+\verb$eval(last,a,-1/2)$
+$$341\over512$$
+
+\verb$float$
+$$0.666016$$
+
+\medskip
+\noindent
+There are a number of things to observe.
+A circumflex symbol (\verb$^$) is used to raise something to a power.
+The symbol {\it last} contains the result of the previous calculation.
+Finally, $float$ is actually short for $float(last)$.
+This shortcut can be used with other single arity functions as well.
+
+\newpage
+
+\noindent
+The following example demonstrates how a symbol is defined.
+
+\medskip
+\verb$S=sum(k,0,9,a^k)$
+
+\verb$S$
+$$S=1+a+a^2+a^3+a^4+a^5+a^6+a^7+a^8+a^9$$
+
+\verb$eval(S,a,-1/2)$
+$$341\over512$$
+
+\medskip
+\noindent
+As seen on the first line, no result is printed when a symbol is defined.
+%This prevents intermediate results from filling up the screen.
+This quiet style of calculation is a real necessity when expressions contain
+thousands of terms.
+When you do in fact want to see the value of a symbol,
+simply enter it as shown on the second line.
+
+\medskip
+\noindent
+The following example shows how to define a function.
+
+\medskip
+\verb$S(a)=sum(k,0,9,a^k)$
+
+\verb$S$
+$$S=\mathop{\rm sum}(k,0,9,a^k)$$
+
+\verb$S(-1/2)$
+$$341\over512$$
+
+\verb$S(-0.5)$
+$$0.666016$$
+
+\medskip
+\noindent
+Note the use of floating point syntax as an alternative to using ``float.''
+
+\newpage
+
+\noindent
+There is a notable detail about the way Eigenmath handles symbolic definitions.
+In essence, symbol definitions are evaluated and function definitions are not.
+The following example demonstrates the difference.
+
+\medskip
+\verb$S=sum(k,0,9,a^k)$
+
+\verb$S$
+$$S=1+a+a^2+a^3+a^4+a^5+a^6+a^7+a^8+a^9$$
+
+\verb$S(a)=sum(k,0,9,a^k)$
+
+\verb$S$
+$$S=\mathop{\rm sum}(k,0,9,a^k)$$
+
+\medskip
+\noindent
+Why does Eigenmath work this way?
+Well, suppose you want to define $S$ as a function of two variables, $a$ and $n$, like this.
+
+\medskip
+\verb$S(a,n)=sum(k,0,n,a^k)$
+
+\medskip
+\noindent
+In this case it is not possible to evaluate the sum right away since the value of
+$n$ is not known.
+Hence, Eigenmath does not attempt to evaluate functions when they are defined.
+Now, having said that, there are two work arounds that provide exceptions to the rule.
+They are {\it eval} and {\it quote}.
+ 
+\medskip
+\verb$S=quote(sum(k,0,9,a^k))$
+
+\verb$S$
+$$S=\mathop{\rm sum}(k,0,9,a^k)$$
+
+\verb$S(a)=eval(sum(k,0,9,a^k))$
+
+\verb$S$
+$$S=1+a+a^2+a^3+a^4+a^5+a^6+a^7+a^8+a^9$$
+
+\newpage
+
+\chapter{Scripting}
 
 \noindent
 Here is a simple example that draws the graph of $y=mx+b$.
@@ -99,59 +219,8 @@ Each line is evaluated just like a regular command.
 This continues until the end of the script is reached.
 After the script runs, you can click Edit Script and go back and change something.
 
-\newpage
-
-\noindent
-You may have noticed that when we define a symbol
-like $y=mx+b$, no result is printed.
-Eigenmath works this way so the screen does not get cluttered
-up with intermediate results.
-When you want to see the value of a symbol, just enter it.
-
-\medskip
-{\tt y}
-$$y=mx+b$$
-
 \medskip
 \noindent
-Symbols can also be defined as functions of one or more variables.
-In the following example, we define $y$ as a function of $x$.
-Just like before, we can enter $y$ to see its value and
-also draw $y$.
-The main difference is that now we can easily evaluate $y$ for
-a specific value of $x$.
-
-\medskip
-{\tt y(x)=m*x+b}\par
-{\tt y}
-$$y=mx+b$$\par
-{\tt y(0)}
-$$-3$$
-
-\medskip
-\noindent
-Here is an example of a function of two variables.
-
-\medskip
-{\tt r(x,y)=(x{\char94}2+y{\char94}2){\char94}(1/2)}\par
-{\tt r}
-$$r=(x^2+y^2)^{1/2}$$
-\indent
-{\tt r(1,2)}
-$$5^{1/2}$$
-
-\medskip
-\noindent
-We are now ready to move on so
-it is time to clear out the old definitions
-with the following command.
-
-\medskip
-{\tt clear}
-
-\medskip
-\noindent
-Clicking on the Clear button does the same thing.
 It should also be pointed out that Eigenmath automatically does a clear before
 running a script.
 
@@ -400,7 +469,7 @@ $${1\over8}\pi$$
 \chapter{Complex Numbers}
 
 \noindent
-When Eigenmath starts up, it pre-defines the symbol $i$ as $i=\sqrt{-1}$.
+When Eigenmath starts up, it pre-defines the symbol $i$ so that $i=\sqrt{-1}$.
 Other than that, there is nothing special about $i$.
 It is just a regular symbol that can be redefined and used for some other purpose if need be.
 
@@ -801,15 +870,7 @@ $$\left(\matrix{1&0\cr0&1\cr}\right)$$
 \section*{zero}
 zero($i,j,\ldots$) returns a null tensor with dimensions $i$, $j$, etc.
 Useful for creating a tensor and then setting the component values.
-
-\medskip
-{\tt A=zero(2,2)}
-
-{\tt A[1,2]=a}
-
-{\tt A}
-
-$$\left(\matrix{0&a\cr0&0\cr}\right)$$
+See page \pageref{example2}.
 
 \newpage
 
@@ -950,49 +1011,42 @@ In addition, there is an optimization.
 The outer product and the first contraction have been replaced with a
 dot product.
 
-\medskip{\tt
-F=(FX(),FY(),FZ())
+\medskip
+\verb$F=(FX(),FY(),FZ())$
 
 \medskip
-epsilon=zero(3,3,3)
+\verb$epsilon=zero(3,3,3)$
 
-epsilon[1,2,3]=1
+\verb$epsilon[1,2,3]=1$
 
-epsilon[2,3,1]=1
+\verb$epsilon[2,3,1]=1$
 
-epsilon[3,1,2]=1
+\verb$epsilon[3,1,2]=1$
 
-epsilon[3,2,1]=-1
+\verb$epsilon[3,2,1]=-1$
 
-epsilon[1,3,2]=-1
+\verb$epsilon[1,3,2]=-1$
 
-epsilon[2,1,3]=-1
-
-\medskip
-A=contract(dot(epsilon,d(F,(x,y,z))),2,3)
+\verb$epsilon[2,1,3]=-1$
 
 \medskip
-B=(
-
-\ d(F[3],y)-d(F[2],z),
-
-\ d(F[1],z)-d(F[3],x),
-
-\ d(F[2],x)-d(F[1],y)
-
-)
+\verb$A=contract(dot(epsilon,d(F,(x,y,z))),2,3)$
 
 \medskip
-A-B
-}
+\verb$B=($
 
-$$\left(\matrix{0\cr0\cr0}\right)$$
+\verb$ d(F[3],y)-d(F[2],z),$
 
-\bigskip
-\noindent
-The following web page has a very cool picture of $\epsilon_{ijk}$.
+\verb$ d(F[1],z)-d(F[3],x),$
+
+\verb$ d(F[2],x)-d(F[1],y)$
+
+\verb$)$
 
 \medskip
-{\tt http://en.wikipedia.org/wiki/Levi-Civita\_symbol}
+\verb$--Are A and B equal? Subtract to find out.$
+
+\medskip
+\verb$A-B$
 
 \end{document}
