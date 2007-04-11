@@ -140,14 +140,26 @@ int
 cmp_args(void)
 {
 	int t;
+
 	push(cadr(p1));
 	eval();
 	push(caddr(p1));
 	eval();
 	subtract();
 	p1 = pop();
+
+	// try floating point if necessary
+
+	if (p1->k != NUM && p1->k != DOUBLE) {
+		push(p1);
+		yyfloat();
+		eval();
+		p1 = pop();
+	}
+
 	if (iszero(p1))
 		return 0;
+
 	switch (p1->k) {
 	case NUM:
 		if (MSIGN(p1->u.q.a) == -1)
@@ -162,16 +174,14 @@ cmp_args(void)
 			t = 1;
 		break;
 	default:
-		stop("indefinite relation");
+		stop("relational operator: cannot determine due to non-numerical comparison");
 		t = 0;
 	}
+
 	return t;
 }
 
 static char *s[] = {
-
-	"a<b",
-	"Stop: indefinite relation",
 
 	"a<a+1",
 	"1",
@@ -255,6 +265,9 @@ static char *s[] = {
 	"0",
 
 	"(0,0)=0",
+	"1",
+
+	"1<sqrt(3)",
 	"1",
 };
 
