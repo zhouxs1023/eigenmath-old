@@ -256,6 +256,14 @@ char *itab[] = {
 	"f(1/(a+b*sin(x)),1/sqrt(b^2-a^2)*log((a*tan(x/2)+b-sqrt(b^2-a^2))/(a*tan(x/2)+b+sqrt(b^2-a^2))),b^2-a^2)", // check that b^2-a^2 is not zero
 // 341
 	"f(1/(a+b*cos(x)),1/sqrt(b^2-a^2)*log((sqrt(b^2-a^2)*tan(x/2)+a+b)/(sqrt(b^2-a^2)*tan(x/2)-a-b)),b^2-a^2)", // check that b^2-a^2 is not zero
+// 389
+	"f(x*sin(a*x),sin(a*x)/a^2-x*cos(a*x)/a)",
+// 390
+	"f(x^2*sin(a*x),2*x*sin(a*x)/a^2-(a^2*x^2-2)*cos(a*x)/a^3)",
+// 393
+	"f(x*cos(a*x),cos(a*x)/a^2+x*sin(a*x)/a)",
+// 394
+	"f(x^2*cos(a*x),2*x*cos(a*x)/a^2+(a^2*x^2-2)*sin(a*x)/a^3)",
 // 441
 	"f(arcsin(a*x),x*arcsin(a*x)+sqrt(1-a^2*x^2)/a)",
 // 442

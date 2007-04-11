@@ -530,6 +530,22 @@ static char *s[] = {
 	"integral(1/(A+B*cos(X)),X)-1/sqrt(B^2-A^2)*log((sqrt(B^2-A^2)*tan(X/2)+A+B)/(sqrt(B^2-A^2)*tan(X/2)-A-B))",
 	"0",
 
+	"#389",
+	"x*sin(A*x)-d(integral(x*sin(A*x)))",
+	"0",
+
+	"#390",
+	"x^2*sin(A*x)-d(integral(x^2*sin(A*x)))",
+	"0",
+
+	"#393",
+	"x*cos(A*x)-d(integral(x*cos(A*x)))",
+	"0",
+
+	"#394",
+	"x^2*cos(A*x)-d(integral(x^2*cos(A*x)))",
+	"0",
+
 	"#441",
 	"integral(arcsin(A*X),X)-X*arcsin(A*X)-sqrt(1-A^2*X^2)/A",
 	"0",
