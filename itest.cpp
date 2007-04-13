@@ -332,6 +332,18 @@ static char *s[] = {
 	"-1/5*(7^2)*sqrt((X^2-7^2)^5)",
 	"0",
 
+	"#196",
+	"integral(1/(X-A)/sqrt(X^2-A^2),X)+sqrt(X^2-A^2)/A/(X-A)",
+	"0",
+	"simplify(1/(X-A)/sqrt(X^2-A^2)-d(integral(1/(X-A)/sqrt(X^2-A^2),X),X))",
+	"0",
+
+	"#197",
+	"integral(1/(X+A)/sqrt(X^2-A^2),X)-sqrt(X^2-A^2)/A/(X+A)",
+	"0",
+	"simplify(1/(X+A)/sqrt(X^2-A^2)-d(integral(1/(X+A)/sqrt(X^2-A^2),X),X))",
+	"0",
+
 	"#200",
 	"integral(sqrt(7-X^2),X)-1/2*(X*sqrt(7-X^2)+7*arcsin(X/sqrt(7)))",
 	"0",
