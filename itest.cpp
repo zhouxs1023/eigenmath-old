@@ -281,7 +281,11 @@ static char *s[] = {
 	"0",
 
 	"#169",
-	"integral(X^3*sqrt(X^2+A),X)-(1/5*X^2-2/15*A)*sqrt((X^2+A)^3)",
+	"integral(X^3*sqrt(X^2+7),X)-(1/5*X^2-2/15*7)*sqrt((X^2+7)^3)",
+	"0",
+
+	"#170",
+	"integral(X^3*sqrt(X^2-7),X)-(sqrt((X^2-7)^5)/5+7*sqrt((X^2-7)^3)/3)",
 	"0",
 
 	"#171",
