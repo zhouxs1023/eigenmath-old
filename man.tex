@@ -1,7 +1,7 @@
 \documentclass[12pt,openany]{report}
 \title{Eigenmath Manual}
 \author{George Weigt}
-\date{April 9, 2007}
+\date{April 16, 2007}
 \pagestyle{headings}
 \usepackage{graphicx}
 
@@ -25,7 +25,7 @@ $$5\over6$$
 \medskip
 \noindent
 As you can see, Eigenmath uses rational arithmetic for numerical calculations.
-You can enter ``float'' to convert the result to a floating point number.
+You can enter $float$ to convert the result to a floating point number.
 
 \medskip
 \verb$float$
@@ -43,6 +43,46 @@ $$-x+x\log(x)$$
 \newpage
 
 \noindent
+This table summarizes Eigenmath's input syntax.
+The symbol {\tt\char32} indicates a mandatory space.
+
+\begin{center}
+\begin{tabular}{clll}
+$-a$ & & {\tt -a} \\
+\\
+$a+b$ & & {\tt a+b} \\
+\\
+$a-b$ & & {\tt a-b} \\
+\\
+$ab$ & & {\tt a*b} & {\tt a{\char32}b} \hspace{10pt} {\it alternate form}\\
+\\
+$\displaystyle{a\over b}$ & & {\tt a/b} \\
+\\
+$\displaystyle{a\over bc}$ & & {\tt a/b/c} \\
+\\
+$a^2$ & & {\tt a{\char94}2} \\
+\\
+$\sqrt{a}$ & & {\tt a{\char94}(1/2)} & {\tt sqrt(a)} \\
+\\
+$\displaystyle{1\over\sqrt a}$ & & {\tt a{\char94}(-1/2)} & {\tt 1/sqrt(a)} \\
+\\
+$a(b+c)$ & & {\tt a*(b+c)} & {\tt a{\char32}(b+c)} \\
+\\
+$f(a)$ & & {\tt f(a)} \\
+\\
+$\displaystyle{\left(\matrix{a\cr b\cr c\cr}\right)}$ & & {\tt (a,b,c)} \\
+\\
+$\displaystyle{\left(\matrix{a&b\cr c&d\cr}\right)}$ & & {\tt ((a,b),(c,d))} \\
+\\
+ & & {\tt T[1]} & {\it tensor component access} \\
+\\
+ & & {\tt T[1,2]} \\
+\end{tabular}
+\end{center}
+
+\newpage
+
+\noindent
 A geometric series converges according to the formula
 $$\sum_{k=0}^\infty a^k={1\over1-a},\qquad|a|<1$$
 If we use $a=-1/2$ and for practical purposes only count up to 9 instead of infinity,
@@ -53,18 +93,15 @@ by computing this formula in different ways.
 
 \medskip
 \noindent
-To begin, here is an interactive style.
+To begin, here is the calculation in one line of code.
 
 \medskip
-\verb$sum(k,0,9,(-1/2)^k)$
-$$341\over512$$
-
-\verb$float$
+\verb$sum(k,0,9,(-0.5)^k)$
 $$0.666016$$
 
 \medskip
 \noindent
-The following example demonstrates how a symbol is defined.
+The following example uses an intermediate variable.
 
 \medskip
 \verb$f=sum(k,0,9,a^k)$
@@ -75,11 +112,18 @@ $$f=1+a+a^2+a^3+a^4+a^5+a^6+a^7+a^8+a^9$$
 \verb$eval(f,a,-1/2)$
 $$341\over512$$
 
+\verb$float(last)$
+$$0.666016$$
+
 \medskip
 \noindent
 As seen on the first line, no result is printed when a symbol is defined.
 When you do in fact want to see the value of a symbol,
 just enter it as shown on the second line.
+
+\medskip
+\noindent
+When a result is displayed, it is also stored in the symbol $last$.
 
 \newpage
 
@@ -97,10 +141,6 @@ $$341\over512$$
 
 \verb$f(-0.5)$
 $$0.666016$$
-
-\medskip
-\noindent
-Note the use of floating point syntax in the last command.
 
 \medskip
 \noindent
@@ -213,22 +253,6 @@ running a script.
 
 \chapter{Linear Algebra}
 
-\newpage
-
-\noindent
-Vectors and matrices are entered like this.
-
-\medskip
-{\tt X=(x1,x2,x3,x4)}
-
-{\tt A=((1,2,3),(4,5,6),(7,8,9))}
-
-{\tt A}
-
-$$\left(\matrix{1&2&3\cr4&5&6\cr7&8&9\cr}\right)$$
-
-\medskip
-\noindent
 Eigenmath's dot function is used to multiply vectors and matrices.
 The following example shows how to use dot and inv to solve for $\bf X$ in $\bf AX=B$.
 
@@ -243,21 +267,45 @@ The following example shows how to use dot and inv to solve for $\bf X$ in $\bf 
 
 $$\left(\matrix{-11.2887\cr8.24961}\right)$$
 
+\newpage
+
+\noindent
+The following example demonstrates the relation
+${\bf A}^{-1}=\mathop{\rm adj}{\bf A}/\mathop{\rm det}{\bf A}$.
+
+\medskip
+\verb$A=((a,b),(c,d))$
+
+\medskip
+\verb$inv(A)$
+$$\left(\matrix{
+\displaystyle{d\over ad-bc} & \displaystyle{-{b\over ad-bc}}\cr
+\cr
+\displaystyle{-{c\over ad-bc}} & \displaystyle{a\over ad-bc}\cr
+}\right)$$
+
+\medskip
+\verb$adj(A)$
+$$\left(\matrix{
+d & -b\cr
+-c & a\cr
+}\right)$$
+
+\medskip
+\verb$det(A)$
+$$ad-bc$$
+
+\medskip
+\verb$inv(A)-adj(A)/det(A)$
+$$\left(\matrix{
+0 & 0\cr
+0 & 0\cr
+}\right)$$
+
 \medskip
 \noindent
-Individual tensor components can be accessed using square brackets.
-Index numbering begins with 1.
-
-\medskip
-{\tt A=zero(2,2)}
-
-{\tt A[1,2]=a}
-
-{\tt A}
-
-$$\left(\matrix{0&a\cr0&0\cr}\right)$$
-
-\newpage
+Sometimes a calculation will be simpler if it is reorganized to use adj instead of inv.
+Then the determinant will not appear as a divisor.
 
 \chapter{Draw}
 
@@ -921,7 +969,7 @@ $$3.14159$$
 \label{example2}
 
 \section*{Example 2}
-Here is another way to define the curl of a vector function.
+The curl of a vector function can be expressed in tensor form as
 $$\mathop{\rm curl}{\bf F}=\epsilon_{ijk}\,{\partial F_k\over\partial x_j}$$
 where $\epsilon_{ijk}$ is the Levi-Civita tensor.
 The following script demonstrates that this formula is equivalent
