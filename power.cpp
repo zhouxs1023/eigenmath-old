@@ -153,20 +153,27 @@ yypower(void)
 
 		// integer power?
 
+		// n will be negative here, positive n already handled
+
 		if (isinteger(p2)) {
-			push(p1);
-			push(p2);
-			negate();
-			power();
-			p1 = pop();
+
+			//               /        \  n
+			//         -n   |  a - ib  |
+			// (a + ib)   = | -------- |
+			//              |   2   2  |
+			//               \ a + b  /
+
 			push(p1);
 			conjugate();
-			p2 = pop();
-			push(p2);
-			push(p2);
+			p3 = pop();
+			push(p3);
+			push(p3);
 			push(p1);
 			multiply();
 			divide();
+			push(p2);
+			negate();
+			power();
 			return;
 		}
 

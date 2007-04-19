@@ -1,7 +1,7 @@
 \documentclass[12pt,openany]{report}
 \title{Eigenmath Manual}
 \author{George Weigt}
-\date{April 16, 2007}
+\date{April 19, 2007}
 \pagestyle{headings}
 \usepackage{graphicx}
 
@@ -251,61 +251,7 @@ running a script.
 
 \newpage
 
-\chapter{Linear Algebra}
-
-Eigenmath's dot function is used to multiply vectors and matrices.
-The following example shows how to use dot and inv to solve for $\bf X$ in $\bf AX=B$.
-
-\medskip
-{\tt A=((3.8,7.2),(1.3,-0.9))}
-
-{\tt B=(16.5,-22.1)}
-
-{\tt X=dot(inv(A),B)}
-
-{\tt X}
-
-$$\left(\matrix{-11.2887\cr8.24961}\right)$$
-
-\newpage
-
-\noindent
-The following example demonstrates the relation
-${\bf A}^{-1}=\mathop{\rm adj}{\bf A}/\mathop{\rm det}{\bf A}$.
-
-\medskip
-\verb$A=((a,b),(c,d))$
-
-\medskip
-\verb$inv(A)$
-$$\left(\matrix{
-\displaystyle{d\over ad-bc} & \displaystyle{-{b\over ad-bc}}\cr
-\cr
-\displaystyle{-{c\over ad-bc}} & \displaystyle{a\over ad-bc}\cr
-}\right)$$
-
-\medskip
-\verb$adj(A)$
-$$\left(\matrix{
-d & -b\cr
--c & a\cr
-}\right)$$
-
-\medskip
-\verb$det(A)$
-$$ad-bc$$
-
-\medskip
-\verb$inv(A)-adj(A)/det(A)$
-$$\left(\matrix{
-0 & 0\cr
-0 & 0\cr
-}\right)$$
-
-\medskip
-\noindent
-Sometimes a calculation will be simpler if it is reorganized to use adj instead of inv.
-Then the determinant will not appear as a divisor.
+%\input{draw.tex}
 
 \chapter{Draw}
 
@@ -367,7 +313,107 @@ The default range is $(-\pi,\pi)$.
 
 {\tt clear}
 
-\chapter{Calculus}
+\newpage
+
+\chapter{Linear Algebra}
+
+Eigenmath's dot function is used to multiply vectors and matrices.
+The following example shows how to use dot and inv to solve for
+$\bf X$ in $\bf AX=B$.
+
+\medskip
+{\tt A=((3.8,7.2),(1.3,-0.9))}
+
+{\tt B=(16.5,-22.1)}
+
+{\tt X=dot(inv(A),B)}
+
+{\tt X}
+
+$$\left(\matrix{-11.2887\cr8.24961}\right)$$
+
+\newpage
+
+\label{adj}
+
+\noindent
+The following example demonstrates the relation
+${\bf A}^{-1}=\mathop{\rm adj}{\bf A}/\mathop{\rm det}{\bf A}$.
+
+\medskip
+\verb$A=((a,b),(c,d))$
+
+\medskip
+\verb$inv(A)$
+$$\left(\matrix{
+\displaystyle{d\over ad-bc} & \displaystyle{-{b\over ad-bc}}\cr
+\cr
+\displaystyle{-{c\over ad-bc}} & \displaystyle{a\over ad-bc}\cr
+}\right)$$
+
+\medskip
+\verb$adj(A)$
+$$\left(\matrix{
+d & -b\cr
+-c & a\cr
+}\right)$$
+
+\medskip
+\verb$det(A)$
+$$ad-bc$$
+
+\medskip
+\verb$inv(A)-adj(A)/det(A)$
+$$\left(\matrix{
+0 & 0\cr
+0 & 0\cr
+}\right)$$
+
+\medskip
+\noindent
+Sometimes a calculation will be simpler if it can be reorganized to use adj instead of inv.
+The main idea is to try to prevent the determinant from appearing as a divisor.
+For example, suppose for matrices $\bf A$ and $\bf B$ you want to check that
+$${\bf A}-{\bf B}^{-1}=0$$
+Depending on the complexity of $\mathop{\rm det}\bf B$, the software
+may not be able to find a simplification that yields zero.
+Should that occur, the following alternative can be tried.
+$$(\mathop{\rm det}{\bf B})\cdot{\bf A}-\mathop{\rm adj}{\bf B}=0$$
+
+\newpage
+
+\label{cofactor}
+
+\noindent
+The adjunct of a matrix is related to the cofactors as follows.
+
+\medskip
+\verb$A=((a,b),(c,d))$
+
+\medskip
+\verb$C=((0,0),(0,0))$
+
+\medskip
+%\verb$for(i,1,2,for(j,1,2,C[i,j]=cofactor(A,i,j)))$
+\verb$C[1,1]=cofactor(A,1,1)$
+
+\verb$C[1,2]=cofactor(A,1,2)$
+
+\verb$C[2,1]=cofactor(A,2,1)$
+
+\verb$C[2,2]=cofactor(A,2,2)$
+
+\medskip
+\verb$C$
+$$\left(\matrix{d&-c\cr -b&a}\right)$$
+
+\medskip
+\verb$adj(A)-transpose(C)$
+$$\left(\matrix{0&0\cr0&0\cr}\right)$$
+
+\newpage
+
+\chapter{Derivative}
 
 \label{d}
 
@@ -460,12 +506,10 @@ Please see page \pageref{example2} for another example.
 
 \newpage
 
+\chapter{Integral}
+
 \label{integral}
 
-\noindent
-Let us move on now to integrals.
-
-\medskip
 \noindent
 The function integral($f,x$) returns the integral of $f$ with respect to $x$.
 The $x$ can be omitted for expressions in $x$.
@@ -512,16 +556,31 @@ Complex quantities can be entered in rectangular or polar form, or a combination
 
 \medskip
 {\tt conj(a+b*i)}
-
 $$a-ib$$
 
 {\tt A0*exp(i*pi/3)}
-
 $$A_0\exp({1\over3}i\pi)$$
 
 {\tt rect}
-
 $${1\over2}A_0+{1\over2}i3^{1/2}A_0$$
+
+\newpage
+
+\medskip
+\noindent
+Rectangular complex numbers raised to a negative power are evaluated as
+$$(a+ib)^{-n}=\left[{a-ib\over(a+ib)(a-ib)}\right]^n=\left[{a-ib\over a^2+b^2}\right]^n$$
+This removes $i$ from the denominator.
+For $n=1$ we have
+$${1\over a+ib}={a-ib\over a^2+b^2}$$
+Here are a few examples.
+
+\medskip
+\verb$1/(2-i)$
+$${2\over5}+{1\over5}i$$
+
+\verb$(-1+3i)/(2-i)$
+$$-1+i$$
 
 \newpage
 
@@ -540,13 +599,7 @@ $$(x^2+y^2)^{1/2}$$
 
 \section*{adj}
 adj($m$) returns the adjunct of matrix $m$.
-
-\medskip
-{\tt A=((a,b),(c,d))}
-
-{\tt adj(A)}
-
-$$\left[\matrix{d & -b\cr -c & a\cr}\right]$$
+Please see page \pageref{adj} for an example.
 
 \section*{and}
 and($a,b,\ldots$) returns the logical ``and'' of predicate expressions.
@@ -591,6 +644,7 @@ coeff($p,x,n$) returns the coefficient of $x^n$ in polynomial $p$.
 
 \section*{cofactor}
 cofactor($m,i,j$) returns of the cofactor of matrix $m$ with respect to row $i$ and column $j$.
+Please see page \pageref{cofactor} for an example.
 
 \section*{conj}
 conj($z$) returns the complex conjugate of $z$.
@@ -1038,7 +1092,7 @@ $$\left(\matrix{0\cr0\cr0}\right)$$
 
 \noindent
 The following is a variation on the previous script.
-The formula $\epsilon_{ijk}\,\partial F_k/\partial x_j$
+The product $\epsilon_{ijk}\,\partial F_k/\partial x_j$
 is computed in just one line of code.
 In addition, there is an optimization.
 The outer product and the first contraction have been replaced with a
