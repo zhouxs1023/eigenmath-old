@@ -1,4 +1,4 @@
-\documentclass[12pt,openany]{report}
+\documentclass[12pt,openany]{article}
 \title{Eigenmath Manual}
 \author{George Weigt}
 \date{April 19, 2007}
@@ -546,33 +546,37 @@ $${1\over8}\pi$$
 \chapter{Complex Numbers}
 
 \noindent
-When Eigenmath starts up, it pre-defines the symbol $i$ so that $i=\sqrt{-1}$.
+When Eigenmath starts up, it defines the symbol $i$ as $i=\sqrt{-1}$.
 Other than that, there is nothing special about $i$.
 It is just a regular symbol that can be redefined and used for some other purpose if need be.
 
 \medskip
 \noindent
-Complex quantities can be entered in rectangular or polar form, or a combination of both.
+Complex quantities can be entered in rectangular or polar form.
 
 \medskip
-{\tt conj(a+b*i)}
-$$a-ib$$
+\verb$a+i*b$
+$$a+ib$$
 
-{\tt A0*exp(i*pi/3)}
-$$A_0\exp({1\over3}i\pi)$$
-
-{\tt rect}
-$${1\over2}A_0+{1\over2}i3^{1/2}A_0$$
+\verb$exp(i*pi/3)$
+$$\exp({1\over3}i\pi)$$
 
 \newpage
 
+\noindent
+Rectangular complex quantities, when raised to a power, are multiplied out.
+
+\medskip
+\verb$(a+i*b)^2$
+$$a^2-b^2+2iab$$
+
 \medskip
 \noindent
-Rectangular complex numbers raised to a negative power are evaluated as
+When $a$ and $b$ are numerical and the power is negative, the evaluation is done as follows.
 $$(a+ib)^{-n}=\left[{a-ib\over(a+ib)(a-ib)}\right]^n=\left[{a-ib\over a^2+b^2}\right]^n$$
 This removes $i$ from the denominator.
-For $n=1$ we have
-$${1\over a+ib}={a-ib\over a^2+b^2}$$
+%For $n=1$ we have
+%$${1\over a+ib}={a-ib\over a^2+b^2}$$
 Here are a few examples.
 
 \medskip
