@@ -1,34 +1,7 @@
+/* derivative */
+
 #include "stdafx.h"
 #include "defs.h"
-static void d_scalar_scalar_1(void);
-void dsum(void);
-void dproduct(void);
-void dpower(void);
-void dd(void);
-void dlog(void);
-void dfunction(void);
-static void dtan(void);
-static void darcsin(void);
-static void darccos(void);
-static void darctan(void);
-static void dsinh(void);
-static void dcosh(void);
-static void dtanh(void);
-static void darcsinh(void);
-static void darccosh(void);
-static void darctanh(void);
-static void dbesselj0(void);
-static void dbesseljn(void);
-static void dbessely0(void);
-static void dbesselyn(void);
-static void dheaviside(void);
-static void dabs(void);
-static void dsgn(void);
-static void dcarac(void);
-static void dhermite(void);
-static void derf(void);
-static void derfc(void);
-static void derivative_of_integral(void);
 
 #define F p3
 #define X p4
@@ -192,7 +165,7 @@ d_scalar_scalar(void)
 	}
 }
 
-static void
+void
 d_scalar_scalar_1(void)
 {
 	// d(x,x)?
@@ -531,7 +504,7 @@ dcos(void)
 	negate();
 }
 
-static void
+void
 dtan(void)
 {
 	push(cadr(p1));
@@ -544,7 +517,7 @@ dtan(void)
 	multiply();
 }
 
-static void
+void
 darcsin(void)
 {
 	push(cadr(p1));
@@ -560,7 +533,7 @@ darcsin(void)
 	multiply();
 }
 
-static void
+void
 darccos(void)
 {
 	push(cadr(p1));
@@ -577,7 +550,13 @@ darccos(void)
 	negate();
 }
 
-static void
+//				Without simplify	With simplify
+//
+//	d(arctan(y/x),x)	-y/(x^2*(y^2/x^2+1))	-y/(x^2+y^2)
+//
+//	d(arctan(y/x),y)	1/(x*(y^2/x^2+1))	x/(x^2+y^2)
+
+void
 darctan(void)
 {
 	push(cadr(p1));
@@ -590,9 +569,10 @@ darctan(void)
 	add();
 	inverse();
 	multiply();
+	simplify();
 }
 
-static void
+void
 dsinh(void)
 {
 	push(cadr(p1));
@@ -603,7 +583,7 @@ dsinh(void)
 	multiply();
 }
 
-static void
+void
 dcosh(void)
 {
 	push(cadr(p1));
@@ -614,7 +594,7 @@ dcosh(void)
 	multiply();
 }
 
-static void
+void
 dtanh(void)
 {
 	push(cadr(p1));
@@ -627,7 +607,7 @@ dtanh(void)
 	multiply();
 }
 
-static void
+void
 darcsinh(void)
 {
 	push(cadr(p1));
@@ -643,7 +623,7 @@ darcsinh(void)
 	multiply();
 }
 
-static void
+void
 darccosh(void)
 {
 	push(cadr(p1));
@@ -659,7 +639,7 @@ darccosh(void)
 	multiply();
 }
 
-static void
+void
 darctanh(void)
 {
 	push(cadr(p1));
@@ -674,7 +654,7 @@ darctanh(void)
 	multiply();
 }
 
-static void
+void
 dheaviside(void)
 {
 	push(cadr(p1));
@@ -685,7 +665,7 @@ dheaviside(void)
 	multiply();
 }
 
-static void
+void
 dabs(void)
 {
 	push(cadr(p1));
@@ -696,7 +676,7 @@ dabs(void)
 	multiply();
 }
 
-static void
+void
 dsgn(void)
 {
 	push(cadr(p1));
@@ -709,7 +689,7 @@ dsgn(void)
 	multiply();
 }
 
-static void
+void
 dcarac(void)
 {
 	push(cadr(p1));
@@ -730,7 +710,7 @@ dcarac(void)
 }
 
 
-static void
+void
 dhermite(void)
 {
 	push(cadr(p1));
@@ -748,7 +728,7 @@ dhermite(void)
 	multiply();
 }
 
-static void
+void
 derf(void)
 {
 	push(cadr(p1));
@@ -770,7 +750,7 @@ derf(void)
 
 }
 
-static void
+void
 derfc(void)
 {
 	push(cadr(p1));
@@ -792,7 +772,7 @@ derfc(void)
 
 }
 
-static void
+void
 dbesselj0(void)
 {
 	push(cadr(p1));
@@ -806,7 +786,7 @@ dbesselj0(void)
 	multiply();
 }
 
-static void
+void
 dbesseljn(void)
 {
 	push(cadr(p1));
@@ -831,7 +811,7 @@ dbesseljn(void)
 }
 
 
-static void
+void
 dbessely0(void)
 {
 	push(cadr(p1));
@@ -846,7 +826,7 @@ dbessely0(void)
 }
 
 
-static void
+void
 dbesselyn(void)
 {
 	push(cadr(p1));
@@ -870,7 +850,7 @@ dbesselyn(void)
 	multiply();
 }
 
-static void
+void
 derivative_of_integral(void)
 {
 	push(cadr(p1));
@@ -963,6 +943,12 @@ static char *s[] = {
 
 	"d(arctan(x),x)-1/(1+x^2)",
 	"0",
+
+	"d(arctan(y/x),x)",
+	"-y/(x^2+y^2)",
+
+	"d(arctan(y/x),y)",
+	"x/(x^2+y^2)",
 
 // hyp functions
 

@@ -1,7 +1,7 @@
-\documentclass[12pt,openany]{article}
+\documentclass[12pt,openany]{report}
 \title{Eigenmath Manual}
 \author{George Weigt}
-\date{April 19, 2007}
+\date{April 22, 2007}
 \pagestyle{headings}
 \usepackage{graphicx}
 
@@ -417,92 +417,108 @@ $$\left(\matrix{0&0\cr0&0\cr}\right)$$
 
 \label{d}
 
-The function d($f,x$) returns the derivative of $f$ with respect to $x$.
+\noindent
+$d(f,x)$ returns the derivative of $f$ with respect to $x$.
 The $x$ can be omitted for expressions in $x$.
 
 \medskip
-{\tt d(x{\char94}2)}
-
+\verb$d(x^2)$
 $$2x$$
 
-\medskip
+\bigskip
 \noindent
-Multi-derivatives can be obtained by extending the argument list.
+The following table summarizes the various ways to obtain multiderivatives.
 
-\medskip
-{\tt r=sqrt(x{\char94}2+y{\char94}2)}
+\begin{center}
+\begin{tabular}{cllllll}
+%& & & & {\it alternate form} \\
+%\\
+$\displaystyle{\partial^2f\over\partial x^2}$ & & \verb$d(f,x,x)$ & & \verb$d(f,x,2)$ \\
+\\
+$\displaystyle{\partial^2f\over\partial x\,\partial y}$ & & \verb$d(f,x,y)$ \\
+\\
+$\displaystyle{\partial^{m+n+\cdot\cdot\cdot} f\over\partial x^m\,\partial y^n\cdots}$ & &
+\verb$d(f,x,...,y,...)$ & & \verb$d(f,x,m,y,n,...)$ \\
+\end{tabular}
+\end{center}
 
-{\tt d(r,x,y)}
+%\medskip
+%\verb$r=sqrt(x^2+y^2)$
 
-$${-{xy\over(x^2+y^2)^{3/2}}}$$
+%\verb$d(r,x,y)$
+%$${-{xy\over(x^2+y^2)^{3/2}}}$$
 
-\medskip
+\newpage
+
 \noindent
-A gradient can be obtained by using a vector for the second argument.
+The gradient of $f$ is obtained by using a vector for $x$ in $d(f,x)$.
 
 \medskip
-{\tt r=sqrt(x{\char94}2+y{\char94}2)}
+\verb$r=sqrt(x^2+y^2)$
 
-{\tt d(r,(x,y))}
-
+\verb$d(r,(x,y))$
 $$\left(\matrix{
 \displaystyle{{x\over(x^2+y^2)^{1/2}}}\cr
 \cr
 \displaystyle{{y\over(x^2+y^2)^{1/2}}}\cr
 }\right)$$
 
+\medskip
+\noindent
+The $f$ in $d(f,x)$ can be a tensor function.
+Gradient raises the rank by one.
+
+\medskip
+\verb$F=(x+2y,3x+4y)$
+
+\verb$X=(x,y)$
+
+\verb$d(F,X)$
+$$\left(\matrix{1&2\cr3&4}\right)$$
+
 \newpage
 
 \noindent
-Here is a trick.
-The function $f$ in d($f$) does not have to be defined.
-Eigenmath will check the argument list
-of $f$ to figure out what to do.
+The function $f$ in $d(f)$ does not have to be defined.
+It can be a template function with just a name and an argument list.
+Eigenmath checks the argument list to figure out what to do.
+For example, $d(f(x),x)$ evaluates to itself because $f$ depends on $x$.
+However, $d(f(x),y)$ evaluates to zero because $f$ does not depend on $y$.
 
 \medskip
-{\tt d(f(x),(x,y))}
+\verb$d(f(x),x)$
+$$\partial(f(x),x)$$
 
-$$\left(\matrix{
-\partial(f(x),x)\cr
-\cr
-0\cr
-}\right)$$
-
-{\tt d(f(),(x,y))}
-
-$$\left(\matrix{
-\partial(f(),x)\cr
-\cr
-\partial(f(),y)\cr
-}\right)$$
-
-\medskip
-\noindent
-As the second example shows,
-if the argument list is empty then $f$ is assumed to depend
-on any variable that d encounters.
-
-\medskip
-\noindent
-This ``generic'' function property is useful for experimenting with
-differential forms.
-For example, let us check the following identity.
-$$\mathop{\rm div}(\mathop{\rm curl}{\bf F})=0$$
-
-\medskip
-{\tt curl(U)=(d(U[3],y)-d(U[2],z),d(U[1],z)-d(U[3],x),d(U[2],x)-d(U[1],y))}
-
-{\tt div(U)=d(U[1],x)+d(U[2],y)+d(U[3],z)}
-
-{\tt F=(FX(),FY(),FZ())}
-
-{\tt div(curl(F))}
-
+\verb$d(f(x),y)$
 $$0$$
 
+\verb$d(f(x,y),y)$
+$$\partial(f(x,y),y)$$
+
+\verb$d(f(),t)$
+$$\partial(f(),t)$$
+
 \medskip
 \noindent
-Please see page \pageref{example2} for another example.
+As the final example shows, an empty argument list indicates
+that $d(f)$ is never zero.
+
+\medskip
+\noindent
+Template functions are useful for experimenting with differential forms.
+For example, let us check the identity
+$$\mathop{\rm div}(\mathop{\rm curl}{\bf F})=0$$
+for an arbitrary vector function $\bf F$.
+
+\medskip
+\verb$F=(F1(x,y,z),F2(x,y,z),F3(x,y,z))$
+
+\verb$curl(U)=(d(U[3],y)-d(U[2],z),d(U[1],z)-d(U[3],x),d(U[2],x)-d(U[1],y))$
+
+\verb$div(U)=d(U[1],x)+d(U[2],y)+d(U[3],z)$
+
+\verb$div(curl(F))$
+$$0$$
 
 \newpage
 
@@ -999,9 +1015,9 @@ Of course, we cannot calculate all the way out to infinity, we have to stop some
 It turns out that nine factors are just enough to get six digits of accuracy.
 
 \medskip
-{\tt a(n)=test(n=0,0,sqrt(2+a(n-1)))}
+\verb$a(n)=test(n=0,0,sqrt(2+a(n-1)))$
 
-{\tt float(2*product(k,1,9,2/a(k)))}
+\verb$float(2*product(k,1,9,2/a(k)))$
 
 $$3.14159$$
 
@@ -1012,13 +1028,13 @@ The function $a(n)$ calls itself $n$ times so overall there are
 By using a different algorithm with temporary variables, we can get the answer in just 9 steps.
 
 \medskip
-{\tt a=0}
+\verb$a=0$
 
-{\tt b=1}
+\verb$b=1$
 
-{\tt for(k,1,9,a=sqrt(2+a),b=b*2/a)}
+\verb$for(k,1,9,a=sqrt(2+a),b=b*2/a)$
 
-{\tt float(2*b)}
+\verb$float(2*b)$
 
 $$3.14159$$
 

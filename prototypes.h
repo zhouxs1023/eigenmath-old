@@ -1,4 +1,6 @@
 
+// YASTControl.cpp
+
 // abs.cpp
 void eval_abs(void);
 void absval(void);
@@ -230,6 +232,7 @@ void test_denominator(void);
 void eval_derivative(void);
 void derivative(void);
 void d_scalar_scalar(void);
+void d_scalar_scalar_1(void);
 void dsum(void);
 void dproduct(void);
 void dpower(void);
@@ -238,6 +241,28 @@ void dd(void);
 void dfunction(void);
 void dsin(void);
 void dcos(void);
+void dtan(void);
+void darcsin(void);
+void darccos(void);
+void darctan(void);
+void dsinh(void);
+void dcosh(void);
+void dtanh(void);
+void darcsinh(void);
+void darccosh(void);
+void darctanh(void);
+void dheaviside(void);
+void dabs(void);
+void dsgn(void);
+void dcarac(void);
+void dhermite(void);
+void derf(void);
+void derfc(void);
+void dbesselj0(void);
+void dbesseljn(void);
+void dbessely0(void);
+void dbesselyn(void);
+void derivative_of_integral(void);
 void test_derivative(void);
 
 // det.cpp
