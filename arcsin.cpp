@@ -6,22 +6,27 @@ eval_arcsin(void)
 {
 	push(cadr(p1));
 	eval();
-	arcsin();
+	yyarcsin();
 }
 
 void
 arcsin(void)
 {
+	save();
+	yyarcsin();
+	restore();
+}
+
+void
+yyarcsin(void)
+{
 	int n;
 	double d;
-
-	save();
 
 	p1 = pop();
 
 	if (car(p1) == symbol(SIN)) {
 		push(cadr(p1));
-		restore();
 		return;
 	}
 
@@ -31,7 +36,24 @@ arcsin(void)
 		if (errno)
 			stop("arcsin function argument is not in the interval [-1,1]");
 		push_double(d);
-		restore();
+		return;
+	}
+
+	// if p1 == 1/sqrt(2) then return 1/4*pi (45 degrees)
+
+	if (issqrttwo(p1)) {
+		push_rational(1, 4);
+		push_symbol(PI);
+		multiply();
+		return;
+	}
+
+	// if p1 == -1/sqrt(2) then return -1/4*pi (-45 degrees)
+
+	if (isminussqrttwo(p1)) {
+		push_rational(-1, 4);
+		push_symbol(PI);
+		multiply();
 		return;
 	}
 
@@ -39,7 +61,6 @@ arcsin(void)
 		push_symbol(ARCSIN);
 		push(p1);
 		list(2);
-		restore();
 		return;
 	}
 
@@ -84,8 +105,6 @@ arcsin(void)
 		list(2);
 		break;
 	}
-
-	restore();
 }
 
 static char *s[] = {
@@ -122,6 +141,18 @@ static char *s[] = {
 
 	"arcsin(sin(x))",
 	"x",
+
+	"arcsin(1/sqrt(2))",
+	"1/4*pi",
+
+	"arcsin(-1/sqrt(2))",
+	"-1/4*pi",
+
+	"arcsin(sin(1/4*pi))",
+	"1/4*pi",
+
+	"arcsin(sin(-1/4*pi))",
+	"-1/4*pi",
 };
 
 void

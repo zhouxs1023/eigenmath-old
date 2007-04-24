@@ -304,3 +304,30 @@ equalq(U *p, int a, int b)
 	}
 	return 0;
 }
+
+// p == 1/sqrt(2) ?
+
+int
+issqrttwo(U *p)
+{
+	if (car(p) == symbol(POWER)
+	&& equaln(cadr(p), 2)
+	&& equalq(caddr(p), -1, 2))
+		return 1;
+	else
+		return 0;
+}
+
+// p == -1/sqrt(2) ?
+
+int
+isminussqrttwo(U *p)
+{
+	if (car(p) == symbol(MULTIPLY)
+	&& equaln(cadr(p), -1)
+	&& issqrttwo(caddr(p))
+	&& length(p) == 3)
+		return 1;
+	else
+		return 0;
+}

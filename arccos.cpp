@@ -6,22 +6,27 @@ eval_arccos(void)
 {
 	push(cadr(p1));
 	eval();
-	arccos();
+	yyarccos();
 }
 
 void
 arccos(void)
 {
+	save();
+	yyarccos();
+	restore();
+}
+
+void
+yyarccos(void)
+{
 	int n;
 	double d;
-
-	save();
 
 	p1 = pop();
 
 	if (car(p1) == symbol(COS)) {
 		push(cadr(p1));
-		restore();
 		return;
 	}
 
@@ -31,7 +36,24 @@ arccos(void)
 		if (errno)
 			stop("arccos function argument is not in the interval [-1,1]");
 		push_double(d);
-		restore();
+		return;
+	}
+
+	// if p1 == 1/sqrt(2) then return 1/4*pi (45 degrees)
+
+	if (issqrttwo(p1)) {
+		push_rational(1, 4);
+		push_symbol(PI);
+		multiply();
+		return;
+	}
+
+	// if p1 == -1/sqrt(2) then return 3/4*pi (135 degrees)
+
+	if (isminussqrttwo(p1)) {
+		push_rational(3, 4);
+		push_symbol(PI);
+		multiply();
 		return;
 	}
 
@@ -39,7 +61,6 @@ arccos(void)
 		push_symbol(ARCCOS);
 		push(p1);
 		list(2);
-		restore();
 		return;
 	}
 
@@ -82,8 +103,6 @@ arccos(void)
 		list(2);
 		break;
 	}
-
-	restore();
 }
 
 static char *s[] = {
@@ -120,6 +139,18 @@ static char *s[] = {
 
 	"arccos(cos(x))",
 	"x",
+
+	"arccos(1/sqrt(2))",
+	"1/4*pi",
+
+	"arccos(-1/sqrt(2))",
+	"3/4*pi",
+
+	"arccos(cos(1/4*pi))",
+	"1/4*pi",
+
+	"arccos(cos(3/4*pi))",
+	"3/4*pi",
 };
 
 void

@@ -38,6 +38,7 @@ void append(void);
 // arccos.cpp
 void eval_arccos(void);
 void arccos(void);
+void yyarccos(void);
 void test_arccos(void);
 
 // arccosh.cpp
@@ -48,6 +49,7 @@ void test_arccosh(void);
 // arcsin.cpp
 void eval_arcsin(void);
 void arcsin(void);
+void yyarcsin(void);
 void test_arcsin(void);
 
 // arcsinh.cpp
@@ -516,6 +518,8 @@ int isoneover(U *p);
 int isfraction(U *p);
 int equaln(U *p, int n);
 int equalq(U *p, int a, int b);
+int issqrttwo(U *p);
+int isminussqrttwo(U *p);
 
 // isprime.cpp
 void eval_isprime(void);
