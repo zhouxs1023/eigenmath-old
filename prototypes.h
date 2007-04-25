@@ -518,8 +518,8 @@ int isoneover(U *p);
 int isfraction(U *p);
 int equaln(U *p, int n);
 int equalq(U *p, int a, int b);
-int issqrttwo(U *p);
-int isminussqrttwo(U *p);
+int isoneoversqrttwo(U *p);
+int isminusoneoversqrttwo(U *p);
 
 // isprime.cpp
 void eval_isprime(void);

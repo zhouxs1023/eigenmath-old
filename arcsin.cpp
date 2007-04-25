@@ -41,7 +41,7 @@ yyarcsin(void)
 
 	// if p1 == 1/sqrt(2) then return 1/4*pi (45 degrees)
 
-	if (issqrttwo(p1)) {
+	if (isoneoversqrttwo(p1)) {
 		push_rational(1, 4);
 		push_symbol(PI);
 		multiply();
@@ -50,7 +50,7 @@ yyarcsin(void)
 
 	// if p1 == -1/sqrt(2) then return -1/4*pi (-45 degrees)
 
-	if (isminussqrttwo(p1)) {
+	if (isminusoneoversqrttwo(p1)) {
 		push_rational(-1, 4);
 		push_symbol(PI);
 		multiply();

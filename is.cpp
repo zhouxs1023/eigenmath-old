@@ -308,7 +308,7 @@ equalq(U *p, int a, int b)
 // p == 1/sqrt(2) ?
 
 int
-issqrttwo(U *p)
+isoneoversqrttwo(U *p)
 {
 	if (car(p) == symbol(POWER)
 	&& equaln(cadr(p), 2)
@@ -321,11 +321,11 @@ issqrttwo(U *p)
 // p == -1/sqrt(2) ?
 
 int
-isminussqrttwo(U *p)
+isminusoneoversqrttwo(U *p)
 {
 	if (car(p) == symbol(MULTIPLY)
 	&& equaln(cadr(p), -1)
-	&& issqrttwo(caddr(p))
+	&& isoneoversqrttwo(caddr(p))
 	&& length(p) == 3)
 		return 1;
 	else
