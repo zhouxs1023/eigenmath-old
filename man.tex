@@ -1,7 +1,7 @@
 \documentclass[12pt,openany]{report}
 \title{Eigenmath Manual}
 \author{George Weigt}
-\date{April 22, 2007}
+\date{April 26, 2007}
 \pagestyle{headings}
 \usepackage{graphicx}
 
@@ -405,7 +405,7 @@ The adjunct of a matrix is related to the cofactors as follows.
 
 \medskip
 \verb$C$
-$$\left(\matrix{d&-c\cr -b&a}\right)$$
+$$C=\left(\matrix{d&-c\cr -b&a}\right)$$
 
 \medskip
 \verb$adj(A)-transpose(C)$
@@ -527,34 +527,37 @@ $$0$$
 \label{integral}
 
 \noindent
-The function integral($f,x$) returns the integral of $f$ with respect to $x$.
+$integral(f,x)$ returns the integral of $f$ with respect to $x$.
 The $x$ can be omitted for expressions in $x$.
 A multi-integral can be obtained by extending the argument list.
 
 \medskip
-{\tt integral(x{\char94}2)}
-
+\verb$integral(x^2)$
 $${1\over3}x^3$$
 
-{\tt integral(x{\char94}2,x,x)}
+\verb$integral(x*y,x,y)$
+$${1\over4}x^2y^2$$
 
-$${1\over12}x^4$$
+\newpage
+
+\noindent
+\includegraphics[scale=0.5]{semicircle.png}
 
 \medskip
 \noindent
-The eval function can be used to compute definite integrals.
-The following example computes the integral of $x^2$
-over a half circle.
+A definite integral can be obtained with the help of $eval$.
+The following example computes the integral of $f=x^2$
+over the domain of a semicircle.
+For each $x$ along the abscissa, $y$ ranges from 0 to $\sqrt{1-x^2}$.
 
 \medskip
-{\tt I=integral(x{\char94}2,y)}
+\verb$I=integral(x^2,y)$
 
-{\tt I=eval(I,y,sqrt(1-x{\char94}2))-eval(I,y,0)}
+\verb$I=eval(I,y,sqrt(1-x^2))-eval(I,y,0)$
 
-{\tt I=integral(I,x)}
+\verb$I=integral(I,x)$
 
-{\tt eval(I,x,1)-eval(I,x,-1)}
-
+\verb$eval(I,x,1)-eval(I,x,-1)$
 $${1\over8}\pi$$
 
 \newpage
