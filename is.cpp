@@ -331,3 +331,16 @@ isminusoneoversqrttwo(U *p)
 	else
 		return 0;
 }
+
+int
+isfloating(U *p)
+{
+	if (p->k == DOUBLE)
+		return 1;
+	while (iscons(p)) {
+		if (isfloating(car(p)))
+			return 1;
+		p = cdr(p);
+	}
+	return 0;
+}

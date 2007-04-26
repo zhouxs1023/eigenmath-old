@@ -58,6 +58,9 @@ yyfactorpoly(void)
 
 	h = tos;
 
+	if (isfloating(POLY))
+		stop("floating point numbers in polynomial");
+
 	polycoeff = stack + tos;
 
 	push(POLY);
