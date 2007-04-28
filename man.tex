@@ -1028,16 +1028,17 @@ $$3.14159$$
 \noindent
 The function $a(n)$ calls itself $n$ times so overall there are
 54 calls to $a(n)$.
-By using a different algorithm with temporary variables, we can get the answer in just 9 steps.
+By using a different algorithm with temporary variables, we can get the
+answer in just nine steps.
 
 \medskip
 \verb$a=0$
 
-\verb$b=1$
+\verb$b=2$
 
 \verb$for(k,1,9,a=sqrt(2+a),b=b*2/a)$
 
-\verb$float(2*b)$
+\verb$float(b)$
 
 $$3.14159$$
 
