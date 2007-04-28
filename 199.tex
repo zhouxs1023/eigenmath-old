@@ -1,0 +1,215 @@
+\documentclass[12pt,openany]{report}
+\usepackage{graphicx}
+\begin{document}
+
+\noindent
+{\it George Weigt --- Geometry Homework \#12}
+
+\section*{Page 148, problem 2.}
+
+In a neutral geometry, if $D$ is the foot of the altitude of $\triangle ABC$
+from $C$ and $A{-}B{-}D$, then prove $\overline{CA}>\overline{CB}$.
+
+\includegraphics[scale=0.5]{102.png}
+
+\noindent
+Solution:
+
+\begin{itemize}
+
+\item[]
+By Theorem 13.3 the hypotenuse $\overline{CA}$ is the longest side of $\triangle ADC$.
+
+\item[]
+Then by $A{-}B{-}D$ and Theorem 12.13 we have $\overline{CA}>\overline{CB}\ge\overline{CD}$.
+
+\item[]
+Therefore $\overline{CA}>\overline{CB}$.
+
+\end{itemize}
+
+\newpage
+
+\section*{Page 148, problem 4.}
+
+Show that the conclusion of Theorem 6.4.2 is not valid in the Taxicab Plane
+by taking $P=(-1,1)$, $\ell=\{(x,y)\mid y=x\}$ and $Q=(1,1)$.
+
+\includegraphics[scale=0.5]{104.png}
+
+\noindent
+Solution:
+
+\begin{itemize}
+
+\item[]
+$PQ=|-1-1|+|1-1]=2$
+
+\item[]
+Let $R=(x,x)$.
+
+\item[]
+If $x>1$ then $PR=|-1-x|+|1-x|=(x+1)+(x-1)=2x$.
+
+\item[]
+If $x<1$ then $PR=|-1-x|+|1-x|=(-x-1)+(-x+1)=-2x$
+
+\item[]
+Hence $PR\ge PQ$ for all $R\in\ell$.
+
+\item[]
+Therefore by Theorem 6.4.2 we have $\overleftarrow P\overrightarrow Q\perp\ell$.
+
+\item[]
+However, $\angle PQO$ is not a right angle.
+$$m(\angle PQO)=\cos^{-1}{\langle P-Q,O-Q\rangle\over\|P-Q\|\cdot\|O-Q\|}
+=\cos^{-1}{2\over2\sqrt2}=45$$
+
+\item[]
+Therefore Theorem 6.4.2 is not valid in the Taxicab Plane.
+
+\end{itemize}
+
+\newpage
+
+\section*{Page 148, problem 5.}
+
+Show that the conclusion of the Pythagorean Theorem is not valid in the Taxicab Plane.
+
+\includegraphics[scale=0.5]{105.png}
+
+\noindent
+Solution:
+
+\begin{itemize}
+
+\item[]
+Let $A=(0,1)$, $B=(0,0)$ and $C=(1,0)$.
+
+\item[]
+Then
+$$m(\angle ABC)=\cos^{-1}{\langle A-B,C-B\rangle\over\|A-B\|\cdot\|C-B\|}
+=\cos^{-1}{0\over1}=90$$
+hence $\angle ABC$ is a right angle and $\overline{AC}$ is the hypotenuse.
+
+\item[]
+In the Taxicab Plane we have $AB=1$, $BC=1$ and $AC=2$.
+
+\item[]
+It follows that $AC^2\ne AB^2+BC^2$.
+
+\item[]
+Therefore the Pythagorean Theorem is not valid in the Taxicab Plane.
+
+\end{itemize}
+
+\newpage
+
+\section*{Page 149, problem 10.}
+
+Prove the following theorem (Theorem 6.4.7).
+
+\medskip
+\noindent
+In a neutral geometry, if $\overline{BD}$ is the bisector of $\angle ABC$ and
+if $E$ and $F$ are the feet of the perpendiculars from $D$ to $\overline{BA}$ and
+$\overline{BC}$ then $\overline{DE}\cong\overline{DF}$.
+
+\includegraphics[scale=0.5]{110.png}
+
+\noindent
+Solution:
+
+\begin{itemize}
+
+\item[]
+By hypothesis $\angle DBE\cong\angle DBF$.
+
+\item[]
+Then by HA ($\overline{BD}$ is the hypotenuse) we have $\triangle BDE\cong\triangle BDF$.
+
+\item[]
+Therefore $\overline{DE}\cong\overline{DF}$.
+
+\end{itemize}
+
+\newpage
+
+\section*{Page 149, problem 13.}
+
+In a neutral geometry, let $\ell_1$, $\ell_2$, and $\ell_3$ be the perpendicular
+bisectors of the three sides of $\triangle ABC$.
+If $D\in\ell_1\cap\ell_2$, prove that $D\in\ell_3$.
+
+\includegraphics[scale=0.5]{113.png}
+
+\noindent
+Solution:
+
+\begin{itemize}
+
+\item[]
+Let $\ell_1$ be the perpendicular bisector of $\overline{AB}$
+and $\ell_2$ be the perpendicular bisector of $\overline{BC}$.
+
+\item[]
+Then by Theorem 13.13 $\overline{AD}\cong\overline{BD}\cong\overline{CD}$.
+
+\item[]
+Since $\overline{AD}\cong\overline{CD}$, by Theorem 13.13
+$D\in\ell_3$.
+
+\end{itemize}
+
+\newpage
+
+\section*{Page 149, problem 16.}
+
+Find the error or errors in the following alleged ``proof'' that in a neutral geometry
+any triangle is isosceles.
+
+\begin{itemize}
+
+\item[]
+Let $M$ be the midpoint of $\overline{AC}$ and let $\ell$ be the perpendicular
+to $\overline{AC}$ at $M$.
+
+\item[]
+Let $\overrightarrow{BQ}$ be the angle bisector of $\angle ABC$ and let
+$D\in\ell\cap\overrightarrow{BQ}$.
+
+\item
+{\it The proof has not established $B{-}D{-}Q$ or $B{-}Q{-}D$.
+In other words, the proof has not established $\ell\cap\overrightarrow{BQ}\ne\emptyset$,
+although it does appear to be true in general.}
+
+\item[]
+If $E$ is the foot of the perpendicular from $D$ to $\overleftarrow B \overrightarrow C$
+and if $F$ is the foot of the perpendicular from $D$ to $\overleftarrow B\overrightarrow A$,
+then $\overline{FD}\cong\overline{ED}$ by Theorem 6.4.7.
+
+\item
+{\it Because of the previous comment, the proof has not established that
+$D\in\mathop{\rm int}(\angle ABC)$, although it does appear to be true
+in general.}
+
+\item[]
+$\overline{AD}\cong\overline{CD}$ by Theorem 6.4.6.
+
+\item[]
+Hence $\triangle AFD\cong\triangle CED$ by HL and $\overline{AF}\cong\overline{CE}$.
+
+\item[]
+Since $\triangle BDF\cong\triangle BDE$ (by HA), $\overline{BF}\cong\overline{BE}$.
+
+\item[]
+Hence $BA=BF+FA=BE+EC=BC$ and $\overline{BA}\cong\overline{BC}$.
+
+\item
+{\it The proof has not established $B{-}F{-}A$ or $B{-}E{-}C$.
+Therefore $BA=BF+FA$ and $BE+EC=BC$ are not true in general.}
+
+\end{itemize}
+
+
+\end{document}
