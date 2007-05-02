@@ -66,16 +66,6 @@ eval_draw(void)
 	push(cadr(p1));
 	eval();
 
-	// save "last" so we can do, for example,
-	//
-	//	x^2
-	//	draw
-	//	integral
-	//
-	// and have integral do integral(x^2)
-
-	push(symbol(YYLAST)->u.sym.binding);
-
 	// must eval 2nd arg in case it's $1, $2, etc.
 
 	push(caddr(p1));
@@ -89,8 +79,6 @@ eval_draw(void)
 		push(p2);
 
 	draw();
-
-	symbol(YYLAST)->u.sym.binding = pop();
 
 	push(symbol(NIL));	// so no result is printed
 				// also, "last" is not modified when result is "nil"

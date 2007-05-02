@@ -52,6 +52,7 @@ run(char *s)
 		p1 = pop();
 		check_stack();
 
+		push(p1);
 		top_level_eval();
 
 		p2 = pop();
@@ -136,20 +137,24 @@ echo_input(char *s)
 void
 top_level_eval(void)
 {
-	int flag = 0;
+	save();
 
-	if (car(p1) == symbol(SETQ))
-		flag = 1;
-
+	p1 = pop();
 	push(p1);
 	eval();
+	p2 = pop();
+	push(p2);
 
-	// only update 'last' when the result is displayed
+	// "for", "draw" and "setq" return nil
 
-	if (flag == 0) {
-		symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
+	// don't set "last" to "nil" unless it is the result of symbol eval
+
+	if (issymbol(p1) || p2 != symbol(NIL)) {
+		symbol(LAST)->u.sym.binding = p2;
 		symbol(LAST)->u.sym.arglist = symbol(NIL);
 	}
+
+	restore();
 }
 
 void

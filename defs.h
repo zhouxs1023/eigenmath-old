@@ -189,7 +189,6 @@ enum {
 	LAST,
 	TTY,
 	YYE,
-	YYLAST,
 	SECRETX,
 	METAA,
 	METAB,

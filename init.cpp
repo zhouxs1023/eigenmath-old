@@ -166,7 +166,6 @@ init(void)
 	std_symbol("last", LAST);
 	std_symbol("tty", TTY);
 	std_symbol("~", YYE); // tilde so sort puts it after other symbols
-	std_symbol("YYLAST", YYLAST);
 	std_symbol("SECRETX", SECRETX);
 	std_symbol("METAA", METAA);
 	std_symbol("METAB", METAB);

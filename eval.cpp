@@ -36,8 +36,6 @@ eval(void)
 		stop(errstr);
 		break;
 	}
-	if (stack[tos - 1] != symbol(NIL))
-		symbol(YYLAST)->u.sym.binding = stack[tos - 1];
 	restore();
 }
 
