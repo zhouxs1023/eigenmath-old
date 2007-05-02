@@ -898,6 +898,19 @@ emit_subexpr(U *p)
 	emit_char(TIMES_FONT, ')');
 }
 
+// these are printed in italic, no subscripting
+
+static char *specname[] =
+	"autoexpand",
+	"bake",
+	"cross",
+	"curl",
+	"div",
+	"last",
+	"nil",
+	"tty",
+};
+
 static void
 emit_symbol(U *p)
 {
@@ -926,9 +939,16 @@ emit_symbol(U *p)
 
 	s = get_printname(p);
 
-	if (symbol_index(p) < PI) {
+	if (symbol_index(p) < NIL) {
 		emit_str(TIMES_FONT, s);
 		return;
+	}
+
+	for (i = 0; i < sizeof specname / sizeof (char *); i++) {
+		if (strcmp(s, specname[i]) == 0) {
+			emit_str(ITALIC_TIMES_FONT, s);
+			return;
+		}
 	}
 
 	// parse greek letters

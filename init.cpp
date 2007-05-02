@@ -225,6 +225,7 @@ static char *defn_str[] = {
 	"yrange=(-10,10)",
 	"last=0",
 	"tty=0",
+	"cross(u,v)=(u[2]*v[3]-u[3]*v[2],u[3]*v[1]-u[1]*v[3],u[1]*v[2]-u[2]*v[1])",
 	"curl(v)=(d(v[3],y)-d(v[2],z),d(v[1],z)-d(v[3],x),d(v[2],x)-d(v[1],y))",
 	"div(v)=d(v[1],x)+d(v[2],y)+d(v[3],z)",
 	"ln(x)=log(x)",

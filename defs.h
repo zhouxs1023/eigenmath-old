@@ -194,10 +194,6 @@ enum {
 	METAB,
 	METAX,
 
-	// symbols appearing above are printed in roman type
-
-	// the following symbols are printed in italic type
-
 	PI,
 	SYMBOL_A,
 	SYMBOL_B,
