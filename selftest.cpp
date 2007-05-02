@@ -1186,40 +1186,6 @@ char *script[] = {
 	"f(x+1)-(2+x)",
 	"0",
 
-// how did this ever work?
-
-#if 0
-	// test indexed formal arg
-
-	"f(x)=do(x[1]=3,x)",
-	"",
-
-	"x=(a,b)",
-	"",
-
-	"f(x)",
-	"(3,b)",
-
-	"x",
-	"(a,b)",
-
-	"f=quote(f)",
-	"",
-
-	"x=quote(x)",
-	"",
-#endif
-	// last
-
-	"a=2+3",
-	"",
-
-	"last",
-	"5",
-
-	"a=quote(a)",
-	"",
-
 	// equality of tensors
 
 	"testeq((1,2),(1,2))",
@@ -1245,6 +1211,17 @@ char *script[] = {
 
 	"1/2 1.0",
 	"0.5",
+
+	// the variable 'last' should be the last thing displayed
+
+	"123",
+	"123",
+
+	"AA=456",
+	"",
+
+	"last",
+	"123",
 };
 
 void

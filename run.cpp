@@ -133,85 +133,23 @@ echo_input(char *s)
 	printstr("\n");
 }
 
-// the main idea is to not propagate denormal expressions
-
 void
 top_level_eval(void)
 {
-#if 0
-	// handle bare keywords that yield denormals
+	int flag = 0;
 
-	if (p1 == symbol(FACTOR)) {
-		push(symbol(LAST)->u.sym.binding);
-		guess();
-		factor();
-		return;
-	}
-
-	if (p1 == symbol(SIMPLIFY)) {
-		push(symbol(LAST)->u.sym.binding);
-		simplify();
-		return;
-	}
-
-	if (p1 == symbol(CONDENSE)) {
-		push(symbol(LAST)->u.sym.binding);
-		Condense();
-		return;
-	}
-
-	if (p1 == symbol(RATIONALIZE)) {
-		push(symbol(LAST)->u.sym.binding);
-		rationalize();
-		return;
-	}
-
-	// handle functions that yield denormals
-
-	if (car(p1) == symbol(FACTOR)) {
-		push(cadr(p1));
-		eval();
-		symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
-		symbol(LAST)->u.sym.arglist = symbol(NIL);
-		push(caddr(p1));
-		eval();
-		factor();
-		return;
-	}
-
-	if (car(p1) == symbol(SIMPLIFY)) {
-		push(cadr(p1));
-		eval();
-		symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
-		symbol(LAST)->u.sym.arglist = symbol(NIL);
-		simplify();
-		return;
-	}
-
-	if (car(p1) == symbol(CONDENSE)) {
-		push(cadr(p1));
-		eval();
-		symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
-		symbol(LAST)->u.sym.arglist = symbol(NIL);
-		Condense();
-		return;
-	}
-
-	if (car(p1) == symbol(RATIONALIZE)) {
-		push(cadr(p1));
-		eval();
-		symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
-		symbol(LAST)->u.sym.arglist = symbol(NIL);
-		rationalize();
-		return;
-	}
-#endif
-	// default case
+	if (car(p1) == symbol(SETQ))
+		flag = 1;
 
 	push(p1);
 	eval();
-	symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
-	symbol(LAST)->u.sym.arglist = symbol(NIL);
+
+	// only update 'last' when the result is displayed
+
+	if (flag == 0) {
+		symbol(LAST)->u.sym.binding = symbol(YYLAST)->u.sym.binding;
+		symbol(LAST)->u.sym.arglist = symbol(NIL);
+	}
 }
 
 void
