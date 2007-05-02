@@ -1,19 +1,15 @@
+/*	Substitute new expr for old expr in expr.
+
+	Input:	push	expr
+
+		push	old expr
+
+		push	new expr
+
+	Output:	Result on stack
+*/
+
 #include "stdafx.h"
-
-//-----------------------------------------------------------------------------
-//
-//	Substitute new expr for old expr in expr.
-//
-//	Input:	tos-3	expr
-//
-//		tos-2	old expr
-//
-//		tos-1	new expr
-//
-//	Output:	Result on stack
-//
-//-----------------------------------------------------------------------------
-
 #include "defs.h"
 
 void

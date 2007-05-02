@@ -344,3 +344,12 @@ isfloating(U *p)
 	}
 	return 0;
 }
+
+int
+isimaginaryunit(U *p)
+{
+	if (equal(p, imaginaryunit))
+		return 1;
+	else
+		return 0;
+}

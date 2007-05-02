@@ -611,11 +611,6 @@ emit_power(U *p)
 		return;
 	}
 
-	if (equal(p, imaginaryunit)) {
-		__emit_str("i");
-		return;
-	}
-
 	if (level > 0) {
 		if (isminusone(caddr(p))) {
 			__emit_char('1');

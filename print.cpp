@@ -306,11 +306,6 @@ print_factor(U *p)
 
 	if (car(p) == symbol(POWER)) {
 
-		if (equal(p, imaginaryunit)) {
-			print_str("i");
-			return;
-		}
-
 		if (cadr(p) == symbol(E)) {
 			print_str("exp(");
 			print_expr(caddr(p));

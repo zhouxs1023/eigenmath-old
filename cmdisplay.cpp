@@ -731,11 +731,6 @@ emit_power(U *p)
 		return;
 	}
 
-	if (equal(p, imaginaryunit)) {
-		emit_char(ITALIC_TIMES_FONT, 'i');
-		return;
-	}
-
 	// special case: level > 0 which means we are already in a superscript
 	//
 	//                                                      1

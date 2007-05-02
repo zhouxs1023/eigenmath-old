@@ -176,6 +176,8 @@ init(void)
 	std_symbol("b", SYMBOL_B);
 	std_symbol("c", SYMBOL_C);
 	std_symbol("d", SYMBOL_D);
+	std_symbol("i", SYMBOL_I);
+	std_symbol("j", SYMBOL_J);
 	std_symbol("n", SYMBOL_N);
 	std_symbol("r", SYMBOL_R);
 	std_symbol("t", SYMBOL_T);

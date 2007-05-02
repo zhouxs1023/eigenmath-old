@@ -521,6 +521,7 @@ int equalq(U *p, int a, int b);
 int isoneoversqrttwo(U *p);
 int isminusoneoversqrttwo(U *p);
 int isfloating(U *p);
+int isimaginaryunit(U *p);
 
 // isprime.cpp
 void eval_isprime(void);
