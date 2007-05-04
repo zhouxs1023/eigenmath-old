@@ -215,6 +215,9 @@ yypower(void)
 		}
 	}
 
+	if (simplify_polar())
+		return;
+
 	push_symbol(POWER);
 	push(p1);
 	push(p2);
@@ -352,6 +355,73 @@ multinomial_sum(int k, int n, int *a, int i, int m)
 	add();
 }
 
+// exp(n/2 i pi) ?
+
+// p2 is the exponent expression
+
+// clobbers p3
+
+int
+simplify_polar(void)
+{
+	int n;
+
+	n = isquarterturn(p2);
+
+	switch(n) {
+	case 0:
+		break;
+	case 1:
+		push_integer(1);
+		return 1;
+	case 2:
+		push_integer(-1);
+		return 1;
+	case 3:
+		push(imaginaryunit);
+		return 1;
+	case 4:
+		push(imaginaryunit);
+		negate();
+		return 1;
+	}
+
+	if (car(p2) == symbol(ADD)) {
+		p3 = cdr(p2);
+		while (iscons(p3)) {
+			n = isquarterturn(car(p3));
+			if (n)
+				break;
+			p3 = cdr(p3);
+		}
+		switch (n) {
+		case 0:
+			return 0;
+		case 1:
+			push_integer(1);
+			break;
+		case 2:
+			push_integer(-1);
+			break;
+		case 3:
+			push(imaginaryunit);
+			break;
+		case 4:
+			push(imaginaryunit);
+			negate();
+			break;
+		}
+		push(p2);
+		push(car(p3));
+		subtract();
+		exponential();
+		multiply();
+		return 1;
+	}
+
+	return 0;
+}
+
 static char *s[] = {
 
 	"2^(1/2)",
@@ -469,6 +539,106 @@ static char *s[] = {
 
 	"(1+i)^(-0.5)",
 	"0.776887-0.321797*i",
+
+	// test cases for simplification of polar forms, counterclockwise
+
+	"exp(i*pi/2)",
+	"i",
+
+	"exp(i*pi)",
+	"-1",
+
+	"exp(i*3*pi/2)",
+	"-i",
+
+	"exp(i*2*pi)",
+	"1",
+
+	"exp(i*5*pi/2)",
+	"i",
+
+	"exp(i*3*pi)",
+	"-1",
+
+	"exp(i*7*pi/2)",
+	"-i",
+
+	"exp(i*4*pi)",
+	"1",
+
+	"exp(A+i*pi/2)",
+	"i*exp(A)",
+
+	"exp(A+i*pi)",
+	"-exp(A)",
+
+	"exp(A+i*3*pi/2)",
+	"-i*exp(A)",
+
+	"exp(A+i*2*pi)",
+	"exp(A)",
+
+	"exp(A+i*5*pi/2)",
+	"i*exp(A)",
+
+	"exp(A+i*3*pi)",
+	"-exp(A)",
+
+	"exp(A+i*7*pi/2)",
+	"-i*exp(A)",
+
+	"exp(A+i*4*pi)",
+	"exp(A)",
+
+	// test cases for simplification of polar forms, clockwise
+
+	"exp(-i*pi/2)",
+	"-i",
+
+	"exp(-i*pi)",
+	"-1",
+
+	"exp(-i*3*pi/2)",
+	"i",
+
+	"exp(-i*2*pi)",
+	"1",
+
+	"exp(-i*5*pi/2)",
+	"-i",
+
+	"exp(-i*3*pi)",
+	"-1",
+
+	"exp(-i*7*pi/2)",
+	"i",
+
+	"exp(-i*4*pi)",
+	"1",
+
+	"exp(A-i*pi/2)",
+	"-i*exp(A)",
+
+	"exp(A-i*pi)",
+	"-exp(A)",
+
+	"exp(A-i*3*pi/2)",
+	"i*exp(A)",
+
+	"exp(A-i*2*pi)",
+	"exp(A)",
+
+	"exp(A-i*5*pi/2)",
+	"-i*exp(A)",
+
+	"exp(A-i*3*pi)",
+	"-exp(A)",
+
+	"exp(A-i*7*pi/2)",
+	"i*exp(A)",
+
+	"exp(A-i*4*pi)",
+	"exp(A)",
 };
 
 void

@@ -522,6 +522,7 @@ int isoneoversqrttwo(U *p);
 int isminusoneoversqrttwo(U *p);
 int isfloating(U *p);
 int isimaginaryunit(U *p);
+int isquarterturn(U *p);
 
 // isprime.cpp
 void eval_isprime(void);
@@ -700,6 +701,7 @@ void power(void);
 void yypower(void);
 void power_sum(int n);
 void multinomial_sum(int k, int n, int *a, int i, int m);
+int simplify_polar(void);
 void test_power(void);
 
 // prime.cpp
