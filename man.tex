@@ -1,7 +1,7 @@
 \documentclass[12pt,openany]{report}
 \title{Eigenmath Manual}
 \author{George Weigt}
-\date{April 26, 2007}
+\date{May 5, 2007}
 \pagestyle{headings}
 \usepackage{graphicx}
 
@@ -85,7 +85,7 @@ $\displaystyle{\left(\matrix{a&b\cr c&d\cr}\right)}$ & & {\tt ((a,b),(c,d))} \\
 \noindent
 A geometric series converges according to the formula
 $$\sum_{k=0}^\infty a^k={1\over1-a},\qquad|a|<1$$
-If we use $a=-1/2$ and for practical purposes only count up to 9 instead of infinity,
+If we use $a=-1/2$ and for practical purposes only count up to nine instead of infinity,
 we should have
 $$\sum_{k=0}^9\left(-{1\over2}\right)^k\approx{2\over3}$$
 In the following examples, various Eigenmath features will be demonstrated
@@ -209,8 +209,8 @@ Here is a simple example that draws the graph of $y=mx+b$.
 \newpage
 
 \noindent
-Now suppose that we want to draw a graph
-using different values for $m$ and $b$.
+Now suppose that we want to draw the graph
+with a different $m$.
 We could type in everything all over again, but it would be easier
 in the long run to write a script.
 Then we can go back and quickly change $m$ and $b$ as many times as we want.
@@ -258,34 +258,36 @@ running a script.
 \newpage
 
 \noindent
-draw($f,x$) draws a graph of the function $f$ of $x$.
+$draw(f,x)$ draws a graph of the function $f$ of $x$.
 The second argument can be omitted when the dependent variable
 is literally $x$ or $t$.
 The vectors $xrange$ and $yrange$ control the scale of the graph.
 
 \medskip
-{\tt draw(x{\char94}2)}
+\verb$draw(x^2)$
 
 \medskip
 \noindent
 \includegraphics[scale=0.5]{parabola.png}
 
-{\tt xrange=(-1,1)}
+\verb$xrange=(-1,1)$
 
-{\tt yrange=(0,2)}
+\verb$yrange=(0,2)$
 
-{\tt draw(x{\char94}2)}
+\verb$draw(x^2)$
 
 \medskip
 \noindent
 \includegraphics[scale=0.5]{parabola2.png}
 
-{\tt clear}
+\verb$clear$
 
 \medskip
 \noindent
 The clear command (or a click of the Clear button)
 resets $xrange$ and $yrange$.
+This needs to be done so that the next graph
+appears as shown.
 
 \newpage
 
@@ -295,29 +297,29 @@ The vector $trange$ controls the parameter range.
 The default range is $(-\pi,\pi)$.
 
 \medskip
-{\tt f=(cos(t),sin(t))}
+\verb$f=(cos(t),sin(t))$
 
-{\tt draw(5*f)}
+\verb$draw(5*f)$
 
 \medskip
 \noindent
 \includegraphics[scale=0.5]{circle.png}
 
-{\tt trange=(0,pi/2)}
+\verb$trange=(0,pi/2)$
 
-{\tt draw(5*f)}
+\verb$draw(5*f)$
 
 \medskip
 \noindent
 \includegraphics[scale=0.5]{circle2.png}
 
-{\tt clear}
+\verb$clear$
 
 \newpage
 
 \chapter{Linear Algebra}
 
-Eigenmath's dot function is used to multiply vectors and matrices.
+The $dot$ function is used to multiply vectors and matrices.
 The following example shows how to use dot and inv to solve for
 $\bf X$ in $\bf AX=B$.
 
@@ -331,6 +333,22 @@ $\bf X$ in $\bf AX=B$.
 {\tt X}
 
 $$\left(\matrix{-11.2887\cr8.24961}\right)$$
+
+\medskip
+\noindent
+One might wonder why the $dot$ function is necessary.
+Why not simply use $X=inv(A)*B$ like scalar multiplication?
+The reason why $dot$ is necessary is that the software normally reorders factors
+internally to optimize processing.
+This is fine for scalar multiplication, but fails otherwise.
+For example, $inv(A)*B$ in symbolic form is changed to $B*inv(A)$ internally.
+Since the dot product is non-commutative, reordering gives the wrong result.
+The $dot$ function avoids the problem because it does not reorder its arguments.
+
+\medskip
+\noindent
+It should be noted that $dot$ can have more than two arguments.
+For example, $dot(A,B,C)$ can be used for the dot product of three tensors.
 
 \newpage
 
@@ -579,6 +597,21 @@ $$a+ib$$
 
 \verb$exp(i*pi/3)$
 $$\exp({1\over3}i\pi)$$
+
+\medskip
+\noindent
+Converting to rectangular or polar coordinates simplifies mixed forms.
+
+\medskip
+\verb$A=1+i$
+
+\verb$B=sqrt(2)*exp(i*pi/4)$
+
+\verb$A-B$
+$$1+i-2^{1/2}\exp({1\over4}i\pi)$$
+
+\verb$rect$
+$$0$$
 
 \newpage
 
@@ -893,6 +926,7 @@ quotient($p,q,x$) returns the quotient of polynomials in $x$.
 
 \section*{rank}
 rank($a$) returns the number of indices that tensor $a$ has.
+A scalar has no indices so its rank is zero.
 
 \section*{rationalize}
 rationalize($x$) puts everything over a common denominator.
