@@ -130,15 +130,15 @@ top_level_eval(void)
 	eval();
 	p2 = pop();
 
-	// "draw", "for" and "setq" return "nil"
+	// "draw", "for" and "setq" return "nil", there is no result to print
 
-	// if "nil" then return "nil" unless it was the result of symbol eval
-
-	if (!issymbol(p1) && p2 == symbol(NIL)) {
+	if (p2 == symbol(NIL)) {
 		push(p2);
 		restore();
 		return;
 	}
+
+	// update "last"
 
 	symbol(LAST)->u.sym.binding = p2;
 	symbol(LAST)->u.sym.arglist = symbol(NIL);
