@@ -115,7 +115,6 @@ static void do_hscroll(int, int);
 static void update_scroll_bars(void);
 static void move_bits_up(int);
 static void move_bits_down(int);
-static void do_example(int);
 static void run_script(void);
 static void do_new(void);
 static void do_save(void);
@@ -135,8 +134,9 @@ static void do_create_script(void);
 void update_curr_cmd(char *);
 
 enum {
-
 	ID_BASE = 40000,
+
+	// events
 
 	ID_USER_EVENT,
 	ID_ESC,
@@ -144,14 +144,25 @@ enum {
 	ID_UP_ARROW,
 	ID_DOWN_ARROW,
 
+	// application buttons
+
+	ID_CLEAR,
+	ID_DERIVATIVE,
+	ID_DRAW,
+	ID_FLOAT,
+	ID_INTEGRAL,
+	ID_SIMPLIFY,
+	ID_EDIT_SCRIPT,
+	ID_RUN_SCRIPT,
+
 	// file menu
 
 	ID_NEW,
 	ID_OPEN,
 	ID_SAVE,
 	ID_SAVEAS,
-	//ID_PAGE_SETUP,
-	//ID_PRINT,
+	ID_PAGE_SETUP,
+	ID_PRINT,
 
 	// edit menu
 
@@ -160,102 +171,36 @@ enum {
 	ID_COPY,
 	ID_PASTE,
 
-	ID_CLEAR,
-	ID_DERIVATIVE,
-	ID_DRAW,
-	ID_EXPAND,
-	ID_FACTOR,
-	ID_FLOAT,
-	ID_INTEGRAL,
-	ID_RATIONALIZE,
-	ID_ROOTS,
-	ID_SIMPLIFY,
-	ID_EDIT_SCRIPT,
-	ID_RUN_SCRIPT,
-
-	ID_SAMPLE_SF,
-	ID_SAMPLE_GMA,
-	ID_SAMPLE_VC,
-	ID_SAMPLE_RM,
-	ID_SAMPLE_QHO,
-	ID_SAMPLE_HW,
-	ID_SAMPLE_SSM,
-	ID_SAMPLE_FPDE,
+	// asterisk menu
 
 	ID_COPY_DISPLAY,
 	ID_CREATE_SCRIPT,
 
-	ID_HELP_TYPE_CARET,
-	ID_HELP_MULTIPLY,
-	ID_HELP_RATIONAL_ARITHMETIC,
-	ID_HELP_SOLVE,
-
-	ID_HELP_PARABOLA,
-	ID_HELP_CIRCLE,
-	ID_HELP_LISSAJOUS,
-
-	// linear algebra
-
-	ID_HELP_ADJ,
-	ID_HELP_CONTRACT,
-	ID_HELP_DET,
-	ID_HELP_DOT,
-	ID_HELP_INV,
-	ID_HELP_OUTER,
-	ID_HELP_TRANSPOSE,
-	ID_HELP_UNIT,
-	ID_HELP_ZERO,
-
-	// calculus
-
-	ID_HELP_DERIVATIVE,
-	ID_HELP_GRADIENT,
-	ID_HELP_INTEGRAL,
-
-	// complex number functions
-
-	ID_HELP_ARG,
-	ID_HELP_CONJ,
-	ID_HELP_IMAG,
-	ID_HELP_MAG,
-	ID_HELP_POLAR,
-	ID_HELP_REAL,
-	ID_HELP_RECT,
-
-	// circular functions
-
-	ID_HELP_ARCCOS,
-	ID_HELP_ARCSIN,
-	ID_HELP_ARCTAN,
-	ID_HELP_COS,
-	ID_HELP_SIN,
-	ID_HELP_TAN,
-
-	// hyperbolic functions
-
-	ID_HELP_ARCCOSH,
-	ID_HELP_ARCSINH,
-	ID_HELP_ARCTANH,
-	ID_HELP_COSH,
-	ID_HELP_SINH,
-	ID_HELP_TANH,
-
-	// special functions
-
-	ID_HELP_BESSELJ,
-	ID_HELP_HERMITE,
-	ID_HELP_LAGUERRE,
-	ID_HELP_LEGENDRE,
-
-	// other functions
+	// help menu
 
 	ID_HELP_ABS,
+	ID_HELP_ADJ,
+	ID_HELP_ARCCOS,
+	ID_HELP_ARCCOSH,
+	ID_HELP_ARCSIN,
+	ID_HELP_ARCSINH,
+	ID_HELP_ARCTAN,
+	ID_HELP_ARCTANH,
+	ID_HELP_ARG,
+	ID_HELP_BESSELJ,
 	ID_HELP_CHOOSE,
 	ID_HELP_CIRCEXP,
 	ID_HELP_COEFF,
 	ID_HELP_COFACTOR,
+	ID_HELP_CONJ,
+	ID_HELP_CONTRACT,
+	ID_HELP_COS,
+	ID_HELP_COSH,
 	ID_HELP_DEG,
 	ID_HELP_DENOMINATOR,
+	ID_HELP_DERIVATIVE,
+	ID_HELP_DET,
+	ID_HELP_DOT,
 	ID_HELP_ERF,
 	ID_HELP_ERFC,
 	ID_HELP_EVAL,
@@ -265,13 +210,32 @@ enum {
 	ID_HELP_FACTOR,
 	ID_HELP_FACTORIAL,
 	ID_HELP_FOR,
+	ID_HELP_GRADIENT,
+	ID_HELP_HERMITE,
+	ID_HELP_IMAG,
+	ID_HELP_INTEGRAL,
+	ID_HELP_INV,
+	ID_HELP_LAGUERRE,
+	ID_HELP_LEGENDRE,
 	ID_HELP_LOG,
+	ID_HELP_MAG,
 	ID_HELP_NUMERATOR,
+	ID_HELP_OUTER,
+	ID_HELP_POLAR,
 	ID_HELP_PRODUCT,
 	ID_HELP_QUOTIENT,
+	ID_HELP_REAL,
+	ID_HELP_RECT,
+	ID_HELP_SIN,
+	ID_HELP_SINH,
 	ID_HELP_SQRT,
 	ID_HELP_SUM,
+	ID_HELP_TAN,
+	ID_HELP_TANH,
 	ID_HELP_TAYLOR,
+	ID_HELP_TRANSPOSE,
+	ID_HELP_UNIT,
+	ID_HELP_ZERO,
 };
 
 #define NACCEL 7
@@ -434,7 +398,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	main_window = CreateWindow(
 		"Eigenmath",
-		"Eigenmath 127",
+		"Eigenmath 127+",
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0,
 //		CW_USEDEFAULT, 0,
@@ -457,7 +421,7 @@ static struct {
 	{"Clear",		ID_CLEAR},
 	{"Draw",		ID_DRAW},
 	{"Simplify",		ID_SIMPLIFY},
-	{"Factor",		ID_FACTOR},
+	{"Float",		ID_FLOAT},
 	{"Derivative",		ID_DERIVATIVE},
 	{"Integral",		ID_INTEGRAL},
 	{"Edit Script",		ID_EDIT_SCRIPT},
@@ -620,33 +584,8 @@ static struct {
 	{"Create script from command history",	ID_CREATE_SCRIPT},
 	{0,					0},
 
-	{"Examples",				0},
+	{"Help",				0},
 
-	{"Use ^ for exponent",			ID_HELP_TYPE_CARET},
-	{"Use a space or star to multiply",	ID_HELP_MULTIPLY},
-	{"Rational arithmetic",			ID_HELP_RATIONAL_ARITHMETIC},
-	{"How to solve AX=B",			ID_HELP_SOLVE},
-
-	{"Draw",				0},
-	{"parabola",				ID_HELP_PARABOLA},
-	{"circle",				ID_HELP_CIRCLE},
-	{"lissajous",				ID_HELP_LISSAJOUS},
-	{0,					0},
-
-	{"-",					0},
-
-	{"Scripts",				0},
-	{"Smiley face",				ID_SAMPLE_SF},
-	{"Gamma matrix algebra",		ID_SAMPLE_GMA},
-	{"Vector calculus",			ID_SAMPLE_VC},
-	{"Rotation matrix",			ID_SAMPLE_RM},
-	{"Quantum harmonic oscillator",		ID_SAMPLE_QHO},
-	{"Hydrogen wavefunctions",		ID_SAMPLE_HW},
-	{"Static spherical metric",		ID_SAMPLE_SSM},
-	{"Free particle Dirac equation",	ID_SAMPLE_FPDE},
-	{0,					0},
-
-	{"-",					0},
 	{"Complex number functions",		0},
 	{"arg",					ID_HELP_ARG},
 	{"conj",				ID_HELP_CONJ},
@@ -929,31 +868,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			do_create_script();
 			break;
 
-		// "examples" pull-down menu
-
-		case ID_HELP_TYPE_CARET:
-			HELP(help_type_caret);
-			break;
-		case ID_HELP_MULTIPLY:
-			HELP(help_multiply);
-			break;
-		case ID_HELP_RATIONAL_ARITHMETIC:
-			HELP(help_rational_arithmetic);
-			break;
-		case ID_HELP_SOLVE:
-			HELP(help_solve);
-			break;
-
-		case ID_HELP_PARABOLA:
-			HELP(help_parabola);
-			break;
-		case ID_HELP_CIRCLE:
-			HELP(help_circle);
-			break;
-		case ID_HELP_LISSAJOUS:
-			HELP(help_lissajous);
-			break;
-
 		// linear algebra
 
 		case ID_HELP_ADJ:
@@ -1152,37 +1066,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			HELP(help_taylor);
 			break;
 
-		// example scripts
-
-		case ID_SAMPLE_SF:
-			do_example(0);
-			break;
-		case ID_SAMPLE_GMA:
-			do_example(1);
-			break;
-		case ID_SAMPLE_VC:
-			do_example(2);
-			break;
-		case ID_SAMPLE_RM:
-			do_example(3);
-			break;
-		case ID_SAMPLE_QHO:
-			do_example(4);
-			break;
-		case ID_SAMPLE_HW:
-			do_example(5);
-			break;
-		case ID_SAMPLE_SSM:
-			do_example(6);
-			break;
-		case ID_SAMPLE_FPDE:
-			do_example(7);
-			break;
-
 		// window buttons, clear, draw, etc.
 
 		case ID_CLEAR:
-			update_curr_cmd("");
 			do_button("clear");
 			break;
 		case ID_DRAW:
@@ -1191,8 +1077,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case ID_SIMPLIFY:
 			do_button("simplify");
 			break;
-		case ID_FACTOR:
-			do_button("factor");
+		case ID_FLOAT:
+			do_button("float");
 			break;
 		case ID_DERIVATIVE:
 			do_button("derivative");
@@ -2494,16 +2380,4 @@ do_help(char **s, int n)
 		do_special(s[i]);
 	ReleaseDC(main_window, run_hdc);
 	update_display();
-}
-
-extern char *example_script[8];
-
-static void
-do_example(int k)
-{
-	if (running)
-		return;
-	*filename = 0;
-	SetWindowText(edit_window, example_script[k]);
-	goto_edit_mode();
 }
