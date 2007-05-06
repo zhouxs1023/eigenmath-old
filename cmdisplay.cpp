@@ -895,7 +895,7 @@ emit_subexpr(U *p)
 
 // these are printed in italic, no subscripting
 
-static char *specname[] =
+static char *specname[] = {
 	"autoexpand",
 	"bake",
 	"cross",
