@@ -139,6 +139,8 @@ yycosine(void)
 	}
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"cos(x)",
@@ -271,3 +273,5 @@ test_cos(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

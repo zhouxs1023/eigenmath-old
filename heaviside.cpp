@@ -98,6 +98,7 @@ yyheaviside(void)
 	list(2);
 }
 
+#if SELFTEST
 
 static char *s[] = {
 
@@ -119,3 +120,5 @@ test_heaviside(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

@@ -32,6 +32,8 @@ mmodpow(unsigned int *x, unsigned int *n, unsigned int *m)
 	return y;
 }
 
+#if SELFTEST
+
 void
 test_mmodpow(void)
 {
@@ -59,3 +61,5 @@ test_mmodpow(void)
 		errout();
 	}
 }
+
+#endif

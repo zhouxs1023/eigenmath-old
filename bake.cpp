@@ -166,6 +166,8 @@ bake_poly_term(int k)
 	}
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"(x+3)^3",
@@ -180,3 +182,5 @@ test_bake(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

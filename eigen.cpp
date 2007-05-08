@@ -500,6 +500,8 @@ step2(int p, int q)
 	D(q, p) = 0.0;
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"eigen(A)",
@@ -562,3 +564,5 @@ test_eigen(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

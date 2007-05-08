@@ -72,6 +72,8 @@ mcmpint(unsigned int *a, int n)
 	return t;
 }
 
+#if SELFTEST
+
 void
 test_mcmp(void)
 {
@@ -101,3 +103,5 @@ test_mcmp(void)
 	}
 	logout("ok\n");
 }
+
+#endif

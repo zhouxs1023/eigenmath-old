@@ -856,6 +856,8 @@ derivative_of_integral(void)
 	push(cadr(p1));
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"x=quote(x)",
@@ -1045,3 +1047,5 @@ test_derivative(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

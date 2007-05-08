@@ -117,6 +117,8 @@ quickpower(void)
 	restore();
 }
 
+#if SELFTEST
+
 void
 test_quickfactor(void)
 {
@@ -154,3 +156,5 @@ test_quickfactor(void)
 	}
 	logout("ok\n");
 }
+
+#endif

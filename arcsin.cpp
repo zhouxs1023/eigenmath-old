@@ -107,6 +107,8 @@ yyarcsin(void)
 	}
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"arcsin(-1)",
@@ -160,3 +162,5 @@ test_arcsin(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

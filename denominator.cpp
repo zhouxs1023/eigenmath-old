@@ -45,6 +45,8 @@ denominator(void)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"denominator(2/3)",
@@ -68,3 +70,5 @@ test_denominator(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

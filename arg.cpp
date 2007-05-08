@@ -136,6 +136,8 @@ yyarg(void)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"arg(1+i)",
@@ -192,3 +194,5 @@ test_arg(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

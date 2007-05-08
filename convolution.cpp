@@ -214,6 +214,7 @@ yconvolution(void)
 
 }
 
+#if SELFTEST
 
 static char *s[] = {
 	"convolution(dirac(x),f(x))",
@@ -229,3 +230,5 @@ test_convolution(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

@@ -286,6 +286,8 @@ gcd_factor_term(void)
 	}
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"gcd(30,42)",
@@ -412,3 +414,5 @@ test_gcd(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

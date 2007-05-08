@@ -656,6 +656,8 @@ __is_radical_number(U *p)
 //
 //-----------------------------------------------------------------------------
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"0*a",
@@ -719,3 +721,5 @@ test_multiply(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

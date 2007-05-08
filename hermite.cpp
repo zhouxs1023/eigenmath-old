@@ -93,6 +93,8 @@ yyhermite2(int n)
 	}
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"hermite(x,n)",
@@ -140,3 +142,5 @@ test_hermite(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

@@ -72,6 +72,8 @@ yybessely(void)
 	return;
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"bessely(x,n)",
@@ -83,3 +85,5 @@ test_bessely(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

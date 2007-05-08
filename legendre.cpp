@@ -171,6 +171,8 @@ __legendre3(int m)
 		negate();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"legendre(x,n)",
@@ -287,3 +289,5 @@ test_legendre(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

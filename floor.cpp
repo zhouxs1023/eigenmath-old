@@ -54,6 +54,8 @@ yyfloor(void)
 	}
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"floor(a)",
@@ -134,3 +136,5 @@ test_floor(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

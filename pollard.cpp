@@ -350,6 +350,8 @@ test_factor_timing(void)
 
 #endif
 
+#if SELFTEST
+
 void
 test_factor_integer_f(int len, int count)
 {
@@ -419,3 +421,5 @@ test_factor_integer(void)
 
 	logout("ok\n");
 }
+
+#endif

@@ -188,6 +188,8 @@ set_component(int n)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"A11=quote(A11)",
@@ -262,3 +264,5 @@ test_index(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

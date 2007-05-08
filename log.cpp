@@ -95,6 +95,8 @@ yylog(void)
 	list(2);
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"log(1)",
@@ -145,3 +147,5 @@ test_log(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

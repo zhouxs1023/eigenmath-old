@@ -66,6 +66,8 @@ for_function(void)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"x=0",
@@ -94,3 +96,5 @@ test_for(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

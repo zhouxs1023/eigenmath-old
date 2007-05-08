@@ -102,6 +102,8 @@ yymag(void)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"mag(a+i*b)",
@@ -152,3 +154,5 @@ test_mag(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

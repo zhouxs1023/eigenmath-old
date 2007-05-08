@@ -160,6 +160,8 @@ inner_f(void)
 	}
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"inner(a,b)",
@@ -192,3 +194,5 @@ test_inner(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

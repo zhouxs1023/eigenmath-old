@@ -181,6 +181,8 @@ cmp_args(void)
 	return t;
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"a<a+1",
@@ -276,3 +278,5 @@ test_test(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

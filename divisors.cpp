@@ -257,6 +257,8 @@ __cmp(const void *p1, const void *p2)
 	return cmp_expr(*((U **) p1), *((U **) p2));
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"divisors(12)",
@@ -289,3 +291,5 @@ test_divisors(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

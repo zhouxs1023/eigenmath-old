@@ -142,6 +142,8 @@ mprimef(unsigned int *n, unsigned int *q, int k)
 	}
 }
 
+#if SELFTEST
+
 void
 test_mprime(void)
 {
@@ -173,3 +175,5 @@ test_mprime(void)
 	}
 	logout("ok\n");
 }
+
+#endif

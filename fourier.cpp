@@ -848,7 +848,7 @@ scan_fouriers(void)
 	table_of_fourier = pop();
 }
 
-
+#if SELFTEST
 
 static char *s[] = {
 	"#1",
@@ -1095,3 +1095,5 @@ test_fourier(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

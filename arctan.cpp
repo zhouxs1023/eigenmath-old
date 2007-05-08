@@ -102,6 +102,8 @@ arctan(void)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"arctan(x)",
@@ -140,3 +142,5 @@ test_arctan(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

@@ -93,6 +93,8 @@ mgcd(unsigned int *u, unsigned int *v)
 	}
 }
 
+#if SELFTEST
+
 static unsigned int *egcd(unsigned int *, unsigned int *);
 
 void
@@ -149,3 +151,5 @@ egcd(unsigned int *a, unsigned int *b)
 	MSIGN(a) = sign;
 	return a;
 }
+
+#endif

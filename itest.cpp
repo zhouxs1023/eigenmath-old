@@ -3,6 +3,8 @@
 #include "stdafx.h"
 #include "defs.h"
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"clear()",
@@ -701,3 +703,5 @@ test_integral(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

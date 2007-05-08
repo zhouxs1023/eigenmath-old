@@ -67,6 +67,8 @@ mroot(unsigned int *n, unsigned int index)
 	return 0;
 }
 
+#if SELFTEST
+
 void
 test_mroot(void)
 {
@@ -117,3 +119,5 @@ test_mroot(void)
 
 	logout("ok\n");
 }
+
+#endif

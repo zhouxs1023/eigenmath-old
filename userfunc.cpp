@@ -127,6 +127,8 @@ eval_user_function(void)
 	eval();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	// args of generic functions should be evaluated
@@ -214,3 +216,5 @@ test_user_func(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

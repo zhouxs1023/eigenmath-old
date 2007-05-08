@@ -110,6 +110,8 @@ divpoly(void)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"quotient(x^2+1,x+1)-x+1",
@@ -124,3 +126,5 @@ test_quotient(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

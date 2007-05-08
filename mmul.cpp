@@ -393,6 +393,8 @@ mdivrem(unsigned int **q, unsigned int **r, unsigned int *a, unsigned int *b)
 	*r = x;
 }
 
+#if SELFTEST
+
 // small integer tests
 
 static void test_mmulf(int, int, int);
@@ -520,3 +522,5 @@ test_mmodf(int na, int nb, int nc)
 	logout(logbuf);
 	errout();
 }
+
+#endif

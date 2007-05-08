@@ -34,6 +34,8 @@ real(void)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"real(a+i*b)",
@@ -54,3 +56,5 @@ test_real(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

@@ -46,6 +46,8 @@ yysinh(void)
 	list(2);
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"sinh(x)",
@@ -63,3 +65,5 @@ test_sinh(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

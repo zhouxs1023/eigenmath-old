@@ -107,6 +107,8 @@ ytchebychevU2(int n)
 	}
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"tchebychevU(x,n)",
@@ -135,3 +137,5 @@ test_tchebychevU(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

@@ -76,6 +76,8 @@ yyouter(void)
 	push(p3);
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"outer(a,b)",
@@ -114,3 +116,5 @@ test_outer(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

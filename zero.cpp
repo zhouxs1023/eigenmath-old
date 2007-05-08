@@ -31,6 +31,8 @@ eval_zero(void)
 	push(p1);
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"zero(2,2)",
@@ -45,3 +47,5 @@ test_zero(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

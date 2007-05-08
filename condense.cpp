@@ -75,6 +75,8 @@ yycondense(void)
 	divide();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"condense(a/(a+b)+b/(a+b))",
@@ -105,3 +107,5 @@ test_condense(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

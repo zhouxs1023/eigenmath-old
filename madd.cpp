@@ -162,6 +162,8 @@ ucmp(unsigned int *a, unsigned int *b)
 	return 0;
 }
 
+#if SELFTEST
+
 // small integer tests
 
 void
@@ -243,3 +245,5 @@ test_msubf(int na, int nb, int nc)
 	logout(logbuf);
 	errout();
 }
+
+#endif

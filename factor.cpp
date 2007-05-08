@@ -78,6 +78,8 @@ factor_small_number(void)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"factor(0)",
@@ -144,3 +146,5 @@ test_factor_number(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

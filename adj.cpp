@@ -44,6 +44,8 @@ adj(void)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"adj(((a,b),(c,d)))",
@@ -61,3 +63,5 @@ test_adj(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

@@ -50,6 +50,8 @@ yylcm(void)
 	inverse();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"lcm(4,6)",
@@ -69,3 +71,5 @@ test_lcm(void)
 {
 	test(__FILE__, s, sizeof (s) / sizeof (char *));
 }
+
+#endif

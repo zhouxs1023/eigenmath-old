@@ -102,6 +102,8 @@ yytchebychevT2(int n)
 	}
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 
@@ -130,3 +132,5 @@ test_tchebychevT(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

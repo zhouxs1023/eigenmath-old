@@ -43,6 +43,8 @@ rect(void)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"rect(a+i*b)",
@@ -69,3 +71,5 @@ test_rect(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

@@ -105,6 +105,8 @@ yyarccos(void)
 	}
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"arccos(1)",
@@ -158,3 +160,5 @@ test_arccos(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

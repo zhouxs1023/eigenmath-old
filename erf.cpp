@@ -55,6 +55,8 @@ yyerf(void)
 	return;
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"erf(a)",
@@ -76,3 +78,5 @@ test_erf(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

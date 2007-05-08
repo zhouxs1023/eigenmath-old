@@ -217,6 +217,8 @@ mini_solve(void)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"roots(x)",
@@ -297,3 +299,5 @@ test_roots(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

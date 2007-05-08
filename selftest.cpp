@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "defs.h"
 
+int test_flag;
+
+#if SELFTEST
+
 char logbuf[1000];
 static FILE *logfile;
 static jmp_buf jbuf;
@@ -145,7 +149,6 @@ errout(void)
 	longjmp(jbuf, 1);
 }
 
-int test_flag;
 extern int out_count;
 extern void run(char *);
 
@@ -1093,3 +1096,5 @@ test(char *file, char **s, int n)
 
 	test_flag = 0;
 }
+
+#endif

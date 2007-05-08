@@ -44,6 +44,8 @@ numerator(void)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"numerator(2/3)",
@@ -67,3 +69,5 @@ test_numerator(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

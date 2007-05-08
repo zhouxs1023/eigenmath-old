@@ -66,6 +66,8 @@ mod(void)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"mod(2.0,3.0)",
@@ -116,3 +118,5 @@ test_mod(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

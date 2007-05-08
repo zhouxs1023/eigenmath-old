@@ -376,6 +376,8 @@ evalpoly(void)
 	Q = pop();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"bake=0",
@@ -750,3 +752,5 @@ test_factorpoly(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

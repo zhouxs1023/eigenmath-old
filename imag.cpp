@@ -36,6 +36,8 @@ imag(void)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"imag(a+i*b)",
@@ -59,3 +61,5 @@ test_imag(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

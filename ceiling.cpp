@@ -56,6 +56,8 @@ yyceiling(void)
 	}
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"ceiling(a)",
@@ -136,3 +138,5 @@ test_ceiling(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

@@ -66,6 +66,8 @@ sum(void)
 	add_all(tos - h);
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"sum(n,0,10,(-1/3)^n)",
@@ -82,3 +84,5 @@ test_sum(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

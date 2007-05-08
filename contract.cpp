@@ -114,6 +114,8 @@ yycontract(void)
 		push(p2);
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"contract(0)",
@@ -149,3 +151,5 @@ test_contract(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

@@ -226,6 +226,8 @@ nterms(U *p)
 		return length(p) - 1;
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"simplify(A)",
@@ -381,3 +383,5 @@ test_simplify(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

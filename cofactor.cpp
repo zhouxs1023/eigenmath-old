@@ -41,6 +41,8 @@ cofactor(U *p, int n, int row, int col)
 		negate();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"cofactor(((1,2),(3,4)),1,1)",
@@ -64,3 +66,5 @@ test_cofactor(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

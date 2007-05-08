@@ -40,6 +40,8 @@ arctanh(void)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"arctanh(0.0)",
@@ -57,3 +59,5 @@ test_arctanh(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

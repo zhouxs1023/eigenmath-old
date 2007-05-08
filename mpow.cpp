@@ -35,6 +35,8 @@ mpow(unsigned int *a, unsigned int n)
 	return aa;
 }
 
+#if SELFTEST
+
 void
 test_mpow(void)
 {
@@ -72,3 +74,5 @@ test_mpow(void)
 
 	logout("ok\n");
 }
+
+#endif

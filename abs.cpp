@@ -96,6 +96,8 @@ absval_tensor(void)
 	power();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"abs(2)",
@@ -152,3 +154,5 @@ test_abs(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

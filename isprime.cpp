@@ -13,6 +13,8 @@ eval_isprime(void)
 		push_integer(0);
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	// 0 and 1 are not prime numbers
@@ -53,3 +55,5 @@ test_isprime(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

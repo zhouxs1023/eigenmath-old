@@ -65,6 +65,8 @@ erfc(double x)
 }
 #endif
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"erfc(a)",
@@ -86,3 +88,5 @@ test_erfc(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

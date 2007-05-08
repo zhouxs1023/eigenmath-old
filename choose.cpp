@@ -76,6 +76,8 @@ choose_check_args(void)
 		return 1;
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"choose(12,6)",
@@ -106,3 +108,5 @@ test_choose(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

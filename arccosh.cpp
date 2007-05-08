@@ -40,6 +40,8 @@ arccosh(void)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"arccosh(1.0)",
@@ -57,3 +59,5 @@ test_arccosh(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

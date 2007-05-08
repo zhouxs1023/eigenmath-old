@@ -117,6 +117,8 @@ yytangent(void)
 	}
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"tan(x)",
@@ -237,3 +239,5 @@ test_tan(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

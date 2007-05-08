@@ -179,6 +179,8 @@ __rationalize_tensor(void)
 	push(p1);
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"rationalize(a/b+c/d)",
@@ -204,6 +206,8 @@ test_rationalize(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif
 
 static void
 __lcm(void)

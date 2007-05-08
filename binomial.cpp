@@ -77,6 +77,8 @@ check_args(void)
 		return 1;
 }
 
+#if SELFTEST
+
 char *s[] = {
 
 	"binomial(12,6)",
@@ -107,3 +109,5 @@ test_binomial(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

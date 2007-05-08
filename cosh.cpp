@@ -46,6 +46,8 @@ yycosh(void)
 	list(2);
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"cosh(x)",
@@ -63,3 +65,5 @@ test_cosh(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

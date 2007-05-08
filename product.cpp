@@ -66,6 +66,8 @@ product(void)
 	multiply_all(tos - h);
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"n=quote(n)",
@@ -88,3 +90,5 @@ test_product(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

@@ -94,6 +94,8 @@ yysgn(void)
 	list(2);
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 
@@ -114,3 +116,5 @@ test_sgn(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

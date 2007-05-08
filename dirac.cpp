@@ -83,6 +83,7 @@ ydirac(void)
 	list(2);
 }
 
+#if SELFTEST
 
 static char *s[] = {
 
@@ -96,3 +97,5 @@ test_dirac(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

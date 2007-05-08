@@ -42,6 +42,8 @@ expsin(void)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"expsin(x)",
@@ -53,3 +55,5 @@ test_expsin(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

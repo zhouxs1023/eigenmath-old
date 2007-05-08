@@ -107,6 +107,8 @@ ytranspose(void)
 	return;
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"transpose(0)",
@@ -133,3 +135,5 @@ test_transpose(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

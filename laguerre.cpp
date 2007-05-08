@@ -114,6 +114,8 @@ yylaguerre2(int n)
 	}
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"laguerre(x,n)",
@@ -155,3 +157,5 @@ test_laguerre(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

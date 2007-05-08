@@ -38,6 +38,8 @@ expcos(void)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"expcos(x)",
@@ -49,3 +51,5 @@ test_expcos(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

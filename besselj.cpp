@@ -192,6 +192,8 @@ yybesselj(void)
 	list(3);
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"besselj(x,n)",
@@ -250,52 +252,4 @@ test_besselj(void)
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
 
-// Dead code, besselj using d/dx
-
-#if 0
-		if (MSIGN(N->u.q.a) == 1) {
-			// -x^(n-1)*derivative(x^(1-n)*besselj(x,n-1),x)
-			push(X);
-			push(N);
-			push_integer(1);
-			subtract();
-			power();
-			negate();
-			push(X);
-			push_integer(1);
-			push(N);
-			subtract();
-			power();
-			push(X);
-			push(N);
-			push_integer(1);
-			subtract();
-			besselj();
-			multiply();
-			push(X);
-			derivative();
-			multiply();
-		} else {
-			// x^(-n-1)*derivative(x^(n+1)*besselj(x,n+1),x)
-			push(X);
-			push(N);
-			negate();
-			push_integer(-1);
-			add();
-			power();
-			push(X);
-			push(N);
-			push_integer(1);
-			add();
-			power();
-			push(X);
-			push(N);
-			push_integer(1);
-			add();
-			besselj();
-			multiply();
-			push(X);
-			derivative();
-			multiply();
-		}
 #endif

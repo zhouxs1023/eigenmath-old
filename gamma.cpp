@@ -115,6 +115,7 @@ gamma_of_sum(void)
 	}
 }
 
+#if SELFTEST
 
 static char *s[] = {
 
@@ -143,3 +144,5 @@ test_gamma(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

@@ -39,6 +39,8 @@ eval_polar(void)
 #endif
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"polar(exp(i pi/3))",
@@ -56,3 +58,5 @@ test_polar(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

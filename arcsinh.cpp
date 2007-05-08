@@ -38,6 +38,8 @@ arcsinh(void)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"arcsinh(0.0)",
@@ -55,3 +57,5 @@ test_arcsinh(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

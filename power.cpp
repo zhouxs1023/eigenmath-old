@@ -422,6 +422,8 @@ simplify_polar(void)
 	return 0;
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"2^(1/2)",
@@ -646,3 +648,5 @@ test_power(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

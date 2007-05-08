@@ -538,6 +538,8 @@ compatible(U *p, U *q)
 	return 1;
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"#test_tensor",
@@ -577,3 +579,5 @@ test_tensor(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

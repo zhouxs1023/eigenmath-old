@@ -587,6 +587,8 @@ update_token_buf(char *a, char *b)
 	token_buf[n] = 0;
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"a^^b",
@@ -640,6 +642,8 @@ test_scan(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif
 
 //	Notes:
 //

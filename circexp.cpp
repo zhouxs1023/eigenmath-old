@@ -134,6 +134,8 @@ yycircexp(void)
 	push(p1);
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"circexp(cos(x))",
@@ -166,3 +168,5 @@ test_circexp(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

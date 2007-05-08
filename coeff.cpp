@@ -96,6 +96,8 @@ coeff(void)
 	}
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"coeff(40*x^3+30*x^2+20*x+10,3)",
@@ -128,3 +130,5 @@ test_coeff(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

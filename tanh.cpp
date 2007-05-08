@@ -32,6 +32,8 @@ eval_tanh(void)
 	list(2);
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"tanh(x)",
@@ -49,3 +51,5 @@ test_tanh(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

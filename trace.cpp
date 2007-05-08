@@ -52,6 +52,8 @@ ytrace(void)
 	add_all(n);
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"trace(A)",
@@ -75,3 +77,5 @@ test_trace(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

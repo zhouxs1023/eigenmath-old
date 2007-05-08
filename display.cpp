@@ -1235,6 +1235,8 @@ emit_tensor_inner(U *p, int j, int *k)
 	__emit_char(')');
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"format=1",
@@ -1278,3 +1280,5 @@ test_display(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

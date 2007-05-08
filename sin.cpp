@@ -143,6 +143,8 @@ yysine(void)
 	}
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"sin(x)",
@@ -275,3 +277,5 @@ test_sin(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif

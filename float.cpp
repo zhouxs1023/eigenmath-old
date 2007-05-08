@@ -46,6 +46,8 @@ yyfloat(void)
 	restore();
 }
 
+#if SELFTEST
+
 static char *s[] = {
 
 	"float(x)",
@@ -78,3 +80,5 @@ test_float(void)
 {
 	test(__FILE__, s, sizeof s / sizeof (char *));
 }
+
+#endif
