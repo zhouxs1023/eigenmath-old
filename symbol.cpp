@@ -51,10 +51,10 @@ get_printname(U *p)
 	return printname[n];
 }
 
-// get symbol's index from ptr
+// get symbol's number from ptr
 
 int
-symbol_index(U *p)
+symnum(U *p)
 {
 	return (int) (p - symtab);
 }

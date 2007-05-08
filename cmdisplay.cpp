@@ -934,7 +934,7 @@ emit_symbol(U *p)
 
 	s = get_printname(p);
 
-	if (symbol_index(p) < NIL) {
+	if (iskeyword(p)) {
 		emit_str(TIMES_FONT, s);
 		return;
 	}

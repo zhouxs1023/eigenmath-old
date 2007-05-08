@@ -182,7 +182,7 @@ top_level_eval(void)
 
 	// do not print "a=a"
 
-	if (issymbol(p1) && p1 != p2 && test_flag == 0) {
+	if (issymbol(p1) && !iskeyword(p1) && p1 != p2 && test_flag == 0) {
 		push_symbol(SETQ);
 		push(p1);
 		push(p2);

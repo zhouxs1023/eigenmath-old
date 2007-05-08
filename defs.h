@@ -270,7 +270,7 @@ struct text_metric {
 #define isstr(p) ((p)->k == STR)
 #define istensor(p) ((p)->k == TENSOR)
 #define issymbol(p) ((p)->k == SYM)
-#define iskeyword(p) (issymbol(p) && symbol_index(p) < NIL)
+#define iskeyword(p) (issymbol(p) && symnum(p) < NIL)
 
 #define car(p) (iscons(p) ? (p)->u.cons.car : symbol(NIL))
 #define cdr(p) (iscons(p) ? (p)->u.cons.cdr : symbol(NIL))

@@ -798,8 +798,6 @@ int scan_meta(char *s);
 void build_tensor(int n);
 void test_scan(void);
 
-// scripts.cpp
-
 // selftest.cpp
 void selftest(void);
 void logout(char *s);
@@ -864,7 +862,7 @@ void symbolize(void);
 void std_symbol(char *s, int n);
 U * usr_symbol(char *s);
 char * get_printname(U *p);
-int symbol_index(U *p);
+int symnum(U *p);
 void push_symbol(int k);
 void clear_symbols(void);
 

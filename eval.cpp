@@ -44,7 +44,7 @@ eval_sym(void)
 {
 	// bare keyword?
 
-	if (symbol_index(p1) < NIL) {
+	if (iskeyword(p1)) {
 		push(p1);
 		push(symbol(LAST));
 		list(2);
@@ -98,7 +98,7 @@ eval_cons(void)
 		sprintf(errstr, "form %d?", car(p1)->k);
 		stop(errstr);
 	}
-	switch (symbol_index(car(p1))) {
+	switch (symnum(car(p1))) {
 	case ABS:		eval_abs();		break;
 	case ADD:		eval_add();		break;
 	case ADJ:		eval_adj();		break;
