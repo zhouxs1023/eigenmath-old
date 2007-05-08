@@ -2381,3 +2381,10 @@ do_help(char **s, int n)
 	ReleaseDC(main_window, run_hdc);
 	update_display();
 }
+
+#if SELFTEST==0
+void
+test(char *file, char **s, int n)
+{
+}
+#endif
