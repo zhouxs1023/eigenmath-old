@@ -77,6 +77,14 @@ eval_user_function(void)
 	FNAME = car(p1);
 	ACTUAL_ARGS = cdr(p1);
 
+	// special case for "d"
+
+	if (FNAME == symbol(SYMBOL_D)
+	&& symbol(SYMBOL_D)->u.sym.arglist == symbol(NIL)) {
+		eval_derivative();
+		return;
+	}
+
 	// undefined function?
 
 	if (FNAME->u.sym.binding == FNAME) {

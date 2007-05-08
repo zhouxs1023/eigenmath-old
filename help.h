@@ -208,26 +208,31 @@ static char *help_tanh[] = {
 static char *help_besselj[] = {
 	"n = 5/2",
 	"y = besselj(x,n)",
+	"y",
 	"x^2 d(y,x,x) + x d(y,x) + (x^2 - n^2) y",
 };
 
 static char *help_hermite[] = {
 	"n = 7",
 	"y = hermite(x,n)",
+	"y",
 	"d(y,x,x) - 2 x d(y,x) + 2 n y",
 };
 
 static char *help_laguerre[] = {
-	"n = 7",
+	"n = 5",
 	"y = laguerre(x,n)",
+	"y",
 	"x d(y,x,x) + (1 - x) d(y,x) + n y",
 	"y = laguerre(x,n,a)",
+	"y",
 	"x d(y,x,x) + (a + 1 - x) d(y,x) + n y",
 };
 
 static char *help_legendre[] = {
 	"n = 7",
 	"y = legendre(x,n)",
+	"y",
 	"(1 - x^2) d(y,x,x) - 2 x d(y,x) + n (n + 1) y",
 };
 
@@ -384,7 +389,7 @@ static char *help_sqrt[] = {
 // sum
 
 static char *help_sum[] = {
-	"99^2 - sum(k,1,99,2k-1)",
+	"sum(k,1,10,2k-1)",
 };
 
 // taylor
@@ -396,3 +401,4 @@ static char *help_taylor[] = {
 #define HELP(x) do_help(x, sizeof x / sizeof (char *))
 
 static void do_help(char **, int);
+

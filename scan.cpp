@@ -346,10 +346,7 @@ scan_function_call(void)
 	int n = 1;
 	U *p;
 	p = usr_symbol(token_buf);
-	if (p == symbol(SYMBOL_D))
-		push_symbol(DERIVATIVE);
-	else
-		push(p);
+	push(p);
 	get_next_token();	// function name
 	get_next_token();	// left paren
 	if (token != ')') {
