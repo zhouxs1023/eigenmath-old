@@ -120,7 +120,7 @@ eval_cons(void)
 	case CHOOSE:		eval_choose();		break;
 	case CIRCEXP:		eval_circexp();		break;
 	case CLEAR:		eval_clear();		break;
-	case CLS:		eval_cls();		break;
+	case CLOCK:		eval_clock();		break;
 	case COEFF:		eval_coeff();		break;
 	case COFACTOR:		eval_cofactor();	break;
 	case CONDENSE:		eval_condense();	break;
@@ -255,13 +255,6 @@ eval_check(void)
 	if (iszero(p1))
 		stop("check(arg): arg is zero");
 	push(symbol(NIL)); // no result is printed
-}
-
-void
-eval_cls(void)
-{
-	clear_term();
-	push(symbol(NIL));
 }
 
 void

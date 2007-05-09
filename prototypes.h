@@ -165,6 +165,10 @@ void test_circexp(void);
 void eval_clear(void);
 void clear(void);
 
+// clock.cpp
+void eval_clock(void);
+void test_clock(void);
+
 // cmdisplay.cpp
 void cmdisplay(U *p);
 void eval_display(void);
@@ -330,7 +334,6 @@ void eval_sym(void);
 void eval_cons(void);
 void setup(void);
 void eval_check(void);
-void eval_cls(void);
 void eval_conj(void);
 void eval_det(void);
 void eval_dim(void);
