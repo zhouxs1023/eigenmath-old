@@ -15,8 +15,52 @@ void
 cosine(void)
 {
 	save();
-	yycosine();
+	yycosine_phase();
 	restore();
+}
+
+
+void
+yycosine_phase(void)
+{
+	int n = 0;
+	p1 = pop();
+	if (car(p1) != symbol(ADD)) {
+		push(p1);
+		yycosine();
+		return;
+	}
+	p2 = cdr(p1);
+	while (iscons(p2)) {
+		n = isnpi(car(p2));
+		if (n)
+			break;
+		p2 = cdr(p2);
+	}
+	if (n == 0) {
+		push(p1);
+		yycosine();
+		return;
+	}
+	push(p1);
+	push(car(p2));
+	subtract();	// remove phase
+	switch (n) {
+	case 1:
+		yysine();
+		negate();
+		break;
+	case 2:
+		yycosine();
+		negate();
+		break;
+	case 3:
+		yysine();
+		break;
+	case 4:
+		yycosine();
+		break;
+	}
 }
 
 void
@@ -40,6 +84,14 @@ yycosine(void)
 		return;
 	}
 
+	// cosine function is symmetric, cos(-x) = cos(x)
+
+	if (isnegative(p1)) {
+		push(p1);
+		negate();
+		p1 = pop();
+	}
+
 	// cos(arctan(x)) = 1 / sqrt(1 + x^2)
 
 	// see p. 173 of the CRC Handbook of Mathematical Sciences
@@ -53,14 +105,6 @@ yycosine(void)
 		push_rational(-1, 2);
 		power();
 		return;
-	}
-
-	// cosine function is symmetric, cos(-x) = cos(x)
-
-	if (isnegative(p1)) {
-		push(p1);
-		negate();
-		p1 = pop();
 	}
 
 	// multiply by 180/pi
@@ -266,6 +310,65 @@ static char *s[] = {
 
 	"cos(1/12*pi)",
 	"cos(1/12*pi)",
+
+	"cos(arctan(4/3))",
+	"3/5",
+
+	"cos(-arctan(4/3))",
+	"3/5",
+
+	// phase
+
+	"cos(x-8/2*pi)",
+	"cos(x)",
+
+	"cos(x-7/2*pi)",
+	"-sin(x)",
+
+	"cos(x-6/2*pi)",
+	"-cos(x)",
+
+	"cos(x-5/2*pi)",
+	"sin(x)",
+
+	"cos(x-4/2*pi)",
+	"cos(x)",
+
+	"cos(x-3/2*pi)",
+	"-sin(x)",
+
+	"cos(x-2/2*pi)",
+	"-cos(x)",
+
+	"cos(x-1/2*pi)",
+	"sin(x)",
+
+	"cos(x+0/2*pi)",
+	"cos(x)",
+
+	"cos(x+1/2*pi)",
+	"-sin(x)",
+
+	"cos(x+2/2*pi)",
+	"-cos(x)",
+
+	"cos(x+3/2*pi)",
+	"sin(x)",
+
+	"cos(x+4/2*pi)",
+	"cos(x)",
+
+	"cos(x+5/2*pi)",
+	"-sin(x)",
+
+	"cos(x+6/2*pi)",
+	"-cos(x)",
+
+	"cos(x+7/2*pi)",
+	"sin(x)",
+
+	"cos(x+8/2*pi)",
+	"cos(x)",
 };
 
 void

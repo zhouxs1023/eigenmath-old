@@ -26,19 +26,26 @@ static char *s[] = {
 	"polar(1+i)",
 	"2^(1/2)*exp(1/4*i*pi)",
 
-	"rect(polar(3+4*i))",	// needs sin(arctan(x)) and cos(arctan(x))
+	"polar(-1+i)",
+	"2^(1/2)*exp(3/4*i*pi)",
+
+	"polar(-1-i)",
+	"2^(1/2)*exp(-3/4*i*pi)",
+
+	"polar(1-i)",
+	"2^(1/2)*exp(-1/4*i*pi)",
+
+	"rect(polar(3+4*i))",
 	"3+4*i",
 
-	// someday, get these to simplify correctly
+	"rect(polar(-3+4*i))",
+	"-3+4*i",
 
-//	"rect(polar(-3+4*i))",
-//	"-3+4*i",
+	"rect(polar(3-4*i))",
+	"3-4*i",
 
-//	"rect(polar(3-4*i))",
-//	"3-4*i",
-
-//	"rect(polar(-3-4*i))",
-//	"-3-4*i",
+	"rect(polar(-3-4*i))",
+	"-3-4*i",
 };
 
 void

@@ -15,8 +15,51 @@ void
 sine(void)
 {
 	save();
-	yysine();
+	yysine_phase();
 	restore();
+}
+
+void
+yysine_phase(void)
+{
+	int n = 0;
+	p1 = pop();
+	if (car(p1) != symbol(ADD)) {
+		push(p1);
+		yysine();
+		return;
+	}
+	p2 = cdr(p1);
+	while (iscons(p2)) {
+		n = isnpi(car(p2));
+		if (n)
+			break;
+		p2 = cdr(p2);
+	}
+	if (n == 0) {
+		push(p1);
+		yysine();
+		return;
+	}
+	push(p1);
+	push(car(p2));
+	subtract();	// remove phase
+	switch (n) {
+	case 1:
+		yycosine();
+		break;
+	case 2:
+		yysine();
+		negate();
+		break;
+	case 3:
+		yycosine();
+		negate();
+		break;
+	case 4:
+		yysine();
+		break;
+	}
 }
 
 void
@@ -24,7 +67,6 @@ yysine(void)
 {
 	int n;
 	double d;
-
 	p1 = pop();
 
 	if (car(p1) == symbol(ARCSIN)) {
@@ -37,6 +79,16 @@ yysine(void)
 		if (fabs(d) < 1e-10)
 			d = 0.0;
 		push_double(d);
+		return;
+	}
+
+	// sine function is antisymmetric, sin(-x) = -sin(x)
+
+	if (isnegative(p1)) {
+		push(p1);
+		negate();
+		sine();
+		negate();
 		return;
 	}
 
@@ -54,16 +106,6 @@ yysine(void)
 		push_rational(-1, 2);
 		power();
 		multiply();
-		return;
-	}
-
-	// sine function is antisymmetric, sin(-x) = -sin(x)
-
-	if (isnegative(p1)) {
-		push(p1);
-		negate();
-		sine();
-		negate();
 		return;
 	}
 
@@ -270,6 +312,65 @@ static char *s[] = {
 
 	"sin(1/12*pi)",
 	"sin(1/12*pi)",
+
+	"sin(arctan(4/3))",
+	"4/5",
+
+	"sin(-arctan(4/3))",
+	"-4/5",
+
+	// phase
+
+	"sin(x-8/2*pi)",
+	"sin(x)",
+
+	"sin(x-7/2*pi)",
+	"cos(x)",
+
+	"sin(x-6/2*pi)",
+	"-sin(x)",
+
+	"sin(x-5/2*pi)",
+	"-cos(x)",
+
+	"sin(x-4/2*pi)",
+	"sin(x)",
+
+	"sin(x-3/2*pi)",
+	"cos(x)",
+
+	"sin(x-2/2*pi)",
+	"-sin(x)",
+
+	"sin(x-1/2*pi)",
+	"-cos(x)",
+
+	"sin(x+0/2*pi)",
+	"sin(x)",
+
+	"sin(x+1/2*pi)",
+	"cos(x)",
+
+	"sin(x+2/2*pi)",
+	"-sin(x)",
+
+	"sin(x+3/2*pi)",
+	"-cos(x)",
+
+	"sin(x+4/2*pi)",
+	"sin(x)",
+
+	"sin(x+5/2*pi)",
+	"cos(x)",
+
+	"sin(x+6/2*pi)",
+	"-sin(x)",
+
+	"sin(x+7/2*pi)",
+	"-cos(x)",
+
+	"sin(x+8/2*pi)",
+	"sin(x)",
 };
 
 void

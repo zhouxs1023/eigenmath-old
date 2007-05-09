@@ -436,3 +436,37 @@ isquarterturn(U *p)
 
 	return n;
 }
+
+// special multiple of pi?
+
+// returns for the following multiples of pi...
+
+//	-4/2	-3/2	-2/2	-1/2	1/2	2/2	3/2	4/2
+
+//	4	1	2	3	1	2	3	4
+
+int
+isnpi(U *p)
+{
+	int n;
+	if (p == symbol(PI))
+		return 2;
+	if (car(p) == symbol(MULTIPLY)
+	&& isnum(cadr(p))
+	&& caddr(p) == symbol(PI)
+	&& length(p) == 3)
+		;
+	else
+		return 0;
+	push(cadr(p));
+	push_integer(2);
+	multiply();
+	n = pop_integer();
+	if (n == (int) 0x80000000)
+		return 0;
+	if (n < 0)
+		n = 4 - (-n) % 4;
+	else
+		n = 1 + (n - 1) % 4;
+	return n;
+}

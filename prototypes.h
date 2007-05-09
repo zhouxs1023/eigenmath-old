@@ -207,6 +207,7 @@ void test_convolution(void);
 // cos.cpp
 void eval_cos(void);
 void cosine(void);
+void yycosine_phase(void);
 void yycosine(void);
 void test_cos(void);
 
@@ -526,6 +527,7 @@ int isminusoneoversqrttwo(U *p);
 int isfloating(U *p);
 int isimaginaryunit(U *p);
 int isquarterturn(U *p);
+int isnpi(U *p);
 
 // isprime.cpp
 void eval_isprime(void);
@@ -828,6 +830,7 @@ void test_simplify(void);
 // sin.cpp
 void eval_sin(void);
 void sine(void);
+void yysine_phase(void);
 void yysine(void);
 void test_sin(void);
 

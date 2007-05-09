@@ -1,4 +1,4 @@
-#define SELFTEST 0
+#define SELFTEST 1
 
 // Symbolic expressions are built by connecting U structs.
 //
