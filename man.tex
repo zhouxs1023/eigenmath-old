@@ -1,7 +1,7 @@
 \documentclass[12pt,openany]{report}
 \title{Eigenmath Manual}
 \author{George Weigt}
-\date{May 5, 2007}
+\date{May 12, 2007}
 \pagestyle{headings}
 \usepackage{graphicx}
 
@@ -313,7 +313,43 @@ The default range is $(-\pi,\pi)$.
 \noindent
 \includegraphics[scale=0.5]{circle2.png}
 
+\newpage
+
+\noindent
+Here are a couple of interesting curves and the code for drawing them.
+First is a lemniscate.
+
+\medskip
 \verb$clear$
+
+\verb$X=cos(t)/(1+sin(t)^2)$
+
+\verb$Y=sin(t)*cos(t)/(1+sin(t)^2)$
+
+\verb$draw(5*(X,Y))$
+
+\medskip
+\noindent
+\includegraphics[scale=0.5]{lemniscate.png}
+
+\medskip
+\noindent
+Next is a cardioid.
+
+\medskip
+\verb$r=(1+cos(t))/2$
+
+\verb$u=(cos(t),sin(t))$
+
+\verb$xrange=(-1,1)$
+
+\verb$yrange=(-1,1)$
+
+\verb$draw(r*u)$
+
+\medskip
+\noindent
+\includegraphics[scale=0.5]{cardioid.png}
 
 \newpage
 
@@ -577,6 +613,37 @@ For each $x$ along the abscissa, $y$ ranges from 0 to $\sqrt{1-x^2}$.
 
 \verb$eval(I,x,1)-eval(I,x,-1)$
 $${1\over8}\pi$$
+
+\newpage
+
+\noindent
+The following example demonstrates a technique for computing
+a line integral when the path is already parameterized.
+The task at hand is to compute\footnote{
+From a problem in {\it Advanced Calculus} by Wilfred Kaplan.}
+$$\int_C z\,dx+x\,dy+y\,dz$$
+where $C$ is the path
+$$x=2t+1,\qquad y=t^2,\qquad z=1+t^3,\qquad 0\le t\le 1$$
+The main idea is that we can rewrite the integrand with the following substitutions.
+$$dx=\left({dx\over dt}\right)dt,\qquad
+dy=\left({dy\over dt}\right)dt,\qquad
+dz=\left({dz\over dt}\right)dt$$
+Therefore in Eigenmath we have
+
+\medskip
+\verb$x=2t+1$
+
+\verb$y=t^2$
+
+\verb$z=1+t^3$
+
+\verb$f=z*d(x,t)+x*d(y,t)+y*d(z,t)$
+
+\verb$I=integral(f,t)$
+
+\verb$eval(I,t,1)-eval(I,t,0)$
+
+$$163\over30$$
 
 \newpage
 
