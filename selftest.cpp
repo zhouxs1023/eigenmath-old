@@ -1099,4 +1099,11 @@ test(char *file, char **s, int n)
 	test_flag = 0;
 }
 
+#else
+
+void
+test(char *file, char **s, int n)
+{
+}
+
 #endif

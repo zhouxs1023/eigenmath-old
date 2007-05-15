@@ -398,7 +398,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	main_window = CreateWindow(
 		"Eigenmath",
-		"Eigenmath 127+",
+		"Eigenmath 128",
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0,
 //		CW_USEDEFAULT, 0,
@@ -2381,10 +2381,3 @@ do_help(char **s, int n)
 	ReleaseDC(main_window, run_hdc);
 	update_display();
 }
-
-#if SELFTEST==0
-void
-test(char *file, char **s, int n)
-{
-}
-#endif
