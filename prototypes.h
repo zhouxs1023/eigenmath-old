@@ -225,6 +225,10 @@ void decomp(void);
 void decomp_sum(void);
 void decomp_product(void);
 
+// defint.cpp
+void eval_defint(void);
+void test_defint(void);
+
 // degree.cpp
 void eval_degree(void);
 void degree(void);

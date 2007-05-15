@@ -60,6 +60,7 @@ init(void)
 	std_symbol("cos", COS);
 	std_symbol("cosh", COSH);
 	std_symbol("decomp", DECOMP);
+	std_symbol("defint", DEFINT);
 	std_symbol("deg", DEGREE);
 	std_symbol("denominator", DENOMINATOR);
 	std_symbol("det", DET);

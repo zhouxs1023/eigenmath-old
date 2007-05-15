@@ -416,6 +416,14 @@ static char *s[] = {
 	"+1/3*sqrt((7-X^2)^3)/7/X^3",
 	"0",
 
+	"#273",
+	"integral(sqrt(7*X^2+C),X)-X*sqrt(7*X^2+C)/2-C*log(X*sqrt(7)+sqrt(7*X^2+C))/2/sqrt(7)",
+	"0",
+
+	"#274",
+	"integral(sqrt(-7*X^2+C),X)-X*sqrt(-7*X^2+C)/2-C*arcsin(X*sqrt(7/C))/2/sqrt(7)",
+	"0",
+
 	"#290",
 	"integral(sin(A*X),X)+cos(A*X)/A",
 	"0",

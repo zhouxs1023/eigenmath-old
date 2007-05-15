@@ -66,6 +66,7 @@ selftest(void)
 	test_condense();
 	test_contract();
 	test_convolution();
+	test_defint();
 	test_denominator();
 	test_derivative();
 	test_dirac();

@@ -131,6 +131,7 @@ eval_cons(void)
 	case COSH:		eval_cosh();		break;
 	case DECOMP:		eval_decomp();		break;
 	case DEGREE:		eval_degree();		break;
+	case DEFINT:		eval_defint();		break;
 	case DENOMINATOR:	eval_denominator();	break;
 	case DERIVATIVE:	eval_derivative();	break;
 	case DET:		eval_det();		break;
@@ -325,10 +326,7 @@ eval_dsolve(void)
 	dsolve();
 }
 
-/* for example...
-
-	eval(f,x,2)
-*/
+// for example, eval(f,x,2)
 
 void
 eval_eval(void)
@@ -337,6 +335,10 @@ eval_eval(void)
 	eval();
 	p1 = cddr(p1);
 	while (iscons(p1)) {
+		// subst into an intgral gives a useless result
+		p2 = pop();
+		if (find(p2, symbol(INTEGRAL)))
+			stop("eval: unsolved integral");
 		push(car(p1));
 		eval();
 		push(cadr(p1));
