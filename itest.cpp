@@ -704,6 +704,8 @@ static char *s[] = {
 	"derivative",
 	"x^3*exp(a*x+b)",
 
+	"integral(sqrt(a*x^2+b))",
+	"Stop: integral: sorry, could not find a solution",
 };
 
 void

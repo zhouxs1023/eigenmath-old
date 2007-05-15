@@ -119,7 +119,13 @@ eval_integral(void)
 		}
 	}
 
-	push(F); // final result
+	if (find(F, symbol(INTEGRAL)))
+		stop("integral: sorry, could not find a solution");
+
+	push(F);	// final result
+
+	simplify();	// polish the result
+	eval();
 }
 
 void

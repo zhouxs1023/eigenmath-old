@@ -335,10 +335,6 @@ eval_eval(void)
 	eval();
 	p1 = cddr(p1);
 	while (iscons(p1)) {
-		// subst into an intgral gives a useless result
-		p2 = pop();
-		if (find(p2, symbol(INTEGRAL)))
-			stop("eval: unsolved integral");
 		push(car(p1));
 		eval();
 		push(cadr(p1));

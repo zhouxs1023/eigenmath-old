@@ -39,9 +39,6 @@ eval_defint(void)
 		integral();
 		F = pop();
 
-		if (find(F, symbol(INTEGRAL)))
-			stop("defint: sorry, could not solve the integral");
-
 		push(F);
 		push(X);
 		push(B);
