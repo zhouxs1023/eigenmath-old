@@ -339,7 +339,7 @@ static char *s[] = {
 	"0",
 
 	"#196",
-	"integral(1/(X-A)/sqrt(X^2-A^2),X)+sqrt(X^2-A^2)/A/(X-A)",
+	"simplify(integral(1/(X-A)/sqrt(X^2-A^2),X)+sqrt(X^2-A^2)/A/(X-A))",
 	"0",
 	"simplify(1/(X-A)/sqrt(X^2-A^2)-d(integral(1/(X-A)/sqrt(X^2-A^2),X),X))",
 	"0",
