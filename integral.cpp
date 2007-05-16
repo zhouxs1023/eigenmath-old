@@ -119,13 +119,7 @@ eval_integral(void)
 		}
 	}
 
-	if (find(F, symbol(INTEGRAL)))
-		stop("integral: sorry, could not find a solution");
-
 	push(F);	// final result
-
-	simplify();	// polish the result
-	eval();
 }
 
 void
@@ -140,6 +134,12 @@ integral(void)
 		integral_of_product();
 	else
 		integral_of_form();
+	p1 = pop();
+	if (find(p1, symbol(INTEGRAL)))
+		stop("integral: sorry, could not find a solution");
+	push(p1);
+	simplify();	// polish the result
+	eval();		// normalize the result
 	restore();
 }
 
