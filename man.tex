@@ -1,11 +1,8 @@
-\documentclass[12pt,openany]{report}
+\documentclass[12pt]{book}
 \title{Eigenmath Manual}
 \author{George Weigt}
-\date{May 12, 2007}
-\pagestyle{headings}
+\date{May 15, 2007}
 \usepackage{graphicx}
-
-%\parindent=0.3in
 
 \begin{document}
 \maketitle
@@ -355,8 +352,8 @@ Next is a cardioid.
 
 \chapter{Linear Algebra}
 
-The $dot$ function is used to multiply vectors and matrices.
-The following example shows how to use dot and inv to solve for
+$dot$ is used to multiply vectors and matrices.
+The following example shows how to use $dot$ and $inv$ to solve for
 $\bf X$ in $\bf AX=B$.
 
 \medskip
@@ -374,12 +371,11 @@ $$\left(\matrix{-11.2887\cr8.24961}\right)$$
 \noindent
 One might wonder why the $dot$ function is necessary.
 Why not simply use $X=inv(A)*B$ like scalar multiplication?
-The reason why $dot$ is necessary is that the software normally reorders factors
-internally to optimize processing.
-This is fine for scalar multiplication, but fails otherwise.
+The reason is that the software normally reorders factors internally to optimize processing.
 For example, $inv(A)*B$ in symbolic form is changed to $B*inv(A)$ internally.
-Since the dot product is non-commutative, reordering gives the wrong result.
-The $dot$ function avoids the problem because it does not reorder its arguments.
+Since the dot product is non-commutative, this reordering would give the wrong result.
+Using a function to do the multiply avoids the problem because
+function arguments are not reordered.
 
 \medskip
 \noindent
@@ -554,8 +550,9 @@ $$\partial(f(),t)$$
 
 \medskip
 \noindent
-As the final example shows, an empty argument list indicates
-that $d(f)$ is never zero.
+As the final example shows, an empty argument list causes
+$d(f)$ to always evaluate to itself, regardless
+of the second argument.
 
 \medskip
 \noindent
@@ -599,10 +596,24 @@ $${1\over4}x^2y^2$$
 
 \medskip
 \noindent
-A definite integral can be obtained with the help of $eval$.
+$defint(f,x,a,b,\ldots)$
+computes the definite integral of $f$ with respect to $x$ evaluated from $a$ to $b$.
+The argument list can be extended for multiple integrals.
+
+\medskip
+\noindent
 The following example computes the integral of $f=x^2$
 over the domain of a semicircle.
 For each $x$ along the abscissa, $y$ ranges from 0 to $\sqrt{1-x^2}$.
+
+\medskip
+\verb$defint(x^2,y,0,sqrt(1-x^2),x,-1,1)$
+
+$${1\over8}\pi$$
+
+\medskip
+\noindent
+As an alternative, the $eval$ function can be used to compute a definite integral step by step.
 
 \medskip
 \verb$I=integral(x^2,y)$
@@ -785,6 +796,12 @@ cosh($x$) returns the hyperbolic cosine of $x$.
 \section*{d}
 d($f,x$) returns the derivative of $f$ with respect to $x$.
 Please see page \pageref{d} for additional details.
+
+\section*{defint}
+defint($f,x,a,b,\ldots$)
+returns the definite integral of $f$ with respect to $x$ evaluated from $a$ to $b$.
+The argument list can be extended for multiple integrals.
+For example, $d(f,x,a,b,y,c,d)$.
 
 \section*{deg}
 deg($p,x$) returns the degree of polynomial $p$ in $x$.
@@ -1090,7 +1107,7 @@ See page \pageref{example2}.
 \newpage
 
 \section*{Example 1}
-Fran\c cois Vi\`ete was the very first person to come up with an exact formula for $\pi$.
+Fran\c cois Vi\`ete was the first to discover an exact formula for $\pi$.
 Here is his formula.
 \begin{displaymath}
 {2\over\pi}={\sqrt2\over2}\times{\sqrt{2+\sqrt2}\over2}\times
