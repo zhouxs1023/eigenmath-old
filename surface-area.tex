@@ -2,10 +2,9 @@
 \noindent
 Let $P$ be a point on a surface parameterized by $x$ and $y$.
 In other words, let $P=(x,y,z)$ where $z=f(x,y)$.
-Draw a tiny rectangle on the surface with a corner at $P$.
-The tangent lines at $P$ define the edges of the rectangle.
-The area $a$ of the rectangle is given by the magnitude
-of the cross product of the edges, hence
+The tangent lines at $P$ define the edges of a tiny rectangle.
+The area of the rectangle is given by the magnitude of the cross product of the edges.
+Hence the area of the tiny rectangle is
 $$a=\left|{\partial P\over\partial x}\times{\partial P\over\partial y}\right|$$
 By summing over all $a$ we obtain the total surface area $A$.
 $$A=\int\!\!\!\int a\,dx\,dy$$
@@ -44,4 +43,36 @@ $${3\over2}+{5\over8}\log(5)$$
 \noindent
 As a practical matter, $f(x,y)$ must be very simple in order
 for Eigenmath to solve the double integral.
+
+\newpage
+
+\noindent
+Find the area of the spiral ramp defined by\footnote{
+From {\it Multivariable Mathematics} by Williamson and Trotter, p. 598.}
+$$S=\left(\matrix{u\cos v\cr u\sin v\cr v}\right),\qquad 0\le u\le1,\qquad 0\le v\le3\pi$$
+In this example, the coordinates $x$, $y$ and $z$ are all
+functions of an independent parameter space.
+It turns out that $simplify$ is needed to change $a$ into a reasonable form.
+
+\medskip
+\verb$x=u*cos(v)$
+
+\verb$y=u*sin(v)$
+
+\verb$z=v$
+
+\verb$S=(x,y,z)$
+
+\verb$a=abs(cross(d(S,u),d(S,v)))$
+
+\verb$a=simplify(a)$
+
+\verb$defint(a,u,0,1,v,0,3pi)$
+
+$${3\over2}\pi\log(1+2^{1/2})+{3\pi\over2^{1/2}}$$
+
+\verb$float$
+
+$$10.8177$$
+
 
