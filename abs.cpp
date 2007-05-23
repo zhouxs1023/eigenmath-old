@@ -9,6 +9,12 @@ eval_abs(void)
 	push(cadr(p1));
 	eval();
 	absval();
+	p1 = pop();
+	push(p1);
+	if (car(p1) != symbol(ABS)) {	// to prevent circular reference
+		simplify();
+		eval();			// to normalize
+	}
 }
 
 void
@@ -147,6 +153,14 @@ static char *s[] = {
 
 	"abs(1/a^b)",
 	"1/(abs(a^b))",
+
+	// this test makes sure the result of abs is simplified
+
+	"P=(u*cos(v),u*sin(v),v)",
+	"",
+
+	"abs(cross(d(P,u),d(P,v)))",
+	"(1+u^2)^(1/2)",
 };
 
 void
