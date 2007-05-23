@@ -91,6 +91,26 @@ static char *s[] = {
 
 	"defint(a,x,0,1,y,0,1)",
 	"3/2+5/8*log(5)",
+
+	// from the eigenmath manual
+
+	"x=u*cos(v)",
+	"",
+
+	"y=u*sin(v)",
+	"",
+
+	"z=v",
+	"",
+
+	"S=(x,y,z)",
+	"",
+
+	"a=abs(cross(d(S,u),d(S,v)))",
+	"",
+
+	"defint(a,u,0,1,v,0,3pi)",
+	"3/2*pi*log(1+2^(1/2))+3*pi/(2^(1/2))",
 };
 
 void
