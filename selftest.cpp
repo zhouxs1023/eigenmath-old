@@ -1089,7 +1089,7 @@ test(char *file, char **s, int n)
 
 	defn();
 
-	run("e=quote(e))");
+	run("e=quote(e)");
 
 	for (i = 0; i < n; i++) {
 
