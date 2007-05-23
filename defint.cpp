@@ -63,6 +63,34 @@ eval_defint(void)
 static char *s[] = {
 	"defint(x^2,y,0,sqrt(1-x^2),x,-1,1)",
 	"1/8*pi",
+
+	// from the eigenmath manual
+
+	"z=2",
+	"",
+
+	"P=(x,y,z)",
+	"",
+
+	"a=abs(cross(d(P,x),d(P,y)))",
+	"",
+
+	"defint(a,y,-sqrt(1-x^2),sqrt(1-x^2),x,-1,1)",
+	"pi",
+
+	// from the eigenmath manual
+
+	"z=x^2+2y",
+	"",
+
+	"P=(x,y,z)",
+	"",
+
+	"a=abs(cross(d(P,x),d(P,y)))",
+	"",
+
+	"defint(a,x,0,1,y,0,1)",
+	"3/2+5/8*log(5)",
 };
 
 void
