@@ -174,16 +174,16 @@ char *script[] = {
 // symbols
 
 	"a=quote(a)",
-	"a",
+	"",
 
 	"b=quote(b)",
-	"b",
+	"",
 
 	"c=quote(c)",
-	"c",
+	"",
 
 	"d=quote(d)",
-	"d",
+	"",
 
 // scanner
 
@@ -637,7 +637,7 @@ char *script[] = {
 //-----------------------------------------------------------------------------
 
 	"c=((1,1),(1,1))",
-	"((1,1),(1,1))",
+	"",
 
 	"a*b*c",
 	"((a*b,a*b),(a*b,a*b))",
@@ -649,7 +649,7 @@ char *script[] = {
 	"((a*b*d*f,a*b*d*f),(a*b*d*f,a*b*d*f))",
 
 	"c=quote(c)",
-	"c",
+	"",
 
 // det
 
@@ -706,7 +706,7 @@ char *script[] = {
 // power of tensor
 
 	"A=((1,2),(3,4))",
-	"((1,2),(3,4))",
+	"",
 
 	"inner(A,1/A)",
 	"((1,0),(0,1))",
@@ -794,16 +794,16 @@ char *script[] = {
 //-----------------------------------------------------------------------------
 
 	"F=(FX(),FY(),FZ())",
-	"F",
+	"",
 
 	"G=(GX(),GY(),GZ())",
-	"G",
+	"",
 
 	"f=ff()",
-	"f",
+	"",
 
 	"g=gg()",
-	"g",
+	"",
 
 	"div(curl(F))",
 	"0",
@@ -952,19 +952,19 @@ char *script[] = {
 	"((1,0.5,0.333333),(0.5,0.333333,0.25),(0.333333,0.25,0.2))",
 
 	"a=pi",
-	"a",
+	"",
 
 	"float(a)",
 	"3.14159",
 
 	"a=exp(1)",
-	"a",
+	"",
 
 	"float(a)",
 	"2.71828",
 
 	"a=quote(a)",
-	"a",
+	"",
 
 	// test self-referencing arg
 
@@ -1010,6 +1010,62 @@ char *script[] = {
 
 	"last",
 	"123",
+
+	// static spherical metric
+
+	"gdd=((-exp(2*Phi(r)),0,0,0),(0,exp(2*Lambda(r)),0,0),(0,0,r^2,0),(0,0,0,r^2*sin(theta)^2))",
+	"",
+
+	"X=(t,r,theta,phi)",
+	"",
+
+	"guu=inv(gdd)",
+	"",
+
+	"gddd=d(gdd,X)",
+	"",
+
+	"GAMDDD=1/2*(gddd+transpose(gddd,2,3)-transpose(transpose(gddd,2,3),1,2))",
+	"",
+
+	"GAMUDD=contract(outer(guu,GAMDDD),2,3)",
+	"",
+
+	"T1=d(GAMUDD,X)",
+	"",
+
+	"T2=contract(outer(GAMUDD,GAMUDD),2,4)",
+	"",
+
+	"RUDDD=transpose(T1,3,4)-T1+transpose(T2,2,3)-transpose(transpose(T2,2,3),3,4)",
+	"",
+
+	"RDD=contract(RUDDD,1,3)",
+	"",
+
+	"R=contract(contract(outer(guu,RDD),2,3),1,2)",
+	"",
+
+	"GDD=RDD-1/2*gdd*R",
+	"",
+
+	"Gtt=1/r^2*exp(2 Phi(r)) d(r (1 - exp(-2 Lambda(r))),r)",
+	"",
+
+	"Grr=-1/r^2*exp(2*Lambda(r))*(1-exp(-2*Lambda(r)))+2/r*d(Phi(r),r)",
+	"",
+
+	"Gthetatheta=r^2*exp(-2*Lambda(r))*(d(d(Phi(r),r),r)+d(Phi(r),r)^2+d(Phi(r),r)/r-d(Phi(r),r)*d(Lambda(r),r)-d(Lambda(r),r)/r)",
+	"",
+
+	"Gphiphi=sin(theta)^2*Gthetatheta",
+	"",
+
+	"T=((Gtt,0,0,0),(0,Grr,0,0),(0,0,Gthetatheta,0),(0,0,0,Gphiphi))",
+	"",
+
+	"GDD-T",
+	"((0,0,0,0),(0,0,0,0),(0,0,0,0),(0,0,0,0))",
 };
 
 void
@@ -1046,16 +1102,6 @@ test(char *file, char **s, int n)
 		out_count = 0;
 
 		run(s[i]);
-
-		t = s[i];
-
-		while (*t && *t != '=')
-			t++;
-
-		if (*t == '=') {
-			i++;
-			continue;
-		}
 
 		out_buf[out_count] = 0;
 

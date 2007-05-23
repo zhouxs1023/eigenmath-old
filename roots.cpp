@@ -254,17 +254,11 @@ static char *s[] = {
 	"roots(x^4+1)",
 	"Stop: roots: the polynomial is not factorable, no roots found",
 
-//	"roots(0)",
-//	"roots: Sorry, the argument is not factorable over integers, no roots found.",
-
 	"roots(x^2==1)",
 	"(-1,1)",
 
 	"roots(3 x + 12 == 24)",
 	"4",
-
-	"roots(3/x + 12 = 24)",
-	"1/4",
 
 	"y=roots(x^2+b*x+c/k)[1]",
 	"",
