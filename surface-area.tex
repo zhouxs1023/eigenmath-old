@@ -55,7 +55,6 @@ From {\it Multivariable Mathematics} by Williamson and Trotter, p. 598.}
 $$S=\left(\matrix{u\cos v\cr u\sin v\cr v}\right),\qquad 0\le u\le1,\qquad 0\le v\le3\pi$$
 In this example, the coordinates $x$, $y$ and $z$ are all
 functions of an independent parameter space.
-It turns out that $simplify$ is needed to change $a$ into a reasonable form.
 
 \medskip
 \verb$x=u*cos(v)$
@@ -67,8 +66,6 @@ It turns out that $simplify$ is needed to change $a$ into a reasonable form.
 \verb$S=(x,y,z)$
 
 \verb$a=abs(cross(d(S,u),d(S,v)))$
-
-\verb$a=simplify(a)$
 
 \verb$defint(a,u,0,1,v,0,3pi)$
 
