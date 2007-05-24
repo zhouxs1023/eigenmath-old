@@ -336,5 +336,8 @@ extern U *meta_c;
 extern U *meta_n;
 extern U *meta_x;
 extern U symtab[];
+extern char out_buf[];
+extern int out_count;
+extern int test_flag;
 
 #include "prototypes.h"

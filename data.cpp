@@ -24,3 +24,5 @@ int verbosing;
 int esc_flag;
 int little_endian;
 int draw_flag;
+int test_flag;
+char logbuf[1000];

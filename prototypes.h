@@ -604,6 +604,9 @@ void test_mfactor(void);
 unsigned int * mgcd(unsigned int *u, unsigned int *v);
 void test_mgcd(void);
 
+// mini-test.cpp
+void mini_test(void);
+
 // misc.cpp
 void new_string(char *s);
 void out_of_memory(void);
@@ -811,7 +814,6 @@ void test_scan(void);
 void selftest(void);
 void logout(char *s);
 void errout(void);
-void test_all(void);
 void test(char *file, char **s, int n);
 
 // sgn.cpp

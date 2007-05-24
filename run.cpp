@@ -93,12 +93,12 @@ dash_dash_command(char *s)
 		printstr("OK\n");
 		return 1;
 	}
-#if SELFTEST
+
 	if (strncmp(s, "--test", 6) == 0) {
 		selftest();
 		return 1;
 	}
-#endif
+
 	return 0;
 }
 
