@@ -706,6 +706,15 @@ static char *s[] = {
 
 	"integral(sqrt(a*x^2+b))",
 	"Stop: integral: sorry, could not find a solution",
+
+	"integral(x^2*(1-x^2)^(3/2))-(x*sqrt(1-x^2)*(-8*x^4+14*x^2-3)+3*arcsin(x))/48",
+	"0",
+
+	"integral(x^4*(1-x^2)^(3/2))-(-x*sqrt(1-x^2)*(16*x^6-24*x^4+2*x^2+3)+3*arcsin(x))/128",
+	"0",
+
+	"integral(x^2*(1-x^2)^(5/2))-(x*sqrt(1-x^2)*(48*x^6-136*x^4+118*x^2-15)+15*arcsin(x))/384",
+	"0",
 };
 
 void

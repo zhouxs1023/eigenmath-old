@@ -318,6 +318,12 @@ char *itab[] = {
 // ?
 	"f(erf(a*x),x*erf(a*x)+exp(-a^2*x^2)/a/sqrt(pi))",
 
+// these are needed for the surface integral in the manual
+
+	"f(x^2*(1-x^2)^(3/2),(x*sqrt(1-x^2)*(-8*x^4+14*x^2-3)+3*arcsin(x))/48)",
+	"f(x^2*(1-x^2)^(5/2),(x*sqrt(1-x^2)*(48*x^6-136*x^4+118*x^2-15)+15*arcsin(x))/384)",
+	"f(x^4*(1-x^2)^(3/2),(-x*sqrt(1-x^2)*(16*x^6-24*x^4+2*x^2+3)+3*arcsin(x))/128)",
+
 	"f(x*exp(a*x),exp(a*x)*(a*x-1)/(a^2))",
 	"f(x*exp(a*x+b),exp(a*x+b)*(a*x-1)/(a^2))",
 

@@ -60,6 +60,26 @@ static char *s[] = {
 
 	"GDD-T",
 	"((0,0,0,0),(0,0,0,0),(0,0,0,0),(0,0,0,0))",
+
+	// surface integral example from the manual
+
+	"clear",
+	"",
+
+	"z=1-x^2-y^2",
+	"",
+
+	"F=(x*y^2*z,-2*x^3,y*z^2)",
+	"",
+
+	"S=(x,y,z)",
+	"",
+
+	"s=dot(F,cross(d(S,x),d(S,y)))",
+	"",
+
+	"defint(s,y,-sqrt(1-x^2),sqrt(1-x^2),x,-1,1)",
+	"1/48*pi",
 };
 
 void

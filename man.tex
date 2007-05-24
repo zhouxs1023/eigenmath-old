@@ -1,7 +1,7 @@
 \documentclass[12pt]{book}
 \title{Eigenmath Manual}
 \author{George Weigt}
-\date{May 17, 2007}
+\date{May 24, 2007}
 \usepackage{graphicx}
 
 \begin{document}
@@ -373,7 +373,7 @@ One might wonder why the $dot$ function is necessary.
 Why not simply use $X=inv(A)*B$ like scalar multiplication?
 The reason is that the software normally reorders factors internally to optimize processing.
 For example, $inv(A)*B$ in symbolic form is changed to $B*inv(A)$ internally.
-Since the dot product is non-commutative, this reordering would give the wrong result.
+Since the dot product is not commutative, this reordering would give the wrong result.
 Using a function to do the multiply avoids the problem because
 function arguments are not reordered.
 
@@ -656,9 +656,9 @@ Therefore in Eigenmath we have
 
 $$163\over30$$
 
-\newpage
-
 \include{surface-area}
+
+\include{surface-integral}
 
 \newpage
 
