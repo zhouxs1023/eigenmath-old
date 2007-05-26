@@ -382,7 +382,7 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
         if (running)
 			break;
 		go_to_calc_mode();
-        printstr("version 112 eigenmath.sourceforge.net\n");
+        printstr("Version 130\n");
         update_display();
         break;
 
@@ -631,7 +631,7 @@ create_main_window(void)
     r.bottom = r.top + client_height + grow_dim;
 
     CreateNewWindow(6, WINATTR, &r, &gwindow);
-	SetWindowTitleWithCFString(gwindow, CFSTR("eigenmath.sourceforge.net"));
+//	SetWindowTitleWithCFString(gwindow, CFSTR("Eigenmath 130"));
 
     display_width = client_width - scroll_bar_dim;
     display_height = client_height - 2 * line_height - input_control_height - scroll_bar_dim;
