@@ -396,9 +396,9 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
         break;
 
     case 'open':
-	if (running)
-	    break;
-	go_to_edit_mode();
+		if (running)
+			break;
+		go_to_edit_mode();
         file_open();
         break;
 
@@ -406,6 +406,9 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
         break;
 
     case 'save':
+		if (running)
+			break;
+		go_to_edit_mode();
         if (*filename == 0)
             file_svas();
         else
@@ -413,6 +416,9 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
         break;
 
     case 'svas':
+		if (running)
+			break;
+		go_to_edit_mode();
         file_svas();
         break;
 
@@ -747,8 +753,7 @@ static void
 do_save(void)
 {
     FILE *f;
-    if (edit_mode);
-        get_script();
+	get_script();
     f = fopen(filename, "w");
     if (f == NULL)
         return;
