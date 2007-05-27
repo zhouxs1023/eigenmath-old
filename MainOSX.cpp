@@ -489,7 +489,7 @@ create_input_control(void)
     r.right -= BLUE_SHIM;
     r.bottom -= BLUE_SHIM - 1;
 
-    CreateEditTextControl(gwindow, &r, NULL, FALSE, FALSE, NULL, &inputcontrol);
+    CreateEditUnicodeTextControl(gwindow, &r, NULL, FALSE, NULL, &inputcontrol);
 }
 
 #define SHIM 2
