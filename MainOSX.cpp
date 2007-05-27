@@ -887,14 +887,22 @@ get_height_width(int *h, int *w, int font, char *s)
 //	         x    x+2
 
 void
-draw_point(int x, int y)
+draw_point(int x, int dx, int y, int dy)
 {
-    Rect r;
-    r.left = x - 1;
-    r.top = y - 1;
-    r.right = x + 2;
-    r.bottom = y + 2;
-    PaintRect(&r);
+	Rect r;
+	r.left = x + dx - 1;
+	r.top = y + dy - 1;
+	r.right = x + dx + 2;
+	r.bottom = y + dy + 2;
+	if (dx == 0)
+		r.left++;
+	if (dy == 0)
+		r.top++;
+	if (dx == 300)
+		r.right--;
+	if (dy == 300)
+		r.bottom--;
+	PaintRect(&r);
 }
 
 void
