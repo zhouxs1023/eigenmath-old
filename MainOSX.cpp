@@ -72,7 +72,7 @@ char *button_cmd[NBUTTONS - 2] = {
     "clear",
     "draw",
     "simplify",
-    "factor",
+    "float",
     "derivative",
     "integral",
 };
@@ -81,7 +81,7 @@ char *button_name[NBUTTONS] = {
     "Clear",
     "Draw",
     "Simplify",
-    "Factor",
+    "Float",
     "Derivative",
     "Integral",
     "Edit Script",
