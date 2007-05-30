@@ -3,23 +3,25 @@
 \newpage
 
 \noindent
-Let $P$ be a point on a surface parameterized by $x$ and $y$.
-In other words, let $P=(x,y,z)$ where $z=f(x,y)$.
-The tangent lines at $P$ define the edges of a tiny rectangle.
-The area of the rectangle is given by the magnitude of the cross product of the edges.
-Hence the area of the tiny rectangle is
-$$a=\left|{\partial P\over\partial x}\times{\partial P\over\partial y}\right|$$
-By summing over all $a$ we obtain the total surface area $A$.
-$$A=\int\!\!\!\int a\,dx\,dy$$
+Let $S$ be a surface parameterized by $x$ and $y$.
+That is, let $S=(x,y,z)$ where $z=f(x,y)$.
+The tangent lines at each point on $S$ define a tiny rectangle $da$.
+By the properties of the cross product we have
+$$da=\left|{\partial S\over\partial x}\times{\partial S\over\partial y}\right|\,dx\,dy$$
+It is convenient to introduce the following notation.
+$$a=\left|{\partial S\over\partial x}\times{\partial S\over\partial y}\right|$$
+By summing over all $da$ we obtain the total surface area $A$.
+Hence
+$$A=\int\!\!\!\int da=\int\!\!\!\int a\,dx\,dy$$
 The following example computes the surface area of a unit disk
 parallel to the $xy$ plane.
 
 \medskip
 \verb$z=2$
 
-\verb$P=(x,y,z)$
+\verb$S=(x,y,z)$
 
-\verb$a=abs(cross(d(P,x),d(P,y)))$
+\verb$a=abs(cross(d(S,x),d(S,y)))$
 
 \verb$defint(a,y,-sqrt(1-x^2),sqrt(1-x^2),x,-1,1)$
 
@@ -34,9 +36,9 @@ a unit square.
 \medskip
 \verb$z=x^2+2y$
 
-\verb$P=(x,y,z)$
+\verb$S=(x,y,z)$
 
-\verb$a=abs(cross(d(P,x),d(P,y)))$
+\verb$a=abs(cross(d(S,x),d(S,y)))$
 
 \verb$defint(a,x,0,1,y,0,1)$
 
@@ -51,7 +53,7 @@ for Eigenmath to solve the double integral.
 
 \noindent
 Find the area of the spiral ramp defined by\footnote{
-From {\it Multivariable Mathematics} by Williamson and Trotter, p. 598.}
+Williamson and Trotter, {\it Multivariable Mathematics,} p. 598.}
 $$S=\left(\matrix{u\cos v\cr u\sin v\cr v}\right),\qquad 0\le u\le1,\qquad 0\le v\le3\pi$$
 In this example, the coordinates $x$, $y$ and $z$ are all
 functions of an independent parameter space.
