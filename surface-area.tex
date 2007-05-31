@@ -5,14 +5,12 @@
 \noindent
 Let $S$ be a surface parameterized by $x$ and $y$.
 That is, let $S=(x,y,z)$ where $z=f(x,y)$.
-The tangent lines at each point on $S$ define a tiny rectangle $da$.
-By the properties of the cross product we have
-$$da=\left|{\partial S\over\partial x}\times{\partial S\over\partial y}\right|\,dx\,dy$$
-It is convenient to introduce the following notation.
+The tangent lines at a point on $S$ form a tiny parallelogram.
+The area $a$ of the parallelogram is given by the magnitude of the cross product.
 $$a=\left|{\partial S\over\partial x}\times{\partial S\over\partial y}\right|$$
-By summing over all $da$ we obtain the total surface area $A$.
+By summing over all the parallelograms we obtain the total surface area $A$.
 Hence
-$$A=\int\!\!\!\int da=\int\!\!\!\int a\,dx\,dy$$
+$$A=\int\!\!\!\int dA=\int\!\!\!\int a\,dx\,dy$$
 The following example computes the surface area of a unit disk
 parallel to the $xy$ plane.
 
