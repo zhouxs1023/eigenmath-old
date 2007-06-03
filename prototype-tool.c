@@ -1,8 +1,11 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
 #include <dirent.h>
+#include <string.h>
 
 int
-filter(const struct dirent *p)
+filter(struct dirent *p)
 {
 	int len;
 	len = strlen(p->d_name);

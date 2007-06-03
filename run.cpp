@@ -75,7 +75,8 @@ run(char *s)
 #ifdef LINUX
 			display(p2);
 #else
-			cmdisplay(p2);
+			push(p2);
+			cmdisplay();
 #endif
 		}
 	}

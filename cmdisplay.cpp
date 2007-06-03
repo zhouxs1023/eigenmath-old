@@ -1,10 +1,11 @@
+// eval and display args
+
 #include "stdafx.h"
 #include "defs.h"
 
 extern int text_width(int, char *);
 extern void get_height_width(int *, int *, int, char *s);
 
-static void displayf(void);
 static void emit_expr(U *);
 static void emit_term(U *);
 static void emit_multiply(U *, int);
@@ -29,7 +30,6 @@ static void emit_tensor(U *);
 static int isdenominator(U *);
 static void emit_flat_tensor(U *);
 static void emit_tensor_inner(U *, int, int *);
-static void emit_top_expr(U *);
 static void emit_index_function(U *);
 static void emit_factorial_function(U *);
 static void normy(void);
@@ -122,70 +122,59 @@ static struct {
 static int indx, level, xpos;
 
 void
-cmdisplay(U *p)
-{
-	indx = 0;
-	level = 0;
-	xpos = 0;
-	push(p);
-	displayf();
-	cmdisplay_done();
-}
-
-void
 eval_display(void)
 {
-	indx = 0;
-	level = 0;
-	xpos = 0;
+	p1 = cdr(p1);
 
-	// special form: display(symbol)
+	while (iscons(p1)) {
 
-	if (issymbol(cadr(p1)) && cadr(p1) != symbol(LAST) && cddr(p1) == symbol(NIL)) {
-		push(cadr(p1));
+		push(car(p1));
 		eval();
 		p2 = pop();
-		if (cadr(p1) != p2) {
+
+		// display single symbol as "symbol = result"
+
+		// but don't display "symbol = symbol"
+
+		if (issymbol(car(p1)) && car(p1) != p2) {
 			push_symbol(SETQ);
-			push(cadr(p1));
+			push(car(p1));
 			push(p2);
 			list(3);
-		} else
-			push(p2);
-		displayf();
-	} else {
-		p1 = cdr(p1);
-		while (iscons(p1)) {
-			push(car(p1));
-			eval();
 			p2 = pop();
-			push(p2);
-			displayf();
-			p1 = cdr(p1);
 		}
-	}
 
-	cmdisplay_done();
+		push(p2);
+		cmdisplay();
+
+		p1 = cdr(p1);
+	}
 
 	push(symbol(NIL));
 }
 
-static void
-displayf(void)
-{
-	save();
-	p1 = pop();
-	emit_top_expr(p1);
-	restore();
-}
-
-#define SEG 1000
-
-static void
-cmdisplay_done(void)
+void
+cmdisplay(void)
 {
 	int h, i, k, len, n, w, y;
 	unsigned char *buf;
+
+	save();
+
+	p1 = pop();
+
+	indx = 0;
+	level = 0;
+	xpos = 0;
+
+	if (car(p1) == symbol(SETQ)) {
+		emit_expr(cadr(p1));
+		emit_thick_space();
+		emit_char(SYMBOL_FONT, '=');
+		emit_thick_space();
+		emit_expr(caddr(p1));
+	} else
+		emit_expr(p1);
 
 	do_groups();
 
@@ -253,24 +242,8 @@ cmdisplay_done(void)
 	buf[k++] = 0; // end of buffer
 
 	shipout(buf, w, h);
-}
 
-static void
-emit_top_expr(U *p)
-{
-	if (car(p) == symbol(SETQ)) {
-		emit_expr(cadr(p));
-		emit_thick_space();
-		emit_char(SYMBOL_FONT, '=');
-		emit_thick_space();
-		emit_expr(caddr(p));
-		return;
-	}
-
-	if (istensor(p))
-		emit_tensor(p);
-	else
-		emit_expr(p);
+	restore();
 }
 
 static void

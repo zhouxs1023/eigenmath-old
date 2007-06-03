@@ -1,6 +1,4 @@
 
-// YASTControl.cpp
-
 // abs.cpp
 void eval_abs(void);
 void absval(void);
@@ -170,8 +168,8 @@ void eval_clock(void);
 void test_clock(void);
 
 // cmdisplay.cpp
-void cmdisplay(U *p);
 void eval_display(void);
+void cmdisplay(void);
 void test_cmdisplay(void);
 
 // coeff.cpp
