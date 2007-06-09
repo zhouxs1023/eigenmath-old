@@ -49,7 +49,7 @@ int n;
 
 	printf("\n\\beginsection %d.\n\n", n);
 
-	while (fgets(str, 256, f) != NULL && !isblank(str)) {
+	while (fgets(str, 256, f) != NULL && !yyblank(str)) {
 		remove_comment_delimiters();
 		printf("%s", str);
 	}
@@ -57,7 +57,7 @@ int n;
 	fclose(f);
 }
 
-isblank(s)
+yyblank(s)
 char *s;
 {
 	while (*s)
