@@ -1,18 +1,56 @@
 \newpage
 
 \noindent
-The following example demonstrates a technique for computing
-a line integral when the path is already parameterized.
-The task at hand is to compute\footnote{
-Kaplan, {\it Advanced Calculus,} p. 312.}
-$$\int_C z\,dx+x\,dy+y\,dz$$
-where $C$ is the path
-$$x=2t+1,\qquad y=t^2,\qquad z=1+t^3,\qquad 0\le t\le 1$$
-The main idea is that we can rewrite the integrand with the following substitutions.
-$$dx=\left({dx\over dt}\right)dt,\qquad
-dy=\left({dy\over dt}\right)dt,\qquad
-dz=\left({dz\over dt}\right)dt$$
-Therefore in Eigenmath we have
+Here are a few line integral examples.
+
+\medskip
+\noindent
+Evaluate $\int y^2\,dx$ along the straight
+line from $(0,0)$ to $(2,2)$.\footnote{Kaplan,
+{\it Advanced Calculus,} p. 278.}
+
+\medskip
+\verb$x=2t$
+
+\verb$y=2t$
+
+\verb$defint(y^2*d(x),t,0,1)$
+
+$$8\over3$$
+
+\medskip
+\noindent
+Evaluate $\int y\,dx$ along the straight line from
+$(2,1)$ to $(1,2)$.
+
+\medskip
+\verb$x=2-t$
+
+\verb$y=t+1$
+
+\verb$defint(y*d(x),t,0,1)$
+
+$$-{3\over2}$$
+
+\medskip
+\noindent
+Evaluate $\int x\,dy$ along the straight line from
+$(1,1)$ to $(2,1)$.
+
+\medskip
+\verb$x=t+1$
+
+\verb$y=1$
+
+\verb$defint(x*d(y),t,0,1)$
+
+$$0$$
+
+\medskip
+\noindent
+Evaluate $\int z\,dx+x\,dy+y\,dz$
+along the path
+$x=2t+1$, $y=t^2$, $z=1+t^3$, $0\le t\le 1$.\footnote{Ibid, p. 312.}
 
 \medskip
 \verb$x=2t+1$
@@ -23,8 +61,7 @@ Therefore in Eigenmath we have
 
 \verb$f=z*d(x,t)+x*d(y,t)+y*d(z,t)$
 
-\verb$I=integral(f,t)$
-
-\verb$eval(I,t,1)-eval(I,t,0)$
+\verb$defint(f,t,0,1)$
 
 $$163\over30$$
+
