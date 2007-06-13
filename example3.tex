@@ -1,0 +1,33 @@
+
+\newpage
+
+\section*{Example 3}
+
+For total energy $E$, kinetic energy $K$ and potential energy $V$ we have
+$$E=K+V$$
+
+\medskip
+\noindent
+The corresponding formula for a quantum harmonic oscillator is
+$$(2n+1)\psi=-{d^2\psi\over dx^2}+x^2\psi$$
+where $n$ is an integer and represents the quantization of energy values.
+The solution to the above equation is
+$$\psi(n,x)=\exp(-x^2/2)H_n(x)$$
+where $H_n(x)$ is the $n$th Hermite polynomial in $x$.
+The following Eigenmath code checks $E=K+V$ for $n=7$.
+
+\medskip
+\verb$n=7$
+
+\verb$psi=exp(-x^2/2)*hermite(x,n)$
+
+\verb$E=(2*n+1)*psi$
+
+\verb$K=-d(psi,x,x)$
+
+\verb$V=x^2*psi$
+
+\verb$E-K-V$
+
+$$0$$
+
