@@ -382,8 +382,7 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
         if (running)
 			break;
 		go_to_calc_mode();
-        printstr("This is version 130.\n");
-	printstr("Please go to Eigenmath.net to download the latest version of the user manual.\n");
+        printstr("This is version 130. The user manual is at eigenmath.net\n");
         update_display();
         break;
 

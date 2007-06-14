@@ -57,3 +57,5 @@ math : $(objects)
 	$(CXX) -o math $(objects) -lm
 
 $(objects) : defs.h prototypes.h
+
+selftest.o : selftest.h

@@ -7,6 +7,9 @@ static char *s[] = {
 
 	// static spherical metric
 
+	"clear",
+	"",
+
 	"gdd=((-exp(2*Phi(r)),0,0,0),(0,exp(2*Lambda(r)),0,0),(0,0,r^2,0),(0,0,0,r^2*sin(theta)^2))",
 	"",
 
@@ -80,6 +83,44 @@ static char *s[] = {
 
 	"defint(s,y,-sqrt(1-x^2),sqrt(1-x^2),x,-1,1)",
 	"1/48*pi",
+
+	// hydrogen wavefunction example
+
+	"clear",
+	"",
+
+	"laplacian(f)=1/r^2*d(r^2*d(f,r),r)+1/(r^2*sin(theta))*d(sin(theta)*d(f,theta),theta)+1/(r*sin(theta))^2*d(f,phi,phi)",
+	"",
+
+	"n=7",
+	"",
+
+	"l=3",
+	"",
+
+	"m=1",
+	"",
+
+	"R=r^l*exp(-r/n)*laguerre(2*r/n,n-l-1,2*l+1)",
+	"",
+
+	"Y=legendre(cos(theta),l,abs(m))*exp(i*m*phi)",
+	"",
+
+	"psi=R*Y",
+	"",
+
+	"E=psi/n^2",
+	"",
+
+	"K=laplacian(psi)",
+	"",
+
+	"V=2*psi/r",
+	"",
+
+	"circexp(sin(theta)*(E-K-V))",
+	"0",
 };
 
 void
