@@ -1,0 +1,119 @@
+
+\newpage
+
+\label{example2}
+
+\section*{Example 2}
+The curl of a vector function can be expressed in tensor form as
+$$\mathop{\rm curl}{\bf F}=\epsilon_{ijk}\,{\partial F_k\over\partial x_j}$$
+where $\epsilon_{ijk}$ is the Levi-Civita tensor.
+The following script demonstrates that this formula is equivalent
+to computing curl the old fashioned way.
+First, define $\epsilon_{ijk}$.
+
+\medskip
+{\tt
+epsilon=zero(3,3,3)
+
+epsilon[1,2,3]=1
+
+epsilon[2,3,1]=1
+
+epsilon[3,1,2]=1
+
+epsilon[3,2,1]=-1
+
+epsilon[1,3,2]=-1
+
+epsilon[2,1,3]=-1
+}
+
+\medskip
+\noindent
+Next, define a generic vector function $\bf F$ and
+then compute $A=\epsilon_{ijk}\,\partial F_k/\partial x_j$.
+The first summation is over $k$ which corresponds to indices 3 and 4.
+The second summation is over $j$ which (with $k$ out of the way)
+corresponds to indices 2 and 3.
+
+\medskip
+{\tt
+F=(FX(),FY(),FZ())
+
+A=outer(epsilon,d(F,(x,y,z)))
+
+A=contract(A,3,4)
+
+A=contract(A,2,3)
+}
+
+\medskip
+\noindent
+Now compute curl the old fashioned way and check for equality.
+
+\medskip
+{\tt
+B=(
+
+\ d(F[3],y)-d(F[2],z),
+
+\ d(F[1],z)-d(F[3],x),
+
+\ d(F[2],x)-d(F[1],y)
+
+)
+
+\medskip
+A-B
+}
+
+$$\left(\matrix{0\cr0\cr0}\right)$$
+
+\newpage
+
+\noindent
+The following is a variation on the previous script.
+The product $\epsilon_{ijk}\,\partial F_k/\partial x_j$
+is computed in just one line of code.
+In addition, there is an optimization.
+The outer product and the first contraction have been replaced with a
+dot product.
+
+\medskip
+\verb$F=(FX(),FY(),FZ())$
+
+\medskip
+\verb$epsilon=zero(3,3,3)$
+
+\verb$epsilon[1,2,3]=1$
+
+\verb$epsilon[2,3,1]=1$
+
+\verb$epsilon[3,1,2]=1$
+
+\verb$epsilon[3,2,1]=-1$
+
+\verb$epsilon[1,3,2]=-1$
+
+\verb$epsilon[2,1,3]=-1$
+
+\medskip
+\verb$A=contract(dot(epsilon,d(F,(x,y,z))),2,3)$
+
+\medskip
+\verb$B=($
+
+\verb$ d(F[3],y)-d(F[2],z),$
+
+\verb$ d(F[1],z)-d(F[3],x),$
+
+\verb$ d(F[2],x)-d(F[1],y)$
+
+\verb$)$
+
+\medskip
+\verb$--Are A and B equal? Subtract to find out.$
+
+\medskip
+\verb$A-B$
+
