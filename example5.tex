@@ -10,27 +10,25 @@ The following script computes how long it would take a Corvette to
 reach orbital velocity.
 
 \medskip
-\verb$vs=17000*"miles"/"hr"$
+\verb$vs=17000*"mile"/"hr"$
 
 \verb$ts=8*"min"/(60*"min"/"hr")$
 
-\verb$vc=60*"miles"/"hr"$
+\verb$as=vs/ts$
+
+\verb$as$
+
+\verb$vc=60*"mile"/"hr"$
 
 \verb$tc=4.5*"sec"/(3600*"sec"/"hr")$
 
-\verb$"Average acceleration of shuttle:"$
+\verb$ac=vc/tc$
 
-\verb$vs/ts$
-
-\verb$"Average acceleration of Corvette:"$
-
-\verb$vc/tc$
+\verb$ac$
 
 \verb$"Time for Corvette to reach orbital velocity:"$
 
-\verb$a=vc/tc$
-
-\verb$vs/a$
+\verb$vs/ac$
 
 \verb$last*60*"min"/"hr"$
 
@@ -39,13 +37,9 @@ reach orbital velocity.
 Here is the result when the script runs.
 
 \medskip
-\verb$Average acceleration of shuttle:$
+$$a_s={\hbox{127500 mile}\over(\hbox{hr})^2}$$
 
-$$\hbox{127500 miles}\over(\hbox{hr})^2$$
-
-\verb$Average acceleration of Corvette:$
-
-$$\hbox{48000 miles}\over(\hbox{hr})^2$$
+$$a_c={\hbox{48000 mile}\over(\hbox{hr})^2}$$
 
 \verb$Time for Corvette to reach orbital velocity:$
 
