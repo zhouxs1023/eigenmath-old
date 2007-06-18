@@ -1,0 +1,55 @@
+
+\newpage
+
+\section*{Example 5}
+
+The space shuttle accelerates from zero to 17{,}000 miles per hour
+in 8 minutes.
+A Corvette accelerates from zero to 60 miles per hour in 4.5 seconds.
+The following script computes how long it would take a Corvette to
+reach orbital velocity.
+
+\medskip
+\verb$vs=17000*"miles"/"hr"$
+
+\verb$ts=8*"min"/(60*"min"/"hr")$
+
+\verb$vc=60*"miles"/"hr"$
+
+\verb$tc=4.5*"sec"/(3600*"sec"/"hr")$
+
+\verb$"Average acceleration of shuttle:"$
+
+\verb$vs/ts$
+
+\verb$"Average acceleration of Corvette:"$
+
+\verb$vc/tc$
+
+\verb$"Time for Corvette to reach orbital velocity:"$
+
+\verb$a=vc/tc$
+
+\verb$vs/a$
+
+\verb$last*60*"min"/"hr"$
+
+\medskip
+\noindent
+Here is the result when the script runs.
+
+\medskip
+\verb$Average acceleration of shuttle:$
+
+$$\hbox{127500 miles}\over(\hbox{hr})^2$$
+
+\verb$Average acceleration of Corvette:$
+
+$$\hbox{48000 miles}\over(\hbox{hr})^2$$
+
+\verb$Time for Corvette to reach orbital velocity:$
+
+$$\hbox{0.354167 hr}$$
+
+$$\hbox{21.25 min}$$
+

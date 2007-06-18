@@ -183,6 +183,23 @@ $$f=\mathop{\rm sum}(k,0,9,a^k)$$
 \verb$f$
 $$f=1+a+a^2+a^3+a^4+a^5+a^6+a^7+a^8+a^9$$
 
+\newpage
+
+\noindent
+Quoted strings can be used to express units of measurement in a calculation.
+For example, the space shuttle accelerates from zero to
+17{,}000 miles per hour in 8 minutes.
+The average acceleration of the space shuttle is
+
+\medskip
+\verb$v=17000*"mile"/"hr"$
+
+\verb$t=8*"min"/(60*"min"/"hr")$
+
+\verb$v/t$
+
+$$\hbox{127500 mile}\over(\hbox{hr})^2$$
+
 \include{scripting}
 
 \newpage
@@ -1027,5 +1044,7 @@ See page \pageref{example2}.
 \include{example3}
 
 \include{example4}
+
+\include{example5}
 
 \end{document}
