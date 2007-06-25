@@ -7,7 +7,7 @@ integrals.
 
 \bigskip
 \noindent
-$\displaystyle{\int_C P\,dx+Q\,dy+R\,dz}$
+$\displaystyle{\oint_C P\,dx+Q\,dy+R\,dz}$
 $$=
 \int\!\!\!\int_S
 \left({\partial Q\over\partial x}-{\partial P\over\partial y}\right)\,dx\,dy
@@ -18,7 +18,12 @@ $$=
 $$
 
 \noindent
-Circuit $C$ is the boundary line around surface $S$.
+Curve $C$ is the perimeter around $S$.
+The theorem can be also be written as
+$$\oint_C {\bf F}\cdot d{\bf r}
+=\int\!\!\!\int_S\mathop{\rm curl}{\bf F}\cdot{\bf n}\,dS
+$$
+where ${\bf F}=(P,Q,R)$ and $d{\bf r}=(dx,dy,dz)$.
 In many cases, converting an integral according to
 Stokes' theorem can turn a difficult problem into an easy one.
 

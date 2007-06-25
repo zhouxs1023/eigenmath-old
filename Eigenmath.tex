@@ -71,7 +71,7 @@ $\displaystyle{\left(\matrix{a\cr b\cr c\cr}\right)}$ & & {\tt (a,b,c)} \\
 \\
 $\displaystyle{\left(\matrix{a&b\cr c&d\cr}\right)}$ & & {\tt ((a,b),(c,d))} \\
 \\
- & & {\tt T[1,2]} & {\it tensor component access} \\
+$T^{12}$ & & {\tt T[1,2]} & {\it tensor component access} \\
 \\
 $2\,\rm km$ & & {\tt 2*"km"} & {\it units of measure should be quoted} \\
 \end{tabular}
@@ -589,7 +589,7 @@ $${1\over8}\pi$$
 
 \include{surface-integral}
 
-\include{stokes-thm}
+%\include{stokes-thm}
 
 \newpage
 
@@ -1034,6 +1034,8 @@ $$\left(\matrix{1&0\cr0&1\cr}\right)$$
 zero($i,j,\ldots$) returns a null tensor with dimensions $i$, $j$, etc.
 Useful for creating a tensor and then setting the component values.
 See page \pageref{example2}.
+
+%\include{how-it-works}
 
 \newpage
 
