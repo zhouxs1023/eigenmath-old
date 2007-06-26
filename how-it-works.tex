@@ -3,6 +3,7 @@
 Eigenmath is written in the C programming language.
 Its central data structure is
 an array of one million 16-byte blocks of memory.
+
 \begin{verbatim}
          _______ 
       0 |_______|  \
@@ -15,6 +16,9 @@ an array of one million 16-byte blocks of memory.
         |_______|   |
 999,999 |_______|  /
 \end{verbatim}
+
+\medskip
+\noindent
 If necessary, Eigenmath will allocate additional memory in increments of one
 million blocks.
 The maximum amount of memory allocated is 160 million bytes,
@@ -27,6 +31,7 @@ Each block can contain different types of information.
 Blocks are linked together to store mathematical expressions.
 For example, the following shows how the expression
 {\it A times B plus C} is stored.
+
 \begin{verbatim}
  _______      _______                                _______
 |CONS   |--->|CONS   |----------------------------->|CONS   |
@@ -43,6 +48,9 @@ For example, the following shows how the expression
              |       |    |A      |    |B      |
              |_______|    |_______|    |_______|
 \end{verbatim}
+
+\medskip
+\noindent
 Only CONS blocks contain pointers to other blocks.
 Every other kind of block is a terminal node.
 Fundamentally, this is the same as the S-expression data structure invented by
@@ -54,6 +62,7 @@ LISP programming language.
 S-expressions differ from linked lists in a significant way.
 In a linked list, blocks contain both data and pointers simultaneously.
 For example, this is how one might store {\it A times B} using a linked list.
+
 \begin{verbatim}
  _______       _______       _______
 |       |---->|       |---->|       |
@@ -61,4 +70,17 @@ For example, this is how one might store {\it A times B} using a linked list.
 |       |     |A      |     |B      |
 |_______|     |_______|     |_______|
 \end{verbatim}
+
+\medskip
+\noindent
+Now, suppose we want to store an additional expression, {\it A times C.}
+Using a linked list, we have to make copies of the TIMES and SYMBOL-A blocks
+because of the pointer data.
+If we were to rewrite the pointer data we would destroy the original
+expression.
+However, with S-expressions all we have to do is allocate new CONS
+blocks to create new expressions.
+With S-expressions, terminal nodes never have to be copied.
+We can have a thousand different expressions involving SYMBOL-A and there
+will only be a single block containing the data SYMBOL-A.
 
