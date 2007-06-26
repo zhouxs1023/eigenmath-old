@@ -1,0 +1,46 @@
+\chapter{How it works}
+
+Eigenmath is written in the C programming language.
+Its central data structure is
+an array of one million 16-byte blocks of memory.
+\begin{verbatim}
+         _______ 
+      0 |_______|  \
+      1 |_______|   |
+      2 |_______|   |
+        |       |   |
+        .       .   | 16,000,000 bytes
+        .       .   |
+        .       .   |
+        |_______|   |
+999,999 |_______|  /
+\end{verbatim}
+If necessary, Eigenmath will allocate additional memory in increments of one
+million blocks.
+The maximum amount of memory allocated is 160 million bytes,
+or ten times what is shown above.
+
+\newpage
+
+This data structure is fundamentally different from a normal linked
+list.
+
+\begin{verbatim}
+
+For example, (a b + c) is built like this:
+
+ _______      _______                                _______
+|CONS   |--->|CONS   |----------------------------->|CONS   |
+|       |    |       |                              |       |
+|_______|    |_______|                              |_______|
+    |            |                                      |
+ ___v___      ___v___      _______      _______      ___v___
+|ADD    |    |CONS   |--->|CONS   |--->|CONS   |    |SYM c  |
+|       |    |       |    |       |    |       |    |       |
+|_______|    |_______|    |_______|    |_______|    |_______|
+                 |            |            |
+              ___v___      ___v___      ___v___
+             |MUL    |    |SYM a  |    |SYM b  |
+             |       |    |       |    |       |
+             |_______|    |_______|    |_______|
+\end{verbatim}
