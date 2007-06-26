@@ -22,25 +22,29 @@ or ten times what is shown above.
 
 \newpage
 
-This data structure is fundamentally different from a normal linked
-list.
-
+\noindent
+Each block can contain different types of information.
+Blocks are linked together to store mathematical expressions.
+For example, the following shows how the expression
+{\it A times B plus C} is stored.
 \begin{verbatim}
-
-For example, (a b + c) is built like this:
-
  _______      _______                                _______
 |CONS   |--->|CONS   |----------------------------->|CONS   |
 |       |    |       |                              |       |
 |_______|    |_______|                              |_______|
     |            |                                      |
  ___v___      ___v___      _______      _______      ___v___
-|ADD    |    |CONS   |--->|CONS   |--->|CONS   |    |SYM c  |
-|       |    |       |    |       |    |       |    |       |
+|ADD    |    |CONS   |--->|CONS   |--->|CONS   |    |SYMBOL |
+|       |    |       |    |       |    |       |    |C      |
 |_______|    |_______|    |_______|    |_______|    |_______|
                  |            |            |
               ___v___      ___v___      ___v___
-             |MUL    |    |SYM a  |    |SYM b  |
-             |       |    |       |    |       |
+             |TIMES  |    |SYMBOL |    |SYMBOL |
+             |       |    |A      |    |B      |
              |_______|    |_______|    |_______|
 \end{verbatim}
+Only CONS blocks contain pointers to other blocks.
+Every other kind of block is a terminal node.
+Fundamentally, this is the same as the S-expression data structure invented by
+John McCarthy for the
+LISP programming language.
