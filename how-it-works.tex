@@ -48,3 +48,17 @@ Every other kind of block is a terminal node.
 Fundamentally, this is the same as the S-expression data structure invented by
 John McCarthy for the
 LISP programming language.
+
+\medskip
+\noindent
+S-expressions differ from linked lists in a significant way.
+In a linked list, blocks contain both data and pointers simultaneously.
+For example, this is how one might store {\it A times B} using a linked list.
+\begin{verbatim}
+ _______       _______       _______
+|       |---->|       |---->|       |
+|TIMES  |     |SYMBOL |     |SYMBOL |
+|       |     |A      |     |B      |
+|_______|     |_______|     |_______|
+\end{verbatim}
+
