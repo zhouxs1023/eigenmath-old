@@ -27,10 +27,39 @@ or ten times what is shown above.
 \newpage
 
 \noindent
-Each block can contain different types of information.
+Each block is a union of structs.
+The unsigned char $k$ identifies what type of information is stored in the
+block.
+
+\medskip
+\begin{verbatim}
+typedef struct U {
+     union {
+          struct {
+               struct U *car;          // pointing down
+               struct U *cdr;          // pointing right
+          } cons;
+          struct {
+               struct U *binding;      // symbol's value binding
+               struct U *arglist;      // formal argument list
+          } sym;
+          char *str;
+          struct tensor *tensor;
+          struct {
+               unsigned int *a, *b;    // rational number a over b
+          } q;
+          double d;
+     } u;
+     unsigned char k, tag;
+} U;
+\end{verbatim}
+
+\newpage
+
+\noindent
 Blocks are linked together to store mathematical expressions.
 For example, the following shows how the expression
-{\it A times B plus C} is stored.
+$A\times B+C$ is stored.
 
 \begin{verbatim}
  _______      _______                                _______
@@ -53,34 +82,39 @@ For example, the following shows how the expression
 \noindent
 Only CONS blocks contain pointers to other blocks.
 Every other kind of block is a terminal node.
-Fundamentally, this is the same as the S-expression data structure invented by
-John McCarthy for the
-LISP programming language.
+Fundamentally, this approach is a subset of the S-expression data structure
+invented by John McCarthy for the LISP programming language.
 
-\medskip
+\newpage
+
 \noindent
-S-expressions differ from linked lists in a significant way.
+Confining pointers to CONS blocks differs from the more traditional linked
+list data structure in a significant way.
 In a linked list, blocks contain both data and pointers simultaneously.
-For example, this is how one might store {\it A times B} using a linked list.
+For example, this is how one might store $A+B$ using a linked list.
 
 \begin{verbatim}
  _______       _______       _______
 |       |---->|       |---->|       |
-|TIMES  |     |SYMBOL |     |SYMBOL |
+|ADD    |     |SYMBOL |     |SYMBOL |
 |       |     |A      |     |B      |
 |_______|     |_______|     |_______|
 \end{verbatim}
 
 \medskip
 \noindent
-Now, suppose we want to store an additional expression, {\it A times C.}
-Using a linked list, we have to make copies of the TIMES and SYMBOL-A blocks
+Now, suppose we want to store an additional expression, $A+C$.
+Using a linked list, we have to make copies of the ADD and SYMBOL ``A'' blocks
 because of the pointer data.
 If we were to rewrite the pointer data we would destroy the original
 expression.
 However, with S-expressions all we have to do is allocate new CONS
 blocks to create new expressions.
-With S-expressions, terminal nodes never have to be copied.
-We can store a thousand different expressions involving the symbol $A$ and there
-will only be a single SYMBOL-A block.
+We never have to copy data.
+We can store thousands of expressions with CONS
+blocks all pointing to a common SYMBOL ``A'' block.
+
+\medskip
+\noindent
+TBD
 
