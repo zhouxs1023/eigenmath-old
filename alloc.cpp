@@ -67,8 +67,6 @@ gc(void)
 
 	// untag what's used
 
-	untag_symbols();
-
 	untag(p1);
 	untag(p2);
 	untag(p3);
@@ -81,6 +79,11 @@ gc(void)
 	untag(one);
 	untag(zero);
 	untag(imaginaryunit);
+
+	for (i = 0; i < NSYM; i++) {
+		untag(binding[i]);
+		untag(arglist[i]);
+	}
 
 	for (i = 0; i < tos; i++)
 		untag(stack[i]);
@@ -119,34 +122,28 @@ gc(void)
 }
 
 void
-untag_symbols(void)
-{
-	int i;
-	for (i = 0; i < NSYM; i++) {
-		untag(binding[i]);
-		untag(arglist[i]);
-	}
-}
-
-void
 untag(U *p)
 {
 	int i;
 
-	while (iscons(p) && p->tag == 1) {
-		p->tag = 0;
-		untag(p->u.cons.car);
-		p = p->u.cons.cdr;
+	if (iscons(p)) {
+		do {
+			if (p->tag == 0)
+				return;
+			p->tag = 0;
+			untag(p->u.cons.car);
+			p = p->u.cons.cdr;
+		} while (iscons(p));
+		untag(p);
+		return;
 	}
 
-	if (p->tag == 0)
-		return;
-
-	p->tag = 0;
-
-	if (istensor(p)) {
-		for (i = 0; i < p->u.tensor->nelem; i++)
-			untag(p->u.tensor->elem[i]);
+	if (p->tag) {
+		p->tag = 0;
+ 		if (istensor(p)) {
+			for (i = 0; i < p->u.tensor->nelem; i++)
+				untag(p->u.tensor->elem[i]);
+		}
 	}
 }
 

@@ -12,10 +12,6 @@ selftest(void)
 	if (setjmp(jbuf))
 		return;
 
-	// undefine "bake"
-
-	set_binding(symbol(BAKE), symbol(BAKE));
-
 #if SELFTEST
 
 	// test bignum arithmetic

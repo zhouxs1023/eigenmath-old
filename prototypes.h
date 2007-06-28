@@ -25,7 +25,6 @@ void test_adj(void);
 U * alloc(void);
 U * alloc_tensor(int nelem);
 void gc(void);
-void untag_symbols(void);
 void untag(U *p);
 void alloc_mem(void);
 void print_mem_info(void);
