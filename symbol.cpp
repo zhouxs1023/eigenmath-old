@@ -2,10 +2,6 @@
 
 #include "stdafx.h"
 #include "defs.h"
-#define NSYM 1000
-U symtab[NSYM];
-char *printname[NSYM];
-int nsym; // number of symbols in table;
 
 // put symbol at index n
 
@@ -14,10 +10,7 @@ std_symbol(char *s, int n)
 {
 	U *p;
 	p = symtab + n;
-	p->k = SYM;
-	p->u.sym.binding = p;
-	p->u.sym.arglist = symbol(NIL);
-	printname[n] = s;
+	p->u.sym.printname = s;
 }
 
 // symbol lookup, create symbol if need be
@@ -27,17 +20,16 @@ usr_symbol(char *s)
 {
 	int i;
 	U *p;
-	for (i = 0; i < nsym; i++)
-		if (strcmp(s, printname[i]) == 0)
+	for (i = 0; i < NSYM; i++) {
+		if (symtab[i].u.sym.printname == 0)
+			break;
+		if (strcmp(s, symtab[i].u.sym.printname) == 0)
 			return symtab + i;
-	if (nsym == NSYM)
+	}
+	if (i == NSYM)
 		stop("symbol table overflow");
-	p = symtab + nsym;
-	printname[nsym] = strdup(s);
-	nsym++;
-	p->k = SYM;
-	p->u.sym.binding = p;
-	p->u.sym.arglist = symbol(NIL);
+	p = symtab + i;
+	p->u.sym.printname = strdup(s);
 	return p;
 }
 
@@ -46,9 +38,45 @@ usr_symbol(char *s)
 char *
 get_printname(U *p)
 {
-	int n;
-	n = (int) (p - symtab);
-	return printname[n];
+	if (p->k != SYM)
+		stop("symbol error");
+	return p->u.sym.printname;
+}
+
+// clears the arglist too
+
+void
+set_binding(U *p, U *q)
+{
+	if (p->k != SYM)
+		stop("symbol error");
+	binding[p - symtab] = q;
+	arglist[p - symtab] = symbol(NIL);
+}
+
+U *
+get_binding(U *p)
+{
+	if (p->k != SYM)
+		stop("symbol error");
+	return binding[p - symtab];
+}
+
+void
+set_binding_and_arglist(U *p, U *q, U *r)
+{
+	if (p->k != SYM)
+		stop("symbol error");
+	binding[p - symtab] = q;
+	arglist[p - symtab] = r;
+}
+
+U *
+get_arglist(U *p)
+{
+	if (p->k != SYM)
+		stop("symbol error");
+	return arglist[p - symtab];
 }
 
 // get symbol's number from ptr
@@ -56,6 +84,8 @@ get_printname(U *p)
 int
 symnum(U *p)
 {
+	if (p->k != SYM)
+		stop("symbol error");
 	return (int) (p - symtab);
 }
 
@@ -71,10 +101,8 @@ void
 clear_symbols(void)
 {
 	int i;
-	U *p;
-	for (i = 0; i < nsym; i++) {
-		p = symtab + i;
-		p->u.sym.binding = p;
-		p->u.sym.arglist = symbol(NIL);
+	for (i = 0; i < NSYM; i++) {
+		binding[i] = symtab + i;
+		arglist[i] = symbol(NIL);
 	}
 }

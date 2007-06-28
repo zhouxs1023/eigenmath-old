@@ -12,7 +12,9 @@ selftest(void)
 	if (setjmp(jbuf))
 		return;
 
-	symbol(BAKE)->u.sym.binding = symbol(BAKE);
+	// undefine "bake"
+
+	set_binding(symbol(BAKE), symbol(BAKE));
 
 #if SELFTEST
 

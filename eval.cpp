@@ -52,7 +52,7 @@ eval_sym(void)
 		return;
 	}
 
-	p1 = p1->u.sym.binding;
+	p1 = get_binding(p1);
 
 	if (draw_flag == 0) {
 		push(p1);
@@ -160,7 +160,6 @@ eval_cons(void)
 	case FLOATF:		eval_float();		break;
 	case FLOOR:		eval_floor();		break;
 	case FOR:		eval_for();		break;
-	case FOURIER:		eval_fourier();		break;
 	case GAMMA:		eval_gamma();		break;
 	case GCD:		eval_gcd();		break;
 	case HEAVISIDE:		eval_heaviside();	break;
@@ -171,7 +170,6 @@ eval_cons(void)
 	case INNER:		eval_inner();		break;
 	case INTEGRAL:		eval_integral();	break;
 	case INV:		eval_inv();		break;
-	case INVFOURIER:	eval_invfourier();	break;
 	case INVG:		eval_invg();		break;
 	case ISINTEGER:		eval_isinteger();	break;
 	case ISPRIME:		eval_isprime();		break;
@@ -210,7 +208,6 @@ eval_cons(void)
 	case STOP:		eval_stop();		break;
 	case SUBST:		eval_subst();		break;
 	case SUM:		eval_sum();		break;
-	case SUMMARIZE:		eval_summarize();	break;
 	case TAB:		eval_tab();		break;
 	case TAN:		eval_tan();		break;
 	case TANH:		eval_tanh();		break;
@@ -239,7 +236,7 @@ setup(void)
 	trigmode = 0;
 
 	p = symbol(AUTOEXPAND);
-	if (iszero(p->u.sym.binding))
+	if (iszero(get_binding(p)))
 		expanding = 0;
 	else
 		expanding = 1;
@@ -622,8 +619,7 @@ setq_indexed(void)
 	}
 	set_component(tos - h);
 	p3 = pop();
-	p4->u.sym.binding = p3;
-	p4->u.sym.arglist = symbol(NIL);
+	set_binding(p4, p3);
 	push(symbol(NIL));
 }
 
@@ -646,8 +642,7 @@ eval_setq(void)
 	push(caddr(p1));
 	eval();
 	p2 = pop();
-	cadr(p1)->u.sym.binding = p2;
-	cadr(p1)->u.sym.arglist = symbol(NIL);
+	set_binding(cadr(p1), p2);
 
 	push(symbol(NIL));
 }

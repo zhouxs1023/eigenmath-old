@@ -4,6 +4,7 @@
 void
 init(void)
 {
+	int i;
 	static int flag;
 
 	if (flag)
@@ -16,8 +17,6 @@ init(void)
 	little_endian = 1;
 	little_endian = *((unsigned char *) &little_endian);
 
-	nsym = USR_SYMBOLS;
-
 	p1 = symbol(NIL);
 	p2 = symbol(NIL);
 	p3 = symbol(NIL);
@@ -27,7 +26,11 @@ init(void)
 	p7 = symbol(NIL);
 	p8 = symbol(NIL);
 
-	table_of_fourier = symbol(NIL);
+	for (i = 0; i < NSYM; i++) {
+		symtab[i].k = SYM;
+		binding[i] = symtab + i;
+		arglist[i] = symbol(NIL);
+	}
 
 	std_symbol("abs", ABS);
 	std_symbol("add", ADD);
@@ -90,7 +93,6 @@ init(void)
 	std_symbol("float", FLOATF);
 	std_symbol("floor", FLOOR);
 	std_symbol("for", FOR);
-	std_symbol("fourier", FOURIER);
 	std_symbol("Gamma", GAMMA);
 	std_symbol("gcd", GCD);
 	std_symbol("heaviside", HEAVISIDE);
@@ -101,7 +103,6 @@ init(void)
 	std_symbol("inner", INNER);
 	std_symbol("integral", INTEGRAL);
 	std_symbol("inv", INV);
-	std_symbol("invfourier", INVFOURIER);
 	std_symbol("invg", INVG);
 	std_symbol("isinteger", ISINTEGER);
 	std_symbol("isprime", ISPRIME);
@@ -140,7 +141,6 @@ init(void)
 	std_symbol("stop", STOP);
 	std_symbol("subst", SUBST);
 	std_symbol("sum", SUM);
-	std_symbol("summarize", SUMMARIZE);
 	std_symbol("tab", TAB);
 	std_symbol("tan", TAN);
 	std_symbol("tanh", TANH);
@@ -192,12 +192,6 @@ init(void)
 	std_symbol("$C4", C4);
 	std_symbol("$C5", C5);
 	std_symbol("$C6", C6);
-
-	meta_a = usr_symbol("$a");
-	meta_b = usr_symbol("$b");
-	meta_c = usr_symbol("$c");
-	meta_n = usr_symbol("$n");
-	meta_x = usr_symbol("$x");
 
 	// set up for evaluation
 

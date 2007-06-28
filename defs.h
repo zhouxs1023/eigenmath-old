@@ -1,5 +1,9 @@
 #define SELFTEST 1
 
+// size of the symbol table
+
+#define NSYM 1000
+
 // Symbolic expressions are built by connecting U structs.
 //
 // For example, (a b + c) is built like this:
@@ -26,8 +30,7 @@ typedef struct U {
 			struct U *cdr;		// pointing right
 		} cons;
 		struct {
-			struct U *binding;	// symbol's value binding
-			struct U *arglist;	// formal argument list
+			char *printname;
 		} sym;
 		char *str;
 		struct tensor *tensor;
@@ -117,7 +120,6 @@ enum {
 	FLOATF,
 	FLOOR,
 	FOR,
-	FOURIER,
 	GAMMA,
 	GCD,
 	HEAVISIDE,
@@ -128,7 +130,6 @@ enum {
 	INNER,
 	INTEGRAL,
 	INV,
-	INVFOURIER,
 	INVG,
 	ISINTEGER,
 	ISPRIME,
@@ -167,7 +168,6 @@ enum {
 	STOP,
 	SUBST,
 	SUM,
-	SUMMARIZE,
 	TAB,
 	TAN,
 	TANH,
@@ -260,9 +260,6 @@ struct text_metric {
 	int ascent, descent, width;
 };
 
-#define bind(x,y) symbol(x)->u.sym.binding = y
-#define push_binding(p) push((p)->u.sym.binding)
-#define pop_binding(p) (p)->u.sym.binding = pop()
 #define symbol(x) (symtab + (x))
 #define iscons(p) ((p)->k == CONS)
 #define isrational(p) ((p)->k == NUM)
@@ -320,21 +317,21 @@ extern int esc_flag;
 extern int draw_flag;
 extern int mtotal;
 extern int little_endian;
-extern int nsym;
 extern int trigmode;
 extern char logbuf[];
 extern char program_buf[];
 extern U symtab[];
+extern U *binding[];
+extern U *arglist[];
 extern U *stack[];
 extern U **frame;
 extern U *p1, *p2, *p3, *p4, *p5, *p6, *p7, *p8;
 extern U *zero, *one, *imaginaryunit;
-extern U *table_of_fourier;
-extern U *meta_a;
-extern U *meta_b;
-extern U *meta_c;
-extern U *meta_n;
-extern U *meta_x;
+//extern U *meta_a;
+//extern U *meta_b;
+//extern U *meta_c;
+//extern U *meta_n;
+//extern U *meta_x;
 extern U symtab[];
 extern char out_buf[];
 extern int out_count;

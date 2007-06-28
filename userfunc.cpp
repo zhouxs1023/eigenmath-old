@@ -13,6 +13,7 @@
 #define NAME p2
 #define ARGS p3
 #define BODY p4
+#define TMP p5
 
 void
 define_user_function(void)
@@ -26,8 +27,7 @@ define_user_function(void)
 	if (!issymbol(NAME))
 		stop("in function definition, user symbol expected for function name");
 
-	NAME->u.sym.binding = BODY;
-	NAME->u.sym.arglist = ARGS;
+	set_binding_and_arglist(NAME, BODY, ARGS);
 
 	// do eval, maybe
 
@@ -35,24 +35,25 @@ define_user_function(void)
 
 		// remove eval
 
-		NAME->u.sym.binding = cadr(BODY);
+		set_binding_and_arglist(NAME, cadr(BODY), ARGS);
 
 		// evaluate the function definition using quoted symbols
 
 		push(NAME);
-		n = length(ARGS);
+		TMP = ARGS;
+		n = length(TMP);
 		for (i = 0; i < n; i++) {
 			push_symbol(QUOTE);
-			push(car(ARGS));
+			push(car(TMP));
 			list(2);
-			ARGS = cdr(ARGS);
+			TMP = cdr(TMP);
 		}
 		list(n + 1);
 		eval();
 
 		// new binding
 
-		NAME->u.sym.binding = pop();
+		set_binding_and_arglist(NAME, pop(), ARGS);
 	}
 
 	push(symbol(NIL));	// return value
@@ -80,14 +81,14 @@ eval_user_function(void)
 	// special case for "d"
 
 	if (FNAME == symbol(SYMBOL_D)
-	&& symbol(SYMBOL_D)->u.sym.arglist == symbol(NIL)) {
+	&& get_arglist(symbol(SYMBOL_D)) == symbol(NIL)) {
 		eval_derivative();
 		return;
 	}
 
 	// undefined function?
 
-	if (FNAME->u.sym.binding == FNAME) {
+	if (get_binding(FNAME) == FNAME) {
 		push(FNAME);
 		while (iscons(ACTUAL_ARGS)) {
 			push(car(ACTUAL_ARGS));
@@ -100,13 +101,13 @@ eval_user_function(void)
 
 	// argument substitution
 
-	push(FNAME->u.sym.binding);
+	push(get_binding(FNAME));
 
 	// replace formal args with placeholders to avoid glare
 	// f.e. formal args are A,B and actual args are B,A
 	// A gets replaced with B, then all B are replaced with A
 
-	FORMAL_ARGS = FNAME->u.sym.arglist;
+	FORMAL_ARGS = get_arglist(FNAME);
 	ACTUAL_ARGS = cdr(p1);
 	while (iscons(FORMAL_ARGS) && iscons(ACTUAL_ARGS)) {
 		push(car(FORMAL_ARGS));
@@ -120,7 +121,7 @@ eval_user_function(void)
 
 	// replace placeholders with actual args
 
-	FORMAL_ARGS = FNAME->u.sym.arglist;
+	FORMAL_ARGS = get_arglist(FNAME);
 	ACTUAL_ARGS = cdr(p1);
 	while (iscons(FORMAL_ARGS) && iscons(ACTUAL_ARGS)) {
 		push(symbol(SECRETX));

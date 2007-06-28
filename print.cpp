@@ -494,9 +494,9 @@ void
 print_function_definition(U *p)
 {
 	print_str(get_printname(p));
-	print_arg_list(cadr(p->u.sym.binding));
+	print_arg_list(cadr(get_binding(p)));
 	print_str("=");
-	print_expr(caddr(p->u.sym.binding));
+	print_expr(caddr(get_binding(p)));
 	print_str("\n");
 }
 

@@ -69,7 +69,7 @@ run(char *s)
 			continue;
 		}
 
-		if (equal(symbol(TTY)->u.sym.binding, one) || test_flag) // tty mode?
+		if (equal(get_binding(symbol(TTY)), one) || test_flag) // tty mode?
 			printline(p2);
 		else {
 #ifdef LINUX
@@ -143,10 +143,9 @@ top_level_eval(void)
 
 	// update "last"
 
-	symbol(LAST)->u.sym.binding = p2;
-	symbol(LAST)->u.sym.arglist = symbol(NIL);
+	set_binding(symbol(LAST), p2);
 
-	if (!iszero(symbol(BAKE)->u.sym.binding)) {
+	if (!iszero(get_binding(symbol(BAKE)))) {
 		push(p2);
 		bake();
 		p2 = pop();
@@ -163,13 +162,13 @@ top_level_eval(void)
 	if ((p1 == symbol(SYMBOL_I) || p1 == symbol(SYMBOL_J))
 	&& isimaginaryunit(p2))
 		;
-	else if (isimaginaryunit(symbol(SYMBOL_J)->u.sym.binding)) {
+	else if (isimaginaryunit(get_binding(symbol(SYMBOL_J)))) {
 		push(p2);
 		push(imaginaryunit);
 		push_symbol(SYMBOL_J);
 		subst();
 		p2 = pop();
-	} else if (isimaginaryunit(symbol(SYMBOL_I)->u.sym.binding)) {
+	} else if (isimaginaryunit(get_binding(symbol(SYMBOL_I)))) {
 		push(p2);
 		push(imaginaryunit);
 		push_symbol(SYMBOL_I);

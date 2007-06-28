@@ -55,14 +55,10 @@ eval_eigen(void)
 	eigen(EIGEN);
 
 	p1 = usr_symbol("D");
-
-	p1->u.sym.binding = p2;
-	p1->u.sym.arglist = symbol(NIL);
+	set_binding(p1, p2);
 
 	p1 = usr_symbol("Q");
-
-	p1->u.sym.binding = p3;
-	p1->u.sym.arglist = symbol(NIL);
+	set_binding(p1, p3);
 
 	push(symbol(NIL));
 }

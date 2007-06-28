@@ -42,11 +42,11 @@ transform(char **s)
 
 	// save symbol context in case eval(B) below calls transform
 
-	push_binding(symbol(METAA));
-	push_binding(symbol(METAB));
-	push_binding(symbol(METAX));
+	push(get_binding(symbol(METAA)));
+	push(get_binding(symbol(METAB)));
+	push(get_binding(symbol(METAX)));
 
-	bind(METAX, X);
+	set_binding(symbol(METAX), X);
 
 	// put constants in F(X) on the stack
 
@@ -82,9 +82,9 @@ transform(char **s)
 	} else
 		p1 = symbol(NIL);
 
-	pop_binding(symbol(METAX));
-	pop_binding(symbol(METAB));
-	pop_binding(symbol(METAA));
+	set_binding(symbol(METAX), pop());
+	set_binding(symbol(METAB), pop());
+	set_binding(symbol(METAA), pop());
 
 	push(p1);
 
@@ -98,9 +98,9 @@ f_equals_a(int h)
 {
 	int i, j;
 	for (i = h; i < tos; i++) {
-		bind(METAA, stack[i]);
+		set_binding(symbol(METAA), stack[i]);
 		for (j = h; j < tos; j++) {
-			bind(METAB, stack[j]);
+			set_binding(symbol(METAB), stack[j]);
 			p1 = C;				// are conditions ok?
 			while (iscons(p1)) {
 				push(car(p1));

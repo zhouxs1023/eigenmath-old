@@ -425,11 +425,6 @@ void eval_for(void);
 void for_function(void);
 void test_for(void);
 
-// fourier.cpp
-void eval_fourier(void);
-void fourier(void);
-void test_fourier(void);
-
 // gamma.cpp
 void eval_gamma(void);
 void gamma(void);
@@ -496,10 +491,6 @@ void inv(void);
 void invg(void);
 void yyinvg(void);
 void decomp(int n);
-
-// invfourier.cpp
-void eval_invfourier(void);
-void invfourier(void);
 
 // is.cpp
 int iszero(U *p);
@@ -862,16 +853,14 @@ void eval_sum(void);
 void sum(void);
 void test_sum(void);
 
-// summarize.cpp
-void eval_summarize(void);
-void summarize(void);
-void yysummarize(void);
-void symbolize(void);
-
 // symbol.cpp
 void std_symbol(char *s, int n);
 U * usr_symbol(char *s);
 char * get_printname(U *p);
+void set_binding(U *p, U *q);
+U * get_binding(U *p);
+void set_binding_and_arglist(U *p, U *q, U *r);
+U * get_arglist(U *p);
 int symnum(U *p);
 void push_symbol(int k);
 void clear_symbols(void);
