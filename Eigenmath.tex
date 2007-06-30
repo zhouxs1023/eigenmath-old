@@ -1,81 +1,20 @@
 \documentclass[12pt]{book}
 \title{Eigenmath Manual}
 \author{George Weigt}
-\date{June 28, 2007}
+\date{June 30, 2007}
 \usepackage{graphicx}
 
 \begin{document}
+
 \maketitle
+
+\include{syntax}
+
 \tableofcontents
 
 \newpage
 
-\chapter{The Big Picture}
-In simplest terms, when you type something into Eigenmath,
-it gets evaluated and typically a result is printed.
-For a first example, try entering $1/2+1/3$.
-
-\medskip
-\verb$1/2+1/3$
-$$5\over6$$
-
-\medskip
-\noindent
-As you can see, Eigenmath uses rational arithmetic for numerical calculations.
-You can enter $float$ to convert the result to a floating point number.
-
-\medskip
-\verb$float$
-$$0.833333$$
-
-\medskip
-\noindent
-There are a number of features for doing symbolic calculations.
-Here is a preview.
-
-\medskip
-\verb$integral(log(x))$
-$$-x+x\log(x)$$
-
-\newpage
-
-\noindent
-This table summarizes Eigenmath's input syntax.
-The symbol {\tt\char32} indicates a mandatory space.
-
-\begin{center}
-\begin{tabular}{clll}
-$-a$ & & {\tt -a} \\
-\\
-$a+b$ & & {\tt a+b} \\
-\\
-$a-b$ & & {\tt a-b} \\
-\\
-$ab$ & & {\tt a*b} & {\tt a{\char32}b} \hspace{10pt} {\it alternate form}\\
-\\
-$\displaystyle{a\over b}$ & & {\tt a/b} \\
-\\
-$\displaystyle{a\over bc}$ & & {\tt a/b/c} \\
-\\
-$a^2$ & & {\tt a{\char94}2} \\
-\\
-$\sqrt{a}$ & & {\tt a{\char94}(1/2)} & {\tt sqrt(a)} \\
-\\
-$\displaystyle{1\over\sqrt a}$ & & {\tt a{\char94}(-1/2)} & {\tt 1/sqrt(a)} \\
-\\
-$a(b+c)$ & & {\tt a*(b+c)} & {\tt a{\char32}(b+c)} \\
-\\
-$f(a)$ & & {\tt f(a)} \\
-\\
-$\displaystyle{\left(\matrix{a\cr b\cr c\cr}\right)}$ & & {\tt (a,b,c)} \\
-\\
-$\displaystyle{\left(\matrix{a&b\cr c&d\cr}\right)}$ & & {\tt ((a,b),(c,d))} \\
-\\
-$T^{12}$ & & {\tt T[1,2]} & {\it tensor component access} \\
-\\
-$2\,\rm km$ & & {\tt 2*"km"} & {\it units of measure should be quoted} \\
-\end{tabular}
-\end{center}
+\include{nabokov}
 
 \newpage
 
