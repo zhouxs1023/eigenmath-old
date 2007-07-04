@@ -172,11 +172,17 @@ alloc_mem(void)
 void
 print_mem_info(void)
 {
-	static char buf[100];
-	sprintf(buf, "%d atoms   %d free   %d used   %d bytes/atom\n",
-		N * mcount,
-		free_count,
-		N * mcount - free_count,
-		(int) sizeof (U));
+	char buf[100];
+
+	sprintf(buf, "%d blocks\n", N * mcount);
+	printstr(buf);
+
+	sprintf(buf, "%d free\n", free_count);
+	printstr(buf);
+
+	sprintf(buf, "%d used\n", N * mcount - free_count);
+	printstr(buf);
+
+	sprintf(buf, "%d bytes/block\n", (int) sizeof (U));
 	printstr(buf);
 }

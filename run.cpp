@@ -85,10 +85,6 @@ run(char *s)
 int
 dash_dash_command(char *s)
 {
-	if (strncmp(s, "--mem", 5) == 0) {
-		print_mem_info();
-		return 1;
-	}
 	if (strncmp(s, "--gc", 4) == 0) {
 		gc();
 		printstr("OK\n");

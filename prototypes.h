@@ -355,6 +355,7 @@ void eval_invg(void);
 void eval_isinteger(void);
 void eval_laguerre(void);
 void eval_legendre(void);
+void eval_mem(void);
 void eval_multiply(void);
 void eval_number(void);
 void eval_operator(void);

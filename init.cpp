@@ -111,6 +111,7 @@ init(void)
 	std_symbol("legendre", LEGENDRE);
 	std_symbol("log", LOG);
 	std_symbol("mag", MAG);
+	std_symbol("mem", MEM);
 	std_symbol("mod", MOD);
 	std_symbol("multiply", MULTIPLY);
 	std_symbol("not", NOT);

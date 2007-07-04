@@ -29,9 +29,7 @@ typedef struct U {
 			struct U *car;		// pointing down
 			struct U *cdr;		// pointing right
 		} cons;
-		struct {
-			char *printname;
-		} sym;
+		char *printname;
 		char *str;
 		struct tensor *tensor;
 		struct {
@@ -138,6 +136,7 @@ enum {
 	LEGENDRE,
 	LOG,
 	MAG,
+	MEM,
 	MOD,
 	MULTIPLY,
 	NOT,

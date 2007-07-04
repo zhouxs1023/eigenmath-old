@@ -10,7 +10,7 @@ std_symbol(char *s, int n)
 {
 	U *p;
 	p = symtab + n;
-	p->u.sym.printname = s;
+	p->u.printname = s;
 }
 
 // symbol lookup, create symbol if need be
@@ -21,15 +21,15 @@ usr_symbol(char *s)
 	int i;
 	U *p;
 	for (i = 0; i < NSYM; i++) {
-		if (symtab[i].u.sym.printname == 0)
+		if (symtab[i].u.printname == 0)
 			break;
-		if (strcmp(s, symtab[i].u.sym.printname) == 0)
+		if (strcmp(s, symtab[i].u.printname) == 0)
 			return symtab + i;
 	}
 	if (i == NSYM)
 		stop("symbol table overflow");
 	p = symtab + i;
-	p->u.sym.printname = strdup(s);
+	p->u.printname = strdup(s);
 	return p;
 }
 
@@ -40,7 +40,7 @@ get_printname(U *p)
 {
 	if (p->k != SYM)
 		stop("symbol error");
-	return p->u.sym.printname;
+	return p->u.printname;
 }
 
 // clears the arglist too
