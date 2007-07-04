@@ -174,15 +174,12 @@ print_mem_info(void)
 {
 	char buf[100];
 
-	sprintf(buf, "%d blocks\n", N * mcount);
+	sprintf(buf, "%d blocks (%d bytes/block)\n", N * mcount, (int) sizeof (U));
 	printstr(buf);
 
 	sprintf(buf, "%d free\n", free_count);
 	printstr(buf);
 
 	sprintf(buf, "%d used\n", N * mcount - free_count);
-	printstr(buf);
-
-	sprintf(buf, "%d bytes/block\n", (int) sizeof (U));
 	printstr(buf);
 }
