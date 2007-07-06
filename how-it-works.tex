@@ -2,33 +2,39 @@
 
 Eigenmath is written in the C programming language.
 Its central data structure is
-an array of one million 16-byte blocks of memory.
-
+an array of 100 thousand blocks of memory.
+The size of each block is 12 bytes for Mac OS X
+and 16 bytes for Windows.
 \begin{verbatim}
          _______ 
       0 |_______|  \
       1 |_______|   |
       2 |_______|   |
         |       |   |
-        .       .   | 16,000,000 bytes
+        .       .   | 1,200,000 bytes (Mac OS X)
         .       .   |
         .       .   |
         |_______|   |
-999,999 |_______|  /
+ 99,999 |_______|  /
 \end{verbatim}
 
-\medskip
+\bigskip
 \noindent
-If necessary, Eigenmath will allocate additional memory in increments of one
-million blocks.
-The maximum amount of memory allocated is 160 million bytes,
-or ten times what is shown above.
+If necessary, Eigenmath will allocate additional memory in increments of
+100 thousand blocks, up to a maximum of 10 million blocks
+(one hundred times what is shown above).
+
+%\begin{verbatim}
+%100000 blocks (12 bytes/block)
+%99706 free
+%294 used
+%\end{verbatim}
 
 \newpage
 
 \noindent
-Each block is a union of structs.
-The unsigned char $k$ identifies what type of information is stored in the
+Each block is a C struct.
+The member $k$ identifies what type of information is stored in the
 block.
 
 \medskip
@@ -39,10 +45,7 @@ typedef struct U {
                struct U *car;          // pointing down
                struct U *cdr;          // pointing right
           } cons;
-          struct {
-               struct U *binding;      // symbol's value binding
-               struct U *arglist;      // formal argument list
-          } sym;
+          char *printname;
           char *str;
           struct tensor *tensor;
           struct {
