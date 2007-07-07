@@ -119,11 +119,11 @@ For example, this is how one might store $A+B$ using a linked list.
 
 \bigskip
 \noindent
-Now, suppose we want to store an additional expression, $A+C$.
+Now suppose we want to store an additional expression $A+C$.
 Using a linked list, we have to make copies of the SYM-add and
 SYM-A blocks
-because of the pointer data.
-If we were to rewrite the pointer data we would destroy the original
+because of the pointers.
+If we were to rewrite the pointers we would destroy the original
 expression.
 However, with S-expressions all we have to do is allocate new CONS
 blocks to create new expressions.
