@@ -6,7 +6,7 @@ an array of 100 thousand blocks of memory.
 The size of each block is 12 bytes for Mac OS X
 and 16 bytes for Windows.
 \begin{verbatim}
-         _______ 
+         _______
       0 |_______|  \
       1 |_______|   |
       2 |_______|   |
@@ -33,9 +33,7 @@ If necessary, Eigenmath will allocate additional memory in increments of
 \newpage
 
 \noindent
-Each block is a C struct.
-The member $k$ identifies what type of information is stored in the
-block.
+Blocks are C structs defined as follows.
 
 \medskip
 \begin{verbatim}
@@ -57,31 +55,47 @@ typedef struct U {
 } U;
 \end{verbatim}
 
+\medskip
+\noindent
+The member $k$ identifies the union that is stored in the block.
+The value of $k$ is one of the following.
+
+\medskip
+\begin{verbatim}
+enum {
+        CONS,
+        NUM,
+        DOUBLE,
+        STR,
+        TENSOR,
+        SYM,
+};
+\end{verbatim}
+
 \newpage
 
 \noindent
 Blocks are linked together to store mathematical expressions.
 For example, the following shows how the expression
 $A\times B+C$ is stored.
-
 \begin{verbatim}
  _______      _______                                _______
 |CONS   |--->|CONS   |----------------------------->|CONS   |
 |       |    |       |                              |       |
 |_______|    |_______|                              |_______|
     |            |                                      |
- ___v___      ___v___      _______      _______      ___v___
-|ADD    |    |CONS   |--->|CONS   |--->|CONS   |    |SYMBOL |
-|       |    |       |    |       |    |       |    |C      |
+ ___|___      ___|___      _______      _______      ___|___
+|SYM    |    |CONS   |--->|CONS   |--->|CONS   |    |SYM    |
+|add    |    |       |    |       |    |       |    |C      |
 |_______|    |_______|    |_______|    |_______|    |_______|
                  |            |            |
-              ___v___      ___v___      ___v___
-             |TIMES  |    |SYMBOL |    |SYMBOL |
-             |       |    |A      |    |B      |
+              ___|___      ___|___      ___|___
+             |SYM    |    |SYM    |    |SYM    |
+             |times  |    |A      |    |B      |
              |_______|    |_______|    |_______|
 \end{verbatim}
 
-\medskip
+\bigskip
 \noindent
 Only CONS blocks contain pointers to other blocks.
 Every other kind of block is a terminal node.
@@ -95,19 +109,19 @@ Confining pointers to CONS blocks differs from the more traditional linked
 list data structure in a significant way.
 In a linked list, blocks contain both data and pointers simultaneously.
 For example, this is how one might store $A+B$ using a linked list.
-
 \begin{verbatim}
  _______       _______       _______
-|       |---->|       |---->|       |
-|ADD    |     |SYMBOL |     |SYMBOL |
-|       |     |A      |     |B      |
+|_______|---->|_______|---->|_______|
+|SYM    |     |SYM    |     |SYM    |
+|add    |     |A      |     |B      |
 |_______|     |_______|     |_______|
 \end{verbatim}
 
-\medskip
+\bigskip
 \noindent
 Now, suppose we want to store an additional expression, $A+C$.
-Using a linked list, we have to make copies of the ADD and SYMBOL ``A'' blocks
+Using a linked list, we have to make copies of the SYM-add and
+SYM-A blocks
 because of the pointer data.
 If we were to rewrite the pointer data we would destroy the original
 expression.
@@ -115,9 +129,46 @@ However, with S-expressions all we have to do is allocate new CONS
 blocks to create new expressions.
 We never have to copy data.
 We can store thousands of expressions with CONS
-blocks all pointing to a common SYMBOL ``A'' block.
+blocks all pointing to a common SYM-A block.
 
-\medskip
+\newpage
+
 \noindent
-TBD
+As it runs, Eigenmath allocates memory blocks to build new expressions.
+For example, $A+A$ is changed to $2A$ by $evel\_add$.
+Here is the input expression to $eval\_add$.
+\begin{verbatim}
+ _______      _______      _______
+|CONS   |--->|CONS   |--->|CONS   |
+|       |    |       |    |       |
+|_______|    |_______|    |_______|
+    |            |            |
+ ___|___         |         ___|___
+|SYM    |        |------->|SYM    |
+|add    |                 |A      |
+|_______|                 |_______|
+\end{verbatim}
 
+\bigskip
+\noindent
+And here is the output expression from $eval\_add$.
+\begin{verbatim}
+ _______      _______      _______
+|CONS   |--->|CONS   |--->|CONS   |
+|       |    |       |    |       |
+|_______|    |_______|    |_______|
+    |            |            |
+ ___|___      ___|___      ___|___
+|SYM    |    |NUM    |    |SYM    |
+|times  |    |2      |    |A      |
+|_______|    |_______|    |_______|
+\end{verbatim}
+
+\bigskip
+\noindent
+In this particular case, Eigenmath allocates a total of four blocks,
+three CONS blocks and one NUM block.
+Eventually all of the available blocks get used up, at which point Eigenmath
+does garbage collection to recover unused blocks.
+Returning to the example, garbage collection would recover the original
+three CONS blocks that formed $A+A$, if nothing points to that expression.
