@@ -84,12 +84,12 @@ $A\times B+C$ is stored.
 |       |    |       |                              |       |
 |_______|    |_______|                              |_______|
     |            |                                      |
- ___|___      ___|___      _______      _______      ___|___
+ ___V___      ___V___      _______      _______      ___V___
 |SYM    |    |CONS   |--->|CONS   |--->|CONS   |    |SYM    |
 |add    |    |       |    |       |    |       |    |C      |
 |_______|    |_______|    |_______|    |_______|    |_______|
                  |            |            |
-              ___|___      ___|___      ___|___
+              ___V___      ___V___      ___V___
              |SYM    |    |SYM    |    |SYM    |
              |times  |    |A      |    |B      |
              |_______|    |_______|    |_______|
@@ -143,7 +143,7 @@ Here is the input expression to $eval\_add$.
 |       |    |       |    |       |
 |_______|    |_______|    |_______|
     |            |            |
- ___|___         |         ___|___
+ ___V___         |         ___V___
 |SYM    |        |------->|SYM    |
 |add    |                 |A      |
 |_______|                 |_______|
@@ -158,7 +158,7 @@ And here is the output expression from $eval\_add$.
 |       |    |       |    |       |
 |_______|    |_______|    |_______|
     |            |            |
- ___|___      ___|___      ___|___
+ ___V___      ___V___      ___V___
 |SYM    |    |NUM    |    |SYM    |
 |times  |    |2      |    |A      |
 |_______|    |_______|    |_______|
@@ -166,7 +166,10 @@ And here is the output expression from $eval\_add$.
 
 \bigskip
 \noindent
-In this particular case, Eigenmath allocates a total of four blocks,
+The three CONS blocks in the output expression are new.
+They are not the same as the CONS blocks in the input expression.
+In this particular example, Eigenmath allocates a total of four blocks
+to build the new expression,
 three CONS blocks and one NUM block.
 Eventually all of the available blocks get used up, at which point Eigenmath
 does garbage collection to recover unused blocks.
