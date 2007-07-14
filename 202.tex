@@ -1,0 +1,120 @@
+\documentclass{article}
+\author{G.~Weigt}
+\title{Note on SMP safety}
+\date{\today}
+\begin{document}
+\maketitle
+
+\noindent
+Here is a simple example of some driver code and the changes that should be made
+to ensure SMP safety.
+The following driver demo simply increments a counter on interrupt.
+The driver also has an ioctl that can be called to clear the counter.
+
+\begin{verbatim}
+int counter;
+
+// interrupt service routine
+irqreturn_t counter_isr(int irq, void *p, struct pt_regs *r)
+{
+     counter++;
+     return IRQ_HANDLED;
+}
+
+// to here from a driver ioctl
+void clear_counter(void)
+{
+     counter = 0;
+}
+\end{verbatim}
+
+\noindent
+On the i386 as well as many other machines, \verb$counter = 0$ is atomic but
+\verb$counter++$ is not.
+On many machines, \verb$counter++$ compiles to several machine instructions that do
+a read-modify-write.
+This works OK on a single processor because the interrupt
+occurs either before or after the atomic operation \verb$counter = 0$.
+However, under SMP there is a race condition because
+\verb$counter++$ and \verb$counter = 0$ can occur simultaneously on different
+processors.
+For example, suppose the ISR is serviced on Processor 1 and the counter clear
+occurs on Processor 2. Then at the machine instruction level we can have the
+following, where \verb$mem$ corresponds to the memory contents of
+\verb$counter$.
+
+\bigskip
+\begin{tabular}{lll}
+Processor 1 & Processor 2 \\
+\verb$reg <- mem$ & \verb$reg <- 0$ \\
+\verb$reg <- reg+1$ & \verb$mem <- reg$ \\
+\verb$mem <- reg$ & & The clear is undone! \\
+\end{tabular}
+
+\newpage
+
+\noindent
+The solution is to use Linux's \verb$atomic_t$ data type as shown below.
+
+\begin{verbatim}
+#include <asm/atomic.h>
+
+atomic_t counter;
+
+// interrupt service routine
+irqreturn_t counter_isr(int irq, void *p, struct pt_regs *r)
+{
+     atomic_add(1, &counter);
+     return IRQ_HANDLED;
+}
+
+// to here from a driver ioctl
+void clear_counter(void)
+{
+     atomic_set(&counter, 0);
+}
+\end{verbatim}
+
+\noindent
+The fact that \verb$atomic.h$ is under the \verb$asm$ directory attests to the fact
+that atomic operations are processor-specific.
+One other detail, I have used \verb$atomic_add$ instead of \verb$atomic_inc$
+because I see the following at the bottom of \verb$atomic.h$:
+
+\begin{verbatim}
+250 /* Atomic operations are already serializing on x86 */
+251 #define smp_mb__before_atomic_dec()     barrier()
+252 #define smp_mb__after_atomic_dec()      barrier()
+253 #define smp_mb__before_atomic_inc()     barrier()
+254 #define smp_mb__after_atomic_inc()      barrier()
+\end{verbatim}
+I don't understand the barrier issue, so the safe thing to do is use \verb$atomic_add$.
+
+\newpage
+
+\noindent
+The following test program demonstrates that \verb$counter++$ compiles to
+read-modify-write code on x86 machines.
+
+\begin{verbatim}
+int counter;
+main()
+{
+        counter++;
+}
+\end{verbatim}
+After compiling with \verb$gcc -S test.c$ we find the following code snippet in
+the resulting file \verb$test.s$:
+
+\begin{verbatim}
+.LCFI1:
+        movl    counter(%rip), %eax
+        addl    $1, %eax
+        movl    %eax, counter(%rip)
+        leave
+        ret
+\end{verbatim}
+
+
+
+\end{document}
