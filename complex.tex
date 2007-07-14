@@ -1,0 +1,98 @@
+\chapter{Complex Numbers}
+
+\noindent
+When Eigenmath starts up, it defines the symbol $i$ as $i=\sqrt{-1}$.
+Other than that, there is nothing special about $i$.
+It is just a regular symbol that can be redefined and used for some other purpose if need be.
+
+\medskip
+\noindent
+Complex quantities can be entered in rectangular or polar form.
+
+\medskip
+\verb$a+i*b$
+$$a+ib$$
+
+\verb$exp(i*pi/3)$
+$$\exp({1\over3}i\pi)$$
+
+\medskip
+\noindent
+Converting to rectangular or polar coordinates simplifies mixed forms.
+
+\medskip
+\verb$A=1+i$
+
+\verb$B=sqrt(2)*exp(i*pi/4)$
+
+\verb$A-B$
+$$1+i-2^{1/2}\exp({1\over4}i\pi)$$
+
+\verb$rect$
+$$0$$
+
+\newpage
+
+\noindent
+Rectangular complex quantities, when raised to a power, are multiplied out.
+
+\medskip
+\verb$(a+i*b)^2$
+$$a^2-b^2+2iab$$
+
+\medskip
+\noindent
+When $a$ and $b$ are numerical and the power is negative, the evaluation is done as follows.
+$$(a+ib)^{-n}=\left[{a-ib\over(a+ib)(a-ib)}\right]^n=\left[{a-ib\over a^2+b^2}\right]^n$$
+This removes $i$ from the denominator.
+%For $n=1$ we have
+%$${1\over a+ib}={a-ib\over a^2+b^2}$$
+Here are a few examples.
+
+\medskip
+\verb$1/(2-i)$
+$${2\over5}+{1\over5}i$$
+
+\verb$(-1+3i)/(2-i)$
+$$-1+i$$
+
+\newpage
+
+\noindent
+The absolute value of a complex number returns its magnitude.
+
+\medskip
+\verb$abs(3+4*i)$
+$$5$$
+
+\medskip
+\noindent
+In light of this, the following result might be unexpected.
+
+\medskip
+\verb$abs(a+b*i)$
+$$\mathop{\rm abs}(a+ib)$$
+
+\medskip
+\noindent
+The result is not $\sqrt{a^2+b^2}$ because that would assume that
+$a$ and $b$ are real.
+For example, suppose that $a=0$ and $b=i$.
+Then
+$$|a+ib|=|-1|=1$$
+and
+$$\sqrt{a^2+b^2}=\sqrt{-1}=i$$
+Hence
+$$|a+ib|\ne\sqrt{a^2+b^2}\quad\hbox{for some $a,b\in\cal C$}$$
+
+\medskip
+\noindent
+The {\it mag} function is an alternative.
+It treats symbols like $a$ and $b$ as real.
+
+\medskip
+\verb$mag(a+b*i)$
+
+$$(a^2+b^2)^{1/2}$$
+
+
