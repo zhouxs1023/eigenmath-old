@@ -1,8 +1,9 @@
+
 \newpage
 
-\begin{center}
-\includegraphics[scale=0.5]{JamesGregory.jpeg}
-\end{center}
+%\begin{center}
+%\includegraphics[scale=0.5]{JamesGregory.jpeg}
+%\end{center}
 
 \bigskip
 
@@ -12,10 +13,9 @@ a contemporary of Newton.
 The theorem is a formal expression of the inverse relation between
 integrals and derivatives.
 $$\int_a^b f'(x)\,dx=f(b)-f(a)$$
-On the next page is a simple example.
+Here is an Eigenmath demonstration of the fundamental theorem of calculus.
 
-\newpage
-
+\medskip
 \verb$f=x^2/2$
 
 \verb$xrange=(-1,1)$
@@ -23,17 +23,17 @@ On the next page is a simple example.
 \verb$yrange=xrange$
 
 \verb$draw(d(f))$
-
-\noindent
-\includegraphics[scale=0.5]{funda1.png}
+% no blank line, otherwise goes to two pages
+\begin{center}
+\includegraphics[scale=0.4]{funda1.png}
+\end{center}
 
 \verb$draw(integral(d(f)))$
 
-\medskip
-\noindent
-\includegraphics[scale=0.5]{funda2.png}
+\begin{center}
+\includegraphics[scale=0.4]{funda2.png}
+\end{center}
 
-\medskip
 \noindent
 The first graph shows that $f'(x)$ is antisymmetric, therefore the total
 area under the curve from $-1$ to $1$ sums to zero.
