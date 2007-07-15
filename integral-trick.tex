@@ -1,0 +1,34 @@
+
+\newpage
+
+\noindent
+Here is a useful trick.
+Difficult integrals involving sine and cosine
+can often be solved by using exponentials.
+Trigonometric simplifications involving powers
+and multiple angles turn into simple algebra in the
+exponential domain.
+For example, the definite integral
+$$\int_0^{2\pi}\left(\sin^4t-2\cos^3(t/2)\sin t\right)dt$$
+can be solved as follows.
+
+\medskip
+\verb$f=sin(t)^4-2*cos(t/2)^3*sin(t)$
+
+\verb$f=circexp(f)$
+
+\verb$defint(f,t,0,2*pi)$
+
+$$-{16\over5}+{3\over4}\pi$$
+
+\medskip
+\noindent
+Here is a check.
+
+\medskip
+\verb$g=integral(f,t)$
+
+\verb$f-d(g,t)$
+
+$$0$$
+
