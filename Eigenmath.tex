@@ -1,18 +1,16 @@
-\documentclass[11pt]{report}
+\documentclass[11pt]{article}
 \title{Eigenmath Manual}
 \author{George Weigt}
 \date{\today}
 \usepackage{graphicx}
+\usepackage{makeidx}
+\makeindex
 
 \begin{document}
 
 \maketitle
 
 \include{syntax}
-
-\tableofcontents
-
-\newpage
 
 \include{nabokov}
 
@@ -125,6 +123,8 @@ $$f=1+a+a^2+a^3+a^4+a^5+a^6+a^7+a^8+a^9$$
 
 \newpage
 
+\index{units of measure}
+
 \noindent
 Quoted strings can be used to express units of measurement in a calculation.
 For example, the space shuttle accelerates from zero to
@@ -146,9 +146,9 @@ $$\hbox{127500 mile}\over(\hbox{hr})^2$$
 
 %\input{draw.tex}
 
-\chapter{Draw}
-
 \newpage
+
+\index{draw}
 
 \noindent
 $draw(f,x)$ draws a graph of the function $f$ of $x$.
@@ -246,8 +246,9 @@ Next is a cardioid.
 
 \newpage
 
-\chapter{Linear Algebra}
+\index{linear algebra}
 
+\noindent
 $dot$ is used to multiply vectors and matrices.
 The following example shows how to use $dot$ and $inv$ to solve for
 $\bf X$ in $\bf AX=B$.
@@ -279,8 +280,6 @@ It should be noted that $dot$ can have more than two arguments.
 For example, $dot(A,B,C)$ can be used for the dot product of three tensors.
 
 \newpage
-
-\label{adj}
 
 \noindent
 The following example demonstrates the relation
@@ -328,8 +327,6 @@ $$(\mathop{\rm det}{\bf B})\cdot{\bf A}-\mathop{\rm adj}{\bf B}=0$$
 
 \newpage
 
-\label{cofactor}
-
 \noindent
 The adjunct of a matrix is related to the cofactors as follows.
 
@@ -359,9 +356,7 @@ $$\left(\matrix{0&0\cr0&0\cr}\right)$$
 
 \newpage
 
-\chapter{Derivative}
-
-\label{d}
+\index{derivative}
 
 \noindent
 $d(f,x)$ returns the derivative of $f$ with respect to $x$.
@@ -394,7 +389,7 @@ $\displaystyle{\partial^{m+n+\cdot\cdot\cdot} f\over\partial x^m\,\partial y^n\c
 %\verb$d(r,x,y)$
 %$${-{xy\over(x^2+y^2)^{3/2}}}$$
 
-\newpage
+\index{gradient}
 
 \noindent
 The gradient of $f$ is obtained by using a vector for $x$ in $d(f,x)$.
@@ -469,9 +464,7 @@ $$0$$
 
 \newpage
 
-\chapter{Integral}
-
-\label{integral}
+\index{integral}
 
 \noindent
 $integral(f,x)$ returns the integral of $f$ with respect to $x$.
@@ -484,11 +477,6 @@ $${1\over3}x^3$$
 
 \verb$integral(x*y,x,y)$
 $${1\over4}x^2y^2$$
-
-\newpage
-
-\noindent
-\includegraphics[scale=0.5]{semicircle.png}
 
 \medskip
 \noindent
@@ -533,16 +521,35 @@ $${1\over8}\pi$$
 
 %\include{stokes-thm}
 
-
-
-
 \include{complex}
 
+\newpage
 
+\noindent
+The next section of the manual is an eclectic collection of
+example scripts.
+The scripts can be copied using the Adobe Reader text selection tool and then
+pasted into the Eigenmath script window.
+The examples will be followed by a list of Eigenmath's
+built-in functions.
 
+\newpage
 
+\index{example scripts}
 
-\chapter{List of Eigenmath Functions}
+\include{example1}
+
+\include{example2}
+
+\include{example3}
+
+\include{example4}
+
+\include{example5}
+
+\newpage
+
+\index{built-in functions}
 
 \section*{abs}
 abs($x$) returns the absolute value or vector length of $x$.
@@ -557,7 +564,6 @@ $$(x^2+y^2)^{1/2}$$
 
 \section*{adj}
 adj($m$) returns the adjunct of matrix $m$.
-Please see page \pageref{adj} for an example.
 
 \section*{and}
 and($a,b,\ldots$) returns the logical ``and'' of predicate expressions.
@@ -602,7 +608,6 @@ coeff($p,x,n$) returns the coefficient of $x^n$ in polynomial $p$.
 
 \section*{cofactor}
 cofactor($m,i,j$) returns of the cofactor of matrix $m$ with respect to row $i$ and column $j$.
-Please see page \pageref{cofactor} for an example.
 
 \section*{conj}
 conj($z$) returns the complex conjugate of $z$.
@@ -619,7 +624,6 @@ cosh($x$) returns the hyperbolic cosine of $x$.
 
 \section*{d}
 d($f,x$) returns the derivative of $f$ with respect to $x$.
-Please see page \pageref{d} for additional details.
 
 \section*{defint}
 defint($f,x,a,b,\ldots$)
@@ -658,7 +662,6 @@ erf($x$) returns the complementary error function of $x$.
 
 \section*{eval}
 eval($f,x,n$) returns $f$ evaluated at $x=n$.
-Please see page \pageref{integral} for an example.
 
 \section*{exp}
 exp($x$) returns $e^x$.
@@ -764,7 +767,6 @@ Same as the dot product.
 
 \section*{integral}
 integral($f,x$) returns the integral of $f$ with respect to $x$.
-Please see page \pageref{integral} for additional details.
 
 \section*{inv}
 inv($m$) returns the inverse of matrix $m$.
@@ -909,7 +911,7 @@ Hence a matrix can be transposed with a single argument.
 
 {\tt transpose(A)}
 
-$$\left[\matrix{a & c\cr b & d\cr}\right]$$
+$$\left(\matrix{a & c\cr b & d\cr}\right)$$
 
 \section*{unit}
 unit($n$) returns an $n\times n$ identity matrix.
@@ -922,22 +924,6 @@ $$\left(\matrix{1&0\cr0&1\cr}\right)$$
 \section*{zero}
 zero($i,j,\ldots$) returns a null tensor with dimensions $i$, $j$, etc.
 Useful for creating a tensor and then setting the component values.
-See page \pageref{example2}.
 
-%\include{how-it-works}
-
-\newpage
-
-\chapter{Examples}
-
-\include{example1}
-
-\include{example2}
-
-\include{example3}
-
-\include{example4}
-
-\include{example5}
-
+\printindex
 \end{document}
