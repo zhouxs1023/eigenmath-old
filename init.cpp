@@ -154,7 +154,6 @@ init(void)
 	std_symbol("testgt", TESTGT);
 	std_symbol("testle", TESTLE);
 	std_symbol("testlt", TESTLT);
-	std_symbol("trace", TRACE);
 	std_symbol("transpose", TRANSPOSE);
 	std_symbol("unit", UNIT);
 	std_symbol("zero", ZERO);
@@ -165,8 +164,8 @@ init(void)
 
 	std_symbol("autoexpand", AUTOEXPAND);
 	std_symbol("bake", BAKE);
-	std_symbol("debug", DEBUG);
 	std_symbol("last", LAST);
+	std_symbol("trace", TRACE);
 	std_symbol("tty", TTY);
 	std_symbol("~", YYE); // tilde so sort puts it after other symbols
 	std_symbol("SECRETX", SECRETX);
@@ -223,12 +222,12 @@ static char *defn_str[] = {
 	"xrange=(-10,10)",
 	"yrange=(-10,10)",
 	"last=0",
+	"trace=0",
 	"tty=0",
 	"cross(u,v)=(u[2]*v[3]-u[3]*v[2],u[3]*v[1]-u[1]*v[3],u[1]*v[2]-u[2]*v[1])",
 	"curl(v)=(d(v[3],y)-d(v[2],z),d(v[1],z)-d(v[3],x),d(v[2],x)-d(v[1],y))",
 	"div(v)=d(v[1],x)+d(v[2],y)+d(v[3],z)",
 	"ln(x)=log(x)",
-	"debug=0",
 };
 
 void

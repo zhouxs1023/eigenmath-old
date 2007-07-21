@@ -221,7 +221,6 @@ eval_cons(void)
 	case TESTGT:		eval_testgt();		break;
 	case TESTLE:		eval_testle();		break;
 	case TESTLT:		eval_testlt();		break;
-	case TRACE:		eval_trace();		break;
 	case TRANSPOSE:		eval_transpose();	break;
 	case UNIT:		eval_unit();		break;
 	case ZERO:		eval_zero();		break;

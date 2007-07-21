@@ -47,7 +47,7 @@ run(char *s)
 
 		// if debug mode then print the source text
 
-		if (equaln(get_binding(symbol(DEBUG)), 1)) {
+		if (equaln(get_binding(symbol(TRACE)), 1)) {
 			for (i = 0; i < n; i++)
 				printchar(s[i]);
 			if (s[n - 1] != '\n') // n is not zero, see above

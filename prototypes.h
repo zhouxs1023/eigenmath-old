@@ -920,11 +920,6 @@ void eval_or(void);
 int cmp_args(void);
 void test_test(void);
 
-// trace.cpp
-void eval_trace(void);
-void trace(void);
-void test_trace(void);
-
 // transform.cpp
 void transform(char **s);
 int f_equals_a(int h);

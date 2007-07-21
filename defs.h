@@ -179,7 +179,6 @@ enum {
 	TESTGT,
 	TESTLE,
 	TESTLT,
-	TRACE,
 	TRANSPOSE,
 	UNIT,
 	ZERO,
@@ -188,8 +187,8 @@ enum {
 
 	AUTOEXPAND,
 	BAKE,
-	DEBUG,
 	LAST,
+	TRACE,
 	TTY,
 	YYE,
 	SECRETX,

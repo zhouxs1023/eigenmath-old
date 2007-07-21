@@ -86,7 +86,6 @@ selftest(void)
 	test_taylor();
 	test_tchebychevT();
 	test_tchebychevU();
-	test_trace();
 	test_transpose();
 	test_zero();
 
