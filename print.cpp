@@ -1,26 +1,11 @@
+// tty style printing
+
 #include "stdafx.h"
 #include "defs.h"
-
-extern int display_flag;
-extern void displaychar(int);
 
 int out_index, out_length;
 char *out_str;
 static int char_count, last_char;
-
-//static void print_expr(U *);
-//static void print_multiply_sign(void);
-//static void print_denom(U *, int);
-//static void print_a_over_b(U *);
-//static int is_denominator(U *);
-//static int any_denominators(U *);
-int isnegativeterm(U *);
-//static void print_subexpr(U *);
-//static void print_index_function(U *);
-//static void print_factorial_function(U *);
-//static int sign_of_term(U *);
-
-extern int test_flag;
 
 char *power_str = "^";
 

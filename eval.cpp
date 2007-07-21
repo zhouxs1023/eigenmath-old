@@ -1,3 +1,5 @@
+// top level evaluation dispatcher
+
 #include "stdafx.h"
 #include "defs.h"
 
@@ -555,24 +557,19 @@ eval_prime(void)
 	prime();
 }
 
-extern void printstack(int);
-
 void
 eval_print(void)
 {
 	p1 = cdr(p1);
-	push(car(p1));
-	eval();
-	print(pop());
-	p1 = cdr(p1);
 	while (iscons(p1)) {
-		printchar(' ');
 		push(car(p1));
 		eval();
-		print(pop());
+		if (equaln(get_binding(symbol(TTY)), 1))
+			printline(pop());
+		else
+			display(pop());
 		p1 = cdr(p1);
 	}
-	printchar('\n');
 	push(symbol(NIL));
 }
 

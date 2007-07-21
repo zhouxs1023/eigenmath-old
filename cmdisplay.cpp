@@ -1,9 +1,8 @@
-// eval and display args
+// display(a,b,...)
 
 #include "stdafx.h"
 #include "defs.h"
 
-extern int text_width(int, char *);
 extern void get_height_width(int *, int *, int, char *s);
 
 static void emit_expr(U *);
@@ -110,7 +109,7 @@ static struct {
 	{"omega",	ITALIC_SYMBOL_FONT,	119},
 };
 
-extern void shipout(unsigned char *, int, int);
+//extern void shipout(unsigned char *, int, int);
 
 #define YMAX 100000
 
@@ -144,8 +143,12 @@ eval_display(void)
 			p2 = pop();
 		}
 
-		push(p2);
-		cmdisplay();
+		if (equaln(get_binding(symbol(TTY)), 1))
+			printline(p2);
+		else {
+			push(p2);
+			cmdisplay();
+		}
 
 		p1 = cdr(p1);
 	}
@@ -1154,8 +1157,6 @@ emit_str(int font, char *s)
 	chartab[indx].cmd = font;
 	chartab[indx].x = xpos;
 	chartab[indx].y = -text_metric[font].ascent;
-	//chartab[indx].h = text_metric[font].ascent + text_metric[font].descent;
-	//chartab[indx].w = text_width(font, s);
 
 	chartab[indx].h = h;
 	chartab[indx].w = w;
