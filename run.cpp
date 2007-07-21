@@ -15,7 +15,7 @@ stop(char *str)
 void
 run(char *s)
 {
-	int n;
+	int i, n;
 
 	esc_flag = 0;
 	draw_flag = 0;
@@ -45,6 +45,15 @@ run(char *s)
 		if (n == 0)
 			break;
 
+		// if debug mode then print the source text
+
+		if (equaln(get_binding(symbol(DEBUG)), 1)) {
+			for (i = 0; i < n; i++)
+				printchar(s[i]);
+			if (s[n - 1] != '\n') // n is not zero, see above
+				printchar('\n');
+		}
+
 		s += n;
 
 		setup();
@@ -69,7 +78,7 @@ run(char *s)
 			continue;
 		}
 
-		if (equal(get_binding(symbol(TTY)), one) || test_flag) // tty mode?
+		if (equaln(get_binding(symbol(TTY)), 1) || test_flag) // tty mode?
 			printline(p2);
 		else {
 #ifdef LINUX

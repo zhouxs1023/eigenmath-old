@@ -165,6 +165,7 @@ init(void)
 
 	std_symbol("autoexpand", AUTOEXPAND);
 	std_symbol("bake", BAKE);
+	std_symbol("debug", DEBUG);
 	std_symbol("last", LAST);
 	std_symbol("tty", TTY);
 	std_symbol("~", YYE); // tilde so sort puts it after other symbols
@@ -227,6 +228,7 @@ static char *defn_str[] = {
 	"curl(v)=(d(v[3],y)-d(v[2],z),d(v[1],z)-d(v[3],x),d(v[2],x)-d(v[1],y))",
 	"div(v)=d(v[1],x)+d(v[2],y)+d(v[3],z)",
 	"ln(x)=log(x)",
+	"debug=0",
 };
 
 void

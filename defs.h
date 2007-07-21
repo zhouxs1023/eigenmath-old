@@ -188,6 +188,7 @@ enum {
 
 	AUTOEXPAND,
 	BAKE,
+	DEBUG,
 	LAST,
 	TTY,
 	YYE,

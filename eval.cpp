@@ -190,7 +190,7 @@ eval_cons(void)
 	case POLAR:		eval_polar();		break;
 	case POWER:		eval_power();		break;
 	case PRIME:		eval_prime();		break;
-	case PRINT:		eval_print();		break;
+	case PRINT:		eval_display();		break;
 	case PRODUCT:		eval_product();		break;
 	case QUOTE:		eval_quote();		break;
 	case QUOTIENT:		eval_quotient();	break;

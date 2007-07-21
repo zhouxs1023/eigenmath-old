@@ -873,6 +873,7 @@ static char *specname[] = {
 	"bake",
 	"cross",
 	"curl",
+	"debug",
 	"div",
 	"last",
 	"nil",

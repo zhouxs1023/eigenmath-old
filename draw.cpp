@@ -304,7 +304,7 @@ setup_trange_f(void)
 	if (!issymbol(p1))
 		return;
 
-	p1 = p1->u.sym.binding;
+	p1 = get_binding(p1);
 
 	// must be two element vector
 
@@ -354,7 +354,7 @@ setup_xrange_f(void)
 	if (!issymbol(p1))
 		return;
 
-	p1 = p1->u.sym.binding;
+	p1 = get_binding(p1);
 
 	// must be two element vector
 
@@ -432,7 +432,7 @@ setup_yrange_f(void)
 	if (!issymbol(p1))
 		return;
 
-	p1 = p1->u.sym.binding;
+	p1 = get_binding(p1);
 
 	// must be two element vector
 
