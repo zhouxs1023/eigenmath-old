@@ -1,0 +1,44 @@
+\index{Green's theorem}
+
+\noindent
+Green's theorem tells us that
+$$\oint P\,dx+Q\,dy=\int\!\!\!\int
+\left({\partial Q\over\partial x}-{\partial P\over\partial y}\right)
+dx\,dy$$
+
+\noindent
+Evaluate $\oint (2x^3-y^3)\,dx+(x^3+y^3)\,dy$ around the circle
+$x^2+y^2=1$ using Green's theorem.\footnote{
+Wilfred Kaplan, {\it Advanced Calculus, 5th Edition,} 287.}
+
+\medskip
+\noindent
+It turns out that Eigenmath cannot solve the integral directly using
+$x$ and $y$.
+So instead we use polar coordinates.
+
+\medskip
+\verb$P=2x^3-y^3$
+
+\verb$Q=x^3+y^3$
+
+\verb$f=d(Q,x)-d(P,y)$
+
+\verb$x=r*cos(theta)$
+
+\verb$y=r*sin(theta)$
+
+\verb$f=eval(f)$
+
+\verb$defint(f*r,r,0,1,theta,0,2pi)$
+
+$${3\over2}\pi$$
+
+\medskip
+\noindent
+A few words of explanation are in order.
+The line $f=eval(f)$ is necessary to update $f$ with the polar
+substitutions for
+$x$ and $y$.
+The $defint$ integrand is $f{*}r$ because $r\,dr\,d\theta=dx\,dy$.
+
