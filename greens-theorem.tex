@@ -42,3 +42,30 @@ substitutions for
 $x$ and $y$.
 The $defint$ integrand is $f{*}r$ because $r\,dr\,d\theta=dx\,dy$.
 
+\medskip
+\noindent
+Now let us try computing the line integral and see if we get the same result.
+We need to use the trick of converting sine and cosine to exponentials.
+
+%Returning to the previous example for a moment, let us compute the
+%line integral and see if we get the same result.
+%Again, the integral is too complex for Eigenmath to solve directly.
+%In this case we use the trick of converting to exponentials.
+
+\medskip
+\verb$x=cos(t)$
+
+\verb$y=sin(t)$
+
+\verb$P=2x^3-y^3$
+
+\verb$Q=x^3+y^3$
+
+\verb$f=P*d(x,t)+Q*d(y,t)$
+
+\verb$f=circexp(f)$
+
+\verb$defint(f,t,0,2pi)$
+
+$${3\over2}\pi$$
+
