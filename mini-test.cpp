@@ -84,7 +84,7 @@ static char *s[] = {
 	"defint(s,y,-sqrt(1-x^2),sqrt(1-x^2),x,-1,1)",
 	"1/48*pi",
 
-	// hydrogen wavefunction example
+// hydrogen wavefunction example
 
 	"clear",
 	"",
@@ -121,6 +121,58 @@ static char *s[] = {
 
 	"circexp(sin(theta)*(E-K-V))",
 	"0",
+
+// Green's theorem
+
+	"clear",
+	"",
+
+	"P=2x^3-y^3",
+	"",
+
+	"Q=x^3+y^3",
+	"",
+
+	"f=d(Q,x)-d(P,y)",
+	"",
+
+	"x=r*cos(theta)",
+	"",
+
+	"y=r*sin(theta)",
+	"",
+
+	"f=eval(f)",
+	"",
+
+	"defint(f*r,r,0,1,theta,0,2pi)",
+	"3/2*pi",
+
+// Green's theorem
+
+	"clear",
+	"",
+
+	"x=cos(t)",
+	"",
+
+	"y=sin(t)",
+	"",
+
+	"P=2x^3-y^3",
+	"",
+
+	"Q=x^3+y^3",
+	"",
+
+	"f=P*d(x,t)+Q*d(y,t)",
+	"",
+
+	"f=circexp(f)",
+	"",
+
+	"defint(f,t,0,2pi)",
+	"3/2*pi",
 };
 
 void
