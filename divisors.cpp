@@ -29,7 +29,7 @@ divisors(void)
 	p1->u.tensor->ndim = 1;
 	p1->u.tensor->dim[0] = n;
 	for (i = 0; i < n; i++)
-		p1->u.tensor->elem[i] = stack[i];
+		p1->u.tensor->elem[i] = stack[h + i];
 	tos = h;
 	push(p1);
 	restore();

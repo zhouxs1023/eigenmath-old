@@ -139,10 +139,7 @@ draw3(void)
 		fill(i, i + 1, 0);
 }
 
-extern jmp_buf stop_return;
-static void eval_point(double);
-
-static void
+void
 new_point(double t)
 {
 	double x, y;
@@ -184,10 +181,11 @@ new_point(double t)
 	draw_buf[draw_count - 1].y = (int) y;
 }
 
-static void
+extern jmp_buf draw_stop_return;
+
+void
 eval_point(double t)
 {
-	jmp_buf save_stop_return;
 	volatile int save_tos;
 	U ** volatile save_frame;
 
@@ -195,17 +193,18 @@ eval_point(double t)
 
 	// steal the stop vector
 
-	memcpy(save_stop_return, stop_return, sizeof (jmp_buf));
 	save_tos = tos;
 	save_frame = frame;
 
-	if (setjmp(stop_return)) {
-		memcpy(stop_return, save_stop_return, sizeof (jmp_buf));
+	draw_flag++;
+
+	if (setjmp(draw_stop_return)) {
 		tos = save_tos;
 		frame = save_frame;
 		restore();
 		XT = symbol(NIL);
 		YT = symbol(NIL);
+		draw_flag--;
 		return;
 	}
 
@@ -232,7 +231,7 @@ eval_point(double t)
 	YT = pop();
 	XT = pop();
 
-	memcpy(stop_return, save_stop_return, sizeof (jmp_buf));
+	draw_flag--;
 }
 
 #define MAX_DEPTH 6

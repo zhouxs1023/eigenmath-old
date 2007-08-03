@@ -308,6 +308,8 @@ void dpow(void);
 
 // draw.cpp
 void eval_draw(void);
+void new_point(double t);
+void eval_point(double t);
 
 // dsolve.cpp
 void dsolve(void);
@@ -785,9 +787,8 @@ void roots(void);
 void test_roots(void);
 
 // run.cpp
-void stop(char *str);
+void stop(char *s);
 void run(char *s);
-int dash_dash_command(char *s);
 void check_stack(void);
 void echo_input(char *s);
 void top_level_eval(void);

@@ -1,15 +1,19 @@
 #include "stdafx.h"
 #include "defs.h"
 
-extern int test_flag;
-jmp_buf stop_return;
-static char *errstr;
+jmp_buf stop_return, draw_stop_return;
 
 void
-stop(char *str)
+stop(char *s)
 {
-	errstr = str; // don't print str now, jmp_buf might be redirected
-	longjmp(stop_return, 1);
+	if (draw_flag == 2)
+		longjmp(draw_stop_return, 1);
+	else {
+		printstr("Stop: ");
+		printstr(s);
+		printstr("\n");
+		longjmp(stop_return, 1);
+	}
 }
 
 void
@@ -20,14 +24,8 @@ run(char *s)
 	esc_flag = 0;
 	draw_flag = 0;
 
-	if (setjmp(stop_return)) {
-		if (errstr) {
-			printstr("Stop: ");
-			printstr(errstr);
-			printstr("\n");
-		}
+	if (setjmp(stop_return))
 		return;
-	}
 
 	init();
 
@@ -35,8 +33,10 @@ run(char *s)
 
 	frame = stack + TOS;
 
-	if (dash_dash_command(s))
+	if (s[0] == '*') {
+		selftest();
 		return;
+	}
 
 	while (1) {
 
@@ -89,23 +89,6 @@ run(char *s)
 #endif
 		}
 	}
-}
-
-int
-dash_dash_command(char *s)
-{
-	if (strncmp(s, "--gc", 4) == 0) {
-		gc();
-		printstr("OK\n");
-		return 1;
-	}
-
-	if (strncmp(s, "--test", 6) == 0) {
-		selftest();
-		return 1;
-	}
-
-	return 0;
 }
 
 void

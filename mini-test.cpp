@@ -122,7 +122,7 @@ static char *s[] = {
 	"circexp(sin(theta)*(E-K-V))",
 	"0",
 
-// Green's theorem
+// Green's theorem (surface integral)
 
 	"clear",
 	"",
@@ -148,7 +148,7 @@ static char *s[] = {
 	"defint(f*r,r,0,1,theta,0,2pi)",
 	"3/2*pi",
 
-// Green's theorem
+// Green's theorem (line integral)
 
 	"clear",
 	"",
@@ -173,6 +173,67 @@ static char *s[] = {
 
 	"defint(f,t,0,2pi)",
 	"3/2*pi",
+
+// Stokes' theorem (surface integral)
+
+	"clear",
+	"",
+
+	"z=9-x^2-y^2",
+	"",
+
+	"F=(3y,4z,-6x)",
+	"",
+
+	"S=(x,y,z)",
+	"",
+
+	"f=dot(curl(F),cross(d(S,x),d(S,y)))",
+	"",
+
+	"x=r*cos(theta)",
+	"",
+
+	"y=r*sin(theta)",
+	"",
+
+	"f=eval(f)",
+	"",
+
+	"defint(f*r,r,0,3,theta,0,2pi)",
+	"-27*pi",
+
+// Stokes' theorem (line integral)
+
+	"clear",
+	"",
+
+	"x=3*cos(t)",
+	"",
+
+	"y=3*sin(t)",
+	"",
+
+	"z=9-x^2-y^2",
+	"",
+
+	"P=3y",
+	"",
+
+	"Q=4z",
+	"",
+
+	"R=-6x",
+	"",
+
+	"f=P*d(x,t)+Q*d(y,t)+R*d(z,t)",
+	"",
+
+	"f=circexp(f)",
+	"",
+
+	"defint(f,t,0,2pi)",
+	"-27*pi",
 };
 
 void

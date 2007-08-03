@@ -7,7 +7,7 @@
 
 static char *s[] = {
 
-	"clear()",
+	"clear",
 	"",
 
 	"tty=1",

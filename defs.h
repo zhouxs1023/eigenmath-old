@@ -159,7 +159,6 @@ enum {
 	ROOTS,
 	SETQ,
 	SGN,
-//	SIMFAC,
 	SIMPLIFY,
 	SIN,
 	SINH,
