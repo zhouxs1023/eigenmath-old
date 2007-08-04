@@ -4,43 +4,19 @@
 #include "defs.h"
 #include "selftest.h"
 
-extern jmp_buf stop_return;
 static jmp_buf jbuf;
 
 void
 selftest(void)
 {
-	run("clear"); // to initialize
-
 	// for handling "errout"
 
 	if (setjmp(jbuf))
 		return;
 
-	// for handling "stop"
-
-	if (setjmp(stop_return))
-		return;
-
 #if SELFTEST
 
-	// test bignum arithmetic
-
-	// these need a "stop" context
-
-	test_madd();
-	test_msub();
-	test_mmul();
-	test_mdiv();
-	test_mmod();
-	test_mprime();
-	test_mgcd();
-	test_mpow();
-	test_mroot();
-
-	test_quickfactor();
-
-	// now using "run" context
+	test_low_level();
 
 	test_multiply();
 	test_scan();
@@ -213,4 +189,30 @@ test(char *file, char **s, int n)
 	}
 
 	test_flag = 0;
+}
+
+// these tests do not use "run" but still need a "stop" context
+
+extern jmp_buf stop_return;
+
+void
+test_low_level(void)
+{
+	run("clear"); // to initialize stack and memory
+
+	if (setjmp(stop_return)) {
+		errout();
+		return;
+	}
+
+	test_madd();
+	test_msub();
+	test_mmul();
+	test_mdiv();
+	test_mmod();
+	test_mprime();
+	test_mgcd();
+	test_mpow();
+	test_mroot();
+	test_quickfactor();
 }

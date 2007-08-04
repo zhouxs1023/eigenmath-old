@@ -804,6 +804,7 @@ void selftest(void);
 void logout(char *s);
 void errout(void);
 void test(char *file, char **s, int n);
+void test_low_level(void);
 
 // sgn.cpp
 void eval_sgn(void);
