@@ -336,7 +336,6 @@ void test_erfc(void);
 void eval(void);
 void eval_sym(void);
 void eval_cons(void);
-void setup(void);
 void eval_check(void);
 void eval_conj(void);
 void eval_det(void);

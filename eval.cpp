@@ -229,20 +229,6 @@ eval_cons(void)
 	}	
 }
 
-void
-setup(void)
-{
-	U *p;
-
-	trigmode = 0;
-
-	p = symbol(AUTOEXPAND);
-	if (iszero(get_binding(p)))
-		expanding = 0;
-	else
-		expanding = 1;
-}
-
 // checks a predicate, i.e. check(A = B)
 
 void

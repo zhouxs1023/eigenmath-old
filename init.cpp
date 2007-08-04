@@ -7,6 +7,14 @@ init(void)
 	int i;
 	static int flag;
 
+	esc_flag = 0;
+
+	draw_flag = 0;
+
+	tos = 0;
+
+	frame = stack + TOS;
+
 	if (flag)
 		return;		// already initted
 
@@ -187,11 +195,6 @@ init(void)
 	std_symbol("$C4", C4);
 	std_symbol("$C5", C5);
 	std_symbol("$C6", C6);
-
-	// set up for evaluation
-
-	tos = 0;
-	frame = stack + TOS;
 
 	push_integer(0);
 	zero = pop();		// must be untagged in gc

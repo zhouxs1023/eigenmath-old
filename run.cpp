@@ -26,21 +26,17 @@ run(char *s)
 		return;
 	}
 
-	esc_flag = 0;
-	draw_flag = 0;
-
 	if (setjmp(stop_return))
 		return;
 
 	init();
 
-	tos = 0;
-
-	frame = stack + TOS;
-
 	while (1) {
 
 		n = scan(s);
+
+		p1 = pop();
+		check_stack();
 
 		if (n == 0)
 			break;
@@ -55,11 +51,6 @@ run(char *s)
 		}
 
 		s += n;
-
-		setup();
-
-		p1 = pop();
-		check_stack();
 
 		push(p1);
 		top_level_eval();
@@ -115,6 +106,15 @@ void
 top_level_eval(void)
 {
 	save();
+
+	trigmode = 0;
+
+	p1 = symbol(AUTOEXPAND);
+
+	if (iszero(get_binding(p1)))
+		expanding = 0;
+	else
+		expanding = 1;
 
 	p1 = pop();
 	push(p1);
