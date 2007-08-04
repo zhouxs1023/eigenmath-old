@@ -157,9 +157,7 @@ test(char *file, char **s, int n)
 
 	test_flag = 1;
 
-	clear_symbols();
-
-	defn();
+	run("clear");
 
 	run("e=quote(e)");
 
