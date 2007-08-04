@@ -79,7 +79,7 @@ divby1billion(unsigned int *a)
 
 	for (i = MLENGTH(a) - 1; i >= 0; i--) {
 
-		if (little_endian) {
+		if (little_endian()) {
 			((unsigned int *) &kk)[1] = ((unsigned int *) &kk)[0];
 			((unsigned int *) &kk)[0] = a[i];
 		} else {
@@ -100,7 +100,7 @@ divby1billion(unsigned int *a)
 
 	MLENGTH(a) = i + 1;
 
-	if (little_endian)
+	if (little_endian())
 		return ((unsigned int *) &kk)[0];
 	else
 		return ((unsigned int *) &kk)[1];

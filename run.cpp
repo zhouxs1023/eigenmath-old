@@ -21,6 +21,11 @@ run(char *s)
 {
 	int i, n;
 
+	if (strncmp(s, "selftest", 8) == 0) {
+		selftest();
+		return;
+	}
+
 	esc_flag = 0;
 	draw_flag = 0;
 
@@ -32,11 +37,6 @@ run(char *s)
 	tos = 0;
 
 	frame = stack + TOS;
-
-	if (s[0] == '*') {
-		selftest();
-		return;
-	}
 
 	while (1) {
 

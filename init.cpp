@@ -12,11 +12,6 @@ init(void)
 
 	flag = 1;
 
-	// endianess
-
-	little_endian = 1;
-	little_endian = *((unsigned char *) &little_endian);
-
 	p1 = symbol(NIL);
 	p2 = symbol(NIL);
 	p3 = symbol(NIL);

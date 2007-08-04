@@ -314,7 +314,6 @@ extern int primetab[MAXPRIMETAB];
 extern int esc_flag;
 extern int draw_flag;
 extern int mtotal;
-extern int little_endian;
 extern int trigmode;
 extern char logbuf[];
 extern char program_buf[];
@@ -334,5 +333,8 @@ extern U symtab[];
 extern char out_buf[];
 extern int out_count;
 extern int test_flag;
+
+extern int endian;
+#define little_endian() (*((unsigned char *) &endian))
 
 #include "prototypes.h"

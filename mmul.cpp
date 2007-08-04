@@ -108,7 +108,7 @@ mdiv(unsigned int *a, unsigned int *b)
 
 			/* estimate the partial quotient */
 
-			if (little_endian) {
+			if (little_endian()) {
 				((unsigned int *) &jj)[0] = x[alen - i - 1];
 				((unsigned int *) &jj)[1] = x[alen - i - 0];
 			} else {
@@ -240,7 +240,7 @@ mmod(unsigned int *a, unsigned int *b)
 
 			/* estimate the partial quotient */
 
-			if (little_endian) {
+			if (little_endian()) {
 				((unsigned int *) &jj)[0] = x[alen - i - 1];
 				((unsigned int *) &jj)[1] = x[alen - i - 0];
 			} else {
@@ -335,7 +335,7 @@ mdivrem(unsigned int **q, unsigned int **r, unsigned int *a, unsigned int *b)
 
 			/* estimate the partial quotient */
 
-			if (little_endian) {
+			if (little_endian()) {
 				((unsigned int *) &jj)[0] = x[alen - i - 1];
 				((unsigned int *) &jj)[1] = x[alen - i - 0];
 			} else {

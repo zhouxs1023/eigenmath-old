@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "defs.h"
 
+int endian = 1;
+
 U *p1;
 U *p2;
 U *p3;
@@ -11,11 +13,6 @@ U *p7;
 U *p8;
 
 U *zero, *one, *imaginaryunit;
-//U *meta_a;
-//U *meta_b;
-//U *meta_c;
-//U *meta_n;
-//U *meta_x;
 
 U symtab[NSYM], *binding[NSYM], *arglist[NSYM];
 
@@ -23,7 +20,6 @@ int expanding;
 int conjugating;
 int verbosing;
 int esc_flag;
-int little_endian;
 int draw_flag;
 int test_flag;
 char logbuf[1000];

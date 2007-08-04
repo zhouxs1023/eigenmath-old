@@ -4,17 +4,29 @@
 #include "defs.h"
 #include "selftest.h"
 
+extern jmp_buf stop_return;
 static jmp_buf jbuf;
 
 void
 selftest(void)
 {
+	run("clear"); // to initialize
+
+	// for handling "errout"
+
 	if (setjmp(jbuf))
+		return;
+
+	// for handling "stop"
+
+	if (setjmp(stop_return))
 		return;
 
 #if SELFTEST
 
 	// test bignum arithmetic
+
+	// these need a "stop" context
 
 	test_madd();
 	test_msub();
@@ -22,11 +34,14 @@ selftest(void)
 	test_mdiv();
 	test_mmod();
 	test_mprime();
-
-	test_quickfactor();
 	test_mgcd();
 	test_mpow();
 	test_mroot();
+
+	test_quickfactor();
+
+	// now using "run" context
+
 	test_multiply();
 	test_scan();
 	test_power();
