@@ -1318,7 +1318,7 @@ process_user_event(void)
 
     if (dt > 1) {
         deactivate_controls();
-        sprintf(buf, "Working on it for %d seconds. Esc might interrupt, otherwise press \021Q to quit.", dt);
+        sprintf(buf, "Working on it for %d seconds. Esc might interrupt, otherwise press apple+Q to quit.", dt);
         update_curr_cmd(buf);
         update_display();
     }

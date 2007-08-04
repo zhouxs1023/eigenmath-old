@@ -1,13 +1,4 @@
 // Draw evaluates the first argument.
-//
-// Test case 1. Checks default arg and verifies "last" is correct.
-//	x^2
-//	draw
-//	integral			result should be 1/3 x^3
-//
-// Test case 2. Checks that 1st arg is evaluated and "last" is correct.
-//	draw(integral(erf(x)))
-//	derivative			result should be erf(x)
 
 #include "stdafx.h"
 #include "defs.h"
@@ -31,18 +22,6 @@ extern struct text_metric text_metric[11];
 #define Y p4
 #define XT p5
 #define YT p6
-
-static void setup_trange(void);
-static void setup_trange_f(void);
-static void setup_xrange(void);
-static void setup_xrange_f(void);
-static void setup_yrange(void);
-static void setup_yrange_f(void);
-static void draw(void);
-static void draw2(void);
-static void draw3(void);
-static void fill(int, int, int);
-static void emit_graph(void);
 
 static double tmin, tmax;
 static double xmin, xmax;
@@ -83,18 +62,22 @@ eval_draw(void)
 				// also, "last" is not modified when result is "nil"
 }
 
-static void
+void
 draw(void)
 {
+	if (draw_flag) {
+		draw_flag = 0; // so "stop" really stops
+		stop("draw calls draw");
+	}
 	draw_flag++;
 	save();
-	draw2();
+	yydraw();
 	restore();
 	draw_flag--;
 }
 
-static void
-draw2(void)
+void
+yydraw(void)
 {
 	T = pop();
 	F = pop();
@@ -112,15 +95,15 @@ draw2(void)
 		tmax = xmax;
 	}
 
-	draw3();
+	create_point_set();
 
 	emit_graph();
 }
 
 #define N 100
 
-static void
-draw3(void)
+void
+create_point_set(void)
 {
 	int i, n;
 	double t;
@@ -185,15 +168,14 @@ extern jmp_buf draw_stop_return;
 void
 eval_point(double t)
 {
-	volatile int save_tos;
-	U ** volatile save_frame;
+	// Compiler error? These must be volatile or it crashes.
+
+	// Read it backwards, save_tos is a volatile int, etc.
+
+	int volatile save_tos = tos;
+	U ** volatile save_frame = frame;
 
 	save();
-
-	// steal the stop vector
-
-	save_tos = tos;
-	save_frame = frame;
 
 	draw_flag++;
 
@@ -235,7 +217,7 @@ eval_point(double t)
 
 #define MAX_DEPTH 6
 
-static void
+void
 fill(int i, int k, int level)
 {
 	int dx, dy, j;
@@ -280,7 +262,7 @@ fill(int i, int k, int level)
 //
 //-----------------------------------------------------------------------------
 
-static void
+void
 setup_trange(void)
 {
 	save();
@@ -288,7 +270,7 @@ setup_trange(void)
 	restore();
 }
 
-static void
+void
 setup_trange_f(void)
 {
 	// default range is (-pi, pi)
@@ -330,7 +312,7 @@ setup_trange_f(void)
 		stop("draw: trange is zero");
 }
 
-static void
+void
 setup_xrange(void)
 {
 	save();
@@ -338,7 +320,7 @@ setup_xrange(void)
 	restore();
 }
 
-static void
+void
 setup_xrange_f(void)
 {
 	// default range is (-10,10)
@@ -408,7 +390,7 @@ setup_xrange_f(void)
 //
 //-----------------------------------------------------------------------------
 
-static void
+void
 setup_yrange(void)
 {
 	save();
@@ -416,7 +398,7 @@ setup_yrange(void)
 	restore();
 }
 
-static void
+void
 setup_yrange_f(void)
 {
 	// default range is (-10,10)
@@ -478,7 +460,7 @@ static void get_yzero(void);
 
 static int xzero, yzero;
 
-static void
+void
 emit_graph(void)
 {
 	int h, i, len, x, y;
