@@ -41,7 +41,6 @@ static void setup_yrange_f(void);
 static void draw(void);
 static void draw2(void);
 static void draw3(void);
-static void new_point(double);
 static void fill(int, int, int);
 static void emit_graph(void);
 
