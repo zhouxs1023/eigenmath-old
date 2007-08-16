@@ -1,0 +1,52 @@
+\documentclass{article}
+\begin{document}
+
+\section*{C++ virtual surprise}
+
+For $A$ and $B$, the declaration {\it virtual} is inconsequential.
+However, when $C$ inherits both $A$ and $B$, something interesting happens.
+
+\medskip
+\begin{verbatim}
+#include <iostream>
+
+class foo
+{
+public:
+        int n;
+};
+
+class A : virtual public foo {};
+
+class B : virtual public foo {};
+
+class C : public A, public B {};
+
+main()
+{
+        A a;
+        B b;
+        C c;
+
+        a.n = 1;
+        b.n = 2;
+
+        c.A::n = 3;
+        c.B::n = 4;
+
+        printf("%d %d %d %d\n", a.n, b.n, c.A::n, c.B::n);
+}
+\end{verbatim}
+
+\medskip
+\noindent
+The result...
+
+\medskip
+\begin{verbatim}
+[gweigt@roscoe ~]$ g++ 1.cpp
+[gweigt@roscoe ~]$ ./a.out
+1 2 4 4
+\end{verbatim}
+
+\end{document}
