@@ -1,5 +1,3 @@
-#include "stdafx.h"
-
 //-----------------------------------------------------------------------------
 //
 //	Look up the nth prime
@@ -10,20 +8,27 @@
 //
 //-----------------------------------------------------------------------------
 
+#include "stdafx.h"
 #include "defs.h"
 
-static void primef(void);
+void
+eval_prime(void)
+{
+	push(cadr(p1));
+	eval();
+	prime();
+}
 
 void
 prime(void)
 {
 	save();
-	primef();
+	yyprime();
 	restore();
 }
 
-static void
-primef(void)
+void
+yyprime(void)
 {
 	int n;
 

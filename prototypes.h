@@ -372,7 +372,6 @@ void eval_multiply(void);
 void eval_number(void);
 void eval_operator(void);
 void eval_power(void);
-void eval_prime(void);
 void eval_print(void);
 void eval_quote(void);
 void eval_rank(void);
@@ -718,7 +717,9 @@ int simplify_polar(void);
 void test_power(void);
 
 // prime.cpp
+void eval_prime(void);
 void prime(void);
+void yyprime(void);
 
 // primetab.cpp
 
