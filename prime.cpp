@@ -22,14 +22,6 @@ eval_prime(void)
 void
 prime(void)
 {
-	save();
-	yyprime();
-	restore();
-}
-
-void
-yyprime(void)
-{
 	int n;
 	n = pop_integer();
 	if (n < 1 || n > MAXPRIMETAB)
