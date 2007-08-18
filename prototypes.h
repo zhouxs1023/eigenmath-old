@@ -719,7 +719,6 @@ void test_power(void);
 // prime.cpp
 void eval_prime(void);
 void prime(void);
-void yyprime(void);
 
 // primetab.cpp
 

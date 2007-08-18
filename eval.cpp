@@ -535,14 +535,6 @@ eval_power(void)
 }
 
 void
-eval_prime(void)
-{
-	push(cadr(p1));
-	eval();
-	prime();
-}
-
-void
 eval_print(void)
 {
 	p1 = cdr(p1);

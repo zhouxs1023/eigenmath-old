@@ -31,13 +31,9 @@ void
 yyprime(void)
 {
 	int n;
-
 	n = pop_integer();
-
 	if (n < 1 || n > MAXPRIMETAB)
 		stop("prime: Argument out of range.");
-
 	n = primetab[n - 1];
-
 	push_integer(n);
 }
