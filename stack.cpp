@@ -1,5 +1,3 @@
-#include "stdafx.h"
-
 //-----------------------------------------------------------------------------
 //
 //	 _______
@@ -18,12 +16,13 @@
 //	multiple expressions can be pushed on the stack and then accessed as an
 //	array.
 //
-//	The frame area grows from high memory towards low memory. The frame
-//	area is used to store local variables. The frame area is required
-//	because local variables must be visible to the garbage collector.
+//	The frame area holds local variables and grows from high memory towards
+//	low memory. The frame area makes local variables visible to the garbage
+//	collector.
 //
 //-----------------------------------------------------------------------------
 
+#include "stdafx.h"
 #include "defs.h"
 
 U **frame, *stack[TOS];
