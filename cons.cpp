@@ -6,7 +6,8 @@
 void
 cons(void)
 {
-	U *p; // auto var ok, no garbage collection is done here
+	// auto var ok, no opportunity for garbage collection after p = alloc()
+	U *p;
 	p = alloc();
 	p->k = CONS;
 	p->u.cons.cdr = pop();
