@@ -231,11 +231,11 @@ ssqrt(void)
 void
 conjugate(void)
 {
-	int tmp;
-	tmp = conjugating;
-	conjugating = 1;
+	push(imaginaryunit);
+	push(imaginaryunit);
+	negate();
+	subst();
 	eval();
-	conjugating = tmp;
 }
 
 void

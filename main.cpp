@@ -79,6 +79,7 @@ printchar_nowrap(int c)
 void
 eval_draw(void)
 {
+	push(symbol(NIL));
 }
 
 void

@@ -86,8 +86,6 @@ qpowf(void)
 
 	if (isminusone(BASE)) {
 		push(EXPO);
-		if (conjugating)
-			negate();
 		normalize_angle();
 		return;
 	}

@@ -17,7 +17,6 @@ U *zero, *one, *imaginaryunit;
 U symtab[NSYM], *binding[NSYM], *arglist[NSYM];
 
 int expanding;
-int conjugating;
 int verbosing;
 int esc_flag;
 int draw_flag;

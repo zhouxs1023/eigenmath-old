@@ -164,7 +164,7 @@ void clear(void);
 
 // clock.cpp
 void eval_clock(void);
-void clock(void);
+void yyclock(void);
 void test_clock(void);
 
 // cmdisplay.cpp

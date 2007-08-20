@@ -247,6 +247,10 @@ eval_conj(void)
 {
 	push(cadr(p1));
 	eval();
+	p1 = pop();
+	push(p1);
+	if (!find(p1, imaginaryunit)) // example: (-1)^(1/3)
+		rect();
 	conjugate();
 }
 

@@ -168,15 +168,15 @@ extern jmp_buf draw_stop_return;
 void
 eval_point(double t)
 {
-	// Compiler error? These must be volatile or it crashes.
-
+	// These must be volatile or it crashes. (Compiler error?)
 	// Read it backwards, save_tos is a volatile int, etc.
 
-	int volatile save_tos = tos;
-	U ** volatile save_frame = frame;
+	int volatile save_tos;
+	U ** volatile save_frame;
 
 	save();
-
+	save_tos = tos;
+	save_frame = frame;
 	draw_flag++;
 
 	if (setjmp(draw_stop_return)) {
