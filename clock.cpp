@@ -8,9 +8,16 @@
 void
 eval_clock(void)
 {
-#if 1
 	push(cadr(p1));
 	eval();
+	clock();
+}
+
+void
+clock(void)
+{
+	save();
+#if 1
 	p1 = pop();
 	push(p1);
 	mag();
@@ -22,8 +29,6 @@ eval_clock(void)
 	power();
 	multiply();
 #else
-	push(cadr(p1));
-	eval();
 	p1 = pop();
 	push(p1);
 	mag();
@@ -35,6 +40,7 @@ eval_clock(void)
 	power();
 	multiply();
 #endif
+	restore();
 }
 
 #if SELFTEST
