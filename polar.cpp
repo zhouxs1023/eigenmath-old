@@ -1,4 +1,11 @@
-//	polar(z) = mag(z) * exp(i * arg(z))
+/* Convert complex z to polar form
+
+	Input:		push	z
+
+	Output:		Result on stack
+
+	polar(z) = mag(z) * exp(i * arg(z))
+*/
 
 #include "stdafx.h"
 #include "defs.h"
@@ -8,6 +15,13 @@ eval_polar(void)
 {
 	push(cadr(p1));
 	eval();
+	polar();
+}
+
+void
+polar(void)
+{
+	save();
 	p1 = pop();
 	push(p1);
 	mag();
@@ -17,6 +31,7 @@ eval_polar(void)
 	multiply();
 	exponential();
 	multiply();
+	restore();
 }
 
 #if SELFTEST

@@ -38,7 +38,7 @@ qadd.o qsub.o qmul.o qdiv.o qpow.o \
 sin.o cos.o tan.o arcsin.o arccos.o arctan.o \
 sinh.o cosh.o tanh.o arcsinh.o arccosh.o arctanh.o \
 abs.o mod.o roots.o eigen.o simplify.o for.o isprime.o index.o zero.o \
-rationalize.o lcm.o floor.o ceiling.o condense.o userfunc.o find.o \
+rationalize.o lcm.o floor.o ceiling.o condense.o userfunc.o find.o conj.o \
 init.o primetab.o bignum.o symbol.o run.o atomize.o pollard.o outer.o inner.o \
 is.o clear.o expcos.o expsin.o coeff.o log.o append.o list.o cons.o guess.o \
 main.o misc.o data.o alloc.o stack.o scan.o print.o eval.o subst.o gcd.o \

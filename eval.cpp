@@ -243,18 +243,6 @@ eval_check(void)
 }
 
 void
-eval_conj(void)
-{
-	push(cadr(p1));
-	eval();
-	p1 = pop();
-	push(p1);
-	if (!find(p1, imaginaryunit)) // example: (-1)^(1/3)
-		rect();
-	conjugate();
-}
-
-void
 eval_det(void)
 {
 	push(cadr(p1));
@@ -526,16 +514,6 @@ eval_operator(void)
 		p1 = cdr(p1);
 	}
 	list(tos - h);
-}
-
-void
-eval_power(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	power();
 }
 
 void

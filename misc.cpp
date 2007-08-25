@@ -229,16 +229,6 @@ ssqrt(void)
 }
 
 void
-conjugate(void)
-{
-	push(imaginaryunit);
-	push(imaginaryunit);
-	negate();
-	subst();
-	eval();
-}
-
-void
 expand(void)
 {
 	int x;

@@ -1,4 +1,9 @@
-// Return complex z in rectangular form
+/* Convert complex z to rectangular form
+
+	Input:		push	z
+
+	Output:		Result on stack
+*/
 
 #include "stdafx.h"
 #include "defs.h"

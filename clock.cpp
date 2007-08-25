@@ -1,6 +1,13 @@
-//	clock(z) = mag(z) * (-1) ^ (arg(z) / pi)
+/* Convert complex z to clock form
 
-//	For example clock(exp(i pi/3)) gives the result (-1)^(1/3)
+	Input:		push	z
+
+	Output:		Result on stack
+
+	clock(z) = mag(z) * (-1) ^ (arg(z) / pi)
+
+	For example, clock(exp(i pi/3)) gives the result (-1)^(1/3)
+*/
 
 #include "stdafx.h"
 #include "defs.h"

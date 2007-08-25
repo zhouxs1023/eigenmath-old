@@ -188,6 +188,10 @@ void Condense(void);
 void yycondense(void);
 void test_condense(void);
 
+// conj.cpp
+void eval_conj(void);
+void conjugate(void);
+
 // cons.cpp
 void cons(void);
 
@@ -349,7 +353,6 @@ void eval(void);
 void eval_sym(void);
 void eval_cons(void);
 void eval_check(void);
-void eval_conj(void);
 void eval_det(void);
 void eval_dim(void);
 void eval_divisors(void);
@@ -372,7 +375,6 @@ void eval_mem(void);
 void eval_multiply(void);
 void eval_number(void);
 void eval_operator(void);
-void eval_power(void);
 void eval_print(void);
 void eval_quote(void);
 void eval_rank(void);
@@ -624,7 +626,6 @@ int length(U *p);
 U * unique(U *p);
 void check_endianess(void);
 void ssqrt(void);
-void conjugate(void);
 void expand(void);
 void exponential(void);
 void square(void);
@@ -701,6 +702,7 @@ void partition(void);
 
 // polar.cpp
 void eval_polar(void);
+void polar(void);
 void test_polar(void);
 
 // pollard.cpp
@@ -710,6 +712,7 @@ void test_factor_integer_f(int len, int count);
 void test_factor_integer(void);
 
 // power.cpp
+void eval_power(void);
 void power(void);
 void yypower(void);
 void power_sum(int n);

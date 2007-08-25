@@ -1,14 +1,24 @@
-/* Symbolic power function
+/* Power function
 
-	Input:		tos-2		Base
+	Input:		push	Base
 
-			tos-1		Exponent
+			push	Exponent
 
 	Output:		Result on stack
 */
 
 #include "stdafx.h"
 #include "defs.h"
+
+void
+eval_power(void)
+{
+	push(cadr(p1));
+	eval();
+	push(caddr(p1));
+	eval();
+	power();
+}
 
 void
 power(void)
