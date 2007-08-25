@@ -17,11 +17,11 @@ eval_clock(void)
 {
 	push(cadr(p1));
 	eval();
-	yyclock();
+	clockform();
 }
 
 void
-yyclock(void)
+clockform(void)
 {
 	save();
 #if 1

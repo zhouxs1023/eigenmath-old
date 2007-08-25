@@ -13,7 +13,7 @@ eval_conj(void)
 	if (!find(p1, imaginaryunit)) { // example: (-1)^(1/3)
 		polar();
 		conjugate();
-		yyclock();
+		clockform();
 	} else
 		conjugate();
 }
