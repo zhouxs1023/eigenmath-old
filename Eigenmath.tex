@@ -616,7 +616,10 @@ cofactor($m,i,j$) returns of the cofactor of matrix $m$ with respect to row $i$ 
 conj($z$) returns the complex conjugate of $z$.
 
 \section*{contract}
+\index{trace}
 contract($a,i,j$) returns tensor $a$ summed over indices $i$ and $j$.
+If $i$ and $j$ are omitted then indices 1 and 2 are used.
+contract($m$) is equivalent to the trace of matrix $m$.
 
 \section*{cos}
 cos($x$) returns the cosine of $x$.
@@ -642,10 +645,6 @@ denominator($x$) returns the denominator of expression $x$.
 
 \section*{det}
 det($m$) returns the determinant of matrix $m$.
-
-\section*{display}
-display($x$) evaluates expression $x$ and displays the result.
-Useful for printing from inside a ``for'' loop.
 
 \section*{do}
 do($a,b,\ldots$) evaluates the argument list from left to right.
@@ -825,7 +824,7 @@ polar($z$) converts complex $z$ to polar form.
 prime($n$) returns the $n$th prime number, $1\le n\le10{,}000$.
 
 \section*{print}
-print($x$) evaluates expression $x$ and displays the result in typewriter style.
+print($a,b,\ldots$) evaluates expressions and prints the results..
 Useful for printing from inside a ``for'' loop.
 
 \section*{product}
@@ -900,9 +899,6 @@ $${5\over24}x^4+{1\over2}x^2+1$$
 test($a,b,c,d,\ldots$)
 If $a$ is true then $b$ is returned else if $c$ is true then $d$ is returned, etc.
 If the number of arguments is odd then the last argument is returned when all else fails.
-
-\section*{trace}
-trace($m$) returns the trace of matrix $m$.
 
 \section*{transpose}
 transpose($a,i,j$) returns the transpose of tensor $a$ with respect to indices $i$ and $j$.
