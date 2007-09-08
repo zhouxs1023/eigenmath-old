@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <math.h>
 
-double h[7] = {
+double h[8] = {
 	0.0,
 	11000.0,
 	20000.0,
@@ -11,6 +11,7 @@ double h[7] = {
 	47000.0,
 	51000.0,
 	71000.0,
+	86000.0,
 };
 
 double rho[7] = {
@@ -43,7 +44,7 @@ double L[7] = {
 	-0.002,
 };
 
-double g0 = 9.80665;
+double g = 9.80665;
 double R = 8.31432e3;
 double M = 28.9644;
 
@@ -52,15 +53,27 @@ air_density(double hh)
 {
 	int b;
 	double x, y;
-	for (b = 0; b < 6; b++)
-		if (hh < h[b])
+	for (b = 0; b < 7; b++)
+		if (hh < h[b + 1])
 			break;
+	if (b == 7) {
+		printf("Above 86 km\n");
+		b--;
+	}
 	if (L[b] == 0.0) {
-		y = -g0 * M * (hh - h[b]) / (R * T[b]);
+		y = -g * M * (hh - h[b]) / (R * T[b]);
 		return rho[b] * exp(y);
 	} else {
 		x = T[b] / (T[b] + L[b] * (hh - h[b]));
-		y = (g0 * M) / (R * L[b]);
+		y = (g * M) / (R * L[b]);
 		return rho[b] * pow(x, y + 1);
 	}
+}
+
+main()
+{
+	double h;
+	for (h = 0.0; h < 86000.0; h += 1000.0)
+		printf("%g %g\n", h, air_density(h));
+	printf("%g\n", air_density(31333.44)); // 102,800 feet
 }
