@@ -12,7 +12,7 @@
 # 3. Test it.
 #
 #	$ ./math
-#	> --test
+#	> selftest
 #
 # 4. Press control-c to quit.
 #
