@@ -1,12 +1,9 @@
 \noindent
-It is a generally accepted convention that $0^0=1$.
-By drawing a graph of the function $f(x)=|x^x|$ we can see why this
-convention makes sense.
-Of course, we want to draw the absolute value, or magnitude of $x^x$ because
-$x^x$ is mostly complex when $x<0$.
+The following example draws a graph of the function $f(x)=|x^x|$.
+The graph shows why the convention $0^0=1$ makes sense.
 
 \medskip
-\verb$f=abs(x^x)$
+\verb$f(x)=abs(x^x)$
 
 \verb$xrange=(-2,2)$
 
@@ -21,5 +18,17 @@ $x^x$ is mostly complex when $x<0$.
 \medskip
 \noindent
 We can see how $0^0=1$ results in a continuous line through $x=0$.
+Now let us see how $x^x$ behaves in the complex plane.
 
-% What are the coordinates for the local minimum and maximum seen above?
+\medskip
+\verb$f(x)=(real(x^x),imag(x^x))$
+
+\verb$xrange=(-2,2)$
+
+\verb$yrange=(-2,2)$
+
+\verb$draw(f)$
+
+\begin{center}
+\includegraphics[scale=0.4]{zerozero2.png}
+\end{center}
