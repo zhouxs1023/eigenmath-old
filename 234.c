@@ -30,7 +30,7 @@ int height, weight;
 
 main()
 {
-	printf("starting altitude, mass, drag, peak mach\r\n");
+	printf("Height, Weight, Drag, Mach\r\n");
 	for (height = 60000; height <= 100000; height += 20000) {
 		for (weight = 200; weight <= 400; weight += 100) {
 			ACd = 0.6;
@@ -48,8 +48,8 @@ main()
 void
 init(void)
 {
-	h = height / 3.28084;
-	m = weight * 0.453592;
+	h = height / 3.28084;	// convert to meters
+	m = weight * 0.453592;	// convert to kg
 	dt = 1;
 	v = 0;
 	vo = 0;
