@@ -11,6 +11,7 @@ double speedofsound(double);
 double airdensity(double);
 double gravity(double);
 double randomcoeff();
+void stats(void);
 
 //	t	simulated elapsed time (seconds)
 //	dt	time increment (seconds)
@@ -26,21 +27,24 @@ double randomcoeff();
 //	a	skydiver's acceleration (m/s^2)
 
 double t, dt, m, v, h, vmax, hmax, ACd, vo, g, p, Fd, Fg, a, mmax;
-int height, weight;
+int ii, jj, kk, height, weight;
+double mach[3][3][3][1000];
 
 main()
 {
 	printf("Height, Weight, Drag, Mach\r\n");
-	for (height = 60000; height <= 100000; height += 20000) {
-		for (weight = 200; weight <= 400; weight += 100) {
-			ACd = 0.6;
-			runmc();
-			ACd = 0.75;
-			runmc();
-			ACd = 0.9;
-			runmc();
+	for (ii = 0; ii < 3; ii++) {
+		for (jj = 0; jj < 3; jj++) {
+			for (kk = 0; kk < 3; kk++) {
+				height = 60000 + 20000 * ii;
+				weight = 200 + 100 * jj;
+				ACd = 0.6 + 0.15 * kk;
+				runmc();
+			}
 		}
 	}
+	printf("\n");
+	stats();
 }
 
 // initialize the simulation
@@ -117,7 +121,8 @@ runmc(void)
 			if (h < 3000)
 				break;
 		}
-		printf("%d, %d, %g, %g\r\n", height, weight, ACd, mmax);
+		//printf("%d, %d, %g, %g\r\n", height, weight, ACd, mmax);
+		mach[ii][jj][kk][i] = mmax;
 	}
 }
 
@@ -207,3 +212,26 @@ randomcoeff(void)
 	coeff = (double) rand() / (double) RAND_MAX;
 	return 1.0 + 0.1 * (coeff - 0.5);
 }
+
+void
+stats(void)
+{
+	int i;
+	double mean;
+	for (ii = 0; ii < 3; ii++) {
+		for (jj = 0; jj < 3; jj++) {
+			for (kk = 0; kk < 3; kk++) {
+				mean = 0.0;
+				for (i = 0; i < 1000; i++)
+					mean += mach[ii][jj][kk][i];
+				mean /= 1000.0;
+				height = 60000 + 20000 * ii;
+				weight = 200 + 100 * jj;
+				ACd = 0.6 + 0.15 * kk;
+				printf("%10d %10d %10g %10g\n", height, weight, ACd, mean);
+			}
+			printf("\n");
+		}
+	}
+}
+
