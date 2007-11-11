@@ -26,7 +26,7 @@ main()
 
 	n = findroot();
 
-	printf("%d %g %g\n", n, a.r, a.i);
+	printf("%d %g %g %g\n", n, a.r, a.i, ABS(fa));
 }
 
 compute_fa()
@@ -57,8 +57,6 @@ compute_fa()
 		fa.r += c[k].r * x.r - c[k].i * x.i;
 		fa.i += c[k].r * x.i + c[k].i * x.r;
 	}
-printf("%g %g %g %g\n", a.r, a.i, fa.r, fa.i);
-
 }
 
 findroot()
@@ -82,7 +80,7 @@ findroot()
 		compute_fa();
 
 		if (ABS(fa) < 1.0e-10)
-			return 0; // ok
+			return i; // ok
 
 		if (ABS(fa) < ABS(fb)) {
 			x = a;
