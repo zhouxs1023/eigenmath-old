@@ -13,7 +13,7 @@ static int n;
 
 main()
 {
-	n = 3;
+	int k;
 
 	c[0].r = 1.0;
 	c[0].i = 0.0;
@@ -24,42 +24,12 @@ main()
 	c[2].r = 3.0;
 	c[2].i = 0.0;
 
-	n = findroot();
+	k = findroot(3);
 
-	printf("%d %g %g %g\n", n, a.r, a.i, ABS(fa));
+	printf("%d %g %g %g\n", k, a.r, a.i, ABS(fa));
 }
 
-compute_fa()
-{
-	int k;
-	double t;
-
-	// x = a
-
-	x.r = a.r;
-	x.i = a.i;
-
-	// fa = c0 + c1 * x
-
-	fa.r = c[0].r + c[1].r * x.r - c[1].i * x.i;
-	fa.i = c[0].i + c[1].r * x.i + c[1].i * x.r;
-
-	for (k = 2; k < n; k++) {
-
-		// x = a * x
-
-		t = a.r * x.r - a.i * x.i;
-		x.i = a.r * x.i + a.i * x.r;
-		x.r = t;
-
-		// fa += c[k] * x
-
-		fa.r += c[k].r * x.r - c[k].i * x.i;
-		fa.i += c[k].r * x.i + c[k].i * x.r;
-	}
-}
-
-findroot()
+findroot(int n)
 {
 	int i;
 	double t;
@@ -67,7 +37,7 @@ findroot()
 	a.r = 0.0;
 	a.i = 1.0;
 
-	compute_fa();
+	compute_fa(n);
 
 	b = a;
 	fb = fa;
@@ -77,7 +47,7 @@ findroot()
 
 	for (i = 0; i < 100; i++) {
 
-		compute_fa();
+		compute_fa(n);
 
 		if (ABS(fa) < 1.0e-10)
 			return i; // ok
@@ -118,4 +88,34 @@ findroot()
 	}
 
 	return -1; // fail
+}
+
+compute_fa(int n)
+{
+	int k;
+	double t;
+
+	// x = a
+
+	x.r = a.r;
+	x.i = a.i;
+
+	// fa = c0 + c1 * x
+
+	fa.r = c[0].r + c[1].r * x.r - c[1].i * x.i;
+	fa.i = c[0].i + c[1].r * x.i + c[1].i * x.r;
+
+	for (k = 2; k < n; k++) {
+
+		// x = a * x
+
+		t = a.r * x.r - a.i * x.i;
+		x.i = a.r * x.i + a.i * x.r;
+		x.r = t;
+
+		// fa += c[k] * x
+
+		fa.r += c[k].r * x.r - c[k].i * x.i;
+		fa.i += c[k].r * x.i + c[k].i * x.r;
+	}
 }
