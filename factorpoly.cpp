@@ -24,15 +24,32 @@ void
 factorpoly(void)
 {
 	save();
+
 	p2 = pop();
 	p1 = pop();
-	if (p2->k != SYM)
-		stop("factor: 2nd arg?");
-	if (find(p1, p2) && !ispoly(p1, p2))
-		stop("factor: 1st arg?");
+
+	if (!find(p1, p2)) {
+		push(p1);
+		restore();
+		return;
+	}
+
+	if (!ispoly(p1, p2)) {
+		push(p1);
+		restore();
+		return;
+	}
+
+	if (!issymbol(p2)) {
+		push(p1);
+		restore();
+		return;
+	}
+
 	push(p1);
 	push(p2);
 	yyfactorpoly();
+
 	restore();
 }
 
@@ -744,7 +761,7 @@ static char *s[] = {
 	"",
 
 	"factor(y)",
-	"Stop: factor: 1st arg?",
+	"x^2+exp(x)",
 };
 
 void

@@ -64,6 +64,7 @@ selftest(void)
 	test_log();
 	test_mag();
 	test_mod();
+	test_nroots();
 	test_numerator();
 	test_outer();
 	test_polar();

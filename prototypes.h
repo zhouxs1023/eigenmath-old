@@ -405,6 +405,8 @@ void test_expsin(void);
 
 // factor.cpp
 void eval_factor(void);
+void factor_again(void);
+void factor_term(void);
 void factor(void);
 void factor_small_number(void);
 void test_factor_number(void);
@@ -685,6 +687,14 @@ void negate(void);
 void negate_expand(void);
 void negate_noexpand(void);
 void test_multiply(void);
+
+// nroots.cpp
+void eval_nroots(void);
+void monic(int n);
+void findroot(int n);
+void compute_fa(int n);
+void divpoly(int n);
+void test_nroots(void);
 
 // numerator.cpp
 void eval_numerator(void);

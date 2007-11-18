@@ -71,7 +71,7 @@ roots(void)
 	roots2();
 	n = tos - h;
 	if (n == 0)
-		stop("roots: the polynomial is not factorable, no roots found");
+		stop("roots: the polynomial is not factorable, try nroots");
 	if (n == 1)
 		return;
 	sort_stack(n);
@@ -252,7 +252,7 @@ static char *s[] = {
 	"(-1,-i,i)",
 
 	"roots(x^4+1)",
-	"Stop: roots: the polynomial is not factorable, no roots found",
+	"Stop: roots: the polynomial is not factorable, try nroots",
 
 	"roots(x^2==1)",
 	"(-1,1)",

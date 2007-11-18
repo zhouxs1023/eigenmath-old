@@ -50,6 +50,13 @@ ytranspose(void)
 	ndim = p1->u.tensor->ndim;
 	nelem = p1->u.tensor->nelem;
 
+	// vector?
+
+	if (ndim == 1) {
+		push(p1);
+		return;
+	}
+
 	push(p2);
 	l = pop_integer();
 
@@ -128,6 +135,9 @@ static char *s[] = {
 
 	"transpose(((a,d),(b,e),(c,f)),1,2)",
 	"((a,b,c),(d,e,f))",
+
+	"transpose((a,b,c))",
+	"(a,b,c)",
 };
 
 void
