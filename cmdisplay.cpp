@@ -1195,6 +1195,8 @@ cm_emit_number(U *p, int emit_sign)
 		if (*s == '-' && emit_sign == 0)
 			s++;
 		emit_str(TIMES_FONT, s);
+		if (strchr(s, '.') == NULL)
+			emit_str(TIMES_FONT, ".0");
 		if (i < len) {
 			s = buf + i + 1;
 			emit_char(SYMBOL_FONT, 180);

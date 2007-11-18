@@ -755,7 +755,7 @@ static char *s[] = {
 	"x^2+3*x+2",
 
 	"factor(y,y)",
-	"Stop: factor: 2nd arg?",
+	"x^2+3*x+2",
 
 	"y=x^2+exp(x)",
 	"",

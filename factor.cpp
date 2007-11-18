@@ -1,3 +1,5 @@
+// factor a polynomial or integer
+
 #include "stdafx.h"
 #include "defs.h"
 
@@ -6,14 +8,78 @@ eval_factor(void)
 {
 	push(cadr(p1));
 	eval();
+
 	push(caddr(p1));
 	eval();
-	p1 = pop();
-	if (p1 == symbol(NIL))
+
+	p2 = pop();
+	if (p2 == symbol(NIL))
 		guess();
 	else
-		push(p1);
+		push(p2);
+
 	factor();
+
+	// more factoring?
+
+	p1 = cdddr(p1);
+	while (iscons(p1)) {
+		push(car(p1));
+		eval();
+		factor_again();
+		p1 = cdr(p1);
+	}
+}
+
+void
+factor_again(void)
+{
+	int h, n;
+
+	save();
+
+	p2 = pop();
+	p1 = pop();
+
+	h = tos;
+
+	if (car(p1) == symbol(MULTIPLY)) {
+		p1 = cdr(p1);
+		while (iscons(p1)) {
+			push(car(p1));
+			push(p2);
+			factor_term();
+			p1 = cdr(p1);
+		}
+	} else {
+		push(p1);
+		push(p2);
+		factor_term();
+	}
+
+	n = tos - h;
+
+	if (n > 1)
+		multiply_all_noexpand(n);
+
+	restore();
+}
+
+void
+factor_term(void)
+{
+	save();
+	factorpoly();
+	p1 = pop();
+	if (car(p1) == symbol(MULTIPLY)) {
+		p1 = cdr(p1);
+		while (iscons(p1)) {
+			push(car(p1));
+			p1 = cdr(p1);
+		}
+	} else
+		push(p1);
+	restore();
 }
 
 void
@@ -125,20 +191,35 @@ static char *s[] = {
 
 	// Prime factors greater than x^2 are found using the Pollard rho method
 
-	"x=104729",
+	"a=104729",
 	"",
 
-	"factor(2*(x^2+6))",
+	"factor(2*(a^2+6))",
 	"2*10968163447",
 
-	"factor((x^2+6)^2)",
+	"factor((a^2+6)^2)",
 	"10968163447*10968163447",	// FIXME should be 10968163447^2
 
-	"factor((x^2+6)*(x^2+60))",
+	"factor((a^2+6)*(a^2+60))",
 	"10968163501*10968163447",	// FIXME sort order
 
-	"x=quote(x)",
+	"f=(x+1)(x+2)(y+3)(y+4)",
 	"",
+
+	"factor(f,x,y)",
+	"(x+1)*(x+2)*(y+3)*(y+4)",
+
+	"factor(f,y,x)",
+	"(x+1)*(x+2)*(y+3)*(y+4)",
+
+	"f=(x+1)(x+1)(y+2)(y+2)",
+	"",
+
+	"factor(f,x,y)",
+	"(x+1)^2*(y+2)^2",
+
+	"factor(f,y,x)",
+	"(x+1)^2*(y+2)^2",
 };
 
 void

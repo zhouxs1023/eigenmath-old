@@ -184,6 +184,7 @@ eval_cons(void)
 	case MOD:		eval_mod();		break;
 	case MULTIPLY:		eval_multiply();	break;
 	case NOT:		eval_not();		break;
+	case NROOTS:		eval_nroots();		break;
 	case NUMBER:		eval_number();		break;
 	case NUMERATOR:		eval_numerator();	break;
 	case OPERATOR:		eval_operator();	break;
