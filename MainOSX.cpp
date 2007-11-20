@@ -17,6 +17,7 @@ The window display code is in window.cpp
 #include <Carbon/Carbon.h>
 
 #include "YASTControl.h"
+#include "help.h"
 
 #define SMALL_FONT 1
 #define DEFAULT_FONT 2
@@ -36,6 +37,8 @@ The window display code is in window.cpp
 #define DEFAULT_WIDTH 400
 #define DEFAULT_HEIGHT 240
 #endif
+
+static void do_help(char **s, int n);
 
 #define WINATTR (kWindowStandardDocumentAttributes | kWindowStandardHandlerAttribute)
 
@@ -437,8 +440,42 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
     default:
         err = eventNotHandledErr;
         break;
-    }
-    return err;
+
+// help menu
+
+	 case 'arg ':
+		HELP(help_arg);
+		break;
+	case 'conj':
+		HELP(help_conj);
+		break;
+	case 'imag':
+		HELP(help_imag);
+		break;
+	case 'mag ':
+		HELP(help_mag);
+		break;
+	case 'pola':
+		HELP(help_polar);
+		break;
+	case 'real':
+		HELP(help_real);
+		break;
+	case 'rect':
+		HELP(help_rect);
+		break;
+	case 'coef':
+		HELP(help_coeff);
+		break;
+	case 'deg ':
+		HELP(help_deg);
+		break;
+	case 'quot':
+		HELP(help_quotient);
+		break;
+	}
+
+	return err;
 }
 
 // also called from history.cpp
@@ -1552,4 +1589,27 @@ go_to_edit_mode(void)
 {
 	if (edit_mode == 0)
 		change_modes();
+}
+
+static void
+do_special(char *s)
+{
+	if (inp)
+		free(inp);
+	inp = strdup(s);
+	update_cmd_history(inp);
+	echo_input(inp);
+	update_curr_cmd("");
+	run(inp);
+}
+
+static void
+do_help(char **s, int n)
+{
+	int i;
+	go_to_calc_mode();
+	do_special("clear");
+	for (i = 0; i < n; i++)
+		do_special(s[i]);
+	update_display();
 }
