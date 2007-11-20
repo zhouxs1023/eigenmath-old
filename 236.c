@@ -24,7 +24,10 @@ main()
 	c[2].r = 3.0;
 	c[2].i = 0.0;
 
-	k = findroot(3);
+	c[3].r = 4.0;
+	c[3].i = 0.0;
+
+	k = findroot(4);
 
 	printf("%d %g %g %g\n", k, a.r, a.i, ABS(fa));
 }
