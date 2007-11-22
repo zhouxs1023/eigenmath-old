@@ -20,8 +20,7 @@ static char *help_solve[] = {
 };
 
 static char *help_factor_polynomial[] = {
-	"f=(x+1)*(x+2)*(y+3)*(y+4)",
-	"f",
+	"f=(x^2+3*x+2)*(y^2+7*y+12)",
 	"factor(f)",
 	"factor(f,x,y)",
 };
@@ -110,7 +109,7 @@ static char *help_derivative[] = {
 };
 
 static char *help_gradient[] = {
-	"f=x^2+y^2",
+	"f=cos(x)+sin(y)",
 	"d(f,(x,y))",
 };
 
@@ -257,7 +256,7 @@ static char *help_legendre[] = {
 
 static char *help_abs[] = {
 	"abs(-1)",
-	"X = (X1,X2)",
+	"X=(x1,x2)",
 	"abs(X)",
 };
 
@@ -373,7 +372,8 @@ static char *help_factorial[] = {
 static char *help_for[] = {
 	"x=0",
 	"y=2",
-	"for(k,1,9,x=sqrt(2+x),y=2y/x)",
+	"for(k,1,9,x=sqrt(2+x),y=2*y/x)",
+	"y",
 	"float(y)",
 };
 

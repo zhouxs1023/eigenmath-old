@@ -2221,7 +2221,7 @@ process_user_event(void)
 
 	if (dt > 1) {
 		deactivate_controls();
-		sprintf(buf, "Working on it for %d seconds. Esc might interrupt, otherwise close this window to quit.", dt);
+		sprintf(buf, "Esc key to stop (%d)", dt);
 		update_curr_cmd(buf);
 		update_display();
 	}
@@ -2314,6 +2314,9 @@ run_script(void)
 		return;
 	if (inp)
 		free(inp);
+	inp = get_curr_cmd();
+	update_cmd_history(inp);
+	free(inp);
 	len = GetWindowTextLength(edit_window);
 	inp = (char *) malloc(len + 1);
 	GetWindowText(edit_window, inp, len + 1);
@@ -2322,7 +2325,7 @@ run_script(void)
 	clear();
 	update_display();
 	create_task();
-	update_curr_cmd("Working...");
+	update_curr_cmd("");
 }
 
 static void

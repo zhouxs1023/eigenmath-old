@@ -45,7 +45,8 @@ run(char *s)
 
 		if (equaln(get_binding(symbol(TRACE)), 1)) {
 			for (i = 0; i < n; i++)
-				printchar(s[i]);
+				if (s[i] != '\r')
+					printchar(s[i]);
 			if (s[n - 1] != '\n') // n is not zero, see above
 				printchar('\n');
 		}
