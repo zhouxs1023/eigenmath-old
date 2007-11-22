@@ -99,7 +99,6 @@ pascal OSStatus MainWindowCommandHandler( EventHandlerCallRef handlerRef, EventR
 extern void do_up_arrow(void);
 extern void do_down_arrow(void);
 extern void printstr(char *);
-extern void clear(void);
 extern void draw_display(void);
 extern void run(char *);
 extern char *get_tty_buf(void);
@@ -122,8 +121,9 @@ static void select_font(int);
 static void update_scroll_bars(void);
 static void vscroll_f(ControlRef, ControlPartCode);
 static void hscroll_f(ControlRef, ControlPartCode);
-static void do_return_key(void);
+static void do_enter(void);
 static void do_button(char *);
+static void run_script(void);
 static void draw_display_now(void);
 static void send_user_event(void);
 static void process_user_event(void);
@@ -136,8 +136,8 @@ static void create_controls(void);
 static void remove_controls(void);
 static void change_modes(void);
 static void create_task(char *);
-static void go_to_calc_mode(void);
-static void go_to_edit_mode(void);
+static void goto_calc_mode(void);
+static void goto_edit_mode(void);
 static void activate_controls(void);
 static void deactivate_controls(void);
 
@@ -153,8 +153,6 @@ char filename[1000], path[1000];
 
 #define SCRIPT_BUF_LEN 100000
 static char script_buf[SCRIPT_BUF_LEN + 1];
-#define TMP_BUF_LEN 10000
-static char tmp_buf[TMP_BUF_LEN + 1];
 static char *inp;
 
 #if 0
@@ -335,7 +333,7 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
         } else if (running)
             return eventNotHandledErr;
         else if (keycode == 13) {
-            do_return_key();
+            do_enter();
             return noErr;
         } else if (keycode == 30) {
             do_up_arrow();
@@ -360,90 +358,79 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
         return noErr;
     }
 
-    switch( command.commandID ) {
+	switch (command.commandID) {
 
-    case 'PROG':
-        if (running)
-	    break;
-	change_modes();
-        break;
-
-    case 'RUN ':
-        if (running)
-	   break;
-	go_to_calc_mode();
-	deactivate_controls();
-	clear();
-	draw_display_now();
-	create_task(script_buf);
-	update_curr_cmd("Working...");
-        break;
-
-    // menu events
-
-    case 'abou':
-        if (running)
+	case 'PROG':
+		if (running)
 			break;
-		go_to_calc_mode();
-        printstr("Version 133. The user manual can be downloaded from Eigenmath.net\n");
-        update_display();
-        break;
+		change_modes();
+		break;
 
-    case 'new ':
-        if (running)
-	    break;
-		go_to_edit_mode();
-        *filename = 0;
-        *script_buf = 0;
+	case 'RUN ':
+		run_script();
+		break;
+
+	// file menu
+
+	case 'abou':
+		if (running)
+			break;
+		goto_calc_mode();
+		printstr("Version 133\n");
+		update_display();
+		break;
+
+	case 'new ':
+		if (running)
+			break;
+		goto_edit_mode();
+		*filename = 0;
+		*script_buf = 0;
 		update_edit_control();
-        break;
+		break;
 
-    case 'open':
+	case 'open':
 		if (running)
 			break;
-		go_to_edit_mode();
-        file_open();
-        break;
+		goto_edit_mode();
+		file_open();
+		break;
 
-    case 'clos':
-        break;
+	case 'clos':
+		break;
 
-    case 'save':
+	case 'save':
 		if (running)
 			break;
-		go_to_edit_mode();
-        if (*filename == 0)
-            file_svas();
-        else
-            do_save();
-        break;
+		goto_edit_mode();
+		if (*filename == 0)
+			file_svas();
+		else
+			do_save();
+		break;
 
-    case 'svas':
+	case 'svas':
 		if (running)
 			break;
-		go_to_edit_mode();
-        file_svas();
-        break;
+		goto_edit_mode();
+		file_svas();
+		break;
 
-// edit menu
+	// edit menu
 
-    case 'CPY1':
-		go_to_calc_mode();
-        copy_display();
-        break;
+	case 'CPY1':
+		goto_calc_mode();
+		copy_display();
+		break;
 
-    case 'CPY2':
-		go_to_calc_mode();
-        copy_tty();
-        break;
+	case 'CPY2':
+		goto_calc_mode();
+		copy_tty();
+		break;
 
-    default:
-        err = eventNotHandledErr;
-        break;
+	// help menu
 
-// help menu
-
-	 case 'arg ':
+	case 'arg ':
 		HELP(help_arg);
 		break;
 	case 'conj':
@@ -472,6 +459,156 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
 		break;
 	case 'quot':
 		HELP(help_quotient);
+		break;
+	case 'adj ':
+		HELP(help_adj);
+		break;
+	case 'cofa':
+		HELP(help_cofactor);
+		break;
+	case 'cont':
+		HELP(help_contract);
+		break;
+	case 'det ':
+		HELP(help_det);
+		break;
+	case 'dot ':
+		HELP(help_dot);
+		break;
+	case 'inv ':
+		HELP(help_inv);
+		break;
+	case 'oute':
+		HELP(help_outer);
+		break;
+	case 'tran':
+		HELP(help_transpose);
+		break;
+	case 'unit':
+		HELP(help_unit);
+		break;
+	case 'zero':
+		HELP(help_zero);
+		break;
+	case 'deri':
+		HELP(help_derivative);
+		break;
+	case 'grad':
+		HELP(help_gradient);
+		break;
+	case 'inte':
+		HELP(help_integral);
+		break;
+	case 'tayl':
+		HELP(help_taylor);
+		break;
+	case 'circ':
+		HELP(help_circexp);
+		break;
+	case 'exp ':
+		HELP(help_exp);
+		break;
+	case 'expc':
+		HELP(help_expcos);
+		break;
+	case 'exps':
+		HELP(help_expsin);
+		break;
+	case 'log ':
+		HELP(help_log);
+		break;
+	case 'arcc':
+		HELP(help_arccos);
+		break;
+	case 'arcs':
+		HELP(help_arcsin);
+		break;
+	case 'arct':
+		HELP(help_arctan);
+		break;
+	case 'cos ':
+		HELP(help_cos);
+		break;
+	case 'sin ':
+		HELP(help_sin);
+		break;
+	case 'tan ':
+		HELP(help_tan);
+		break;
+	case 'argc':
+		HELP(help_arccosh);
+		break;
+	case 'args':
+		HELP(help_arcsinh);
+		break;
+	case 'argt':
+		HELP(help_arctanh);
+		break;
+	case 'cosh':
+		HELP(help_cosh);
+		break;
+	case 'sinh':
+		HELP(help_sinh);
+		break;
+	case 'tanh':
+		HELP(help_tanh);
+		break;
+	case 'bess':
+		HELP(help_besselj);
+		break;
+	case 'herm':
+		HELP(help_hermite);
+		break;
+	case 'lagu':
+		HELP(help_laguerre);
+		break;
+	case 'lege':
+		HELP(help_legendre);
+		break;
+	case 'abs ':
+		HELP(help_abs);
+		break;
+	case 'choo':
+		HELP(help_choose);
+		break;
+	case 'deno':
+		HELP(help_denominator);
+		break;
+	case 'erf ':
+		HELP(help_erf);
+		break;
+	case 'erfc':
+		HELP(help_erfc);
+		break;
+	case 'eval':
+		HELP(help_eval);
+		break;
+	case 'fact':
+		HELP(help_factor);
+		break;
+	case '!   ':
+		HELP(help_factorial);
+		break;
+	case 'for ':
+		HELP(help_for);
+		break;
+	case 'nume':
+		HELP(help_numerator);
+		break;
+	case 'prod':
+		HELP(help_product);
+		break;
+	case 'sqrt':
+		HELP(help_sqrt);
+		break;
+	case 'sum ':
+		HELP(help_sum);
+		break;
+
+	// none of the above
+
+	default:
+		err = eventNotHandledErr;
 		break;
 	}
 
@@ -1237,10 +1374,9 @@ task(void *p)
 }
 
 static void
-create_task(char *s)
+create_task(void)
 {
     MPTaskID id;
-    inp = s;
     timer = time(NULL);
     running = 1;
     MPCreateTask(
@@ -1252,52 +1388,6 @@ create_task(char *s)
         NULL,
         0,
         &id);
-}
-
-extern void update_cmd_history(char *);
-extern void echo_input(char *);
-
-static void
-do_return_key(void)
-{
-	char *s;
-	if (running)
-		return;
-	s = get_curr_cmd();
-	strcpy(tmp_buf, s);
-	free(s);
-	update_cmd_history(tmp_buf); // reset history pointer no matter what
-	if (*tmp_buf == 0)
-		return;
-	echo_input(tmp_buf);
-	update_curr_cmd("");
-	create_task(tmp_buf);
-}
-
-static void
-do_button(char *cmd)
-{
-	char *s;
-	if (running)
-		return;
-	if (strcmp(cmd, "clear") == 0)
-		update_curr_cmd("");
-	s = get_curr_cmd();
-	if (*s) {
-		if (strcmp(cmd, "derivative") == 0)
-			strcpy(tmp_buf, "d");
-		else
-			strcpy(tmp_buf, cmd);
-		strcat(tmp_buf, "(");
-		strcat(tmp_buf, s);
-		strcat(tmp_buf, ")");
-	} else
-		strcpy(tmp_buf, cmd);
-	free(s);
-	update_cmd_history(tmp_buf);
-	echo_input(tmp_buf);
-	update_curr_cmd("");
-	create_task(tmp_buf);
 }
 
 static int shunted;
@@ -1355,7 +1445,7 @@ process_user_event(void)
 
     if (dt > 1) {
         deactivate_controls();
-        sprintf(buf, "Working on it for %d seconds. Esc might interrupt, otherwise press apple+Q to quit.", dt);
+        sprintf(buf, "Esc key to stop (%d)", dt);
         update_curr_cmd(buf);
         update_display();
     }
@@ -1578,23 +1668,26 @@ change_modes(void)
 }
 
 static void
-go_to_calc_mode(void)
+goto_calc_mode(void)
 {
 	if (edit_mode == 1)
 		change_modes();
 }
 
 static void
-go_to_edit_mode(void)
+goto_edit_mode(void)
 {
 	if (edit_mode == 0)
 		change_modes();
 }
 
+extern void update_cmd_history(char *);
+extern void echo_input(char *);
+
 static void
 do_special(char *s)
 {
-	if (inp)
+	if (inp && inp != script_buf)
 		free(inp);
 	inp = strdup(s);
 	update_cmd_history(inp);
@@ -1607,9 +1700,85 @@ static void
 do_help(char **s, int n)
 {
 	int i;
-	go_to_calc_mode();
+	if (running)
+		return;
+	goto_calc_mode();
 	do_special("clear");
 	for (i = 0; i < n; i++)
 		do_special(s[i]);
 	update_display();
+}
+
+// evaluate the command line
+
+static void
+do_enter(void)
+{
+	if (running || edit_mode)
+		return;
+	if (inp && inp != script_buf)
+		free(inp);
+	inp = get_curr_cmd();
+	update_cmd_history(inp);
+	if (*inp == 0)
+		return;
+	echo_input(inp);
+	update_curr_cmd("");
+	create_task();
+}
+
+static void
+do_button(char *s)
+{
+	char *tmp;
+	if (running || edit_mode)
+		return;
+	if (inp && inp != script_buf)
+		free(inp);
+	inp = get_curr_cmd();
+	update_cmd_history(inp);
+	if (*inp == 0) {
+		free(inp);
+		inp = (char *) malloc(strlen(s) + 1);
+		strcpy(inp, s);
+	} else {
+		tmp = (char *) malloc(strlen(s) + strlen(inp) + 3);
+		if (strcmp(s, "derivative") == 0)
+			strcpy(tmp, "d");
+		else
+			strcpy(tmp, s);
+		strcat(tmp, "(");
+		strcat(tmp, inp);
+		strcat(tmp, ")");
+		free(inp);
+		inp = tmp;
+	}
+	update_cmd_history(inp);
+	echo_input(inp);
+	update_curr_cmd("");
+	create_task();
+}
+
+static void
+run_script(void)
+{
+	if (running)
+		return;
+
+	goto_calc_mode(); // this updates script_buf if leaving edit mode
+
+	// if there is anything on the command line then put it in history
+
+	if (inp && inp != script_buf)
+		free(inp);
+	inp = get_curr_cmd();
+	update_cmd_history(inp);
+	free(inp);
+	inp = script_buf;
+
+	deactivate_controls();
+	run("clear");
+	update_display();
+	create_task();
+	update_curr_cmd("");
 }

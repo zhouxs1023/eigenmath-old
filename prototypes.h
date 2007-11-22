@@ -717,9 +717,10 @@ void test_polar(void);
 
 // pollard.cpp
 void factor_number(void);
-void test_factor_timing(void);
-void test_factor_integer_f(int len, int count);
-void test_factor_integer(void);
+void factor_a(void);
+void try_kth_prime(int k);
+int factor_b(void);
+void push_factor(unsigned int *d, int count);
 
 // power.cpp
 void eval_power(void);

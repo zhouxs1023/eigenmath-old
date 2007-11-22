@@ -264,7 +264,9 @@ eval_dim(void)
 		n = pop_integer();
 	} else
 		n = 1;
-	if (!istensor(p2) || n < 1 || n > p2->u.tensor->ndim)
+	if (!istensor(p2))
+		push_integer(1); // dim of scalar is 1
+	else if (n < 1 || n > p2->u.tensor->ndim)
 		push(p1);
 	else
 		push_integer(p2->u.tensor->dim[n - 1]);

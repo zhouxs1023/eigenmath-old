@@ -3,32 +3,30 @@
 #include "stdafx.h"
 #include "defs.h"
 
-static void factor_a(unsigned int *);
-static void try_kth_prime(unsigned int **, int);
-static void push_factor(unsigned int *, int);
-static int factor_b(unsigned int *);
+static unsigned int *n;
 
 void
 factor_number(void)
 {
 	int h;
-	unsigned int *n;
 
 	save();
 
 	p1 = pop();
 
-	n = p1->u.q.a;
+	// 0 or 1?
 
-	if (MLENGTH(n) == 1 && (n[0] == 0 || n[0] == 1)) {
+	if (equaln(p1, 0) || equaln(p1, 1) || equaln(p1, -1)) {
 		push(p1);
 		restore();
 		return;
 	}
 
+	n = mcopy(p1->u.q.a);
+
 	h = tos;
 
-	factor_a(n);
+	factor_a();
 
 	if (tos - h > 1) {
 		list(tos - h);
@@ -44,12 +42,10 @@ factor_number(void)
 
 // From TAOCP Vol. 2 by Knuth, p. 380 (Algorithm A)
 
-static void
-factor_a(unsigned int *n)
+void
+factor_a(void)
 {
 	int k;
-
-	n = mcopy(n);
 
 	if (MSIGN(n) == -1) {
 		MSIGN(n) = 1;
@@ -58,7 +54,7 @@ factor_a(unsigned int *n)
 
 	for (k = 0; k < 10000; k++) {
 
-		try_kth_prime(&n, k);
+		try_kth_prime(k);
 
 		// if n is 1 then we're done
 
@@ -68,11 +64,11 @@ factor_a(unsigned int *n)
 		}
 	}
 
-	factor_b(n);
+	factor_b();
 }
 
-static void
-try_kth_prime(unsigned int **n, int k)
+void
+try_kth_prime(int k)
 {
 	int count;
 	unsigned int *d, *q, *r;
@@ -85,7 +81,7 @@ try_kth_prime(unsigned int **n, int k)
 
 		// if n is 1 then we're done
 
-		if (MLENGTH(*n) == 1 && (*n)[0] == 1) {
+		if (MLENGTH(n) == 1 && n[0] == 1) {
 			if (count)
 				push_factor(d, count);
 			else
@@ -93,15 +89,15 @@ try_kth_prime(unsigned int **n, int k)
 			return;
 		}
 
-		mdivrem(&q, &r, *n, d);
+		mdivrem(&q, &r, n, d);
 
 		// continue looping while remainder is zero
 
 		if (MLENGTH(r) == 1 && r[0] == 0) {
 			count++;
 			mfree(r);
-			mfree(*n);
-			*n = q;
+			mfree(n);
+			n = q;
 		} else {
 			mfree(r);
 			break;
@@ -111,13 +107,11 @@ try_kth_prime(unsigned int **n, int k)
 	if (count)
 		push_factor(d, count);
 
-	// q = n / d
-
-	// if q < d then n < d^2 so n is prime
+	// q = n/d, hence if q < d then n < d^2 so n is prime
 
 	if (mcmp(q, d) == -1) {
-		push_factor(*n, 1);
-		*n = mint(1);
+		push_factor(n, 1);
+		n = mint(1);
 	}
 
 	if (count == 0)
@@ -126,55 +120,25 @@ try_kth_prime(unsigned int **n, int k)
 	mfree(q);
 }
 
-static void
-push_factor(unsigned int *d, int count)
-{
-	p1 = alloc();
-	p1->k = NUM;
-	p1->u.q.a = d;
-	p1->u.q.b = mint(1);
-	push(p1);
-	if (count > 1) {
-		push_symbol(POWER);
-		swap();
-		p1 = alloc();
-		p1->k = NUM;
-		p1->u.q.a = mint(count);
-		p1->u.q.b = mint(1);
-		push(p1);
-		list(3);
-	}
-}
-
 // From TAOCP Vol. 2 by Knuth, p. 385 (Algorithm B)
 
-static int
-factor_b(unsigned int *n)
+int
+factor_b(void)
 {
 	int k, l;
 	unsigned int *g, *one, *t, *x, *xprime;
-	unsigned int count;
-
-	count = 0;
 
 	one = mint(1);
-
 	x = mint(5);
-
 	xprime = mint(2);
 
 	k = 1;
-
 	l = 1;
 
 	while (1) {
 
 		if (mprime(n)) {
-			p1 = alloc();
-			p1->k = NUM;
-			p1->u.q.a = n;
-			p1->u.q.b = mint(1);
-			push(p1);
+			push_factor(n, 1);
 			mfree(one);
 			mfree(x);
 			mfree(xprime);
@@ -185,6 +149,7 @@ factor_b(unsigned int *n)
 
 			if (esc_flag) {
 				mfree(one);
+				mfree(n);
 				mfree(x);
 				mfree(xprime);
 				stop("esc");
@@ -195,8 +160,6 @@ factor_b(unsigned int *n)
 			t = msub(xprime, x);
 			MSIGN(t) = 1;
 			g = mgcd(t, n);
-//printf("x=%d x'=%d t=%d n=%d g=%d\n", x[0], xprime[0], t[0], n[0], g[0]);
-
 			mfree(t);
 
 			if (MEQUAL(g, 1)) {
@@ -221,11 +184,7 @@ factor_b(unsigned int *n)
 				continue;
 			}
 
-			p1 = alloc();
-			p1->k = NUM;
-			p1->u.q.a = g;
-			p1->u.q.b = mint(1);
-			push(p1);
+			push_factor(g, 1);
 
 			if (mcmp(g, n) == 0) {
 				mfree(one);
@@ -253,173 +212,27 @@ factor_b(unsigned int *n)
 			mfree(xprime);
 			xprime = t;
 
-//printf("n=%d x=%d x'=%d\n", n[0], x[0], xprime[0]);
-
 			break;
 		}
 	}
 }
 
-#if 0
-
-// old method
-
-// starts to get very slow around factor(26!)
-
-// n is freed
-
-static void
-factor_integer_f(unsigned int *n)
-{
-	unsigned int *x, *y;
-
-	if (mprime(n)) {
-		p1 = alloc();
-		p1->k = NUM;
-		p1->u.q.a = n;
-		p1->u.q.b = mint(1);
-		push(p1);
-		return;
-	}
-
-	x = mp_factor(n);
-
-	if (MEQUAL(x, 1)) {
-		mfree(x);
-		p1 = alloc();
-		p1->k = NUM;
-		p1->u.q.a = n;
-		p1->u.q.b = mint(1);
-		push(p1);
-		return;
-	}
-
-	y = mdiv(n, x);
-
-	mfree(n);
-
-	factor_integer_f(x);
-	factor_integer_f(y);
-}
-
-#endif
-
-#if 0
-
 void
-test_factor_timing(void)
+push_factor(unsigned int *d, int count)
 {
-	int i;
-	unsigned int t;
-	struct tms tms;
 	p1 = alloc();
 	p1->k = NUM;
-	p1->u.q.a = mint(1);
+	p1->u.q.a = d;
 	p1->u.q.b = mint(1);
-	t = times(&tms);
-	for (i = 0; i < 10000; i++) {
-		tos = 0;
-		p1->u.q.a[0] = random();
+	push(p1);
+	if (count > 1) {
+		push_symbol(POWER);
+		swap();
+		p1 = alloc();
+		p1->k = NUM;
+		p1->u.q.a = mint(count);
+		p1->u.q.b = mint(1);
 		push(p1);
-		factor_number();
-	}
-	t = times(&tms) - t;
-	printf("%d.%02d seconds\n", t / 100, t % 100);
-
-
-	for (i = 0; i < 10000; i++) {
-		tos = 0;
-		p1->u.q.a[0] = random();
-		push(p1);
-		factor_number();
-		if (tos > 1) {
-			list(tos);
-			push_symbol(MULTIPLY);
-			swap();
-			cons();
-		}
-		eval();
-		p2 = pop();
-		if (mcmp(p1->u.q.a, p2->u.q.a) != 0) {
-			printf("failed %u %u\n", p1->u.q.a[0], p2->u.q.a[0]);
-			Exit(1);
-		}
-	}
-	Exit(1);
-}
-
-#endif
-
-#if SELFTEST
-
-void
-test_factor_integer_f(int len, int count)
-{
-	int i, j;
-
-	unsigned int *x;
-
-	x = mnew(len);
-	MLENGTH(x) = len;
-	MSIGN(x) = 1;
-
-	p1 = alloc();
-	p1->k = NUM;
-	p1->u.q.a = x;
-	p1->u.q.b = mint(1);
-
-	for (i = 0; i < count; i++) {
-
-		for (j = 0; j < len; j++)
-			x[j] = rand();
-
-		tos = 0;
-
-		push(p1);
-
-		factor_number();
-
-		eval();
-
-		p2 = pop();
-
-		if (mcmp(p1->u.q.a, p2->u.q.a) != 0) {
-			sprintf(logbuf, "failed %u %u\n", p1->u.q.a[0], p2->u.q.a[0]);
-			logout(logbuf);
-			errout();
-		}
+		list(3);
 	}
 }
-
-void
-test_factor_integer(void)
-{
-	int n;
-
-	logout("testing factor_integer\n");
-
-	gc();
-
-	n = mtotal;
-
-	test_factor_integer_f(1, 1000);
-	test_factor_integer_f(2, 100);
-	test_factor_integer_f(3, 10);
-
-	// check for memory leak
-
-	p1 = symbol(NIL);
-	p2 = symbol(NIL);
-
-	gc();
-
-	if (mtotal != n) {
-		sprintf(logbuf, "memory leak %d %d\n", n, mtotal);
-		logout(logbuf);
-		errout();
-	}
-
-	logout("ok\n");
-}
-
-#endif

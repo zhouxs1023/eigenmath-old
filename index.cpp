@@ -1,6 +1,8 @@
 #include "stdafx.h"
-
 #include "defs.h"
+
+// n is the total number of things on the stack. The first thing on the stack
+// is the object to be indexed, followed by the indices themselves.
 
 void
 index_function(int n)
@@ -9,25 +11,17 @@ index_function(int n)
 	U **s;
 
 	save();
-
-	if (n < 2)
-		stop("index error");
-
 	s = stack + tos - n;
-
 	p1 = s[0];
 
-	// index of scalar zero OK
+	// index of scalar ok
 
-	if (equaln(p1, 0)) {
+	if (!istensor(p1)) {
 		tos -= n;
-		push_integer(0);
+		push(p1);
 		restore();
 		return;
 	}
-
-	if (!istensor(p1))
-		stop("tensor expected");
 
 	ndim = p1->u.tensor->ndim;
 
@@ -192,30 +186,6 @@ set_component(int n)
 
 static char *s[] = {
 
-	"A11=quote(A11)",
-	"",
-
-	"A12=quote(A12)",
-	"",
-
-	"A21=quote(A21)",
-	"",
-
-	"A22=quote(A22)",
-	"",
-
-	"B11=quote(B11)",
-	"",
-
-	"B12=quote(B12)",
-	"",
-
-	"B21=quote(B21)",
-	"",
-
-	"B22=quote(B22)",
-	"",
-
 	"A=((A11,A12),(A21,A22))",
 	"",
 
@@ -255,8 +225,10 @@ static char *s[] = {
 	"A[1,1]",
 	"0",
 
-	"A=quote(A)",
-	"",
+	// index of scalar ok
+
+	"1[2]",
+	"1",
 };
 
 void
