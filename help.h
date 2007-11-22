@@ -20,7 +20,10 @@ static char *help_solve[] = {
 };
 
 static char *help_factor_polynomial[] = {
-	"factor(125 x^3 - 1)",
+	"f=(x+1)*(x+2)*(y+3)*(y+4)",
+	"f",
+	"factor(f,x)",
+	"factor(f,x,y)",
 };
 
 static char *help_factor_number[] = {
@@ -133,6 +136,12 @@ static char *help_imag[] = {
 static char *help_mag[] = {
 	"z=3+4*i",
 	"mag(z)",
+};
+
+static char *help_nroots[] ={
+	"y=x^4+1",
+	"nroots(y,x)",
+	"last[1]",
 };
 
 static char *help_polar[] = {
@@ -266,8 +275,8 @@ static char *help_circexp[] = {
 // coeff
 
 static char *help_coeff[] = {
-	"p = a x^2 + b x + c",
-	"coeff(p,2)",
+	"y=a*x^2+b*x+c",
+	"coeff(y,x,2)",
 };
 
 // cofactor
@@ -283,8 +292,8 @@ static char *help_cofactor[] = {
 // deg
 
 static char *help_deg[] = {
-	"p = a x^2 + b x + c",
-	"deg(p)",
+	"y=x^2+x+1",
+	"deg(y,x)",
 };
 
 // denominator
@@ -337,7 +346,6 @@ static char *help_expsin[] = {
 // factor
 
 static char *help_factor[] = {
-	"factor(125 x^3 - 1)",
 	"factor(10^20 - 1)",
 };
 
@@ -379,9 +387,17 @@ static char *help_product[] = {
 // quotient
 
 static char *help_quotient[] = {
-	"p = x^2 + x + 1",
-	"q = x + 2",
+	"p=x^2+x+1",
+	"q=x+2",
 	"quotient(p,q)",
+};
+
+// roots
+
+static char *help_roots[] = {
+	"y=125*x^3-1",
+	"roots(y,x)",
+	"last[1]",
 };
 
 // sqrt

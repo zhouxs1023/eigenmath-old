@@ -91,8 +91,8 @@ char *button_name[NBUTTONS] = {
     "Run Script",
 };
 
-#define YYFONT 0
-#define YYSIZE 13
+#define YYFONT 22
+#define YYSIZE 16
 
 pascal OSStatus MainWindowCommandHandler( EventHandlerCallRef handlerRef, EventRef event, void *userData );
 
@@ -603,6 +603,15 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
 		break;
 	case 'sum ':
 		HELP(help_sum);
+		break;
+	case 'nroo':
+		HELP(help_nroots);
+		break;
+	case 'facp':
+		HELP(help_factor_polynomial);
+		break;
+	case 'root':
+		HELP(help_roots);
 		break;
 
 	// none of the above
