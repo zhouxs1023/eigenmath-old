@@ -22,7 +22,7 @@ static char *help_solve[] = {
 static char *help_factor_polynomial[] = {
 	"f=(x+1)*(x+2)*(y+3)*(y+4)",
 	"f",
-	"factor(f,x)",
+	"factor(f)",
 	"factor(f,x,y)",
 };
 
@@ -144,7 +144,7 @@ static char *help_mag[] = {
 
 static char *help_nroots[] ={
 	"y=x^4+1",
-	"nroots(y,x)",
+	"nroots(y)",
 	"last[1]",
 };
 
@@ -409,7 +409,7 @@ static char *help_quotient[] = {
 
 static char *help_roots[] = {
 	"y=125*x^3-1",
-	"roots(y,x)",
+	"roots(y)",
 	"last[1]",
 };
 
