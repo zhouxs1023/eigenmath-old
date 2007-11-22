@@ -376,7 +376,7 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
 		if (running)
 			break;
 		goto_calc_mode();
-		printstr("version 133\n");
+		printstr("version 133 eigenmath.sf.net\n");
 		update_display();
 		break;
 

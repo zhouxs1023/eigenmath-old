@@ -7,7 +7,7 @@
 #define DELTA 1.0e-6
 #define EPSILON 1.0e-9
 #define ABS(x) sqrt((x).r * (x).r + (x).i * (x).i)
-#define RANDOM (M_PI * (2.0 * (double) rand() / (double) RAND_MAX - 1.0))
+#define RANDOM (4.0 * (double) rand() / (double) RAND_MAX - 2.0)
 
 static struct {
 	double r, i;
