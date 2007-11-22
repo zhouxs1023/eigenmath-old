@@ -116,33 +116,37 @@ static char *help_integral[] = {
 // complex number functions
 
 static char *help_arg[] = {
-	"z = exp(i theta)",
+	"z=1+i",
 	"arg(z)",
 };
 
 static char *help_conj[] = {
-	"conj(3 + 4 i)",
+	"z=3+4*i",
+	"conj(z)",
 };
 
 static char *help_imag[] = {
-	"imag(3 + 4 i)",
+	"z=3+4*i",
+	"imag(z)",
 };
 
 static char *help_mag[] = {
-	"mag(3 + 4 i)",
+	"z=3+4*i",
+	"mag(z)",
 };
 
 static char *help_polar[] = {
-	"z = 1 + sqrt(3) i",
+	"z=1+i",
 	"polar(z)",
 };
 
 static char *help_real[] = {
-	"real(3 + 4 i)",
+	"z=3+4*i",
+	"real(z)",
 };
 
 static char *help_rect[] = {
-	"z = exp(i theta)",
+	"z=exp(i*theta)",
 	"rect(z)",
 };
 
