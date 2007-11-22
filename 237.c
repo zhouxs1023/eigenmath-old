@@ -7,7 +7,7 @@
 #define DELTA 1.0e-6
 #define EPSILON 1.0e-9
 #define ABS(x) sqrt(x.r * x.r + x.i * x.i)
-#define RANDOM (0.5 + (double) rand() / RAND_MAX)
+#define RANDOM (M_PI * (2.0 * (double) rand() / (double) RAND_MAX - 1.0))
 
 static struct {
 	double r, i;
@@ -39,9 +39,9 @@ main(int argc, char *argv[])
 
 	for (k = n; k > 1; k--) {
 		findroot(k);
-		if (fabs(a.r) < EPSILON)
+		if (fabs(a.r) < DELTA)
 			a.r = 0.0;
-		if (fabs(a.i) < EPSILON)
+		if (fabs(a.i) < DELTA)
 			a.i = 0.0;
 		printf("%g %g\n", a.r, a.i);
 		divpoly(k);
