@@ -31,8 +31,8 @@ The window display code is in window.cpp
 #define SMALL_ITALIC_SYMBOL_FONT 10
 
 #if 1
-#define DEFAULT_WIDTH 680
-#define DEFAULT_HEIGHT 480
+#define DEFAULT_WIDTH 700
+#define DEFAULT_HEIGHT 500
 #else
 #define DEFAULT_WIDTH 400
 #define DEFAULT_HEIGHT 240
@@ -612,6 +612,9 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
 		break;
 	case 'root':
 		HELP(help_roots);
+		break;
+	case 'defi':
+		HELP(help_defint);
 		break;
 
 	// none of the above
