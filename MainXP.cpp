@@ -196,6 +196,7 @@ enum {
 	ID_HELP_CONTRACT,
 	ID_HELP_COS,
 	ID_HELP_COSH,
+	ID_HELP_DEFINT,
 	ID_HELP_DEG,
 	ID_HELP_DENOMINATOR,
 	ID_HELP_DERIVATIVE,
@@ -208,6 +209,7 @@ enum {
 	ID_HELP_EXPCOS,
 	ID_HELP_EXPSIN,
 	ID_HELP_FACTOR,
+	ID_HELP_FACTOR_POLY,
 	ID_HELP_FACTORIAL,
 	ID_HELP_FOR,
 	ID_HELP_GRADIENT,
@@ -219,6 +221,7 @@ enum {
 	ID_HELP_LEGENDRE,
 	ID_HELP_LOG,
 	ID_HELP_MAG,
+	ID_HELP_NROOTS,
 	ID_HELP_NUMERATOR,
 	ID_HELP_OUTER,
 	ID_HELP_POLAR,
@@ -226,6 +229,7 @@ enum {
 	ID_HELP_QUOTIENT,
 	ID_HELP_REAL,
 	ID_HELP_RECT,
+	ID_HELP_ROOTS,
 	ID_HELP_SIN,
 	ID_HELP_SINH,
 	ID_HELP_SQRT,
@@ -599,7 +603,10 @@ static struct {
 	{"Polynomial functions",		0},
 	{"coeff",				ID_HELP_COEFF},
 	{"deg",					ID_HELP_DEG},
+	{"factor",				ID_HELP_FACTOR_POLY},
+	{"nroots",				ID_HELP_NROOTS},
 	{"quotient",				ID_HELP_QUOTIENT},
+	{"roots",				ID_HELP_ROOTS},
 	{0,					0},
 
 	{"Linear algebra functions",		0},
@@ -616,6 +623,7 @@ static struct {
 	{0,					0},
 
 	{"Calculus functions",			0},
+	{"defint",				ID_HELP_DEFINT},
 	{"derivative",				ID_HELP_DERIVATIVE},
 	{"gradient",				ID_HELP_GRADIENT},
 	{"integral",				ID_HELP_INTEGRAL},
@@ -1017,6 +1025,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case ID_HELP_CIRCEXP:
 			HELP(help_circexp);
 			break;
+		case ID_HELP_DEFINT:
+			HELP(help_defint);
+			break;
 		case ID_HELP_DENOMINATOR:
 			HELP(help_denominator);
 			break;
@@ -1041,6 +1052,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case ID_HELP_FACTOR:
 			HELP(help_factor);
 			break;
+		case ID_HELP_FACTOR_POLY:
+			HELP(help_factor_polynomial);
+			break;
 		case ID_HELP_FACTORIAL:
 			HELP(help_factorial);
 			break;
@@ -1050,6 +1064,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case ID_HELP_LOG:
 			HELP(help_log);
 			break;
+		case ID_HELP_NROOTS:
+			HELP(help_nroots);
+			break;
 		case ID_HELP_NUMERATOR:
 			HELP(help_numerator);
 			break;
@@ -1058,6 +1075,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		case ID_HELP_SQRT:
 			HELP(help_sqrt);
+			break;
+		case ID_HELP_ROOTS:
+			HELP(help_roots);
 			break;
 		case ID_HELP_SUM:
 			HELP(help_sum);
