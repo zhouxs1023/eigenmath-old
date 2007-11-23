@@ -2,8 +2,13 @@
 <head>
 </head>
 <body>
-
 <tt>
+
+<p>
+<a href="Eigenmath.pdf"><img src="man.jpg"></a>
+
+<p>
+<hr>
 
 <p>
 <table>
@@ -61,6 +66,7 @@
 <li><a href="#float">float</a>
 <li><a href="#floor">floor</a>
 <li><a href="#for">for</a>
+<li><a href="#gcd">gcd</a>
 
 </ul>
 </td>
@@ -68,7 +74,6 @@
 <tt>
 <ul>
 
-<li><a href="#gcd">gcd</a>
 <li><a href="#hermite">hermite</a>
 <li><a href="#hilbert">hilbert</a>
 <li><a href="#imag">imag</a>
@@ -83,6 +88,7 @@
 <li><a href="#mag">mag</a>
 <li><a href="#mod">mod</a>
 <li><a href="#not">not</a>
+<li><a href="#nroots">nroots</a>
 <li><a href="#numerator">numerator</a>
 <li><a href="#or">or</a>
 <li><a href="#outer">outer</a>
@@ -344,6 +350,8 @@ Factors integer n.
 Factors polynomial p(x).
 The x can be omitted for polynomials in x.
 The polynomial should be factorable over integers.
+The argument list can be extended.
+For example, factor(p,x,y) factors p over x and then over y.
 
 <p>
 <h1><tt><a name="factorial">factorial(<i>x</i>)</a></tt></h1>
@@ -428,6 +436,12 @@ Returns the remainder of the result of "a" divided by b.
 <p>
 <h1><tt><a name="not">not(<i>x</i>)</a></tt></h1>
 Returns the logical negation of x.
+
+<p>
+<h1><tt><a name="nroots">nroots(<i>p,x</i>)</a></tt></h1>
+Returns the numerical roots of polynomial p(x).
+The argument x can be omitted.
+If it is omitted then the computer will guess the free variable.
 
 <p>
 <h1><tt><a name="numerator">numerator(<i>x</i>)</a></tt></h1>
