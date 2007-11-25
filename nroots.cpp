@@ -72,8 +72,9 @@ eval_nroots(void)
 
 	// n is the number of coefficients, n = deg(p) + 1
 
+	monic(n);
+
 	for (k = n; k > 1; k--) {
-		monic(k);
 		findroot(k);
 		if (fabs(a.r) < DELTA)
 			a.r = 0.0;
