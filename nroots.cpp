@@ -6,7 +6,7 @@
 #define YMAX 101
 #define DELTA 1.0e-6
 #define EPSILON 1.0e-9
-#define ABS(x) sqrt((x).r * (x).r + (x).i * (x).i)
+#define ABS(z) sqrt((z).r * (z).r + (z).i * (z).i)
 #define RANDOM (4.0 * (double) rand() / (double) RAND_MAX - 2.0)
 
 static struct {
