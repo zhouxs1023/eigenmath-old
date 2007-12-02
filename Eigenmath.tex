@@ -716,6 +716,8 @@ $$3\times 5\times 823$$
 \noindent
 factor($p,x$) factors polynomial $p$ in $x$.
 The last argument can be omitted for polynomials in $x$.
+The argument list can be extended for multivariate polynomials.
+For example, factor($p,x,y$) factors $p$ over $x$ and then over $y$.
 
 \medskip
 {\tt factor(125*x{\char94}3-1)}
@@ -826,7 +828,7 @@ not($x$) negates the result of predicate expression $x$.
 
 \section*{nroots}
 nroots($p,x$) returns all of the roots, both real and complex, of
-polynomial $p$ of $x$.
+polynomial $p$ in $x$.
 The roots are computed numerically.
 The coefficients of $p$ can be real or complex.
 
