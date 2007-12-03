@@ -347,10 +347,10 @@ Factors integer n.
 
 <p>
 <h1><tt>factor(<i>p,x</i>)</tt></h1>
-Factors polynomial p(x).
+Factors polynomial p of x.
 The x can be omitted for polynomials in x.
 The polynomial should be factorable over integers.
-The argument list can be extended.
+The argument list can be extended for multivariate polynomials.
 For example, factor(p,x,y) factors p over x and then over y.
 
 <p>
@@ -439,9 +439,10 @@ Returns the logical negation of x.
 
 <p>
 <h1><tt><a name="nroots">nroots(<i>p,x</i>)</a></tt></h1>
-Returns the numerical roots of polynomial p(x).
-The argument x can be omitted.
-If it is omitted then the computer will guess the free variable.
+Returns all of the roots, both real and complex,
+of polynomial p in x.
+The roots are computed numerically.
+The coefficients of p can be real or complex.
 
 <p>
 <h1><tt><a name="numerator">numerator(<i>x</i>)</a></tt></h1>
