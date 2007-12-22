@@ -1,0 +1,23 @@
+\documentclass[11pt]{article}
+\title{Linux Hacks}
+\date{\today}
+\begin{document}
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Creating a ram disk}
+Here is the code for creating a ram disk.
+
+\begin{verbatim}
+dd if=/dev/zero of=ramdisk bs=1024 count=32768
+/sbin/mkfs.ext2 ramdisk
+mkdir -p /mnt/ramdisk
+mount -o loop ramdisk /mnt/ramdisk
+\end{verbatim}
+
+\end{document}
