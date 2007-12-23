@@ -46,4 +46,32 @@ The following command adds a version tag.
 cvs rtag version1 foo
 \end{verbatim}
 
+\section{Power-up call trace}
+
+Summary of power-up call trace
+
+\begin{verbatim}
+	_start (arch/ppc/kernel/head.S)
+		early_init (arch/ppc/kernel/setup.c)
+	start_here (arch/ppc/kernel/head.S)
+		machine_init (arch/ppc/kernel/setup.c)
+			platform_init (arch/ppc/platforms/gigateak.c)
+	start_kernel (init/main.c)
+		setup_arch (arch/ppc/kernel/setup.c)
+			gigateak_setup_arch (arch/ppc/platforms/gigateak.c)
+				gigateak_setup_bridge
+				gigateak_setup_peripherals
+				gigateak_setup_ethernet
+				gigateak_enable_ipmi
+\end{verbatim}
+
+Notes:
+
+1. U-boot jumps to address \_start.
+Normally \_start is at address 0. See System.map
+
+2. The call to gigateak\_setup\_arch() is made via the function pointer
+ppc\_md.setup\_arch().
+This function pointer is initialized in platform\_init().
+
 \end{document}
