@@ -20,4 +20,30 @@ mkdir -p /mnt/ramdisk
 mount -o loop ramdisk /mnt/ramdisk
 \end{verbatim}
 
+\section{Notes on CVS}
+Use cvs init to create a repository.
+
+\begin{verbatim}
+export CVSROOT=/cvsroot
+mkdir -p /cvsroot
+cvs init
+\end{verbatim}
+
+\noindent
+Use cvs import to check-in a directory tree for the first time.
+The following commands create a project foo under /cvsroot that
+contains everything in foobar.
+
+\begin{verbatim}
+cd foobar
+cvs import -m "" foo vendor_tag release_tag
+\end{verbatim}
+
+\noindent
+The following command adds a version tag.
+
+\begin{verbatim}
+cvs rtag version1 foo
+\end{verbatim}
+
 \end{document}
