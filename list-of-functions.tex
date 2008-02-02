@@ -1,0 +1,388 @@
+\index{built-in functions}
+
+\section*{abs}
+abs($x$) returns the absolute value or vector length of $x$.
+The mag function should be used for complex $x$.
+
+\medskip
+{\tt P=(x,y)}
+
+{\tt abs(P)}
+
+$$(x^2+y^2)^{1/2}$$
+
+\section*{adj}
+adj($m$) returns the adjunct of matrix $m$.
+
+\section*{and}
+and($a,b,\ldots$) returns the logical ``and'' of predicate expressions.
+
+\section*{arccos}
+arccos($x$) returns the inverse cosine of $x$.
+
+\section*{arccosh}
+arccosh($x$) returns the inverse hyperbolic cosine of $x$.
+
+\section*{arcsin}
+arcsin($x$) returns the inverse sine of $x$.
+
+\section*{arcsinh}
+arcsinh($x$) returns the inverse hyperbolic sine of $x$.
+
+\section*{arctan}
+arcttan($x$) returns the inverse tangent of $x$.
+
+\section*{arctanh}
+arctanh($x$) returns the inverse hyperbolic tangent of $x$.
+
+\section*{arg}
+arg($z$) returns the angle of complex $z$.
+
+\section*{ceiling}
+ceiling($x$) returns the smallest integer not less than $x$.
+
+\section*{check}
+check($x$) In a script, if the predicate $x$ is true then continue, else stop.
+
+\section*{choose}
+choose($n,k$) returns $\displaystyle\left({n \atop k}\right)$
+
+\section*{circexp}
+circexp($x$) returns expression $x$ with circular functions converted
+to exponential forms.
+Sometimes this will simplify an expression.
+
+\section*{coeff}
+coeff($p,x,n$) returns the coefficient of $x^n$ in polynomial $p$.
+
+\section*{cofactor}
+cofactor($m,i,j$) returns of the cofactor of matrix $m$ with respect to row $i$ and column $j$.
+
+\section*{conj}
+conj($z$) returns the complex conjugate of $z$.
+
+\section*{contract}
+\index{trace}
+contract($a,i,j$) returns tensor $a$ summed over indices $i$ and $j$.
+If $i$ and $j$ are omitted then indices 1 and 2 are used.
+contract($m$) is equivalent to the trace of matrix $m$.
+
+\section*{cos}
+cos($x$) returns the cosine of $x$.
+%If $x$ is a floating point number then $\cos(x)$ is evaluated numerically.
+
+\section*{cosh}
+cosh($x$) returns the hyperbolic cosine of $x$.
+
+\section*{cross}
+cross($u,v$) returns the cross product of vectors $u$ and $v$.
+
+\section*{curl}
+curl($u$) returns the curl of vector $u$.
+
+\section*{d}
+d($f,x$) returns the derivative of $f$ with respect to $x$.
+
+\section*{defint}
+defint($f,x,a,b,\ldots$)
+returns the definite integral of $f$ with respect to $x$ evaluated from $a$ to $b$.
+The argument list can be extended for multiple integrals.
+For example, $d(f,x,a,b,y,c,d)$.
+
+\section*{deg}
+deg($p,x$) returns the degree of polynomial $p$ in $x$.
+
+\section*{denominator}
+denominator($x$) returns the denominator of expression $x$.
+
+\section*{det}
+det($m$) returns the determinant of matrix $m$.
+
+\section*{do}
+do($a,b,\ldots$) evaluates the argument list from left to right.
+Returns the result of the last argument.
+
+\section*{dot}
+dot($a,b,\ldots$) returns the dot product of tensors.
+
+\section*{draw}
+draw($f,x$) draws the function $f$ with respect to $x$.
+
+\section*{erf}
+erf($x$) returns the error function of $x$.
+
+\section*{erfc}
+erf($x$) returns the complementary error function of $x$.
+
+\section*{eval}
+eval($f,x,n$) returns $f$ evaluated at $x=n$.
+
+\section*{exp}
+exp($x$) returns $e^x$.
+
+\section*{expcos}
+expcos($x$) returns the cosine of $x$ in exponential form.
+
+\medskip
+{\tt expcos(x)}
+
+$${1\over2}\exp(-ix)+{1\over2}\exp(ix)$$
+
+\section*{expsin}
+expsin($x$) returns the sine of $x$ in exponential form.
+
+\medskip
+{\tt expsin(x)}
+
+$${1\over2}i\exp(-ix)-{1\over2}i\exp(ix)$$
+
+\section*{factor}
+factor($n$) factors the integer $n$.
+
+\medskip
+{\tt factor(12345)}
+
+$$3\times 5\times 823$$
+
+\medskip
+\noindent
+factor($p,x$) factors polynomial $p$ in $x$.
+The last argument can be omitted for polynomials in $x$.
+The argument list can be extended for multivariate polynomials.
+For example, factor($p,x,y$) factors $p$ over $x$ and then over $y$.
+
+\medskip
+{\tt factor(125*x{\char94}3-1)}
+
+$$(5x-1)(25x^2+5x+1)$$
+
+\section*{factorial}
+Example:
+
+\medskip
+{\tt 10!}
+
+$$3628800$$
+
+\section*{filter}
+filter($f,a,b,\ldots$) returns $f$ with terms involving $a$, $b$, etc. removed.
+
+\medskip
+{\tt 1/a+1/b+1/c}
+
+$${1\over a}+{1\over b}+{1\over c}$$
+
+{\tt filter(last,a)}
+
+$${1\over b}+{1\over c}$$
+
+\section*{float}
+float($x$) converts $x$ to a floating point value.
+
+\medskip
+{\tt sum(n,0,20,(-1/2){\char94}n)}
+
+$$699051\over1048576$$
+
+{\tt float(last)}
+
+$$0.666667$$
+
+\section*{floor}
+floor($x$) returns the largest integer not greater than $x$.
+
+\section*{for}
+for($i,j,k,a,b,\ldots$) For $i$ equals $j$ through $k$ evaluate $a$, $b$, etc.
+
+\medskip
+{\tt x=0}
+
+{\tt y=2}
+
+{\tt for(k,1,9,x=sqrt(2+x),y=2*y/x)}
+
+{\tt float(y)}
+
+$$3.14159$$
+
+\section*{gcd}
+gcd($a,b,\ldots$) returns the greatest common divisor.
+
+\section*{hermite}
+hermite($x,n$) returns the $n$th Hermite polynomial in $x$.
+
+\section*{hilbert}
+hilbert($n$) returns a Hilbert matrix of order $n$.
+
+\section*{imag}
+imag($z$) returns the imaginary part of complex $z$.
+
+\section*{inner}
+inner($a,b,\ldots$) returns the inner product of tensors.
+Same as the dot product.
+
+\section*{integral}
+integral($f,x$) returns the integral of $f$ with respect to $x$.
+
+\section*{inv}
+inv($m$) returns the inverse of matrix $m$.
+
+\section*{isprime}
+isprime($n$) returns 1 if $n$ is prime, zero otherwise.
+
+\medskip
+{\tt isprime(2{\char94}53-111)}
+
+$$1$$
+
+\section*{laguerre}
+laguerre($x,n,a$) returns the $n$th Laguerre polynomial in $x$.
+If $a$ is omitted then $a=0$ is used.
+
+\section*{lcm}
+lcm($a,b,\ldots$) returns the least common multiple.
+
+\section*{legendre}
+legendre($x,n,m$) returns the $n$th Legendre polynomial in $x$.
+If $m$ is omitted then $m=0$ is used.
+
+\section*{log}
+log($x$) returns the natural logarithm of $x$.
+
+\section*{mag}
+mag($z$) returns the magnitude of complex $z$.
+
+\section*{mod}
+mod($a,b$) returns the remainder of $a$ divided by $b$.
+
+\section*{not}
+not($x$) negates the result of predicate expression $x$.
+
+\section*{nroots}
+nroots($p,x$) returns all of the roots, both real and complex, of
+polynomial $p$ in $x$.
+The roots are computed numerically.
+The coefficients of $p$ can be real or complex.
+
+\section*{numerator}
+numerator($x$) returns the numerator of expression $x$.
+%\begin{itemize}
+%\item[$\scriptstyle1$]{\tt numerator(a/b+b/a)}
+%\item[$\scriptstyle2$]\hspace{50pt} $a^2+b^2$
+%\end{itemize}
+
+\section*{or}
+or($a,b,\ldots$) returns the logical ``or'' of predicate expressions.
+
+\section*{outer}
+outer($a,b,\ldots$) returns the outer product of tensors.
+
+\section*{polar}
+polar($z$) converts complex $z$ to polar form.
+
+\section*{prime}
+prime($n$) returns the $n$th prime number, $1\le n\le10{,}000$.
+
+\section*{print}
+print($a,b,\ldots$) evaluates expressions and prints the results..
+Useful for printing from inside a ``for'' loop.
+
+\section*{product}
+product($i,j,k,f$) returns $\displaystyle\prod_{i=j}^k f$
+
+\section*{quote}
+quote($x$) returns expression $x$ unevaluated.
+
+\section*{quotient}
+quotient($p,q,x$) returns the quotient of polynomials in $x$.
+
+\section*{rank}
+rank($a$) returns the number of indices that tensor $a$ has.
+A scalar has no indices so its rank is zero.
+
+\section*{rationalize}
+rationalize($x$) puts everything over a common denominator.
+
+\medskip
+{\tt rationalize(a/b+b/a)}
+
+$$a^2+b^2\over ab$$
+
+\section*{real}
+real($z$) returns the real part of complex $z$.
+
+\section*{rect}
+rect($z$) returns complex $z$ in rectangular form.
+
+\section*{roots}
+roots($p,x$) returns the values of $x$ such that the polynomial $p(x)=0$.
+The polynomial should be factorable over integers.
+
+\section*{simplify}
+simplify($x$) returns $x$ in a simpler form.
+
+\section*{sin}
+sin($x$) returns the sine of $x$.
+
+\section*{sinh}
+sinh($x$) returns the hyperbolic sine of $x$.
+
+\section*{sqrt}
+sqrt($x$) returns the square root of $x$.
+
+\section*{stop}
+In a script, it does what it says.
+
+\section*{subst}
+subst($a,b,c$) substitutes $a$ for $b$ in $c$ and returns the result.
+
+\section*{sum}
+sum($i,j,k,f$) returns $\displaystyle\sum_{i=j}^k f$
+
+\section*{tan}
+tan($x$) returns the tangent of $x$.
+
+\section*{tanh}
+tanh($x$) returns the hyperbolic tangent of $x$.
+
+\section*{taylor}
+taylor($f,x,n,a$) returns the Taylor expansion of $f$ of $x$ at $a$.
+The argument $n$ is the degree of the expansion.
+If $a$ is omitted then $a=0$ is used.
+
+\medskip
+{\tt taylor(1/cos(x),x,4)}
+
+$${5\over24}x^4+{1\over2}x^2+1$$
+
+\section*{test}
+test($a,b,c,d,\ldots$)
+If $a$ is true then $b$ is returned else if $c$ is true then $d$ is returned, etc.
+If the number of arguments is odd then the last argument is returned when all else fails.
+
+\section*{transpose}
+transpose($a,i,j$) returns the transpose of tensor $a$ with respect to indices $i$ and $j$.
+If $i$ and $j$ are omitted then 1 and 2 are used.
+Hence a matrix can be transposed with a single argument.
+
+\medskip
+{\tt A=((a,b),(c,d))}
+
+{\tt transpose(A)}
+
+$$\left(\matrix{a & c\cr b & d\cr}\right)$$
+
+\section*{unit}
+unit($n$) returns an $n\times n$ identity matrix.
+
+\medskip
+{\tt unit(2)}
+
+$$\left(\matrix{1&0\cr0&1\cr}\right)$$
+
+\section*{zero}
+zero($i,j,\ldots$) returns a null tensor with dimensions $i$, $j$, etc.
+Useful for creating a tensor and then setting the component values.
+
+\printindex
+\end{document}
