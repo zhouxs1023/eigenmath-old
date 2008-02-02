@@ -1,0 +1,43 @@
+\section*{Integrals}
+\index{integral}
+$integral(f,x)$ returns the integral of $f$ with respect to $x$.
+The $x$ can be omitted for expressions in $x$.
+A multi-integral can be obtained by extending the argument list.
+
+\medskip
+\verb$integral(x^2)$
+$${1\over3}x^3$$
+
+\verb$integral(x*y,x,y)$
+$${1\over4}x^2y^2$$
+
+\medskip
+\noindent
+$defint(f,x,a,b,\ldots)$
+computes the definite integral of $f$ with respect to $x$ evaluated from $a$ to $b$.
+The argument list can be extended for multiple integrals.
+
+\medskip
+\noindent
+The following example computes the integral of $f=x^2$
+over the domain of a semicircle.
+For each $x$ along the abscissa, $y$ ranges from 0 to $\sqrt{1-x^2}$.
+
+\medskip
+\verb$defint(x^2,y,0,sqrt(1-x^2),x,-1,1)$
+
+$${1\over8}\pi$$
+
+\medskip
+\noindent
+As an alternative, the $eval$ function can be used to compute a definite integral step by step.
+
+\medskip
+\verb$I=integral(x^2,y)$
+
+\verb$I=eval(I,y,sqrt(1-x^2))-eval(I,y,0)$
+
+\verb$I=integral(I,x)$
+
+\verb$eval(I,x,1)-eval(I,x,-1)$
+$${1\over8}\pi$$
