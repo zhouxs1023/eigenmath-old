@@ -1,0 +1,103 @@
+\section*{Linear algebra}
+\index{linear algebra}
+$dot$ is used to multiply vectors and matrices.
+The following example shows how to use $dot$ and $inv$ to solve for
+$\bf X$ in $\bf AX=B$.
+
+\medskip
+{\tt A=((3.8,7.2),(1.3,-0.9))}
+
+{\tt B=(16.5,-22.1)}
+
+{\tt X=dot(inv(A),B)}
+
+{\tt X}
+
+$$\left(\matrix{-11.2887\cr8.24961}\right)$$
+
+\medskip
+\noindent
+One might wonder why the $dot$ function is necessary.
+Why not simply use $X=inv(A)*B$ like scalar multiplication?
+The reason is that the software normally reorders factors internally to optimize processing.
+For example, $inv(A)*B$ in symbolic form is changed to $B*inv(A)$ internally.
+Since the dot product is not commutative, this reordering would give the wrong result.
+Using a function to do the multiply avoids the problem because
+function arguments are not reordered.
+
+\medskip
+\noindent
+It should be noted that $dot$ can have more than two arguments.
+For example, $dot(A,B,C)$ can be used for the dot product of three tensors.
+
+\newpage
+
+\noindent
+The following example demonstrates the relation
+${\bf A}^{-1}=\mathop{\rm adj}{\bf A}/\mathop{\rm det}{\bf A}$.
+
+\medskip
+\verb$A=((a,b),(c,d))$
+
+\medskip
+\verb$inv(A)$
+$$\left(\matrix{
+\displaystyle{d\over ad-bc} & \displaystyle{-{b\over ad-bc}}\cr
+\cr
+\displaystyle{-{c\over ad-bc}} & \displaystyle{a\over ad-bc}\cr
+}\right)$$
+
+\medskip
+\verb$adj(A)$
+$$\left(\matrix{
+d & -b\cr
+-c & a\cr
+}\right)$$
+
+\medskip
+\verb$det(A)$
+$$ad-bc$$
+
+\medskip
+\verb$inv(A)-adj(A)/det(A)$
+$$\left(\matrix{
+0 & 0\cr
+0 & 0\cr
+}\right)$$
+
+\medskip
+\noindent
+Sometimes a calculation will be simpler if it can be reorganized to use $adj$ instead of $inv$.
+The main idea is to try to prevent the determinant from appearing as a divisor.
+For example, suppose for matrices $\bf A$ and $\bf B$ you want to check that
+$${\bf A}-{\bf B}^{-1}=0$$
+Depending on the complexity of $\mathop{\rm det}\bf B$, the software
+may not be able to find a simplification that yields zero.
+Should that occur, the following alternative can be tried.
+$$(\mathop{\rm det}{\bf B})\cdot{\bf A}-\mathop{\rm adj}{\bf B}=0$$
+
+\newpage
+
+\noindent
+The adjunct of a matrix is related to the cofactors as follows.
+
+\medskip
+\verb$A=((a,b),(c,d))$
+
+\verb$C=((0,0),(0,0))$
+
+\verb$C[1,1]=cofactor(A,1,1)$
+
+\verb$C[1,2]=cofactor(A,1,2)$
+
+\verb$C[2,1]=cofactor(A,2,1)$
+
+\verb$C[2,2]=cofactor(A,2,2)$
+
+\verb$C$
+
+$$C=\left(\matrix{d&-c\cr -b&a}\right)$$
+
+\verb$adj(A)-transpose(C)$
+
+$$\left(\matrix{0&0\cr0&0\cr}\right)$$
