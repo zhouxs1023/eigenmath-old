@@ -33,5 +33,13 @@ $${\mathscr L}[\sin\omega t\,u(t)]={\omega\over s^2+\omega^2}$$
 2. Derive the Laplace transform for the following function.
 $$f(t)=e^{-at}\cos\omega t\,u(t)$$
 
+\bigskip
+\noindent
+The unit step function $u(t)$ is implicit in the Laplace transform tables.
+By the table on p. 17 we have
+$$F(s)={\mathscr L}[\cos\omega t\,u(t)]={s\over s^2+\omega^2}$$
+Then by the complex shifting theorem (Lecture 2, p. 12) we have
+$${\mathscr L}[e^{-at}\cos\omega t\,u(t)]=F(s+a)={s+a\over (s+a)^2+\omega^2}$$
+
 
 \end{document}
