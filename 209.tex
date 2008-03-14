@@ -1,0 +1,37 @@
+\documentclass[11pt]{report}
+\usepackage{mathrsfs}
+\begin{document}
+
+\noindent
+1a. Derive the Laplace transform for the following function.
+$$f(t)=tu(t)$$
+
+\bigskip
+\noindent
+We do not have to worry about the unit step function $u(t)$ because all
+it does is ensure that $f(t) = 0$ for $t<0$ which is required by the
+Laplace transform
+(Ogata p. 13.)
+That leaves us with $t$ and according to the table on p. 17
+the Laplace transform of $t$ is $s^{-2}$.
+Hence
+$${\mathscr L}[tu(t)]={1\over s^2}$$
+
+\bigskip
+\noindent
+1b. Derive the Laplace transform for the following function.
+$$f(t)=\sin\omega t\,u(t)$$
+
+\bigskip
+\noindent
+Again, we can ignore $u(t)$.
+From the table on p. 17 we obtain
+$${\mathscr L}[\sin\omega t\,u(t)]={\omega\over s^2+\omega^2}$$
+
+\bigskip
+\noindent
+2. Derive the Laplace transform for the following function.
+$$f(t)=e^{-at}\cos\omega t\,u(t)$$
+
+
+\end{document}
