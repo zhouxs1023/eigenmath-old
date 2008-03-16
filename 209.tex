@@ -57,7 +57,7 @@ $$f(t)=5te^{-2t}\sin(4t+60^\circ)$$
 
 \bigskip
 \noindent
-I used a free web-based applet instead of {\sc matlab}.
+For this problem I used a free web-based applet instead of {\sc matlab}.
 
 \bigskip
 \noindent
@@ -88,7 +88,7 @@ $$G(s)={(s^2+3s+7)(s+2)\over(s+3)(s+4)(s^2+2s+100)}$$
 
 \bigskip
 \noindent
-I used a free web-based applet instead of {\sc matlab}.
+For this problem I used a free web-based applet instead of {\sc matlab}.
 
 \bigskip
 \noindent
@@ -155,16 +155,60 @@ $$F(s)={s+1\over s(s^s+s+1)}$$
 \noindent
 Separating the numerator we have
 $$F(s)={1\over s^2+s+1}+{1\over s(s^2+s+1)}$$
-The polynomial in the denominator can be factored as
-$$s^2+s+1=
-\left(s+{1\over2}+j{\sqrt3\over2}\right)
-\left(s+{1\over2}-j{\sqrt3\over2}\right)
+Let
+$$F_1(s)={1\over s^s+s+1}$$
+and let $\omega=1$ and $\zeta={1\over2}$.
+Then
+$$F_1(s)={\omega^2\over s^s+2\zeta\omega s+\omega^2}$$
+Apply transform pair 22 (Ogata p. 18) to obtain
+$${\mathscr L}^{-1}[F_1(s)]={2\over\sqrt3}e^{-t/2}\sin{\sqrt3t\over 2}$$
+Let
+$$F_2(s)={1\over s(s^s+s+1)}={\omega^2\over s(s^2+2\zeta\omega s+\omega^2)}$$
+Apply transform pair 24 (Ogata p. 18) to obtain
+$${\mathscr L}^{-1}[F_2(s)]=1-{2\over\sqrt3}e^{-t/2}\sin
+\left({\sqrt3t\over2}+{\pi\over3}\right)$$
+By the angle-sum relation we have
+$${\mathscr L}^{-1}[F_2(s)]=1-{2\over\sqrt3}e^{-t/2}
+\left({1\over2}\sin{\sqrt3t\over2}+{\sqrt3\over2}\cos{\sqrt3t\over2}\right)
+=1-e^{-t/2}\left({1\over\sqrt3}\sin{\sqrt3t\over2}+\cos{\sqrt3t\over2}\right)
 $$
-Let $a=(1+j\sqrt3)/2$ and $b=(1-j\sqrt3)/2$.
-Then $F(s)$ can be rewritten as
-$$F(s)={1\over(s+a)(s+b)}+{1\over s(s+a)(s+b)}$$
-Apply transform pairs 15 and 17 (Ogata p. 17) to obtain
-$$f(t)={1\over b-a}(e^{-at}-e^{-bt})+
-{1\over ab}\left[1+{1\over a-b}(be^{-at}-ae^{-bt})\right]$$
+Hence
+$${\mathscr L}^{-1}[F(s)]={\mathscr L}^{-1}[F_1(s)]+{\mathscr L}^{-1}[F_2(s)]=
+1+e^{-t/2}\left(
+{1\over\sqrt3}\sin{\sqrt3t\over2}-\cos{\sqrt3t\over2}\right)$$
+
+\newpage
+
+\noindent
+{\bf 7a. (B-2-13a)} Find the inverse Laplace transform of the following
+function.
+$$F(s)={6s+3\over s^2}$$
+
+\bigskip
+\noindent
+Separate the numerator to obtain
+$$F(s)={6\over s}+{3\over s^2}$$
+Apply transform pairs 2 and 3 to obtain
+$$f(t)=(6+3t)u(t)$$
+
+\bigskip
+\noindent
+{\bf 7b. (B-2-13b)} Find the inverse Laplace transform of the following
+function.
+$$F(s)={5s+2\over(s+1)(s+2)^2}$$
+
+\bigskip
+\noindent
+The partial fraction expansion of $F(s)$ is
+$$F(s)={A\over s+1}+{B\over s+2}+{C\over(s+2)^2}$$
+We have
+$$A=\left[(s+1){5s+2\over(s+1)(s+2)^2}\right]_{s=-1}=-3$$
+$$B={1\over(2-1)!}\left[{d\over ds}
+\left((s+2)^2{5s+2\over(s+1)(s+2)^2}\right)\right]_{s=-2}=3$$
+$$C=\left[(s+2)^2{5s+2\over(s+1)(s+2)^2}\right]_{s=-2}=8$$
+We have
+$$F(s)=-{3\over s+1}+{3\over s+2}+{8\over(s+2)^2}$$
+Hence
+$$f(t)=-3e^{-t}+3e^{-2t}+8te^{-2t}$$
 
 \end{document}
