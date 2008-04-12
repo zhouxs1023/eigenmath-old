@@ -229,7 +229,7 @@ ssqrt(void)
 }
 
 void
-expand(void)
+yyexpand(void)
 {
 	int x;
 	x = expanding;

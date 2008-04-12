@@ -333,14 +333,6 @@ eval_exp(void)
 }
 
 void
-eval_expand(void)
-{
-	push(cadr(p1));
-	eval();
-	expand();
-}
-
-void
 eval_factorial(void)
 {
 	push(cadr(p1));

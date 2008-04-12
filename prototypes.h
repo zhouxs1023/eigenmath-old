@@ -360,7 +360,6 @@ void eval_do(void);
 void eval_dsolve(void);
 void eval_eval(void);
 void eval_exp(void);
-void eval_expand(void);
 void eval_factorial(void);
 void eval_factorpoly(void);
 void eval_hermite(void);
@@ -392,6 +391,13 @@ void filter_f(void);
 void filter_sum(void);
 void filter_tensor(void);
 void eval_predicate(void);
+
+// expand.cpp
+void eval_expand(void);
+void expand(void);
+void expand_pole(void);
+void handle_multiple_poles(void);
+void handle_single_pole(void);
 
 // expcos.cpp
 void eval_expcos(void);
@@ -628,7 +634,7 @@ int length(U *p);
 U * unique(U *p);
 void check_endianess(void);
 void ssqrt(void);
-void expand(void);
+void yyexpand(void);
 void exponential(void);
 void square(void);
 void sort_stack(int n);

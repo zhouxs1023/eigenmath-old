@@ -149,7 +149,7 @@ sfac_product_f(U **s, int a, int b)
 		push(p3);
 		push(p4);
 		add();
-		expand();
+		yyexpand();
 		n = pop_integer();
 		if (n != 0)
 			return;
@@ -161,7 +161,7 @@ sfac_product_f(U **s, int a, int b)
 		push(cadr(p1));
 		push(cadr(p2));
 		subtract();
-		expand(); // to simplify
+		yyexpand(); // to simplify
 
 		n = pop_integer();
 		if (n == 0 || n == (int) 0x80000000)

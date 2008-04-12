@@ -67,7 +67,7 @@ yycondense(void)
 	// Now we expand which which normalizes the result and, in some cases,
 	// simplifies it too (see test case H).
 
-	expand();
+	yyexpand();
 
 	// multiply result by gcd
 
