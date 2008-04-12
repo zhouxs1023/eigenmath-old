@@ -81,10 +81,13 @@ expand(void)
 	subtract();
 	R = pop();
 
+	// the quotient will figure into it one way or the other
+
+	push(Q);
+
 	// if the remainder is zero then we're done
 
 	if (iszero(R)) {
-		push(Q);
 		restore();
 		return;
 	}
@@ -95,8 +98,6 @@ expand(void)
 	push(X);
 	factorpoly();
 	B = pop();
-
-	push(Q);
 
 	// one or more factors
 
@@ -117,12 +118,7 @@ expand(void)
 	restore();
 }
 
-/* We have
-
-	F	is a factor like (x + 1) or (x - 2)^2
-
-	R	is the remainder
-*/
+//	F	is a factor like (x + 3) or (x + 1)^2
 
 void
 expand_pole(void)
