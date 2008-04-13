@@ -27,8 +27,8 @@ eval_expand(void)
 #define A p4
 #define B p5
 #define Q p6
-#define R p7
-#define P p8
+#define P p7
+#define T p8
 
 void
 expand(void)
@@ -54,65 +54,65 @@ expand(void)
 		return;
 	}
 
-	// get numerator and denominator
+	// B = numerator
 
 	push(F);
 	numerator();
-	A = pop();
+	B = pop();
+
+	// A = denominator
 
 	push(F);
 	denominator();
-	B = pop();
+	A = pop();
 
 	// quotient Q
 
-	push(A);
 	push(B);
+	push(A);
 	push(X);
 	divpoly();
 	Q = pop();
 
-	// remainder R = A - B * quotient(A/B)
+	// remainder B = B - A * quotient(B/A)
 
-	push(A);
 	push(B);
+	push(A);
 	push(Q);
 	multiply();
 	subtract();
-	R = pop();
+	B = pop();
 
-	// the quotient will figure into it one way or the other
+	// start the accumulator
 
 	push(Q);
 
 	// if the remainder is zero then we're done
 
-	if (iszero(R)) {
+	if (iszero(B)) {
 		restore();
 		return;
 	}
 
-	// ok, now do the partial fraction expansion of R/B
+	// now do the partial fraction expansion of B/A
 
-	push(B);
+	push(A);
 	push(X);
 	factorpoly();
-	B = pop();
+	A = pop();
 
 	// one or more factors
 
-	if (car(B) == symbol(MULTIPLY)) {
-		p1 = cdr(B);
+	if (car(A) == symbol(MULTIPLY)) {
+		p1 = cdr(A);
 		while (iscons(p1)) {
 			F = car(p1);
 			expand_pole();
-			add();
 			p1 = cdr(p1);
 		}
 	} else {
-			F = B;
+			F = A;
 			expand_pole();
-			add();
 	}
 
 	restore();
@@ -129,17 +129,90 @@ expand_pole(void)
 		handle_single_pole();
 }
 
+/* For example
+
+	B	=	1
+
+	A	=	(s+1)(s+2)^3
+
+	F	=	(s+2)^3
+
+*/
+
 void
 handle_multiple_poles(void)
 {
-	stop("handle_multiple_poles");
+	int i, n;
+
+	// n = exponent of factor F
+
+	push(caddr(F));
+	n = pop_integer();
+
+	// P = negative of pole
+
+	push(X);
+	push(cadr(F));
+	subtract();
+	P = pop();
+
+	// T = F B/A
+
+	push(F);
+	push(A);
+	reciprocate();
+	multiply_noexpand();
+	push(B);
+	multiply_noexpand();
+	T = pop();
+
+	// first result
+
+	push(T);
+	push(X);
+	push(P);
+	subst();
+	eval();
+	push(cadr(F));
+	push_integer(n);		// expand the denominator
+	power();
+	reciprocate();
+	multiply_noexpand();
+	add();
+
+	for (i = 1; i < n; i++) {
+
+		push(T);		// T = dT / dX
+		push(X);
+		derivative();
+		T = pop();
+
+		push(T);		// evaluate T at P
+		push(X);
+		push(P);
+		subst();
+		eval();
+
+		push(cadr(F));		// divide by (X - P) ^ n
+		push_integer(n - i);
+		power();
+		reciprocate();
+		multiply_noexpand();
+
+		push_integer(i);	// multiply by 1 / n!
+		factorial();
+		reciprocate();
+		multiply_noexpand();
+
+		add();			// accumulate
+	}
 }
 
 /* We have				example
 
-	R	is the numerator	2s
+	B	is the numerator	2s
 
-	B	is the denominator	(s + 1)(s + 2)
+	A	is the denominator	(s + 1)(s + 2)
 
 	F	is the factor		s + 1
 
@@ -149,9 +222,9 @@ Compute
 
 	P	pole			1
 
-		FR/B			2s / (s + 2)
+		FB/A			2s / (s + 2)
 
-		FR/B at X = -P		-2
+		FB/A at X = -P		-2
 
 		divide by F		-2 / (s + 1)
 
@@ -165,10 +238,10 @@ handle_single_pole(void)
 	subtract();
 	P = pop();
 	push(F);
-	push(B);
+	push(A);
 	reciprocate();
 	multiply_noexpand();
-	push(R);
+	push(B);
 	multiply_noexpand();
 	push(X);
 	push(P);
@@ -177,4 +250,35 @@ handle_single_pole(void)
 	eval();
 	push(F);
 	divide();
+
+	// accumulate
+
+	add();
 }
+
+#if SELFTEST
+
+static char *s[] = {
+
+	"expand(1/(x+1)/(x+2))",
+	"1/(x+1)-1/(x+2)",
+
+	"expand((2x^3-x+2)/(x^2-2x+1))",
+	"4+2*x+5/(x-1)+3/(x^2-2*x+1)",
+
+	// ensure denominators are expanded (result seems preferable that way)
+
+	"q=(x-1)(x-2)^3",
+	"",
+
+	"expand(1/q)",
+	"1/(x^3-6*x^2+12*x-8)+1/(x-2)-1/(x-1)-1/(x^2-4*x+4)",
+};
+
+void
+test_expand(void)
+{
+	test(__FILE__, s, sizeof s / sizeof (char *));
+}
+
+#endif

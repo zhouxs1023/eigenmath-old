@@ -398,6 +398,7 @@ void expand(void);
 void expand_pole(void);
 void handle_multiple_poles(void);
 void handle_single_pole(void);
+void test_expand(void);
 
 // expcos.cpp
 void eval_expcos(void);

@@ -50,6 +50,7 @@ selftest(void)
 	test_dirac();
 	test_erf();
 	test_erfc();
+	test_expand();
 	test_expcos();
 	test_expsin();
 	test_factorpoly();
