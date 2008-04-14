@@ -395,6 +395,8 @@ void eval_predicate(void);
 // expand.cpp
 void eval_expand(void);
 void expand(void);
+void factor_denominator(void);
+void factor_denominator_1(void);
 void do_expansion_factor(void);
 void handle_multiple_poles(void);
 void handle_single_pole(void);
@@ -879,6 +881,7 @@ void save(void);
 void restore(void);
 void restore_frame(U **save_frame);
 void swap(void);
+void dupl(void);
 
 // subst.cpp
 void subst(void);

@@ -60,7 +60,7 @@ expand(void)
 	numerator();
 	B = pop();
 
-	// A = denominator (denominator functions expands)
+	// A = denominator (denominator function expands)
 
 	push(F);
 	denominator();
@@ -83,25 +83,19 @@ expand(void)
 	subtract();
 	B = pop();
 
-	// start the accumulator
-
-	push(Q);
-
 	// if the remainder is zero then we're done
 
 	if (iszero(B)) {
+		push(Q);
 		restore();
 		return;
 	}
 
-	// factor the denominator
-
-	push(A);
-	push(X);
-	factorpoly();
-	A = pop();
+	factor_denominator();
 
 	// accumulate fractions
+
+	push(Q);
 
 	if (car(A) == symbol(MULTIPLY)) {
 		p1 = cdr(A);
@@ -116,6 +110,100 @@ expand(void)
 	}
 
 	restore();
+}
+
+// The correct way to factor
+//
+//	  2
+//	6x  + 5x + 1
+//
+// is
+//	(2x + 1) * (3x + 1)
+//
+// and that is how factorpoly() works.
+//
+// However, for this application we would prefer the factorization to be
+//
+//	6 * (x + 1/2) * (x + 1/3)
+
+void
+factor_denominator(void)
+{
+	push(A);
+	push(X);
+	factorpoly();
+	A = pop();
+
+	push_integer(1);
+
+	if (car(A) == symbol(MULTIPLY)) {
+		p1 = cdr(A);
+		while (iscons(p1)) {
+			A = car(p1);
+			factor_denominator_1();
+			p1 = cdr(p1);
+		}
+	} else
+		factor_denominator_1();
+
+	A = pop();
+}
+
+void
+factor_denominator_1(void)
+{
+	int h, n;
+
+	if (find(A, X) == 0) {
+		push(A);
+		multiply_noexpand();
+		return;
+	}
+
+	if (car(A) == symbol(POWER)) {
+
+		push(caddr(A));
+		n = pop_integer();
+		A = cadr(A);
+
+		h = tos;	// T = coeff. of leading term
+		push(A);
+		push(X);
+		coeff();
+		T = pop();
+		tos = h;
+
+		push(T);
+		push_integer(n);
+		power();
+		multiply_noexpand();
+
+		push(symbol(POWER));
+		push(A);
+		push(T);
+		divide();
+		push_integer(n);
+		list(3);
+
+		multiply_noexpand();
+
+		return;
+	}
+
+	h = tos;	// T = coeff. of leading term
+	push(A);
+	push(X);
+	coeff();
+	T = pop();
+	tos = h;
+
+	push(T);
+	multiply_noexpand();
+
+	push(A);
+	push(T);
+	divide();
+	multiply_noexpand();
 }
 
 //	F is the factor, like (x + 3) or (x + 1) ^ 2
@@ -307,6 +395,11 @@ static char *s[] = {
 
 	"expand(1/q)",
 	"1/(x^3-6*x^2+12*x-8)+1/(x-2)-1/(x-1)-1/(x^2-4*x+4)",
+
+	// fractional poles
+
+	"expand(1/(x+1/2)/(x+1/3))",
+	"6/(x+1/3)-6/(x+1/2)"
 };
 
 void
