@@ -3,14 +3,7 @@
 
 int endian = 1;
 
-U *p1;
-U *p2;
-U *p3;
-U *p4;
-U *p5;
-U *p6;
-U *p7;
-U *p8;
+U *p0, *p1, *p2, *p3, *p4, *p5, *p6, *p7, *p8, *p9;
 
 U *zero, *one, *imaginaryunit;
 

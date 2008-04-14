@@ -22,13 +22,13 @@ eval_expand(void)
 	expand();
 }
 
-#define F p2
-#define X p3
-#define A p4
-#define B p5
+#define A p2
+#define B p3
+#define F p4
+#define P p5
 #define Q p6
-#define P p7
-#define T p8
+#define T p7
+#define X p8
 
 void
 expand(void)
@@ -60,13 +60,13 @@ expand(void)
 	numerator();
 	B = pop();
 
-	// A = denominator
+	// A = denominator (denominator functions expands)
 
 	push(F);
 	denominator();
 	A = pop();
 
-	// quotient Q
+	// quotient
 
 	push(B);
 	push(A);
@@ -74,7 +74,7 @@ expand(void)
 	divpoly();
 	Q = pop();
 
-	// remainder B = B - A * quotient(B/A)
+	// remainder B = B - A * quotient(B, A)
 
 	push(B);
 	push(A);
@@ -94,35 +94,40 @@ expand(void)
 		return;
 	}
 
-	// now do the partial fraction expansion of B/A
+	// factor the denominator
 
 	push(A);
 	push(X);
 	factorpoly();
 	A = pop();
 
-	// one or more factors
+	// accumulate fractions
 
 	if (car(A) == symbol(MULTIPLY)) {
 		p1 = cdr(A);
 		while (iscons(p1)) {
 			F = car(p1);
-			expand_pole();
+			do_expansion_factor();
 			p1 = cdr(p1);
 		}
 	} else {
 			F = A;
-			expand_pole();
+			do_expansion_factor();
 	}
 
 	restore();
 }
 
-//	F	is a factor like (x + 3) or (x + 1)^2
+//	F is the factor, like (x + 3) or (x + 1) ^ 2
 
 void
-expand_pole(void)
+do_expansion_factor(void)
 {
+	// constant factors can be ignored, they're already in A
+
+	if (find(F, X) == 0)
+		return;
+
 	if (car(F) == symbol(POWER))
 		handle_multiple_poles();
 	else
@@ -144,18 +149,6 @@ handle_multiple_poles(void)
 {
 	int i, n;
 
-	// n = exponent of factor F
-
-	push(caddr(F));
-	n = pop_integer();
-
-	// P = negative of pole
-
-	push(X);
-	push(cadr(F));
-	subtract();
-	P = pop();
-
 	// T = F B/A
 
 	push(F);
@@ -166,6 +159,13 @@ handle_multiple_poles(void)
 	multiply_noexpand();
 	T = pop();
 
+	// get n, base factor and pole
+
+	push(caddr(F));
+	n = pop_integer();
+	F = cadr(F);
+	get_pole();
+
 	// first result
 
 	push(T);
@@ -173,7 +173,7 @@ handle_multiple_poles(void)
 	push(P);
 	subst();
 	eval();
-	push(cadr(F));
+	push(F);
 	push_integer(n);		// expand the denominator
 	power();
 	reciprocate();
@@ -193,7 +193,7 @@ handle_multiple_poles(void)
 		subst();
 		eval();
 
-		push(cadr(F));		// divide by (X - P) ^ n
+		push(F);		// divide by (X - P) ^ n
 		push_integer(n - i);
 		power();
 		reciprocate();
@@ -233,27 +233,58 @@ Return the result on the stack. */
 void
 handle_single_pole(void)
 {
-	push(F);
-	push(X);
-	subtract();
-	P = pop();
+	get_pole();
+
 	push(F);
 	push(A);
 	reciprocate();
-	multiply_noexpand();
+	multiply_noexpand();	// F is  a sum, do not expand, just cancel in A
 	push(B);
 	multiply_noexpand();
 	push(X);
 	push(P);
-	negate();
 	subst();
 	eval();
 	push(F);
 	divide();
 
-	// accumulate
+	// accumulate fractions
 
 	add();
+}
+
+// Input:
+//
+//	F = ax + b
+//
+// Outputs
+//
+//	P = -b/a
+
+void
+get_pole(void)
+{
+	push(F);		// P = b
+	push(X);
+	push_integer(0);
+	subst();
+	eval();
+	P = pop();
+
+	push(F);		// a + b (on stack)
+	push(X);
+	push_integer(1);
+	subst();
+	eval();
+
+	push(P);		// -a (on stack)
+	swap();
+	subtract();
+
+	push(P);		// P = -b/a
+	swap();
+	divide();
+	P = pop();
 }
 
 #if SELFTEST
@@ -265,6 +296,9 @@ static char *s[] = {
 
 	"expand((2x^3-x+2)/(x^2-2x+1))",
 	"4+2*x+5/(x-1)+3/(x^2-2*x+1)",
+
+	"expand(1/x^2/(x-1))",
+	"-1/(x^2)-1/x+1/(x-1)",
 
 	// ensure denominators are expanded (result seems preferable that way)
 

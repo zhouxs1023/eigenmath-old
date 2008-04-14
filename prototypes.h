@@ -395,9 +395,10 @@ void eval_predicate(void);
 // expand.cpp
 void eval_expand(void);
 void expand(void);
-void expand_pole(void);
+void do_expansion_factor(void);
 void handle_multiple_poles(void);
 void handle_single_pole(void);
+void get_pole(void);
 void test_expand(void);
 
 // expcos.cpp

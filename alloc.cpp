@@ -67,6 +67,7 @@ gc(void)
 
 	// untag what's used
 
+	untag(p0);
 	untag(p1);
 	untag(p2);
 	untag(p3);
@@ -75,6 +76,7 @@ gc(void)
 	untag(p6);
 	untag(p7);
 	untag(p8);
+	untag(p9);
 
 	untag(one);
 	untag(zero);

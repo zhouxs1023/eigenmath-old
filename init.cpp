@@ -20,6 +20,7 @@ init(void)
 
 	flag = 1;
 
+	p0 = symbol(NIL);
 	p1 = symbol(NIL);
 	p2 = symbol(NIL);
 	p3 = symbol(NIL);
@@ -28,6 +29,7 @@ init(void)
 	p6 = symbol(NIL);
 	p7 = symbol(NIL);
 	p8 = symbol(NIL);
+	p9 = symbol(NIL);
 
 	for (i = 0; i < NSYM; i++) {
 		symtab[i].k = SYM;
