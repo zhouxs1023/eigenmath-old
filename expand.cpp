@@ -38,6 +38,12 @@ expand(void)
 	X = pop();
 	F = pop();
 
+	if (istensor(F)) {
+		expand_tensor();
+		restore();
+		return;
+	}
+
 	// if sum of terms then sum over the expansion of each term
 
 	if (car(F) == symbol(ADD)) {
@@ -110,6 +116,22 @@ expand(void)
 	}
 
 	restore();
+}
+
+void
+expand_tensor(void)
+{
+	int i;
+	push(F);
+	copy_tensor();
+	F = pop();
+	for (i = 0; i < F->u.tensor->nelem; i++) {
+		push(F->u.tensor->elem[i]);
+		push(X);
+		expand();
+		F->u.tensor->elem[i] = pop();
+	}
+	push(F);
 }
 
 // The correct way to factor
@@ -399,7 +421,18 @@ static char *s[] = {
 	// fractional poles
 
 	"expand(1/(x+1/2)/(x+1/3))",
-	"6/(x+1/3)-6/(x+1/2)"
+	"6/(x+1/3)-6/(x+1/2)",
+
+	// expand tensor
+
+	"f=1/(x+1)/(x+2)",
+	"",
+
+	"g=1/(x+1)-1/(x+2)",
+	"",
+
+	"expand(((f,f),(f,f)))-((g,g),(g,g))",
+	"((0,0),(0,0))",
 };
 
 void
