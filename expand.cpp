@@ -513,6 +513,22 @@ static char *s[] = {
 
 	"expand(1/(1+1/x))",
 	"1-1/(x+1)",
+
+	// poles at zero
+
+	"expand(1/x/(x+1))",
+	"1/x-1/(x+1)",
+
+	"expand(1/x^2/(x+1))",
+	"x^(-2)-1/x+1/(x+1)",
+
+	// other corner cases
+
+	"expand(1/x)",
+	"1/x",
+
+	"expand(1/x^2)",
+	"x^(-2)",
 };
 
 void
