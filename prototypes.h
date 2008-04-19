@@ -644,6 +644,8 @@ void yyexpand(void);
 void exponential(void);
 void square(void);
 void sort_stack(int n);
+void push_expr_factors(U * p);
+void push_term_factors(U *p);
 
 // mmodpow.cpp
 unsigned int * mmodpow(unsigned int *x, unsigned int *n, unsigned int *m);

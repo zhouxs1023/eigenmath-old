@@ -145,31 +145,7 @@ normalize_denominator(void)
 
 	h = tos;
 
-	// push all the factors in the denominator polynomial
-
-	p0 = A;
-	if (car(p0) == symbol(ADD)) {
-		p0 = cdr(p0);
-		while (iscons(p0)) {
-			p1 = car(p0);
-			if (car(p1) == symbol(MULTIPLY)) {
-				p1 = cdr(p1);
-				while (iscons(p1)) {
-					push(car(p1));
-					p1 = cdr(p1);
-				}
-			} else
-				push(p1);
-			p0 = cdr(p0);
-		}
-	} else if (car(p0) == symbol(MULTIPLY)) {
-		p0 = cdr(p0);
-		while (iscons(p0)) {
-			push(car(p0));
-			p0 = cdr(p0);
-		}
-	} else
-		push(p0);
+	push_expr_factors(A);
 
 	// find the smallest exponent
 
