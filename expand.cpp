@@ -136,7 +136,7 @@ expand_tensor(void)
 	push(F);
 }
 
-// Multiply top and bottom to remove negative exponents.
+// Multiply A and B to remove negative exponents in A.
 
 void
 normalize_denominator(void)
@@ -175,8 +175,6 @@ normalize_denominator(void)
 
 	n = 0;
 
-printf("%d\n", tos - h);
-
 	for (i = h; i < tos; i++) {
 		p1 = stack[i];
 		if (car(p1) != symbol(POWER))
@@ -186,14 +184,12 @@ printf("%d\n", tos - h);
 		push(caddr(p1));
 		x = pop_integer();
 		if (x == (int) 0x80000000)
-			return;
+			continue;
 		if (n > x)
 			n = x;
 	}
 
 	tos = h;
-
-printf("%d\n", n);
 
 	if (n >= 0)
 		return;
