@@ -72,6 +72,8 @@ expand(void)
 	denominator();
 	A = pop();
 
+	normalize_denominator();
+
 	// quotient
 
 	push(B);
@@ -132,6 +134,83 @@ expand_tensor(void)
 		F->u.tensor->elem[i] = pop();
 	}
 	push(F);
+}
+
+// Multiply top and bottom to remove negative exponents.
+
+void
+normalize_denominator(void)
+{
+	int h, i, n, x;
+
+	h = tos;
+
+	// push all the factors in the denominator polynomial
+
+	p0 = A;
+	if (car(p0) == symbol(ADD)) {
+		p0 = cdr(p0);
+		while (iscons(p0)) {
+			p1 = car(p0);
+			if (car(p1) == symbol(MULTIPLY)) {
+				p1 = cdr(p1);
+				while (iscons(p1)) {
+					push(car(p1));
+					p1 = cdr(p1);
+				}
+			} else
+				push(p1);
+			p0 = cdr(p0);
+		}
+	} else if (car(p0) == symbol(MULTIPLY)) {
+		p0 = cdr(p0);
+		while (iscons(p0)) {
+			push(car(p0));
+			p0 = cdr(p0);
+		}
+	} else
+		push(p0);
+
+	// find the smallest exponent
+
+	n = 0;
+
+printf("%d\n", tos - h);
+
+	for (i = h; i < tos; i++) {
+		p1 = stack[i];
+		if (car(p1) != symbol(POWER))
+			continue;
+		if (cadr(p1) != X)
+			continue;
+		push(caddr(p1));
+		x = pop_integer();
+		if (x == (int) 0x80000000)
+			return;
+		if (n > x)
+			n = x;
+	}
+
+	tos = h;
+
+printf("%d\n", n);
+
+	if (n >= 0)
+		return;
+
+	push(B);
+	push(X);
+	push_integer(-n);
+	power();
+	multiply();
+	B = pop();
+
+	push(A);
+	push(X);
+	push_integer(-n);
+	power();
+	multiply();
+	A = pop();
 }
 
 // The correct way to factor
@@ -433,6 +512,11 @@ static char *s[] = {
 
 	"expand(((f,f),(f,f)))-((g,g),(g,g))",
 	"((0,0),(0,0))",
+
+	// denominator normalized?
+
+	"expand(1/(1+1/x))",
+	"1-1/(x+1)",
 };
 
 void

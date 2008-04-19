@@ -396,6 +396,7 @@ void eval_predicate(void);
 void eval_expand(void);
 void expand(void);
 void expand_tensor(void);
+void normalize_denominator(void);
 void factor_denominator(void);
 void factor_denominator_1(void);
 void do_expansion_factor(void);
