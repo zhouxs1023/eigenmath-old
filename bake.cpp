@@ -1,8 +1,4 @@
-/* Bake a raw expression.
-
-Right now all it does is beautify polynomials.
-
-*/
+// pretty print
 
 #include "stdafx.h"
 #include "defs.h"
@@ -10,7 +6,7 @@ Right now all it does is beautify polynomials.
 void
 bake(void)
 {
-	int h, t, x, y, z;
+	int h, s, t, x, y, z;
 
 	expanding++;
 
@@ -18,21 +14,25 @@ bake(void)
 
 	p1 = pop();
 
+	s = ispoly(p1, symbol(SYMBOL_S));
 	t = ispoly(p1, symbol(SYMBOL_T));
 	x = ispoly(p1, symbol(SYMBOL_X));
 	y = ispoly(p1, symbol(SYMBOL_Y));
 	z = ispoly(p1, symbol(SYMBOL_Z));
 
-	if (t == 1 && x == 0 && y == 0 && z == 0) {
+	if (s == 1 && t == 0 && x == 0 && y == 0 && z == 0) {
+		p2 = symbol(SYMBOL_S);
+		bake_poly();
+	} else if (s == 0 && t == 1 && x == 0 && y == 0 && z == 0) {
 		p2 = symbol(SYMBOL_T);
 		bake_poly();
-	} else if (t == 0 && x == 1 && y == 0 && z == 0) {
+	} else if (s == 0 && t == 0 && x == 1 && y == 0 && z == 0) {
 		p2 = symbol(SYMBOL_X);
 		bake_poly();
-	} else if (t == 0 && x == 0 && y == 1 && z == 0) {
+	} else if (s == 0 && t == 0 && x == 0 && y == 1 && z == 0) {
 		p2 = symbol(SYMBOL_Y);
 		bake_poly();
-	} else if (t == 0 && x == 0 && y == 0 && z == 1) {
+	} else if (s == 0 && t == 0 && x == 0 && y == 0 && z == 1) {
 		p2 = symbol(SYMBOL_Z);
 		bake_poly();
 	} else if (iscons(p1)) {

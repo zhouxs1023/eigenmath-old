@@ -450,6 +450,8 @@ get_pole(void)
 
 static char *s[] = {
 
+	// general cases
+
 	"expand(1/(x+1)/(x+2))",
 	"1/(x+1)-1/(x+2)",
 
@@ -458,6 +460,15 @@ static char *s[] = {
 
 	"expand(1/x^2/(x-1))",
 	"-1/(x^2)-1/x+1/(x-1)",
+
+	"p=5s+2",
+	"",
+
+	"q=(s+1)(s+2)^2",
+	"",
+
+	"expand(p/q)",
+	"-3/(s+1)+3/(s+2)+8/(s^2+4*s+4)",
 
 	// ensure denominators are expanded (result seems preferable that way)
 
