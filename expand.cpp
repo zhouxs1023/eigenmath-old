@@ -141,17 +141,15 @@ expand_tensor(void)
 void
 normalize_denominator(void)
 {
-	int h, i, n, x;
+	int i, k, n, x;
 
-	h = tos;
-
-	push_expr_factors(A);
+	k = factors(A);
 
 	// find the smallest exponent
 
 	n = 0;
 
-	for (i = h; i < tos; i++) {
+	for (i = tos - k; i < tos; i++) {
 		p1 = stack[i];
 		if (car(p1) != symbol(POWER))
 			continue;
@@ -165,7 +163,7 @@ normalize_denominator(void)
 			n = x;
 	}
 
-	tos = h;
+	tos -= k;
 
 	if (n >= 0)
 		return;
