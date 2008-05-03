@@ -514,6 +514,9 @@ static char *s[] = {
 
 	"expand(1/x^2)",
 	"x^(-2)",
+
+	"expand(1/(x^2-4x+4))",
+	"1/(x^2-4*x+4)",
 };
 
 void
