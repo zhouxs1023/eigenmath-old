@@ -39,18 +39,18 @@ leading(void)
 	X = pop();
 	P = pop();
 
-	push(P);
+	push(P);	// N = degree of P
 	push(X);
 	degree();
 	N = pop();
 
-	push(P);
+	push(P);	// divide through by X ^ N
 	push(X);
 	push(N);
 	power();
 	divide();
 
-	push(X);
+	push(X);	// remove terms that depend on X
 	filter();
 
 	restore();
