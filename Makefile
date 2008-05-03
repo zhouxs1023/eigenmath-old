@@ -48,7 +48,7 @@ power.o factorial.o sum.o product.o det.o inv.o hilbert.o taylor.o binomial.o \
 hermite.o laguerre.o legendre.o degree.o divisors.o expand.o factors.o \
 vectorize.o variables.o test.o selftest.o numerator.o denominator.o simfac.o \
 besselj.o bessely.o carac.o convolution.o dirac.o erf.o erfc.o \
-gamma.o heaviside.o sgn.o cofactor.o adj.o \
+gamma.o heaviside.o sgn.o cofactor.o adj.o leading.cpp \
 tchebychevT.o tchebychevU.o arg.o imag.o mag.o real.o rect.o quotient.o \
 bake.o polar.o decomp.o transform.o itab.o itest.o partition.o float.o \
 circexp.o choose.o clock.o defint.o mini-test.o nroots.o

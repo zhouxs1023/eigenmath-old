@@ -113,6 +113,7 @@ init(void)
 	std_symbol("isprime", ISPRIME);
 	std_symbol("laguerre", LAGUERRE);
 	std_symbol("lcm", LCM);
+	std_symbol("leading", LEADING);
 	std_symbol("legendre", LEGENDRE);
 	std_symbol("log", LOG);
 	std_symbol("mag", MAG);

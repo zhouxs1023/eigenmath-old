@@ -133,6 +133,7 @@ enum {
 	ISPRIME,
 	LAGUERRE,
 	LCM,
+	LEADING,
 	LEGENDRE,
 	LOG,
 	MAG,

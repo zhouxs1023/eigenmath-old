@@ -177,6 +177,7 @@ eval_cons(void)
 	case ISPRIME:		eval_isprime();		break;
 	case LAGUERRE:		eval_laguerre();	break;
 	case LCM:		eval_lcm();		break;
+	case LEADING:		eval_leading();		break;
 	case LEGENDRE:		eval_legendre();	break;
 	case LOG:		eval_log();		break;
 	case MAG:		eval_mag();		break;

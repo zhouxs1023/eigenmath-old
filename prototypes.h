@@ -575,6 +575,10 @@ void lcm(void);
 void yylcm(void);
 void test_lcm(void);
 
+// leading.cpp
+void eval_leading(void);
+void leading(void);
+
 // legendre.cpp
 void legendre(void);
 void test_legendre(void);
