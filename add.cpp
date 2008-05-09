@@ -1,6 +1,6 @@
 /* Symbolic addition
 
-	Terms in a sum are combined if they are identical beyond rational
+	Terms in a sum are combined if they are identical modulo rational
 	coefficients.
 
 	For example, A + 2A becomes 3A.
