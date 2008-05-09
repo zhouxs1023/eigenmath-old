@@ -15,59 +15,53 @@ void
 sine(void)
 {
 	save();
-	yysine_phase();
+	p1 = pop();
+	if (car(p1) == symbol(ADD))
+		sine_of_angle_sum();
+	else
+		sine_of_angle();
 	restore();
 }
 
+// Use angle sum formula for special angles.
+
+#define A p3
+#define B p4
+
 void
-yysine_phase(void)
+sine_of_angle_sum(void)
 {
-	int n = 0;
-	p1 = pop();
-	if (car(p1) != symbol(ADD)) {
-		push(p1);
-		yysine();
-		return;
-	}
 	p2 = cdr(p1);
 	while (iscons(p2)) {
-		n = isnpi(car(p2));
-		if (n)
-			break;
+		B = car(p2);
+		if (isnpi(B)) {
+			push(p1);
+			push(B);
+			subtract();
+			A = pop();
+			push(A);
+			sine();
+			push(B);
+			cosine();
+			multiply();
+			push(A);
+			cosine();
+			push(B);
+			sine();
+			multiply();
+			add();
+			return;
+		}
 		p2 = cdr(p2);
 	}
-	if (n == 0) {
-		push(p1);
-		yysine();
-		return;
-	}
-	push(p1);
-	push(car(p2));
-	subtract();	// remove phase
-	switch (n) {
-	case 1:
-		yycosine();
-		break;
-	case 2:
-		yysine();
-		negate();
-		break;
-	case 3:
-		yycosine();
-		negate();
-		break;
-	case 4:
-		yysine();
-		break;
-	}
+	sine_of_angle();
 }
 
 void
-yysine(void)
+sine_of_angle(void)
 {
 	int n;
 	double d;
-	p1 = pop();
 
 	if (car(p1) == symbol(ARCSIN)) {
 		push(cadr(p1));

@@ -209,8 +209,8 @@ void test_convolution(void);
 // cos.cpp
 void eval_cos(void);
 void cosine(void);
-void yycosine_phase(void);
-void yycosine(void);
+void cosine_of_angle_sum(void);
+void cosine_of_angle(void);
 void test_cos(void);
 
 // cosh.cpp
@@ -872,8 +872,8 @@ void test_simplify(void);
 // sin.cpp
 void eval_sin(void);
 void sine(void);
-void yysine_phase(void);
-void yysine(void);
+void sine_of_angle_sum(void);
+void sine_of_angle(void);
 void test_sin(void);
 
 // sinh.cpp
