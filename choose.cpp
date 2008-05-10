@@ -1,8 +1,6 @@
-/*
-	                     n!
-	choose(n, k) = -------------
-	                k! (n - k)!
-*/
+//	                    n!
+//	choose(n,k) = -------------
+//	               k! (n - k)!
 
 #include "stdafx.h"
 #include "defs.h"
