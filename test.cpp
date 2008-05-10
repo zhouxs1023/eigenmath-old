@@ -1,4 +1,4 @@
-// If odd number of args then last arg is a default case.
+// If the number of args is odd then the last arg is the default result.
 
 #include "stdafx.h"
 #include "defs.h"
