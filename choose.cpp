@@ -71,8 +71,8 @@ choose_check_args(void)
 
 static char *s[] = {
 
-	"choose(12,6)",
-	"924",
+	"choose(52,5)",
+	"2598960",
 
 	"choose(n,k)",
 	"n!/(k!*(-k+n)!)",
