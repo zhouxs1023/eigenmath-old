@@ -77,13 +77,9 @@ static char *s[] = {
 	"924",
 
 	"choose(n,k)",
-//	"1/(factorial(k))*factorial(n)*1/(factorial(-k+n))",
-//	"factorial(n)/(factorial(k)*factorial(-k+n))",
 	"n!/(k!*(-k+n)!)",
 
 	"choose(0,k)",
-//	"1/(factorial(k))*1/(factorial(-k))",
-//	"1/(factorial(k)*factorial(-k))",
 	"1/(k!*(-k)!)",
 
 	"choose(n,0)",
