@@ -2,7 +2,6 @@
 // abs.cpp
 void eval_abs(void);
 void absval(void);
-void yyabsval(void);
 void absval_tensor(void);
 void test_abs(void);
 

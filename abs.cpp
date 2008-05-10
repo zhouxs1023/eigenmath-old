@@ -9,31 +9,18 @@ eval_abs(void)
 	push(cadr(p1));
 	eval();
 	absval();
-	p1 = pop();
-	push(p1);
-	if (car(p1) != symbol(ABS)) {	// to prevent circular reference
-		simplify();
-		eval();			// to normalize
-	}
 }
 
 void
 absval(void)
 {
-	save();
-	yyabsval();
-	restore();
-}
-
-void
-yyabsval(void)
-{
 	int h;
-
+	save();
 	p1 = pop();
 
 	if (istensor(p1)) {
 		absval_tensor();
+		restore();
 		return;
 	}
 
@@ -41,6 +28,7 @@ yyabsval(void)
 		push(p1);
 		if (isnegativenumber(p1))
 			negate();
+		restore();
 		return;
 	}
 
@@ -51,6 +39,7 @@ yyabsval(void)
 		multiply();
 		push_rational(1, 2);
 		power();
+		restore();
 		return;
 	}
 
@@ -61,6 +50,7 @@ yyabsval(void)
 		reciprocate();
 		absval();
 		reciprocate();
+		restore();
 		return;
 	}
 
@@ -75,6 +65,7 @@ yyabsval(void)
 			p1 = cdr(p1);
 		}
 		multiply_all(tos - h);
+		restore();
 		return;
 	}
 
@@ -87,6 +78,8 @@ yyabsval(void)
 	push_symbol(ABS);
 	push(p1);
 	list(2);
+
+	restore();
 }
 
 void
@@ -100,6 +93,8 @@ absval_tensor(void)
 	inner();
 	push_rational(1, 2);
 	power();
+	simplify();
+	eval();
 }
 
 #if SELFTEST
