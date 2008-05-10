@@ -149,7 +149,7 @@ static char *s[] = {
 	"abs(1/a^b)",
 	"1/(abs(a^b))",
 
-	// this test makes sure the result of abs is simplified
+	// Check that vector length is simplified
 
 	"P=(u*cos(v),u*sin(v),v)",
 	"",
