@@ -155,7 +155,7 @@ emit_html(char *filename, int special)
 		printf("cannot open %s\n", filename);
 		exit(1);
 	}
-	strcpy(newfilename, "html/");
+	strcpy(newfilename, "src/");
 	strcat(newfilename, filename);
 	strcat(newfilename, ".html");
 	fout = fopen(newfilename, "w");
@@ -228,10 +228,23 @@ process_one_line_of_source_code(char *s)
 			continue;
 		}
 
+		// quoted string?
+
+		if (*s == '"') {
+			emit_char(*s++);
+			while (*s && *s != '"')
+				emit_char(*s++);
+			if (*s)
+				emit_char(*s++);
+			continue;
+		}
+
+		// symbol?
+
 		if (*s == '_' || isalpha(*s)) {
 
 			p = token;
-			while (*s == '_' || isalpha(*s) || isdigit(*s))
+			while (*s == '_' || isalnum(*s))
 				*p++ = *s++;
 			*p = 0;
 			p = token;
@@ -269,6 +282,8 @@ process_one_line_of_source_code(char *s)
 
 			continue;
 		}
+
+		// default case
 
 		emit_char(*s++);
 	}
