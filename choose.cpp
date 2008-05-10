@@ -1,6 +1,8 @@
-// choose(n, k) = n! / k! / (n - k)!
-
-// Result vanishes for k < 0 or k > n. (A=B, p. 19)
+/*
+	                     n!
+	choose(n, k) = -------------
+	                k! (n - k)!
+*/
 
 #include "stdafx.h"
 #include "defs.h"
@@ -15,11 +17,7 @@ eval_choose(void)
 	choose();
 }
 
-// For example...
-//
-//	push(N)
-//	push(K)
-//	choose()
+// Result vanishes for k < 0 or k > n. (A=B, p. 19)
 
 #define N p1
 #define K p2
