@@ -1,6 +1,8 @@
-//	                    n!
-//	choose(n,k) = -------------
-//	               k! (n - k)!
+// For example, the number of 5 card hands is choose(52,5)
+//
+//                          n!
+//      choose(n,k) = -------------
+//                     k! (n - k)!
 
 #include "stdafx.h"
 #include "defs.h"
