@@ -106,19 +106,19 @@ restore_frame(U **save_frame)
 	restore();
 }
 
-// Local U *p is OK here because no functional path to garbage collector.
+// Local U * is OK here because there is no functional path to the garbage collector.
 
 void
 swap(void)
 {
-	U *p1, *p2;
-	p1 = pop();
-	p2 = pop();
-	push(p1);
-	push(p2);
+	U *p, *q;
+	p = pop();
+	q = pop();
+	push(p);
+	push(q);
 }
 
-// Local U *p is OK here because no functional path to garbage collector.
+// Local U * is OK here because there is no functional path to the garbage collector.
 
 void
 dupl(void)
