@@ -1,15 +1,6 @@
-/*	choose
+// choose(n, k) = n! / k! / (n - k)!
 
-	Input:		tos-2		n
-
-			tos-1		k
-
-	Output:		Binomial coefficient on stack
-
-	binomial(n, k) = n! / k! / (n - k)!
-
-	The binomial coefficient vanishes for k < 0 or k > n. (A=B, p. 19)
-*/
+// Result vanishes for k < 0 or k > n. (A=B, p. 19)
 
 #include "stdafx.h"
 #include "defs.h"
@@ -24,26 +15,26 @@ eval_choose(void)
 	choose();
 }
 
-
-void
-choose(void)
-{
-	save();
-	yychoose();
-	restore();
-}
+// For example...
+//
+//	push(N)
+//	push(K)
+//	choose()
 
 #define N p1
 #define K p2
 
 void
-yychoose(void)
+choose(void)
 {
+	save();
+
 	K = pop();
 	N = pop();
 
 	if (choose_check_args() == 0) {
 		push_integer(0);
+		restore();
 		return;
 	}
 
@@ -61,6 +52,8 @@ yychoose(void)
 	factorial();
 
 	divide();
+
+	restore();
 }
 
 int

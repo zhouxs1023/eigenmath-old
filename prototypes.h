@@ -147,7 +147,6 @@ void test_ceiling(void);
 // choose.cpp
 void eval_choose(void);
 void choose(void);
-void yychoose(void);
 int choose_check_args(void);
 void test_choose(void);
 
