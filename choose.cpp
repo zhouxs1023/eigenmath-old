@@ -1,4 +1,4 @@
-// For example, the number of 5 card hands is choose(52,5)
+// For example, the number of five card hands is choose(52,5)
 //
 //                          n!
 //      choose(n,k) = -------------
