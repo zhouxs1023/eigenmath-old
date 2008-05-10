@@ -140,6 +140,9 @@ char *preamble =
 "</head>\n"
 "<body>\n";
 
+char *epilog =
+"<p><a href=\"http://sourceforge.net\"><img src=\"http://sflogo.sourceforge.net/sflogo.php?group_id=103462&amp;type=2\" width=\"125\" height=\"37\" border=\"0\" alt=\"SourceForge.net Logo\" /></a></body></html>\n";
+
 char newfilename[BUFLEN], buf[BUFLEN];
 FILE *fout;
 int ncol;
@@ -172,7 +175,7 @@ emit_html(char *filename, int special)
 		fputs("</tt><br>\n", fout);
 	}
 
-	fputs("</body>\n</html>\n", fout);
+	fputs(epilog, fout);
 
 	fclose(f);
 	fclose(fout);
