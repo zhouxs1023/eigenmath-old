@@ -26,21 +26,6 @@
 #define T_LTEQ 1009
 #define T_EQ 1010
 
-static void scan_expression(void);
-static void scan_term(void);
-static void scan_power(void);
-static void scan_factor(void);
-static void scan_symbol(void);
-static void scan_function_call(void);
-static void scan_subexpr(void);
-static void get_next_token(void);
-static void get_token(void);
-static void scan_stmt(void);
-static void scan_string(void);
-static void scan_relation(void);
-static void error(char *);
-static void update_token_buf(char *, char *);
-
 static int token, newline_flag, meta_mode;
 static char *input_str, *scan_str, *token_str, *token_buf;
 
@@ -84,7 +69,7 @@ scan_meta(char *s)
 	return (int) (token_str - input_str);
 }
 
-static void
+void
 scan_stmt(void)
 {
 	scan_relation();
@@ -97,7 +82,7 @@ scan_stmt(void)
 	}
 }
 
-static void
+void
 scan_relation(void)
 {
 	scan_expression();
@@ -142,7 +127,7 @@ scan_relation(void)
 	}
 }
 
-static void
+void
 scan_expression(void)
 {
 	int h = tos;
@@ -178,7 +163,7 @@ scan_expression(void)
 	}
 }
 
-static int
+int
 is_factor(void)
 {
 	switch (token) {
@@ -202,7 +187,7 @@ is_factor(void)
 	return 0;
 }
 
-static void
+void
 scan_term(void)
 {
 	int h = tos;
@@ -246,7 +231,7 @@ scan_term(void)
 	}
 }
 
-static void
+void
 scan_power(void)
 {
 	scan_factor();
@@ -259,7 +244,7 @@ scan_power(void)
 	}
 }
 
-static void
+void
 scan_factor(void)
 {
 	int h;
@@ -308,7 +293,7 @@ scan_factor(void)
 	}
 }
 
-static void
+void
 scan_symbol(void)
 {
 	if (token != T_SYMBOL)
@@ -333,14 +318,14 @@ scan_symbol(void)
 	get_next_token();
 }
 
-static void
+void
 scan_string(void)
 {
 	new_string(token_buf);
 	get_next_token();
 }
 
-static void
+void
 scan_function_call(void)
 {
 	int n = 1;
@@ -366,7 +351,7 @@ scan_function_call(void)
 
 // scan subexpression
 
-static void
+void
 scan_subexpr(void)
 {
 	int n;
@@ -388,7 +373,7 @@ scan_subexpr(void)
 	get_next_token();
 }
 
-static void
+void
 error(char *errmsg)
 {
 	printchar('\n');
@@ -444,7 +429,7 @@ build_tensor(int n)
 	restore();
 }
 
-static void
+void
 get_next_token()
 {
 	newline_flag = 0;
@@ -456,7 +441,7 @@ get_next_token()
 	}
 }
 
-static void
+void
 get_token(void)
 {
 	// skip spaces
@@ -564,7 +549,7 @@ get_token(void)
 	token = *scan_str++;
 }
 
-static void
+void
 update_token_buf(char *a, char *b)
 {
 	int n;

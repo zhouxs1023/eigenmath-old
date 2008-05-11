@@ -840,7 +840,22 @@ void check_esc_flag(void);
 // scan.cpp
 int scan(char *s);
 int scan_meta(char *s);
+void scan_stmt(void);
+void scan_relation(void);
+void scan_expression(void);
+int is_factor(void);
+void scan_term(void);
+void scan_power(void);
+void scan_factor(void);
+void scan_symbol(void);
+void scan_string(void);
+void scan_function_call(void);
+void scan_subexpr(void);
+void error(char *errmsg);
 void build_tensor(int n);
+void get_next_token();
+void get_token(void);
+void update_token_buf(char *a, char *b);
 void test_scan(void);
 
 // selftest.cpp

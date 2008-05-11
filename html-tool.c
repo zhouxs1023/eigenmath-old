@@ -310,6 +310,9 @@ emit_char(int c)
 		} while (ncol % 8);
 		ncol--;
 		break;
+	case '&':
+		fputs("&amp;", fout);
+		break;
 	case ' ':
 		fputs("&nbsp;", fout);
 		break;
