@@ -9,7 +9,7 @@
 #define N 1000
 #define BUFLEN 1000
 char buf[BUFLEN], token[BUFLEN];
-int special;
+int special, comment_state, ncol;
 
 struct {
 	char *filename;
@@ -145,7 +145,6 @@ char *epilog =
 
 char newfilename[BUFLEN], buf[BUFLEN];
 FILE *fout;
-int ncol;
 
 emit_html(char *filename, int special)
 {
@@ -169,6 +168,8 @@ emit_html(char *filename, int special)
 
 	fprintf(fout, preamble, filename);
 
+	comment_state = 0;
+
 	while (fgets(buf, BUFLEN, f)) {
 		fputs("<tt>", fout);
 		process_one_line_of_source_code(buf);
@@ -183,9 +184,8 @@ emit_html(char *filename, int special)
 
 process_one_line_of_source_code(char *s)
 {
-	char *p, *t;
+	char *t;
 	int d, i;
-	static int comment_state;
 
 	ncol = 0;
 
@@ -205,7 +205,7 @@ process_one_line_of_source_code(char *s)
 	while (*s) {
 
 		if (comment_state) {
-			if (t - s > 1 && s[0] == '*' && s[1] == '/') {
+			if (s[0] == '*' && s[1] == '/') {
 				emit_char(*s++);
 				emit_char(*s++);
 				fputs("</i></b>", fout);
@@ -215,19 +215,21 @@ process_one_line_of_source_code(char *s)
 			continue;
 		}
 
-		if (t - s > 1 && s[0] == '/' && s[1] == '*') {
+		if (s[0] == '/' && s[1] == '*') {
+			comment_state = 1;
 			fputs("<b><i>", fout);
 			emit_char(*s++);
 			emit_char(*s++);
-			comment_state = 1;
 			continue;
 		}
 
-		if (t - s > 1 && s[0] == '/' && s[1] == '/') {
+		if (s[0] == '/' && s[1] == '/') {
+			comment_state = 1;
 			fputs("<b><i>", fout);
 			while (*s)
 				emit_char(*s++);
 			fputs("</i></b>", fout);
+			comment_state = 0;
 			continue;
 		}
 
@@ -246,32 +248,32 @@ process_one_line_of_source_code(char *s)
 
 		if (*s == '_' || isalpha(*s)) {
 
-			p = token;
+			t = token;
 			while (*s == '_' || isalnum(*s))
-				*p++ = *s++;
-			*p = 0;
-			p = token;
+				*t++ = *s++;
+			*t = 0;
+			t = token;
 
 			// check symbol table
 
 			for (i = 0; i < count; i++)
-				if (strcmp(p, stab[i].symbol) == 0)
+				if (strcmp(t, stab[i].symbol) == 0)
 					break;
 
 			// symbol not found?
 
 			if (i == count) {
-				while (*p)
-					emit_char(*p++);
+				while (*t)
+					emit_char(*t++);
 				continue;
 			}
 
 			// symbol defn?
 
 			if (ncol == 0 || d && ncol == 8) {
-				fprintf(fout, "<a name=\"%s\">", p);
-				while (*p)
-					emit_char(*p++);
+				fprintf(fout, "<a name=\"%s\">", t);
+				while (*t)
+					emit_char(*t++);
 				fputs("</a>", fout);
 				continue;
 			}
@@ -279,14 +281,14 @@ process_one_line_of_source_code(char *s)
 			// hyperlink
 
 			fprintf(fout, "<a href=\"%s.html#%s\">", stab[i].filename, stab[i].symbol);
-			while (*p)
-				emit_char(*p++);
+			while (*t)
+				emit_char(*t++);
 			fputs("</a>", fout);
 
 			continue;
 		}
 
-		// default case
+		// none of the above
 
 		emit_char(*s++);
 	}
@@ -295,27 +297,31 @@ process_one_line_of_source_code(char *s)
 emit_char(int c)
 {
 	switch (c) {
+	case '|':
+		if (comment_state)
+			fputs("</i>|<i>", fout);
+		else
+			fputc('|', fout);
+		break;
 	case '\t':
 		do {
 			fputs("&nbsp;", fout);
 			ncol++;
 		} while (ncol % 8);
+		ncol--;
 		break;
 	case ' ':
 		fputs("&nbsp;", fout);
-		ncol++;
 		break;
 	case '<':
 		fputs("&lt;", fout);
-		ncol++;
 		break;
 	case '>':
 		fputs("&gt;", fout);
-		ncol++;
 		break;
 	default:
 		fputc(c, fout);
-		ncol++;
 		break;
 	}
+	ncol++;
 }
