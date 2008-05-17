@@ -77,8 +77,6 @@ selftest(void)
 	test_sgn();
 	test_sum();
 	test_taylor();
-	test_tchebychevT();
-	test_tchebychevU();
 	test_transpose();
 	test_zero();
 

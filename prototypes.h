@@ -942,18 +942,6 @@ void taylor(void);
 void ytaylor(void);
 void test_taylor(void);
 
-// tchebychevT.cpp
-void eval_tchebychevT(void);
-void tchebychevT(void);
-void yytchebychevT(void);
-void yytchebychevT2(int n);
-void test_tchebychevT(void);
-
-// tchebychevU.cpp
-void eval_tchebychevU(void);
-void tchebychevU(void);
-void test_tchebychevU(void);
-
 // tensor.cpp
 void eval_tensor(void);
 void tensor_plus_tensor(void);
