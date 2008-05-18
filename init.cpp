@@ -15,11 +15,6 @@ init(void)
 
 	frame = stack + TOS;
 
-	if (flag)
-		return;		// already initted
-
-	flag = 1;
-
 	p0 = symbol(NIL);
 	p1 = symbol(NIL);
 	p2 = symbol(NIL);
@@ -30,6 +25,13 @@ init(void)
 	p7 = symbol(NIL);
 	p8 = symbol(NIL);
 	p9 = symbol(NIL);
+
+	args = symbol(NIL);
+
+	if (flag)
+		return;		// already initted
+
+	flag = 1;
 
 	for (i = 0; i < NSYM; i++) {
 		symtab[i].k = SYM;
