@@ -14,4 +14,5 @@ int verbosing;
 int esc_flag;
 int test_flag;
 int draw_flag;
+int trigmode;
 char logbuf[1000];

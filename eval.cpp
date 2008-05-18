@@ -1,10 +1,11 @@
-// Eigenmath by G. Weigt
+/* Evaluate an expression, for example...
+
+	push(p1)
+	eval()
+*/
 
 #include "stdafx.h"
 #include "defs.h"
-
-int trigmode;
-static char errstr[24];
 
 void
 eval(void)
@@ -34,8 +35,7 @@ eval(void)
 		eval_sym();
 		break;
 	default:
-		sprintf(errstr, "atom %d?", p1->k);
-		stop(errstr);
+		stop("atom?");
 		break;
 	}
 	restore();
@@ -92,10 +92,9 @@ eval_sym(void)
 void
 eval_cons(void)
 {
-	if (!issymbol(car(p1))) {
-		sprintf(errstr, "form %d?", car(p1)->k);
-		stop(errstr);
-	}
+	if (!issymbol(car(p1)))
+		stop("cons?");
+
 	switch (symnum(car(p1))) {
 	case ABS:		eval_abs();		break;
 	case ADD:		eval_add();		break;

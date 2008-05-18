@@ -1,4 +1,6 @@
-/*	The starting point for a symbolic computation is in run.cpp
+/* Eigenmath by G. Weigt
+
+	The starting point for a symbolic computation is in run.cpp
 
 	Input is scanned in scan.cpp
 
