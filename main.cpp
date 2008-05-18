@@ -1,12 +1,11 @@
-// Eigenmath by George Weigt
-//
-// The starting point for a symbolic computation is in run.cpp
-//
-// Input is scanned in scan.cpp
-//
-// Expression evaluation is done in eval.cpp
-//
-// Output is formatted in display.cpp
+/*	The starting point for a symbolic computation is in run.cpp
+
+	Input is scanned in scan.cpp
+
+	Expression evaluation is done in eval.cpp
+
+	Output is formatted in display.cpp
+*/
 
 #include "defs.h"
 #define BUFLEN 100000

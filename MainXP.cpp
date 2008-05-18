@@ -1,19 +1,3 @@
-/* Eigenmath by George Weigt
-
-This file does all the things required by the Windows API.
-
-The starting point for a symbolic computation is in run.c
-
-Input is scanned in scan.c
-
-Expression evaluation is done in eval.c
-
-Output is formatted in cmdisplay.c
-
-The window display code is in window.c
-
-*/
-
 #include "stdafx.h"
 
 #include <commdlg.h>

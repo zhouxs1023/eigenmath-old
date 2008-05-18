@@ -37,9 +37,10 @@ static int draw_count;
 void
 eval_draw(void)
 {
-	// 1st arg (quoted)
+	// 1st arg
 
 	push(cadr(p1));
+	eval();
 
 	// must eval 2nd arg in case it's $1, $2, etc.
 
@@ -192,6 +193,7 @@ eval_point(double t)
 	subst();
 	eval();
 	yyfloat();
+	eval();
 
 	p1 = pop();
 
@@ -292,11 +294,13 @@ setup_trange_f(void)
 	push(p1->u.tensor->elem[0]);
 	eval();
 	yyfloat();
+	eval();
 	p2 = pop();
 
 	push(p1->u.tensor->elem[1]);
 	eval();
 	yyfloat();
+	eval();
 	p3 = pop();
 
 	if (!isnum(p2) || !isnum(p3))
@@ -344,11 +348,13 @@ setup_xrange_f(void)
 	push(p1->u.tensor->elem[0]);
 	eval();
 	yyfloat();
+	eval();
 	p2 = pop();
 
 	push(p1->u.tensor->elem[1]);
 	eval();
 	yyfloat();
+	eval();
 	p3 = pop();
 
 	if (!isnum(p2) || !isnum(p3))
@@ -424,11 +430,13 @@ setup_yrange_f(void)
 	push(p1->u.tensor->elem[0]);
 	eval();
 	yyfloat();
+	eval();
 	p2 = pop();
 
 	push(p1->u.tensor->elem[1]);
 	eval();
 	yyfloat();
+	eval();
 	p3 = pop();
 
 	if (!isnum(p2) || !isnum(p3))

@@ -61,7 +61,7 @@ eval_sym(void)
 	p2 = get_binding(p1);
 	p3 = get_arglist(p1);
 
-	// If user function then return function body after undoing arg prep
+	// If user function then undo arg prep
 
 	if (iscons(p3)) {
 		n = 0;
@@ -74,7 +74,7 @@ eval_sym(void)
 			subst();
 			p3 = cdr(p3);
 		}
-		return;
+		p2 = pop();
 	}
 
 	push(p2);

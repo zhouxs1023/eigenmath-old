@@ -236,10 +236,21 @@ static char *s[] = {
 	"w(5)-w(2)",
 	"63",
 
+// Check that args are quoted in func defn
+
 	"x=7",
 	"",
 
+	"y=8",
+	"",
+
 	"p(x,y)=eval(x+y)",
+	"",
+
+	"x=quote(x)",
+	"",
+
+	"y=quote(y)",
 	"",
 
 	"p",
