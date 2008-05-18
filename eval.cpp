@@ -2,6 +2,7 @@
 
 	push(p1)
 	eval()
+	p2 = pop()
 */
 
 #include "stdafx.h"
