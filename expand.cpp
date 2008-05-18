@@ -1,17 +1,15 @@
+// Partial fraction expansion
+
 #include "stdafx.h"
 #include "defs.h"
 
 void
 eval_expand(void)
 {
-	// 1st arg
-
-	push(cadr(p1));
+	push(cadr(p1));			// 1st arg
 	eval();
 
-	// 2nd arg
-
-	push(caddr(p1));
+	push(caddr(p1));		// 2nd arg
 	eval();
 	p2 = pop();
 	if (p2 == symbol(NIL))
