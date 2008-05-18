@@ -18,17 +18,16 @@
 void
 define_user_function(void)
 {
-	int i, n;
+	int h, n;
 
 	NAME = caadr(p1);
 	ARGS = cdadr(p1);
 	BODY = caddr(p1);
 
 	if (!issymbol(NAME))
-		stop("in function definition, user symbol expected for function name");
+		stop("function name?");
 
 	prep_args();
-
 	set_binding_and_arglist(NAME, BODY, ARGS);
 
 	// do eval, maybe
@@ -41,21 +40,23 @@ define_user_function(void)
 
 		// evaluate the function definition using quoted symbols
 
+		h = tos;
 		push(NAME);
 		TMP = ARGS;
-		n = length(TMP);
-		for (i = 0; i < n; i++) {
+		while (iscons(TMP)) {
 			push_symbol(QUOTE);
 			push(car(TMP));
 			list(2);
 			TMP = cdr(TMP);
 		}
-		list(n + 1);
+		list(tos - h);
 		eval();
 
 		// new binding
 
-		set_binding_and_arglist(NAME, pop(), ARGS);
+		BODY = pop();
+		prep_args();
+		set_binding_and_arglist(NAME, BODY, ARGS);
 	}
 
 	push(symbol(NIL));	// return value

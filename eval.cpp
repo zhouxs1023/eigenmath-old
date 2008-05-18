@@ -44,6 +44,8 @@ eval(void)
 void
 eval_sym(void)
 {
+	int n;
+
 	// bare keyword?
 
 	if (iskeyword(p1)) {
@@ -54,12 +56,31 @@ eval_sym(void)
 		return;
 	}
 
-	p1 = get_binding(p1);
+	p2 = get_binding(p1);
+	p3 = get_arglist(p1);
 
-	if (draw_flag == 0) {
-		push(p1);
+	// If user function then return function body after undoing arg prep
+
+	if (iscons(p3)) {
+		n = 0;
+		push(p2);
+		while (iscons(p3)) {
+			push(symbol(GETARG));
+			push_integer(n++);
+			list(2);
+			push(car(p3));
+			subst();
+			p3 = cdr(p3);
+		}
 		return;
 	}
+
+	if (draw_flag == 0) {
+		push(p2);
+		return;
+	}
+
+	p1 = p2;
 
 	if (p1->k == NUM) {
 		push(p1);
