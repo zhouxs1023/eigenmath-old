@@ -1,4 +1,4 @@
-// top level evaluation dispatcher
+// Eigenmath by G. Weigt
 
 #include "stdafx.h"
 #include "defs.h"
@@ -164,6 +164,7 @@ eval_cons(void)
 	case FOR:		eval_for();		break;
 	case GAMMA:		eval_gamma();		break;
 	case GCD:		eval_gcd();		break;
+	case GETARG:		eval_getarg();		break;
 	case HEAVISIDE:		eval_heaviside();	break;
 	case HERMITE:		eval_hermite();		break;
 	case HILBERT:		eval_hilbert();		break;

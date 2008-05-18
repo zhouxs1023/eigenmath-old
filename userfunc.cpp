@@ -27,6 +27,8 @@ define_user_function(void)
 	if (!issymbol(NAME))
 		stop("in function definition, user symbol expected for function name");
 
+	prep_args();
+
 	set_binding_and_arglist(NAME, BODY, ARGS);
 
 	// do eval, maybe
@@ -59,6 +61,52 @@ define_user_function(void)
 	push(symbol(NIL));	// return value
 }
 
+// Change formal args to GETARG functions
+
+void
+prep_args(void)
+{
+	int n = 0;
+	push(p1);
+	p1 = ARGS;
+	push(BODY);
+	while (iscons(p1)) {
+		push(car(p1));
+		push(symbol(GETARG));
+		push_integer(n++);
+		list(2);
+		subst();
+		p1 = cdr(p1);
+	}
+	BODY = pop();
+	p1 = pop();
+}
+
+/* For example, this is what p1 points to when the user function wants the 1st
+   argument...
+
+                 _______         _______         _______
+        p1 ---->|CONS   |------>|CONS   |------>|NIL    |
+                |_______|       |_______|       |_______|
+                    |               |
+                    |               |
+                 ___V___         ___V___
+                |GETARG |       |   0   |
+                |_______|       |_______|
+*/
+
+void
+eval_getarg(void)
+{
+	int i, n;
+	push(cadr(p1));
+	n = pop_integer();
+	p1 = args;
+	for (i = 0; i < n; i++)
+		p1 = cdr(p1); // ok for all n, cdr(NIL) = NIL, car(NIL) = NIL
+	push(car(p1));
+}
+
 /*	Example: f(x,y)
 
 	p1 -> (f x y)
@@ -66,74 +114,51 @@ define_user_function(void)
 	car(p1) -> f
 */
 
-#define FNAME p2
-#define ACTUAL_ARGS p3
-#define FORMAL_ARGS p4
-
 void
 eval_user_function(void)
 {
-	int h = tos;
+	int h;
 
-	FNAME = car(p1);
-	ACTUAL_ARGS = cdr(p1);
+	// Use "derivative" instead of "d" if no user function "d"
 
-	// special case for "d"
-
-	if (FNAME == symbol(SYMBOL_D)
-	&& get_arglist(symbol(SYMBOL_D)) == symbol(NIL)) {
+	if (car(p1) == symbol(SYMBOL_D) && get_arglist(symbol(SYMBOL_D)) == symbol(NIL)) {
 		eval_derivative();
 		return;
 	}
 
+	// p2 is the body of the user function
+
+	p2 = get_binding(car(p1));
+
+	// make p3 the argument list
+
+	h = tos;
+	p3 = cdr(p1);
+	while (iscons(p3)) {
+		push(car(p3));
+		eval();
+		p3 = cdr(p3);
+	}
+	list(tos - h);
+	p3 = pop();
+
 	// undefined function?
 
-	if (get_binding(FNAME) == FNAME) {
-		push(FNAME);
-		while (iscons(ACTUAL_ARGS)) {
-			push(car(ACTUAL_ARGS));
-			eval();
-			ACTUAL_ARGS = cdr(ACTUAL_ARGS);
-		}
-		list(tos - h);
+	if (p2 == car(p1)) {
+		push(p2);
+		push(p3);
+		cons();
 		return;
 	}
 
-	// argument substitution
+	// eval function body in arg context
 
-	push(get_binding(FNAME));
-
-	// replace formal args with placeholders to avoid glare
-	// f.e. formal args are A,B and actual args are B,A
-	// A gets replaced with B, then all B are replaced with A
-
-	FORMAL_ARGS = get_arglist(FNAME);
-	ACTUAL_ARGS = cdr(p1);
-	while (iscons(FORMAL_ARGS) && iscons(ACTUAL_ARGS)) {
-		push(car(FORMAL_ARGS));
-		push(symbol(SECRETX));
-		push(car(FORMAL_ARGS));
-		list(2);
-		subst();
-		FORMAL_ARGS = cdr(FORMAL_ARGS);
-		ACTUAL_ARGS = cdr(ACTUAL_ARGS);
-	}
-
-	// replace placeholders with actual args
-
-	FORMAL_ARGS = get_arglist(FNAME);
-	ACTUAL_ARGS = cdr(p1);
-	while (iscons(FORMAL_ARGS) && iscons(ACTUAL_ARGS)) {
-		push(symbol(SECRETX));
-		push(car(FORMAL_ARGS));
-		list(2);
-		push(car(ACTUAL_ARGS));
-		subst();
-		FORMAL_ARGS = cdr(FORMAL_ARGS);
-		ACTUAL_ARGS = cdr(ACTUAL_ARGS);
-	}
-
+	push(args);
+	args = p3;
+	push(p2);
 	eval();
+	swap();
+	args = pop();
 }
 
 #if SELFTEST
