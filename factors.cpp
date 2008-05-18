@@ -27,18 +27,18 @@ factors(U *p)
 	if (car(p) == symbol(ADD)) {
 		p = cdr(p);
 		while (iscons(p)) {
-			term(car(p));
+			push_term_factors(car(p));
 			p = cdr(p);
 		}
 	} else
-		term(p);
+		push_term_factors(p);
 	return tos - h;
 }
 
 // Local U *p is OK here because no functional path to garbage collector.
 
 void
-term(U *p)
+push_term_factors(U *p)
 {
 	if (car(p) == symbol(MULTIPLY)) {
 		p = cdr(p);

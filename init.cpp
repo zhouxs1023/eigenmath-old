@@ -7,12 +7,9 @@ init(void)
 	int i;
 	static int flag;
 
-	esc_flag = 0;
-
-	draw_flag = 0;
-
 	tos = 0;
-
+	esc_flag = 0;
+	draw_flag = 0;
 	frame = stack + TOS;
 
 	p0 = symbol(NIL);

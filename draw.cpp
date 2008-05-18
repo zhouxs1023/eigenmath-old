@@ -1,5 +1,3 @@
-// Draw evaluates the first argument.
-
 #include "stdafx.h"
 #include "defs.h"
 
@@ -39,10 +37,9 @@ static int draw_count;
 void
 eval_draw(void)
 {
-	// 1st arg
+	// 1st arg (quoted)
 
 	push(cadr(p1));
-	eval();
 
 	// must eval 2nd arg in case it's $1, $2, etc.
 
@@ -194,6 +191,7 @@ eval_point(double t)
 	push_double(t);
 	subst();
 	eval();
+	yyfloat();
 
 	p1 = pop();
 
@@ -293,10 +291,12 @@ setup_trange_f(void)
 
 	push(p1->u.tensor->elem[0]);
 	eval();
+	yyfloat();
 	p2 = pop();
 
 	push(p1->u.tensor->elem[1]);
 	eval();
+	yyfloat();
 	p3 = pop();
 
 	if (!isnum(p2) || !isnum(p3))
@@ -343,10 +343,12 @@ setup_xrange_f(void)
 
 	push(p1->u.tensor->elem[0]);
 	eval();
+	yyfloat();
 	p2 = pop();
 
 	push(p1->u.tensor->elem[1]);
 	eval();
+	yyfloat();
 	p3 = pop();
 
 	if (!isnum(p2) || !isnum(p3))
@@ -421,10 +423,12 @@ setup_yrange_f(void)
 
 	push(p1->u.tensor->elem[0]);
 	eval();
+	yyfloat();
 	p2 = pop();
 
 	push(p1->u.tensor->elem[1]);
 	eval();
+	yyfloat();
 	p3 = pop();
 
 	if (!isnum(p2) || !isnum(p3))

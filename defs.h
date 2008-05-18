@@ -223,7 +223,9 @@ enum {
 
 #define E YYE
 
-#define TOS 1000000
+// TOS * sizeof (char *) < 2^31
+#define TOS 500000
+
 #define BUF 10000
 
 #define MAX_PROGRAM_SIZE 100001

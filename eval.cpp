@@ -56,6 +56,8 @@ eval_sym(void)
 		return;
 	}
 
+	// get symbol's binding and argument list
+
 	p2 = get_binding(p1);
 	p3 = get_arglist(p1);
 
@@ -75,42 +77,15 @@ eval_sym(void)
 		return;
 	}
 
-	if (draw_flag == 0) {
-		push(p2);
+	push(p2);
+
+	// terminal symbol?
+
+	if (p1 == p2)
 		return;
-	}
 
-	p1 = p2;
+	// evaluate symbol's binding
 
-	if (p1->k == NUM) {
-		push(p1);
-		bignum_float();
-		return;
-	}
-
-	if (p1 == symbol(PI)) {
-		push_double(M_PI);
-		return;
-	}
-
-	if (p1 == symbol(E)) {
-		push_double(M_E);
-		return;
-	}
-
-	if (p1->k == SYM) {
-		push_double(1.0);
-		return;
-	}
-
-	if (p1->k == DOUBLE) {
-		push(p1);
-		return;
-	}
-
-	// otherwise evaluate it hoping for a floating point result
-
-	push(p1);
 	eval();
 }
 

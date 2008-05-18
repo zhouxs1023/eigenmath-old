@@ -434,7 +434,7 @@ void test_factorpoly(void);
 
 // factors.cpp
 int factors(U *p);
-void term(U *p);
+void push_term_factors(U *p);
 
 // find.cpp
 int find(U *p, U *q);
@@ -879,6 +879,7 @@ void simfac(void);
 // simplify.cpp
 void eval_simplify(void);
 void simplify(void);
+void simplify_main(void);
 void simplify_trig(void);
 void test_simplify(void);
 
@@ -902,7 +903,6 @@ void push_frame(int n);
 void pop_frame(int n);
 void save(void);
 void restore(void);
-void restore_frame(U **save_frame);
 void swap(void);
 void dupl(void);
 

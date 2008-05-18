@@ -1,8 +1,7 @@
 #include "stdafx.h"
 #include "defs.h"
+
 extern int trigmode;
-void simplify(void);
-static void ysimplify(void);
 static void simplify_tensor(void);
 static int count(U *);
 static int nterms(U *);
@@ -25,12 +24,12 @@ void
 simplify(void)
 {
 	save();
-	ysimplify();
+	simplify_main();
 	restore();
 }
 
-static void
-ysimplify(void)
+void
+simplify_main(void)
 {
 	p1 = pop();
 
@@ -366,16 +365,16 @@ static char *s[] = {
 	"simplify((n+1)/(n+1)!)-1/n!",
 	"0",
 
-	// verify that denormal expressions are not propagated
-
 	"simplify(a*b+a*c)",
 	"a*(b+c)",
+
+// Symbol's binding is evaluated, undoing simplify
 
 	"x=simplify(a*b+a*c)",
 	"",
 
 	"x",
-	"a*(b+c)",
+	"a*b+a*c",
 };
 
 void

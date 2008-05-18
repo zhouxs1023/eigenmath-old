@@ -12,6 +12,6 @@ U symtab[NSYM], *binding[NSYM], *arglist[NSYM];
 int expanding;
 int verbosing;
 int esc_flag;
-int draw_flag;
 int test_flag;
+int draw_flag;
 char logbuf[1000];

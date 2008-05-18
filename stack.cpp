@@ -84,6 +84,8 @@ save(void)
 void
 restore(void)
 {
+	if (frame > stack + TOS - 10)
+		stop("frame underflow");
 	p0 = frame[0];
 	p1 = frame[1];
 	p2 = frame[2];
@@ -95,15 +97,6 @@ restore(void)
 	p8 = frame[8];
 	p9 = frame[9];
 	frame += 10;
-	if (frame > stack + TOS)
-		stop("frame underflow");
-}
-
-void
-restore_frame(U **save_frame)
-{
-	frame = save_frame - 8;
-	restore();
 }
 
 // Local U * is OK here because there is no functional path to the garbage collector.
