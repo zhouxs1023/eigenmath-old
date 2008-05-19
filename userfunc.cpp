@@ -5,17 +5,17 @@
 
 /* For f(x)=x^2 we have p1 pointing to the following data structure.
 
-      _______     _______                 _______ 
-p1-->|CONS   |-->|CONS   |-------------->|CONS   |
-     |_______|   |_______|               |_______|
-         |           |                       |
-      ___V___     ___V___     _______     ___V___     _______     _______
-     |SETQ   |   |CONS   |-->|CONS   |   |CONS   |-->|CONS   |-->|CONS   |
-     |_______|   |_______|   |_______|   |_______|   |_______|   |_______|
-                     |           |           |           |           |
-                  ___V___     ___V___     ___V___     ___V___     ___V___
-                 |SYM f  |   |SYM x  |   |POWER  |   |SYM x  |   |NUM 2  |
-                 |_______|   |_______|   |_______|   |_______|   |_______|
+         _______     _______                 _______ 
+p1----->|CONS   |-->|CONS   |-------------->|CONS   |
+        |_______|   |_______|               |_______|
+            |           |                       |
+         ___v___     ___v___     _______     ___v___     _______     _______
+        |SETQ   |   |CONS   |-->|CONS   |   |CONS   |-->|CONS   |-->|CONS   |
+        |_______|   |_______|   |_______|   |_______|   |_______|   |_______|
+                        |           |           |           |           |
+                     ___v___     ___v___     ___v___     ___v___     ___v___
+                    |SYM f  |   |SYM x  |   |POWER  |   |SYM x  |   |NUM 2  |
+                    |_______|   |_______|   |_______|   |_______|   |_______|
 
 (For brevity, cdrs pointing to nil are not shown.)
 
@@ -33,7 +33,7 @@ Hence
 void
 define_user_function(void)
 {
-	int h, n;
+	int h;
 
 	NAME = caadr(p1);
 	ARGS = cdadr(p1);
@@ -103,8 +103,7 @@ prep_args(void)
         p1 ---->|CONS   |------>|CONS   |------>|NIL    |
                 |_______|       |_______|       |_______|
                     |               |
-                    |               |
-                 ___V___         ___V___
+                 ___v___         ___v___
                 |GETARG |       |NUM 0  |
                 |_______|       |_______|
 */
@@ -179,7 +178,7 @@ eval_user_function(void)
 
 static char *s[] = {
 
-	// args of generic functions should be evaluated
+// args of generic functions should be evaluated
 
 	"f(1+2,3*4)",
 	"f(3,12)",
@@ -192,7 +191,7 @@ static char *s[] = {
 	"f",
 	"x^2",
 
-	// bindings should be restored
+// bindings should be restored
 
 	"x=123",
 	"",
@@ -212,7 +211,7 @@ static char *s[] = {
 	"y",
 	"345",
 
-	// as above but this time with function bindings
+// as above but this time with function bindings
 
 	"x(a)=sin(a)",
 	"",
@@ -232,7 +231,7 @@ static char *s[] = {
 	"y",
 	"cos(b)",
 
-	// eval func body
+// eval func body
 
 	"x=quote(x)",
 	"",
