@@ -183,7 +183,7 @@ static char *s[] = {
 	"f(1+2,3*4)",
 	"f(3,12)",
 
-	// simple func def
+// simple func def
 
 	"f(x)=x^2",
 	"",
