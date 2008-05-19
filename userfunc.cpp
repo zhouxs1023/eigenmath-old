@@ -33,7 +33,7 @@ Hence
 void
 define_user_function(void)
 {
-	int h;
+	int h, n;
 
 	NAME = caadr(p1);
 	ARGS = cdadr(p1);
