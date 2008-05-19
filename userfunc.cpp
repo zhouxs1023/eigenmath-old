@@ -6,7 +6,7 @@
 /* For f(x)=x^2 we have p1 pointing to the following data structure.
 
       _______     _______                 _______ 
----->|CONS   |-->|CONS   |-------------->|CONS   |
+p1-->|CONS   |-->|CONS   |-------------->|CONS   |
      |_______|   |_______|               |_______|
          |           |                       |
       ___V___     ___V___     _______     ___V___     _______     _______
@@ -33,7 +33,7 @@ Hence
 void
 define_user_function(void)
 {
-	int h, n;
+	int h;
 
 	NAME = caadr(p1);
 	ARGS = cdadr(p1);
