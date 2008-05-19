@@ -1,19 +1,34 @@
+// Codes for handling user-defined functions
+
 #include "stdafx.h"
 #include "defs.h"
 
-/*	Example: f(x) = x^2
+/* For f(x)=x^2 we have p1 pointing to the following data structure.
 
-	p1 -----*-------*---------------*
-		|	|		|
-		setq	*-------*	*-------*-------*
-			|	|	|	|	|
-			f	x	power	x	2
+      _______     _______                 _______ 
+---->|CONS   |-->|CONS   |-------------->|CONS   |
+     |_______|   |_______|               |_______|
+         |           |                       |
+      ___V___     ___V___     _______     ___V___     _______     _______
+     |SETQ   |   |CONS   |-->|CONS   |   |CONS   |-->|CONS   |-->|CONS   |
+     |_______|   |_______|   |_______|   |_______|   |_______|   |_______|
+                     |           |           |           |           |
+                  ___V___     ___V___     ___V___     ___V___     ___V___
+                 |SYM f  |   |SYM x  |   |POWER  |   |SYM x  |   |NUM 2  |
+                 |_______|   |_______|   |_______|   |_______|   |_______|
+
+(For brevity, cdrs pointing to nil are not shown.)
+
+Hence
+
+	caadr(p1) == f
+	cdadr(p1) == (x)
+	caddr(p1) == (power x 2)
 */
 
-#define NAME p2
-#define ARGS p3
-#define BODY p4
-#define TMP p5
+#define NAME p3
+#define ARGS p4
+#define BODY p5
 
 void
 define_user_function(void)
@@ -42,12 +57,12 @@ define_user_function(void)
 
 		h = tos;
 		push(NAME);
-		TMP = ARGS;
-		while (iscons(TMP)) {
+		p2 = ARGS;
+		while (iscons(p2)) {
 			push_symbol(QUOTE);
-			push(car(TMP));
+			push(car(p2));
 			list(2);
-			TMP = cdr(TMP);
+			p2 = cdr(p2);
 		}
 		list(tos - h);
 		eval();
@@ -68,19 +83,17 @@ void
 prep_args(void)
 {
 	int n = 0;
-	push(p1);
-	p1 = ARGS;
+	p2 = ARGS;
 	push(BODY);
-	while (iscons(p1)) {
-		push(car(p1));
+	while (iscons(p2)) {
+		push(car(p2));
 		push(symbol(GETARG));
 		push_integer(n++);
 		list(2);
 		subst();
-		p1 = cdr(p1);
+		p2 = cdr(p2);
 	}
 	BODY = pop();
-	p1 = pop();
 }
 
 /* For example, this is what p1 points to when the user function wants the 1st
@@ -92,7 +105,7 @@ prep_args(void)
                     |               |
                     |               |
                  ___V___         ___V___
-                |GETARG |       |   0   |
+                |GETARG |       |NUM 0  |
                 |_______|       |_______|
 */
 
@@ -104,7 +117,7 @@ eval_getarg(void)
 	n = pop_integer();
 	p1 = args;
 	for (i = 0; i < n; i++)
-		p1 = cdr(p1); // ok for all n, cdr(NIL) = NIL, car(NIL) = NIL
+		p1 = cdr(p1); // ok for all n, cdr(nil) = nil, car(nil) = nil
 	push(car(p1));
 }
 
