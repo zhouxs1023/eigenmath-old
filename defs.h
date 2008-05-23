@@ -226,11 +226,11 @@ enum {
 
 #define E YYE
 
-/* TOS used to be 1 million but it turns out the OS seg faults on evaluating
-   a circular definition like x=x+1. (Out of stack space?) Hence, set TOS to
-   500,000 so the evaluation stack overruns before seg fault. */
+// TOS cannot be arbitrarily large because the OS seg faults on deep recursion.
+// For example, a circular evaluation like x=x+1 can cause a seg fault.
+// At this setting (100,000) the evaluation stack overruns before seg fault.
 
-#define TOS 500000
+#define TOS 100000
 
 #define BUF 10000
 
