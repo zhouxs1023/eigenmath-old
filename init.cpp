@@ -171,11 +171,14 @@ init(void)
 	std_symbol("last", LAST);
 	std_symbol("trace", TRACE);
 	std_symbol("tty", TTY);
-	std_symbol("~", YYE); // tilde so sort puts it after other symbols
-	std_symbol("SECRETX", SECRETX);
-	std_symbol("METAA", METAA);
-	std_symbol("METAB", METAB);
-	std_symbol("METAX", METAX);
+
+	std_symbol("~", YYE);	// tilde so sort puts it after other symbols
+
+	std_symbol("$DRAWX", DRAWX);	// special purpose internal symbols
+	std_symbol("$METAA", METAA);
+	std_symbol("$METAB", METAB);
+	std_symbol("$METAX", METAX);
+	std_symbol("$SECRETX", SECRETX);
 
 	std_symbol("pi", PI);
 	std_symbol("a", SYMBOL_A);

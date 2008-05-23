@@ -45,12 +45,8 @@ eval_draw(void)
 	eval();
 	T = pop();
 
-	if (T == symbol(NIL)) {
-		push(F);
-		guess();
-		T = pop();
-		pop();
-	}
+	if (T == symbol(NIL))
+		guess_2nd_arg();
 
 	push(get_binding(T));
 	push(get_arglist(T));
@@ -62,6 +58,36 @@ eval_draw(void)
 	set_binding_and_arglist(T, p1, p1);
 
 	push(symbol(NIL));	// result
+}
+
+void
+guess_2nd_arg(void)
+{
+	if (issymbol(F)) {
+
+		// user defined function?
+
+		if (get_arglist(F) != symbol(NIL)) {
+
+			// Use DRAWX so no user variable is disturbed
+
+			T = symbol(DRAWX);
+			push(F);
+			push(symbol(DRAWX));
+			list(2);
+			F = pop();
+			return;
+		}
+
+		// else get the binding
+
+		F = get_binding(F);
+	}
+
+	push(F);
+	guess();
+	T = pop();
+	pop();
 }
 
 void

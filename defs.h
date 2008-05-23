@@ -190,11 +190,14 @@ enum {
 	LAST,
 	TRACE,
 	TTY,
+
 	YYE,
-	SECRETX,
+
+	DRAWX,		// special purpose internal symbols
 	METAA,
 	METAB,
 	METAX,
+	SECRETX,
 
 	PI,
 	SYMBOL_A,
