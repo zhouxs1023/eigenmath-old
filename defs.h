@@ -223,7 +223,10 @@ enum {
 
 #define E YYE
 
-// TOS * sizeof (char *) < 2^31
+/* TOS used to be 1 million but it turns out the OS seg faults on evaluating
+   a circular definition like x=x+1. (Out of stack space?) Hence, set TOS to
+   500,000 so the evaluation stack overruns before seg fault. */
+
 #define TOS 500000
 
 #define BUF 10000

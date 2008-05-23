@@ -20,8 +20,6 @@ eval(void)
 		break;
 	case NUM:
 		push(p1);
-		if (draw_flag)
-			bignum_float();
 		break;
 	case DOUBLE:
 		push(p1);
