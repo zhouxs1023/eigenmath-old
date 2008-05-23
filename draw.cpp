@@ -128,12 +128,7 @@ draw_main(void)
 void
 check_for_parametric_draw(void)
 {
-	push_double(tmin);
-	set_binding(T, pop());
-	push(F);
-	eval();
-	yyfloat();
-	eval();
+	eval_f(tmin);
 	p1 = pop();
 	if (!istensor(p1)) {
 		tmin = xmin;
@@ -176,7 +171,7 @@ new_point(double t)
 
 	draw_count++;
 
-	eval_point(t); // returns expr in XT, YT
+	get_xy(t);
 
 	if (!isnum(XT) || !isnum(YT))
 		return;
@@ -204,10 +199,35 @@ new_point(double t)
 	draw_buf[draw_count - 1].y = (int) y;
 }
 
-extern jmp_buf draw_stop_return;
+// Evaluate F(t) and return in XT and YT.
 
 void
-eval_point(double t)
+get_xy(double t)
+{
+	eval_f(t);
+
+	p1 = pop();
+
+	if (istensor(p1)) {
+		if (p1->u.tensor->nelem >= 2) {
+			XT = p1->u.tensor->elem[0];
+			YT = p1->u.tensor->elem[1];
+		} else {
+			XT = symbol(NIL);
+			YT = symbol(NIL);
+		}
+		return;
+	}
+
+	push_double(t);
+	XT = pop();
+	YT = p1;
+}
+
+// Evaluate F(t) without stopping due to an error such as divide by zero.
+
+void
+eval_f(double t)
 {
 	// These must be volatile or it crashes. (Compiler error?)
 	// Read it backwards, save_tos is a volatile int, etc.
@@ -218,14 +238,14 @@ eval_point(double t)
 	save();
 	save_tos = tos;
 	save_frame = frame;
+
 	draw_flag++;
 
 	if (setjmp(draw_stop_return)) {
 		tos = save_tos;
+		push(symbol(NIL));
 		frame = save_frame;
 		restore();
-		XT = symbol(NIL);
-		YT = symbol(NIL);
 		draw_flag--;
 		return;
 	}
@@ -239,23 +259,7 @@ eval_point(double t)
 	yyfloat();
 	eval();
 
-	p1 = pop();
-
-	if (istensor(p1) && p1->u.tensor->nelem >= 2) {
-		push(p1->u.tensor->elem[0]);
-		push(p1->u.tensor->elem[1]);
-	} else {
-		push_double(t);
-		push(p1);
-	}
-
 	restore();
-
-	// do after restore
-
-	YT = pop();
-	XT = pop();
-
 	draw_flag--;
 }
 

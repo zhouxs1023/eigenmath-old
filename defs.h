@@ -333,16 +333,11 @@ extern U *stack[];
 extern U **frame;
 extern U *p0, *p1, *p2, *p3, *p4, *p5, *p6, *p7, *p8, *p9, *args;
 extern U *zero, *one, *imaginaryunit;
-//extern U *meta_a;
-//extern U *meta_b;
-//extern U *meta_c;
-//extern U *meta_n;
-//extern U *meta_x;
 extern U symtab[];
 extern char out_buf[];
 extern int out_count;
 extern int test_flag;
-
+extern jmp_buf draw_stop_return;
 extern int endian;
 #define little_endian() (*((unsigned char *) &endian))
 
