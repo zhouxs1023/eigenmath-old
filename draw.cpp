@@ -45,8 +45,7 @@ eval_draw(void)
 	eval();
 	T = pop();
 
-	if (T == symbol(NIL))
-		guess_2nd_arg();
+	fixup_2nd_arg();
 
 	push(get_binding(T));
 	push(get_arglist(T));
@@ -61,33 +60,41 @@ eval_draw(void)
 }
 
 void
-guess_2nd_arg(void)
+fixup_2nd_arg(void)
 {
-	if (issymbol(F)) {
+	// Cases like draw(f,t) where f is a user defined function
 
-		// user defined function?
-
-		if (get_arglist(F) != symbol(NIL)) {
-
-			// Use DRAWX so no user variable is disturbed
-
-			T = symbol(DRAWX);
-			push(F);
-			push(symbol(DRAWX));
-			list(2);
-			F = pop();
-			return;
-		}
-
-		// else get the binding
-
-		F = get_binding(F);
+	if (issymbol(F) && get_arglist(F) != symbol(NIL) && T != symbol(NIL)) {
+		push(F);
+		push(T);
+		list(2);
+		F = pop();
+		return;
 	}
 
-	push(F);
-	guess();
-	T = pop();
-	pop();
+	// Cases like draw(f) where f is a user defined function
+
+	// Use DRAWX so no user variable is clobbered
+
+	if (issymbol(F) && get_arglist(F) != symbol(NIL) && T == symbol(NIL)) {
+		T = symbol(DRAWX);
+		push(F);
+		push(T);
+		list(2);
+		F = pop();
+		return;
+	}
+
+	// Other cases such as draw(f) where f is not a user function
+
+	if (T == symbol(NIL)) {
+		if (issymbol(F) && get_arglist(F) == symbol(NIL))
+			F = get_binding(F);
+		push(F);
+		guess();
+		T = pop();
+		pop();
+	}
 }
 
 void
