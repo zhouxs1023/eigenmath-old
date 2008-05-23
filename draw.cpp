@@ -55,7 +55,7 @@ eval_draw(void)
 
 	p2 = pop();
 	p1 = pop();
-	set_binding_and_arglist(T, p1, p1);
+	set_binding_and_arglist(T, p1, p2);
 
 	push(symbol(NIL));	// result
 }
