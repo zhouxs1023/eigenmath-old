@@ -1,3 +1,5 @@
+// Draw a graph
+
 #include "stdafx.h"
 #include "defs.h"
 
@@ -14,12 +16,12 @@ extern struct text_metric text_metric[11];
 
 #define DIM 300
 
-#define F p1
-#define T p2
-#define X p3
-#define Y p4
-#define XT p5
-#define YT p6
+#define F p3
+#define T p4
+#define X p5
+#define Y p6
+#define XT p7
+#define YT p8
 
 static double tmin, tmax;
 static double xmin, xmax;
@@ -37,48 +39,40 @@ static int draw_count;
 void
 eval_draw(void)
 {
-	// 1st arg
+	F = cadr(p1);		// 1st arg (quoted)
 
-	push(cadr(p1));
+	push(caddr(p1));	// 2nd arg (eval in case of getarg)
 	eval();
+	T = pop();
 
-	// must eval 2nd arg in case it's $1, $2, etc.
+	if (T == symbol(NIL)) {
+		push(F);
+		guess();
+		T = pop();
+		pop();
+	}
 
-	push(caddr(p1));
-	eval();
+	push(get_binding(T));
+	push(get_arglist(T));
+
+	draw_main();
 
 	p2 = pop();
+	p1 = pop();
+	set_binding_and_arglist(T, p1, p1);
 
-	if (p2 == symbol(NIL))
-		guess();
-	else
-		push(p2);
-
-	draw();
-
-	push(symbol(NIL));	// so no result is printed
-				// also, "last" is not modified when result is "nil"
+	push(symbol(NIL));	// result
 }
 
 void
-draw(void)
+draw_main(void)
 {
 	if (draw_flag) {
 		draw_flag = 0; // so "stop" really stops
 		stop("draw calls draw");
 	}
-	draw_flag++;
-	save();
-	yydraw();
-	restore();
-	draw_flag--;
-}
 
-void
-yydraw(void)
-{
-	T = pop();
-	F = pop();
+	draw_flag++;
 
 	setup_trange();
 
@@ -86,16 +80,39 @@ yydraw(void)
 
 	setup_yrange();
 
-	// if not parametric draw then trange = xrange
-
-	if (T != symbol(SYMBOL_T)) {
-		tmin = xmin;
-		tmax = xmax;
-	}
+	check_for_parametric_draw();
 
 	create_point_set();
 
 	emit_graph();
+
+	draw_flag--;
+}
+
+/*	xrange sets the horizontal scale
+
+	yrange sets the vertical scale
+
+	Normally, the function F is evaluated from xrange[1] to xrange[2].
+
+	However, if F returns a vector then parametric drawing is used. In this
+	case F is evaluated from trange[1] to trange[2].
+*/
+
+void
+check_for_parametric_draw(void)
+{
+	push_double(tmin);
+	set_binding(T, pop());
+	push(F);
+	eval();
+	yyfloat();
+	eval();
+	p1 = pop();
+	if (!istensor(p1)) {
+		tmin = xmin;
+		tmax = xmax;
+	}
 }
 
 #define N 100
@@ -187,10 +204,11 @@ eval_point(double t)
 		return;
 	}
 
-	push(F);
-	push(T);
 	push_double(t);
-	subst();
+	p1 = pop();
+	set_binding(T, p1);
+
+	push(F);
 	eval();
 	yyfloat();
 	eval();

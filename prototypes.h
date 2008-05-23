@@ -311,8 +311,8 @@ void dpow(void);
 
 // draw.cpp
 void eval_draw(void);
-void draw(void);
-void yydraw(void);
+void draw_main(void);
+void check_for_parametric_draw(void);
 void create_point_set(void);
 void new_point(double t);
 void eval_point(double t);
