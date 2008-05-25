@@ -1,26 +1,10 @@
-/*	Generate a Taylor expansion for expr.
+/* Taylor expansion
 
-	Input:	tos-4	f(x)
-
-		tos-3	x
-
-		tos-2	number of terms
-
-		tos-1	expansion point
-
-	Output:	Result on stack
-
-	Example:
-
-		taylor(cos(x),x,8,a)
-
-		tos-4	cos(x)
-
-		tos-3	x
-
-		tos-2	8
-
-		tos-1	a
+	push(F)
+	push(X)
+	push(N)
+	push(A)
+	taylor()
 */
 
 #include "stdafx.h"
@@ -71,14 +55,6 @@ eval_taylor(void)
 	taylor();
 }
 
-void
-taylor(void)
-{
-	save();
-	ytaylor();
-	restore();
-}
-
 #define F p1
 #define X p2
 #define N p3
@@ -86,9 +62,11 @@ taylor(void)
 #define C p5
 
 void
-ytaylor(void)
+taylor(void)
 {
 	int i, k;
+
+	save();
 
 	A = pop();
 	N = pop();
@@ -104,6 +82,7 @@ ytaylor(void)
 		push(N);
 		push(A);
 		list(5);
+		restore();
 		return;
 	}
 
@@ -113,7 +92,8 @@ ytaylor(void)
 	subst();
 	eval();
 
-	C = one;
+	push_integer(1);
+	C = pop();
 
 	for (i = 1; i <= k; i++) {
 
@@ -146,6 +126,8 @@ ytaylor(void)
 
 		add();
 	}
+
+	restore();
 }
 
 #if SELFTEST
