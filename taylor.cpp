@@ -26,7 +26,7 @@ eval_taylor(void)
 	eval();
 	p2 = pop();
 	if (p2 == symbol(NIL))
-		guess(); // default x
+		guess();
 	else
 		push(p2);
 
