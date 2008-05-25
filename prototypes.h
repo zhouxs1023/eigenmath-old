@@ -941,7 +941,6 @@ void test_tanh(void);
 // taylor.cpp
 void eval_taylor(void);
 void taylor(void);
-void ytaylor(void);
 void test_taylor(void);
 
 // tensor.cpp

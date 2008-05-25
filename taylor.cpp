@@ -1,4 +1,4 @@
-/* Taylor expansion
+/* Taylor expansion of a function
 
 	push(F)
 	push(X)
