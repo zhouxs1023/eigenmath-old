@@ -385,11 +385,6 @@ void eval_subst(void);
 void eval_tab(void);
 void eval_unit(void);
 void eval_noexpand(void);
-void eval_filter(void);
-void filter(void);
-void filter_f(void);
-void filter_sum(void);
-void filter_tensor(void);
 void eval_predicate(void);
 
 // expand.cpp
@@ -437,6 +432,13 @@ void test_factorpoly(void);
 // factors.cpp
 int factors(U *p);
 void push_term_factors(U *p);
+
+// filter.cpp
+void eval_filter(void);
+void filter(void);
+void filter_main(void);
+void filter_sum(void);
+void filter_tensor(void);
 
 // find.cpp
 int find(U *p, U *q);

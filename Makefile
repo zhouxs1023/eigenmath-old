@@ -90,6 +90,7 @@ factor.o \
 factorial.o \
 factorpoly.o \
 factors.o \
+filter.o \
 find.o \
 float.o \
 floor.o \
