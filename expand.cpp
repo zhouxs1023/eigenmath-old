@@ -199,22 +199,23 @@ remove_negative_exponents(void)
 
 // Returns the expansion coefficient matrix C.
 //
-// For example, for
+// Example:
 //
 //       B         1
 //      --- = -----------
 //       A      2 
 //             x (x + 1)
 //
-// we have
-//
+// We have
 //
 //       B     Y1     Y2      Y3
 //      --- = ---- + ---- + -------
 //       A      2     x      x + 1
 //             x
 //
-// where Y1, Y2 and Y3 must be computed. Hence
+// Our task is to solve for the unknowns Y1, Y2, and Y3.
+//
+// Multiplying both sides by A yields
 //
 //           AY1     AY2      AY3
 //      B = ----- + ----- + -------
