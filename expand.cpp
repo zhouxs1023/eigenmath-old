@@ -31,6 +31,8 @@ eval_expand(void)
 void
 expand(void)
 {
+	int n;
+
 	save();
 
 	X = pop();
@@ -97,23 +99,19 @@ expand(void)
 		return;
 	}
 
-	factor_denominator();
+	factor_denominator(); // A = factor(A)
 
-	// accumulate fractions
+	n = push_all_expansion_terms();
+printf("n=%d\n", n);
+
+	solve_numerators(n);
+
+	expansion_denominators();
+
+	inner();
 
 	push(Q);
-
-	if (car(A) == symbol(MULTIPLY)) {
-		p1 = cdr(A);
-		while (iscons(p1)) {
-			F = car(p1);
-			do_expansion_factor();
-			p1 = cdr(p1);
-		}
-	} else {
-			F = A;
-			do_expansion_factor();
-	}
+	add();
 
 	restore();
 }
@@ -275,173 +273,228 @@ factor_denominator_1(void)
 	multiply_noexpand();
 }
 
-//	F is the factor, like (x + 3) or (x + 1) ^ 2
 
-void
-do_expansion_factor(void)
+
+
+
+
+
+
+// Returns the number of terms pushed on the stack.
+
+int
+push_all_expansion_terms(void)
 {
-	// constant factors can be ignored, they're already in A
-
-	if (find(F, X) == 0)
-		return;
-
-	if (car(F) == symbol(POWER))
-		handle_multiple_poles();
-	else
-		handle_single_pole();
+	int h = tos;
+	if (car(A) == symbol(MULTIPLY)) {
+		p1 = cdr(A);
+		while (iscons(p1)) {
+			F = car(p1);
+			push_terms_per_factor();
+			p1 = cdr(p1);
+		}
+	} else {
+		F = A;
+		push_terms_per_factor();
+	}
+	return tos - h;
 }
 
-/* For example
-
-	B	=	1
-
-	A	=	(s+1)(s+2)^3
-
-	F	=	(s+2)^3
-
-*/
+// There is a pattern here...
+//
+//	Factor F	push        push         push          push
+//
+//	x		A/x         .            .             .
+//
+//	x^2		A/x         A/x^2        .             .
+//
+//	x+1		A/(x+1)     .            .             .
+//
+//	(x+1)^2		A/(x+1)     A/(x+1)^2    .             .
+//
+//	x^2+x+1		A/(x^2+x+1) Ax/(x^2+x+1) .             .
+//
+//	(x^2+x+1)^2	A/(x^2+x+1) Ax/(x^2+x+1) A/(x^2+x+1)^2 Ax/(x^2+x+1)^2
+//
+//
+// For T = A/F and F = P ^ N we have
+//
+//	Factor F	push        push         push          push
+//
+//	x		T           .            .             .
+//
+//	x^2		TP          T            .             .
+//
+//	x+1		T           .            .             .
+//
+//	(x+1)^2		TP          T            .             .
+//
+//	x^2+x+1		T           TX           .             .
+//
+//	(x^2+x+1)^2	TP          TPX          T             TX
+//
+//
+// Hence we want
+//
+//	push(T * (P ^ i) * (X ^ j))
+//
+// for all i, j such that
+//
+//	i = 0, 1, ..., N - 1
+//
+//	j = 0, 1, ..., deg(P) - 1
 
 void
-handle_multiple_poles(void)
-{
-	int i, n;
-
-	// T = F B/A
-
-	push(F);
-	push(A);
-	reciprocate();
-	multiply_noexpand();
-	push(B);
-	multiply_noexpand();
-	T = pop();
-
-	// get n, base factor and pole
-
-	push(caddr(F));
-	n = pop_integer();
-	F = cadr(F);
-	get_pole();
-
-	// first result
-
-	push(T);
-	push(X);
+push_terms_per_factor(void)
+{	int d, i, j, n;
+	if (!find(F, X))
+		return;
+	trivial_divide();
+	if (ispower(F)) {
+		push(caddr(F));
+		n = pop_integer();
+		P = cadr(F);
+	} else {
+		n = 1;
+		P = F;
+	}
 	push(P);
-	subst();
-	eval();
-	push(F);
-	push_integer(n);		// expand the denominator
-	power();
-	reciprocate();
-	multiply_noexpand();
-	add();
-
-	for (i = 1; i < n; i++) {
-
-		push(T);		// T = dT / dX
-		push(X);
-		derivative();
-		T = pop();
-
-		push(T);		// evaluate T at P
-		push(X);
-		push(P);
-		subst();
-		eval();
-
-		push(F);		// divide by (X - P) ^ n
-		push_integer(n - i);
-		power();
-		reciprocate();
-		multiply_noexpand();
-
-		push_integer(i);	// multiply by 1 / n!
-		factorial();
-		reciprocate();
-		multiply_noexpand();
-
-		add();			// accumulate
+	push(X);
+	degree();
+	d = pop_integer();
+	for (i = 0; i < n; i++) {
+		for (j = 0; j < d; j++) {
+			push(T);
+			push(P);
+			push_integer(i);
+			power();
+			multiply();
+			push(X);
+			push_integer(j);
+			power();
+			multiply();
+		}
 	}
 }
 
-/* We have				example
-
-	B	is the numerator	2s
-
-	A	is the denominator	(s + 1)(s + 2)
-
-	F	is the factor		s + 1
-
-	X	dependent variable	s
-
-Compute
-
-	P	pole			1
-
-		FB/A			2s / (s + 2)
-
-		FB/A at X = -P		-2
-
-		divide by F		-2 / (s + 1)
-
-Return the result on the stack. */
+// Remove factor F from A.
 
 void
-handle_single_pole(void)
+trivial_divide(void)
 {
-	get_pole();
-
-	push(F);
-	push(A);
-	reciprocate();
-	multiply_noexpand();	// F is  a sum, do not expand, just cancel in A
-	push(B);
-	multiply_noexpand();
-	push(X);
-	push(P);
-	subst();
-	eval();
-	push(F);
-	divide();
-
-	// accumulate fractions
-
-	add();
+	int h;
+	if (car(A) == symbol(MULTIPLY)) {
+		push(p1);
+		h = tos;
+		p1 = cdr(A);
+		while (iscons(p1)) {
+			if (!equal(car(p1), F))
+				push(car(p1));
+			p1 = cdr(p1);
+		}
+		multiply_all(tos - h);
+		swap();
+		p1 = pop();
+	} else
+		push_integer(1);
+	T = pop();
 }
 
-// Input:
-//
-//	F = ax + b
-//
-// Outputs
-//
-//	P = -b/a
+// Returns result vector in T.
 
 void
-get_pole(void)
+solve_numerators(int n)
 {
-	push(F);		// P = b
+	int i, j;
+	U **a = stack + tos - n;
+	T = alloc_tensor(n * n);
+	T->u.tensor->ndim = 2;
+	T->u.tensor->dim[0] = n;
+	T->u.tensor->dim[1] = n;
+	for (i = 0; i < n; i++) {
+		for (j = 0; j < n; j++) {
+			push(a[j]);
+			push(X);
+			push_integer(i);
+			power();
+			divide();
+			push(X);
+			filter();
+			T->u.tensor->elem[n * i + j] = pop();
+		}
+	}
+	tos -= n;
+	push(T);
+	inv();
+	T = alloc_tensor(n);
+	T->u.tensor->ndim = 1;
+	T->u.tensor->dim[0] = n;
+	for (i = 0; i < n; i++) {
+		push(B);
+		push(X);
+		push_integer(i);
+		power();
+		divide();
+		push(X);
+		filter();
+		T->u.tensor->elem[i] = pop();
+	}
+	push(T);
+	inner();
+}
+
+void
+expansion_denominators(void)
+{
+	int h = tos, i, n;
+	if (car(A) == symbol(MULTIPLY)) {
+		T = cdr(A);
+		while (iscons(T)) {
+			F = car(T);
+			push_expansion_fractions_per_factor();
+			T = cdr(T);
+		}
+	} else {
+		F = A;
+		push_expansion_fractions_per_factor();
+	}
+	n = tos - h;
+	T = alloc_tensor(n);
+	T->u.tensor->ndim = 1;
+	T->u.tensor->dim[0] = n;
+	for (i = 0; i < n; i++)
+		T->u.tensor->elem[i] = stack[h + i];
+	tos = h;
+	push(T);
+peek();
+}
+
+void
+push_expansion_fractions_per_factor(void)
+{	int d, i, j, n = 1;
+	if (!find(F, X))
+		return;
+	if (ispower(F)) {
+		push(caddr(F));
+		n = pop_integer();
+		F = cadr(F);
+	}
+	push(F);
 	push(X);
-	push_integer(0);
-	subst();
-	eval();
-	P = pop();
-
-	push(F);		// a + b (on stack)
-	push(X);
-	push_integer(1);
-	subst();
-	eval();
-
-	push(P);		// -a (on stack)
-	swap();
-	subtract();
-
-	push(P);		// P = -b/a
-	swap();
-	divide();
-	P = pop();
+	degree();
+	d = pop_integer();
+	for (i = n; i > 0; i--) {
+		for (j = 0; j < d; j++) {
+			push(F);
+			push_integer(i);
+			power();
+			reciprocate();
+			push(X);
+			push_integer(j);
+			power();
+			multiply();
+		}
+	}
 }
 
 #if SELFTEST

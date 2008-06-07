@@ -394,10 +394,12 @@ void expand_tensor(void);
 void normalize_denominator(void);
 void factor_denominator(void);
 void factor_denominator_1(void);
-void do_expansion_factor(void);
-void handle_multiple_poles(void);
-void handle_single_pole(void);
-void get_pole(void);
+int push_all_expansion_terms(void);
+void push_terms_per_factor(void);
+void trivial_divide(void);
+void solve_numerators(int n);
+void expansion_denominators(void);
+void push_expansion_fractions_per_factor(void);
 void test_expand(void);
 
 // expcos.cpp
