@@ -105,9 +105,9 @@ expand(void)
 	factorpoly();
 	A = pop();
 
-	get_expansion_C();
-	get_expansion_B();
-	get_expansion_A();
+	expand_get_C();
+	expand_get_B();
+	expand_get_A();
 
 	if (istensor(C)) {
 		push(C);
@@ -198,9 +198,46 @@ remove_negative_exponents(void)
 }
 
 // Returns the expansion coefficient matrix C.
+//
+// For example, for
+//
+//       B         1
+//      --- = -----------
+//       A      2 
+//             x (x + 1)
+//
+// we have
+//
+//
+//       B     Y1     Y2      Y3
+//      --- = ---- + ---- + -------
+//       A      2     x      x + 1
+//             x
+//
+// where Y1, Y2 and Y3 must be computed. Hence
+//
+//           AY1     AY2      AY3
+//      B = ----- + ----- + -------
+//            2      x       x + 1
+//           x
+//
+// Let
+//
+//            A               A                 A
+//      W1 = ----       W2 = ---        W3 = -------
+//             2              x               x + 1
+//            x
+//
+// Then the coefficient matrix C is
+//
+//              coeff(W1,x,0)   coeff(W2,x,0)   coeff(W3,x,0)
+//
+//       C =    coeff(W1,x,1)   coeff(W2,x,1)   coeff(W3,x,1)
+//
+//              coeff(W1,x,2)   coeff(W2,x,2)   coeff(W3,x,2)
 
 void
-get_expansion_C(void)
+expand_get_C(void)
 {
 	int h, i, j, n;
 	U **a;
@@ -209,12 +246,12 @@ get_expansion_C(void)
 		p1 = cdr(A);
 		while (iscons(p1)) {
 			F = car(p1);
-			push_terms_per_factor();
+			expand_get_CF();
 			p1 = cdr(p1);
 		}
 	} else {
 		F = A;
-		push_terms_per_factor();
+		expand_get_CF();
 	}
 	n = tos - h;
 	if (n == 1) {
@@ -241,57 +278,87 @@ get_expansion_C(void)
 	tos -= n;
 }
 
-// There is a pattern here...
+// The following table shows the push order for simple roots, repeated roots,
+// and inrreducible factors.
 //
-//	Factor F	push        push         push          push
-//
-//	x		A/x         .            .             .
-//
-//	x^2		A/x         A/x^2        .             .
-//
-//	x+1		A/(x+1)     .            .             .
-//
-//	(x+1)^2		A/(x+1)     A/(x+1)^2    .             .
-//
-//	x^2+x+1		A/(x^2+x+1) Ax/(x^2+x+1) .             .
-//
-//	(x^2+x+1)^2	A/(x^2+x+1) Ax/(x^2+x+1) A/(x^2+x+1)^2 Ax/(x^2+x+1)^2
+//  Factor F        Push 1st        Push 2nd         Push 3rd      Push 4th
 //
 //
-// For T = A/F and F = P ^ N we have
-//
-//	Factor F	push        push         push          push
-//
-//	x		T           .            .             .
-//
-//	x^2		TP          T            .             .
-//
-//	x+1		T           .            .             .
-//
-//	(x+1)^2		TP          T            .             .
-//
-//	x^2+x+1		T           TX           .             .
-//
-//	(x^2+x+1)^2	TP          TPX          T             TX
+//                   A
+//  x               ---
+//                   x
 //
 //
-// Hence we want
+//   2               A               A
+//  x               ----            ---
+//                    2              x
+//                   x
 //
-//	push(T * (P ^ i) * (X ^ j))
+//
+//                     A
+//  x + 1           -------
+//                   x + 1
+//
+//
+//         2            A              A
+//  (x + 1)         ----------      -------
+//                          2        x + 1
+//                   (x + 1)
+//
+//
+//   2                   A               Ax
+//  x  + x + 1      ------------    ------------
+//                    2               2
+//                   x  + x + 1      x  + x + 1
+//
+//
+//    2         2          A              Ax              A             Ax
+//  (x  + x + 1)    --------------- ---------------  ------------  ------------
+//                     2         2     2         2     2             2
+//                   (x  + x + 1)    (x  + x + 1)     x  + x + 1    x  + x + 1
+//
+//
+// For T = A/F and F = P^N we have
+//
+//
+//      Factor F          Push 1st    Push 2nd    Push 3rd    Push 4th
+//
+//      x                 T
+//
+//       2
+//      x                 T           TP
+//
+//      x + 1             T
+//
+//             2
+//      (x + 1)           T           TP
+//
+//       2
+//      x  + x + 1        T           TX
+//
+//        2         2
+//      (x  + x + 1)      T           TX          TP          TPX
+//
+//
+// Hence we want to push in the order
+//
+//      T * (P ^ i) * (X ^ j)
 //
 // for all i, j such that
 //
-//	i = 0, 1, ..., N - 1
+//      i = 0, 1, ..., N - 1
 //
-//	j = 0, 1, ..., deg(P) - 1
+//      j = 0, 1, ..., deg(P) - 1
+//
+// where index j runs first.
 
 void
-push_terms_per_factor(void)
+expand_get_CF(void)
 {	int d, i, j, n;
 	if (!find(F, X))
 		return;
 	trivial_divide();
-	if (ispower(F)) {
+	if (car(F) == symbol(POWER)) {
 		push(caddr(F));
 		n = pop_integer();
 		P = cadr(F);
@@ -343,7 +410,7 @@ trivial_divide(void)
 // Returns the expansion coefficient vector B.
 
 void
-get_expansion_B(void)
+expand_get_B(void)
 {
 	int i, n;
 	if (!istensor(C))
@@ -368,7 +435,7 @@ get_expansion_B(void)
 // Returns the expansion fractions in A.
 
 void
-get_expansion_A(void)
+expand_get_A(void)
 {
 	int h, i, n;
 	if (!istensor(C)) {
@@ -382,12 +449,12 @@ get_expansion_A(void)
 		T = cdr(A);
 		while (iscons(T)) {
 			F = car(T);
-			push_expansion_fractions_per_factor();
+			expand_get_AF();
 			T = cdr(T);
 		}
 	} else {
 		F = A;
-		push_expansion_fractions_per_factor();
+		expand_get_AF();
 	}
 	n = tos - h;
 	T = alloc_tensor(n);
@@ -400,11 +467,11 @@ get_expansion_A(void)
 }
 
 void
-push_expansion_fractions_per_factor(void)
+expand_get_AF(void)
 {	int d, i, j, n = 1;
 	if (!find(F, X))
 		return;
-	if (ispower(F)) {
+	if (car(F) == symbol(POWER)) {
 		push(caddr(F));
 		n = pop_integer();
 		F = cadr(F);
