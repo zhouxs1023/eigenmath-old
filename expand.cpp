@@ -98,7 +98,7 @@ expand(void)
 		return;
 	}
 
-	// factor A
+	// A = factor(A)
 
 	push(A);
 	push(X);

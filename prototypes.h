@@ -392,12 +392,12 @@ void eval_expand(void);
 void expand(void);
 void expand_tensor(void);
 void remove_negative_exponents(void);
-void get_expansion_C(void);
-void push_terms_per_factor(void);
+void expand_get_C(void);
+void expand_get_CF(void);
 void trivial_divide(void);
-void get_expansion_B(void);
-void get_expansion_A(void);
-void push_expansion_fractions_per_factor(void);
+void expand_get_B(void);
+void expand_get_A(void);
+void expand_get_AF(void);
 void test_expand(void);
 
 // expcos.cpp
