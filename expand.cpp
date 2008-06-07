@@ -236,6 +236,22 @@ remove_negative_exponents(void)
 //       C =    coeff(W1,x,1)   coeff(W2,x,1)   coeff(W3,x,1)
 //
 //              coeff(W1,x,2)   coeff(W2,x,2)   coeff(W3,x,2)
+//
+// It follows that
+//
+//       coeff(B,x,0)     Y1
+//
+//       coeff(B,x,1) = C Y2
+//
+//       coeff(B,x,2) =   Y3
+//
+// Hence
+//
+//       Y1       coeff(B,x,0)
+//             -1
+//       Y2 = C   coeff(B,x,1)
+//
+//       Y3       coeff(B,x,2)
 
 void
 expand_get_C(void)
@@ -328,6 +344,7 @@ expand_get_C(void)
 //
 //       2
 //      x                 T           TP
+//
 //
 //      x + 1             T
 //
