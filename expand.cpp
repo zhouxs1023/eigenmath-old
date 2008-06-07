@@ -178,20 +178,20 @@ remove_negative_exponents(void)
 	if (j == 0)
 		return;
 
-	// A = A X^j
+	// A = A / X^j
 
 	push(A);
 	push(X);
-	push_integer(j);
+	push_integer(-j);
 	power();
 	multiply();
 	A = pop();
 
-	// B = B X^j
+	// B = B / X^j
 
 	push(B);
 	push(X);
-	push_integer(j);
+	push_integer(-j);
 	power();
 	multiply();
 	B = pop();
@@ -318,24 +318,23 @@ push_terms_per_factor(void)
 	}
 }
 
-// Remove factor F from A.
+// Returns T = A/F where F is a factor of A.
 
 void
 trivial_divide(void)
 {
 	int h;
 	if (car(A) == symbol(MULTIPLY)) {
-		push(p1);
 		h = tos;
-		p1 = cdr(A);
-		while (iscons(p1)) {
-			if (!equal(car(p1), F))
-				push(car(p1));
-			p1 = cdr(p1);
+		p0 = cdr(A);
+		while (iscons(p0)) {
+			if (!equal(car(p0), F)) {
+				push(car(p0));
+				eval(); // force expansion of (x+1)^2, f.e.
+			}
+			p0 = cdr(p0);
 		}
 		multiply_all(tos - h);
-		swap();
-		p1 = pop();
 	} else
 		push_integer(1);
 	T = pop();
@@ -463,7 +462,7 @@ static char *s[] = {
 	// fractional poles
 
 	"expand(1/(x+1/2)/(x+1/3))",
-	"6/(x+1/3)-6/(x+1/2)",
+	"-12/(2*x+1)+18/(3*x+1)",
 
 	// expand tensor
 
