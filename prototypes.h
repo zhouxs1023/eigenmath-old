@@ -391,14 +391,12 @@ void eval_predicate(void);
 void eval_expand(void);
 void expand(void);
 void expand_tensor(void);
-void normalize_denominator(void);
-void factor_denominator(void);
-void factor_denominator_1(void);
-int push_all_expansion_terms(void);
+void remove_negative_exponents(void);
+void get_expansion_C(void);
 void push_terms_per_factor(void);
 void trivial_divide(void);
-void solve_numerators(int n);
-void expansion_denominators(void);
+void get_expansion_B(void);
+void get_expansion_A(void);
 void push_expansion_fractions_per_factor(void);
 void test_expand(void);
 

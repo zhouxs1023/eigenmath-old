@@ -22,17 +22,16 @@ eval_expand(void)
 
 #define A p2
 #define B p3
-#define F p4
-#define P p5
-#define Q p6
-#define T p7
-#define X p8
+#define C p4
+#define F p5
+#define P p6
+#define Q p7
+#define T p8
+#define X p9
 
 void
 expand(void)
 {
-	int n;
-
 	save();
 
 	X = pop();
@@ -66,15 +65,15 @@ expand(void)
 	numerator();
 	B = pop();
 
-	// A = denominator (denominator function expands)
+	// A = denominator
 
 	push(F);
 	denominator();
 	A = pop();
 
-	normalize_denominator();
+	remove_negative_exponents();
 
-	// quotient
+	// Q = quotient
 
 	push(B);
 	push(A);
@@ -82,7 +81,7 @@ expand(void)
 	divpoly();
 	Q = pop();
 
-	// remainder B = B - A * quotient(B, A)
+	// remainder B = B - A * Q
 
 	push(B);
 	push(A);
@@ -99,16 +98,31 @@ expand(void)
 		return;
 	}
 
-	factor_denominator(); // A = factor(A)
+	// factor A
 
-	n = push_all_expansion_terms();
-printf("n=%d\n", n);
+	push(A);
+	push(X);
+	factorpoly();
+	A = pop();
 
-	solve_numerators(n);
+	get_expansion_C();
+	get_expansion_B();
+	get_expansion_A();
 
-	expansion_denominators();
-
-	inner();
+	if (istensor(C)) {
+		push(C);
+		inv();
+		push(B);
+		inner();
+		push(A);
+		inner();
+	} else {
+		push(B);
+		push(C);
+		divide();
+		push(A);
+		multiply();
+	}
 
 	push(Q);
 	add();
@@ -132,160 +146,65 @@ expand_tensor(void)
 	push(F);
 }
 
-// Multiply A and B to remove negative exponents in A.
-
 void
-normalize_denominator(void)
+remove_negative_exponents(void)
 {
-	int i, k, n, x;
+	int h, i, j, k, n;
 
-	k = factors(A);
+	h = tos;
+	factors(A);
+	factors(B);
+	n = tos - h;
 
 	// find the smallest exponent
 
-	n = 0;
-
-	for (i = tos - k; i < tos; i++) {
-		p1 = stack[i];
+	j = 0;
+	for (i = 0; i < n; i++) {
+		p1 = stack[h + i];
 		if (car(p1) != symbol(POWER))
 			continue;
 		if (cadr(p1) != X)
 			continue;
 		push(caddr(p1));
-		x = pop_integer();
-		if (x == (int) 0x80000000)
+		k = pop_integer();
+		if (k == (int) 0x80000000)
 			continue;
-		if (n > x)
-			n = x;
+		if (k < j)
+			j = k;
 	}
 
-	tos -= k;
+	tos = h;
 
-	if (n >= 0)
+	if (j == 0)
 		return;
+
+	// A = A X^j
+
+	push(A);
+	push(X);
+	push_integer(j);
+	power();
+	multiply();
+	A = pop();
+
+	// B = B X^j
 
 	push(B);
 	push(X);
-	push_integer(-n);
+	push_integer(j);
 	power();
 	multiply();
 	B = pop();
-
-	push(A);
-	push(X);
-	push_integer(-n);
-	power();
-	multiply();
-	A = pop();
 }
 
-// The correct way to factor
-//
-//	  2
-//	6x  + 5x + 1
-//
-// is
-//	(2x + 1) * (3x + 1)
-//
-// and that is how factorpoly() works.
-//
-// However, for this application we would prefer the factorization to be
-//
-//	6 * (x + 1/2) * (x + 1/3)
+// Returns the expansion coefficient matrix C.
 
 void
-factor_denominator(void)
+get_expansion_C(void)
 {
-	push(A);
-	push(X);
-	factorpoly();
-	A = pop();
-
-	push_integer(1);
-
-	if (car(A) == symbol(MULTIPLY)) {
-		p1 = cdr(A);
-		while (iscons(p1)) {
-			A = car(p1);
-			factor_denominator_1();
-			p1 = cdr(p1);
-		}
-	} else
-		factor_denominator_1();
-
-	A = pop();
-}
-
-void
-factor_denominator_1(void)
-{
-	int h, n;
-
-	if (find(A, X) == 0) {
-		push(A);
-		multiply_noexpand();
-		return;
-	}
-
-	if (car(A) == symbol(POWER)) {
-
-		push(caddr(A));
-		n = pop_integer();
-		A = cadr(A);
-
-		h = tos;	// T = coeff. of leading term
-		push(A);
-		push(X);
-		coeff();
-		T = pop();
-		tos = h;
-
-		push(T);
-		push_integer(n);
-		power();
-		multiply_noexpand();
-
-		push(symbol(POWER));
-		push(A);
-		push(T);
-		divide();
-		push_integer(n);
-		list(3);
-
-		multiply_noexpand();
-
-		return;
-	}
-
-	h = tos;	// T = coeff. of leading term
-	push(A);
-	push(X);
-	coeff();
-	T = pop();
-	tos = h;
-
-	push(T);
-	multiply_noexpand();
-
-	push(A);
-	push(T);
-	divide();
-	multiply_noexpand();
-}
-
-
-
-
-
-
-
-
-// Returns the number of terms pushed on the stack.
-
-int
-push_all_expansion_terms(void)
-{
-	int h = tos;
+	int h, i, j, n;
+	U **a;
+	h = tos;
 	if (car(A) == symbol(MULTIPLY)) {
 		p1 = cdr(A);
 		while (iscons(p1)) {
@@ -297,7 +216,29 @@ push_all_expansion_terms(void)
 		F = A;
 		push_terms_per_factor();
 	}
-	return tos - h;
+	n = tos - h;
+	if (n == 1) {
+		C = pop();
+		return;
+	}
+	C = alloc_tensor(n * n);
+	C->u.tensor->ndim = 2;
+	C->u.tensor->dim[0] = n;
+	C->u.tensor->dim[1] = n;
+	a = stack + h;
+	for (i = 0; i < n; i++) {
+		for (j = 0; j < n; j++) {
+			push(a[j]);
+			push(X);
+			push_integer(i);
+			power();
+			divide();
+			push(X);
+			filter();
+			C->u.tensor->elem[n * i + j] = pop();
+		}
+	}
+	tos -= n;
 }
 
 // There is a pattern here...
@@ -400,32 +341,15 @@ trivial_divide(void)
 	T = pop();
 }
 
-// Returns result vector in T.
+// Returns the expansion coefficient vector B.
 
 void
-solve_numerators(int n)
+get_expansion_B(void)
 {
-	int i, j;
-	U **a = stack + tos - n;
-	T = alloc_tensor(n * n);
-	T->u.tensor->ndim = 2;
-	T->u.tensor->dim[0] = n;
-	T->u.tensor->dim[1] = n;
-	for (i = 0; i < n; i++) {
-		for (j = 0; j < n; j++) {
-			push(a[j]);
-			push(X);
-			push_integer(i);
-			power();
-			divide();
-			push(X);
-			filter();
-			T->u.tensor->elem[n * i + j] = pop();
-		}
-	}
-	tos -= n;
-	push(T);
-	inv();
+	int i, n;
+	if (!istensor(C))
+		return;
+	n = C->u.tensor->dim[0];
 	T = alloc_tensor(n);
 	T->u.tensor->ndim = 1;
 	T->u.tensor->dim[0] = n;
@@ -439,14 +363,22 @@ solve_numerators(int n)
 		filter();
 		T->u.tensor->elem[i] = pop();
 	}
-	push(T);
-	inner();
+	B = T;
 }
 
+// Returns the expansion fractions in A.
+
 void
-expansion_denominators(void)
+get_expansion_A(void)
 {
-	int h = tos, i, n;
+	int h, i, n;
+	if (!istensor(C)) {
+		push(A);
+		reciprocate();
+		A = pop();
+		return;
+	}
+	h = tos;
 	if (car(A) == symbol(MULTIPLY)) {
 		T = cdr(A);
 		while (iscons(T)) {
@@ -465,8 +397,7 @@ expansion_denominators(void)
 	for (i = 0; i < n; i++)
 		T->u.tensor->elem[i] = stack[h + i];
 	tos = h;
-	push(T);
-peek();
+	A = T;
 }
 
 void
