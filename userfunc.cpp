@@ -42,7 +42,6 @@ define_user_function(void)
 	if (!issymbol(NAME))
 		stop("function name?");
 
-	prep_args();
 	set_binding_and_arglist(NAME, BODY, ARGS);
 
 	// do eval, maybe
@@ -70,62 +69,19 @@ define_user_function(void)
 		// new binding
 
 		BODY = pop();
-		prep_args();
 		set_binding_and_arglist(NAME, BODY, ARGS);
 	}
 
 	push(symbol(NIL));	// return value
 }
 
-// Change formal args to GETARG functions
+// F is the function body
+// A is the formal argument list
+// B is the actual argument list
 
-void
-prep_args(void)
-{
-	int n = 0;
-	p2 = ARGS;
-	push(BODY);
-	while (iscons(p2)) {
-		push(car(p2));
-		push(symbol(GETARG));
-		push_integer(n++);
-		list(2);
-		subst();
-		p2 = cdr(p2);
-	}
-	BODY = pop();
-}
-
-/* For example, this is what p1 points to when the user function wants the 1st
-   argument...
-
-                 _______         _______         _______
-        p1 ---->|CONS   |------>|CONS   |------>|NIL    |
-                |_______|       |_______|       |_______|
-                    |               |
-                 ___v___         ___v___
-                |GETARG |       |NUM 0  |
-                |_______|       |_______|
-*/
-
-void
-eval_getarg(void)
-{
-	int i, n;
-	push(cadr(p1));
-	n = pop_integer();
-	p1 = args;
-	for (i = 0; i < n; i++)
-		p1 = cdr(p1); // ok for all n, cdr(nil) = nil, car(nil) = nil
-	push(car(p1));
-}
-
-/*	Example: f(x,y)
-
-	p1 -> (f x y)
-
-	car(p1) -> f
-*/
+#define F p3
+#define A p4
+#define B p5
 
 void
 eval_user_function(void)
@@ -139,39 +95,81 @@ eval_user_function(void)
 		return;
 	}
 
-	// p2 is the body of the user function
+	F = get_binding(car(p1));
+	A = get_arglist(car(p1));
+	B = cdr(p1);
 
-	p2 = get_binding(car(p1));
-
-	// make p3 the argument list
+	// evaluate actual argument list
 
 	h = tos;
-	p3 = cdr(p1);
-	while (iscons(p3)) {
-		push(car(p3));
+	while (iscons(B)) {
+		push(car(B));
 		eval();
-		p3 = cdr(p3);
+		B = cdr(B);
 	}
 	list(tos - h);
-	p3 = pop();
+	B = pop();
 
 	// undefined function?
 
-	if (p2 == car(p1)) {
-		push(p2);
-		push(p3);
+	if (F == car(p1)) {
+		push(F);
+		push(B);
 		cons();
 		return;
 	}
 
-	// eval function body in arg context
+	// save original bindings
 
-	push(args);
-	args = p3;
-	push(p2);
+	p1 = A;
+	while (iscons(p1)) {
+		push(get_binding(car(p1)));
+		push(get_arglist(car(p1)));
+		p1 = cdr(p1);
+	}
+
+	// New bindings use quote because
+	//
+	// 1. The argument has already been evaluated.
+	//
+	// 2. We want to use the evaluation that was obtained in the calling
+	//    context.
+	//
+	// 3. Prevent circular references. For example, given f(x) = x^2, we
+	//    would prefer that f(x + 1) yield x^2 + 2x + 1 instead of halting
+	//    due to x = x + 1.
+
+	p1 = A;
+	p2 = B;
+	while (iscons(p1)) {
+		push_symbol(QUOTE);
+		push(car(p2));
+		list(2);
+		set_binding(car(p1), pop());
+		p1 = cdr(p1);
+		p2 = cdr(p2);
+	}
+
+	// eval function body
+
+	push(F);
 	eval();
-	swap();
-	args = pop();
+	p0 = pop();
+
+	restore_bindings(A);
+
+	push(p0);
+}
+
+void
+restore_bindings(U *p)
+{
+	if (iscons(p)) {
+		restore_bindings(cdr(p));
+		p2 = pop();
+		p1 = pop();
+		set_binding_and_arglist(car(p), p1, p2);
+	}
 }
 
 #if SELFTEST
