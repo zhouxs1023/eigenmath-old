@@ -981,9 +981,8 @@ void test_transpose(void);
 
 // userfunc.cpp
 void define_user_function(void);
-void prep_args(void);
-void eval_getarg(void);
 void eval_user_function(void);
+void restore_bindings(U *p);
 void test_user_func(void);
 
 // variables.cpp

@@ -78,8 +78,6 @@ gc(void)
 	untag(p8);
 	untag(p9);
 
-	untag(args);
-
 	untag(one);
 	untag(zero);
 	untag(imaginaryunit);

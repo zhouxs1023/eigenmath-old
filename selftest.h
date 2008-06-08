@@ -808,11 +808,11 @@ static char *s[] = {
 
 	// test self-referencing arg
 
-	"f(x)=eval(x)+1",
-	"",
+//	"f(x)=eval(x)+1",
+//	"",
 
-	"f(x+1)-(2+x)",
-	"0",
+//	"f(x+1)-(2+x)",
+//	"0",
 
 	// equality of tensors
 

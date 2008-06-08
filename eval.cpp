@@ -55,37 +55,12 @@ eval_sym(void)
 		return;
 	}
 
-	// get symbol's binding and argument list
-
-	p2 = get_binding(p1);
-	p3 = get_arglist(p1);
-
-	// If user function then undo arg prep
-
-	if (iscons(p3)) {
-		n = 0;
-		push(p2);
-		while (iscons(p3)) {
-			push(symbol(GETARG));
-			push_integer(n++);
-			list(2);
-			push(car(p3));
-			subst();
-			p3 = cdr(p3);
-		}
-		p2 = pop();
-	}
-
-	push(p2);
-
-	// terminal symbol?
-
-	if (p1 == p2)
-		return;
-
 	// evaluate symbol's binding
 
-	eval();
+	p2 = get_binding(p1);
+	push(p2);
+	if (p1 != p2)
+		eval();
 }
 
 void
@@ -158,7 +133,6 @@ eval_cons(void)
 	case FOR:		eval_for();		break;
 	case GAMMA:		eval_gamma();		break;
 	case GCD:		eval_gcd();		break;
-	case GETARG:		eval_getarg();		break;
 	case HEAVISIDE:		eval_heaviside();	break;
 	case HERMITE:		eval_hermite();		break;
 	case HILBERT:		eval_hilbert();		break;

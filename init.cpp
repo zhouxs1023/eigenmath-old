@@ -23,8 +23,6 @@ init(void)
 	p8 = symbol(NIL);
 	p9 = symbol(NIL);
 
-	args = symbol(NIL);
-
 	if (flag)
 		return;		// already initted
 
@@ -99,7 +97,6 @@ init(void)
 	std_symbol("for", FOR);
 	std_symbol("Gamma", GAMMA);
 	std_symbol("gcd", GCD);
-	std_symbol("getarg", GETARG);
 	std_symbol("heaviside", HEAVISIDE);
 	std_symbol("hermite", HERMITE);
 	std_symbol("hilbert", HILBERT);
