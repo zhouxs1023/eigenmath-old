@@ -6,27 +6,22 @@ eval_arccos(void)
 {
 	push(cadr(p1));
 	eval();
-	yyarccos();
+	arccos();
 }
 
 void
 arccos(void)
 {
-	save();
-	yyarccos();
-	restore();
-}
-
-void
-yyarccos(void)
-{
 	int n;
 	double d;
+
+	save();
 
 	p1 = pop();
 
 	if (car(p1) == symbol(COS)) {
 		push(cadr(p1));
+		restore();
 		return;
 	}
 
@@ -36,6 +31,7 @@ yyarccos(void)
 		if (errno)
 			stop("arccos function argument is not in the interval [-1,1]");
 		push_double(d);
+		restore();
 		return;
 	}
 
@@ -45,6 +41,7 @@ yyarccos(void)
 		push_rational(1, 4);
 		push_symbol(PI);
 		multiply();
+		restore();
 		return;
 	}
 
@@ -54,6 +51,7 @@ yyarccos(void)
 		push_rational(3, 4);
 		push_symbol(PI);
 		multiply();
+		restore();
 		return;
 	}
 
@@ -61,6 +59,7 @@ yyarccos(void)
 		push_symbol(ARCCOS);
 		push(p1);
 		list(2);
+		restore();
 		return;
 	}
 
@@ -103,6 +102,8 @@ yyarccos(void)
 		list(2);
 		break;
 	}
+
+	restore();
 }
 
 #if SELFTEST

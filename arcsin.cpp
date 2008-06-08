@@ -6,27 +6,22 @@ eval_arcsin(void)
 {
 	push(cadr(p1));
 	eval();
-	yyarcsin();
+	arcsin();
 }
 
 void
 arcsin(void)
 {
-	save();
-	yyarcsin();
-	restore();
-}
-
-void
-yyarcsin(void)
-{
 	int n;
 	double d;
+
+	save();
 
 	p1 = pop();
 
 	if (car(p1) == symbol(SIN)) {
 		push(cadr(p1));
+		restore();
 		return;
 	}
 
@@ -36,6 +31,7 @@ yyarcsin(void)
 		if (errno)
 			stop("arcsin function argument is not in the interval [-1,1]");
 		push_double(d);
+		restore();
 		return;
 	}
 
@@ -45,6 +41,7 @@ yyarcsin(void)
 		push_rational(1, 4);
 		push_symbol(PI);
 		multiply();
+		restore();
 		return;
 	}
 
@@ -54,6 +51,7 @@ yyarcsin(void)
 		push_rational(-1, 4);
 		push_symbol(PI);
 		multiply();
+		restore();
 		return;
 	}
 
@@ -61,6 +59,7 @@ yyarcsin(void)
 		push_symbol(ARCSIN);
 		push(p1);
 		list(2);
+		restore();
 		return;
 	}
 
@@ -105,6 +104,8 @@ yyarcsin(void)
 		list(2);
 		break;
 	}
+
+	restore();
 }
 
 #if SELFTEST
