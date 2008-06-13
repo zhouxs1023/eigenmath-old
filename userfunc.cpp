@@ -104,6 +104,8 @@ rewrite(void)
 		return;
 	}
 
+	// Try for an argument substitution first
+
 	p2 = S;
 	while (iscons(p2)) {
 		if (p1 == car(p2)) {
@@ -113,6 +115,8 @@ rewrite(void)
 		}
 		p2 = cddr(p2);
 	}
+
+	// Get the symbol's binding, try again
 
 	p2 = get_binding(p1);
 	push(p2);

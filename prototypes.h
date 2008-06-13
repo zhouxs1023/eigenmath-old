@@ -984,7 +984,7 @@ void test_transpose(void);
 
 // userfunc.cpp
 void eval_user_function(void);
-void resolve(void);
+void rewrite(void);
 void test_user_func(void);
 
 // variables.cpp
