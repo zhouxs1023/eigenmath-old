@@ -2269,7 +2269,9 @@ do_enter(void)
 	update_cmd_history(inp); // reset history pointer no matter what
 	if (*inp == 0)
 		return;
+	run_hdc = GetDC(main_window);
 	echo_input(inp);
+	ReleaseDC(main_window, run_hdc);
 	update_curr_cmd("");
 	create_task();
 }
@@ -2303,7 +2305,9 @@ do_button(char *s)
 		inp = tmp;
 	}
 	update_cmd_history(inp);
+	run_hdc = GetDC(main_window);
 	echo_input(inp);
+	ReleaseDC(main_window, run_hdc);
 	update_curr_cmd("");
 	create_task();
 }
