@@ -1,23 +1,19 @@
-// Codes for handling user-defined functions
+// Evaluate a user defined functions
 
 #include "stdafx.h"
 #include "defs.h"
 
-// F is the function body
-// A is the formal argument list
-// B is the actual argument list
-
-#define F p3
-#define A p4
-#define B p5
-#define C p6
+#define F p3 // F is the function body
+#define A p4 // A is the formal argument list
+#define B p5 // B is the calling argument list
+#define S p6 // S is the argument substitution list
 
 void
 eval_user_function(void)
 {
-	int h = tos;
+	int h;
 
-	// Use "derivative" instead of "d" if no user function "d"
+	// Use "derivative" instead of "d" if there is no user function "d"
 
 	if (car(p1) == symbol(SYMBOL_D) && get_arglist(symbol(SYMBOL_D)) == symbol(NIL)) {
 		eval_derivative();
@@ -28,9 +24,10 @@ eval_user_function(void)
 	A = get_arglist(car(p1));
 	B = cdr(p1);
 
-	// undefined function?
+	// Undefined function?
 
 	if (F == car(p1)) {
+		h = tos;
 		push(F);
 		p1 = B;
 		while (iscons(p1)) {
@@ -42,10 +39,11 @@ eval_user_function(void)
 		return;
 	}
 
-	// evaluate actual argument list
+	// Create the argument substitution list S
 
 	p1 = A;
 	p2 = B;
+	h = tos;
 	while (iscons(p1) && iscons(p2)) {
 		push(car(p1));
 		push(car(p2));
@@ -53,51 +51,24 @@ eval_user_function(void)
 		p1 = cdr(p1);
 		p2 = cdr(p2);
 	}
-
-	// merge current arg list
-
-	p1 = args;
-	while (iscons(p1)) {
-		if (!find(A, car(p1))) {
-			push(car(p1));
-			push(cadr(p1));
-		}
-		p1 = cddr(p1);
-	}
-
-	// new list
-
-	C = args;
 	list(tos - h);
-	args = pop();
-	
-	// eval function body
+	S = pop();
+
+	// Evaluate the function body
 
 	push(F);
-	resolve();
+	rewrite();
 	eval();
-
-	args = C;
 }
 
-// Resolve function arguments
-
 void
-resolve(void)
+rewrite(void)
 {
 	int h, i;
-	save();
-	p1 = pop();
 
-	p2 = args;
-	while (iscons(p2)) {
-		if (equal(p1, car(p2))) {
-			push(cadr(p2));
-			restore();
-			return;
-		}
-		p2 = cddr(p2);
-	}
+	save();
+
+	p1 = pop();
 
 	if (istensor(p1)) {
 		push(p1);
@@ -105,7 +76,7 @@ resolve(void)
 		p1 = pop();
 		for (i = 0; i < p1->u.tensor->nelem; i++) {
 			push(p1->u.tensor->elem[i]);
-			resolve();
+			rewrite();
 			p1->u.tensor->elem[i] = pop();
 		}
 		push(p1);
@@ -119,7 +90,7 @@ resolve(void)
 		p1 = cdr(p1);
 		while (iscons(p1)) {
 			push(car(p1));
-			resolve();
+			rewrite();
 			p1 = cdr(p1);
 		}
 		list(tos - h);
@@ -127,16 +98,27 @@ resolve(void)
 		return;
 	}
 
-	if (issymbol(p1)) {
-		p2 = get_binding(p1);
-		push(p2);
-		if (p1 != p2)
-			resolve();
+	if (!issymbol(p1)) {
+		push(p1);
 		restore();
 		return;
 	}
 
-	push(p1);
+	p2 = S;
+	while (iscons(p2)) {
+		if (p1 == car(p2)) {
+			push(cadr(p2));
+			restore();
+			return;
+		}
+		p2 = cddr(p2);
+	}
+
+	p2 = get_binding(p1);
+	push(p2);
+	if (p1 != p2)
+		rewrite();
+
 	restore();
 }
 
@@ -214,7 +196,7 @@ static char *s[] = {
 	"w(5)-w(2)",
 	"63",
 
-// are symbols evaluated in argument context?
+// Are symbols evaluated in argument context?
 
 	"A=a^2",
 	"",
@@ -224,6 +206,17 @@ static char *s[] = {
 
 	"f(x+1)",
 	"x^2+2*x+1",
+
+// Check the scope of variables
+
+	"f(x)=g(x)",
+	"",
+
+	"g(a)=x^a",
+	"",
+
+	"f(2)",
+	"x^2",
 };
 
 void
