@@ -68,6 +68,7 @@ cos.o \
 cosh.o \
 data.o \
 decomp.o \
+define.o \
 defint.o \
 degree.o \
 denominator.o \

@@ -806,15 +806,15 @@ static char *s[] = {
 	"a=quote(a)",
 	"",
 
-	// test self-referencing arg
+// test self-referencing arg
 
-//	"f(x)=eval(x)+1",
-//	"",
+	"f(x)=eval(x)+1",
+	"",
 
-//	"f(x+1)-(2+x)",
-//	"0",
+	"f(x+1)-(2+x)",
+	"0",
 
-	// equality of tensors
+// equality of tensors
 
 	"testeq((1,2),(1,2))",
 	"1",
@@ -822,7 +822,7 @@ static char *s[] = {
 	"testeq((1,2),(1,3))",
 	"0",
 
-	// the "check" function with tensor arg
+// the "check" function with tensor arg
 
 	"check((1,2)=(1,2))",
 	"",

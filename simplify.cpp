@@ -317,7 +317,7 @@ static char *s[] = {
 	"simfac(binomial(n,k)/binomial(n+1,k))",
 	"(1-k+n)/(1+n)",
 
-	"F(n,k)=k*binomial(n,k)",
+	"F(nn,kk)=kk*binomial(nn,kk)",
 	"",
 
 	"simplify(simfac((F(n,k)+F(n,k-1))/F(n+1,k))-n/(n+1))",
@@ -353,7 +353,7 @@ static char *s[] = {
 	"simplify(binomial(n,k)/binomial(n+1,k))",
 	"(1-k+n)/(1+n)",
 
-	"F(n,k)=k*binomial(n,k)",
+	"F(nn,kk)=kk*binomial(nn,kk)",
 	"",
 
 	"simplify((F(n,k)+F(n,k-1))/F(n+1,k))-n/(n+1)",

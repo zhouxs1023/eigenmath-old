@@ -3,78 +3,6 @@
 #include "stdafx.h"
 #include "defs.h"
 
-/* For f(x)=x^2 we have p1 pointing to the following data structure.
-
-         _______     _______                 _______ 
-p1----->|CONS   |-->|CONS   |-------------->|CONS   |
-        |_______|   |_______|               |_______|
-            |           |                       |
-         ___v___     ___v___     _______     ___v___     _______     _______
-        |SETQ   |   |CONS   |-->|CONS   |   |CONS   |-->|CONS   |-->|CONS   |
-        |_______|   |_______|   |_______|   |_______|   |_______|   |_______|
-                        |           |           |           |           |
-                     ___v___     ___v___     ___v___     ___v___     ___v___
-                    |SYM f  |   |SYM x  |   |POWER  |   |SYM x  |   |NUM 2  |
-                    |_______|   |_______|   |_______|   |_______|   |_______|
-
-(For brevity, cdrs pointing to nil are not shown.)
-
-Hence
-
-	caadr(p1) == f
-	cdadr(p1) == (x)
-	caddr(p1) == (power x 2)
-*/
-
-#define NAME p3
-#define ARGS p4
-#define BODY p5
-
-void
-define_user_function(void)
-{
-	int h;
-
-	NAME = caadr(p1);
-	ARGS = cdadr(p1);
-	BODY = caddr(p1);
-
-	if (!issymbol(NAME))
-		stop("function name?");
-
-	set_binding_and_arglist(NAME, BODY, ARGS);
-
-	// do eval, maybe
-
-	if (car(BODY) == symbol(EVAL)) {
-
-		// remove eval
-
-		set_binding_and_arglist(NAME, cadr(BODY), ARGS);
-
-		// evaluate the function definition using quoted symbols
-
-		h = tos;
-		push(NAME);
-		p2 = ARGS;
-		while (iscons(p2)) {
-			push_symbol(QUOTE);
-			push(car(p2));
-			list(2);
-			p2 = cdr(p2);
-		}
-		list(tos - h);
-		eval();
-
-		// new binding
-
-		BODY = pop();
-		set_binding_and_arglist(NAME, BODY, ARGS);
-	}
-
-	push(symbol(NIL));	// return value
-}
-
 // F is the function body
 // A is the formal argument list
 // B is the actual argument list
@@ -82,11 +10,12 @@ define_user_function(void)
 #define F p3
 #define A p4
 #define B p5
+#define C p6
 
 void
 eval_user_function(void)
 {
-	int h;
+	int h = tos;
 
 	// Use "derivative" instead of "d" if no user function "d"
 
@@ -99,77 +28,116 @@ eval_user_function(void)
 	A = get_arglist(car(p1));
 	B = cdr(p1);
 
-	// evaluate actual argument list
-
-	h = tos;
-	while (iscons(B)) {
-		push(car(B));
-		eval();
-		B = cdr(B);
-	}
-	list(tos - h);
-	B = pop();
-
 	// undefined function?
 
 	if (F == car(p1)) {
 		push(F);
-		push(B);
-		cons();
+		p1 = B;
+		while (iscons(p1)) {
+			push(car(p1));
+			eval();
+			p1 = cdr(p1);
+		}
+		list(tos - h);
 		return;
 	}
 
-	// save original bindings
-
-	p1 = A;
-	while (iscons(p1)) {
-		push(get_binding(car(p1)));
-		push(get_arglist(car(p1)));
-		p1 = cdr(p1);
-	}
-
-	// New bindings use quote because
-	//
-	// 1. The argument has already been evaluated.
-	//
-	// 2. We want to use the evaluation that was obtained in the calling
-	//    context.
-	//
-	// 3. Prevent circular references. For example, given f(x) = x^2, we
-	//    would prefer that f(x + 1) yield x^2 + 2x + 1 instead of halting
-	//    due to x = x + 1.
+	// evaluate actual argument list
 
 	p1 = A;
 	p2 = B;
-	while (iscons(p1)) {
-		push_symbol(QUOTE);
+	while (iscons(p1) && iscons(p2)) {
+		push(car(p1));
 		push(car(p2));
-		list(2);
-		set_binding(car(p1), pop());
+		eval();
 		p1 = cdr(p1);
 		p2 = cdr(p2);
 	}
 
+	// merge current arg list
+
+	p1 = args;
+	while (iscons(p1)) {
+		if (!find(A, car(p1))) {
+			push(car(p1));
+			push(cadr(p1));
+		}
+		p1 = cddr(p1);
+	}
+
+	// new list
+
+	C = args;
+	list(tos - h);
+	args = pop();
+	
 	// eval function body
 
 	push(F);
+	resolve();
 	eval();
-	p0 = pop();
 
-	restore_bindings(A);
-
-	push(p0);
+	args = C;
 }
 
+// Resolve function arguments
+
 void
-restore_bindings(U *p)
+resolve(void)
 {
-	if (iscons(p)) {
-		restore_bindings(cdr(p));
-		p2 = pop();
-		p1 = pop();
-		set_binding_and_arglist(car(p), p1, p2);
+	int h, i;
+	save();
+	p1 = pop();
+
+	p2 = args;
+	while (iscons(p2)) {
+		if (equal(p1, car(p2))) {
+			push(cadr(p2));
+			restore();
+			return;
+		}
+		p2 = cddr(p2);
 	}
+
+	if (istensor(p1)) {
+		push(p1);
+		copy_tensor();
+		p1 = pop();
+		for (i = 0; i < p1->u.tensor->nelem; i++) {
+			push(p1->u.tensor->elem[i]);
+			resolve();
+			p1->u.tensor->elem[i] = pop();
+		}
+		push(p1);
+		restore();
+		return;
+	}
+
+	if (iscons(p1)) {
+		h = tos;
+		push(car(p1)); // Note 1
+		p1 = cdr(p1);
+		while (iscons(p1)) {
+			push(car(p1));
+			resolve();
+			p1 = cdr(p1);
+		}
+		list(tos - h);
+		restore();
+		return;
+	}
+
+	if (issymbol(p1)) {
+		p2 = get_binding(p1);
+		push(p2);
+		if (p1 != p2)
+			resolve();
+		restore();
+		return;
+	}
+
+	push(p1);
+	restore();
 }
 
 #if SELFTEST
@@ -246,36 +214,12 @@ static char *s[] = {
 	"w(5)-w(2)",
 	"63",
 
-// Check that args are quoted in func defn
+// are symbols evaluated in argument context?
 
-	"x=7",
+	"A=a^2",
 	"",
 
-	"y=8",
-	"",
-
-	"p(x,y)=eval(x+y)",
-	"",
-
-	"x=quote(x)",
-	"",
-
-	"y=quote(y)",
-	"",
-
-	"p",
-	"x+y",
-
-	"f(x)=x^2",
-	"",
-
-	"f(x+1)",
-	"x^2+2*x+1",
-
-	"A=x^2",
-	"",
-
-	"f(x)=A",
+	"f(a)=A",
 	"",
 
 	"f(x+1)",

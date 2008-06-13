@@ -23,6 +23,8 @@ init(void)
 	p8 = symbol(NIL);
 	p9 = symbol(NIL);
 
+	args = symbol(NIL);
+
 	if (flag)
 		return;		// already initted
 

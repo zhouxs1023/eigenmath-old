@@ -223,6 +223,9 @@ void decomp(void);
 void decomp_sum(void);
 void decomp_product(void);
 
+// define.cpp
+void define_user_function(void);
+
 // defint.cpp
 void eval_defint(void);
 void test_defint(void);
@@ -980,9 +983,8 @@ void transpose(void);
 void test_transpose(void);
 
 // userfunc.cpp
-void define_user_function(void);
 void eval_user_function(void);
-void restore_bindings(U *p);
+void resolve(void);
 void test_user_func(void);
 
 // variables.cpp

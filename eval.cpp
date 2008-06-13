@@ -1,9 +1,8 @@
-/* Evaluate an expression, for example...
-
-	push(p1)
-	eval()
-	p2 = pop()
-*/
+// Evaluate an expression, for example...
+//
+//	push(p1)
+//	eval()
+//	p2 = pop()
 
 #include "stdafx.h"
 #include "defs.h"
@@ -43,8 +42,6 @@ eval(void)
 void
 eval_sym(void)
 {
-	int n;
-
 	// bare keyword?
 
 	if (iskeyword(p1)) {
@@ -59,8 +56,10 @@ eval_sym(void)
 
 	p2 = get_binding(p1);
 	push(p2);
-	if (p1 != p2)
+	if (p1 != p2) {
+		//subst_args();
 		eval();
+	}
 }
 
 void
