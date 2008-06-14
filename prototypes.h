@@ -985,6 +985,7 @@ void test_transpose(void);
 // userfunc.cpp
 void eval_user_function(void);
 void rewrite(void);
+void rewrite_tensor(void);
 void test_user_func(void);
 
 // variables.cpp

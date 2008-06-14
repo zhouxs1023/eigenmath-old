@@ -64,29 +64,19 @@ eval_user_function(void)
 void
 rewrite(void)
 {
-	int h, i;
-
+	int h;
 	save();
-
 	p1 = pop();
 
 	if (istensor(p1)) {
-		push(p1);
-		copy_tensor();
-		p1 = pop();
-		for (i = 0; i < p1->u.tensor->nelem; i++) {
-			push(p1->u.tensor->elem[i]);
-			rewrite();
-			p1->u.tensor->elem[i] = pop();
-		}
-		push(p1);
+		rewrite_tensor();
 		restore();
 		return;
 	}
 
 	if (iscons(p1)) {
 		h = tos;
-		push(car(p1)); // Note 1
+		push(car(p1)); // Do not rewrite function name
 		p1 = cdr(p1);
 		while (iscons(p1)) {
 			push(car(p1));
@@ -97,6 +87,8 @@ rewrite(void)
 		restore();
 		return;
 	}
+
+	// If not a symbol then done
 
 	if (!issymbol(p1)) {
 		push(p1);
@@ -126,11 +118,26 @@ rewrite(void)
 	restore();
 }
 
+void
+rewrite_tensor(void)
+{
+	int i;
+	push(p1);
+	copy_tensor();
+	p1 = pop();
+	for (i = 0; i < p1->u.tensor->nelem; i++) {
+		push(p1->u.tensor->elem[i]);
+		rewrite();
+		p1->u.tensor->elem[i] = pop();
+	}
+	push(p1);
+}
+
 #if SELFTEST
 
 static char *s[] = {
 
-// args of generic functions should be evaluated
+// args of template functions should be evaluated
 
 	"f(1+2,3*4)",
 	"f(3,12)",
