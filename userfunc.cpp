@@ -57,15 +57,27 @@ eval_user_function(void)
 	// Evaluate the function body
 
 	push(F);
+	push(S);
 	rewrite();
 	eval();
 }
+
+// Example:
+//
+//	push(F)
+//	push(S)
+//	rewrite()
+//	p1 = pop()
+//
+// where F is an expression and S is a substitution list.
 
 void
 rewrite(void)
 {
 	int h;
 	save();
+
+	p2 = pop();
 	p1 = pop();
 
 	if (istensor(p1)) {
@@ -80,6 +92,7 @@ rewrite(void)
 		p1 = cdr(p1);
 		while (iscons(p1)) {
 			push(car(p1));
+			push(p2);
 			rewrite();
 			p1 = cdr(p1);
 		}
@@ -98,22 +111,24 @@ rewrite(void)
 
 	// Try for an argument substitution first
 
-	p2 = S;
-	while (iscons(p2)) {
-		if (p1 == car(p2)) {
-			push(cadr(p2));
+	p3 = p2;
+	while (iscons(p3)) {
+		if (p1 == car(p3)) {
+			push(cadr(p3));
 			restore();
 			return;
 		}
-		p2 = cddr(p2);
+		p3 = cddr(p3);
 	}
 
 	// Get the symbol's binding, try again
 
-	p2 = get_binding(p1);
-	push(p2);
-	if (p1 != p2)
+	p3 = get_binding(p1);
+	push(p3);
+	if (p1 != p3) {
+		push(p2);
 		rewrite();
+	}
 
 	restore();
 }
@@ -127,6 +142,7 @@ rewrite_tensor(void)
 	p1 = pop();
 	for (i = 0; i < p1->u.tensor->nelem; i++) {
 		push(p1->u.tensor->elem[i]);
+		push(p2);
 		rewrite();
 		p1->u.tensor->elem[i] = pop();
 	}
