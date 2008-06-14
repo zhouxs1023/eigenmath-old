@@ -1,4 +1,4 @@
-// Evaluate a user defined functions
+// Evaluate a user defined function
 
 #include "stdafx.h"
 #include "defs.h"
