@@ -190,6 +190,7 @@ enum {
 	ID_HELP_ERFC,
 	ID_HELP_EVAL,
 	ID_HELP_EXP,
+	ID_HELP_EXPAND,
 	ID_HELP_EXPCOS,
 	ID_HELP_EXPSIN,
 	ID_HELP_FACTOR,
@@ -202,6 +203,7 @@ enum {
 	ID_HELP_INTEGRAL,
 	ID_HELP_INV,
 	ID_HELP_LAGUERRE,
+	ID_HELP_LEADING,
 	ID_HELP_LEGENDRE,
 	ID_HELP_LOG,
 	ID_HELP_MAG,
@@ -587,7 +589,9 @@ static struct {
 	{"Polynomial functions",		0},
 	{"coeff",				ID_HELP_COEFF},
 	{"deg",					ID_HELP_DEG},
+	{"expand",				ID_HELP_EXPAND},
 	{"factor",				ID_HELP_FACTOR_POLY},
+	{"leading",				ID_HELP_LEADING},
 	{"nroots",				ID_HELP_NROOTS},
 	{"quotient",				ID_HELP_QUOTIENT},
 	{"roots",				ID_HELP_ROOTS},
@@ -1027,6 +1031,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case ID_HELP_EXP:
 			HELP(help_exp);
 			break;
+		case ID_HELP_EXPAND:
+			HELP(help_expand);
+			break;
 		case ID_HELP_EXPCOS:
 			HELP(help_expcos);
 			break;
@@ -1044,6 +1051,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		case ID_HELP_FOR:
 			HELP(help_for);
+			break;
+		case ID_HELP_LEADING:
+			HELP(help_leading);
 			break;
 		case ID_HELP_LOG:
 			HELP(help_log);

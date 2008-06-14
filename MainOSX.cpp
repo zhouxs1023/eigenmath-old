@@ -492,11 +492,17 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
 	case 'exp ':
 		HELP(help_exp);
 		break;
+	case 'expa':
+		HELP(help_expand);
+		break;
 	case 'expc':
 		HELP(help_expcos);
 		break;
 	case 'exps':
 		HELP(help_expsin);
+		break;
+	case 'lead':
+		HELP(help_leading);
 		break;
 	case 'log ':
 		HELP(help_log);

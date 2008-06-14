@@ -342,6 +342,12 @@ static char *help_exp[] = {
 	"exp(1.0)",
 };
 
+// expand
+
+static char *help_expand[] = {
+	"expand(1/(x^3+x^2))",
+};
+
 // expcos
 
 static char *help_expcos[] = {
@@ -375,6 +381,12 @@ static char *help_for[] = {
 	"for(k,1,9,x=sqrt(2+x),y=2*y/x)",
 	"y",
 	"float(y)",
+};
+
+// leading
+
+static char *help_leading[] = {
+	"leading(5x^2+x+1)",
 };
 
 // log
