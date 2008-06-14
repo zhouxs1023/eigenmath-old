@@ -360,7 +360,7 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
 		if (running)
 			break;
 		goto_calc_mode();
-		printstr("version 134 eigenmath.sf.net\n");
+		printstr("version 135 eigenmath.sf.net\n");
 		update_display();
 		break;
 

@@ -386,7 +386,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	main_window = CreateWindow(
 		"Eigenmath",
-		"Eigenmath 134",
+		"Eigenmath 135",
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0,
 //		CW_USEDEFAULT, 0,
