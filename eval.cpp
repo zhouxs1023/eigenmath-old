@@ -180,7 +180,6 @@ eval_cons(void)
 	case STOP:		eval_stop();		break;
 	case SUBST:		eval_subst();		break;
 	case SUM:		eval_sum();		break;
-	case TAB:		eval_tab();		break;
 	case TAN:		eval_tan();		break;
 	case TANH:		eval_tanh();		break;
 	case TAYLOR:		eval_taylor();		break;
@@ -598,15 +597,6 @@ eval_subst(void)
 	eval();
 	subst();
 	eval(); // normalize
-}
-
-void
-eval_tab(void)
-{
-	push(car(p1));
-	push(cadr(p1));
-	eval();
-	list(2);
 }
 
 void

@@ -168,7 +168,6 @@ enum {
 	STOP,
 	SUBST,
 	SUM,
-	TAB,
 	TAN,
 	TANH,
 	TAYLOR,

@@ -382,7 +382,6 @@ void eval_setq(void);
 void eval_sqrt(void);
 void eval_stop(void);
 void eval_subst(void);
-void eval_tab(void);
 void eval_unit(void);
 void eval_noexpand(void);
 void eval_predicate(void);
