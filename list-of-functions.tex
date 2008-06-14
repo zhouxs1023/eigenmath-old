@@ -120,6 +120,15 @@ eval($f,x,n$) returns $f$ evaluated at $x=n$.
 \section*{exp}
 exp($x$) returns $e^x$.
 
+\section*{expand}
+expand($r,x$) returns the partial fraction expansion of the ratio of
+polynomials $r$ in $x$.
+
+\medskip
+\verb$expand(1/(x^3+x^2),x)$
+
+$${1\over x^2}-{1\over x}+{1\over x+1}$$
+
 \section*{expcos}
 expcos($x$) returns the cosine of $x$ in exponential form.
 
@@ -241,6 +250,14 @@ If $a$ is omitted then $a=0$ is used.
 
 \section*{lcm}
 lcm($a,b,\ldots$) returns the least common multiple.
+
+\section*{leading}
+leading($p,x$) returns the leading coefficient of polynomial $p$ in $x$.
+
+\medskip
+\verb$leading(5x^2+x+1,x)$
+
+$$5$$
 
 \section*{legendre}
 legendre($x,n,m$) returns the $n$th Legendre polynomial in $x$.
