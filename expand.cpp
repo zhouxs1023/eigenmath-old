@@ -1,4 +1,11 @@
 // Partial fraction expansion
+//
+// expand(1/(x^3+x^2),x)
+//
+//        1      1       1
+//      ---- - --- + -------
+//        2     x     x + 1
+//       x
 
 #include "stdafx.h"
 #include "defs.h"
@@ -6,17 +13,15 @@
 void
 eval_expand(void)
 {
-	push(cadr(p1));			// 1st arg
+	push(cadr(p1));
 	eval();
-
-	push(caddr(p1));		// 2nd arg
+	push(caddr(p1));
 	eval();
 	p2 = pop();
 	if (p2 == symbol(NIL))
 		guess();
 	else
 		push(p2);
-
 	expand();
 }
 
