@@ -2,10 +2,9 @@
 //
 // Example
 //
-//	push(P);
-//	push(X);
-//	leading();
-//	K = pop();
+//	leading(5x^2+x+1,x)
+//
+//      5
 //
 // The result is undefined if P is not a polynomial.
 
