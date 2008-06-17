@@ -15,15 +15,22 @@
 void
 eval_expand(void)
 {
+	// 1st arg
+
 	push(cadr(p1));
 	eval();
+
+	// 2nd arg
+
 	push(caddr(p1));
 	eval();
+
 	p2 = pop();
 	if (p2 == symbol(NIL))
 		guess();
 	else
 		push(p2);
+
 	expand();
 }
 
