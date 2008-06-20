@@ -41,11 +41,14 @@ eval_laguerre(void)
 
 	// 3rd arg
 
-	if (iscons(cdddr(p1))) {
-		push(cadddr(p1));
-		eval();
-	} else
-		push(zero);
+	push(cadddr(p1));
+	eval();
+
+	p2 = pop();
+	if (p2 == symbol(NIL))
+		push_integer(0);
+	else
+		push(p2);
 
 	laguerre();
 }
