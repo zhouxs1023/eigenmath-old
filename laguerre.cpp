@@ -1,31 +1,52 @@
-//-----------------------------------------------------------------------------
-//
-//	Laguerre polynomial
-//
-//	Input:		tos-3		x	(can be a symbol or expr)
-//
-//			tos-2		n
-//
-//			tos-1		k
-//
-//	Output:		Result on stack
-//
-//	Uses the recurrence relation
-//
-//		L(x,0,k) = 1
-//
-//		L(x,1,k) = -x + k + 1
-//
-//		n*L(x,n,k) = (2*(n-1)+1-x+k)*L(x,n-1,k) - (n-1+k)*L(x,n-2,k)
-//
-//	In the "for" loop i = n-1 so the recurrence relation becomes
-//
-//		(i+1)*L(x,n,k) = (2*i+1-x+k)*L(x,n-1,k) - (i+k)*L(x,n-2,k)
-//
-//-----------------------------------------------------------------------------
+/* Laguerre function
+
+Example
+
+	laguerre(x,3)
+
+	   1   3    3   2
+	- --- x  + --- x  - 3 x + 1
+	   6        2
+
+The computation uses the recurrence relation
+
+	L(x,0,k) = 1
+
+	L(x,1,k) = -x + k + 1
+
+	n*L(x,n,k) = (2*(n-1)+1-x+k)*L(x,n-1,k) - (n-1+k)*L(x,n-2,k)
+
+In the "for" loop i = n-1 so the recurrence relation becomes
+
+	(i+1)*L(x,n,k) = (2*i+1-x+k)*L(x,n-1,k) - (i+k)*L(x,n-2,k)
+*/
 
 #include "stdafx.h"
 #include "defs.h"
+
+void
+eval_laguerre(void)
+{
+	// 1st arg
+
+	push(cadr(p1));
+	eval();
+
+	// 2nd arg
+
+	push(caddr(p1));
+	eval();
+
+	// 3rd arg
+
+	if (iscons(cdddr(p1))) {
+		push(cadddr(p1));
+		eval();
+	} else
+		push(zero);
+
+	laguerre();
+}
 
 #define X p1
 #define N p2
@@ -37,15 +58,8 @@
 void
 laguerre(void)
 {
-	save();
-	yylaguerre();
-	restore();
-}
-
-void
-yylaguerre(void)
-{
 	int n;
+	save();
 
 	K = pop();
 	N = pop();
@@ -60,25 +74,28 @@ yylaguerre(void)
 		push(N);
 		push(K);
 		list(4);
+		restore();
 		return;
 	}
 
 	if (issymbol(X))
-		yylaguerre2(n);
+		laguerre2(n);
 	else {
 		Y = X;			// do this when X is an expr
 		X = symbol(SECRETX);
-		yylaguerre2(n);
+		laguerre2(n);
 		X = Y;
 		push(symbol(SECRETX));
 		push(X);
 		subst();
 		eval();
 	}
+
+	restore();
 }
 
 void
-yylaguerre2(int n)
+laguerre2(int n)
 {
 	int i;
 
