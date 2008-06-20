@@ -565,9 +565,9 @@ void test_isprime(void);
 void test_integral(void);
 
 // laguerre.cpp
+void eval_laguerre(void);
 void laguerre(void);
-void yylaguerre(void);
-void yylaguerre2(int n);
+void laguerre2(int n);
 void test_laguerre(void);
 
 // lcm.cpp

@@ -4,11 +4,13 @@ Example
 
 	laguerre(x,3)
 
+Result
+
 	   1   3    3   2
 	- --- x  + --- x  - 3 x + 1
 	   6        2
 
-The computation uses the recurrence relation
+The computation that follows uses the recurrence relation
 
 	L(x,0,k) = 1
 
