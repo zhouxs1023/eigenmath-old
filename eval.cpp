@@ -80,7 +80,6 @@ eval_cons(void)
 	case ARCTAN:		eval_arctan();		break;
 	case ARCTANH:		eval_arctanh();		break;
 	case ARG:		eval_arg();		break;
-	case ATOMIZE:		eval_atomize();		break;
 	case BESSELJ:		eval_besselj();		break;
 	case BESSELY:		eval_bessely();		break;
 	case BINOMIAL:		eval_binomial();	break;
