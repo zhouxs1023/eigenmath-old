@@ -368,8 +368,6 @@ void eval_index(void);
 void eval_inv(void);
 void eval_invg(void);
 void eval_isinteger(void);
-void eval_laguerre(void);
-void eval_legendre(void);
 void eval_mem(void);
 void eval_multiply(void);
 void eval_number(void);
@@ -581,6 +579,7 @@ void eval_leading(void);
 void leading(void);
 
 // legendre.cpp
+void eval_legendre(void);
 void legendre(void);
 void test_legendre(void);
 

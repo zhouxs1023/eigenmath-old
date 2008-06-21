@@ -10,7 +10,7 @@ Result
 	- --- x  + --- x  - 3 x + 1
 	   6        2
 
-The computation that follows uses the recurrence relation
+The computation uses the following recurrence relation.
 
 	L(x,0,k) = 1
 

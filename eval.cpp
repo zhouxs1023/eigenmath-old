@@ -401,21 +401,6 @@ eval_isinteger(void)
 }
 
 void
-eval_legendre(void)
-{
-	push(cadr(p1));
-	eval();
-	push(caddr(p1));
-	eval();
-	if (iscons(cdddr(p1))) {
-		push(cadddr(p1));
-		eval();
-	} else
-		push(zero);
-	legendre();
-}
-
-void
 eval_mem(void)
 {
 	print_mem_info();

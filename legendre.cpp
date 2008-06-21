@@ -1,35 +1,61 @@
-//-----------------------------------------------------------------------------
-//
-//	Legendre polynomial
-//
-//	Input:		tos-3		x	(can be a symbol or expr)
-//
-//			tos-2		n
-//
-//			tos-1		m
-//
-//	Output:		Result on stack
-//
-//	Uses the recurrence relation
-//
-//		P(x,0) = 1
-//
-//		P(x,1) = x
-//
-//		n*P(x,n) = (2*(n-1)+1)*x*P(x,n-1) - (n-1)*P(x,n-2)
-//
-//	In the "for" loop we have i = n-1 so the recurrence relation becomes
-//
-//		(i+1)*P(x,n) = (2*i+1)*x*P(x,n-1) - i*P(x,n-2)
-//
-//	For m > 0
-//
-//		P(x,n,m) = (-1)^m * (1-x^2)^(m/2) * d^m/dx^m P(x,n)
-//
-//-----------------------------------------------------------------------------
+/* Legendre function
+
+Example
+
+	legendre(x,3,0)
+
+Result
+
+	 5   3    3
+	--- x  - --- x
+	 2        2
+
+The computation uses the following recurrence relation.
+
+	P(x,0) = 1
+
+	P(x,1) = x
+
+	n*P(x,n) = (2*(n-1)+1)*x*P(x,n-1) - (n-1)*P(x,n-2)
+
+In the "for" loop we have i = n-1 so the recurrence relation becomes
+
+	(i+1)*P(x,n) = (2*i+1)*x*P(x,n-1) - i*P(x,n-2)
+
+For m > 0
+
+	P(x,n,m) = (-1)^m * (1-x^2)^(m/2) * d^m/dx^m P(x,n)
+*/
 
 #include "stdafx.h"
 #include "defs.h"
+
+void
+eval_legendre(void)
+{
+	// 1st arg
+
+	push(cadr(p1));
+	eval();
+
+	// 2nd arg
+
+	push(caddr(p1));
+	eval();
+
+	// 3rd arg (optional)
+
+	push(cadddr(p1));
+	eval();
+
+	p2 = pop();
+	if (p2 == symbol(NIL))
+		push_integer(0);
+	else
+		push(p2);
+
+	legendre();
+}
 
 #define X p1
 #define N p2
