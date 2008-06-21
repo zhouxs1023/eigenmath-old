@@ -96,9 +96,7 @@ static char *s[] = {
 
 	// test case H
 
-	"condense(-3 exp(-1/3 r + i phi) cos(theta)"
-	" - 6 exp(-1/3 r + i phi) cos(theta) sin(theta)^2"
-	" + 12 exp(-1/3 r + i phi) cos(theta)^3)",
+	"condense(-3 exp(-1/3 r + i phi) cos(theta) - 6 exp(-1/3 r + i phi) cos(theta) sin(theta)^2 + 12 exp(-1/3 r + i phi) cos(theta)^3)",
 	"3*exp(-1/3*r+i*phi)*(-1+4*cos(theta)^2-2*sin(theta)^2)*cos(theta)",
 };
 

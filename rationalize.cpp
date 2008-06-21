@@ -184,17 +184,12 @@ __rationalize_tensor(void)
 static char *s[] = {
 
 	"rationalize(a/b+c/d)",
-//	"1/b*1/d*(a*d+b*c)",
 	"(a*d+b*c)/(b*d)",
 
 	"rationalize(t*y/(t+y)+2*t^2*y*(2*t+y)^(-2))",
-//	"t*y*1/(t+y)*(2*t+y)^(-2)*((2*t+y)^2+2*t*(t+y))",
-//	"t*y*((2*t+y)^2+2*t*(t+y))/((t+y)*(2*t+y)^2)",
-//	"t*y*(2*t*(t+y)+(2*t+y)^2)/((t+y)*(2*t+y)^2)",
 	"t*y*(6*t^2+y^2+6*t*y)/((t+y)*(2*t+y)^2)",
 
 	"rationalize(x^(-2*a)+x^(-4*a))",
-//	"x^(-4*a)*(1+x^(2*a))",
 	"(1+x^(2*a))/(x^(4*a))",
 
 	"rationalize(x^(1/3)+x^(2/3))",
