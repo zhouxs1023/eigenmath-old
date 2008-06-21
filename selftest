@@ -1022,11 +1022,11 @@ trace=1
 erf(a)
 check(last = erf(a))
 -- erf.cpp
-erf(0.0) + 1
-check(last = 1)
+erf(0.0)
+check(abs(last) < 0.000001)
 -- erf.cpp
-float(erf(0)) + 1
-check(last = 1)
+float(erf(0))
+check(abs(last) < 0.000001)
 -- erf.cpp
 float(erf(1))
 check(abs(last - 0.842701) < 0.000001)
@@ -1036,11 +1036,11 @@ trace=1
 erfc(a)
 check(last = erfc(a))
 -- erfc.cpp
-erfc(0.0)
-check(last = 1)
+erfc(0.0)-1.0
+check(abs(last) < 0.000001)
 -- erfc.cpp
-float(erfc(0))
-check(last = 1)
+float(erfc(0))-1.0
+check(abs(last) < 0.000001)
 -- erfc.cpp
 float(erfc(1))
 check(abs(last - 0.157299) < 0.000001)
@@ -1845,6 +1845,7 @@ trace=1
 clear
 trace=1
 clear
+trace=1
 tty=1
 integral(x^2+x)-(1/2*x^2+1/3*x^3)
 check(last = 0)
@@ -4032,3 +4033,4 @@ check(last = ((0,0),(0,0)))
 zero(1,1)
 check(last = 0)
 -- zero.cpp
+"ALL TESTS PASSED"
