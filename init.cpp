@@ -61,7 +61,6 @@ init(void)
 	std_symbol("condense", CONDENSE);
 	std_symbol("conj", CONJ);
 	std_symbol("contract", CONTRACT);
-	std_symbol("convolution", CONVOLUTION);
 	std_symbol("cos", COS);
 	std_symbol("cosh", COSH);
 	std_symbol("decomp", DECOMP);
