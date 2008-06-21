@@ -136,7 +136,6 @@ enum {
 	LEGENDRE,
 	LOG,
 	MAG,
-	MEM,
 	MOD,
 	MULTIPLY,
 	NOT,

@@ -63,7 +63,6 @@ condense.o \
 conj.o \
 cons.o \
 contract.o \
-convolution.o \
 cos.o \
 cosh.o \
 data.o \

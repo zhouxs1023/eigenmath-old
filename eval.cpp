@@ -148,7 +148,6 @@ eval_cons(void)
 	case LEGENDRE:		eval_legendre();	break;
 	case LOG:		eval_log();		break;
 	case MAG:		eval_mag();		break;
-	case MEM:		eval_mem();		break;
 	case MOD:		eval_mod();		break;
 	case MULTIPLY:		eval_multiply();	break;
 	case NOT:		eval_not();		break;
@@ -397,13 +396,6 @@ eval_isinteger(void)
 	push_symbol(ISINTEGER);
 	push(p1);
 	list(2);
-}
-
-void
-eval_mem(void)
-{
-	print_mem_info();
-	push(symbol(NIL));
 }
 
 void
