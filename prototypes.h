@@ -197,11 +197,6 @@ void contract(void);
 void yycontract(void);
 void test_contract(void);
 
-// convolution.cpp
-void eval_convolution(void);
-void convolution(void);
-void test_convolution(void);
-
 // cos.cpp
 void eval_cos(void);
 void cosine(void);
@@ -368,7 +363,6 @@ void eval_index(void);
 void eval_inv(void);
 void eval_invg(void);
 void eval_isinteger(void);
-void eval_mem(void);
 void eval_multiply(void);
 void eval_number(void);
 void eval_operator(void);

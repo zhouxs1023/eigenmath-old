@@ -96,7 +96,6 @@ eval_cons(void)
 	case CONDENSE:		eval_condense();	break;
 	case CONJ:		eval_conj();		break;
 	case CONTRACT:		eval_contract();	break;
-	case CONVOLUTION:	eval_convolution();	break;
 	case COS:		eval_cos();		break;
 	case COSH:		eval_cosh();		break;
 	case DECOMP:		eval_decomp();		break;
