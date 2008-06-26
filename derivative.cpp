@@ -302,19 +302,19 @@ d_scalar_scalar_1(void)
 	}
 
 	if (car(p1) == symbol(BESSELJ)) {
-		if (iszero(caddr(p1))) {
+		if (iszero(caddr(p1)))
 			dbesselj0();
-			return;}
-		else {	dbesseljn();
-			return;}
+		else
+			dbesseljn();
+		return;
 	}
 
 	if (car(p1) == symbol(BESSELY)) {
-		if (iszero(caddr(p1))) {
+		if (iszero(caddr(p1)))
 			dbessely0();
-			return;}
-		else {	dbesselyn();
-			return;}
+		else
+			dbesselyn();
+		return;
 	}
 
 	if (car(p1) == symbol(INTEGRAL) && caddr(p1) == p2) {
