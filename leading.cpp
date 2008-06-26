@@ -1,12 +1,14 @@
-// Return the leading coefficient of a polynomial.
-//
-// Example
-//
-//	leading(5x^2+x+1,x)
-//
-//      5
-//
-// The result is undefined if P is not a polynomial.
+/* Return the leading coefficient of a polynomial.
+
+Example
+
+	leading(5x^2+x+1,x)
+
+Result
+
+	5
+
+The result is undefined if P is not a polynomial. */
 
 #include "stdafx.h"
 #include "defs.h"
