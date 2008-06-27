@@ -562,6 +562,7 @@ void test_laguerre(void);
 // laplace.cpp
 void eval_laplace(void);
 void laplace(void);
+void laplace_main(void);
 void test_laplace(void);
 
 // lcm.cpp
