@@ -559,6 +559,11 @@ void laguerre(void);
 void laguerre2(int n);
 void test_laguerre(void);
 
+// laplace.cpp
+void eval_laplace(void);
+void laplace(void);
+void test_laplace(void);
+
 // lcm.cpp
 void eval_lcm(void);
 void lcm(void);

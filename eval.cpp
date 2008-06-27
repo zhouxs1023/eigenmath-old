@@ -142,6 +142,7 @@ eval_cons(void)
 	case ISINTEGER:		eval_isinteger();	break;
 	case ISPRIME:		eval_isprime();		break;
 	case LAGUERRE:		eval_laguerre();	break;
+	case LAPLACE:		eval_laplace();		break;
 	case LCM:		eval_lcm();		break;
 	case LEADING:		eval_leading();		break;
 	case LEGENDRE:		eval_legendre();	break;

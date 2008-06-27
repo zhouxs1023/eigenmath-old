@@ -112,6 +112,7 @@ isprime.o \
 itab.o \
 itest.o \
 laguerre.o \
+laplace.o \
 lcm.o \
 leading.o \
 legendre.o \
