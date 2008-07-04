@@ -8,34 +8,32 @@ eval_circexp(void)
 {
 	push(cadr(p1));
 	eval();
+
 	circexp();
-	eval(); // normalize
+
+	// normalize
+
+	eval();
 }
 
 void
 circexp(void)
 {
-	save();
-	yycircexp();
-	restore();
-}
-
-void
-yycircexp(void)
-{
 	int i, h;
-
+	save();
 	p1 = pop();
 
 	if (car(p1) == symbol(COS)) {
 		push(cadr(p1));
 		expcos();
+		restore();
 		return;
 	}
 
 	if (car(p1) == symbol(SIN)) {
 		push(cadr(p1));
 		expsin();
+		restore();
 		return;
 	}
 
@@ -61,6 +59,7 @@ yycircexp(void)
 		push(p3);
 		add();
 		divide();
+		restore();
 		return;
 	}
 
@@ -74,6 +73,7 @@ yycircexp(void)
 		add();
 		push_rational(1, 2);
 		multiply();
+		restore();
 		return;
 	}
 
@@ -87,6 +87,7 @@ yycircexp(void)
 		subtract();
 		push_rational(1, 2);
 		multiply();
+		restore();
 		return;
 	}
 
@@ -104,6 +105,7 @@ yycircexp(void)
 		push_integer(1);
 		add();
 		divide();
+		restore();
 		return;
 	}
 
@@ -115,6 +117,7 @@ yycircexp(void)
 			p1 = cdr(p1);
 		}
 		list(tos - h);
+		restore();
 		return;
 	}
 
@@ -128,10 +131,12 @@ yycircexp(void)
 			p1->u.tensor->elem[i] = pop();
 		}
 		push(p1);
+		restore();
 		return;
 	}
 
 	push(p1);
+	restore();
 }
 
 #if SELFTEST
