@@ -443,7 +443,6 @@ void test_floor(void);
 
 // for.cpp
 void eval_for(void);
-void for_function(void);
 void test_for(void);
 
 // gamma.cpp

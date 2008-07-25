@@ -6,64 +6,46 @@
 void
 eval_for(void)
 {
-	push(cadr(p1)); /* index expr is quoted */
-	push(caddr(p1));
-	eval();
-	push(cadddr(p1));
-	eval();
-	push(cddddr(p1));
-	for_function();
-}
-
-/*	Input:		tos-4		Index expression
-
-			tos-3		Initial value
-
-			tos-2		Final value
-
-			tos-1		Statement list
-
-	Output:		Result on stack
-*/
-
-#define A p1
-#define B p2
-#define T p3
-
-void
-for_function(void)
-{
 	int i, j, k;
 
-	save();
+	// 1st arg (quoted)
 
-	B = pop();
-	k = pop_integer();
+	p3 = cadr(p1);
+
+	// 2nd arg
+
+	push(caddr(p1));
+	eval();
 	j = pop_integer();
-	A = pop();
-
 	if (j == (int) 0x80000000)
-		stop("2nd arg of \"for\" function: integer expected");
+		stop("for: 2nd arg?");
 
+	// 3rd arg
+
+	push(cadddr(p1));
+	eval();
+	k = pop_integer();
 	if (k == (int) 0x80000000)
-		stop("3rd arg of \"for\" function: integer expected");
+		stop("for: 3rd arg?");
+
+	// stmt list
+
+	p1 = cddddr(p1);
 
 	for (i = j; i <= k; i++) {
-		T = B;
-		while (iscons(T)) {
-			push(car(T));
-			push(A);
+		p2 = p1;
+		while (iscons(p2)) {
+			push(car(p2));
+			push(p3);
 			push_integer(i);
 			subst();
 			eval();
 			pop();
-			T = cdr(T);
+			p2 = cdr(p2);
 		}
 	}
 
 	push(symbol(NIL));
-
-	restore();
 }
 
 #if SELFTEST
