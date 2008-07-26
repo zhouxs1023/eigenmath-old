@@ -342,23 +342,6 @@ clear
 trace=1
 clear
 trace=1
-carac(-2,-1,1)
-check(last = 0)
--- carac.cpp
-carac(-1,-1,1)
-check(last = 1/2)
--- carac.cpp
-carac(0,-1,1)
-check(last = 1)
--- carac.cpp
-carac(1,-1,1)
-check(last = 1/2)
--- carac.cpp
-carac(2,-1,1)
-check(last = 0)
--- carac.cpp
-clear
-trace=1
 ceiling(a)
 check(last = ceiling(a))
 -- ceiling.cpp
@@ -1673,15 +1656,6 @@ clear
 trace=1
 clear
 trace=1
-heaviside(-1)
-check(last = 0)
--- heaviside.cpp
-heaviside(0)
-check(last = 1/2)
--- heaviside.cpp
-heaviside(1)
-check(last = 1)
--- heaviside.cpp
 clear
 trace=1
 hermite(x,n)

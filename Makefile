@@ -51,7 +51,6 @@ besselj.o \
 bessely.o \
 bignum.o \
 binomial.o \
-carac.o \
 ceiling.o \
 choose.o \
 circexp.o \
@@ -98,7 +97,6 @@ for.o \
 gamma.o \
 gcd.o \
 guess.o \
-heaviside.o \
 hermite.o \
 hilbert.o \
 imag.o \

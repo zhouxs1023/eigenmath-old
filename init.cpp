@@ -48,7 +48,6 @@ init(void)
 	std_symbol("besselj", BESSELJ);
 	std_symbol("bessely", BESSELY);
 	std_symbol("binomial", BINOMIAL);
-	std_symbol("carac", CARAC);
 	std_symbol("ceiling", CEILING);
 	std_symbol("check", CHECK);
 	std_symbol("choose", CHOOSE);
@@ -95,7 +94,6 @@ init(void)
 	std_symbol("for", FOR);
 	std_symbol("Gamma", GAMMA);
 	std_symbol("gcd", GCD);
-	std_symbol("heaviside", HEAVISIDE);
 	std_symbol("hermite", HERMITE);
 	std_symbol("hilbert", HILBERT);
 	std_symbol("imag", IMAG);

@@ -35,7 +35,6 @@ selftest(void)
 	test_arg();
 	test_besselj();
 	test_bessely();
-	test_carac();
 	test_ceiling();
 	test_choose();
 	test_circexp();

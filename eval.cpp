@@ -83,7 +83,6 @@ eval_cons(void)
 	case BESSELJ:		eval_besselj();		break;
 	case BESSELY:		eval_bessely();		break;
 	case BINOMIAL:		eval_binomial();	break;
-	case CARAC:		eval_carac();		break;
 	case CEILING:		eval_ceiling();		break;
 	case CHECK:		eval_check();		break;
 	case CHOOSE:		eval_choose();		break;
@@ -130,7 +129,6 @@ eval_cons(void)
 	case FOR:		eval_for();		break;
 	case GAMMA:		eval_gamma();		break;
 	case GCD:		eval_gcd();		break;
-	case HEAVISIDE:		eval_heaviside();	break;
 	case HERMITE:		eval_hermite();		break;
 	case HILBERT:		eval_hilbert();		break;
 	case IMAG:		eval_imag();		break;

@@ -266,10 +266,6 @@ d_scalar_scalar_1(void)
 		darctanh();
 		return;
 	}
-	if (car(p1) == symbol(HEAVISIDE)) {
-		dheaviside();
-		return;
-	}
 
 	if (car(p1) == symbol(ABS)) {
 		dabs();
@@ -278,11 +274,6 @@ d_scalar_scalar_1(void)
 
 	if (car(p1) == symbol(SGN)) {
 		dsgn();
-		return;
-	}
-
-	if (car(p1) == symbol(CARAC)) {
-		dcarac();
 		return;
 	}
 
@@ -655,17 +646,6 @@ darctanh(void)
 }
 
 void
-dheaviside(void)
-{
-	push(cadr(p1));
-	push(p2);
-	derivative();
-	push(cadr(p1));
-	dirac();
-	multiply();
-}
-
-void
 dabs(void)
 {
 	push(cadr(p1));
@@ -688,27 +668,6 @@ dsgn(void)
 	push_integer(2);
 	multiply();
 }
-
-void
-dcarac(void)
-{
-	push(cadr(p1));
-	push(p2);
-	derivative();
-	push(cadr(p1));
-	push(caddr(p1));
-	negate();
-	add();
-	dirac();
-	push(cadr(p1));
-	push(cadddr(p1));
-	negate();
-	add();
-	dirac();
-	add();
-	multiply();
-}
-
 
 void
 dhermite(void)

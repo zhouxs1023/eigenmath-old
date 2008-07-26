@@ -127,12 +127,6 @@ void eval_binomial(void);
 void binomial(void);
 void test_binomial(void);
 
-// carac.cpp
-void eval_carac(void);
-void carac(void);
-void yycarac(void);
-void test_carac(void);
-
 // ceiling.cpp
 void eval_ceiling(void);
 void ceiling(void);
@@ -254,10 +248,8 @@ void dtanh(void);
 void darcsinh(void);
 void darccosh(void);
 void darctanh(void);
-void dheaviside(void);
 void dabs(void);
 void dsgn(void);
-void dcarac(void);
 void dhermite(void);
 void derf(void);
 void derfc(void);
@@ -458,12 +450,6 @@ void test_gcd(void);
 
 // guess.cpp
 void guess(void);
-
-// heaviside.cpp
-void eval_heaviside(void);
-void heaviside(void);
-void yyheaviside(void);
-void test_heaviside(void);
 
 // hermite.cpp
 void hermite(void);
