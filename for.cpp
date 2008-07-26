@@ -47,36 +47,3 @@ eval_for(void)
 
 	push(symbol(NIL));
 }
-
-#if SELFTEST
-
-static char *s[] = {
-
-	"x=0",
-	"",
-
-	"y=2",
-	"",
-
-	"for(k,1,9,x=sqrt(2+x),y=2y/x)",
-	"",
-
-	"float(y)",
-	"3.14159",
-
-	/* ensure index expr is quoted */
-
-	"for(i,1,3,j=i)",
-	"",
-
-	"j",
-	"3",
-};
-
-void
-test_for(void)
-{
-	test(__FILE__, s, sizeof s / sizeof (char *));
-}
-
-#endif

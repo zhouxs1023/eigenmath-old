@@ -435,7 +435,6 @@ void test_floor(void);
 
 // for.cpp
 void eval_for(void);
-void test_for(void);
 
 // gamma.cpp
 void eval_gamma(void);

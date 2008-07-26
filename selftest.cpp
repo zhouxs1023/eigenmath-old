@@ -54,7 +54,6 @@ selftest(void)
 	test_factorpoly();
 	test_float();
 	test_floor();
-	test_for();
 	test_gamma();
 	test_gcd();
 	test_imag();
