@@ -1,13 +1,7 @@
+// Greatest common denominator
+
 #include "stdafx.h"
 #include "defs.h"
-
-#define DEBUG 0
-
-static void gcd_expr_expr(void);
-static void gcd_expr(U *);
-static void gcd_term_term(void);
-static void gcd_term_factor(void);
-static void gcd_factor_term(void);
 
 void
 eval_gcd(void)
@@ -41,12 +35,6 @@ yygcd(void)
 
 	p2 = pop();
 	p1 = pop();
-
-#if DEBUG
-	printf("gcd: these are the two operands:\n");
-	print(stdout, p1);
-	print(stdout, p2);
-#endif
 
 	if (equal(p1, p2)) {
 		push(p1);
@@ -179,7 +167,7 @@ yygcd(void)
 
 // in this case gcd is used as a composite function, i.e. gcd(gcd(gcd...
 
-static void
+void
 gcd_expr_expr(void)
 {
 	if (length(p1) != length(p2)) {
@@ -227,7 +215,7 @@ gcd_expr_expr(void)
 		push(one);
 }
 
-static void
+void
 gcd_expr(U *p)
 {
 	p = cdr(p);
@@ -240,7 +228,7 @@ gcd_expr(U *p)
 	}
 }
 
-static void
+void
 gcd_term_term(void)
 {
 	push(one);
@@ -258,7 +246,7 @@ gcd_term_term(void)
 	}
 }
 
-static void
+void
 gcd_term_factor(void)
 {
 	push(one);
@@ -272,7 +260,7 @@ gcd_term_factor(void)
 	}
 }
 
-static void
+void
 gcd_factor_term(void)
 {
 	push(one);

@@ -444,7 +444,7 @@ void test_gamma(void);
 // gcd.cpp
 void eval_gcd(void);
 void gcd(void);
-void yygcd(void);
+void gcd_main(void);
 void gcd_expr_expr(void);
 void gcd_expr(U *p);
 void gcd_term_term(void);
