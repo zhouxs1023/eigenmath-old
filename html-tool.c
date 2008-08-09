@@ -140,8 +140,12 @@ char *preamble =
 "</head>\n"
 "<body>\n";
 
+#if 0
 char *epilog =
 "<p><a href=\"http://sourceforge.net\"><img src=\"http://sflogo.sourceforge.net/sflogo.php?group_id=103462&amp;type=2\" width=\"125\" height=\"37\" border=\"0\" alt=\"SourceForge.net Logo\" /></a></body></html>\n";
+#else
+char *epilog = "</body></html>\n";
+#endif
 
 char newfilename[BUFLEN], buf[BUFLEN];
 FILE *fout;
@@ -171,6 +175,8 @@ emit_html(char *filename, int special)
 	comment_state = 0;
 
 	while (fgets(buf, BUFLEN, f)) {
+		if (strcmp(buf, "#if SELFTEST\n") == 0)
+			break;
 		fputs("<tt>", fout);
 		process_one_line_of_source_code(buf);
 		fputs("</tt><br>\n", fout);
