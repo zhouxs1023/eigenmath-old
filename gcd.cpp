@@ -23,13 +23,13 @@ gcd(void)
 {
 	int x = expanding;
 	save();
-	yygcd();
+	gcd_main();
 	restore();
 	expanding = x;
 }
 
 void
-yygcd(void)
+gcd_main(void)
 {
 	expanding = 1;
 
