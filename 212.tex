@@ -6,4 +6,25 @@
 \itemitem{(c)} $(s+t)^*=s^*+t^*$. Note that $s^*+t^*$ is a sum of Dedekind
 cuts.
 
+\bigskip
+\noindent
+(a)
+First we prove the implication.
+Let $r\in s^*$. Then by definition of a Dedekind cut we have $r<s$.
+From $r<s$ and $s\le t$ we have $r<t$ by the transitive law.
+From $r<t$ it follows that $r\in t^*$.
+Therefore $r\in s^*$ implies $r\in t^*$. Hence $s^*\subseteq t^*$.
+Next we prove the converse.
+Let $t<s$. Then $t\in s^*$ and $t\not\in t^*$.
+It follows that $s^*\not\subseteq t^*$, a contradiction.
+Since $t<s$ leads to a contradiction we must have $s\le t$.
+
+\bigskip
+\noindent
+{\it The transitive law is used loosely here, is there a better way?
+The proof mixes reals and rationals, is that ok?
+Is there a simple way to prove the converse directly instead of by
+contradiction?}
+
+
 \end
