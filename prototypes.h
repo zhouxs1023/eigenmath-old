@@ -445,6 +445,11 @@ void test_gamma(void);
 void eval_gcd(void);
 void gcd(void);
 void yygcd(void);
+void gcd_expr_expr(void);
+void gcd_expr(U *p);
+void gcd_term_term(void);
+void gcd_term_factor(void);
+void gcd_factor_term(void);
 void test_gcd(void);
 
 // guess.cpp
