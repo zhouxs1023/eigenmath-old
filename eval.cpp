@@ -56,10 +56,9 @@ eval_sym(void)
 
 	p2 = get_binding(p1);
 	push(p2);
-	if (p1 != p2) {
-		//subst_args();
-		eval();
-	}
+	if (p1 == p2)
+		return;
+	eval();
 }
 
 void
@@ -82,6 +81,7 @@ eval_cons(void)
 	case ARG:		eval_arg();		break;
 	case BESSELJ:		eval_besselj();		break;
 	case BESSELY:		eval_bessely();		break;
+	case BINDING:		eval_binding();		break;
 	case BINOMIAL:		eval_binomial();	break;
 	case CEILING:		eval_ceiling();		break;
 	case CHECK:		eval_check();		break;
@@ -190,6 +190,12 @@ eval_cons(void)
 	case ZERO:		eval_zero();		break;
 	default:		eval_user_function();	break;
 	}	
+}
+
+void
+eval_binding(void)
+{
+	push(get_binding(cadr(p1)));
 }
 
 // checks a predicate, i.e. check(A = B)

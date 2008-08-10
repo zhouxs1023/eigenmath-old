@@ -55,5 +55,5 @@ define_user_function(void)
 
 	// return value is nil
 
-	push(symbol(NIL));
+	push_symbol(NIL);
 }
