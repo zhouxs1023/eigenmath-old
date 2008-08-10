@@ -1,94 +1,55 @@
-/*	Name:		product
-
-	Syntax:		product(var, minval, maxval, expr)
-
-	Input:		cadr(p1)	var
-
-			caddr(p1)	minval
-
-			cadddr(p1)	maxval
-
-			caddddr(p1)	expr
-
-	Output:		Product on stack
-
-	Notes:		The original value of var is restored before the
-			product function returns.
-
-			Expr is quoted. It is not evaluated until var is
-			assigned minval.
-*/
+// 'product' function
 
 #include "stdafx.h"
 #include "defs.h"
 
-#define F p1
-#define X p2
+#define A p3
+#define B p4
+#define I p5
+#define X p6
 
 void
 eval_product(void)
 {
-	push(cadr(p1)); /* index expr is quoted */
+	int i, j, k;
+
+	// 1st arg (quoted)
+
+	X = cadr(p1);
+
+	// 2nd arg
+
 	push(caddr(p1));
 	eval();
+	j = pop_integer();
+	if (j == (int) 0x80000000)
+		stop("product: 2nd arg?");
+
+	// 3rd arg
+
 	push(cadddr(p1));
 	eval();
-	push(caddddr(p1));
-	product();
-}
-
-void
-product(void)
-{
-	int h, i, j, k;
-
-	F = pop();
 	k = pop_integer();
-	j = pop_integer();
-	X = pop();
-
-	if (j == (int) 0x80000000)
-		stop("2nd arg in product function: integer expected");
-
 	if (k == (int) 0x80000000)
-		stop("3rd arg in product function: integer expected");
+		stop("product: 3rd arg?");
 
-	h = tos;
+	// 4th arg
+
+	p1 = caddddr(p1);
+
+	B = get_binding(X);
+	A = get_arglist(X);
+
+	push_integer(1);
 
 	for (i = j; i <= k; i++) {
-		push(F);
-		push(X);
 		push_integer(i);
-		subst();
+		I = pop();
+		set_binding(X, I);
+		push(p1);
 		eval();
+		multiply();
 	}
 
-	multiply_all(tos - h);
+	set_binding_and_arglist(X, B, A);
 }
-
-#if SELFTEST
-
-static char *s[] = {
-
-	"n=quote(n)",
-	"",
-
-	"product(n,1,4,n)",
-	"24",
-
-	"n",
-	"n",
-
-	/* ensure index expr is quoted */
-
-	"product(i,1,3,i)",
-	"6",
-};
-
-void
-test_product(void)
-{
-	test(__FILE__, s, sizeof s / sizeof (char *));
-}
-
-#endif

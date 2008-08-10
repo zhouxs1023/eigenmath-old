@@ -67,13 +67,11 @@ selftest(void)
 	test_numerator();
 	test_outer();
 	test_polar();
-	test_product();
 	test_quotient();
 	test_rationalize();
 	test_real();
 	test_rect();
 	test_sgn();
-	test_sum();
 	test_taylor();
 	test_transpose();
 	test_zero();

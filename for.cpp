@@ -1,7 +1,12 @@
-// Evaluate the 'for' function
+// 'for' function
 
 #include "stdafx.h"
 #include "defs.h"
+
+#define A p3
+#define B p4
+#define I p5
+#define X p6
 
 void
 eval_for(void)
@@ -10,7 +15,7 @@ eval_for(void)
 
 	// 1st arg (quoted)
 
-	p3 = cadr(p1);
+	X = cadr(p1);
 
 	// 2nd arg
 
@@ -28,22 +33,30 @@ eval_for(void)
 	if (k == (int) 0x80000000)
 		stop("for: 3rd arg?");
 
-	// stmt list
+	// remaining args
 
 	p1 = cddddr(p1);
 
+	B = get_binding(X);
+	A = get_arglist(X);
+
 	for (i = j; i <= k; i++) {
+		push_integer(i);
+		I = pop();
+		set_binding(X, I);
 		p2 = p1;
 		while (iscons(p2)) {
 			push(car(p2));
-			push(p3);
-			push_integer(i);
-			subst();
 			eval();
 			pop();
 			p2 = cdr(p2);
 		}
 	}
 
-	push(symbol(NIL));
+	set_binding_and_arglist(X, B, A);
+
+	// return value
+
+	push_symbol(NIL);
 }
+

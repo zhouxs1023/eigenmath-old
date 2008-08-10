@@ -768,8 +768,6 @@ int any_denominators(U *p);
 
 // product.cpp
 void eval_product(void);
-void product(void);
-void test_product(void);
 
 // qadd.cpp
 void qadd(void);
@@ -898,8 +896,6 @@ void subst(void);
 
 // sum.cpp
 void eval_sum(void);
-void sum(void);
-void test_sum(void);
 
 // symbol.cpp
 void std_symbol(char *s, int n);
