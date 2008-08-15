@@ -16,6 +16,8 @@ eval_for(void)
 	// 1st arg (quoted)
 
 	X = cadr(p1);
+	if (!issymbol(X))
+		stop("for: 1st arg?");
 
 	// 2nd arg
 

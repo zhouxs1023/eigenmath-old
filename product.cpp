@@ -16,6 +16,8 @@ eval_product(void)
 	// 1st arg (quoted)
 
 	X = cadr(p1);
+	if (!issymbol(X))
+		stop("product: 1st arg?");
 
 	// 2nd arg
 
