@@ -23,7 +23,6 @@ selftest(void)
 	test_power();
 	test_factor_number();
 	test_test();
-	test_user_func();
 	test_tensor();
 
 	test_bake();
