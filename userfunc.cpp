@@ -57,8 +57,10 @@ eval_user_function(void)
 	// Evaluate the function body
 
 	push(F);
-	push(S);
-	rewrite(0);
+	if (iscons(S)) {
+		push(S);
+		rewrite_args();
+	}
 	eval();
 }
 
@@ -66,13 +68,13 @@ eval_user_function(void)
 //
 //	push(F)
 //	push(S)
-//	rewrite()
+//	rewrite_args()
 //	p1 = pop()
 //
 // where F is an expression and S is a substitution list.
 
 int
-rewrite(int flag)
+rewrite_args(void)
 {
 	int h, n;
 	save();
@@ -81,7 +83,7 @@ rewrite(int flag)
 	p1 = pop();
 
 	if (istensor(p1)) {
-		n = rewrite_tensor(flag);
+		n = rewrite_args_tensor();
 		restore();
 		return n;
 	}
@@ -94,7 +96,7 @@ rewrite(int flag)
 		while (iscons(p1)) {
 			push(car(p1));
 			push(p2);
-			n += rewrite(flag);
+			n += rewrite_args();
 			p1 = cdr(p1);
 		}
 		list(tos - h);
@@ -128,8 +130,8 @@ rewrite(int flag)
 	push(p3);
 	if (p1 != p3) {
 		push(p2); // subst. list
-		n = rewrite(flag);
-		if (n == 0 && flag == 0) {
+		n = rewrite_args();
+		if (n == 0) {
 			pop();
 			push(p1); // restore if not rewritten with arg
 		}
@@ -140,7 +142,7 @@ rewrite(int flag)
 }
 
 int
-rewrite_tensor(int flag)
+rewrite_args_tensor(void)
 {
 	int i, n = 0;
 	push(p1);
@@ -149,7 +151,7 @@ rewrite_tensor(int flag)
 	for (i = 0; i < p1->u.tensor->nelem; i++) {
 		push(p1->u.tensor->elem[i]);
 		push(p2);
-		n += rewrite(flag);
+		n += rewrite_args();
 		p1->u.tensor->elem[i] = pop();
 	}
 	push(p1);

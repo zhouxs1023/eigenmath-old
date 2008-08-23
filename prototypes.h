@@ -810,6 +810,10 @@ void eval_rect(void);
 void rect(void);
 void test_rect(void);
 
+// rewrite.cpp
+void rewrite(void);
+void rewrite_tensor(void);
+
 // roots.cpp
 void eval_roots(void);
 void roots(void);
@@ -963,8 +967,8 @@ void test_transpose(void);
 
 // userfunc.cpp
 void eval_user_function(void);
-int rewrite(int flag);
-int rewrite_tensor(int flag);
+int rewrite_args(void);
+int rewrite_args_tensor(void);
 
 // variables.cpp
 void variables(void);

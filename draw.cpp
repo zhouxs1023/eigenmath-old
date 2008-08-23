@@ -44,8 +44,7 @@ eval_draw(void)
 
 	if (T == symbol(NIL)) {
 		push(F);
-		push_symbol(NIL);
-		rewrite(1);
+		rewrite();
 		guess();
 		T = pop();
 		F = pop();

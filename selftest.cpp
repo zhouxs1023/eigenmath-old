@@ -57,7 +57,6 @@ selftest(void)
 	test_gcd();
 	test_imag();
 	test_inner();
-	test_laplace();
 	test_lcm();
 	test_log();
 	test_mag();
