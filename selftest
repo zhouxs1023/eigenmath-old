@@ -4020,4 +4020,9 @@ check(last = ((0,0),(0,0)))
 zero(1,1)
 check(last = 0)
 -- zero.cpp
+
+-- Ensure that arg rewrite does not modify other symbols
+a(n)=test(n=1,7,do(x=a(n-1),x+gcd(n,x)))
+check(a(100)=202)
+
 "ALL TESTS PASSED"
