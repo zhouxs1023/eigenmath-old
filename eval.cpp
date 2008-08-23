@@ -56,9 +56,8 @@ eval_sym(void)
 
 	p2 = get_binding(p1);
 	push(p2);
-	if (p1 == p2)
-		return;
-	eval();
+	if (p1 != p2)
+		eval();
 }
 
 void

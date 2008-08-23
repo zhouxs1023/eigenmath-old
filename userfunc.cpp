@@ -58,7 +58,7 @@ eval_user_function(void)
 
 	push(F);
 	push(S);
-	rewrite();
+	rewrite(0);
 	eval();
 }
 
@@ -71,34 +71,35 @@ eval_user_function(void)
 //
 // where F is an expression and S is a substitution list.
 
-void
-rewrite(void)
+int
+rewrite(int flag)
 {
-	int h;
+	int h, n;
 	save();
 
 	p2 = pop();
 	p1 = pop();
 
 	if (istensor(p1)) {
-		rewrite_tensor();
+		n = rewrite_tensor(flag);
 		restore();
-		return;
+		return n;
 	}
 
 	if (iscons(p1)) {
+		n = 0;
 		h = tos;
 		push(car(p1)); // Do not rewrite function name
 		p1 = cdr(p1);
 		while (iscons(p1)) {
 			push(car(p1));
 			push(p2);
-			rewrite();
+			n += rewrite(flag);
 			p1 = cdr(p1);
 		}
 		list(tos - h);
 		restore();
-		return;
+		return n;
 	}
 
 	// If not a symbol then done
@@ -106,7 +107,7 @@ rewrite(void)
 	if (!issymbol(p1)) {
 		push(p1);
 		restore();
-		return;
+		return 0;
 	}
 
 	// Try for an argument substitution first
@@ -116,7 +117,7 @@ rewrite(void)
 		if (p1 == car(p3)) {
 			push(cadr(p3));
 			restore();
-			return;
+			return 1;
 		}
 		p3 = cddr(p3);
 	}
@@ -126,27 +127,33 @@ rewrite(void)
 	p3 = get_binding(p1);
 	push(p3);
 	if (p1 != p3) {
-		push(p2);
-		rewrite();
+		push(p2); // subst. list
+		n = rewrite(flag);
+		if (n == 0 && flag == 0) {
+			pop();
+			push(p1); // restore if not rewritten with arg
+		}
 	}
 
 	restore();
+	return n;
 }
 
-void
-rewrite_tensor(void)
+int
+rewrite_tensor(int flag)
 {
-	int i;
+	int i, n = 0;
 	push(p1);
 	copy_tensor();
 	p1 = pop();
 	for (i = 0; i < p1->u.tensor->nelem; i++) {
 		push(p1->u.tensor->elem[i]);
 		push(p2);
-		rewrite();
+		n += rewrite(flag);
 		p1->u.tensor->elem[i] = pop();
 	}
 	push(p1);
+	return n;
 }
 
 #if SELFTEST
