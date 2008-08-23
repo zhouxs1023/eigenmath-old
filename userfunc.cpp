@@ -64,23 +64,16 @@ eval_user_function(void)
 	eval();
 }
 
-// Example:
-//
-//	push(F)
-//	push(S)
-//	rewrite_args()
-//	p1 = pop()
-//
-// where F is an expression and S is a substitution list.
+// Rewrite by expanding symbols that contain args
 
 int
 rewrite_args(void)
 {
-	int h, n;
+	int h, n = 0;
 	save();
 
-	p2 = pop();
-	p1 = pop();
+	p2 = pop(); // subst. list
+	p1 = pop(); // expr
 
 	if (istensor(p1)) {
 		n = rewrite_args_tensor();
@@ -89,7 +82,6 @@ rewrite_args(void)
 	}
 
 	if (iscons(p1)) {
-		n = 0;
 		h = tos;
 		push(car(p1)); // Do not rewrite function name
 		p1 = cdr(p1);
