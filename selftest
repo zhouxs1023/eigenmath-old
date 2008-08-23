@@ -4022,6 +4022,9 @@ check(last = 0)
 -- zero.cpp
 
 -- Ensure that arg rewrite does not modify other symbols
+clear
+trace=1
+x=1
 a(n)=test(n=1,7,do(x=a(n-1),x+gcd(n,x)))
 check(a(100)=202)
 
