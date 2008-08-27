@@ -1,4 +1,5 @@
-\section*{Geometric series}
+\section{Details}
+\subsection{User-defined symbols}
 
 A geometric series converges according to the formula
 $$\sum_{k=0}^\infty a^k={1\over1-a},\qquad|a|<1$$
@@ -37,7 +38,7 @@ just enter it as shown on the second line.
 \noindent
 When a result is displayed, it is also stored in the symbol $last$.
 
-\newpage
+\subsection{User-defined functions}
 
 \noindent
 The following example shows how to define a function.
@@ -45,57 +46,9 @@ The following example shows how to define a function.
 \medskip
 \verb$f(a)=sum(k,0,9,a^k)$
 
-\verb$f$
-$$f=\mathop{\rm sum}(k,0,9,a^k)$$
-
 \verb$f(-1/2)$
 $$341\over512$$
 
 \verb$f(-0.5)$
 $$0.666016$$
-
-\medskip
-\noindent
-Eigenmath handles function definitions in a special way.
-Unlike a normal symbol, a function definition is not evaluated immediately.
-The following example demonstrates the difference.
-
-\medskip
-\verb$f=sum(k,0,9,a^k)$
-
-\verb$f$
-$$f=1+a+a^2+a^3+a^4+a^5+a^6+a^7+a^8+a^9$$
-
-\verb$f(a)=sum(k,0,9,a^k)$
-
-\verb$f$
-$$f=\mathop{\rm sum}(k,0,9,a^k)$$
-
-\medskip
-\noindent
-Why are they handled differently?
-Well, suppose we want to define $f$ as a function of two variables,
-$a$ and $n$, like this.
-
-\medskip
-\verb$f(a,n)=sum(k,0,n,a^k)$
-
-\medskip
-\noindent
-In this case it is not possible to evaluate the sum right away.
-The value of $n$ will not be known until $f$ is actually used somewhere.
-Consequently, Eigenmath does not normally evaluate a function when it is defined.
-Now, having said that, there are two work arounds that provide exceptions to the rule.
-They are {\it eval} and {\it quote}.
- 
-\medskip
-\verb$f=quote(sum(k,0,9,a^k))$
-
-\verb$f$
-$$f=\mathop{\rm sum}(k,0,9,a^k)$$
-
-\verb$f(a)=eval(sum(k,0,9,a^k))$
-
-\verb$f$
-$$f=1+a+a^2+a^3+a^4+a^5+a^6+a^7+a^8+a^9$$
 
