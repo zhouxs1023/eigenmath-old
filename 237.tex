@@ -1,0 +1,111 @@
+\documentclass{article}
+
+\title{How {\it poll} works}
+\author{G. Weigt}
+\date{\today}
+\begin{document}
+\maketitle
+
+Let the driver poll function be \verb$driver_poll$.
+Then the call sequence from user space is
+\begin{verbatim}
+poll() -> sys_poll -> do_sys_poll -> do_poll -> do_poll_fd -> driver_poll
+\end{verbatim}
+The function \verb$sys_poll$ and beyond are all in kernel space.
+The call to \verb$driver_poll$ is through a function pointer.
+(See \verb$fs/select.c$ in the Linux kernel source code.)
+
+The key to understanding everything is the \verb$do_poll$ function.
+It contains a loop that first calls \verb$driver_poll$ via \verb$do_poll_fd$.
+If any events are returned then there is a break out of the loop.
+Otherwise, \verb$schedule_timeout$ is called.
+If a driver interrupt occurs that calls \verb$wake_up_interruptible$,
+the \verb$schedule_timeout$ returns and we go to the top of the loop and
+call \verb$driver_poll$ again.
+Presumably this time \verb$driver_poll$ will return an event and we will exit
+out of the loop.
+
+There is one little trick.
+The second time \verb$driver_poll$ is called, it is called with NULL for
+the poll table.
+Thus \verb$driver_poll$ only makes a meaningful call to \verb$poll_wait$ the
+first time through.
+
+An important thing to remember is that the call to \verb$poll_wait$ in
+\verb$driver_poll$ does not really wait at all.
+
+\newpage
+
+\begin{verbatim}
+ 576 static int do_poll(unsigned int nfds,  struct poll_list *list,
+ 577                    struct poll_wqueues *wait, s64 *timeout)
+ 578 {
+ 579        int count = 0;
+ 580        poll_table* pt = &wait->pt;
+ 581
+ 582        /* Optimise the no-wait case */
+ 583        if (!(*timeout))
+ 584                pt = NULL;
+ 585
+ 586        for (;;) {
+ 587                struct poll_list *walk;
+ 588                long __timeout;
+ 589
+ 590                set_current_state(TASK_INTERRUPTIBLE);
+ 591                for (walk = list; walk != NULL; walk = walk->next) {
+ 592                        struct pollfd * pfd, * pfd_end;
+ 593
+ 594                        pfd = walk->entries;
+ 595                        pfd_end = pfd + walk->len;
+ 596                        for (; pfd != pfd_end; pfd++) {
+ 597                                /*
+ 598                                 * Fish for events. If we found one, record it
+ 599                                 * and kill the poll_table, so we don't
+ 600                                 * needlessly register any other waiters after
+ 601                                 * this. They'll get immediately deregistered
+ 602                                 * when we break out and return.
+ 603                                 */
+ 604                                if (do_pollfd(pfd, pt)) {
+ 605                                        count++;
+ 606                                        pt = NULL;
+ 607                                }
+ 608                        }
+ 609                }
+ 610                /*
+ 611                 * All waiters have already been registered, so don't provide
+ 612                 * a poll_table to them on the next loop iteration.
+ 613                 */
+ 614                pt = NULL;
+ 615                if (!count) {
+ 616                        count = wait->error;
+ 617                        if (signal_pending(current))
+ 618                                count = -EINTR;
+ 619                }
+ 620                if (count || !*timeout)
+ 621                        break;
+ 622
+ 623                if (*timeout < 0) {
+ 624                        /* Wait indefinitely */
+ 625                        __timeout = MAX_SCHEDULE_TIMEOUT;
+ 626                } else if (unlikely(*timeout >= (s64)MAX_SCHEDULE_TIMEOUT-1)) {
+ 627                        /*
+ 628                         * Wait for longer than MAX_SCHEDULE_TIMEOUT. Do it in
+ 629                         * a loop
+ 630                         */
+ 631                        __timeout = MAX_SCHEDULE_TIMEOUT - 1;
+ 632                        *timeout -= __timeout;
+ 633                } else {
+ 634                        __timeout = *timeout;
+ 635                        *timeout = 0;
+ 636                }
+ 637
+ 638                __timeout = schedule_timeout(__timeout);
+ 639                if (*timeout >= 0)
+ 640                        *timeout += __timeout;
+ 641        }
+ 642        __set_current_state(TASK_RUNNING);
+ 643        return count;
+ 644 }
+\end{verbatim}
+
+\end{document}
