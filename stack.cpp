@@ -1,5 +1,3 @@
-//-----------------------------------------------------------------------------
-//
 //	 _______
 //	|	| <- stack
 //	|	|
@@ -19,8 +17,6 @@
 //	The frame area holds local variables and grows from high memory towards
 //	low memory. The frame area makes local variables visible to the garbage
 //	collector.
-//
-//-----------------------------------------------------------------------------
 
 #include "stdafx.h"
 #include "defs.h"
