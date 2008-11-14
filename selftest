@@ -2839,7 +2839,6 @@ S=(x,y,z)
 f=dot(curl(F),cross(d(S,x),d(S,y)))
 x=r*cos(theta)
 y=r*sin(theta)
-f=eval(f)
 defint(f*r,r,0,3,theta,0,2pi)
 check(last = -27*pi)
 -- mini-test.cpp

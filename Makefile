@@ -45,7 +45,6 @@ arcsinh.o \
 arctan.o \
 arctanh.o \
 arg.o \
-atomize.o \
 bake.o \
 besselj.o \
 bessely.o \
