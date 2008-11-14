@@ -2819,7 +2819,6 @@ Q=x^3+y^3
 f=d(Q,x)-d(P,y)
 x=r*cos(theta)
 y=r*sin(theta)
-f=eval(f)
 defint(f*r,r,0,1,theta,0,2pi)
 check(last = 3/2*pi)
 -- mini-test.cpp

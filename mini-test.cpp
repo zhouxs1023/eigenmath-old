@@ -142,9 +142,6 @@ static char *s[] = {
 	"y=r*sin(theta)",
 	"",
 
-	"f=eval(f)",
-	"",
-
 	"defint(f*r,r,0,1,theta,0,2pi)",
 	"3/2*pi",
 
