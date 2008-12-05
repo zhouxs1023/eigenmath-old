@@ -71,10 +71,8 @@ $$163\over30$$
 \newpage
 
 \noindent
-There is another type of line integral for measuring the arc length of a
-curve.
 If $g(t)$ is a function that parametrizes a curve from $a$ to $b$
-then the arc length is
+then the arc length of the curve is
 $$\int_a^b|g'(t)|\,dt$$
 For example, let us measure the length of the following curve.
 
@@ -98,7 +96,7 @@ the Eigenmath solution is
 \medskip
 \verb$g=(t^2,t)$
 
-\verb$defint(abs(d(g,t)),t,0,1$
+\verb$defint(abs(d(g,t)),t,0,1)$
 
 $$\hbox{$1\over4$}\log(2+5^{1/2})+\hbox{$1\over2$}5^{1/2}$$
 
@@ -106,3 +104,7 @@ $$\hbox{$1\over4$}\log(2+5^{1/2})+\hbox{$1\over2$}5^{1/2}$$
 
 $$1.47894$$
 
+\medskip
+\noindent
+Note that this result is longer that the diagonal from $(0,0)$ to $(1,1)$
+which is what we expect.
