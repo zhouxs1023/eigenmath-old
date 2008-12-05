@@ -68,3 +68,41 @@ $x=2t+1$, $y=t^2$, $z=1+t^3$, $0\le t\le 1$.
 
 $$163\over30$$
 
+\newpage
+
+\noindent
+There is another type of line integral for measuring the arc length of a
+curve.
+If $g(t)$ is a function that parametrizes a curve from $a$ to $b$
+then the arc length is
+$$\int_a^b|g'(t)|\,dt$$
+For example, let us measure the length of the following curve.
+
+\medskip
+\verb$xrange=(0,1)$
+
+\verb$yrange=(0,1)$
+
+\verb$draw(x^2)$
+
+\begin{center}
+\includegraphics[scale=0.4]{arc.png}
+\end{center}
+
+\medskip
+\noindent
+For the parametrization
+$$g(t)=(t^2,t),\qquad0\le t\le 1$$
+the Eigenmath solution is
+
+\medskip
+\verb$g=(t^2,t)$
+
+\verb$defint(abs(d(g,t)),t,0,1$
+
+$$\hbox{$1\over4$}\log(2+5^{1/2})+\hbox{$1\over2$}5^{1/2}$$
+
+\verb$float$
+
+$$1.47894$$
+
