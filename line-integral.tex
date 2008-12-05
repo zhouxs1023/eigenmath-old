@@ -90,11 +90,11 @@ For example, let us measure the length of the following curve.
 \medskip
 \noindent
 For the parametrization
-$$g(t)=(t^2,t),\qquad0\le t\le 1$$
+$$g(t)=(t,t^2),\qquad0\le t\le 1$$
 the Eigenmath solution is
 
 \medskip
-\verb$g=(t^2,t)$
+\verb$g=(t,t^2)$
 
 \verb$defint(abs(d(g,t)),t,0,1)$
 
@@ -106,5 +106,5 @@ $$1.47894$$
 
 \medskip
 \noindent
-Note that this result is longer that the diagonal from $(0,0)$ to $(1,1)$
-which is what we expect.
+As we would expect, the result is longer that the diagonal $\sqrt2$.
+
