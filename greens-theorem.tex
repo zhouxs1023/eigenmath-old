@@ -5,7 +5,7 @@ $$\oint P\,dx+Q\,dy=\int\!\!\!\int
 \left({\partial Q\over\partial x}-{\partial P\over\partial y}\right)
 dx\,dy$$
 
-\noindent
+\subsubsection{Example 1}
 Evaluate $\oint (2x^3-y^3)\,dx+(x^3+y^3)\,dy$ around the circle
 $x^2+y^2=1$ using Green's theorem.\footnote{
 Wilfred Kaplan, {\it Advanced Calculus, 5th Edition,} 287.}
@@ -59,3 +59,60 @@ so that Eigenmath can find a solution.
 
 $${3\over2}\pi$$
 
+\subsubsection{Example 2}
+Compute both sides of Green's theorem for
+$F=(1-y,x)$ over the disk $x^2+y^2\le4$.
+
+\medskip
+\noindent
+First compute the line integral along the boundary of the disk.
+Note that the radius of the disk is 2.
+
+\medskip
+\verb$--Line integral$
+
+\verb$P=1-y$
+
+\verb$Q=x$
+
+\verb$x=2*cos(t)$
+
+\verb$y=2*sin(t)$
+
+\verb$defint(P*d(x,t)+Q*d(y,t),t,0,2pi)$
+
+$$8\pi$$
+
+\verb$--Surface integral$
+
+\verb$x=quote(x) --remove parametrization of x$
+
+\verb$y=quote(y) --remove parametrization of y$
+
+\verb$h=sqrt(4-x^2)$
+
+\verb$defint(d(Q,x)-d(P,y),y,-h,h,x,-2,2)$
+
+$$8\pi$$
+
+\verb$--Bonus point: Compute the surface integral using polar coordinates.$
+
+\verb$f=d(Q,x)-d(P,y) --do before change of coordinates$
+
+\verb$x=r*cos(theta)$
+
+\verb$y=r*sin(theta)$
+
+\verb$defint(f*r,r,0,2,theta,0,2pi)$
+
+$$8\pi$$
+
+\verb$defint(f*r,theta,0,2pi,r,0,2) --try integrating over theta first$
+
+$$8\pi$$
+
+\medskip
+\noindent
+In this case, Eigenmath solved both forms of the polar integral.
+However, in cases where Eigenmath fails to solve a double integral, try
+changing the order of integration.
