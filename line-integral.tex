@@ -1,13 +1,9 @@
 \subsection{Arc length}
 
-Let $g(t)$ be a function that draws a curve in some realm.
+Let $g(t)$ be a function that draws a curve.
 Then the arc length of the curve from $g(a)$ to $g(b)$ is given by
 $$\int_a^b|g'(t)|\,dt$$
-Since $g(t)$ is a vector-valued function, $|g'(t)|$ means compute the length of
-the tangent vector at $t$.
-
-\medskip
-\noindent
+That is, sum over the length of each tangent vector from $a$ to $b$.
 For example, let us measure the length of the following arc.
 
 \medskip
@@ -23,9 +19,9 @@ For example, let us measure the length of the following arc.
 
 \medskip
 \noindent
-For the parametrization
-$$g(t)=(t,t^2),\qquad0\le t\le 1$$
-the Eigenmath solution is
+A suitable $g(t)$ for the arc is
+$$g(t)=(t,t^2),\quad0\le t\le1$$
+The Eigenmath solution is
 
 \medskip
 \verb$g=(t,t^2)$
