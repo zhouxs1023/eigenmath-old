@@ -4,6 +4,8 @@ Let $g(t)$ be a function that draws a curve.
 The arc length from $g(a)$ to $g(b)$ is given by
 $$\int_a^b|g'(t)|\,dt$$
 where $|g'(t)|$ is the length of the tangent vector at $g(t)$.
+The integral sums over all of the tangent lengths to arrive at the total length
+from $a$ to $b$.
 For example, let us measure the length of
 
 \medskip
@@ -59,6 +61,23 @@ $$\left(\matrix{1\cr2t}\right)$$
 \verb$abs(d(g,t))$
 
 $$(4t^2+1)^{1/2}$$
+
+\medskip
+\noindent
+The following script does a discrete computation of the arc length.
+
+\medskip
+\verb$g(t)=(t,t^2)$
+
+\verb$h(t)=abs(g(t)-g(t-0.01))$
+
+\verb$L=0$
+
+\verb$for(k,1,100,L=L+h(k/100.0))$
+
+\verb$L$
+
+$$L=1.47894$$
 
 \subsection{Line integrals}
 
