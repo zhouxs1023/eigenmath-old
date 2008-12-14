@@ -1,5 +1,71 @@
+\subsection{Arc length}
+
+Let $g(t)$ be a function that draws a curve in some realm.
+Then the arc length of the curve from $g(a)$ to $g(b)$ is given by
+$$\int_a^b|g'(t)|\,dt$$
+Since $g(t)$ is a vector-valued function, $|g'(t)|$ means compute the length of
+the tangent vector at $t$.
+
+\medskip
+\noindent
+For example, let us measure the length of the following arc.
+
+\medskip
+\verb$xrange=(0,1)$
+
+\verb$yrange=(0,1)$
+
+\verb$draw(x^2)$
+
+\begin{center}
+\includegraphics[scale=0.4]{arc.png}
+\end{center}
+
+\medskip
+\noindent
+For the parametrization
+$$g(t)=(t,t^2),\qquad0\le t\le 1$$
+the Eigenmath solution is
+
+\medskip
+\verb$g=(t,t^2)$
+
+\verb$defint(abs(d(g,t)),t,0,1)$
+
+$$\hbox{$1\over4$}\log(2+5^{1/2})+\hbox{$1\over2$}5^{1/2}$$
+
+\verb$float$
+
+$$1.47894$$
+
+\medskip
+\noindent
+As we would expect, the result is longer than the diagonal
+$\sqrt2$ ($\approx1.414$).
+
+\medskip
+\noindent
+The result of the above definite integral seems rather complicated given that we
+started with a simple parabola.
+Let us inspect $|g'(t)|$ to see why.
+
+\medskip
+\verb$g$
+
+$$g=\left(\matrix{t\cr t^2}\right)$$
+
+\medskip
+\verb$d(g,t)$
+
+$$\left(\matrix{1\cr2t}\right)$$
+
+\medskip
+\verb$abs(d(g,t))$
+
+$$(4t^2+1)^{1/2}$$
+
 \subsection{Line integrals}
-\index{line integral}
+
 Line integrals are easily computed by
 converting the coordinates $x$, $y$ and $z$ into functions of $t$.
 This has the effect of changing the measure as well.
@@ -67,45 +133,4 @@ $x=2t+1$, $y=t^2$, $z=1+t^3$, $0\le t\le 1$.
 \verb$defint(f,t,0,1)$
 
 $$163\over30$$
-
-\newpage
-
-\noindent
-If $g(t)$ is a function that parametrizes a curve from $a$ to $b$
-then the arc length of the curve is
-$$\int_a^b|g'(t)|\,dt$$
-For example, let us measure the length of the following curve.
-
-\medskip
-\verb$xrange=(0,1)$
-
-\verb$yrange=(0,1)$
-
-\verb$draw(x^2)$
-
-\begin{center}
-\includegraphics[scale=0.4]{arc.png}
-\end{center}
-
-\medskip
-\noindent
-For the parametrization
-$$g(t)=(t,t^2),\qquad0\le t\le 1$$
-the Eigenmath solution is
-
-\medskip
-\verb$g=(t,t^2)$
-
-\verb$defint(abs(d(g,t)),t,0,1)$
-
-$$\hbox{$1\over4$}\log(2+5^{1/2})+\hbox{$1\over2$}5^{1/2}$$
-
-\verb$float$
-
-$$1.47894$$
-
-\medskip
-\noindent
-As we would expect, the result is longer than the diagonal
-$\sqrt2$ ($\approx1.414$).
 
