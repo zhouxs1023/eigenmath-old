@@ -84,6 +84,59 @@ $$L=1.47894$$
 
 \subsection{Line integrals}
 
+There are two kinds of line integrals, one for scalar fields and the other
+for vector fields.
+Both are closely related to arc length, as the following table shows.
+
+\begin{center}
+
+\begin{tabular}{|llll|}
+\hline
+ & & & \\
+& $\quad$
+& Abstract form
+& Computable form
+\\
+ & & & \\
+Arc length
+&
+& $\displaystyle{\int_C ds}$
+& $\displaystyle{\int_a^b |g'(t)|\,dt}$
+\\
+ & & & \\
+Line integral, scalar field
+&
+& $\displaystyle{\int_C f\,ds}$
+& $\displaystyle{\int_a^b f(g(t))\,|g'(t)|\,dt}$
+\\
+ & & & \\
+Line integral, vector field
+&
+& $\displaystyle{\int_C(F\cdot u)\,ds}$
+& $\displaystyle{\int_a^b F(g(t))\cdot g'(t)\,dt}$
+\\
+ & & & \\
+\hline
+\end{tabular}
+
+\end{center}
+
+\medskip
+\noindent
+We have
+$$ds=|g'(t)|\,dt$$
+For the vector field, $u$ is the unit tangent vector
+$$u={g'(t)\over|g'(t)|}$$
+The length of the tangent vector cancels wth $ds$
+as follows.
+$$\int_C(F\cdot u)\,ds
+=\int_a^b\bigg(F(g(t))\cdot{g'(t)\over|g'(t)|}\bigg)\,\bigg(|g'(t)|\,dt\bigg)
+=\int_a^b F(g(t))\cdot g'(t)\,dt
+$$
+
+\newpage
+
+\noindent
 Line integrals are easily computed by
 converting the coordinates $x$, $y$ and $z$ into functions of $t$.
 This has the effect of changing the measure as well.
