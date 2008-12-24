@@ -1,0 +1,41 @@
+\parindent=0pt
+
+16. What is the volume of the solid formed by revolving about the $x$-axis
+the region in the first quadrant of the $xy$-plane bounded by the coordinate
+axes and the graph of the equation $\displaystyle{y={1\over\sqrt{1+x^2}}}$?
+
+\bigskip
+This problem involves a number of tricks.
+First, visualize the graph.
+We have $y(0)=1$ and the graph approaches zero as $x$ increases.
+Next, this is a rotation so convert to cylindrical coordinates.
+We want $x$ to become a function of $y$ so invert the function.
+$$y={1\over\sqrt{1+x^2}}
+\quad\rightarrow\quad
+{1\over y^2}=1+x^2
+\quad\rightarrow\quad
+x=\sqrt{{1\over y^2}-1}
+$$
+Now we can write
+$$V=\int_0^{2\pi}\int_0^1\left(\sqrt{{1\over r^2}-1}\right)\,r\,dr\,d\theta$$
+where the extra $r$ is due to the change of coordinates, i.e.,
+$dx\,dy=r\,dr\,d\theta$.
+The $r$ cancels nicely and we have
+$$V=\int_0^{2\pi}\int_0^1\sqrt{1-r^2}\,\,dr\,d\theta$$
+There appears to be no shortcut to the next step.
+One must simply recall that
+$$\int\sqrt{1-r^2}\,dr={\sin^{-1}r+r\sqrt{1-r^2}\over2}$$
+Hence
+$$\int_0^1\sqrt{1-r^2}\,\,dr={\sin^{-1}r+r\sqrt{1-r^2}\over2}\,\bigg|_0^1={\pi\over4}$$
+And finally
+$$V=\int_0^{2\pi}{\pi\over4}\,d\theta
+={\pi\theta\over4}\bigg|_0^{2\pi}
+={\pi^2\over2}$$
+
+\bigskip
+The interesting thing about this problem is the area under $y(x)$ is infinite
+but the volume when it is rotated is finite.
+
+
+
+\end
