@@ -130,7 +130,54 @@ $$\int_C(F\cdot u)\,ds
 =\int_a^b F(g(t))\cdot g'(t)\,dt
 $$
 
+\newpage
+
+\noindent
+Evaluate
+$$\int_Cx\,ds\quad\hbox{and}\quad\int_Cx\,dx$$
+where $C$ is a straight line from $(0,0)$ to $(1,1)$.
+
 \medskip
+\noindent
+What a difference the measure makes.
+The first integral is over a scalar field and the second is over a vector field.
+This can be understood when we recall that
+$$ds=|g'(t)|\,dt
+%\quad\hbox{and}\quad
+%\int_Cx\,dx=\int_Cx\,dx+0\,dy
+$$
+Hence for $\int_Cx\,ds$ we have
+
+\medskip
+\verb$x=t$
+
+\verb$y=t$
+
+\verb$g=(x,y)$
+
+\verb$defint(x*abs(d(g,t)),t,0,1)$
+
+$$1\over2^{1/2}$$
+
+\medskip
+\noindent
+For $\int_Cx\,dx$ we have
+
+\medskip
+\verb$x=t$
+
+\verb$y=t$
+
+\verb$g=(x,y)$
+
+\verb$F=(x,0)$
+
+\verb$defint(dot(F,d(g,t)),t,0,1)$
+
+$$1\over2$$
+
+\newpage
+
 \noindent
 The following line integral problems are from
 {\it Advanced Calculus, Fifth Edition} by Wilfred Kaplan.
