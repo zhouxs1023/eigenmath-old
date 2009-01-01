@@ -26,7 +26,11 @@ $$g(t)=(t,t^2),\quad0\le t\le1$$
 The Eigenmath solution is
 
 \medskip
-\verb$g=(t,t^2)$
+\verb$x=t$
+
+\verb$y=t^2$
+
+\verb$g=(x,y)$
 
 \verb$defint(abs(d(g,t)),t,0,1)$
 
@@ -79,6 +83,36 @@ the curve into 100 pieces.
 \verb$L$
 
 $$L=1.47894$$
+
+\newpage
+
+\noindent
+Find the length of the curve $y=x^{3/2}$ from the origin to
+$x={4\over3}$.
+
+\medskip
+\verb$x=t$
+
+\verb$y=x^(3/2)$
+
+\verb$g=(x,y)$
+
+\verb$defint(abs(d(g,x)),x,0,4/3)$
+
+$$\hbox{$56\over27$}$$
+
+\medskip
+\noindent
+Because of the way $t$ is substituted for $x$, the previous solution is
+really no different from the following.
+
+\medskip
+\verb$g=(t,t^(3/2))$
+
+\verb$defint(abs(d(g,t)),t,0,4/3)$
+
+$$\hbox{$56\over27$}$$
+
 
 \newpage
 
