@@ -46,70 +46,91 @@ For now, xi is always $\xi$.
 
 \medskip
 \noindent
+Greek letters can appear in the subscript too.
+
+\medskip
+\verb$Amu=2.0$
+
+\verb$Amu$
+
+$$A_\mu=2.0$$
+
+\medskip
+\noindent
+The general rule is this.
+Eigenmath scans the entire symbol looking for Greek letters.
+
+\medskip
+\verb$alphamunu$
+
+$$\alpha_{\mu\nu}$$
+
+\newpage
+
+\medskip
+\noindent
+Let us turn now to what happens when a symbolic expression is evaluated.
+The most important point is that
 Eigenmath exhaustively evaluates symbolic subexpressions.
 
 \medskip
-\verb$A=B+C$
+\verb$A=B$
 
-\verb$A$
-
-$$A=B+C$$
-
-\verb$B=D$
+\verb$B=C$
 
 \verb$C=D$
 
-\verb$A$
+\verb$sin(A)$
 
-$$A=2D$$
+$$\sin(D)$$
 
 \medskip
 \noindent
-In the above example, the symbol $A$ evaluates to $2D$ but internally its
-binding is still $A=B+C$.
-The $binding$ function can be used to show this.
+In the above example, evaluating $\sin(A)$ yields $\sin(D)$ because Eigenmath
+resolves $A$ as far as it can, in this case down to $D$.
+However, internally the binding of $A$ is still $B$, as can be seen with
+the $binding$ function.
 
 \medskip
 \verb$binding(A)$
 
-$$B+C$$
+$$B$$
 
 \medskip
 \noindent
-One final detail should be noted.
-When a symbol is defined, the right hand side is evaluated.
-This leads to the following difference from the previous example.
+Let us return to symbolic definitions for a moment.
+It should be kept in mind that the right hand side of the definition is an
+expression that is evaluated before the binding is done.
+For example,
 
 \medskip
-\verb$B=D$
+\verb$B=1$
 
-\verb$C=D$
-
-\verb$A=B+C$
+\verb$A=B$
 
 \verb$binding(A)$
 
-$$2D$$
+$$1$$
 
 \medskip
 \noindent
-In this example, since $B$ and $C$ were already defined, the binding for $A$
-is $2D$ instead of $B+C$.
-To define a literal binding, use $quote$.
+The binding of $A$ is 1 and not $B$ because $B$ was already defined before
+the $A=B$ occurred.
+The $quote$ function can be used to give a literal binding.
 
 \medskip
-\verb$A=quote(B+C)$
+\verb$A=quote(B)$
 
 \verb$binding(A)$
 
-$$B+C$$
+$$B$$
 
-\verb$A$
+\newpage
 
-$$2D$$
-
-\medskip
 \noindent
+What this all means is that symbols have a dual nature.
+A symbol has a binding which may be different from its evaluation.
+Normally this difference is not important.
 The functions $quote$ and $binding$ are mentioned here mainly to provide insight
 into what is happening belowdecks.
 Normally you should not really need to use these functions.
