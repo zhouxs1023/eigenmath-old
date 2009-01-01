@@ -46,5 +46,85 @@ For now, xi is always $\xi$.
 
 \medskip
 \noindent
+Eigenmath exhaustively evaluates symbolic subexpressions.
 
+\medskip
+\verb$A=B+C$
+
+\verb$A$
+
+$$A=B+C$$
+
+\verb$B=D$
+
+\verb$C=D$
+
+\verb$A$
+
+$$A=2D$$
+
+\medskip
+\noindent
+In the above example, the symbol $A$ evaluates to $2D$ but internally its
+binding is still $A=B+C$.
+The $binding$ function can be used to show this.
+
+\medskip
+\verb$binding(A)$
+
+$$B+C$$
+
+\medskip
+\noindent
+One final detail should be noted.
+When a symbol is defined, the right hand side is evaluated.
+This leads to the following difference from the previous example.
+
+\medskip
+\verb$B=D$
+
+\verb$C=D$
+
+\verb$A=B+C$
+
+\verb$binding(A)$
+
+$$2D$$
+
+\medskip
+\noindent
+In this example, since $B$ and $C$ were already defined, the binding for $A$
+is $2D$ instead of $B+C$.
+To define a literal binding, use $quote$.
+
+\medskip
+\verb$A=quote(B+C)$
+
+\verb$binding(A)$
+
+$$B+C$$
+
+\verb$A$
+
+$$2D$$
+
+\medskip
+\noindent
+The functions $quote$ and $binding$ are mentioned here mainly to provide insight
+into what is happening belowdecks.
+Normally you should not really need to use these functions.
+However, one notable exception is the use of $quote$ to clear a symbol.
+
+\medskip
+\verb$x=3$
+
+\verb$x$
+
+$$x=3$$
+
+\verb$x=quote(x)$
+
+\verb$x$
+
+$$x$$
 
