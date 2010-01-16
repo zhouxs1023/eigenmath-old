@@ -1,3 +1,5 @@
+// Eigenmath by George Weigt
+
 #include "stdafx.h"
 
 #include <commdlg.h>

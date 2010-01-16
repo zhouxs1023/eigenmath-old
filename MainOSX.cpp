@@ -1,4 +1,4 @@
-#include <Carbon/Carbon.h>
+// Eigenmath by George Weigt
 
 #include "YASTControl.h"
 #include "help.h"
