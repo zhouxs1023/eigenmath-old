@@ -1,4 +1,4 @@
-# Makefile for building Eigenmath on Linux machines.
+# Eigenmath by George Weigt
 #
 # 1. Unpack the tarball.
 #
@@ -45,6 +45,7 @@ arcsinh.o \
 arctan.o \
 arctanh.o \
 arg.o \
+atomize.o \
 bake.o \
 besselj.o \
 bessely.o \

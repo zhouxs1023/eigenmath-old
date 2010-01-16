@@ -2,7 +2,6 @@
 
 #include "stdafx.h"
 #include "defs.h"
-static void ytranspose(void);
 
 void
 eval_transpose(void)
@@ -24,17 +23,11 @@ eval_transpose(void)
 void
 transpose(void)
 {
-	save();
-	ytranspose();
-	restore();
-}
-
-static void
-ytranspose(void)
-{
 	int i, j, k, l, m, ndim, nelem, t;
 	int ai[MAXDIM], an[MAXDIM];
 	U **a, **b;
+
+	save();
 
 	p3 = pop();
 	p2 = pop();
@@ -44,6 +37,7 @@ ytranspose(void)
 		if (!iszero(p1))
 			stop("transpose: tensor expected, 1st arg is not a tensor");
 		push(zero);
+		restore();
 		return;
 	}
 
@@ -54,6 +48,7 @@ ytranspose(void)
 
 	if (ndim == 1) {
 		push(p1);
+		restore();
 		return;
 	}
 
@@ -111,7 +106,7 @@ ytranspose(void)
 	}
 
 	push(p2);
-	return;
+	restore();
 }
 
 #if SELFTEST

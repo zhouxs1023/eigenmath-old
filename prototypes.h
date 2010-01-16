@@ -67,6 +67,9 @@ void arg(void);
 void yyarg(void);
 void test_arg(void);
 
+// atomize.cpp
+void eval_atomize(void);
+
 // bake.cpp
 void bake(void);
 void polyform(void);
