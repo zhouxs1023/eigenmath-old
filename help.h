@@ -1,46 +1,8 @@
-static char *help_type_caret[] = {
-	"x^2",
-};
-
-static char *help_multiply[] = {
-	"A (B+C)",
-	"A*(B+C)",
-};
-
-static char *help_rational_arithmetic[] = {
-	"1/2 + 1/3",
-	"float",
-};
-
-static char *help_solve[] = {
-	"A = ((1,1),(0.24,0.86))",
-	"B = (274,120.32)",
-	"X = dot(inv(A),B)",
-	"X",
-};
 
 static char *help_factor_polynomial[] = {
 	"f=(x^2+3*x+2)*(y^2+7*y+12)",
 	"factor(f)",
 	"factor(f,x,y)",
-};
-
-static char *help_factor_number[] = {
-	"factor(10^20 - 1)",
-};
-
-static char *help_parabola[] = {
-	"draw(x^2)",
-};
-
-static char *help_circle[] = {
-	"r = (cos(t),sin(t))",
-	"draw(5*r)",
-};
-
-static char *help_lissajous[] = {
-	"r = (sin(2*t),cos(3*t))",
-	"draw(5*r)",
 };
 
 // linear algebra
