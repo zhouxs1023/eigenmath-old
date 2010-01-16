@@ -360,7 +360,7 @@ MainWindowCommandHandler(EventHandlerCallRef handlerRef, EventRef event, void *u
 		if (running)
 			break;
 		goto_calc_mode();
-		printstr("version 136\n");
+		printstr("version 137\n");
 		update_display();
 		break;
 
