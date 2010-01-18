@@ -77,6 +77,8 @@ transpose(void)
 	a = p1->u.tensor->elem;
 	b = p2->u.tensor->elem;
 
+	// init tensor index
+
 	for (i = 0; i < ndim; i++) {
 		ai[i] = 0;
 		an[i] = p1->u.tensor->dim[i];
@@ -86,17 +88,36 @@ transpose(void)
 
 	for (i = 0; i < nelem; i++) {
 
+		// swap indices l and m
+
 		t = ai[l]; ai[l] = ai[m]; ai[m] = t;
 		t = an[l]; an[l] = an[m]; an[m] = t;
+
+		// convert tensor index to linear index k
 
 		k = 0;
 		for (j = 0; j < ndim; j++)
 			k = (k * an[j]) + ai[j];
 
+		// swap indices back
+
 		t = ai[l]; ai[l] = ai[m]; ai[m] = t;
 		t = an[l]; an[l] = an[m]; an[m] = t;
 
+		// copy one element
+
 		b[k] = a[i];
+
+		// increment tensor index
+
+		// Suppose the tensor dimensions are 2 and 3.
+		// Then the tensor index ai increments as follows:
+		// 00 -> 01
+		// 01 -> 02
+		// 02 -> 10
+		// 10 -> 11
+		// 11 -> 12
+		// 12 -> 00
 
 		for (j = ndim - 1; j >= 0; j--) {
 			if (++ai[j] < an[j])
