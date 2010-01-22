@@ -1,4 +1,3 @@
-
 // abs.cpp
 void eval_abs(void);
 void absval(void);
@@ -69,6 +68,7 @@ void test_arg(void);
 
 // atomize.cpp
 void eval_atomize(void);
+void atomize(void);
 
 // bake.cpp
 void bake(void);

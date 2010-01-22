@@ -79,6 +79,7 @@ g(char *s)
 				exit(1);
 			}
 			stab[count].filename = strdup(s);
+			strchr(stab[count].filename, '.')[2] = 0; // .cpp -> .c
 			stab[count].symbol = strdup(b);
 			stab[count].line = line;
 			count++;
@@ -163,6 +164,7 @@ emit_html(char *filename, int special)
 	}
 	strcpy(newfilename, "src/");
 	strcat(newfilename, filename);
+	strchr(newfilename, '.')[2] = 0; // remove pp in .cpp
 	strcat(newfilename, ".html");
 	fout = fopen(newfilename, "w");
 	if (fout == NULL) {
@@ -175,6 +177,8 @@ emit_html(char *filename, int special)
 	comment_state = 0;
 
 	while (fgets(buf, BUFLEN, f)) {
+		if (strcmp(buf, "#include \"stdafx.h\"\n") == 0)
+			continue;
 		if (strcmp(buf, "#if SELFTEST\n") == 0)
 			break;
 		fputs("<tt>", fout);

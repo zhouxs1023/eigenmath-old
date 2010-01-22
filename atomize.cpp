@@ -1,8 +1,5 @@
 #include "stdafx.h"
-
 #include "defs.h"
-
-static void atomize(void);
 
 void
 eval_atomize(void)
@@ -16,7 +13,7 @@ eval_atomize(void)
 		push(p1);
 }
 
-static void
+void
 atomize(void)
 {
 	int i, n;
