@@ -155,7 +155,8 @@ emit_html(char *filename, int special)
 {
 	FILE *f;
 	if (strcmp(filename, "MainOSX.cpp") == 0
-	|| strcmp(filename, "MainXP.cpp") == 0)
+	|| strcmp(filename, "MainXP.cpp") == 0
+	|| strcmp(filename, "YASTControl.cpp") == 0)
 		return;
 	f = fopen(filename, "r");
 	if (f == NULL) {
@@ -164,7 +165,7 @@ emit_html(char *filename, int special)
 	}
 	strcpy(newfilename, "src/");
 	strcat(newfilename, filename);
-	strchr(newfilename, '.')[2] = 0; // remove pp in .cpp
+	strchr(newfilename, '.')[2] = 0; // filename.cpp -> filename.c
 	strcat(newfilename, ".html");
 	fout = fopen(newfilename, "w");
 	if (fout == NULL) {
@@ -172,7 +173,8 @@ emit_html(char *filename, int special)
 		exit(1);
 	}
 
-	fprintf(fout, preamble, filename);
+	strchr(newfilename, '.')[2] = 0; // filename.c.html -> filename.c
+	fprintf(fout, preamble, newfilename + 4);
 
 	comment_state = 0;
 
