@@ -57,6 +57,7 @@
 <a href="#do">do</a><br>
 <a href="#dot">dot</a><br>
 <a href="#draw">draw</a><br>
+<a href="#eigen">eigen</a><br>
 <a href="#erf">erf</a><br>
 <a href="#erfc">erfc</a><br>
 <a href="#eval">eval</a><br>
@@ -302,7 +303,6 @@ Draws a graph of f(x).
 Drawing ranges can be set with xrange and yrange.
 <a href="src/draw.c.html">src</a>
 
-<!--
 <p>
 <h1><tt><a name="eigen">eigen(<i>m</i>)</a></tt></h1>
 <h1><tt>eigenval(<i>m</i>)</tt></h1>
@@ -315,6 +315,10 @@ The eigenvec function returns a matrix with the eigenvectors arranged as row
 vectors.
 The eigen function does not return anything but stores the eigenvalue matrix 
 in D and the eigenvector matrix in Q.
+The rows of Q are the eigenvectors of m, thus m = dot(transpose(Q),D,Q).
+<a href="src/eigen.c.html">src</a>
+
+<!--
 <p>
 Example 1. Check the relation AX = lambda X where lambda is an eigenvalue and
 X is the associated eigenvector.
