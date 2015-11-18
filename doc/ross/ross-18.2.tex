@@ -1,0 +1,25 @@
+\beginsection 18.2
+
+Reread the proof of Theorem 18.1 with $[a,b]$ replaced by $(a,b)$.
+Where does it break down? Discuss.
+
+\medskip
+
+Try going through the proof line by line replacing $[a,b]$ with $(a,b)$.
+
+1. Assume that $f$ is not bounded on $(a,b)$. {\it Ok.}
+
+2. Then to each $n\in N$ there corresponds an $x_n\in (a,b)$ such that
+$|f(x_n)|>n$. {\it Ok, because f is unbounded.}
+
+3. By the B-W Theorem 11.5, $(x_n)$ has a subsequence $(x_{n_k})$ that converges
+to some real number $x_0$.
+{\it Ok, because $x_n$ is bounded on $(a,b)$.}
+
+4. The number $x_0$ must also belong to the open interval $(a,b)$.
+{\it Uh-oh, here's a problem, $x_0$ may be equal to $a$ or $b$ in the limit.}
+
+5. Since $f$ is continuous at $x_0$, we have $\lim f(x_{n_k})=f(x_0)$,
+but we also have $\lim|f(x_{n_k})|=+\infty$ which is a contradiction.
+{\it If $x_0$ is equal to $a$ or $b$ then $f$ doesn't have to be continuous
+there so we cannot say that $\lim f(x_{n_k})=f(x_0)$.}

@@ -1,0 +1,90 @@
+\beginsection 17.3
+
+Accept on faith that the following familiar functions are continuous on
+their domains: $\sin x$, $\cos x$, $e^x$, $2^x$, $\log_e x$ for
+$x>0$, $x^p$ for $x>0$ [$p$ any real number].
+Use these facts and theorems in this section to prove that the following
+functions are continuous.
+
+\medskip
+\noindent
+(a) $\log_e(1+\cos^4 x)$
+
+\medskip
+\itemitem{}
+The function $\cos^4 x$ is continuous by Theorem 17.4 (ii),
+product of continuous functions.
+The function $1+\cos^4 x$ is continuous by Theorem 17.4 (i),
+sum of continuous functions.
+The function $\log_e(1+\cos^4 x)$ is continuous by Theorem 17.5,
+composition of continuous functions.
+
+\medskip
+\noindent
+(b) $[\sin^2x+\cos^6x]^\pi$
+
+\medskip
+\itemitem{}
+This is equivalent to $\exp[\pi\log_e(\sin^2x+\cos^6x)]$ which is continuous by
+Theorems 17.4 and 17.5.
+Now show that $\sin^2x+\cos^6x>0$ to ensure the domain requirement of $\log_e$.
+We have $\sin^2x\ge0$, $\cos^6x\ge0$ by even exponents.
+By $\sin^2x+\cos^2x=1$, $\sin^2x$ and $\cos^2x$ cannot both be zero for the
+same $x$.
+If $\cos^2x\ne0$ then $\cos^6x\ne0$.
+Therefore $\sin^2x+\cos^6x>0$.
+
+\medskip
+\noindent
+(c) $2^{x^2}$
+
+\medskip
+\itemitem{}
+The function $x^2$ is continuous by $x^2=xx$ and
+Theorem 17.4 (ii), product of continuous functions.
+By Theorem 17.5, composition of continuous fuctions, $2^{x^2}$ is continuous.
+
+\medskip
+\noindent
+(d) $8^x$
+
+\medskip
+\itemitem{}
+This is equivalent to $\exp(x\log_e8)$ which is continuous by Theorems 17.4 and 17.5.
+
+\medskip
+\noindent
+(e) $\tan x$ for $x\ne$ odd multiple of $\pi/2$.
+
+\medskip
+\itemitem{}
+$\tan x=\sin x/\cos x$ is continuous by Theorem 17.4 (iii), ratio of
+continuous functions.
+The odd multiple restriction ensures $\cos x\ne0$.
+
+\medskip
+\noindent
+(f) $x\sin(1/x)$ for $x\ne0$
+
+\medskip
+\itemitem{}
+$1/x=\exp(-\log_ex)$ is continuous for $x>0$.
+For $x<0$, $1/x=-1/|x|$ so $1/x$ is also continous for $x<0$.
+Finally, $x\sin(1/x)$ is continuous by Theorems 17.4 and 17.5.
+
+\medskip
+\noindent
+(g) $x^2\sin(1/x)$ for $x\ne0$
+
+\medskip
+\itemitem{}
+$x^2\sin(1/x)=x[x\sin(1/x)]$, see (f).
+
+\medskip
+\noindent
+(h) $(1/x)\sin(1/x^2)$ for $x\ne0$
+
+\medskip
+\itemitem{}
+The only thing new here is $1/x^2$ which is continuous by $1/x^2=(1/x)(1/x)$
+and Theorem 17.4 (ii). See (f) for continuity of $1/x$.

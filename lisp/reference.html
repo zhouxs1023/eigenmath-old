@@ -1,0 +1,627 @@
+<html>
+
+<p>
+<h1>adjunct</h1>
+
+<p>
+A adj A = det A I
+
+<pre>
+     > (setq A (sum
+     (product a (tensor x x))
+     (product b (tensor x y))
+     (product c (tensor y x))
+     (product d (tensor y y))
+     ))
+     > (setq A1 (adjunct A x y))
+     > (setq AA1 (contract23 (product A A1)))
+     > (setq I (sum (tensor x x) (tensor y y)))
+     > (equal AA1 (product (determinant A x y) I))
+     t
+</pre>
+
+<p>
+<h1>and</h1>
+
+<pre>
+     > (and t t t)
+     t
+     > (and t nil t)
+     nil
+</pre>
+
+<p>
+<h1>append</h1>
+
+<pre>
+     > (append (list a b) (list c d))
+     (a b c d)
+</pre>
+
+<p>
+<h1>atom</h1>
+
+<pre>
+     > (atom a)
+     t
+     > (atom (list a b c))
+     nil
+</pre>
+
+<p>
+<h1>car</h1>
+
+<pre>
+     > (car (list a b c))
+     a
+</pre>
+
+<p>
+<h1>cdr</h1>
+
+<pre>
+     > (cdr (list a b c))
+     (b c)
+</pre>
+
+<p>
+<h1>complex-conjugate</h1>
+
+<pre>
+     > (complex-conjugate (sum a (product b i)))
+     (sum a (product -1 b i))
+</pre>
+
+<p>
+<h1>component</h1>
+
+<pre>
+     > (setq A (sum
+     (product a (tensor x x))
+     (product b (tensor x y))
+     (product c (tensor y x))
+     (product d (tensor y y))
+     ))
+     > (component A x y)
+     b
+</pre>
+
+<p>
+<h1>cond</h1>
+
+<p>
+(cond (a1 b1) (a2 b2)... ) returns b of first non-nil a
+
+<pre>
+     > (define foo (cond ((zerop arg) "zero") (t "not zero")))
+     > (foo 0)
+     zero
+     > (foo 1)
+     not zero
+</pre>
+
+<p>
+<h1>cons</h1>
+
+<pre>
+     > (cons a b)
+     (a . b)
+</pre>
+
+<p>
+<h1>contract</h1>
+
+<p>
+Form: contract12, contract13, contract23, etc.
+For example (contract12 x) contracts, or sums over,
+the first and second indices.
+
+<pre>
+     > (setq A (sum
+     (product a (tensor x x))
+     (product b (tensor x y))
+     (product c (tensor y x))
+     (product d (tensor y y))
+     ))
+     > (contract12 A)
+     (sum a d)
+</pre>
+
+<p>
+<h1>cos</h1>
+
+<pre>
+     > (derivative (cos x) x)
+     (product -1 (sin x))
+</pre>
+
+<p>
+<h1>COS</h1>
+
+<p>
+This function returns the exponential form of the cosine function.
+
+<pre>
+     > (printcars (COS x))
+     sum
+     (product 1/2 (power e (product -1 i x)))
+     (product 1/2 (power e (product i x)))
+</pre>
+
+<p>
+<h1>define</h1>
+
+<pre>
+     > (define foo (cons arg2 arg1))
+     > (foo a b)
+     (b . a)
+     > foo
+     (cons arg2 arg1)
+</pre>
+
+<p>
+<h1>derivative</h1>
+
+<pre>
+     > (derivative (power x 2) x)
+     (product 2 x)
+</pre>
+
+<p>
+<h1>determinant</h1>
+
+<p>
+see adjunct
+
+<p>
+<h1>dot</h1>
+
+<p>
+The dot function returns the inner product of scalars and tensors.
+It is equivalent to an outer product followed by a contraction on
+the inner indices.
+
+<pre>
+     > (setq A (sum (product A11 (tensor 1 1)) (product A22 (tensor 2 2))))
+     > (setq X (sum (product X1 (tensor 1)) (product X2 (tensor 2))))
+     > (setq AX1 (dot A X))
+     > (setq AX2 (contract23 (product A X)))
+     > (equal AX1 AX2)
+     t
+     > (printcars AX1)
+     sum
+     (product A11 X1 (tensor 1))
+     (product A22 X2 (tensor 2))
+</pre>
+
+<p>
+The arguments are multiplied left to right,
+i.e. (dot a b c) = (dot (dot a b) c).
+
+<p>
+<h1>e</h1>
+
+<pre>
+     > (derivative (power e x) x)
+     (power e x)
+</pre>
+
+<p>
+<h1>equal</h1>
+
+<pre>
+     > (equal a a)
+     t
+</pre>
+
+<p>
+<h1>eval</h1>
+
+<pre>
+     > (setq foo (quote (sum a a)))
+     > foo
+     (sum a a)
+     > (eval foo)
+     (product 2 a)
+</pre>
+
+<p>
+<h1>exit</h1>
+
+<p>
+Exit simple lisp and return to the shell.
+Control-C also does this.
+
+<pre>
+     > (exit)
+     %
+</pre>
+
+<p>
+<h1>exp</h1>
+
+<pre>
+     > (exp x)
+     (power e x)
+</pre>
+
+<p>
+<h1>gc</h1>
+
+<p>
+Normally, garbage collection occurs when simple lisp runs
+out of memory.
+The gc function causes garbage collection to occur immediately.
+It returns the number of free cells, 1 cell = 12 bytes.
+
+<pre>
+     > (gc)
+     496053
+</pre>
+
+<p>
+<h1>goto</h1>
+
+<pre>
+     > (define foo (prog (k)
+     (setq k 1)
+     loop
+     (print k)
+     (setq k (sum k 1))
+     (cond ((lessp k 4) (goto loop)))
+     ))
+     > (foo)
+     1
+     2
+     3
+</pre>
+
+<p>
+<h1>greaterp</h1>
+
+<pre>
+     > (greaterp 1 0)
+     t
+     > (greaterp 0 1)
+     nil
+</pre>
+
+<p>
+<h1>i</h1>
+
+<p>
+The symbol "i" represents the square root of minus one.
+
+<pre>
+     > (product i i)
+     -1
+</pre>
+
+<p>
+<h1>integerp</h1>
+
+<p>
+Returns t if the argument is an integer, nil otherwise.
+
+<pre>
+     > (integerp 2)
+     t
+     > (integerp 2/3)
+     nil
+</pre>
+
+<p>
+<h1>integral</h1>
+
+<pre>
+     > (integral (power x 2) x)
+     (product 1/3 (power x 3))
+</pre>
+
+<p>
+The integral function uses a list of expression forms,
+much like a table of integrals.
+To extend the capability of the integral function,
+refer to the file "startup" and follow suit with "add-integral".
+
+<p>
+<h1>laguerre</h1>
+
+<p>
+See the "hydrogen atom wave functions" example.
+
+<p>
+<h1>laplacian</h1>
+
+<p>
+See the "hydrogen atom wave functions" example.
+
+<p>
+<h1>length</h1>
+
+<p>
+Returns the number of cars in a list.
+
+<pre>
+     > (length (list a b c))
+     3
+</pre>
+
+<p>
+<h1>lessp</h1>
+
+<pre>
+     > (lessp 0 1)
+     t
+     > (lessp 1 0)
+     nil
+</pre>
+
+<p>
+<h1>list</h1>
+
+<pre>
+     > (list a b c)
+     (a b c)
+</pre>
+
+<p>
+<h1>not</h1>
+
+<pre>
+     > (not nil)
+     t
+</pre>
+
+<p>
+<h1>null</h1>
+
+<pre>
+     > (null nil)
+     t
+</pre>
+
+<p>
+<h1>numberp</h1>
+
+<pre>
+     > (numberp 1)
+     t
+</pre>
+
+<p>
+<h1>or</h1>
+
+<pre>
+     > (or nil t nil)
+     t
+     > (or nil nil nil)
+     nil
+</pre>
+
+<p>
+<h1>power</h1>
+
+<pre>
+     > (power a (sum b c))
+     (product (power a b) (power a c))
+</pre>
+
+<p>
+<h1>print</h1>
+
+<pre>
+     > (print "hello")
+     hello
+</pre>
+
+<p>
+<h1>printcars</h1>
+
+<pre>
+     > (printcars (list a b c))
+     a
+     b
+     c
+</pre>
+
+<p>
+<h1>product</h1>
+
+<pre>
+     > (product a b a)
+     (product b (power a 2))
+</pre>
+
+<p>
+The "product" function expands products of sums.
+When applied to tensors, the result is an outer product.
+
+<pre>
+     > (setq A (sum
+     (product a11 (tensor 1 1))
+     (product a12 (tensor 1 2))
+     (product a21 (tensor 2 1))
+     (product a22 (tensor 2 2))
+     ))
+     > (setq X (sum
+     (product x1 (tensor 1))
+     (product x2 (tensor 2))
+     ))
+     > (printcars (product A X))
+     sum
+     (product a11 x1 (tensor 1 1 1))
+     (product a11 x2 (tensor 1 1 2))
+     (product a12 x1 (tensor 1 2 1))
+     (product a12 x2 (tensor 1 2 2))
+     (product a21 x1 (tensor 2 1 1))
+     (product a21 x2 (tensor 2 1 2))
+     (product a22 x1 (tensor 2 2 1))
+     (product a22 x2 (tensor 2 2 2))
+</pre>
+
+<p>
+The more familiar inner product is obtained by contraction.
+
+<pre>
+     > (printcars (contract23 (product A X)))
+     sum
+     (product a11 x1 (tensor 1))
+     (product a12 x2 (tensor 1))
+     (product a21 x1 (tensor 2))
+     (product a22 x2 (tensor 2))
+</pre>
+
+<p>
+<h1>prog</h1>
+
+<p>
+Use "prog" when more than one expression must be evaluated in a function.
+
+<pre>
+     > (define foo (prog ()
+     (print arg1)
+     (print arg2)
+     ))
+     > (foo a b)
+     a
+     b
+</pre>
+
+<p>
+<h1>quote</h1>
+
+<p>
+Quote means "don't evaluate."
+
+<pre>
+     > (quote (sum a a))
+     (sum a a)
+</pre>
+
+<p>
+An apostrophe does the same thing.
+
+<pre>
+     > '(sum a a)
+     (sum a a)
+</pre>
+
+<p>
+<h1>return</h1>
+
+<pre>
+     > (define foo (prog () (return "hello")))
+     > (foo)
+     hello
+</pre>
+
+<p>
+<h1>run</h1>
+
+<p>
+The "run" function evaluates the expressions in a file.
+
+<pre>
+     > (run "example1")
+     E=K+V for psi5?
+     t
+</pre>
+
+<p>
+<h1>setq</h1>
+
+<pre>
+     > (setq foo 1)
+     > foo
+     1
+</pre>
+
+<p>
+<h1>sin</h1>
+
+<pre>
+     > (derivative (sin x) x)
+     (cos x)
+</pre>
+
+<p>
+<h1>SIN</h1>
+
+<p>
+The SIN function returns the exponential form of the sine function.
+In some cases it is better to use SIN and COS because many
+trigonometric simplifications occur automatically.
+
+<pre>
+     > (printcars (SIN x))
+     sum
+     (product -1/2 i (power e (product i x)))
+     (product 1/2 i (power e (product -1 i x)))
+</pre>
+
+<pre>
+     > (sum (power (COS x) 2) (power (SIN x) 2))
+     1
+</pre>
+
+<p>
+<h1>sum</h1>
+
+<pre>
+     > (sum a b a)
+     (sum b (product 2 a))
+</pre>
+
+<p>
+<h1>subst</h1>
+
+<p>
+(subst a b c) means substitute a for b wherever it appears in c.
+
+<pre>
+     > (subst a b (list a b c))
+     (a a c)
+</pre>
+
+<p>
+<h1>tensor</h1>
+
+<pre>
+     > (product (tensor x) (tensor y))
+     (tensor x y)
+     > (product (tensor y) (tensor x))
+     (tensor y x)
+</pre>
+
+<p>
+<h1>transpose</h1>
+
+<p>
+Form: transpose12, transpose13, transpose23, etc.
+For example (transpose12 x) transposes the first and second indices.
+
+<pre>
+     > (setq A (sum
+     (product a (tensor x x))
+     (product b (tensor x y))
+     (product c (tensor y x))
+     (product d (tensor y y))
+     ))
+     > (printcars (transpose12 A))
+     sum
+     (product a (tensor x x))
+     (product b (tensor y x))
+     (product c (tensor x y))
+     (product d (tensor y y))
+</pre>
+
+<p>
+<h1>zerop</h1>
+
+<pre>
+     > (zerop 0)
+     t
+     > (zerop 1)
+     nil
+</pre>

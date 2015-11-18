@@ -1,0 +1,19 @@
+\beginsection 1.1
+
+Prove $1^2+2^2+\cdots+n^2=n(n+1)(2n+1)/6$ for all natural numbers $n$.
+\medskip
+Use mathematical induction.
+First show that proposition $P_1$ is true:
+$$1^2=1(1+1)(2\cdot1+1)/6$$
+Next show that $P_{n+1}$ is true whenever $P_n$ is true:
+$$\eqalign{
+P_n+(n+1)^2&=P_{n+1}\cr
+n(n+1)(2n+1)+(n+1)^2&=(n+1)(n+2)(2n+3)/6\cr
+}$$
+Divide both sides by $(n+1)$ to get
+$$n(2n+1)/6+(n+1)=(n+2)(2n+3)/6$$
+Expand and simplify.
+$$\eqalign{
+(2n^2+n)/6+n+1&=(2n^2+3n+4n+6)/6\cr
+{1\over3}n^2+{7\over6}n+1&={1\over3}n^2+{7\over6}n+1\cr
+}$$

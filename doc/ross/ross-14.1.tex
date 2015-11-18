@@ -1,0 +1,64 @@
+\beginsection{14.1}
+
+Determine which of the following series converge.
+Justify your answers.
+
+\medskip
+(a) $\sum n^4/2^n$
+\medskip
+Try the ratio test.
+$$
+{a_{n+1}\over a_n}
+={(n+1)^4/2^{n+1}\over n^4/2^n}
+={(n+1)^4\over2^{n+1}}\times{2^n\over n^4}
+={(n+1)^4\over2n^4}\rightarrow{1\over2}<1
+$$
+So by the ratio test $\sum n^4/2^n$ converges.
+
+\medskip
+(b) $\sum2^n/n!$
+\medskip
+Try the ratio test.
+$$
+{a_{n+1}\over a_n}={2^{n+1}/(n+1)!\over 2^n/n!}
+={2^{n+1}\over(n+1)!}\times{n!\over2^n}={2\over n+1}<1
+$$
+So by the ratio test $\sum2^n/n!$ converges.
+
+\medskip
+(c) $\sum n^2/3^n$
+\medskip
+Try the ratio test.
+$$
+{a_{n+1}\over a_n}
+={(n+1)^2/3^{n+1}\over n^2/3^n}
+={(n+1)^2\over 3^{n+1}}\times{3^n\over n^2}
+={(n+1)^2\over3n^2}\rightarrow{1\over3}<1
+$$
+So by the ratio test $\sum n^2/3^n$ converges.
+
+\medskip
+(d) $\sum n!/(n^4+3)$
+\medskip
+Try the ratio test.
+$$
+{a_{n+1}\over a_n}
+={(n+1)!/((n+1)^4+3)\over n!/(n^4+3)}
+={(n+1)!\over((n+1)^4+3)}\times{n^4+3\over n!}
+\rightarrow n+1>1
+$$
+So by the ratio test $\sum n!/(n^4+3)$ diverges.
+
+\medskip
+(e) $\sum\cos^2 n/n^2$
+\medskip
+Use the comparison test.
+Since $\sum1/n^2$ converges and
+$|\cos^2 n/n^2|\le1/n^2$ for all $n$, $\sum\cos^2 n/n^2$ must also converge.
+
+\medskip
+(f) $\sum_{n=2}^\infty1/(\log n)$
+\medskip
+Use the comparison test.
+Since $\sum(1/n)$ diverges and $1/(\log n)>1/n$ for all $n>1$,
+$\sum_{n=2}^\infty1/(\log n)$ must also diverge.
